@@ -143,21 +143,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="ActorServer.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="ImageServer.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="MapChip.cpp" />
     <ClCompile Include="Math.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="SplitWindow.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Actor.h" />
+    <ClInclude Include="ActorServer.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="ImageServer.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="MapChip.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="picojson\picojson.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="SplitWindow.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

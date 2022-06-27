@@ -31,6 +31,21 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="Actor">
+      <UniqueIdentifier>{663c77fc-08a5-49a1-8ab9-4358b4c375cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Player">
+      <UniqueIdentifier>{9da644b0-0263-4a00-9b22-812deb9446f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{c7f82701-27bd-4973-8e97-81e484daa3c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\ImageServer">
+      <UniqueIdentifier>{294a5707-498d-442f-81ff-f686985c0af6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ActorServer">
+      <UniqueIdentifier>{be73c19e-e509-479b-81a9-8cef6fe37642}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -54,6 +69,18 @@
     <ClCompile Include="Math.cpp">
       <Filter>Math</Filter>
     </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Actor\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageServer.cpp">
+      <Filter>Resource\ImageServer</Filter>
+    </ClCompile>
+    <ClCompile Include="ActorServer.cpp">
+      <Filter>ActorServer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -76,6 +103,18 @@
     </ClInclude>
     <ClInclude Include="picojson\picojson.h">
       <Filter>picojson</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Actor\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageServer.h">
+      <Filter>Resource\ImageServer</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorServer.h">
+      <Filter>ActorServer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
