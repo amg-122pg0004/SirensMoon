@@ -1,9 +1,14 @@
-#include <DxLib.h>
-#include "ActorServer.h"
-#include "Actor.h"
+/*****************************************************************//**
+ * \file   ActorServer.h
+ * \brief  全てのアクターを動的配列_typeActorsに入れて管理します。
+ *
+ * \author 土居将太郎
+ * \date   June 2022
+ *********************************************************************/
 
-ActorServer::ActorServer(Game& game) :
-	_game{ game },
+#include "ActorServer.h"
+
+ActorServer::ActorServer() :
 	_updating{ false }
 {
 	Clear();
@@ -34,34 +39,35 @@ void	ActorServer::AddPendingActors() {
 }
 
 
-void	ActorServer::Del(Actor& actor) {
+void	ActorServer::Delete(Actor& actor) {
 	actor.Dead();
 }
 
 
-void	ObjectServer::DeleteObjects() {
+void	ActorServer::DeleteObjects() {
 	// コンテナをイテレータで回す( eraseがイテレータを要求しているため )
-	for (auto ite = _vObjects.begin(); ite != _vObjects.end(); ) {
+	for (auto ite = _typeActors.begin(); ite != _typeActors.end(); ) {
 		if ((*ite)->IsDead()) {
-			ite = _vObjects.erase(ite);		// これでobjectそのものも削除される
+			ite = _typeActors.erase(ite);		// これでobjectそのものも削除される
 		}
 		else {
 			++ite;
 		}
 	}
+}
 
-	void	ObjectServer::Update() {
+void	ActorServer::Update() {
 		_updating = true;
-		for (auto&& object : _vObjects) {
+		for (auto&& object : _typeActors) {
 			object->Update();
 		}
 		_updating = false;
-		AddPendingObjects();
+		AddPendingActors();
 		DeleteObjects();	// 削除予約されたオブジェクトを削除する
 	}
 
-	void	ObjectServer::Render() {
-		for (auto&& object : _vObjects) {
+	void	ActorServer::Render() {
+		for (auto&& object : _typeActors) {
 			object->Render();
 		}
 	}

@@ -6,19 +6,23 @@
  * \date   June 2022
  *********************************************************************/
 #pragma once
+
 #include <memory>
 #include <vector>
-#include "DxLib.h"
+#include "Actor.h"
 
-class Game;
+//#include "Game.h"
+
 class Actor;
+class Game;
 
 class ActorServer {
+
 	public:
-		ActorServer(Game& game);
+		ActorServer();
 
 		typedef std::vector<std::unique_ptr<Actor>> TypeActors;
-		TypeActors& GetObjects() { return _Actors; }
+		TypeActors& GetObjects() { return _typeActors; }
 
 		void Clear();
 
@@ -31,7 +35,7 @@ class ActorServer {
 		void Render(); //<各アクターのRenderを呼び出す
 
 	private:
-		Game& _game;
+		//Game& _game;
 		TypeActors _typeActors;
 		TypeActors _pendingTypeActors;
 
