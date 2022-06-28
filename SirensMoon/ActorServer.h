@@ -10,8 +10,7 @@
 #include <memory>
 #include <vector>
 #include "Actor.h"
-
-//#include "Game.h"
+#include "Math.h"
 
 class Actor;
 class Game;
@@ -32,10 +31,9 @@ class ActorServer {
 
 		
 		void Update(); //<各アクターのUpdateを呼び出す
-		void Render(); //<各アクターのRenderを呼び出す
+		void Render(Vector2 windowPos, Vector2 cameraPos); //<各アクターのRenderを呼び出す
 
 	private:
-		//Game& _game;
 		TypeActors _typeActors;
 		TypeActors _pendingTypeActors;
 
