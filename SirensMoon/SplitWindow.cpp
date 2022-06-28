@@ -6,7 +6,6 @@
  * \date   June 2022
  *********************************************************************/
 
-#include <DxLib.h>
 #include "SplitWindow.h"
 
 SplitWindow::SplitWindow(Game& game,int pos_x, int pos_y,int playernum) :
@@ -18,17 +17,19 @@ SplitWindow::SplitWindow(Game& game,int pos_x, int pos_y,int playernum) :
 }
 
 void SplitWindow::Update() {
-	_camera->Update(_playerNum);
+	//_camera->Update(_playerNum);
 }
 
 void SplitWindow::Render() {
+	/*描画範囲を分割画面範囲に設定*/
 	SetDrawArea(static_cast<int>(_windowPos.x),
 		static_cast<int>(_windowPos.y), 
 		static_cast<int>(_windowPos.x+ _windowSize_W),
 		static_cast<int>(_windowPos.y + _windowSize_H));
 
 	_game.GetMapChip()->Render(_windowPos,_camera->GetCameraPosition());
-	_camera->Render(_windowPos.x + 50, _windowPos.y + 50);
+	_camera->Render(static_cast<int>(_windowPos.x + 50),static_cast<int>(_windowPos.y + 50));
+	/*描画範囲をウィンドウサイズ全体に戻す*/
 	SetDrawArea(0,0,screen_W,screen_H);
 }
 

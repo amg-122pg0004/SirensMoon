@@ -9,7 +9,6 @@
 #include <DxLib.h>
 #include <cmath>
 
-
 // 2Dベクトルクラス
 class Vector2 {
 public:

@@ -29,19 +29,23 @@ void Player::Update() {
 	}
 }
 
-void Player::Render(){
+void Player::Render(Vector2 window_pos,Vector2 camera_pos){
 	switch (_state) {
-		UP:
-		DrawGraph(_pos.x, _pos.y, _cg_up, 0);
+		case State::UP:
+			DrawGraph(static_cast<int>(_pos.x+window_pos.x-camera_pos.x),
+				static_cast<int>(_pos.y+window_pos.y-camera_pos.y), _cg_up, 0);
 			break;
-		DOWN:
-			DrawGraph(_pos.x, _pos.y, _cg_down, 0);
+		case State::DOWN:
+			DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
+				static_cast<int>(_pos.y + window_pos.y - camera_pos.y), _cg_down, 0);
 			break;
-		LEFT:
-			DrawTurnGraph(_pos.x, _pos.y, _cg_side, 0);
+		case State::LEFT:
+			DrawTurnGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
+				static_cast<int>(_pos.y + window_pos.y - camera_pos.y), _cg_side, 0);
 			break;
-		RIGHT:
-			DrawGraph(_pos.x, _pos.y, _cg_side, 0);
+		case State::RIGHT:
+			DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
+				static_cast<int>(_pos.y + window_pos.y - camera_pos.y), _cg_side, 0);
 			break;
 	}
 }

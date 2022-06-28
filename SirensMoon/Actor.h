@@ -8,8 +8,9 @@
 
 #pragma once
 #include <DxLib.h>
-#include "Game.h"
+#include "ActorServer.h"
 #include "Math.h"
+
 class Game;
 
 class Actor{
@@ -26,7 +27,8 @@ class Actor{
 
 		virtual void Update();
 		virtual void Render();
-		virtual void IsDead(return _dead;);
+		virtual bool IsDead() { return _dead; }
+		virtual void Dead() { _dead = true; }
 
 	protected:
 		Game& _game;

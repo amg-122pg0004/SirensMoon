@@ -7,9 +7,8 @@
  *********************************************************************/
 #pragma once
 #include "Game.h"
-#include "Math.h"
-#include "InputManager.h"
 #include "SplitWindow.h"
+
 class Game;
 class SplitWindow;
 
