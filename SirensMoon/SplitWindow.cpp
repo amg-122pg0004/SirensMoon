@@ -28,6 +28,8 @@ void SplitWindow::Render() {
 		static_cast<int>(_windowPos.y + _windowSize_H));
 
 	_game.GetMapChip()->Render(_windowPos,_camera->GetCameraPosition());
+	_game.GetActorServer()->Render(_windowPos, _camera->GetCameraPosition());
+
 	_camera->Render(static_cast<int>(_windowPos.x + 50),static_cast<int>(_windowPos.y + 50));
 	/*描画範囲をウィンドウサイズ全体に戻す*/
 	SetDrawArea(0,0,screen_W,screen_H);

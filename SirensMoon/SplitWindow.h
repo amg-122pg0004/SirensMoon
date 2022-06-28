@@ -9,7 +9,7 @@
 #pragma once
 #include "Game.h"
 #include "Camera.h"
-
+#include "ActorServer.h"
 
 class Camera;
 class Game;
