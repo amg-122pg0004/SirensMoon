@@ -8,7 +8,7 @@ class Player :public Actor {
 	public:
 		Player(Game& game,int playernum);
 		void Update() override ;
-		void Render(Vector2 window_pos,Vector2 camera_pos) ;
+		void Render(Vector2 window_pos,Vector2 camera_pos) override ;
 
 	private:
 		std::shared_ptr<InputManager> _inputManager;
