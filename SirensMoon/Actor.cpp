@@ -17,7 +17,7 @@ void Actor::Update() {
 
 }
 
-void Actor::Render() {
+void Actor::Render(Vector2 window_pos, Vector2 camera_pos) {
 	
 }
 

@@ -26,7 +26,7 @@ class Actor{
 		~Actor();
 
 		virtual void Update();
-		virtual void Render();
+		virtual void Render(Vector2 window_pos, Vector2 camera_pos);
 		virtual bool IsDead() { return _dead; }
 		virtual void Dead() { _dead = true; }
 
