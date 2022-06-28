@@ -41,7 +41,7 @@ class Game {
 		inline std::shared_ptr<InputManager>& GetInputManager() { return _inputManager; }
 		inline std::unique_ptr<MapChip>& GetMapChip() { return _mapChip; }
 
-		//ActorServer &GetActorServer() { return _actorServer; }
+		inline std::unique_ptr < ActorServer>& GetActorServer() { return _actorServer; }
 
 	private:
 		std::shared_ptr<InputManager> _inputManager;
@@ -49,5 +49,5 @@ class Game {
 		std::vector<std::unique_ptr<SplitWindow>>_splitWindow;
 
 	protected:
-		ActorServer _actorServer;
+		std::unique_ptr <ActorServer> _actorServer;
 };

@@ -17,11 +17,11 @@ Game::Game()
 	_splitWindow.emplace_back(std::make_unique<SplitWindow>(*this, 0, 0,0));
 	_splitWindow.emplace_back(std::make_unique<SplitWindow>(*this, screen_W/2+30, 0,1));
 	
-	
+	_actorServer = std::make_unique<ActorServer>();
 	auto player0 = std::make_unique<Player>(*this,0);
-	_actorServer.Add(std::move(player0));
+	_actorServer->Add(std::move(player0));
 	auto player1 = std::make_unique<Player>(*this,1);
-	_actorServer.Add(std::move(player1));
+	_actorServer->Add(std::move(player1));
 	
 }
 
@@ -31,7 +31,7 @@ void Game::Input() {
 void Game::Update() {
 	for (auto&& splitwindows : _splitWindow) {
 		splitwindows->Update();
-		_actorServer.Update();
+		_actorServer->Update();
 	}
 }
 void Game::Render() {
@@ -41,7 +41,6 @@ void Game::Render() {
 		splitwindows->Render();
 	}
 	_inputManager->Render();
-	_actorServer.Render();
 	
 
 	ScreenFlip();
