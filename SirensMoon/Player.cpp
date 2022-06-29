@@ -1,7 +1,10 @@
 #include "Player.h"
 #include "ImageServer.h"
 
-Player::Player(Game& game,int playernum) :Actor{ game }, _speed{ 5 }, _playerNum{playernum} {
+Player::Player(Game& game,int playernum)
+	:Actor{ game }, _speed{ 5 }, _playerNum{playernum}
+	,_dirX{0},_dirY{0}
+{
 	 _inputManager = _game.GetInputManager();
 
 	 _cg_up = ImageServer::LoadGraph("resource/player/up.png");
@@ -11,8 +14,12 @@ Player::Player(Game& game,int playernum) :Actor{ game }, _speed{ 5 }, _playerNum
 }
 
 void Player::Update() {
+
+	_collision.min(_pos);
+
+
 	if (_inputManager->CheckInput("UP", 'h', _playerNum)) {
-		_pos.y = _pos.y - _speed;
+		
 		_state = State::UP;
 	}
 	if (_inputManager->CheckInput("DOWN", 'h', _playerNum)) {
@@ -27,7 +34,14 @@ void Player::Update() {
 		_pos.x = _pos.x + _speed;
 		_state = State::RIGHT;
 	}
+
+	
 }
+
+int Player::IsHitMapChip(int dirX,int dirY) {
+
+}
+
 
 void Player::Render(Vector2 window_pos,Vector2 camera_pos){
 	switch (_state) {
