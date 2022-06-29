@@ -5,6 +5,7 @@
 #include "Game.h"
 #include "Collision.h"
 
+
 class Player :public Actor {
 	public:
 		Player(Game& game,int playernum);
@@ -12,6 +13,7 @@ class Player :public Actor {
 		void Render(Vector2 window_pos,Vector2 camera_pos) override ;
 
 		int IsHitMapChip(int dirX,int dirY);
+		int CheckHitMapChip(int x, int y);
 
 	private:
 		std::shared_ptr<InputManager> _inputManager;
