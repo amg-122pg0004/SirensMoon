@@ -6,35 +6,47 @@ Player::Player(Game& game,int playernum)
 	,_dirX{0},_dirY{0}
 {
 	 _inputManager = _game.GetInputManager();
-
+	 
 	 _cg_up = ImageServer::LoadGraph("resource/player/up.png");
 	 _cg_side = ImageServer::LoadGraph("resource/player/side.png");
 	 _cg_down = ImageServer::LoadGraph("resource/player/down.png");
 
+	 _pos = { 50,50 };
 }
 
 void Player::Update() {
 
-	_collision.min(_pos);
+	_collision.min = _pos;
+	_collision.max = { _pos.x + 48,_pos.y + 48 };
 
 
 	if (_inputManager->CheckInput("UP", 'h', _playerNum)) {
-		
+		_dirY = 1;
 		_state = State::UP;
 	}
-	if (_inputManager->CheckInput("DOWN", 'h', _playerNum)) {
-		_pos.y = _pos.y + _speed;
+	else if (_inputManager->CheckInput("DOWN", 'h', _playerNum)) {
+		_dirY = -1;
 		_state = State::DOWN;
 	}
-	if (_inputManager->CheckInput("LEFT", 'h', _playerNum)) {
-		_pos.x = _pos.x - _speed;
-		_state = State::LEFT;
-	}
-	if (_inputManager->CheckInput("RIGHT", 'h', _playerNum)) {
-		_pos.x = _pos.x + _speed;
-		_state = State::RIGHT;
+	else {
+		_dirY = 0;
 	}
 
+	if (_inputManager->CheckInput("LEFT", 'h', _playerNum)) {
+		_dirX = -1;
+		_state = State::LEFT;
+	}
+	else if (_inputManager->CheckInput("RIGHT", 'h', _playerNum)) {
+		_dirX = 1;
+		_state = State::RIGHT;
+	}
+	else {
+		_dirX = 0;
+	}
+
+	IsHitMapChip(_dirX, _dirY) {
+		return 0;
+	}
 	
 }
 
