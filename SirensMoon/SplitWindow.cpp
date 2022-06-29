@@ -7,6 +7,7 @@
  *********************************************************************/
 
 #include "SplitWindow.h"
+#include "MapChip.h"
 
 SplitWindow::SplitWindow(Game& game,int pos_x, int pos_y,int playernum) :
 	_game{game},_windowPos { pos_x ,pos_y},_playerNum{playernum}

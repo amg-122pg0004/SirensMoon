@@ -12,7 +12,6 @@
 #include "ActorServer.h"
 
 class Camera;
-class Game;
 
 class SplitWindow {
 	public:
