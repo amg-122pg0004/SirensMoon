@@ -11,6 +11,19 @@ class MapChip{
 		MapChip(Game& game);
 		~MapChip();
 		int LoadMap(const char *jasonfile);
+
+		/**
+		 * \brief マップコリジョンの更新を行います。
+		 */
+		void Update();
+
+
+		/**
+		 * \brief タイルの表示を行う関数
+		 * 
+		 * \param windowPos 分割画面の左上の座標
+		 * \param cameraPos カメラの座標(基本的に0,0)
+		 */
 		void Render(Vector2 windowPos,Vector2 cameraPos);
 
 	private:

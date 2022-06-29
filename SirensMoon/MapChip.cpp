@@ -7,7 +7,7 @@
 MapChip::MapChip(Game& game) :
 	_game{game}
 {
-	LoadMap("resource/platformer_simpleA.json");
+	LoadMap("resource/test_01.json");
 
 	_cgChip = new int[_chipCount];
 	LoadDivGraph("resource/platformer_simpleA_sheet.png",
