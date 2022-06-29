@@ -10,18 +10,13 @@
 #include <DxLib.h>
 #include <memory>
 #include <vector>
-#include "InputManager.h"
-#include "MapChip.h"
 #include "Math.h"
+#include "InputManager.h"
 #include "SplitWindow.h"
 #include "ActorServer.h"
 #include "Player.h"
-
-class Camera;
-class MapChip;
-class SplitWindow;
-class ActorServer;
-
+#include "MapChip.h"
+#include "Camera.h"
 
 constexpr int screen_W{1600};//<ウィンドウの解像度：横
 constexpr int screen_H{900};//<ウィンドウの解像度：縦
@@ -38,10 +33,9 @@ class Game {
 		 * @brief インプットマネージャーの取得
 		 * @return インプットマネージャーの参照を返す
 		 */
-		inline std::shared_ptr<InputManager>& GetInputManager() { return _inputManager; }
-		inline std::unique_ptr<MapChip>& GetMapChip() { return _mapChip; }
-
-		inline std::unique_ptr < ActorServer>& GetActorServer() { return _actorServer; }
+		inline  auto GetInputManager() { return _inputManager; }
+		inline  auto& GetMapChip() { return _mapChip; }
+		inline  auto& GetActorServer() { return _actorServer; }
 
 	private:
 		std::shared_ptr<InputManager> _inputManager;
