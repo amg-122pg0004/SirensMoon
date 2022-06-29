@@ -121,8 +121,3 @@ void MapChip::Render(Vector2 windowPos,Vector2 cameraPos) {
 		}
 	}
 }
-
-
-
-
-
