@@ -46,6 +46,9 @@
     <Filter Include="ActorServer">
       <UniqueIdentifier>{be73c19e-e509-479b-81a9-8cef6fe37642}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Collision">
+      <UniqueIdentifier>{38b7f6dc-d876-4b8c-bc15-eb3cdf0e9576}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -81,6 +84,9 @@
     <ClCompile Include="ActorServer.cpp">
       <Filter>ActorServer</Filter>
     </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Collision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -115,6 +121,9 @@
     </ClInclude>
     <ClInclude Include="ActorServer.h">
       <Filter>ActorServer</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Collision</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
