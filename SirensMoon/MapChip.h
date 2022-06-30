@@ -1,15 +1,22 @@
 #pragma once
 #include "picojson/picojson.h"
 #include "Math.h"
+#include <vector>
+#include "Actor.h"
 
 class Game;
 class SplitWindow;
 
 class MapChip {
 public:
-	MapChip(Game& game);
-	~MapChip();
-	int LoadMap(const char* jasonfile);
+	int _id;
+};
+
+class MapChips {
+public:
+	MapChips(Game& game);
+	~MapChips();
+	bool LoadMap(std::string folderpath,std::string filename);
 
 	/**
 	 * \brief マップコリジョンの更新を行います。
@@ -27,7 +34,10 @@ public:
 	
 	int GetChipSize_H() { return _chipSize_H; }
 	int GetChipSize_W() { return _chipSize_W; }
-	int GetMapData() { return *_nMap; }
+	auto GetMapData() { return _mapData; }
+
+	int		CheckHit(int x, int y);
+	Vector2		IsHit(Actor& o, int mx, int my);
 
 
 	private:
@@ -45,7 +55,7 @@ public:
 		int _chipSize_H;
 
 		/*マップデータ*/
-		int* _nMap;
+		std::vector<std::vector<std::vector<MapChip>>> _mapData;
 
-		int* _cgChip;
+		std::vector<int> _cgChip;
 };
