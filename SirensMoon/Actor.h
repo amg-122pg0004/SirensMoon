@@ -10,6 +10,7 @@
 #include <DxLib.h>
 #include "ActorServer.h"
 #include "Math.h"
+#include "Collision.h"
 
 class Game;
 
@@ -29,11 +30,15 @@ class Actor{
 		virtual void Render(Vector2 window_pos, Vector2 camera_pos);
 		virtual bool IsDead() { return _dead; }
 		virtual void Dead() { _dead = true; }
+		virtual AABB GetCollision() { return _collision; }
+		virtual Vector2 GetPosition() { return _pos; }
+		virtual Vector2 GetSize() { return _size; }
 
 	protected:
 		Game& _game;
-		Vector2 _pos;
+		Vector2 _pos,_size;
 		bool _dead;
+		AABB _collision;
 
 };
 

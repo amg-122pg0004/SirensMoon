@@ -8,7 +8,10 @@
 
 #include "Actor.h"
 
-Actor::Actor(Game& game) : _game{ game }, _pos{ 0,0 }, _dead{false} {
+Actor::Actor(Game& game) : _game{ game }, _pos{ 0,0 }, _size{40,40}, _dead{ false }
+{
+	_collision.min = { _pos };
+	_collision.max = { _pos + _size };
 }
 
 Actor::~Actor() {}
