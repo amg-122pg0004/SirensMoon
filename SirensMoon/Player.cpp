@@ -20,7 +20,7 @@ Player::Player(Game& game,int playernum)
 
 void Player::Update() {
 
-
+	int fix_x,fix_y = 0;
 
 	_dirY = 0;
 	if (_inputManager->CheckInput("UP", 'h', _playerNum)) {
@@ -42,19 +42,33 @@ void Player::Update() {
 		_state = State::RIGHT;
 	}
 
-	_pos = { _pos.x + _dirX * _speed,_pos.y + _dirY * _speed };
-	_pos =_pos+ _game.GetMapChips()->IsHit(*this, _dirX, _dirY);
+	_pos.x = _pos.x + _dirX * _speed;
+	fix_x = _game.GetMapChips()->IsHit(*this, _dirX);
+	_pos.x += fix_x * _speed;
 
+	_pos.y = _pos.y + _dirY * _speed;
+	fix_y = _game.GetMapChips()->IsHit(*this, _dirY);
+	_pos.y += fix_y * _speed;
+
+
+
+
+
+
+
+	/*
 	_collision.min = _pos;
 	_collision.max = { _pos.x + 48,_pos.y + 48 };
-	
+	*/
 }
 
 void Player::Render(Vector2 window_pos,Vector2 camera_pos){
 	std::stringstream ss;
 
 	//ss << CheckHitMapChip(static_cast<int>(_collision.min.y) / _game.GetMapChips()->GetChipSize_H(), static_cast<int>(_collision.min.x) / _game.GetMapChips()->GetChipSize_W());
-	ss << _collision.min.x;
+	ss <<"_pos" << _pos.x << "  " << _pos.y << "\n";
+	ss <<"_collision.min" << _collision.min.x << "  " << _collision.min.y << "\n";
+	ss << "_collision.max" << _collision.max.x << "  " << _collision.max.y << "\n";
 	DrawString(500+ _playerNum*800, 100, ss.str().c_str(), GetColor(0, 0, 0));
 	
 	switch (_state) {
