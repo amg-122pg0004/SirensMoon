@@ -13,7 +13,8 @@ Game::Game()
 {
 
 	_inputManager = std::make_unique<InputManager>();
-	_mapChip = std::make_unique<MapChip>(*this);
+	_mapChips = std::make_unique<MapChips>(*this);
+
 	_splitWindow.emplace_back(std::make_unique<SplitWindow>(*this, 0, 0,0));
 	_splitWindow.emplace_back(std::make_unique<SplitWindow>(*this, screen_W/2+30, 0,1));
 	

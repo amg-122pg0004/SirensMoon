@@ -7,6 +7,7 @@
  *********************************************************************/
 
 #include "SplitWindow.h"
+#include "MapChip.h"
 
 SplitWindow::SplitWindow(Game& game,int pos_x, int pos_y,int playernum) :
 	_game{game},_windowPos { pos_x ,pos_y},_playerNum{playernum}
@@ -27,7 +28,7 @@ void SplitWindow::Render() {
 		static_cast<int>(_windowPos.x+ _windowSize_W),
 		static_cast<int>(_windowPos.y + _windowSize_H));
 
-	_game.GetMapChip()->Render(_windowPos,_camera->GetCameraPosition());
+	_game.GetMapChips()->Render(_windowPos,_camera->GetCameraPosition());
 	_game.GetActorServer()->Render(_windowPos, _camera->GetCameraPosition());
 
 	_camera->Render(static_cast<int>(_windowPos.x + 50),static_cast<int>(_windowPos.y + 50));

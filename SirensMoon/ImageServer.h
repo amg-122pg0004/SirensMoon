@@ -30,9 +30,15 @@ class ImageServer {
 		 * \return “Ç‚İ‚ñ‚¾’lA“Ç‚İ‚İÏ‚İ‚È‚ç-1‚ğ•Ô‚·
 		 */
 		static int LoadGraph(std::string filename);
+		static int LoadDivGraph(const TCHAR* filename, int allnum, int xnum, int ynum, int xsize, int ysize, int* handlebuff);
 
 	private:
 		static std::unordered_map<std::string, int> _mapGraph;
+		typedef struct {
+			int AllNum;
+			int* handle;
+		}DIVGRAPH;
+		static std::unordered_map<std::string, DIVGRAPH> _mapDivGraph;
 };
 
 

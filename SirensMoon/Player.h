@@ -4,6 +4,7 @@
 #include "InputManager.h"
 #include "Game.h"
 
+
 class Player :public Actor {
 	public:
 		Player(Game& game,int playernum);
@@ -13,6 +14,8 @@ class Player :public Actor {
 	private:
 		std::shared_ptr<InputManager> _inputManager;
 
+		int _dirX;
+		int _dirY;
 		int _speed;
 		int _playerNum;
 
