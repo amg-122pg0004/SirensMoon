@@ -136,15 +136,15 @@ int MapChips::CheckHit(int x, int y)
 // オブジェクトとマップチップが当たったかの判定、および当たった場合の処理
 // 引数：
 //   o = オブジェクト
-//   mx = Xの移動方向(マイナス:0:プラス)
-//   my = Yの移動方向(マイナス:0:プラス)
+//   mxormy　移動量
+//   xory 移動方向　0ならx,1ならy
 // 戻値：
 //   0 : 当たってない
 //   1 : 当たった
-Vector2 MapChips::IsHit(Actor& o, int mx, int my)
+int MapChips::IsHit(Actor& o, int mxormy)
 {
 	int x, y;
-	double posx=0.0, posy=0.0;
+	int dxordy=0;
 
 	// キャラ矩形を作成する
 	int l, t, r, b;		// 左上(left,top) - 右下(right,bottom)
@@ -164,32 +164,24 @@ Vector2 MapChips::IsHit(Actor& o, int mx, int my)
 			if (chip_no != 0)
 			{	// このチップと当たった。
 				// X,Yの移動方向を見て、その反対方向に補正する
-				if (mx < 0)
+				if (mxormy < 0)
 				{	// 左に動いていたので、右に補正
-					posx = x * _chipSize_W +_chipSize_W - (o.GetSize().y);
+					dxordy = 1;
 				}
-				
-				if (mx > 0)
+
+				if (mxormy > 0)
 				{	// 右に動いていたので、左に補正
-					posx = x * _chipSize_W - (o.GetSize().x + o.GetSize().y);
+					dxordy = -1;
 				}
-				if (my > 0)
-				{	// 下に動いていたので、上に補正
-					posy = y * _chipSize_H - (o.GetSize().y + o.GetSize().y);
-				}
-				if (my < 0)
-				{	// 上に動いていたので、下に補正
-					posy = y * _chipSize_H + _chipSize_H - (o.GetSize().y);
-				}
-				
-				Vector2 v = { posx,posy };
+
 				// 当たったので戻る
-				return v;
+				return dxordy;
 			}
 		}
 	}
 
 	// 当たらなかった
-	return {0,0};
+
+	return 0;
 }
 

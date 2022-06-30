@@ -37,7 +37,7 @@ public:
 	auto GetMapData() { return _mapData; }
 
 	int		CheckHit(int x, int y);
-	Vector2		IsHit(Actor& o, int mx, int my);
+	int	IsHit(Actor& o, int mxormy);
 
 
 	private:
