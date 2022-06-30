@@ -34,12 +34,12 @@ class Game {
 		 * @return インプットマネージャーの参照を返す
 		 */
 		inline  auto GetInputManager() { return _inputManager; }
-		inline  auto& GetMapChip() { return _mapChip; }
+		inline  auto& GetMapChips() { return _mapChips; }
 		inline  auto& GetActorServer() { return _actorServer; }
 
 	private:
 		std::shared_ptr<InputManager> _inputManager;
-		std::unique_ptr<MapChip>_mapChip;
+		std::unique_ptr<MapChips>_mapChips;
 		std::vector<std::unique_ptr<SplitWindow>>_splitWindow;
 
 	protected:
