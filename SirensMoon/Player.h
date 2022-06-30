@@ -3,7 +3,6 @@
 #include "Actor.h"
 #include "InputManager.h"
 #include "Game.h"
-#include "Collision.h"
 
 
 class Player :public Actor {
@@ -11,9 +10,6 @@ class Player :public Actor {
 		Player(Game& game,int playernum);
 		void Update() override ;
 		void Render(Vector2 window_pos,Vector2 camera_pos) override ;
-
-		int IsHitMapChip(int dirX,int dirY);
-		int CheckHitMapChip(int x, int y);
 
 	private:
 		std::shared_ptr<InputManager> _inputManager;
@@ -34,5 +30,4 @@ class Player :public Actor {
 		};
 
 		State _state;
-		AABB _collision;
 };
