@@ -13,6 +13,7 @@ MapChips::MapChips(Game& game) :_game{game}{
 	LoadMap("resource/", "test_01.json");
 	LoadMap("resource/", "test_02.json");
 	LoadMap("resource/", "test_03.json");
+	LoadMap("resource/", "test_04.json");
 
 }
 
@@ -58,6 +59,7 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename) {
 
 		picojson::object jsLayer = aLayers[i].get<picojson::object>();		// レイヤーオブジェクト
 		// レイヤー種類が「tilelayer」のものをカウントする
+		std::vector<std::vector<std::vector<MapChip>>>onestagedata;
 		if (jsLayer["type"].get<std::string>() == "tilelayer") {
 			picojson::array aData = jsLayer["data"].get<picojson::array>();			// マップ配列
 			int index = 0;
@@ -73,13 +75,14 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename) {
 				vMapLayer.push_back(vMapLine);
 			}
 			// レイヤーデータを追加
-			std::vector<std::vector<std::vector<MapChip>>>onestagedata;
+			
 			onestagedata.push_back(vMapLayer);
-			_mapData.push_back(onestagedata);
+			
 		}
+		_mapData.push_back(onestagedata);
+		return true;
 	}
 
-	return true;
 }
 
 void MapChips::Render(int stageNum,Vector2 windowPos,Vector2 cameraPos) {
@@ -167,7 +170,7 @@ int MapChips::IsHit(int objectstage,Actor& o, int mxormy)
 		{
 			// (x,y)は、マップチップの座標（チップ単位）
 			// この位置のチップは当たるか？
-			int chip_no = CheckHit(objectstage,x, y);
+			int chip_no = CheckHit(objectstage,x,y);
 			if (chip_no != 0)
 			{	// このチップと当たった。
 				// X,Yの移動方向を見て、その反対方向に補正する
