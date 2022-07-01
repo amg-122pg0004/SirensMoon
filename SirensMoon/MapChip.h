@@ -29,7 +29,7 @@ public:
 	int GetChipSize_H() { return _chipSize_H; }
 	int GetChipSize_W() { return _chipSize_W; }
 
-	int CheckHit(int stagenum, int x, int y);
+	int	CheckHit(int stagenum,int x, int y);
 	int	IsHit(int objectstage, Actor& o, int mxormy);
 
 
