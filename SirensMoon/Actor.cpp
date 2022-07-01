@@ -8,7 +8,7 @@
 
 #include "Actor.h"
 
-Actor::Actor(Game& game) : _game{ game }, _pos{ 0,0 }, _size{40,40}, _dead{ false }
+Actor::Actor(Game& game) : _game{ game }, _pos{ 0,0 }, _size{ 40,40 }, _dead{ false }, _stage{-1}
 {
 	_collision.min = { _pos };
 	_collision.max = { _pos + _size };
@@ -20,7 +20,7 @@ void Actor::Update() {
 
 }
 
-void Actor::Render(Vector2 window_pos, Vector2 camera_pos) {
+void Actor::Render(int stageNum,Vector2 window_pos, Vector2 camera_pos) {
 	
 }
 

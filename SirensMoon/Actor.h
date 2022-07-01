@@ -27,7 +27,7 @@ class Actor{
 		~Actor();
 
 		virtual void Update();
-		virtual void Render(Vector2 window_pos, Vector2 camera_pos);
+		virtual void Render(int stageNum,Vector2 window_pos, Vector2 camera_pos);
 		virtual bool IsDead() { return _dead; }
 		virtual void Dead() { _dead = true; }
 		virtual AABB GetCollision() { return _collision; }
@@ -39,6 +39,11 @@ class Actor{
 		Vector2 _pos,_size;
 		bool _dead;
 		AABB _collision;
+		enum class State {
+			UP, DOWN, LEFT, RIGHT
+		};
+
+		int _stage;
 
 };
 
