@@ -55,11 +55,12 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename) {
 	picojson::array aLayers = jsRoot["layers"].get<picojson::array>();
 
 	// レイヤー内データの取得
+	std::vector<std::vector<std::vector<MapChip>>>onestagedata;
 	for (int i = 0; i < aLayers.size(); i++) {
 
 		picojson::object jsLayer = aLayers[i].get<picojson::object>();		// レイヤーオブジェクト
 		// レイヤー種類が「tilelayer」のものをカウントする
-		std::vector<std::vector<std::vector<MapChip>>>onestagedata;
+
 		if (jsLayer["type"].get<std::string>() == "tilelayer") {
 			picojson::array aData = jsLayer["data"].get<picojson::array>();			// マップ配列
 			int index = 0;
@@ -76,13 +77,15 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename) {
 			}
 			// レイヤーデータを追加
 			
-			onestagedata.push_back(vMapLayer);
+		onestagedata.push_back(vMapLayer);
 			
 		}
-		_mapData.push_back(onestagedata);
-		return true;
-	}
 
+
+
+	}
+	_mapData.push_back(onestagedata);
+	return true;
 }
 
 void MapChips::Render(int stageNum,Vector2 windowPos,Vector2 cameraPos) {
@@ -117,24 +120,28 @@ void MapChips::Render(int stageNum,Vector2 windowPos,Vector2 cameraPos) {
 // 戻値：
 //   0 : 当たり判定を行わない
 //   0以外 : 当たり判定を行う（チップ番号を返す）
-int MapChips::CheckHit(int stagenum,int x, int y)
+int MapChips::CheckHitChipNo(int stagenum,int x, int y)
 {
 	// マップチップ位置はマップデータからはみ出ているか？
 	if (0 <= x && x < _mapSize_W && 0 <= y && y < _mapSize_H)
 	{	// はみでていない
+		
+		//int layer = 0;
+		//int chip_no = _mapData[stagenum][layer][y][x]._id;
 
+		// 当たった
+		//return chip_no;
+		
 		// マップチップIDが0以外は当たり判定を行う
 		// 現在、レイヤーは考慮されていない
-		int layer = 0;
-		int chip_no = _mapData[stagenum][layer][y][x]._id;
+		for( int layer = 0; layer <= 1; ++layer ) {
+			int chip_no = _mapData[stagenum][layer][y][x]._id;
 
-			if (chip_no == 2)
-			{
-				// 当たった
-				return chip_no;
-			}
-			
-		
+			// 当たった
+			return chip_no;
+		}
+
+
 	}
 	
 	// 当たっていない
@@ -170,8 +177,8 @@ int MapChips::IsHit(int objectstage,Actor& o, int mxormy)
 		{
 			// (x,y)は、マップチップの座標（チップ単位）
 			// この位置のチップは当たるか？
-			int chip_no = CheckHit(objectstage,x,y);
-			if (chip_no != 0)
+			int chip_no = CheckHitChipNo(objectstage,x,y);
+			if (chip_no == 2)
 			{	// このチップと当たった。
 				// X,Yの移動方向を見て、その反対方向に補正する
 				if (mxormy < 0)
@@ -195,3 +202,32 @@ int MapChips::IsHit(int objectstage,Actor& o, int mxormy)
 	return 0;
 }
 
+int MapChips::CheckTransitionChip(int renderstage, Actor& o) {
+	int x, y;
+	x = o.GetPosition().x + o.GetSize().x / 2;
+	y = o.GetPosition().y + o.GetSize().y / 2;
+
+	// (x,y)は、マップチップの座標（チップ単位）
+	// この位置のチップは当たるか？
+	int chip_no = CheckHitChipNo(renderstage, x, y);
+	switch (chip_no) {
+	case 23:
+		return 1;
+	case 24:
+		return 2;
+	case 25:
+		return 3;
+	case 26:
+		return 4;
+	case 27:
+		return -1;
+	case 28:
+		return -2;
+	case 29:
+		return -3;
+	case 30:
+		return -4;
+	default:
+		return 0;
+	}
+}
