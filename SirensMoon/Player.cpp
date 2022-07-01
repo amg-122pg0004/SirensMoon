@@ -50,14 +50,37 @@ void Player::Update() {
 	fix_y = _game.GetMapChips()->IsHit(_stage-1,*this, _dirY);
 	_pos.y += fix_y * _speed;
 
+	/*
+	if (_pos.x > 750 && _dirX>0|| 
+		_pos.x < 15 && _dirX <0) {
+		int transition = _game.GetMapChips()->CheckTransitionChip(_stage, *this);
+		if (transition!= 0) {
+			_pos.x -= _game.GetSplitWindow()[_playerNum]->GetWindowSize_W()*_dirX;
+			_game.GetSplitWindow()[_playerNum]->ChangeRenderStage(transition);
+			_stage=_stage+transition;
+		}
 
-	if (_pos.x > 750) {
-		_pos.x -= _game.GetSplitWindow()[_playerNum]->GetWindowSize_W();
+	}
+	if (
+		_pos.y > 880 && _dirY >0 ||
+		_pos.y < 15 && _dirY < 0) {
+		int transition = _game.GetMapChips()->CheckTransitionChip(_stage, *this);
+		if (transition != 0) {
+			_pos.y -= _game.GetSplitWindow()[_playerNum]->GetWindowSize_H()*_dirY;
+			_game.GetSplitWindow()[_playerNum]->ChangeRenderStage(transition);
+			_stage = _stage + transition;
+		}
+
+	
+	}
+	*/
+	if (_pos.x > 750&&_dirX>0) {
+		_pos.x += _game.GetSplitWindow()[_playerNum]->GetWindowSize_W();
 		_game.GetSplitWindow()[_playerNum]->ChangeRenderStage(1);
-		++_stage;
+		--_stage;
 	}
 
-	if (_pos.x <15) {
+	if (_pos.x < 15&&_dirX<0) {
 		_pos.x += _game.GetSplitWindow()[_playerNum]->GetWindowSize_W();
 		_game.GetSplitWindow()[_playerNum]->ChangeRenderStage(-1);
 		--_stage;
@@ -69,7 +92,7 @@ void Player::Update() {
 		_stage+=2;
 	}
 
-	if (_pos.y < 15) {
+	if (_pos.y <15) {
 		_pos.y += _game.GetSplitWindow()[_playerNum]->GetWindowSize_H();
 		_game.GetSplitWindow()[_playerNum]->ChangeRenderStage(-2);
 		_stage -= 2;
