@@ -36,6 +36,7 @@ class Game {
 		inline  auto GetInputManager() { return _inputManager; }
 		inline  auto& GetMapChips() { return _mapChips; }
 		inline  auto& GetActorServer() { return _actorServer; }
+		inline auto& GetSplitWindow() { return _splitWindow; }
 
 	private:
 		std::shared_ptr<InputManager> _inputManager;
