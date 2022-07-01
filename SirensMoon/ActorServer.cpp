@@ -66,8 +66,8 @@ void	ActorServer::Update() {
 		DeleteObjects();	// 削除予約されたオブジェクトを削除する
 	}
 
-	void	ActorServer::Render(Vector2 window_pos, Vector2 camera_pos) {
+	void	ActorServer::Render(int stageNum,Vector2 window_pos, Vector2 camera_pos) {
 		for (auto&& object : _typeActors) {
-			object->Render(window_pos,camera_pos);
+			object->Render(stageNum,window_pos,camera_pos);
 		}
 	}
