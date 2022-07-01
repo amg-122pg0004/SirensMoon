@@ -19,25 +19,18 @@ public:
 	bool LoadMap(std::string folderpath,std::string filename);
 
 	/**
-	 * \brief マップコリジョンの更新を行います。
-	 */
-	void Update();
-
-
-	/**
 	 * \brief タイルの表示を行う関数
 	 *
 	 * \param windowPos 分割画面の左上の座標
 	 * \param cameraPos カメラの座標(基本的に0,0)
 	 */
-	void Render(Vector2 windowPos, Vector2 cameraPos);
+	void Render(int stageNum,Vector2 windowPos, Vector2 cameraPos);
 	
 	int GetChipSize_H() { return _chipSize_H; }
 	int GetChipSize_W() { return _chipSize_W; }
-	auto GetMapData() { return _mapData; }
 
-	int		CheckHit(int x, int y);
-	int	IsHit(Actor& o, int mxormy);
+	int	CheckHit(int stagenum,int x, int y);
+	int	IsHit(int objectstage, Actor& o, int mxormy);
 
 
 	private:
@@ -55,7 +48,8 @@ public:
 		int _chipSize_H;
 
 		/*マップデータ*/
-		std::vector<std::vector<std::vector<MapChip>>> _mapData;
+		std::vector<std::vector<std::vector<std::vector<MapChip>>>> _mapData;
 
 		std::vector<int> _cgChip;
+
 };
