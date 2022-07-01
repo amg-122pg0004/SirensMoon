@@ -7,14 +7,12 @@
 #include <memory>
 #include <fstream>
 
-
 MapChips::MapChips(Game& game) :_game{game}{
 	_mapData.clear();
 	LoadMap("resource/", "test_01.json");
 	LoadMap("resource/", "test_02.json");
 	LoadMap("resource/", "test_03.json");
 	LoadMap("resource/", "test_04.json");
-
 }
 
 MapChips::~MapChips() {
@@ -81,8 +79,6 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename) {
 			
 		}
 
-
-
 	}
 	_mapData.push_back(onestagedata);
 	return true;
@@ -108,7 +104,6 @@ void MapChips::Render(int stageNum,Vector2 windowPos,Vector2 cameraPos) {
 				if (chip_no >= 0) {
 					DrawGraph(pos_x, pos_y, _cgChip[chip_no], TRUE);
 				}
-				
 			}
 		}
 	}
@@ -140,8 +135,6 @@ int MapChips::CheckHitChipNo(int stagenum,int x, int y)
 			// 当たった
 			return chip_no;
 		}
-
-
 	}
 	
 	// 当たっていない
@@ -165,10 +158,10 @@ int MapChips::IsHit(int objectstage,Actor& o, int mxormy)
 
 	// キャラ矩形を作成する
 	int l, t, r, b;		// 左上(left,top) - 右下(right,bottom)
-	l = o.GetPosition().x ;
-	t = o.GetPosition().y;
-	r = o.GetPosition().x+o.GetSize().x;
-	b = o.GetPosition().y + o.GetSize().y;
+	l = static_cast<int>(o.GetPosition().x);
+	t = static_cast<int>(o.GetPosition().y);
+	r = static_cast<int>(o.GetPosition().x+o.GetSize().x);
+	b = static_cast<int>(o.GetPosition().y + o.GetSize().y);
 
 	// キャラの左上座標～右下座標にあたるマップチップと、当たり判定を行う
 	for (y = t / _chipSize_H; y <= b / _chipSize_H; y++)
@@ -185,18 +178,15 @@ int MapChips::IsHit(int objectstage,Actor& o, int mxormy)
 				{	// 左に動いていたので、右に補正
 					dxordy = 1;
 				}
-
 				if (mxormy > 0)
 				{	// 右に動いていたので、左に補正
 					dxordy = -1;
 				}
-
 				// 当たったので戻る
 				return dxordy;
 			}
 		}
 	}
-
 	// 当たらなかった
 
 	return 0;
@@ -204,12 +194,13 @@ int MapChips::IsHit(int objectstage,Actor& o, int mxormy)
 
 int MapChips::CheckTransitionChip(int renderstage, Actor& o) {
 	int x, y;
-	x = o.GetPosition().x + o.GetSize().x / 2;
-	y = o.GetPosition().y + o.GetSize().y / 2;
+	x = (static_cast<int>(o.GetPosition().x) + static_cast<int>(o.GetSize().x / 2)) / _chipSize_W;
+	y = (static_cast<int>(o.GetPosition().y) + static_cast<int>(o.GetSize().y / 2))/_chipSize_H;
 
 	// (x,y)は、マップチップの座標（チップ単位）
 	// この位置のチップは当たるか？
-	int chip_no = CheckHitChipNo(renderstage, x, y);
+	int chip_no = _mapData[renderstage-1][1][y][x]._id;
+
 	switch (chip_no) {
 	case 23:
 		return 1;
