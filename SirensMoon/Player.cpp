@@ -6,7 +6,7 @@
 
 Player::Player(Game& game,int playernum)
 	:Actor{ game }, _speed{ 5 }, _playerNum{playernum}
-	,_dirX{0},_dirY{0}
+	, _dirX{ 0 }, _dirY{ 0 }
 {
 	 _inputManager = _game.GetInputManager();
 	 
@@ -15,7 +15,7 @@ Player::Player(Game& game,int playernum)
 	 _cg_down = ImageServer::LoadGraph("resource/player/down.png");
 
 	 _pos = { 200,200 };
-	 
+	 _stage = 1;
 }
 
 void Player::Update() {
@@ -43,16 +43,37 @@ void Player::Update() {
 	}
 
 	_pos.x = _pos.x + _dirX * _speed;
-	fix_x = _game.GetMapChips()->IsHit(*this, _dirX);
+	fix_x = _game.GetMapChips()->IsHit(_stage-1,*this, _dirX);
 	_pos.x += fix_x * _speed;
 
 	_pos.y = _pos.y + _dirY * _speed;
-	fix_y = _game.GetMapChips()->IsHit(*this, _dirY);
+	fix_y = _game.GetMapChips()->IsHit(_stage-1,*this, _dirY);
 	_pos.y += fix_y * _speed;
 
 
+	if (_pos.x > 750) {
+		_pos.x -= _game.GetSplitWindow()[_playerNum]->GetWindowSize_W();
+		_game.GetSplitWindow()[_playerNum]->ChangeRenderStage(1);
+		++_stage;
+	}
 
+	if (_pos.x <15) {
+		_pos.x += _game.GetSplitWindow()[_playerNum]->GetWindowSize_W();
+		_game.GetSplitWindow()[_playerNum]->ChangeRenderStage(-1);
+		--_stage;
+	}
 
+	if (_pos.y > 880) {
+		_pos.y -= _game.GetSplitWindow()[_playerNum]->GetWindowSize_H();
+		_game.GetSplitWindow()[_playerNum]->ChangeRenderStage(2);
+		_stage+=2;
+	}
+
+	if (_pos.y < 15) {
+		_pos.y += _game.GetSplitWindow()[_playerNum]->GetWindowSize_H();
+		_game.GetSplitWindow()[_playerNum]->ChangeRenderStage(-2);
+		_stage -= 2;
+	}
 
 
 
@@ -62,7 +83,7 @@ void Player::Update() {
 	*/
 }
 
-void Player::Render(Vector2 window_pos,Vector2 camera_pos){
+void Player::Render(int stageNum,Vector2 window_pos,Vector2 camera_pos){
 	std::stringstream ss;
 
 	//ss << CheckHitMapChip(static_cast<int>(_collision.min.y) / _game.GetMapChips()->GetChipSize_H(), static_cast<int>(_collision.min.x) / _game.GetMapChips()->GetChipSize_W());
@@ -70,11 +91,11 @@ void Player::Render(Vector2 window_pos,Vector2 camera_pos){
 	ss <<"_collision.min" << _collision.min.x << "  " << _collision.min.y << "\n";
 	ss << "_collision.max" << _collision.max.x << "  " << _collision.max.y << "\n";
 	DrawString(500+ _playerNum*800, 100, ss.str().c_str(), GetColor(0, 0, 0));
-	
-	switch (_state) {
+	if(_stage==stageNum){
+		switch (_state) {
 		case State::UP:
-			DrawGraph(static_cast<int>(_pos.x+window_pos.x-camera_pos.x),
-				static_cast<int>(_pos.y+window_pos.y-camera_pos.y), _cg_up, 0);
+			DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
+				static_cast<int>(_pos.y + window_pos.y - camera_pos.y), _cg_up, 0);
 			break;
 		case State::DOWN:
 			DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
@@ -88,5 +109,6 @@ void Player::Render(Vector2 window_pos,Vector2 camera_pos){
 			DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
 				static_cast<int>(_pos.y + window_pos.y - camera_pos.y), _cg_side, 0);
 			break;
+		}
 	}
 }
