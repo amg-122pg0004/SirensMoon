@@ -39,9 +39,6 @@ class Actor{
 		Vector2 _pos,_size;
 		bool _dead;
 		AABB _collision;
-		enum class State {
-			UP, DOWN, LEFT, RIGHT
-		};
 
 		int _stage;
 
