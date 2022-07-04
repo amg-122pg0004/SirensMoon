@@ -27,7 +27,8 @@ class Actor{
 		~Actor();
 
 		virtual void Update();
-		virtual void Render(int stageNum,Vector2 window_pos, Vector2 camera_pos);
+		virtual void StandardRender(int stageNum,Vector2 window_pos, Vector2 camera_pos);
+		virtual void ReconRender(int stageNum, Vector2 window_pos, Vector2 camera_pos);
 		virtual bool IsDead() { return _dead; }
 		virtual void Dead() { _dead = true; }
 		virtual AABB GetCollision() { return _collision; }
