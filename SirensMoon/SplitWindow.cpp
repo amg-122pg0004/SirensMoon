@@ -14,7 +14,7 @@ SplitWindow::SplitWindow(Game& game,int pos_x, int pos_y,int playernum) :
 {
 	_camera = std::make_unique<Camera>(_game,*this);
 	_windowSize_H = screen_H;
-	_windowSize_W = screen_W / 2 - 30;
+	_windowSize_W = screen_W / 2;
 }
 
 void SplitWindow::Update() {

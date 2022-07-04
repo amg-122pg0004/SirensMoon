@@ -9,10 +9,11 @@
 
 MapChips::MapChips(Game& game) :_game{game}{
 	_mapData.clear();
-	LoadMap("resource/", "test_01.json");
-	LoadMap("resource/", "test_02.json");
-	LoadMap("resource/", "test_03.json");
-	LoadMap("resource/", "test_04.json");
+	LoadMap("resource/", "test2_01.json");
+	//LoadMap("resource/", "test_01.json");
+	//LoadMap("resource/", "test_02.json");
+	//LoadMap("resource/", "test_03.json");
+	//LoadMap("resource/", "test_04.json");
 }
 
 MapChips::~MapChips() {
@@ -191,7 +192,7 @@ int MapChips::IsHit(int objectstage,Actor& o, int mxormy)
 
 	return 0;
 }
-
+/*
 int MapChips::CheckTransitionChip(int renderstage, Actor& o) {
 	int x, y;
 	x = (static_cast<int>(o.GetPosition().x) + static_cast<int>(o.GetSize().x / 2)) / _chipSize_W;
@@ -222,3 +223,5 @@ int MapChips::CheckTransitionChip(int renderstage, Actor& o) {
 		return 0;
 	}
 }
+
+*/
