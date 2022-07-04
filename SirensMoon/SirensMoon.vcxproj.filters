@@ -49,6 +49,9 @@
     <Filter Include="Collision">
       <UniqueIdentifier>{38b7f6dc-d876-4b8c-bc15-eb3cdf0e9576}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Enemy">
+      <UniqueIdentifier>{dc3d0dff-60dd-49c1-b97d-149bb640193a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -87,6 +90,9 @@
     <ClCompile Include="Collision.cpp">
       <Filter>Collision</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Actor\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -124,6 +130,9 @@
     </ClInclude>
     <ClInclude Include="Collision.h">
       <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Actor\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
