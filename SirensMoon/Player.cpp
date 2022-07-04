@@ -52,7 +52,7 @@ void Player::Update() {
 	
 }
 
-void Player::Render(int stageNum,Vector2 window_pos,Vector2 camera_pos){
+void Player::RenderStandard(int stageNum,Vector2 window_pos,Vector2 camera_pos){
 	std::stringstream ss;
 
 	ss << (_pos.x + _size.x / 2) / _game.GetMapChips()->GetChipSize_W()<<"\n";
@@ -80,3 +80,5 @@ void Player::Render(int stageNum,Vector2 window_pos,Vector2 camera_pos){
 		}
 	}
 }
+
+void 
