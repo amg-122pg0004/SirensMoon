@@ -147,13 +147,16 @@
     <ClCompile Include="ActorServer.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Darkness.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="ImageServer.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="MapChip.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="ReconPlayer.cpp" />
     <ClCompile Include="SplitWindow.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
@@ -162,14 +165,17 @@
     <ClInclude Include="ActorServer.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="Darkness.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="ImageServer.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Light.h" />
     <ClInclude Include="MapChip.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="picojson\picojson.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="ReconPlayer.h" />
     <ClInclude Include="SplitWindow.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
