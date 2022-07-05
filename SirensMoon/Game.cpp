@@ -8,7 +8,6 @@
 #include "Game.h"
 #include "ActorServer.h"
 
-
 Game::Game()
 {
 
@@ -21,7 +20,8 @@ Game::Game()
 	_actorServer = std::make_unique<ActorServer>();
 	auto player0 = std::make_unique<Player>(*this,0);
 	_actorServer->Add(std::move(player0));
-	
+	auto player1 = std::make_unique<ReconPlayer>(*this, 1);
+	_actorServer->Add(std::move(player1));
 }
 
 void Game::Input() {

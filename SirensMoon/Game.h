@@ -17,6 +17,7 @@
 #include "Player.h"
 #include "MapChip.h"
 #include "Camera.h"
+#include "ReconPlayer.h"
 
 constexpr int screen_W{1920};//<ウィンドウの解像度：横
 constexpr int screen_H{1080};//<ウィンドウの解像度：縦
