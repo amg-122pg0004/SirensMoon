@@ -104,10 +104,17 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename) {
 				}
 			onestagepolygons.push_back(polygonplots);
 			}
+
 		}
+
 	}
 	_mapDataStandard.push_back(onestagedata);
 	_mapDataRecon.push_back(onestagepolygons);
+
+
+
+
+
 
 	return true;
 }
@@ -185,10 +192,12 @@ int MapChips::CheckHitChipNo(int stagenum,int x, int y)
 		// 現在、レイヤーは考慮されていない
 		for( int layer = 0; layer <= 1; ++layer ) {
 			int chip_no = _mapDataStandard[stagenum][layer][y][x]._id;
+
 			// 当たった
 			return chip_no;
 		}
 	}
+	
 	// 当たっていない
 	return 0;
 }
@@ -240,6 +249,7 @@ int MapChips::IsHit(int objectstage,Actor& o, int mxormy)
 		}
 	}
 	// 当たらなかった
+
 	return 0;
 }
 /*

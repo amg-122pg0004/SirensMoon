@@ -22,7 +22,7 @@ InputManager::InputManager() {
 			{"DOWN",PAD_INPUT_DOWN,false,false,1},
 			{"LEFT",PAD_INPUT_LEFT,false,false,1},
 			{"RIGHT",PAD_INPUT_RIGHT,false,false,1},
-			{"ACTION",PAD_INPUT_1,false,false,1},
+			{"ACTION",PAD_INPUT_10,false,false,1},
 	};
 }
 
