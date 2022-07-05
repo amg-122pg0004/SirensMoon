@@ -20,8 +20,12 @@ void Actor::Update() {
 
 }
 
-void Actor::Render(int stageNum,Vector2 window_pos, Vector2 camera_pos) {
+void Actor::StandardRender(int stageNum,Vector2 window_pos, Vector2 camera_pos) {
 	
+}
+
+void Actor::ReconRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
+
 }
 
 

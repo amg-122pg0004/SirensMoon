@@ -20,9 +20,13 @@ class Actor{
 		enum class Type {
 			Actor,
 			Player,
+			ReconPlayer,
 			Enemy,
-			Bullet
+			Bullet,
+			Light
 		};
+		virtual Type GetType() = 0;
+
 		Actor(Game& game);
 		~Actor();
 
