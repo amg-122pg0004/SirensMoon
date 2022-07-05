@@ -10,12 +10,14 @@
 #include "Game.h"
 #include "Camera.h"
 #include "ActorServer.h"
+#include "Darkness.h"
 
 class Camera;
+class Darkness;
 
 class SplitWindow {
 	public:
-		SplitWindow(Game&, int pos_x, int pos_y,int playernum);
+		SplitWindow(Game&, int pos_x, int pos_y,bool reconflag);
 		void Update();
 		void Render();
 		std::unique_ptr<Camera>& GetCamera() { return _camera; }
@@ -32,6 +34,11 @@ class SplitWindow {
 		std::unique_ptr<Camera> _camera;
 		Game& _game;
 
+		std::unique_ptr<Darkness> _darkness;
+
+		int _darknessScreen;
 		int _playerNum;
 		int _renderStage;
+
+		bool _reconFlag;
 }; 
