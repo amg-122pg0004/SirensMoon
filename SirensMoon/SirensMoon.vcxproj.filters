@@ -52,6 +52,12 @@
     <Filter Include="Actor\Enemy">
       <UniqueIdentifier>{dc3d0dff-60dd-49c1-b97d-149bb640193a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Darkness">
+      <UniqueIdentifier>{5eb8d2b1-712c-4271-ac43-9a6a8010a44b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Light">
+      <UniqueIdentifier>{fa317c28-c165-47b6-91d6-0d6e6d566c63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -93,6 +99,15 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Actor\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Darkness.cpp">
+      <Filter>Darkness</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Light</Filter>
+    </ClCompile>
+    <ClCompile Include="ReconPlayer.cpp">
+      <Filter>Actor\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -133,6 +148,15 @@
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Actor\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Darkness.h">
+      <Filter>Darkness</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Light</Filter>
+    </ClInclude>
+    <ClInclude Include="ReconPlayer.h">
+      <Filter>Actor\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
