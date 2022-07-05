@@ -18,8 +18,8 @@
 #include "MapChip.h"
 #include "Camera.h"
 
-constexpr int screen_W{1600};//<ウィンドウの解像度：横
-constexpr int screen_H{900};//<ウィンドウの解像度：縦
+constexpr int screen_W{1920};//<ウィンドウの解像度：横
+constexpr int screen_H{1080};//<ウィンドウの解像度：縦
 constexpr int screen_Depth{32};//<ウィンドウの色数(bit)
 
 class Game {
@@ -29,6 +29,7 @@ class Game {
 		void Input();//<入力の取得
 		void Update();//<計算、更新
 		void Render();//<描画更新
+
 		/**
 		 * @brief インプットマネージャーの取得
 		 * @return インプットマネージャーの参照を返す

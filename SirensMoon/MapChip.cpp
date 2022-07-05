@@ -8,15 +8,18 @@
 #include <fstream>
 
 MapChips::MapChips(Game& game) :_game{game}{
-	_mapData.clear();
-	LoadMap("resource/", "test_01.json");
-	LoadMap("resource/", "test_02.json");
-	LoadMap("resource/", "test_03.json");
-	LoadMap("resource/", "test_04.json");
+	_mapDataStandard.clear();
+	_mapDataRecon.clear();
+	LoadMap("resource/", "test2_01.json");
+	//LoadMap("resource/", "test_01.json");
+	//LoadMap("resource/", "test_02.json");
+	//LoadMap("resource/", "test_03.json");
+	//LoadMap("resource/", "test_04.json");
 }
 
 MapChips::~MapChips() {
-	_mapData.clear();
+	_mapDataStandard.clear();
+	_mapDataRecon.clear();
 }
 
 bool MapChips::LoadMap(std::string folderpath, std::string filename) {
@@ -54,6 +57,8 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename) {
 
 	// レイヤー内データの取得
 	std::vector<std::vector<std::vector<MapChip>>>onestagedata;
+	/*一つのステージのポリゴンデータ*/
+	std::vector<std::vector<Vector2>>  onestagepolygons;
 	for (int i = 0; i < aLayers.size(); i++) {
 
 		picojson::object jsLayer = aLayers[i].get<picojson::object>();		// レイヤーオブジェクト
@@ -74,20 +79,60 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename) {
 				vMapLayer.push_back(vMapLine);
 			}
 			// レイヤーデータを追加
-			
-		onestagedata.push_back(vMapLayer);
-			
+
+			onestagedata.push_back(vMapLayer);
+
+		}
+		/*レイヤーの種類がオブジェクトグループの物をカウント*/
+		else if (jsLayer["type"].get<std::string>() == "objectgroup") {
+			/*オブジェクト（ポリゴン）の数を確認、回数分ループ*/
+			picojson::array aObjects = jsLayer["objects"].get<picojson::array>();
+			for (int i = 0; i < aObjects.size(); ++i) 
+			{
+				/*一つのポリゴンの頂点データ*/
+			std::vector<Vector2> polygonplots;
+				/*ポリゴンの頂点数分ループ*/
+				picojson::array polylineplots = aObjects[i].get<picojson::object>()["polygon"].get<picojson::array>();
+				for (int i2 = 0; i2 < polylineplots.size(); ++i2) 
+				{
+					auto x = polylineplots[i2].get<picojson::object>()["x"].get<double>()
+						+ aObjects[i].get<picojson::object>()["x"].get<double>();
+					auto y = polylineplots[i2].get<picojson::object>()["y"].get<double>()
+						+ aObjects[i].get<picojson::object>()["y"].get<double>();;
+					Vector2 plot = { x,y };
+					polygonplots.push_back(plot);
+				}
+			onestagepolygons.push_back(polygonplots);
+			}
+
 		}
 
 	}
-	_mapData.push_back(onestagedata);
+	_mapDataStandard.push_back(onestagedata);
+	_mapDataRecon.push_back(onestagepolygons);
+
+
+
+
+
+
 	return true;
 }
 
-void MapChips::Render(int stageNum,Vector2 windowPos,Vector2 cameraPos) {
+void MapChips::Render(int stageNum, Vector2 windowPos, Vector2 cameraPos) {
+	if (windowPos.x < 100) {
+		StandardRender(stageNum, windowPos, cameraPos);
+	}
+	else {
+		ReconRender(stageNum, windowPos, cameraPos);
+	}
+	
+}
+
+void MapChips::StandardRender(int stageNum,Vector2 windowPos,Vector2 cameraPos) {
 
 	int x, y;
-	for (int layer = 0; layer < _mapData[stageNum].size(); ++layer)
+	for (int layer = 0; layer < _mapDataStandard[stageNum].size(); ++layer)
 	{
 		for (y = 0; y < _mapSize_H; ++y)
 		{
@@ -97,7 +142,7 @@ void MapChips::Render(int stageNum,Vector2 windowPos,Vector2 cameraPos) {
 				int index = y * _mapSize_W + x;
 				int pos_x = x * _chipSize_W +static_cast<int>(windowPos.x) - static_cast<int>(cameraPos.x);
 				int pos_y = y * _chipSize_H + static_cast<int>(windowPos.y) - static_cast<int>(cameraPos.y);
-				int chip_no = _mapData[stageNum][layer][y][x]._id;
+				int chip_no = _mapDataStandard[stageNum][layer][y][x]._id;
 
 				chip_no--;
 
@@ -105,6 +150,22 @@ void MapChips::Render(int stageNum,Vector2 windowPos,Vector2 cameraPos) {
 					DrawGraph(pos_x, pos_y, _cgChip[chip_no], TRUE);
 				}
 			}
+		}
+	}
+}
+
+void MapChips::ReconRender(int stageNum, Vector2 windowPos, Vector2 cameraPos) 
+{
+	for (int i = 0; i < _mapDataRecon[stageNum].size(); ++i) 
+	{
+		int plotsize = _mapDataRecon[stageNum][i].size();
+		for (int plot = 0; plot < plotsize; ++plot) 
+		{
+			DrawLineAA(_mapDataRecon[stageNum][i][plot].x + static_cast<int>(windowPos.x),
+				_mapDataRecon[stageNum][i][plot].y + static_cast<int>(windowPos.y),
+				_mapDataRecon[stageNum][i][(plot + 1)%plotsize].x + static_cast<int>(windowPos.x),
+				_mapDataRecon[stageNum][i][(plot + 1)%plotsize].y + static_cast<int>(windowPos.y),
+				GetColor(0, 255, 255));
 		}
 	}
 }
@@ -130,7 +191,7 @@ int MapChips::CheckHitChipNo(int stagenum,int x, int y)
 		// マップチップIDが0以外は当たり判定を行う
 		// 現在、レイヤーは考慮されていない
 		for( int layer = 0; layer <= 1; ++layer ) {
-			int chip_no = _mapData[stagenum][layer][y][x]._id;
+			int chip_no = _mapDataStandard[stagenum][layer][y][x]._id;
 
 			// 当たった
 			return chip_no;
@@ -191,7 +252,7 @@ int MapChips::IsHit(int objectstage,Actor& o, int mxormy)
 
 	return 0;
 }
-
+/*
 int MapChips::CheckTransitionChip(int renderstage, Actor& o) {
 	int x, y;
 	x = (static_cast<int>(o.GetPosition().x) + static_cast<int>(o.GetSize().x / 2)) / _chipSize_W;
@@ -222,3 +283,5 @@ int MapChips::CheckTransitionChip(int renderstage, Actor& o) {
 		return 0;
 	}
 }
+
+*/

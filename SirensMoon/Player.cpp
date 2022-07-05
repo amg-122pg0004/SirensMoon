@@ -43,68 +43,16 @@ void Player::Update() {
 	}
 
 	_pos.x = _pos.x + _dirX * _speed;
-	fix_x = _game.GetMapChips()->IsHit(_stage-1,*this, _dirX);
+	fix_x = _game.GetMapChips()->IsHit(_stage - 1, *this, _dirX);
 	_pos.x += fix_x * _speed;
 
 	_pos.y = _pos.y + _dirY * _speed;
 	fix_y = _game.GetMapChips()->IsHit(_stage-1,*this, _dirY);
 	_pos.y += fix_y * _speed;
-
-
-	if (_pos.x > 750 && _dirX>0|| 
-		_pos.x < 15 && _dirX <0) {
-		int transition = _game.GetMapChips()->CheckTransitionChip(_stage, *this);
-		if (transition!= 0) {
-			_pos.x -= _game.GetSplitWindow()[_playerNum]->GetWindowSize_W()*_dirX;
-			_game.GetSplitWindow()[_playerNum]->ChangeRenderStage(transition);
-			_stage=_stage+transition;
-		}
-	}
-
-	if (_pos.y > 850 && _dirY >0 ||
-		_pos.y < 15 && _dirY < 0) {
-		int transition = _game.GetMapChips()->CheckTransitionChip(_stage, *this);
-		if (transition != 0) {
-			_pos.y -= _game.GetSplitWindow()[_playerNum]->GetWindowSize_H()*_dirY;
-			_game.GetSplitWindow()[_playerNum]->ChangeRenderStage(transition);
-			_stage = _stage + transition;
-		}
-	}
-
-	/*
-	if (_pos.x > 750&&_dirX>0) {
-		_pos.x += _game.GetSplitWindow()[_playerNum]->GetWindowSize_W();
-		_game.GetSplitWindow()[_playerNum]->ChangeRenderStage(1);
-		--_stage;
-	}
-
-	if (_pos.x < 15&&_dirX<0) {
-		_pos.x += _game.GetSplitWindow()[_playerNum]->GetWindowSize_W();
-		_game.GetSplitWindow()[_playerNum]->ChangeRenderStage(-1);
-		--_stage;
-	}
-
-	if (_pos.y > 880) {
-		_pos.y -= _game.GetSplitWindow()[_playerNum]->GetWindowSize_H();
-		_game.GetSplitWindow()[_playerNum]->ChangeRenderStage(2);
-		_stage+=2;
-	}
-
-	if (_pos.y <15) {
-		_pos.y += _game.GetSplitWindow()[_playerNum]->GetWindowSize_H();
-		_game.GetSplitWindow()[_playerNum]->ChangeRenderStage(-2);
-		_stage -= 2;
-	}
-	*/
-
-
-	/*
-	_collision.min = _pos;
-	_collision.max = { _pos.x + 48,_pos.y + 48 };
-	*/
+	
 }
 
-void Player::Render(int stageNum,Vector2 window_pos,Vector2 camera_pos){
+void Player::RenderStandard(int stageNum,Vector2 window_pos,Vector2 camera_pos){
 	std::stringstream ss;
 
 	ss << (_pos.x + _size.x / 2) / _game.GetMapChips()->GetChipSize_W()<<"\n";
@@ -132,3 +80,5 @@ void Player::Render(int stageNum,Vector2 window_pos,Vector2 camera_pos){
 		}
 	}
 }
+
+void 
