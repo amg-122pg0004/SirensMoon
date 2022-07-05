@@ -31,7 +31,8 @@ class ActorServer {
 
 		
 		void Update(); //<各アクターのUpdateを呼び出す
-		void Render(int stageNum,Vector2 windowPos, Vector2 cameraPos); //<各アクターのRenderを呼び出す
+		void StandardRender(int stageNum,Vector2 windowPos, Vector2 cameraPos); //<各アクターのRenderを呼び出す
+		void ReconRender(int stageNum, Vector2 windowPos, Vector2 cameraPos);
 
 	private:
 		TypeActors _typeActors;

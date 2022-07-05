@@ -13,6 +13,7 @@ Player::Player(Game& game,int playernum)
 	 _cg_up = ImageServer::LoadGraph("resource/player/up.png");
 	 _cg_side = ImageServer::LoadGraph("resource/player/side.png");
 	 _cg_down = ImageServer::LoadGraph("resource/player/down.png");
+	 _cg_recon = ImageServer::LoadGraph("resource/player/recon.png");
 
 	 _pos = { 200,200 };
 	 _stage = 1;
@@ -52,13 +53,18 @@ void Player::Update() {
 	
 }
 
-void Player::RenderStandard(int stageNum,Vector2 window_pos,Vector2 camera_pos){
+void Player::StandardRender(int stageNum,Vector2 window_pos,Vector2 camera_pos){
+	
+	//デバッグ用座標表示
+	/*
 	std::stringstream ss;
 
 	ss << (_pos.x + _size.x / 2) / _game.GetMapChips()->GetChipSize_W()<<"\n";
 	ss << (_pos.y + _size.y / 2) / _game.GetMapChips()->GetChipSize_H() << "\n";
 
 	DrawString(500+ _playerNum*800, 100, ss.str().c_str(), GetColor(0, 0, 0));
+	*/
+
 	if(_stage==stageNum){
 		switch (_state) {
 		case State::UP:
@@ -81,4 +87,7 @@ void Player::RenderStandard(int stageNum,Vector2 window_pos,Vector2 camera_pos){
 	}
 }
 
-void 
+void Player::ReconRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
+	DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
+		static_cast<int>(_pos.y + window_pos.y - camera_pos.y), _cg_recon, 0);
+}
