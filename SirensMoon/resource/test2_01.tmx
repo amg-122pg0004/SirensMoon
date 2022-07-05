@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="32" height="36" tilewidth="30" tileheight="30" infinite="0" nextlayerid="4" nextobjectid="25">
- <editorsettings>
-  <export target="test2_01.json" format="json"/>
- </editorsettings>
+<map version="2017.05.26" orientation="orthogonal" renderorder="right-down" width="32" height="36" tilewidth="30" tileheight="30" nextobjectid="26">
  <tileset firstgid="1" name="tile_test" tilewidth="30" tileheight="30" tilecount="40" columns="8">
   <image source="tile_test.png" width="240" height="150"/>
  </tileset>
- <layer id="1" name="LayerTest1" width="32" height="36">
+ <layer name="LayerTest1" width="32" height="36">
   <data encoding="csv">
 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
 2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,
@@ -46,7 +43,7 @@
 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2
 </data>
  </layer>
- <objectgroup id="2" name="LayerTest2">
+ <objectgroup name="LayerTest2">
   <object id="16" x="30" y="30">
    <polygon points="0,0 900,0 900,750 870,750 870,810 900,810 900,990 870,990 870,1020 0,1020 0,240 30,240 30,60 0,60"/>
   </object>
