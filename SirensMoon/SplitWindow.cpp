@@ -16,10 +16,13 @@ SplitWindow::SplitWindow(Game& game,int pos_x, int pos_y,bool reconflag) :
 	_windowSize_H = screen_H;
 	_windowSize_W = screen_W / 2;
 	_darkness = std::make_unique<Darkness>(_game);
+	_darknessScreen = _darkness->MakeDarkness();
+	_normalScreen = MakeScreen(screen_W, screen_H, 1);
 }
 
 void SplitWindow::Update() {
 	//_camera->Update(_playerNum);
+
 }
 
 void SplitWindow::Render() {
@@ -34,16 +37,13 @@ void SplitWindow::Render() {
 		_game.GetActorServer()->ReconRender(_renderStage, _windowPos, _camera->GetCameraPosition());
 	}
 	else {
-		_darknessScreen = _darkness->MakeDarkness();
-		int handle=MakeScreen(screen_W,screen_H,1);
-		//SetDrawScreen(handle);
+		_darkness->Update();
+		SetDrawScreen(_normalScreen);
 		_game.GetMapChips()->StandardRender(_renderStage - 1, _windowPos, _camera->GetCameraPosition());
 		_game.GetActorServer()->StandardRender(_renderStage, _windowPos, _camera->GetCameraPosition());
-		
-		//GraphBlend(handle, _darknessScreen, 255, DX_GRAPH_BLEND_NORMAL);
-
-		//DrawGraph(0, 0, handle, 1);
-
+		GraphBlend(_normalScreen, _darknessScreen, 255, DX_GRAPH_BLEND_MULTIPLE);
+		SetDrawScreen(DX_SCREEN_BACK);
+		DrawGraph(0, 0, _normalScreen, 1);
 	}
 
 	_camera->Render(static_cast<int>(_windowPos.x + 50),static_cast<int>(_windowPos.y + 50));

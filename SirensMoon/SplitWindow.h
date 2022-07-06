@@ -36,7 +36,12 @@ class SplitWindow {
 
 		std::unique_ptr<Darkness> _darkness;
 
+		/*暗闇表現用のスクリーンハンドル*/
 		int _darknessScreen;
+		/*分割画面内に通常レンダリングするスクリーンハンドル*/
+		int _normalScreen;
+
+
 		int _playerNum;
 		int _renderStage;
 
