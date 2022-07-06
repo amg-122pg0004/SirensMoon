@@ -6,10 +6,11 @@
 
 class Darkness {
 	public:
-
-		Darkness(Game&);
+		Darkness(Game& game);
 		/*マスクデータの作成*/
 		int MakeDarkness();
+		/*マスクデータの更新*/
+		void Update();
 		/*マスクデータの削除*/
 		void DeleteDarkness();
 
