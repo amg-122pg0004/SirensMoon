@@ -37,7 +37,7 @@ void SplitWindow::Render() {
 		_game.GetActorServer()->ReconRender(_renderStage, _windowPos, _camera->GetCameraPosition());
 	}
 	else {
-		_darkness->Update();
+		_darkness->Update(_windowPos, _camera->GetCameraPosition());
 		SetDrawScreen(_normalScreen);
 		_game.GetMapChips()->StandardRender(_renderStage - 1, _windowPos, _camera->GetCameraPosition());
 		_game.GetActorServer()->StandardRender(_renderStage, _windowPos, _camera->GetCameraPosition());
