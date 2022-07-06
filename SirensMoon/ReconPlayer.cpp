@@ -33,7 +33,7 @@ void  ReconPlayer::Update() {
 	_pos = _pos + _dir * _speed;
 
 	if (_inputManager->CheckInput("ACTION", 't', _playerNum)) {
-		auto light = std::make_unique<Light>(_game,_pos);
+		auto light = std::make_unique<Light>(_game,*this);
 		_game.GetActorServer()->Add(std::move(light));
 	}
 }

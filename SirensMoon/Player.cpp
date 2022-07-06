@@ -17,6 +17,9 @@ Player::Player(Game& game,int playernum)
 
 	 _pos = { 200,200 };
 	 _stage = 1;
+
+	 auto light = std::make_unique<Light>(_game, *this);
+	 _game.GetActorServer()->Add(std::move(light));
 }
 
 void Player::Update() {
@@ -50,7 +53,7 @@ void Player::Update() {
 	_pos.y = _pos.y + _dirY * _speed;
 	fix_y = _game.GetMapChips()->IsHit(_stage-1,*this, _dirY);
 	_pos.y += fix_y * _speed;
-	
+
 }
 
 void Player::StandardRender(int stageNum,Vector2 window_pos,Vector2 camera_pos){
@@ -83,6 +86,7 @@ void Player::StandardRender(int stageNum,Vector2 window_pos,Vector2 camera_pos){
 			DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
 				static_cast<int>(_pos.y + window_pos.y - camera_pos.y), _cg_side, 0);
 			break;
+
 		}
 	}
 }
