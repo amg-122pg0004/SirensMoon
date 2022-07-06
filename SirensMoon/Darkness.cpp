@@ -11,12 +11,12 @@ int Darkness::MakeDarkness() {
 	return _alphaHandle;
 }
 
-void Darkness::Update() {
+void Darkness::Update(Vector2 window_pos, Vector2 camera_pos) {
 	SetDrawScreen(_alphaHandle);
 	DrawBox(0, 0, screen_W, screen_H, GetColor(0, 0, 0), 1);
 	for (auto&& actor : _game.GetActorServer()->GetObjects()) {
 		if (actor->GetType() == Actor::Type::Light) {
-			DrawGraph(actor->GetPosition().x, actor->GetPosition().y, _cg, 1);
+			DrawGraph(actor->GetPosition().x+window_pos.x-240, actor->GetPosition().y+window_pos.y-240, _cg, 1);
 		}
 	}
 }

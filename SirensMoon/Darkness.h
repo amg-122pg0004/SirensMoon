@@ -10,7 +10,7 @@ class Darkness {
 		/*マスクデータの作成*/
 		int MakeDarkness();
 		/*マスクデータの更新*/
-		void Update();
+		void Update(Vector2 window_pos, Vector2 camera_pos);
 		/*マスクデータの削除*/
 		void DeleteDarkness();
 
