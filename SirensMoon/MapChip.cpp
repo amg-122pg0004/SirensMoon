@@ -10,11 +10,7 @@
 MapChips::MapChips(Game& game) :_game{game}{
 	_mapDataStandard.clear();
 	_mapDataRecon.clear();
-	LoadMap("resource/", "test2_01.json");
-	//LoadMap("resource/", "test_01.json");
-	//LoadMap("resource/", "test_02.json");
-	//LoadMap("resource/", "test_03.json");
-	//LoadMap("resource/", "test_04.json");
+	LoadMap("resource/", "test3_01.json");
 }
 
 MapChips::~MapChips() {
