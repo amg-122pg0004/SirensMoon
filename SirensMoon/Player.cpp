@@ -54,19 +54,52 @@ void Player::Update() {
 	fix_y = _game.GetMapChips()->IsHit(_stage-1,*this, _dirY);
 	_pos.y += fix_y * _speed;
 
+
+	auto&& rendercamera = _game.GetSplitWindow()[_playerNum]->GetCamera();
+	Vector2 renderposition = _pos -rendercamera ->GetPosition();
+	
+	if (_pos.x < 0) {
+		_pos.x = 0;
+	}
+	else if (_pos.x > screen_W / 2 * 3) {
+		_pos.x = screen_W / 2 * 3;
+	}
+
+	if (_pos.y < 0) {
+		_pos.y = 0;
+	}
+	else if (_pos.y>screen_H*3) {
+		_pos.y = screen_H * 3;
+	}
+
+
+	if (renderposition.x < 0&&_dirX<0) {
+		rendercamera->ChangePosition(Camera::ChangeDir::LEFT);
+	}
+	else if (renderposition.x > screen_W / 2&&_dirX>0) {
+		rendercamera->ChangePosition(Camera::ChangeDir::RIGHT);
+	}
+	if (renderposition.y < 0&&_dirY<0) {
+		rendercamera->ChangePosition(Camera::ChangeDir::UP);
+	}
+	else if (renderposition.y > screen_H ) {
+		rendercamera->ChangePosition(Camera::ChangeDir::DOWN);
+	}
+	
 }
 
 void Player::StandardRender(int stageNum,Vector2 window_pos,Vector2 camera_pos){
 	
 	//デバッグ用座標表示
-	/*
+	
 	std::stringstream ss;
 
-	ss << (_pos.x + _size.x / 2) / _game.GetMapChips()->GetChipSize_W()<<"\n";
-	ss << (_pos.y + _size.y / 2) / _game.GetMapChips()->GetChipSize_H() << "\n";
-
+	//ss << (_pos.x + _size.x / 2) / _game.GetMapChips()->GetChipSize_W()<<"\n";
+	//ss << (_pos.y + _size.y / 2) / _game.GetMapChips()->GetChipSize_H() << "\n";
+	ss << "_pos.x"<<_pos.x<<"\n";
+	ss << "_pos.y" << _pos.y << "\n";
 	DrawString(500+ _playerNum*800, 100, ss.str().c_str(), GetColor(0, 0, 0));
-	*/
+	
 
 	if(_stage==stageNum){
 		switch (_state) {
