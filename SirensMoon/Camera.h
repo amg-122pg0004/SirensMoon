@@ -17,7 +17,7 @@ class Camera {
 	public:
 		Camera(Game&game,SplitWindow&sw);
 		void Update(int playernum);//<カメラの移動
-		Vector2 GetCameraPosition() { return _pos; }//<カメラ座標の取得
+		Vector2 GetPosition() { return _pos; }//<カメラ座標の取得
 
 		enum class ChangeDir {
 			UP,

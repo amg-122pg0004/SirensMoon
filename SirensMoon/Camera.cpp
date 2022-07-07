@@ -19,7 +19,7 @@ void Camera::ChangePosition(Camera::ChangeDir dir) {
 			_pos.y = _pos.y - screen_H;
 			break;
 		case Camera::ChangeDir::DOWN:
-			_pos.y = _pos.y - screen_H;
+			_pos.y = _pos.y + screen_H;
 			break;
 		case Camera::ChangeDir::LEFT:
 			_pos.x = _pos.x - screen_W/2;
@@ -28,17 +28,17 @@ void Camera::ChangePosition(Camera::ChangeDir dir) {
 			_pos.x = _pos.x + screen_W/2;
 			break;
 	}
-	if (_pos.x < 0) {
+	if (_pos.x <= 0) {
 		_pos.x = 0;
 	}
-	if (_pos.x > screen_W/2*_stageSize.x) {
-		_pos.x = screen_W / 2 * _stageSize.x;
+	if (_pos.x >= (screen_W/2)*(_stageSize.x - 1)) {
+		_pos.x = (screen_W / 2) * (_stageSize.x - 1);
 	}
-	if (_pos.y < 0) {
+	if (_pos.y <= 0) {
 		_pos.y = 0;
 	}
-	if (_pos.x > screen_H * _stageSize.y) {
-		_pos.x = screen_H * _stageSize.y;
+	if (_pos.x >= screen_H * (_stageSize.y-1)) {
+		_pos.x = screen_H * (_stageSize.y);
 	}
 }
 
