@@ -15,7 +15,7 @@ SplitWindow::SplitWindow(Game& game,int pos_x, int pos_y,int window_no) :
 	_camera = std::make_unique<Camera>(_game,*this);
 	_windowSize_H = screen_H;
 	_windowSize_W = screen_W / 2;
-	_darkness = std::make_unique<Darkness>(_game);
+	_darkness = std::make_unique<Darkness>(_game,*this);
 	_darknessScreen = _darkness->MakeDarkness();
 	_normalScreen = MakeScreen(screen_W, screen_H, 1);
 
@@ -36,10 +36,11 @@ void SplitWindow::Render() {
 
 
 
-		_darkness->Update(_windowPos, _camera->GetCameraPosition());
+		_darkness->Update(_windowPos, _camera->GetPosition());
 		SetDrawScreen(_normalScreen);
-		_game.GetMapChips()->StandardRender(_renderStage - 1, _windowPos, _camera->GetCameraPosition());
-		_game.GetActorServer()->StandardRender(_renderStage, _windowPos, _camera->GetCameraPosition());
+		ClearDrawScreen();
+		_game.GetMapChips()->StandardRender(_renderStage - 1, _windowPos, _camera->GetPosition());
+		_game.GetActorServer()->StandardRender(_renderStage, _windowPos, _camera->GetPosition());
 		GraphBlend(_normalScreen, _darknessScreen, 255, DX_GRAPH_BLEND_MULTIPLE);
 		SetDrawScreen(DX_SCREEN_BACK);
 		DrawGraph(0, 0, _normalScreen, 1);
