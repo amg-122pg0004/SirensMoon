@@ -13,6 +13,9 @@ class Player :public Actor {
 		void ReconRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) override;
 
 		Type GetType() override { return Type::Player; }
+		int GetPlayerNum() { return _playerNum; }
+		int GetDirX() { return _dirX; }
+		int GetDirY() { return _dirY; }
 
 	private:
 		std::shared_ptr<InputManager> _inputManager;
