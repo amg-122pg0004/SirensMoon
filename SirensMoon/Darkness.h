@@ -4,9 +4,11 @@
 #include "Game.h"
 #include "Math.h"
 
+class SplitWindow;
+
 class Darkness {
 	public:
-		Darkness(Game& game);
+		Darkness(Game& game,SplitWindow& splitwindow);
 		/*マスクデータの作成*/
 		int MakeDarkness();
 		/*マスクデータの更新*/
@@ -16,6 +18,8 @@ class Darkness {
 
 	private:
 		Game& _game;
+		SplitWindow& _splitWindow;
+
 		int _cg;//マスク用画像取得用
 		int _alphaHandle;
 };
