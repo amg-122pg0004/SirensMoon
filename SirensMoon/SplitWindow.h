@@ -7,17 +7,17 @@
  *********************************************************************/
 
 #pragma once
-#include "Game.h"
 #include "Camera.h"
 #include "ActorServer.h"
 #include "Darkness.h"
+
 
 class Camera;
 class Darkness;
 
 class SplitWindow {
 	public:
-		SplitWindow(Game&, int pos_x, int pos_y,bool reconflag);
+		SplitWindow(Game&, int pos_x, int pos_y,int window_no);
 		void Update();
 		void Render();
 		std::unique_ptr<Camera>& GetCamera() { return _camera; }
@@ -42,8 +42,6 @@ class SplitWindow {
 		int _normalScreen;
 
 
-		int _playerNum;
+		int _windowNo;
 		int _renderStage;
-
-		bool _reconFlag;
 }; 

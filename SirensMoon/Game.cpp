@@ -10,28 +10,33 @@
 
 Game::Game()
 {
+	_actorServer = std::make_unique<ActorServer>();
 
 	_inputManager = std::make_unique<InputManager>();
 	_mapChips = std::make_unique<MapChips>(*this);
 
 	_splitWindow.emplace_back(std::make_unique<SplitWindow>(*this, 0, 0,0));
-	_splitWindow.emplace_back(std::make_unique<SplitWindow>(*this, screen_W/2, 0,0));
+	_splitWindow.emplace_back(std::make_unique<SplitWindow>(*this, screen_W/2, 0,1));
 	
-	_actorServer = std::make_unique<ActorServer>();
+
+/*
 	auto player0 = std::make_unique<Player>(*this,0);
 	_actorServer->Add(std::move(player0));
 	auto player1 = std::make_unique<Player>(*this, 1);
 	_actorServer->Add(std::move(player1));
+*/
 }
 
 void Game::Input() {
 	_inputManager->InputUpdate();
 }
 void Game::Update() {
+	_actorServer->Update();
 	for (auto&& splitwindows : _splitWindow) {
 		splitwindows->Update();
-		_actorServer->Update();
 	}
+
+	
 }
 void Game::Render() {
 	ClearDrawScreen();

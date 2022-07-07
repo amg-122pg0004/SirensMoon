@@ -8,6 +8,7 @@
 #pragma once
 #include "Game.h"
 #include "SplitWindow.h"
+#include <memory>
 
 class Game;
 class SplitWindow;
@@ -16,7 +17,17 @@ class Camera {
 	public:
 		Camera(Game&game,SplitWindow&sw);
 		void Update(int playernum);//<カメラの移動
-		Vector2 GetCameraPosition() { return _cameraPosition; }//<カメラ座標の取得
+		Vector2 GetCameraPosition() { return _pos; }//<カメラ座標の取得
+
+		enum class ChangeDir {
+			UP,
+			DOWN,
+			LEFT,
+			RIGHT
+		};
+
+		void ChangePosition(ChangeDir direction);
+
 		
 #ifdef _DEBUG
 		void Render(int x,int y);//カメラの位置座標表示
@@ -26,5 +37,6 @@ class Camera {
 		SplitWindow& _splitWindow; //<SplitWindow参照
 		std::shared_ptr<InputManager> _inputManager;//<InputManagerの参照
 		int _speed;//<カメラの移動速度
-		Vector2 _cameraPosition;//<カメラの位置座標
+		Vector2 _pos;//<カメラの位置座標
+		Vector2 _stageSize;//<ステージの大きさ
 };
