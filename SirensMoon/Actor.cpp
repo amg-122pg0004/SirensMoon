@@ -32,5 +32,8 @@ void Actor::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
 
 }
 
+Actor::Type Actor::GetType() {
+	return Actor::Type::Actor;
+}
 
 

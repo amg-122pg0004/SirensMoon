@@ -26,7 +26,7 @@ class Actor{
 			Light1,
 			Light2
 		};
-		virtual Type GetType() = 0;
+		virtual Type GetType();
 
 		Actor(Game& game);
 		~Actor();
@@ -41,6 +41,7 @@ class Actor{
 		virtual AABB GetCollision() { return _collision; }
 		virtual Vector2 GetPosition() { return _pos; }
 		virtual Vector2 GetSize() { return _size; }
+		virtual Actor& GetRef() { return *this; }
 
 	protected:
 		Game& _game;
