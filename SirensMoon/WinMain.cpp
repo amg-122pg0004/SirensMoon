@@ -31,7 +31,8 @@ int WINAPI WinMain(
         game->Input();
         game->Update();
         game->Render();
-        
+        game->Debug();
+        ScreenFlip();
     }
 
 
