@@ -20,6 +20,7 @@ class SplitWindow {
 		SplitWindow(Game&, int pos_x, int pos_y,int window_no);
 		void Update();
 		void Render();
+		void Debug();
 		std::unique_ptr<Camera>& GetCamera() { return _camera; }
 
 		int GetRenderStage() { return _renderStage; }

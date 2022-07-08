@@ -30,6 +30,7 @@ class Game {
 		void Input();//<入力の取得
 		void Update();//<計算、更新
 		void Render();//<描画更新
+		void Debug();//<デバッグ用表示
 
 		/**
 		 * @brief インプットマネージャーの取得

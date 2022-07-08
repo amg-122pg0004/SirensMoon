@@ -46,6 +46,10 @@ void Game::Render() {
 	}
 	_inputManager->Render();
 	
+}
 
-	ScreenFlip();
+void Game::Debug(){
+	for (auto&& splitwindows : _splitWindow) {
+		splitwindows->Debug();
+	}
 }

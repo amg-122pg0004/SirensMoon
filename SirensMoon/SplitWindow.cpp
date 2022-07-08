@@ -28,19 +28,19 @@ void SplitWindow::Update() {
 }
 
 void SplitWindow::Render() {
-	/*•`‰æ”ÍˆÍ‚ğ•ªŠ„‰æ–Ê”ÍˆÍ‚Éİ’è*/
-	SetDrawArea(static_cast<int>(_windowPos.x),
-		static_cast<int>(_windowPos.y), 
-		static_cast<int>(_windowPos.x+ _windowSize_W),
-		static_cast<int>(_windowPos.y + _windowSize_H));
-
-
 
 		_darkness->Update(_windowPos, _camera->GetPosition());
+
 		SetDrawScreen(_normalScreen);
-		ClearDrawScreen();
+		/*•`‰æ”ÍˆÍ‚ğ•ªŠ„‰æ–Ê”ÍˆÍ‚Éİ’è*/
+		SetDrawArea(static_cast<int>(_windowPos.x),
+			static_cast<int>(_windowPos.y),
+			static_cast<int>(_windowPos.x + _windowSize_W),
+			static_cast<int>(_windowPos.y + _windowSize_H));
+
 		_game.GetMapChips()->StandardRender(_renderStage - 1, _windowPos, _camera->GetPosition());
 		_game.GetActorServer()->StandardRender(_renderStage, _windowPos, _camera->GetPosition());
+
 		GraphBlend(_normalScreen, _darknessScreen, 255, DX_GRAPH_BLEND_MULTIPLE);
 		SetDrawScreen(DX_SCREEN_BACK);
 		DrawGraph(0, 0, _normalScreen, 1);
@@ -53,4 +53,8 @@ void SplitWindow::Render() {
 
 void SplitWindow::ChangeRenderStage(int changedelta) {
 	_renderStage += changedelta;
+}
+
+void SplitWindow::Debug(){
+	_game.GetActorServer()->Debug(_renderStage, _windowPos, _camera->GetPosition());
 }
