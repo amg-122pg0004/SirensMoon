@@ -1,11 +1,11 @@
 #include "Light.h"
 
-Light::Light(Game& game, Actor& owner) : _owner{ owner }, Actor{ game }//, _lifetime{ 180 }
+Light1::Light1(Game& game, Actor& owner) : _owner{ owner }, Actor{ game }//, _lifetime{ 180 }
  {
 	_pos = { 0,0 };
 }
 
-void Light::Update() {
+void Light1::Update() {
 
 	_pos = _owner.GetPosition();
 	/*--_lifetime;
@@ -14,3 +14,19 @@ void Light::Update() {
 	}
 	*/
 }
+
+Light2::Light2(Game& game, Actor& owner) : _owner{ owner }, Actor{ game }//, _lifetime{ 180 }
+{
+	_pos = { 0,0 };
+}
+
+void Light2::Update() {
+
+	_pos = _owner.GetPosition();
+	/*--_lifetime;
+	if (_lifetime < 0) {
+		_dead = true;
+	}
+	*/
+}
+

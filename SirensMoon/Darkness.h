@@ -21,5 +21,6 @@ class Darkness {
 		SplitWindow& _splitWindow;
 
 		int _cg;//マスク用画像取得用
+		int _cg2;
 		int _alphaHandle;
 };
