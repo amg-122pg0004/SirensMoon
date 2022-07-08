@@ -21,7 +21,7 @@ Light2::Light2(Game& game, Actor& owner) : _owner{ owner }, Actor{ game }//, _li
 }
 
 void Light2::Update() {
-
+	if(!_owner.IsDead())
 	_pos = _owner.GetPosition();
 	/*--_lifetime;
 	if (_lifetime < 0) {

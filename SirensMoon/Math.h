@@ -54,6 +54,7 @@ public:
         y *= scalar;
         return *this;
     }
+
     // ƒxƒNƒgƒ‹‚Ì‘å‚«‚³
     double Length() const {
         return std::sqrt(x * x + y * y);

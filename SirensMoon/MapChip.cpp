@@ -88,7 +88,7 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename) {
 				/*一つのポリゴンの頂点データ*/
 			std::vector<Vector2> polygonplots;
 				/*ポリゴンの頂点数分ループ*/
-				picojson::array polylineplots = aObjects[i].get<picojson::object>()["polygon"].get<picojson::array>();
+				picojson::array polylineplots = aObjects[i].get<picojson::object>()["polyline"].get<picojson::array>();
 				for (int i2 = 0; i2 < polylineplots.size(); ++i2) 
 				{
 					auto x = polylineplots[i2].get<picojson::object>()["x"].get<double>()
