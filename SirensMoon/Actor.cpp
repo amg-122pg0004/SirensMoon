@@ -28,5 +28,9 @@ void Actor::ReconRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
 
 }
 
+void Actor::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
+
+}
+
 
 
