@@ -58,6 +58,9 @@
     <Filter Include="Light">
       <UniqueIdentifier>{fa317c28-c165-47b6-91d6-0d6e6d566c63}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Bullet">
+      <UniqueIdentifier>{13fa08dd-107a-41f1-b5a6-a81f8c9f9ee0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -108,6 +111,9 @@
     <ClCompile Include="ReconPlayer.cpp">
       <Filter>Actor\Player</Filter>
     </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Actor\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -157,6 +163,9 @@
     </ClInclude>
     <ClInclude Include="ReconPlayer.h">
       <Filter>Actor\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Actor\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
