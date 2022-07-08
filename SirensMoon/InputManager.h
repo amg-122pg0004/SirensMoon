@@ -6,6 +6,7 @@
  * \date   June 2022
  *********************************************************************/
 #pragma once
+#include "Math.h"
 #include <vector>
 #include <string>
 
@@ -13,6 +14,8 @@ class InputManager{
 
 	public:
 		
+		
+
 		InputManager();//<コンストラクタ
 
 		/**@brief 使用する各キーについてインプット状態を確認して保存 */
@@ -26,6 +29,15 @@ class InputManager{
 		* \return 入力があればtrue
 		*/
 		bool CheckInput(const std::string actionname,const char keystate,int playernum);
+
+		/**
+		* @brief アナログスティックの入力状態を確認する
+		*
+		* \param playernum 何個目のコントローラーか
+		* \return 入力状態をそのまま返す
+		*/
+		Vector2 CheckAnalogInput(const int playernum);
+
 #ifdef _DEBUG
 		void Render();
 #endif 
@@ -42,6 +54,15 @@ private:
 		int PadNo;				//<入力したコントローラーの番号
 	};
 
+	struct AnalogInfo {
+		Vector2 Value;
+		int PadNo;
+	};
+
+
 	/*ゲーム内で使用する各アクションについての入力状態を保存する*/
-	std::vector<KeyInfo> KeyState;
+	std::vector<KeyInfo> _keyState;
+	
+	/*アナログスティックの入力情報*/
+	std::vector<AnalogInfo> _analogState;
 };
