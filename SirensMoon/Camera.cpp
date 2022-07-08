@@ -37,8 +37,8 @@ void Camera::ChangePosition(Camera::ChangeDir dir) {
 	if (_pos.y <= 0) {
 		_pos.y = 0;
 	}
-	if (_pos.x >= screen_H * (_stageSize.y-1)) {
-		_pos.x = screen_H * (_stageSize.y);
+	if (_pos.y >= screen_H * (_stageSize.y-1)) {
+		_pos.y = screen_H * (_stageSize.y-1);
 	}
 }
 
