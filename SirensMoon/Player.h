@@ -23,23 +23,21 @@ class Player :public Actor {
 
 		Type GetType() override { return Type::Player; }
 		int GetPlayerNum() { return _playerNum; }
-		double GetDirX() { return _dirX; }
-		double GetDirY() { return _dirY; }
 
 		void Move();
 		void CheckStress();
 		void GunShoot();
+		void OpenMap();
 
 		void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;
 
 	private:
 		std::shared_ptr<InputManager> _inputManager;
 
-		double _dirX;//<X方向への移動状態
-		double _dirY;//<Y方向への移動状態
 		Vector2 _dir;//<キャラの向き
 		Vector2 _lastDir;//最後に向いたキャラの向き
-		int _speed;//移動の速さ
+		Vector2 _speed;//移動の速さ
+		double _speedMax;//移動の最大速度
 		int _playerNum;//<プレイヤーの番号(0なら左プレイヤー、1なら右プレイヤー）
 
 		float _stress;//<ストレスゲージ
