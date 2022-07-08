@@ -33,7 +33,7 @@ public:
 	int GetChipSize_W() { return _chipSize_W; }
 
 	int CheckHitChipNo(int objectstage, int x, int y);
-	int	IsHit(int objectstage, Actor& o, int mxormy);
+	int	IsHit(int objectstage, Actor& o, double mxormy);
 
 	//int CheckTransitionChip(int renderstage,Actor& o);
 

@@ -199,7 +199,7 @@ int MapChips::CheckHitChipNo(int stagenum,int x, int y)
 // –ß’lF
 //   0 : “–‚½‚Á‚Ä‚È‚¢
 //   1 : “–‚½‚Á‚½
-int MapChips::IsHit(int objectstage,Actor& o, int mxormy)
+int MapChips::IsHit(int objectstage,Actor& o, double mxormy)
 {
 	int x, y;
 	int dxordy=0;
