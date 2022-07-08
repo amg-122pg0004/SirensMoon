@@ -1,8 +1,17 @@
+/*****************************************************************//**
+ * \file   Player.h
+ * \brief  プレイヤーキャラ
+ * 
+ * \author 土居将太郎
+ * \date   July 2022
+ *********************************************************************/
+
 #pragma once
 #include <DxLib.h>
 #include "Actor.h"
 #include "InputManager.h"
 #include "Game.h"
+#include "Math.h"
 
 
 class Player :public Actor {
@@ -14,27 +23,32 @@ class Player :public Actor {
 
 		Type GetType() override { return Type::Player; }
 		int GetPlayerNum() { return _playerNum; }
-		int GetDirX() { return _dirX; }
-		int GetDirY() { return _dirY; }
+		double GetDirX() { return _dirX; }
+		double GetDirY() { return _dirY; }
+
+		void Move();
+		void CheckStress();
+		void GunShoot();
+
+		void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;
 
 	private:
 		std::shared_ptr<InputManager> _inputManager;
 
-		int _dirX;
-		int _dirY;
-		int _speed;
-		int _playerNum;
+		double _dirX;//<X方向への移動状態
+		double _dirY;//<Y方向への移動状態
+		Vector2 _dir;//<キャラの向き
+		Vector2 _lastDir;//最後に向いたキャラの向き
+		int _speed;//移動の速さ
+		int _playerNum;//<プレイヤーの番号(0なら左プレイヤー、1なら右プレイヤー）
 
+		float _stress;//<ストレスゲージ
+		float _stressSpeed;//<ストレスゲージが変化する速度
+
+		/*キャラクターの画像ハンドル*/
 		int _cg_up;
 		int _cg_side;
 		int _cg_down;
 		int _cg_recon;
 
-
-
-		enum class State {
-			UP, DOWN, LEFT, RIGHT
-		};
-
-		State _state;
 };
