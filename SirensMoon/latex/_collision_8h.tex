@@ -1,0 +1,52 @@
+\hypertarget{_collision_8h}{}\doxysection{Collision.\+h ファイル}
+\label{_collision_8h}\index{Collision.h@{Collision.h}}
+
+
+衝突判定を行うためにクラス  
+
+
+{\ttfamily \#include \char`\"{}Math.\+h\char`\"{}}\newline
+\doxysubsection*{クラス}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_a_a_b_b}{AABB}}
+\end{DoxyCompactItemize}
+\doxysubsection*{関数}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{_collision_8h_a31ef1f85fd2fc881e505c8c949a103e1}{Intersect}} (const \mbox{\hyperlink{class_a_a_b_b}{AABB}} \&r1, const \mbox{\hyperlink{class_a_a_b_b}{AABB}} \&r2)
+\begin{DoxyCompactList}\small\item\em 2つの\+AABBの交差判定 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{詳解}
+衝突判定を行うためにクラス 
+
+\begin{DoxyAuthor}{著者}
+土居将太郎 
+\end{DoxyAuthor}
+\begin{DoxyDate}{日付}
+June 2022 
+\end{DoxyDate}
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{_collision_8h_a31ef1f85fd2fc881e505c8c949a103e1}\label{_collision_8h_a31ef1f85fd2fc881e505c8c949a103e1}} 
+\index{Collision.h@{Collision.h}!Intersect@{Intersect}}
+\index{Intersect@{Intersect}!Collision.h@{Collision.h}}
+\doxysubsubsection{\texorpdfstring{Intersect()}{Intersect()}}
+{\footnotesize\ttfamily bool Intersect (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_a_a_b_b}{AABB}} \&}]{r1,  }\item[{const \mbox{\hyperlink{class_a_a_b_b}{AABB}} \&}]{r2 }\end{DoxyParamCaption})}
+
+
+
+2つの\+AABBの交差判定 
+
+
+\begin{DoxyParams}{引数}
+{\em r1} & AABB1個目 \\
+\hline
+{\em r2} & AABB2個目 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+交差していたら\+True 
+\end{DoxyReturn}

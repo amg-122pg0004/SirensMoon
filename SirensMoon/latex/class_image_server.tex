@@ -1,0 +1,66 @@
+\hypertarget{class_image_server}{}\doxysection{Image\+Server クラス}
+\label{class_image_server}\index{ImageServer@{ImageServer}}
+\doxysubsection*{静的公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_image_server_a85fea162d7e39c0958c2af4865fc2966}\label{class_image_server_a85fea162d7e39c0958c2af4865fc2966}} 
+static void {\bfseries Init} ()
+\item 
+\mbox{\Hypertarget{class_image_server_ae4936576b094b1b7e600fffb710759a5}\label{class_image_server_ae4936576b094b1b7e600fffb710759a5}} 
+static void {\bfseries Release} ()
+\item 
+\mbox{\Hypertarget{class_image_server_ae6c8db4be2033482a2574f605d8d65c3}\label{class_image_server_ae6c8db4be2033482a2574f605d8d65c3}} 
+static void {\bfseries Clear\+Graph} ()
+\item 
+static int \mbox{\hyperlink{class_image_server_a4ae13e830039717bbb679b870e5ab08c}{Find}} (std\+::string filename)
+\begin{DoxyCompactList}\small\item\em \+\_\+map\+Graphのキー検索 \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{class_image_server_a619060e788d3001a680b16b4640acc77}{Load\+Graph}} (std\+::string filename)
+\begin{DoxyCompactList}\small\item\em 読み込み済のファイル出なければmapに登録 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_image_server_ac0c9644fb2086a46801178df468bf552}\label{class_image_server_ac0c9644fb2086a46801178df468bf552}} 
+static int {\bfseries Load\+Div\+Graph} (const TCHAR $\ast$filename, int allnum, int xnum, int ynum, int xsize, int ysize, int $\ast$handlebuff)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{class_image_server_a4ae13e830039717bbb679b870e5ab08c}\label{class_image_server_a4ae13e830039717bbb679b870e5ab08c}} 
+\index{ImageServer@{ImageServer}!Find@{Find}}
+\index{Find@{Find}!ImageServer@{ImageServer}}
+\doxysubsubsection{\texorpdfstring{Find()}{Find()}}
+{\footnotesize\ttfamily int Image\+Server\+::\+Find (\begin{DoxyParamCaption}\item[{std\+::string}]{filename }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\+\_\+map\+Graphのキー検索 
+
+
+\begin{DoxyParams}{引数}
+{\em filename} & 検索するキー名 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+キーに対応した値を返す 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_image_server_a619060e788d3001a680b16b4640acc77}\label{class_image_server_a619060e788d3001a680b16b4640acc77}} 
+\index{ImageServer@{ImageServer}!LoadGraph@{LoadGraph}}
+\index{LoadGraph@{LoadGraph}!ImageServer@{ImageServer}}
+\doxysubsubsection{\texorpdfstring{LoadGraph()}{LoadGraph()}}
+{\footnotesize\ttfamily int Image\+Server\+::\+Load\+Graph (\begin{DoxyParamCaption}\item[{std\+::string}]{filename }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+読み込み済のファイル出なければmapに登録 
+
+
+\begin{DoxyParams}{引数}
+{\em filename} & 読み込むファイル名 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+読み込んだ値、読み込み済みなら-\/1を返す 
+\end{DoxyReturn}
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_image_server_8h}{Image\+Server.\+h}}\item 
+Image\+Server.\+cpp\end{DoxyCompactItemize}

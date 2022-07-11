@@ -12,12 +12,8 @@
 #include <vector>
 #include "Math.h"
 #include "InputManager.h"
-#include "SplitWindow.h"
-#include "ActorServer.h"
-#include "Player.h"
-#include "MapChip.h"
-#include "Camera.h"
-#include "ReconPlayer.h"
+#include "ModeServer.h"
+
 
 constexpr int screen_W{1920};//<ウィンドウの解像度：横
 constexpr int screen_H{1080};//<ウィンドウの解像度：縦
@@ -37,15 +33,9 @@ class Game {
 		 * @return インプットマネージャーの参照を返す
 		 */
 		inline  auto GetInputManager() { return _inputManager; }
-		inline  auto& GetMapChips() { return _mapChips; }
-		inline  auto& GetActorServer() { return _actorServer; }
-		inline auto& GetSplitWindow() { return _splitWindow; }
+
 
 	private:
 		std::shared_ptr<InputManager> _inputManager;
-		std::unique_ptr<MapChips>_mapChips;
-		std::vector<std::unique_ptr<SplitWindow>>_splitWindow;
-
-	protected:
-		std::unique_ptr <ActorServer> _actorServer;
+		std::unique_ptr<ModeServer> _modeServer;
 };

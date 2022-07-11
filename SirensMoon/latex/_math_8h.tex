@@ -1,0 +1,55 @@
+\hypertarget{_math_8h}{}\doxysection{Math.\+h ファイル}
+\label{_math_8h}\index{Math.h@{Math.h}}
+
+
+2Dベクトル計算  
+
+
+{\ttfamily \#include $<$Dx\+Lib.\+h$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+\doxysubsection*{クラス}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_vector2}{Vector2}}
+\end{DoxyCompactItemize}
+\doxysubsection*{関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{_math_8h_a3cb686c95bbcce3f8a96a9214263aaaa}\label{_math_8h_a3cb686c95bbcce3f8a96a9214263aaaa}} 
+float {\bfseries Math\+::\+To\+Radians} (float degrees)
+\item 
+\mbox{\Hypertarget{_math_8h_a0d041d1f5cd6c4ee20734f24f6abf1f0}\label{_math_8h_a0d041d1f5cd6c4ee20734f24f6abf1f0}} 
+float {\bfseries Math\+::\+To\+Degrees} (float radians)
+\item 
+\mbox{\Hypertarget{_math_8h_af8f40a36d58f6b3e327438b1463cc3b4}\label{_math_8h_af8f40a36d58f6b3e327438b1463cc3b4}} 
+{\footnotesize template$<$typename T $>$ }\\T {\bfseries Math\+::\+Max} (const T \&a, const T \&b)
+\item 
+\mbox{\Hypertarget{_math_8h_aec7764d447f7491c4d3b02da52ea1ea9}\label{_math_8h_aec7764d447f7491c4d3b02da52ea1ea9}} 
+{\footnotesize template$<$typename T $>$ }\\T {\bfseries Math\+::\+Min} (const T \&a, const T \&b)
+\item 
+\mbox{\Hypertarget{_math_8h_ae348b8156aa833e26c8446c6ab457bd9}\label{_math_8h_ae348b8156aa833e26c8446c6ab457bd9}} 
+{\footnotesize template$<$typename T $>$ }\\T {\bfseries Math\+::\+Clamp} (const T \&value, const T \&lower, const T \&upper)
+\end{DoxyCompactItemize}
+\doxysubsection*{変数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{_math_8h_aa3f48e418d176ec45c1b89f642480d96}\label{_math_8h_aa3f48e418d176ec45c1b89f642480d96}} 
+constexpr float {\bfseries Math\+::\+Pi} = 3.\+1415926535f
+\item 
+\mbox{\Hypertarget{_math_8h_a95310e73c51a41df4412cf53cb9d6a8d}\label{_math_8h_a95310e73c51a41df4412cf53cb9d6a8d}} 
+constexpr float {\bfseries Math\+::\+Two\+Pi} = Pi $\ast$ 2.\+0f
+\item 
+\mbox{\Hypertarget{_math_8h_aff23346756bef7da8cfe3227fe892bfe}\label{_math_8h_aff23346756bef7da8cfe3227fe892bfe}} 
+constexpr float {\bfseries Math\+::\+Pi\+Over2} = Pi / 2.\+0f
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{詳解}
+2Dベクトル計算 
+
+\begin{DoxyAuthor}{著者}
+土居将太郎 
+\end{DoxyAuthor}
+\begin{DoxyDate}{日付}
+June 2022 
+\end{DoxyDate}

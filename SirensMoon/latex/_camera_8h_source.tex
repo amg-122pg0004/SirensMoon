@@ -1,0 +1,41 @@
+\hypertarget{_camera_8h_source}{}\doxysection{Camera.\+h}
+\mbox{\hyperlink{_camera_8h}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/*****************************************************************/}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_game_8h}{Game.h}}"{}}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_split_window_8h}{SplitWindow.h}}"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{class }\mbox{\hyperlink{class_game}{Game}};}
+\DoxyCodeLine{14 \textcolor{keyword}{class }\mbox{\hyperlink{class_split_window}{SplitWindow}};}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{class }\mbox{\hyperlink{class_camera}{Camera}} \{}
+\DoxyCodeLine{17     \textcolor{keyword}{public}:}
+\DoxyCodeLine{18         \mbox{\hyperlink{class_camera}{Camera}}(\mbox{\hyperlink{class_game}{Game}}\&game,\mbox{\hyperlink{class_split_window}{SplitWindow}}\&sw);}
+\DoxyCodeLine{19         \textcolor{keywordtype}{void} Update(\textcolor{keywordtype}{int} playernum);\textcolor{comment}{//<カメラの移動}}
+\DoxyCodeLine{20         \mbox{\hyperlink{class_vector2}{Vector2}} GetPosition() \{ \textcolor{keywordflow}{return} \_pos; \}\textcolor{comment}{//<カメラ座標の取得}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22         \textcolor{keyword}{enum class} ChangeDir \{}
+\DoxyCodeLine{23             UP,}
+\DoxyCodeLine{24             DOWN,}
+\DoxyCodeLine{25             LEFT,}
+\DoxyCodeLine{26             RIGHT}
+\DoxyCodeLine{27         \};}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29         \textcolor{keywordtype}{void} ChangePosition(ChangeDir direction);}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31         }
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#ifdef \_DEBUG}}
+\DoxyCodeLine{33         \textcolor{keywordtype}{void} Render(\textcolor{keywordtype}{int} x,\textcolor{keywordtype}{int} y);\textcolor{comment}{//カメラの位置座標表示}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{35     \textcolor{keyword}{private}:}
+\DoxyCodeLine{36         \mbox{\hyperlink{class_game}{Game}}\& \_game;\textcolor{comment}{//<Game参照}}
+\DoxyCodeLine{37         \mbox{\hyperlink{class_split_window}{SplitWindow}}\& \_splitWindow; \textcolor{comment}{//<SplitWindow参照}}
+\DoxyCodeLine{38         std::shared\_ptr<InputManager> \_inputManager;\textcolor{comment}{//<InputManagerの参照}}
+\DoxyCodeLine{39         \textcolor{keywordtype}{int} \_speed;\textcolor{comment}{//<カメラの移動速度}}
+\DoxyCodeLine{40         \mbox{\hyperlink{class_vector2}{Vector2}} \_pos;\textcolor{comment}{//<カメラの位置座標}}
+\DoxyCodeLine{41         \mbox{\hyperlink{class_vector2}{Vector2}} \_stageSize;\textcolor{comment}{//<ステージの大きさ}}
+\DoxyCodeLine{42 \};}
+
+\end{DoxyCode}

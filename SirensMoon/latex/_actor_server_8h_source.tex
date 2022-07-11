@@ -1,0 +1,50 @@
+\hypertarget{_actor_server_8h_source}{}\doxysection{Actor\+Server.\+h}
+\mbox{\hyperlink{_actor_server_8h}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/*****************************************************************/}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_actor_8h}{Actor.h}}"{}}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_math_8h}{Math.h}}"{}}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{class }\mbox{\hyperlink{class_actor}{Actor}};}
+\DoxyCodeLine{16 \textcolor{keyword}{class }\mbox{\hyperlink{class_game}{Game}};}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{keyword}{class }\mbox{\hyperlink{class_actor_server}{ActorServer}} \{}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20     \textcolor{keyword}{public}:}
+\DoxyCodeLine{21         \mbox{\hyperlink{class_actor_server}{ActorServer}}(\mbox{\hyperlink{class_game}{Game}}\&);}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23         \textcolor{keyword}{typedef} std::vector<std::unique\_ptr<Actor>> TypeActors;}
+\DoxyCodeLine{24         TypeActors\& GetObjects() \{ \textcolor{keywordflow}{return} \_typeActors; \}}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26         \textcolor{keywordtype}{void} Clear();}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{29         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_actor_server_a7fd10edf3f054946d42d4d7d57c7d6b0}{Add}}(std::unique\_ptr<Actor> actor);}
+\DoxyCodeLine{30         \textcolor{keywordtype}{void} Delete(\mbox{\hyperlink{class_actor}{Actor}}\& actor);}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32         }
+\DoxyCodeLine{33         \textcolor{keywordtype}{void} Update(); \textcolor{comment}{//<各アクターのUpdateを呼び出す}}
+\DoxyCodeLine{34         \textcolor{keywordtype}{void} StandardRender(\textcolor{keywordtype}{int} stageNum,\mbox{\hyperlink{class_vector2}{Vector2}} windowPos, \mbox{\hyperlink{class_vector2}{Vector2}} cameraPos); \textcolor{comment}{//<各アクターのRenderを呼び出す}}
+\DoxyCodeLine{35         \textcolor{keywordtype}{void} ReconRender(\textcolor{keywordtype}{int} stageNum, \mbox{\hyperlink{class_vector2}{Vector2}} windowPos, \mbox{\hyperlink{class_vector2}{Vector2}} cameraPos);}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37         \textcolor{keywordtype}{void} Debug(\textcolor{keywordtype}{int} stageNum, \mbox{\hyperlink{class_vector2}{Vector2}} window\_pos, \mbox{\hyperlink{class_vector2}{Vector2}} camera\_pos);}
+\DoxyCodeLine{38     \textcolor{keyword}{private}:}
+\DoxyCodeLine{39         TypeActors \_typeActors;}
+\DoxyCodeLine{40         TypeActors \_pendingTypeActors;}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42         \textcolor{comment}{/*Actors範囲ループが回っていない事を確認するためのフラグ*/}}
+\DoxyCodeLine{43         \textcolor{keywordtype}{bool} \_updating; }
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45         \textcolor{comment}{/*ペンディングのActorをゲーム内に追加*/}}
+\DoxyCodeLine{46         \textcolor{keywordtype}{void} AddPendingActors();}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48         \textcolor{keywordtype}{void} DeleteObjects();}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50         \mbox{\hyperlink{class_game}{Game}}\& \_game;}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52 \};}
+
+\end{DoxyCode}

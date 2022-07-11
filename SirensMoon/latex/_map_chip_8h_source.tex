@@ -1,0 +1,59 @@
+\hypertarget{_map_chip_8h_source}{}\doxysection{Map\+Chip.\+h}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include "{}picojson/picojson.h"{}}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_math_8h}{Math.h}}"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_actor_8h}{Actor.h}}"{}}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{keyword}{class }\mbox{\hyperlink{class_game}{Game}};}
+\DoxyCodeLine{8 \textcolor{keyword}{class }\mbox{\hyperlink{class_split_window}{SplitWindow}};}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{keyword}{class }\mbox{\hyperlink{class_map_chip}{MapChip}} \{}
+\DoxyCodeLine{11 \textcolor{keyword}{public}:}
+\DoxyCodeLine{12     \textcolor{keywordtype}{int} \_id;}
+\DoxyCodeLine{13 \};}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{class }\mbox{\hyperlink{class_map_chips}{MapChips}} \{}
+\DoxyCodeLine{16 \textcolor{keyword}{public}:}
+\DoxyCodeLine{17     \mbox{\hyperlink{class_map_chips}{MapChips}}(\mbox{\hyperlink{class_game}{Game}}\& game);}
+\DoxyCodeLine{18     \mbox{\hyperlink{class_map_chips}{\string~MapChips}}();}
+\DoxyCodeLine{19     \textcolor{keywordtype}{bool} LoadMap(std::string folderpath, std::string filename);}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{27     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_map_chips_a31431a670ac683e9332625aa62404c08}{Render}}(\textcolor{keywordtype}{int} stageNum, \mbox{\hyperlink{class_vector2}{Vector2}} windowPos, \mbox{\hyperlink{class_vector2}{Vector2}} cameraPos);}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29     \textcolor{keywordtype}{void} StandardRender(\textcolor{keywordtype}{int} stageNum, \mbox{\hyperlink{class_vector2}{Vector2}} windowPos, \mbox{\hyperlink{class_vector2}{Vector2}} cameraPos);}
+\DoxyCodeLine{30     \textcolor{keywordtype}{void} ReconRender(\textcolor{keywordtype}{int} stageNum, \mbox{\hyperlink{class_vector2}{Vector2}} windowPos, \mbox{\hyperlink{class_vector2}{Vector2}} cameraPos);}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32     \textcolor{keywordtype}{int} GetChipSize\_H() \{ \textcolor{keywordflow}{return} \_chipSize\_H; \}}
+\DoxyCodeLine{33     \textcolor{keywordtype}{int} GetChipSize\_W() \{ \textcolor{keywordflow}{return} \_chipSize\_W; \}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35     \textcolor{keywordtype}{int} CheckHitChipNo(\textcolor{keywordtype}{int} objectstage, \textcolor{keywordtype}{int} x, \textcolor{keywordtype}{int} y);}
+\DoxyCodeLine{36     \textcolor{keywordtype}{bool} IsHit(\textcolor{keywordtype}{int} objectstage, \mbox{\hyperlink{class_actor}{Actor}}\& o);}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{keyword}{private}:}
+\DoxyCodeLine{40     \mbox{\hyperlink{class_game}{Game}}\& \_game;}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42     \textcolor{keywordtype}{int} \_mapSize\_W;}
+\DoxyCodeLine{43     \textcolor{keywordtype}{int} \_mapSize\_H;}
+\DoxyCodeLine{44     \textcolor{keywordtype}{int} \_mapSize\_Layer;}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46     \textcolor{keywordtype}{int} \_chipCount;}
+\DoxyCodeLine{47     \textcolor{keywordtype}{int} \_chipCount\_W;}
+\DoxyCodeLine{48     \textcolor{keywordtype}{int} \_chipCount\_H;}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50     \textcolor{keywordtype}{int} \_chipSize\_W;}
+\DoxyCodeLine{51     \textcolor{keywordtype}{int} \_chipSize\_H;}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53     \textcolor{comment}{/*マップデータ*/}}
+\DoxyCodeLine{54     std::vector<std::vector<std::vector<std::vector<MapChip>>>> \_mapDataStandard;}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56     std::vector<std::vector<std::vector<Vector2>>> \_mapDataRecon;}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58     std::vector<int> \_cgChip;}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60 \};}
+
+\end{DoxyCode}

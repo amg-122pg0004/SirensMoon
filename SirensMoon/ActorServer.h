@@ -18,7 +18,7 @@ class Game;
 class ActorServer {
 
 	public:
-		ActorServer();
+		ActorServer(Game&);
 
 		typedef std::vector<std::unique_ptr<Actor>> TypeActors;
 		TypeActors& GetObjects() { return _typeActors; }
@@ -46,5 +46,7 @@ class ActorServer {
 		void AddPendingActors();
 
 		void DeleteObjects();
+
+		Game& _game;
 
 };

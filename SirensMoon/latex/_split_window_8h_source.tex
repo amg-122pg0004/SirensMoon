@@ -1,0 +1,46 @@
+\hypertarget{_split_window_8h_source}{}\doxysection{Split\+Window.\+h}
+\mbox{\hyperlink{_split_window_8h}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/*****************************************************************/}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_camera_8h}{Camera.h}}"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_actor_server_8h}{ActorServer.h}}"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}Darkness.h"{}}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{class }\mbox{\hyperlink{class_camera}{Camera}};}
+\DoxyCodeLine{16 \textcolor{keyword}{class }\mbox{\hyperlink{class_darkness}{Darkness}};}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{keyword}{class }\mbox{\hyperlink{class_split_window}{SplitWindow}} \{}
+\DoxyCodeLine{19     \textcolor{keyword}{public}:}
+\DoxyCodeLine{20         \mbox{\hyperlink{class_split_window}{SplitWindow}}(\mbox{\hyperlink{class_game}{Game}}\&, \textcolor{keywordtype}{int} pos\_x, \textcolor{keywordtype}{int} pos\_y,\textcolor{keywordtype}{int} window\_no);}
+\DoxyCodeLine{21         \textcolor{keywordtype}{void} Update();}
+\DoxyCodeLine{22         \textcolor{keywordtype}{void} Render();}
+\DoxyCodeLine{23         \textcolor{keywordtype}{void} Debug();}
+\DoxyCodeLine{24         std::unique\_ptr<Camera>\& GetCamera() \{ \textcolor{keywordflow}{return} \_camera; \}}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26         \textcolor{keywordtype}{int} GetRenderStage() \{ \textcolor{keywordflow}{return} \_renderStage; \}}
+\DoxyCodeLine{27         \textcolor{keywordtype}{int} GetWindowSize\_W() \{\textcolor{keywordflow}{return} \_windowSize\_W;\}}
+\DoxyCodeLine{28         \textcolor{keywordtype}{int} GetWindowSize\_H() \{ \textcolor{keywordflow}{return} \_windowSize\_H;\}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30         \textcolor{keywordtype}{void} ChangeRenderStage(\textcolor{keywordtype}{int} changedelta);}
+\DoxyCodeLine{31     \textcolor{keyword}{private}:}
+\DoxyCodeLine{32         \textcolor{keywordtype}{int} \_windowSize\_W;}
+\DoxyCodeLine{33         \textcolor{keywordtype}{int} \_windowSize\_H;}
+\DoxyCodeLine{34         \mbox{\hyperlink{class_vector2}{Vector2}} \_windowPos;}
+\DoxyCodeLine{35         std::unique\_ptr<Camera> \_camera;}
+\DoxyCodeLine{36         \mbox{\hyperlink{class_game}{Game}}\& \_game;}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38         std::unique\_ptr<Darkness> \_darkness;}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40         \textcolor{comment}{/*暗闇表現用のスクリーンハンドル*/}}
+\DoxyCodeLine{41         \textcolor{keywordtype}{int} \_darknessScreen;}
+\DoxyCodeLine{42         \textcolor{comment}{/*分割画面内に通常レンダリングするスクリーンハンドル*/}}
+\DoxyCodeLine{43         \textcolor{keywordtype}{int} \_normalScreen;}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46         \textcolor{keywordtype}{int} \_windowNo;}
+\DoxyCodeLine{47         \textcolor{keywordtype}{int} \_renderStage;}
+\DoxyCodeLine{48 \}; }
+
+\end{DoxyCode}

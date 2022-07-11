@@ -1,0 +1,46 @@
+\hypertarget{_game_8h_source}{}\doxysection{Game.\+h}
+\mbox{\hyperlink{_game_8h}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/*****************************************************************/}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <DxLib.h>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_math_8h}{Math.h}}"{}}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_input_manager_8h}{InputManager.h}}"{}}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_split_window_8h}{SplitWindow.h}}"{}}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_actor_server_8h}{ActorServer.h}}"{}}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_player_8h}{Player.h}}"{}}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include "{}MapChip.h"{}}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_camera_8h}{Camera.h}}"{}}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include "{}ReconPlayer.h"{}}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} screen\_W\{1920\};\textcolor{comment}{//<ウィンドウの解像度：横}}
+\DoxyCodeLine{23 \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} screen\_H\{1080\};\textcolor{comment}{//<ウィンドウの解像度：縦}}
+\DoxyCodeLine{24 \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} screen\_Depth\{32\};\textcolor{comment}{//<ウィンドウの色数(bit)}}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26 \textcolor{keyword}{class }\mbox{\hyperlink{class_game}{Game}} \{}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28     \textcolor{keyword}{public}:}
+\DoxyCodeLine{29         \mbox{\hyperlink{class_game}{Game}}();\textcolor{comment}{//<Gameコンストラクタ}}
+\DoxyCodeLine{30         \textcolor{keywordtype}{void} Input();\textcolor{comment}{//<入力の取得}}
+\DoxyCodeLine{31         \textcolor{keywordtype}{void} Update();\textcolor{comment}{//<計算、更新}}
+\DoxyCodeLine{32         \textcolor{keywordtype}{void} Render();\textcolor{comment}{//<描画更新}}
+\DoxyCodeLine{33         \textcolor{keywordtype}{void} Debug();\textcolor{comment}{//<デバッグ用表示}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{39         \textcolor{keyword}{inline}  \textcolor{keyword}{auto} \mbox{\hyperlink{class_game_a6612e8447cc4810f4c2a87197df93a7d}{GetInputManager}}() \{ \textcolor{keywordflow}{return} \_inputManager; \}}
+\DoxyCodeLine{40         \textcolor{keyword}{inline}  \textcolor{keyword}{auto}\& GetMapChips() \{ \textcolor{keywordflow}{return} \_mapChips; \}}
+\DoxyCodeLine{41         \textcolor{keyword}{inline}  \textcolor{keyword}{auto}\& GetActorServer() \{ \textcolor{keywordflow}{return} \_actorServer; \}}
+\DoxyCodeLine{42         \textcolor{keyword}{inline} \textcolor{keyword}{auto}\& GetSplitWindow() \{ \textcolor{keywordflow}{return} \_splitWindow; \}}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44     \textcolor{keyword}{private}:}
+\DoxyCodeLine{45         std::shared\_ptr<InputManager> \_inputManager;}
+\DoxyCodeLine{46         std::unique\_ptr<MapChips>\_mapChips;}
+\DoxyCodeLine{47         std::vector<std::unique\_ptr<SplitWindow>>\_splitWindow;}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{50         std::unique\_ptr <ActorServer> \_actorServer;}
+\DoxyCodeLine{51 \};}
+
+\end{DoxyCode}

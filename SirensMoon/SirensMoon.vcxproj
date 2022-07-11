@@ -156,6 +156,9 @@
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="MapChip.cpp" />
     <ClCompile Include="Math.cpp" />
+    <ClCompile Include="ModeBase.cpp" />
+    <ClCompile Include="ModeGame.cpp" />
+    <ClCompile Include="ModeServer.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ReconPlayer.cpp" />
     <ClCompile Include="SplitWindow.cpp" />
@@ -175,6 +178,9 @@
     <ClInclude Include="Light.h" />
     <ClInclude Include="MapChip.h" />
     <ClInclude Include="Math.h" />
+    <ClInclude Include="ModeBase.h" />
+    <ClInclude Include="ModeGame.h" />
+    <ClInclude Include="ModeServer.h" />
     <ClInclude Include="picojson\picojson.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ReconPlayer.h" />

@@ -1,0 +1,31 @@
+\hypertarget{_mode_base_8h_source}{}\doxysection{Mode\+Base.\+h}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{keyword}{class }\mbox{\hyperlink{class_game}{Game}};}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include    "{}\mbox{\hyperlink{_actor_server_8h}{ActorServer.h}}"{}}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{keyword}{class }\mbox{\hyperlink{class_mode_base}{ModeBase}} \{}
+\DoxyCodeLine{8 \textcolor{keyword}{public}:}
+\DoxyCodeLine{9     \mbox{\hyperlink{class_mode_base}{ModeBase}}(\mbox{\hyperlink{class_game}{Game}}\& game);}
+\DoxyCodeLine{10     \textcolor{keyword}{virtual} \mbox{\hyperlink{class_mode_base}{\string~ModeBase}}();}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Update();  \textcolor{comment}{// 更新}}
+\DoxyCodeLine{13     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Render();  \textcolor{comment}{// 描画}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15     \textcolor{keyword}{virtual} \mbox{\hyperlink{class_actor_server}{ActorServer}}\& GetObjectServer() \{ \textcolor{keywordflow}{return} \_actorServer; \}}
+\DoxyCodeLine{16     \textcolor{keyword}{virtual} ActorServer::TypeActors GetObjects() \{ \textcolor{keywordflow}{return} \_actorServer.GetObjects(); \}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18     \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool}    IsDead() \{ \textcolor{keywordflow}{return} \_dead; \}}
+\DoxyCodeLine{19     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void}    Dead() \{ \_dead = \textcolor{keyword}{true}; \}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{22     \mbox{\hyperlink{class_game}{Game}}\& \_game;}
+\DoxyCodeLine{23     \textcolor{keywordtype}{bool}    \_dead;}
+\DoxyCodeLine{24     \mbox{\hyperlink{class_actor_server}{ActorServer}}  \_actorServer;}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26 \};}
+
+\end{DoxyCode}

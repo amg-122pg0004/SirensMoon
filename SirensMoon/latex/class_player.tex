@@ -1,0 +1,99 @@
+\hypertarget{class_player}{}\doxysection{Player クラス}
+\label{class_player}\index{Player@{Player}}
+Player の継承関係図\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_player}
+\end{center}
+\end{figure}
+\doxysubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_player_a20c763a767b1d530783664f0f6c5e53d}\label{class_player_a20c763a767b1d530783664f0f6c5e53d}} 
+{\bfseries Player} (\mbox{\hyperlink{class_game}{Game}} \&game, int playernum)
+\item 
+void \mbox{\hyperlink{class_player_a5e17be3418fa0ac0192c05efaf3dc8bd}{Update}} () override
+\item 
+void \mbox{\hyperlink{class_player_a34ef78750ff153ca12e323146621f232}{Standard\+Render}} (int stage\+Num, \mbox{\hyperlink{class_vector2}{Vector2}} window\+\_\+pos, \mbox{\hyperlink{class_vector2}{Vector2}} camera\+\_\+pos) override
+\item 
+void \mbox{\hyperlink{class_player_a1d8aece0abe082bb9fe97366ae21e467}{Recon\+Render}} (int stage\+Num, \mbox{\hyperlink{class_vector2}{Vector2}} window\+\_\+pos, \mbox{\hyperlink{class_vector2}{Vector2}} camera\+\_\+pos) override
+\item 
+Type \mbox{\hyperlink{class_player_a6202ca256f115c63241101a74a544ef0}{Get\+Type}} () override
+\item 
+\mbox{\Hypertarget{class_player_ae21ce0d2ff39fda8ea7dd7d0072385ee}\label{class_player_ae21ce0d2ff39fda8ea7dd7d0072385ee}} 
+int {\bfseries Get\+Player\+Num} ()
+\item 
+\mbox{\Hypertarget{class_player_a8746f750b36da18dff7a34da2e04b2eb}\label{class_player_a8746f750b36da18dff7a34da2e04b2eb}} 
+void {\bfseries Move} ()
+\item 
+\mbox{\Hypertarget{class_player_afbf961daf7a04f2eff00b38e20129789}\label{class_player_afbf961daf7a04f2eff00b38e20129789}} 
+void {\bfseries Check\+Stress} ()
+\item 
+\mbox{\Hypertarget{class_player_a9c209076fbd6db15d3dea5ab7ccfe7fe}\label{class_player_a9c209076fbd6db15d3dea5ab7ccfe7fe}} 
+void {\bfseries Gun\+Shoot} ()
+\item 
+\mbox{\Hypertarget{class_player_a78ff661de2c02186b80dfd5f2f20fc1a}\label{class_player_a78ff661de2c02186b80dfd5f2f20fc1a}} 
+void {\bfseries Open\+Map} ()
+\item 
+void \mbox{\hyperlink{class_player_a62e2b3deb3666fc270262b9bfe8ed122}{Debug}} (int stage\+Num, \mbox{\hyperlink{class_vector2}{Vector2}} window\+\_\+pos, \mbox{\hyperlink{class_vector2}{Vector2}} camera\+\_\+pos) override
+\end{DoxyCompactItemize}
+\doxysubsection*{その他の継承メンバ}
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{class_player_a62e2b3deb3666fc270262b9bfe8ed122}\label{class_player_a62e2b3deb3666fc270262b9bfe8ed122}} 
+\index{Player@{Player}!Debug@{Debug}}
+\index{Debug@{Debug}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{Debug()}{Debug()}}
+{\footnotesize\ttfamily void Player\+::\+Debug (\begin{DoxyParamCaption}\item[{int}]{stage\+Num,  }\item[{\mbox{\hyperlink{class_vector2}{Vector2}}}]{window\+\_\+pos,  }\item[{\mbox{\hyperlink{class_vector2}{Vector2}}}]{camera\+\_\+pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+\mbox{\hyperlink{class_actor}{Actor}}を再実装しています。
+
+\mbox{\Hypertarget{class_player_a6202ca256f115c63241101a74a544ef0}\label{class_player_a6202ca256f115c63241101a74a544ef0}} 
+\index{Player@{Player}!GetType@{GetType}}
+\index{GetType@{GetType}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{GetType()}{GetType()}}
+{\footnotesize\ttfamily Type Player\+::\+Get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+\mbox{\hyperlink{class_actor}{Actor}}を再実装しています。
+
+\mbox{\Hypertarget{class_player_a1d8aece0abe082bb9fe97366ae21e467}\label{class_player_a1d8aece0abe082bb9fe97366ae21e467}} 
+\index{Player@{Player}!ReconRender@{ReconRender}}
+\index{ReconRender@{ReconRender}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{ReconRender()}{ReconRender()}}
+{\footnotesize\ttfamily void Player\+::\+Recon\+Render (\begin{DoxyParamCaption}\item[{int}]{stage\+Num,  }\item[{\mbox{\hyperlink{class_vector2}{Vector2}}}]{window\+\_\+pos,  }\item[{\mbox{\hyperlink{class_vector2}{Vector2}}}]{camera\+\_\+pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+\mbox{\hyperlink{class_actor}{Actor}}を再実装しています。
+
+\mbox{\Hypertarget{class_player_a34ef78750ff153ca12e323146621f232}\label{class_player_a34ef78750ff153ca12e323146621f232}} 
+\index{Player@{Player}!StandardRender@{StandardRender}}
+\index{StandardRender@{StandardRender}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{StandardRender()}{StandardRender()}}
+{\footnotesize\ttfamily void Player\+::\+Standard\+Render (\begin{DoxyParamCaption}\item[{int}]{stage\+Num,  }\item[{\mbox{\hyperlink{class_vector2}{Vector2}}}]{window\+\_\+pos,  }\item[{\mbox{\hyperlink{class_vector2}{Vector2}}}]{camera\+\_\+pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+\mbox{\hyperlink{class_actor}{Actor}}を再実装しています。
+
+\mbox{\Hypertarget{class_player_a5e17be3418fa0ac0192c05efaf3dc8bd}\label{class_player_a5e17be3418fa0ac0192c05efaf3dc8bd}} 
+\index{Player@{Player}!Update@{Update}}
+\index{Update@{Update}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void Player\+::\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+\mbox{\hyperlink{class_actor}{Actor}}を再実装しています。
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_player_8h}{Player.\+h}}\item 
+Player.\+cpp\end{DoxyCompactItemize}

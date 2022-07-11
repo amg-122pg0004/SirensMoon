@@ -62,7 +62,13 @@
       <UniqueIdentifier>{13fa08dd-107a-41f1-b5a6-a81f8c9f9ee0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Mode">
-      <UniqueIdentifier>{f529ad92-31fa-40fb-a42e-c8b01c6b26a8}</UniqueIdentifier>
+      <UniqueIdentifier>{a56e1825-39d9-4692-9f98-edf628dd3c07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mode\ModeGame">
+      <UniqueIdentifier>{016bbaa5-dccd-49fa-9178-98d6537fa3cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ModeServer">
+      <UniqueIdentifier>{246b0c6e-9763-45ff-b568-b06a5712ddb5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -117,6 +123,15 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Actor\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="ModeBase.cpp">
+      <Filter>Mode</Filter>
+    </ClCompile>
+    <ClCompile Include="ModeGame.cpp">
+      <Filter>Mode\ModeGame</Filter>
+    </ClCompile>
+    <ClCompile Include="ModeServer.cpp">
+      <Filter>ModeServer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -169,6 +184,15 @@
     </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>Actor\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="ModeBase.h">
+      <Filter>Mode</Filter>
+    </ClInclude>
+    <ClInclude Include="ModeGame.h">
+      <Filter>Mode\ModeGame</Filter>
+    </ClInclude>
+    <ClInclude Include="ModeServer.h">
+      <Filter>ModeServer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

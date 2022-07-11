@@ -1,0 +1,57 @@
+\hypertarget{class_map_chips}{}\doxysection{Map\+Chips クラス}
+\label{class_map_chips}\index{MapChips@{MapChips}}
+\doxysubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_map_chips_ac1ddaad5a21f835b5569bd0879986de5}\label{class_map_chips_ac1ddaad5a21f835b5569bd0879986de5}} 
+{\bfseries Map\+Chips} (\mbox{\hyperlink{class_game}{Game}} \&game)
+\item 
+\mbox{\Hypertarget{class_map_chips_ab00b100581580e731cf788986ff8c9d5}\label{class_map_chips_ab00b100581580e731cf788986ff8c9d5}} 
+bool {\bfseries Load\+Map} (std\+::string folderpath, std\+::string filename)
+\item 
+void \mbox{\hyperlink{class_map_chips_a31431a670ac683e9332625aa62404c08}{Render}} (int stage\+Num, \mbox{\hyperlink{class_vector2}{Vector2}} window\+Pos, \mbox{\hyperlink{class_vector2}{Vector2}} camera\+Pos)
+\begin{DoxyCompactList}\small\item\em タイルの表示を行う関数 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_map_chips_a4844b8b48c369ff6cf02ee4b8e7020c3}\label{class_map_chips_a4844b8b48c369ff6cf02ee4b8e7020c3}} 
+void {\bfseries Standard\+Render} (int stage\+Num, \mbox{\hyperlink{class_vector2}{Vector2}} window\+Pos, \mbox{\hyperlink{class_vector2}{Vector2}} camera\+Pos)
+\item 
+\mbox{\Hypertarget{class_map_chips_ab4dd1d6bf8b63bf338786c5b109704dd}\label{class_map_chips_ab4dd1d6bf8b63bf338786c5b109704dd}} 
+void {\bfseries Recon\+Render} (int stage\+Num, \mbox{\hyperlink{class_vector2}{Vector2}} window\+Pos, \mbox{\hyperlink{class_vector2}{Vector2}} camera\+Pos)
+\item 
+\mbox{\Hypertarget{class_map_chips_a96f709f7004d2214501535fec75433b1}\label{class_map_chips_a96f709f7004d2214501535fec75433b1}} 
+int {\bfseries Get\+Chip\+Size\+\_\+H} ()
+\item 
+\mbox{\Hypertarget{class_map_chips_a6a9bd0f81ac22ca0791d96620a5448a3}\label{class_map_chips_a6a9bd0f81ac22ca0791d96620a5448a3}} 
+int {\bfseries Get\+Chip\+Size\+\_\+W} ()
+\item 
+\mbox{\Hypertarget{class_map_chips_a6c054bf62eceabc556e24a2e9278523c}\label{class_map_chips_a6c054bf62eceabc556e24a2e9278523c}} 
+int {\bfseries Check\+Hit\+Chip\+No} (int objectstage, int x, int y)
+\item 
+\mbox{\Hypertarget{class_map_chips_a7cc4dd8b0471a541094eb65cf65520b7}\label{class_map_chips_a7cc4dd8b0471a541094eb65cf65520b7}} 
+bool {\bfseries Is\+Hit} (int objectstage, \mbox{\hyperlink{class_actor}{Actor}} \&o)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{class_map_chips_a31431a670ac683e9332625aa62404c08}\label{class_map_chips_a31431a670ac683e9332625aa62404c08}} 
+\index{MapChips@{MapChips}!Render@{Render}}
+\index{Render@{Render}!MapChips@{MapChips}}
+\doxysubsubsection{\texorpdfstring{Render()}{Render()}}
+{\footnotesize\ttfamily void Map\+Chips\+::\+Render (\begin{DoxyParamCaption}\item[{int}]{stage\+Num,  }\item[{\mbox{\hyperlink{class_vector2}{Vector2}}}]{window\+Pos,  }\item[{\mbox{\hyperlink{class_vector2}{Vector2}}}]{camera\+Pos }\end{DoxyParamCaption})}
+
+
+
+タイルの表示を行う関数 
+
+
+\begin{DoxyParams}{引数}
+{\em window\+Pos} & 分割画面の左上の座標 \\
+\hline
+{\em camera\+Pos} & カメラの座標(基本的に0,0) \\
+\hline
+\end{DoxyParams}
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+Map\+Chip.\+h\item 
+Map\+Chip.\+cpp\end{DoxyCompactItemize}

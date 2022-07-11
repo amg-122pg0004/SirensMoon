@@ -1,0 +1,55 @@
+\hypertarget{_actor_8h_source}{}\doxysection{Actor.\+h}
+\mbox{\hyperlink{_actor_8h}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/*****************************************************************/}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <DxLib.h>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_actor_server_8h}{ActorServer.h}}"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_math_8h}{Math.h}}"{}}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_collision_8h}{Collision.h}}"{}}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{class }\mbox{\hyperlink{class_game}{Game}};}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{keyword}{class }\mbox{\hyperlink{class_actor}{Actor}}\{}
+\DoxyCodeLine{18     \textcolor{keyword}{public}:}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20         \textcolor{keyword}{enum class} Type \{}
+\DoxyCodeLine{21             \mbox{\hyperlink{class_actor}{Actor}},}
+\DoxyCodeLine{22             \mbox{\hyperlink{class_player}{Player}},}
+\DoxyCodeLine{23             \mbox{\hyperlink{class_recon_player}{ReconPlayer}},}
+\DoxyCodeLine{24             \mbox{\hyperlink{class_enemy}{Enemy}},}
+\DoxyCodeLine{25             \mbox{\hyperlink{class_bullet}{Bullet}},}
+\DoxyCodeLine{26             \mbox{\hyperlink{class_light1}{Light1}},}
+\DoxyCodeLine{27             \mbox{\hyperlink{class_light2}{Light2}}}
+\DoxyCodeLine{28         \};}
+\DoxyCodeLine{29         \textcolor{keyword}{virtual} Type GetType();}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31         \mbox{\hyperlink{class_actor}{Actor}}(\mbox{\hyperlink{class_game}{Game}}\& game);}
+\DoxyCodeLine{32         \mbox{\hyperlink{class_actor}{\string~Actor}}();}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Update();}
+\DoxyCodeLine{35         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} StandardRender(\textcolor{keywordtype}{int} stageNum,\mbox{\hyperlink{class_vector2}{Vector2}} window\_pos, \mbox{\hyperlink{class_vector2}{Vector2}} camera\_pos);}
+\DoxyCodeLine{36         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} ReconRender(\textcolor{keywordtype}{int} stageNum, \mbox{\hyperlink{class_vector2}{Vector2}} window\_pos, \mbox{\hyperlink{class_vector2}{Vector2}} camera\_pos);}
+\DoxyCodeLine{37         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Debug(\textcolor{keywordtype}{int} stageNum, \mbox{\hyperlink{class_vector2}{Vector2}} window\_pos, \mbox{\hyperlink{class_vector2}{Vector2}} camera\_pos);}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39         \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} IsDead() \{ \textcolor{keywordflow}{return} \_dead; \}}
+\DoxyCodeLine{40         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Dead() \{ \_dead = \textcolor{keyword}{true}; \}}
+\DoxyCodeLine{41         \textcolor{keyword}{virtual} \mbox{\hyperlink{class_a_a_b_b}{AABB}} GetCollision() \{ \textcolor{keywordflow}{return} \_collision; \}}
+\DoxyCodeLine{42         \textcolor{keyword}{virtual} \mbox{\hyperlink{class_vector2}{Vector2}} GetPosition() \{ \textcolor{keywordflow}{return} \_pos; \}}
+\DoxyCodeLine{43         \textcolor{keyword}{virtual} \mbox{\hyperlink{class_vector2}{Vector2}} GetSize() \{ \textcolor{keywordflow}{return} \_size; \}}
+\DoxyCodeLine{44         \textcolor{comment}{/*ライトを所有しているか*/}}
+\DoxyCodeLine{45         \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} HaveLight() \{ \textcolor{keywordflow}{return} \_validLight; \}}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{49         \mbox{\hyperlink{class_game}{Game}}\& \_game;}
+\DoxyCodeLine{50         \mbox{\hyperlink{class_vector2}{Vector2}} \_pos,\_size;}
+\DoxyCodeLine{51         \textcolor{keywordtype}{bool} \_dead;}
+\DoxyCodeLine{52         \mbox{\hyperlink{class_a_a_b_b}{AABB}} \_collision;}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54         \textcolor{keywordtype}{int} \_stage;}
+\DoxyCodeLine{55         \textcolor{keywordtype}{bool} \_validLight;\textcolor{comment}{//<ライトを所有しているか}}
+\DoxyCodeLine{56 \};}
+\DoxyCodeLine{57 }
+
+\end{DoxyCode}

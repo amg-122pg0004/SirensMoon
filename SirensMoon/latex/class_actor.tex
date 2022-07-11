@@ -1,0 +1,95 @@
+\hypertarget{class_actor}{}\doxysection{Actor クラス}
+\label{class_actor}\index{Actor@{Actor}}
+Actor の継承関係図\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_actor}
+\end{center}
+\end{figure}
+\doxysubsection*{公開型}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_actor_a8f016a8e19c6fe5e7cceb7d5690cb9cc}\label{class_actor_a8f016a8e19c6fe5e7cceb7d5690cb9cc}} 
+enum class {\bfseries Type} \{  \}
+\end{DoxyCompactItemize}
+\doxysubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_actor_a9684db1965e2b2cb6453920bc9df6313}\label{class_actor_a9684db1965e2b2cb6453920bc9df6313}} 
+virtual Type {\bfseries Get\+Type} ()
+\item 
+\mbox{\Hypertarget{class_actor_a6f6dd87f43c958a90ba25933a04165ef}\label{class_actor_a6f6dd87f43c958a90ba25933a04165ef}} 
+{\bfseries Actor} (\mbox{\hyperlink{class_game}{Game}} \&game)
+\item 
+virtual void \mbox{\hyperlink{class_actor_a7346982443a6d51ae1b6df29d7c5427c}{Update}} ()
+\item 
+\mbox{\Hypertarget{class_actor_a111cb58ece68bccdbe0d708f6eed345d}\label{class_actor_a111cb58ece68bccdbe0d708f6eed345d}} 
+virtual void {\bfseries Standard\+Render} (int stage\+Num, \mbox{\hyperlink{class_vector2}{Vector2}} window\+\_\+pos, \mbox{\hyperlink{class_vector2}{Vector2}} camera\+\_\+pos)
+\item 
+\mbox{\Hypertarget{class_actor_ab6313877c344cdf0a61017c7f67f187a}\label{class_actor_ab6313877c344cdf0a61017c7f67f187a}} 
+virtual void {\bfseries Recon\+Render} (int stage\+Num, \mbox{\hyperlink{class_vector2}{Vector2}} window\+\_\+pos, \mbox{\hyperlink{class_vector2}{Vector2}} camera\+\_\+pos)
+\item 
+\mbox{\Hypertarget{class_actor_a284710664e62081634e26d5379b6845a}\label{class_actor_a284710664e62081634e26d5379b6845a}} 
+virtual void {\bfseries Debug} (int stage\+Num, \mbox{\hyperlink{class_vector2}{Vector2}} window\+\_\+pos, \mbox{\hyperlink{class_vector2}{Vector2}} camera\+\_\+pos)
+\item 
+\mbox{\Hypertarget{class_actor_a3778dd5b42e7d24d7d3b526671b01c51}\label{class_actor_a3778dd5b42e7d24d7d3b526671b01c51}} 
+virtual bool {\bfseries Is\+Dead} ()
+\item 
+\mbox{\Hypertarget{class_actor_af0c18f21c2aff0b6ea9f2048c7f9ed99}\label{class_actor_af0c18f21c2aff0b6ea9f2048c7f9ed99}} 
+virtual void {\bfseries Dead} ()
+\item 
+\mbox{\Hypertarget{class_actor_aee5abf36b71a4d8df2c3327f82cdc91a}\label{class_actor_aee5abf36b71a4d8df2c3327f82cdc91a}} 
+virtual \mbox{\hyperlink{class_a_a_b_b}{AABB}} {\bfseries Get\+Collision} ()
+\item 
+\mbox{\Hypertarget{class_actor_adec422d2dd519205b6df71b3522de003}\label{class_actor_adec422d2dd519205b6df71b3522de003}} 
+virtual \mbox{\hyperlink{class_vector2}{Vector2}} {\bfseries Get\+Position} ()
+\item 
+\mbox{\Hypertarget{class_actor_ae94e6a2e83c4d763f84916394a503359}\label{class_actor_ae94e6a2e83c4d763f84916394a503359}} 
+virtual \mbox{\hyperlink{class_vector2}{Vector2}} {\bfseries Get\+Size} ()
+\item 
+\mbox{\Hypertarget{class_actor_a072132c9eb62f142e96fc0cf08452d10}\label{class_actor_a072132c9eb62f142e96fc0cf08452d10}} 
+virtual bool {\bfseries Have\+Light} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{限定公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_actor_a193814b3b2feaf6eb0aa81b0018d0d8c}\label{class_actor_a193814b3b2feaf6eb0aa81b0018d0d8c}} 
+\mbox{\hyperlink{class_game}{Game}} \& {\bfseries \+\_\+game}
+\item 
+\mbox{\Hypertarget{class_actor_acfab5a694cd99a1e349953569d0ba903}\label{class_actor_acfab5a694cd99a1e349953569d0ba903}} 
+\mbox{\hyperlink{class_vector2}{Vector2}} {\bfseries \+\_\+pos}
+\item 
+\mbox{\Hypertarget{class_actor_a1a90cf8392794addebe752a9fcec708c}\label{class_actor_a1a90cf8392794addebe752a9fcec708c}} 
+\mbox{\hyperlink{class_vector2}{Vector2}} {\bfseries \+\_\+size}
+\item 
+\mbox{\Hypertarget{class_actor_ae5ab165b63d89e00a256c00c424d4325}\label{class_actor_ae5ab165b63d89e00a256c00c424d4325}} 
+bool {\bfseries \+\_\+dead}
+\item 
+\mbox{\Hypertarget{class_actor_a147c39578cda70050cdfecd3c31efd26}\label{class_actor_a147c39578cda70050cdfecd3c31efd26}} 
+\mbox{\hyperlink{class_a_a_b_b}{AABB}} {\bfseries \+\_\+collision}
+\item 
+\mbox{\Hypertarget{class_actor_a52d298666a7d21b9b8e935b2cd46197c}\label{class_actor_a52d298666a7d21b9b8e935b2cd46197c}} 
+int {\bfseries \+\_\+stage}
+\item 
+\mbox{\Hypertarget{class_actor_a26c5a8e4a6076e045fa278354adb153f}\label{class_actor_a26c5a8e4a6076e045fa278354adb153f}} 
+bool {\bfseries \+\_\+valid\+Light}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{class_actor_a7346982443a6d51ae1b6df29d7c5427c}\label{class_actor_a7346982443a6d51ae1b6df29d7c5427c}} 
+\index{Actor@{Actor}!Update@{Update}}
+\index{Update@{Update}!Actor@{Actor}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void Actor\+::\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\mbox{\hyperlink{class_enemy_af9a83b4e458b77eef0ffce785164fbcd}{Enemy}}で再実装されています。
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_actor_8h}{Actor.\+h}}\item 
+Actor.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,50 @@
+\hypertarget{_player_8h_source}{}\doxysection{Player.\+h}
+\mbox{\hyperlink{_player_8h}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/*****************************************************************/}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_actor_8h}{Actor.h}}"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_input_manager_8h}{InputManager.h}}"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_game_8h}{Game.h}}"{}}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_math_8h}{Math.h}}"{}}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include "{}Light.h"{}}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{class }\mbox{\hyperlink{class_player}{Player}} :\textcolor{keyword}{public} \mbox{\hyperlink{class_actor}{Actor}} \{}
+\DoxyCodeLine{17     \textcolor{keyword}{public}:}
+\DoxyCodeLine{18         \mbox{\hyperlink{class_player}{Player}}(\mbox{\hyperlink{class_game}{Game}}\& game,\textcolor{keywordtype}{int} playernum);}
+\DoxyCodeLine{19         \textcolor{keywordtype}{void} Update() \textcolor{keyword}{override} ;}
+\DoxyCodeLine{20         \textcolor{keywordtype}{void} StandardRender(\textcolor{keywordtype}{int} stageNum,\mbox{\hyperlink{class_vector2}{Vector2}} window\_pos,\mbox{\hyperlink{class_vector2}{Vector2}} camera\_pos) \textcolor{keyword}{override} ;}
+\DoxyCodeLine{21         \textcolor{keywordtype}{void} ReconRender(\textcolor{keywordtype}{int} stageNum, \mbox{\hyperlink{class_vector2}{Vector2}} window\_pos, \mbox{\hyperlink{class_vector2}{Vector2}} camera\_pos) \textcolor{keyword}{override};}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23         Type GetType()\textcolor{keyword}{ override }\{ \textcolor{keywordflow}{return} Type::Player; \}}
+\DoxyCodeLine{24         \textcolor{keywordtype}{int} GetPlayerNum() \{ \textcolor{keywordflow}{return} \_playerNum; \}}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26         \textcolor{keywordtype}{void} Move();}
+\DoxyCodeLine{27         \textcolor{keywordtype}{void} CheckStress();}
+\DoxyCodeLine{28         \textcolor{keywordtype}{void} GunShoot();}
+\DoxyCodeLine{29         \textcolor{keywordtype}{void} OpenMap();}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31         \textcolor{keywordtype}{void} Debug(\textcolor{keywordtype}{int} stageNum, \mbox{\hyperlink{class_vector2}{Vector2}} window\_pos, \mbox{\hyperlink{class_vector2}{Vector2}} camera\_pos)\textcolor{keyword}{override};}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33     \textcolor{keyword}{private}:}
+\DoxyCodeLine{34         std::shared\_ptr<InputManager> \_inputManager;}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36         \mbox{\hyperlink{class_vector2}{Vector2}} \_dir;\textcolor{comment}{//<キャラの向き}}
+\DoxyCodeLine{37         \mbox{\hyperlink{class_vector2}{Vector2}} \_lastDir;\textcolor{comment}{//最後に向いたキャラの向き}}
+\DoxyCodeLine{38         \mbox{\hyperlink{class_vector2}{Vector2}} \_speed;\textcolor{comment}{//移動の速さ}}
+\DoxyCodeLine{39         \textcolor{keywordtype}{double} \_speedMax;\textcolor{comment}{//移動の最大速度}}
+\DoxyCodeLine{40         \textcolor{keywordtype}{int} \_playerNum;\textcolor{comment}{//<プレイヤーの番号(0なら左プレイヤー、1なら右プレイヤー）}}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42         \textcolor{keywordtype}{float} \_stress;\textcolor{comment}{//<ストレスゲージ}}
+\DoxyCodeLine{43         \textcolor{keywordtype}{float} \_stressSpeed;\textcolor{comment}{//<ストレスゲージが変化する速度}}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45         \textcolor{comment}{/*キャラクターの画像ハンドル*/}}
+\DoxyCodeLine{46         \textcolor{keywordtype}{int} \_cg\_up;}
+\DoxyCodeLine{47         \textcolor{keywordtype}{int} \_cg\_side;}
+\DoxyCodeLine{48         \textcolor{keywordtype}{int} \_cg\_down;}
+\DoxyCodeLine{49         \textcolor{keywordtype}{int} \_cg\_recon;}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51         \textcolor{comment}{//std::unique\_ptr<Light2> \_light;}}
+\DoxyCodeLine{52 \};}
+
+\end{DoxyCode}

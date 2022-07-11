@@ -1,0 +1,52 @@
+\hypertarget{class_actor_server}{}\doxysection{Actor\+Server クラス}
+\label{class_actor_server}\index{ActorServer@{ActorServer}}
+\doxysubsection*{公開型}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_actor_server_a85300669dca38d54af94e8b8f4088e84}\label{class_actor_server_a85300669dca38d54af94e8b8f4088e84}} 
+typedef std\+::vector$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_actor}{Actor}} $>$ $>$ {\bfseries Type\+Actors}
+\end{DoxyCompactItemize}
+\doxysubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_actor_server_a2a519c89d5dd24dbc6523f4d7fd2d74a}\label{class_actor_server_a2a519c89d5dd24dbc6523f4d7fd2d74a}} 
+{\bfseries Actor\+Server} (\mbox{\hyperlink{class_game}{Game}} \&)
+\item 
+\mbox{\Hypertarget{class_actor_server_a979be306167d0259bb9a1dcafed9c167}\label{class_actor_server_a979be306167d0259bb9a1dcafed9c167}} 
+Type\+Actors \& {\bfseries Get\+Objects} ()
+\item 
+\mbox{\Hypertarget{class_actor_server_a3bd37fa45cb4f7d55981319c8e69e20f}\label{class_actor_server_a3bd37fa45cb4f7d55981319c8e69e20f}} 
+void {\bfseries Clear} ()
+\item 
+void \mbox{\hyperlink{class_actor_server_a7fd10edf3f054946d42d4d7d57c7d6b0}{Add}} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_actor}{Actor}} $>$ actor)
+\item 
+\mbox{\Hypertarget{class_actor_server_a85f29b4886d45a9cef33d774ab282c0a}\label{class_actor_server_a85f29b4886d45a9cef33d774ab282c0a}} 
+void {\bfseries Delete} (\mbox{\hyperlink{class_actor}{Actor}} \&actor)
+\item 
+\mbox{\Hypertarget{class_actor_server_aba7e7f753997cbe8780e4d5fc1e7a429}\label{class_actor_server_aba7e7f753997cbe8780e4d5fc1e7a429}} 
+void {\bfseries Update} ()
+\item 
+\mbox{\Hypertarget{class_actor_server_a907ed346fa2d4c5e4664bf3d0ad08539}\label{class_actor_server_a907ed346fa2d4c5e4664bf3d0ad08539}} 
+void {\bfseries Standard\+Render} (int stage\+Num, \mbox{\hyperlink{class_vector2}{Vector2}} window\+Pos, \mbox{\hyperlink{class_vector2}{Vector2}} camera\+Pos)
+\item 
+\mbox{\Hypertarget{class_actor_server_a88a0ee8658ff31bf8238c337e210b205}\label{class_actor_server_a88a0ee8658ff31bf8238c337e210b205}} 
+void {\bfseries Recon\+Render} (int stage\+Num, \mbox{\hyperlink{class_vector2}{Vector2}} window\+Pos, \mbox{\hyperlink{class_vector2}{Vector2}} camera\+Pos)
+\item 
+\mbox{\Hypertarget{class_actor_server_a55e4ce38b0a2b9ff1380ce595c32d7dc}\label{class_actor_server_a55e4ce38b0a2b9ff1380ce595c32d7dc}} 
+void {\bfseries Debug} (int stage\+Num, \mbox{\hyperlink{class_vector2}{Vector2}} window\+\_\+pos, \mbox{\hyperlink{class_vector2}{Vector2}} camera\+\_\+pos)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{class_actor_server_a7fd10edf3f054946d42d4d7d57c7d6b0}\label{class_actor_server_a7fd10edf3f054946d42d4d7d57c7d6b0}} 
+\index{ActorServer@{ActorServer}!Add@{Add}}
+\index{Add@{Add}!ActorServer@{ActorServer}}
+\doxysubsubsection{\texorpdfstring{Add()}{Add()}}
+{\footnotesize\ttfamily void Actor\+Server\+::\+Add (\begin{DoxyParamCaption}\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_actor}{Actor}} $>$}]{actor }\end{DoxyParamCaption})}
+
+Actorをペンディングに追加する 
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_actor_server_8h}{Actor\+Server.\+h}}\item 
+Actor\+Server.\+cpp\end{DoxyCompactItemize}

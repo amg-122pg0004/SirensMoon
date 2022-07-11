@@ -1,0 +1,48 @@
+\hypertarget{_enemy_8h_source}{}\doxysection{Enemy.\+h}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <DxLib.h>}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_actor_8h}{Actor.h}}"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_game_8h}{Game.h}}"{}}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{keyword}{class }\mbox{\hyperlink{class_enemy}{Enemy}} :\textcolor{keyword}{public} \mbox{\hyperlink{class_actor}{Actor}} \{}
+\DoxyCodeLine{8     public :}
+\DoxyCodeLine{9         \mbox{\hyperlink{class_enemy}{Enemy}}(\mbox{\hyperlink{class_game}{Game}}\& game,\mbox{\hyperlink{class_vector2}{Vector2}} setpos);}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{15         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_enemy_af9a83b4e458b77eef0ffce785164fbcd}{Update}}();}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{24         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_enemy_a252880e89eb98b94c2d41dafb048db26}{Render}}(\textcolor{keywordtype}{int} stagenum, \mbox{\hyperlink{class_vector2}{Vector2}} window\_pos, \mbox{\hyperlink{class_vector2}{Vector2}} camera\_pos);}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26         \textcolor{comment}{/*移動する座標を配列にセットする*/}}
+\DoxyCodeLine{27         \textcolor{keywordtype}{void} SetPatrolPoints();}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29         \textcolor{comment}{/*配列から次に向かう座標を取得*/}}
+\DoxyCodeLine{30         \textcolor{keywordtype}{void} GetNextPoints();}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{37         \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_enemy_a20463ca2610b2254ef353c15661d1981}{CheckReachPoint}}();}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39     \textcolor{keyword}{private}:}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41         \textcolor{comment}{/*歩くスピード*/}}
+\DoxyCodeLine{42         \textcolor{keywordtype}{int} \_speed;}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44         \textcolor{comment}{/*向かっている座標*/}}
+\DoxyCodeLine{45         \mbox{\hyperlink{class_vector2}{Vector2}} \_nextPos;}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47         }
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49         std::vector<Vector2> \_patrolPoints;}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51         \textcolor{comment}{/*CGを*/}}
+\DoxyCodeLine{52         std::vector<int> \_cg;}
+\DoxyCodeLine{53         \textcolor{comment}{/*CG変更用に使用しているステート*/}}
+\DoxyCodeLine{54         \textcolor{keyword}{enum class} State \{}
+\DoxyCodeLine{55             UP,DOWN,LEFT,RIGHT}
+\DoxyCodeLine{56         \};}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58         State \_state;}
+\DoxyCodeLine{59 \};}
+
+\end{DoxyCode}

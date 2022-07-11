@@ -1,0 +1,59 @@
+\hypertarget{class_input_manager}{}\doxysection{Input\+Manager クラス}
+\label{class_input_manager}\index{InputManager@{InputManager}}
+\doxysubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_input_manager_a80837d0520f900112c9227ad838482bd}\label{class_input_manager_a80837d0520f900112c9227ad838482bd}} 
+void {\bfseries Input\+Update} ()
+\begin{DoxyCompactList}\small\item\em 使用する各キーについてインプット状態を確認して保存 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_input_manager_a64767279f6d855140f7033f6cc5673fc}{Check\+Input}} (const std\+::string actionname, const char keystate, int playernum)
+\begin{DoxyCompactList}\small\item\em 特定のキーの入力状態を確認する \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_vector2}{Vector2}} \mbox{\hyperlink{class_input_manager_a3738fbfaa4aba8c5fee1a810449a0434}{Check\+Analog\+Input}} (const int playernum)
+\begin{DoxyCompactList}\small\item\em アナログスティックの入力状態を確認する \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{class_input_manager_a3738fbfaa4aba8c5fee1a810449a0434}\label{class_input_manager_a3738fbfaa4aba8c5fee1a810449a0434}} 
+\index{InputManager@{InputManager}!CheckAnalogInput@{CheckAnalogInput}}
+\index{CheckAnalogInput@{CheckAnalogInput}!InputManager@{InputManager}}
+\doxysubsubsection{\texorpdfstring{CheckAnalogInput()}{CheckAnalogInput()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_vector2}{Vector2}} Input\+Manager\+::\+Check\+Analog\+Input (\begin{DoxyParamCaption}\item[{const int}]{playernum }\end{DoxyParamCaption})}
+
+
+
+アナログスティックの入力状態を確認する 
+
+
+\begin{DoxyParams}{引数}
+{\em playernum} & 何個目のコントローラーか \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+入力状態をそのまま返す 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_input_manager_a64767279f6d855140f7033f6cc5673fc}\label{class_input_manager_a64767279f6d855140f7033f6cc5673fc}} 
+\index{InputManager@{InputManager}!CheckInput@{CheckInput}}
+\index{CheckInput@{CheckInput}!InputManager@{InputManager}}
+\doxysubsubsection{\texorpdfstring{CheckInput()}{CheckInput()}}
+{\footnotesize\ttfamily bool Input\+Manager\+::\+Check\+Input (\begin{DoxyParamCaption}\item[{const std\+::string}]{actionname,  }\item[{const char}]{keystate,  }\item[{int}]{playernum }\end{DoxyParamCaption})}
+
+
+
+特定のキーの入力状態を確認する 
+
+
+\begin{DoxyParams}{引数}
+{\em actionname} & 確認したいキーアクションの名前 \\
+\hline
+{\em keystate} & 確認したいキーの状態 \textquotesingle{}h\textquotesingle{}で押し続けているか？\textquotesingle{}t\textquotesingle{}で押した瞬間か？ \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+入力があればtrue 
+\end{DoxyReturn}
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_input_manager_8h}{Input\+Manager.\+h}}\item 
+\mbox{\hyperlink{_input_manager_8cpp}{Input\+Manager.\+cpp}}\end{DoxyCompactItemize}

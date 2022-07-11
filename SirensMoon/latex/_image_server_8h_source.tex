@@ -1,0 +1,30 @@
+\hypertarget{_image_server_8h_source}{}\doxysection{Image\+Server.\+h}
+\mbox{\hyperlink{_image_server_8h}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/*****************************************************************/}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include <unordered\_map>}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{keyword}{class }\mbox{\hyperlink{class_image_server}{ImageServer}} \{}
+\DoxyCodeLine{12     \textcolor{keyword}{public}:}
+\DoxyCodeLine{13         \textcolor{keyword}{static} \textcolor{keywordtype}{void} Init();\textcolor{comment}{//<\_mapGraphの初期化}}
+\DoxyCodeLine{14         \textcolor{keyword}{static} \textcolor{keywordtype}{void} Release();\textcolor{comment}{//<ClearGraph呼び出し}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16         \textcolor{keyword}{static} \textcolor{keywordtype}{void} ClearGraph();\textcolor{comment}{//<\_mapGraphデータの全削除}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{24         \textcolor{keyword}{static} \textcolor{keywordtype}{int} \mbox{\hyperlink{class_image_server_a4ae13e830039717bbb679b870e5ab08c}{Find}}(std::string filename);}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{32         \textcolor{keyword}{static} \textcolor{keywordtype}{int} \mbox{\hyperlink{class_image_server_a619060e788d3001a680b16b4640acc77}{LoadGraph}}(std::string filename);}
+\DoxyCodeLine{33         \textcolor{keyword}{static} \textcolor{keywordtype}{int} LoadDivGraph(\textcolor{keyword}{const} TCHAR* filename, \textcolor{keywordtype}{int} allnum, \textcolor{keywordtype}{int} xnum, \textcolor{keywordtype}{int} ynum, \textcolor{keywordtype}{int} xsize, \textcolor{keywordtype}{int} ysize, \textcolor{keywordtype}{int}* handlebuff);}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35     \textcolor{keyword}{private}:}
+\DoxyCodeLine{36         \textcolor{keyword}{static} std::unordered\_map<std::string, int> \_mapGraph;}
+\DoxyCodeLine{37         \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\{}
+\DoxyCodeLine{38             \textcolor{keywordtype}{int} AllNum;}
+\DoxyCodeLine{39             \textcolor{keywordtype}{int}* handle;}
+\DoxyCodeLine{40         \}DIVGRAPH;}
+\DoxyCodeLine{41         \textcolor{keyword}{static} std::unordered\_map<std::string, DIVGRAPH> \_mapDivGraph;}
+\DoxyCodeLine{42 \};}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 }
+
+\end{DoxyCode}

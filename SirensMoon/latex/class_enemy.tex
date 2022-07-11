@@ -1,0 +1,81 @@
+\hypertarget{class_enemy}{}\doxysection{Enemy クラス}
+\label{class_enemy}\index{Enemy@{Enemy}}
+Enemy の継承関係図\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_enemy}
+\end{center}
+\end{figure}
+\doxysubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_enemy_ab10ca0fdd70b58e05d0adee3dd1f5a61}\label{class_enemy_ab10ca0fdd70b58e05d0adee3dd1f5a61}} 
+{\bfseries Enemy} (\mbox{\hyperlink{class_game}{Game}} \&game, \mbox{\hyperlink{class_vector2}{Vector2}} setpos)
+\item 
+void \mbox{\hyperlink{class_enemy_af9a83b4e458b77eef0ffce785164fbcd}{Update}} ()
+\begin{DoxyCompactList}\small\item\em 行動の決定、更新 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_a252880e89eb98b94c2d41dafb048db26}{Render}} (int stagenum, \mbox{\hyperlink{class_vector2}{Vector2}} window\+\_\+pos, \mbox{\hyperlink{class_vector2}{Vector2}} camera\+\_\+pos)
+\begin{DoxyCompactList}\small\item\em グラフィックの表示 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_enemy_ae70dd825bba7dfd17a9451557fc56d3c}\label{class_enemy_ae70dd825bba7dfd17a9451557fc56d3c}} 
+void {\bfseries Set\+Patrol\+Points} ()
+\item 
+\mbox{\Hypertarget{class_enemy_adde4bae51942aef294429ef6d81c7bb8}\label{class_enemy_adde4bae51942aef294429ef6d81c7bb8}} 
+void {\bfseries Get\+Next\+Points} ()
+\item 
+bool \mbox{\hyperlink{class_enemy_a20463ca2610b2254ef353c15661d1981}{Check\+Reach\+Point}} ()
+\begin{DoxyCompactList}\small\item\em 向かっている座標に到着したか判定する \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{その他の継承メンバ}
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{class_enemy_a20463ca2610b2254ef353c15661d1981}\label{class_enemy_a20463ca2610b2254ef353c15661d1981}} 
+\index{Enemy@{Enemy}!CheckReachPoint@{CheckReachPoint}}
+\index{CheckReachPoint@{CheckReachPoint}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{CheckReachPoint()}{CheckReachPoint()}}
+{\footnotesize\ttfamily bool Enemy\+::\+Check\+Reach\+Point (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+向かっている座標に到着したか判定する 
+
+\begin{DoxyReturn}{戻り値}
+到着したら\+Trueを返す 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_enemy_a252880e89eb98b94c2d41dafb048db26}\label{class_enemy_a252880e89eb98b94c2d41dafb048db26}} 
+\index{Enemy@{Enemy}!Render@{Render}}
+\index{Render@{Render}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{Render()}{Render()}}
+{\footnotesize\ttfamily void Enemy\+::\+Render (\begin{DoxyParamCaption}\item[{int}]{stagenum,  }\item[{\mbox{\hyperlink{class_vector2}{Vector2}}}]{window\+\_\+pos,  }\item[{\mbox{\hyperlink{class_vector2}{Vector2}}}]{camera\+\_\+pos }\end{DoxyParamCaption})}
+
+
+
+グラフィックの表示 
+
+
+\begin{DoxyParams}{引数}
+{\em stagenum} & レンダリングするステージ番号 \\
+\hline
+{\em window\+\_\+pos} & 分割画面の位置 \\
+\hline
+{\em camera\+\_\+pos} & カメラの座標 \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_enemy_af9a83b4e458b77eef0ffce785164fbcd}\label{class_enemy_af9a83b4e458b77eef0ffce785164fbcd}} 
+\index{Enemy@{Enemy}!Update@{Update}}
+\index{Update@{Update}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void Enemy\+::\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+行動の決定、更新 
+
+
+
+\mbox{\hyperlink{class_actor}{Actor}}を再実装しています。
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+Enemy.\+h\end{DoxyCompactItemize}

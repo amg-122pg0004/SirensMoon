@@ -1,0 +1,27 @@
+\hypertarget{_recon_player_8h_source}{}\doxysection{Recon\+Player.\+h}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_actor_8h}{Actor.h}}"{}}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_input_manager_8h}{InputManager.h}}"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_game_8h}{Game.h}}"{}}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_math_8h}{Math.h}}"{}}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}Light.h"{}}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{keyword}{class }\mbox{\hyperlink{class_recon_player}{ReconPlayer}} :\textcolor{keyword}{public} \mbox{\hyperlink{class_actor}{Actor}} \{}
+\DoxyCodeLine{11 \textcolor{keyword}{public}:}
+\DoxyCodeLine{12     \mbox{\hyperlink{class_recon_player}{ReconPlayer}}(\mbox{\hyperlink{class_game}{Game}}\& game, \textcolor{keywordtype}{int} playernum);}
+\DoxyCodeLine{13     \textcolor{keywordtype}{void} Update() \textcolor{keyword}{override};}
+\DoxyCodeLine{14     \textcolor{keywordtype}{void} ReconRender(\textcolor{keywordtype}{int} stageNum, \mbox{\hyperlink{class_vector2}{Vector2}} window\_pos, \mbox{\hyperlink{class_vector2}{Vector2}} camera\_pos) \textcolor{keyword}{override};}
+\DoxyCodeLine{15     Type GetType()\textcolor{keyword}{ override }\{ \textcolor{keywordflow}{return} Type::ReconPlayer; \}}
+\DoxyCodeLine{16 \textcolor{keyword}{private}:}
+\DoxyCodeLine{17     std::shared\_ptr<InputManager> \_inputManager;}
+\DoxyCodeLine{18     \mbox{\hyperlink{class_vector2}{Vector2}} \_dir;}
+\DoxyCodeLine{19     \textcolor{keywordtype}{int} \_speed;}
+\DoxyCodeLine{20     \textcolor{keywordtype}{int} \_playerNum;}
+\DoxyCodeLine{21     \textcolor{keywordtype}{int} \_cg\_recon;}
+\DoxyCodeLine{22 \};}
+
+\end{DoxyCode}
