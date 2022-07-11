@@ -28,8 +28,8 @@ Player::Player(Game& game,int playernum)
 	 _pos = { 200,200 };
 	 _stage = 1;
 
-	 auto light = std::make_unique<Light1>(_game, *this);
-	 _game.GetActorServer()->Add(std::move(light));
+	 _validLight = true;
+	 //_light = std::make_unique<Light1>(_game, *this);
 }
 
 void Player::Update() {
@@ -52,35 +52,16 @@ void Player::Move() {
 		_lastDir = _dir;
 	}
 
-
-	/*
-	if (_dir.x != 0) {
-		_speed.x = _speed.x + _dir.x / 1000;
+	/*障害物衝突処理*/
+	_pos.x += _dir.x/1000*_speedMax;
+	if (_game.GetMapChips()->IsHit(_stage - 1, *this)) {
+		_pos.x += -1*_dir.x / 1000 * _speedMax;
 	}
-	else {
-			_speed.x = 0;
+
+	_pos.y += _dir.y / 1000 * _speedMax;
+	if (_game.GetMapChips()->IsHit(_stage - 1, *this)) {
+		_pos.y += -1 * _dir.y / 1000 * _speedMax;
 	}
-	_speed.x= Math::Clamp(_speed.x, -_speedMax, _speedMax);
-
-
-	if (_dir.y != 0) {
-		_speed.y = _speed.y + _dir.y / 1000;
-	}
-	else {
-			_speed.y = 0;
-
-	}
-	_speed.y = Math::Clamp(_speed.y,-_speedMax, _speedMax);
-	*/
-
-	int fix_x, fix_y = 0;
-	_pos.x = _pos.x +  _dir.x/1000*_speedMax;
-	fix_x = _game.GetMapChips()->IsHit(_stage - 1, *this, _dir.x);
-	_pos.x += fix_x * _dir.x /1000 * _speedMax;
-
-	_pos.y = _pos.y + _dir.y / 1000 * _speedMax;
-	fix_y = _game.GetMapChips()->IsHit(_stage - 1, *this, _dir.y);
-	_pos.y += fix_y * _dir.y / 1000*_speedMax;
 
 	/*ステージ外に出ないようにする処理*/
 	if (_pos.x < 0) {

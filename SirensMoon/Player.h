@@ -7,12 +7,11 @@
  *********************************************************************/
 
 #pragma once
-#include <DxLib.h>
 #include "Actor.h"
 #include "InputManager.h"
 #include "Game.h"
 #include "Math.h"
-
+#include "Light.h"
 
 class Player :public Actor {
 	public:
@@ -49,4 +48,5 @@ class Player :public Actor {
 		int _cg_down;
 		int _cg_recon;
 
+		//std::unique_ptr<Light2> _light;
 };

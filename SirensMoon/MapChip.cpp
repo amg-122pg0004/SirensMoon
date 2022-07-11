@@ -150,10 +150,10 @@ void MapChips::ReconRender(int stageNum, Vector2 windowPos, Vector2 cameraPos)
 		int plotsize = _mapDataRecon[stageNum][i].size();
 		for (int plot = 0; plot < plotsize; ++plot) 
 		{
-			DrawLineAA(_mapDataRecon[stageNum][i][plot].x + static_cast<int>(windowPos.x),
-				_mapDataRecon[stageNum][i][plot].y + static_cast<int>(windowPos.y),
-				_mapDataRecon[stageNum][i][(plot + 1)%plotsize].x + static_cast<int>(windowPos.x),
-				_mapDataRecon[stageNum][i][(plot + 1)%plotsize].y + static_cast<int>(windowPos.y),
+			DrawLineAA(static_cast<float>(_mapDataRecon[stageNum][i][plot].x )+ static_cast<float>(windowPos.x),
+				static_cast<float>(_mapDataRecon[stageNum][i][plot].y )+ static_cast<float>(windowPos.y),
+				static_cast<float>(_mapDataRecon[stageNum][i][(plot + 1) % plotsize].x )+ static_cast<float>(windowPos.x),
+				static_cast<float>(_mapDataRecon[stageNum][i][(plot + 1) % plotsize].y )+ static_cast<int>(windowPos.y),
 				GetColor(0, 255, 255));
 		}
 	}
@@ -193,13 +193,12 @@ int MapChips::CheckHitChipNo(int stagenum,int x, int y)
 
 // オブジェクトとマップチップが当たったかの判定、および当たった場合の処理
 // 引数：
+//  
 //   o = オブジェクト
-//   mxormy　移動量
-//   xory 移動方向　0ならx,1ならy
 // 戻値：
 //   0 : 当たってない
 //   1 : 当たった
-int MapChips::IsHit(int objectstage,Actor& o, double mxormy)
+bool MapChips::IsHit(int objectstage,Actor& o)
 {
 	int x, y;
 	int dxordy=0;
@@ -221,53 +220,11 @@ int MapChips::IsHit(int objectstage,Actor& o, double mxormy)
 			int chip_no = CheckHitChipNo(objectstage,x,y);
 			if (chip_no == 2)
 			{	// このチップと当たった。
-				// X,Yの移動方向を見て、その反対方向に補正する
-				if (mxormy < 0)
-				{	// 左に動いていたので、右に補正
-					dxordy = 1;
-				}
-				if (mxormy > 0)
-				{	// 右に動いていたので、左に補正
-					dxordy = -1;
-				}
 				// 当たったので戻る
-				return dxordy;
+				return 1;
 			}
 		}
 	}
 	// 当たらなかった
 	return 0;
 }
-/*
-int MapChips::CheckTransitionChip(int renderstage, Actor& o) {
-	int x, y;
-	x = (static_cast<int>(o.GetPosition().x) + static_cast<int>(o.GetSize().x / 2)) / _chipSize_W;
-	y = (static_cast<int>(o.GetPosition().y) + static_cast<int>(o.GetSize().y / 2))/_chipSize_H;
-
-	// (x,y)は、マップチップの座標（チップ単位）
-	// この位置のチップは当たるか？
-	int chip_no = _mapData[renderstage-1][1][y][x]._id;
-
-	switch (chip_no) {
-	case 23:
-		return 1;
-	case 24:
-		return 2;
-	case 25:
-		return 3;
-	case 26:
-		return 4;
-	case 27:
-		return -1;
-	case 28:
-		return -2;
-	case 29:
-		return -3;
-	case 30:
-		return -4;
-	default:
-		return 0;
-	}
-}
-
-*/
