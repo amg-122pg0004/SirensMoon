@@ -18,13 +18,9 @@ void Darkness::Update(Vector2 window_pos, Vector2 camera_pos) {
 	SetDrawScreen(_alphaHandle);
 	DrawBox(0, 0, screen_W, screen_H, GetColor(0, 0, 0), 1);
 	for (auto&& actor : _game.GetActorServer()->GetObjects()) {
-		if (actor->GetType() == Actor::Type::Light1) {
+		if (actor->HaveLight()==1) {
 			DrawGraph(static_cast<int>(actor->GetPosition().x+window_pos.x-240.0 - _splitWindow.GetCamera()->GetPosition().x),
 				static_cast<int>(actor->GetPosition().y + window_pos.y -240.0 - _splitWindow.GetCamera()->GetPosition().y), _cg, 1);
-		}
-		if (actor->GetType() == Actor::Type::Light2) {
-			DrawGraph(static_cast<int>(actor->GetPosition().x + window_pos.x - 240.0 - _splitWindow.GetCamera()->GetPosition().x),
-				static_cast<int>(actor->GetPosition().y + window_pos.y - 240.0 - _splitWindow.GetCamera()->GetPosition().y), _cg2, 1);
 		}
 	}
 }

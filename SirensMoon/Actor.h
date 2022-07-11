@@ -41,7 +41,9 @@ class Actor{
 		virtual AABB GetCollision() { return _collision; }
 		virtual Vector2 GetPosition() { return _pos; }
 		virtual Vector2 GetSize() { return _size; }
-		virtual Actor& GetRef() { return *this; }
+		/*ライトを所有しているか*/
+		virtual bool HaveLight() { return _validLight; }
+
 
 	protected:
 		Game& _game;
@@ -50,6 +52,6 @@ class Actor{
 		AABB _collision;
 
 		int _stage;
-
+		bool _validLight;//<ライトを所有しているか
 };
 

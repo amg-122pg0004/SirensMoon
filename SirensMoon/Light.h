@@ -1,8 +1,9 @@
 #pragma once
 #include <DxLib.h>
-#include "Actor.h"
 #include "Game.h"
 #include "Math.h"
+
+class Actor;
 
 class Light1 :public Actor {
 	public:
@@ -11,9 +12,7 @@ class Light1 :public Actor {
 
 		void Update();
 		
-
 	private:
-		//int _lifetime;//ライトが継続するフレーム数
 		Actor& _owner;
 
 };
@@ -24,9 +23,7 @@ public:
 
 	void Update();
 
-
 private:
-	//int _lifetime;//ライトが継続するフレーム数
 	Actor& _owner;
 
 };

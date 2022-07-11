@@ -11,7 +11,7 @@
 
 class Bullet:public Actor {
 	public:
-		Bullet(Game& game,Vector2 pos,Vector2 dir,Actor& owner);
+		Bullet(Game& game,Vector2 pos,Vector2 dir);
 		~Bullet();
 		void Update()override;
 		void StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;
@@ -22,9 +22,7 @@ class Bullet:public Actor {
 		int _cg;
 		int _speed;
 		Vector2 _dir;//<e’e‚Ì”òãÄ•ûŒü
-		Actor& _owner;
-		Actor& _ref;
 
-		//Actor& _light;
+		std::unique_ptr<Light2> _light;
 		int _lifetime;
 };
