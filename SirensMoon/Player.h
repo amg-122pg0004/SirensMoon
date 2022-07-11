@@ -15,7 +15,7 @@
 
 class Player :public Actor {
 	public:
-		Player(GameBase& base,int playernum);
+		Player(ModeBase& base,int playernum);
 		void Update() override ;
 		void StandardRender(int stageNum,Vector2 window_pos,Vector2 camera_pos) override ;
 		void ReconRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) override;

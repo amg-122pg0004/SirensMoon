@@ -8,19 +8,21 @@
 
 #include "SplitWindow.h"
 #include "MapChip.h"
+#include "ModeGame.h"
 
-SplitWindow::SplitWindow(Game& game,int pos_x, int pos_y,int window_no) :
-	_game{ game }, _windowPos{ pos_x ,pos_y }, _windowNo{window_no}, _renderStage{ 1 }
+
+SplitWindow::SplitWindow(ModeBase& mode,int pos_x, int pos_y,int window_no) :
+	_mode{ mode }, _windowPos{ pos_x ,pos_y }, _windowNo{window_no}, _renderStage{ 1 }
 {
-	_camera = std::make_unique<Camera>(_game,*this);
+	_camera = std::make_unique<Camera>(_mode,*this);
 	_windowSize_H = screen_H;
 	_windowSize_W = screen_W / 2;
-	_darkness = std::make_unique<Darkness>(_game,*this);
+	_darkness = std::make_unique<Darkness>(_mode,*this);
 	_darknessScreen = _darkness->MakeDarkness();
 	_normalScreen = MakeScreen(screen_W, screen_H, 1);
 
-	auto player = std::make_unique<Player>(_game, _windowNo);
-	_game.GetActorServer()->Add(std::move(player));
+	auto player = std::make_unique<Player>(_mode, _windowNo);
+	_mode.GetActorServer()->Add(std::move(player));
 }
 
 void SplitWindow::Update() {
@@ -38,8 +40,9 @@ void SplitWindow::Render() {
 			static_cast<int>(_windowPos.x + _windowSize_W),
 			static_cast<int>(_windowPos.y + _windowSize_H));
 
-		_game.GetMapChips()->StandardRender(_renderStage - 1, _windowPos, _camera->GetPosition());
-		_game.GetActorServer()->StandardRender(_renderStage, _windowPos, _camera->GetPosition());
+		auto mode = dynamic_cast<ModeGame>&_mode;
+		_mode.GetMapChips()->StandardRender(_renderStage - 1, _windowPos, _camera->GetPosition());
+		_mode.GetActorServer()->StandardRender(_renderStage, _windowPos, _camera->GetPosition());
 
 		GraphBlend(_normalScreen, _darknessScreen, 255, DX_GRAPH_BLEND_MULTIPLE);
 		SetDrawScreen(DX_SCREEN_BACK);

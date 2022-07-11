@@ -3,9 +3,7 @@
 #include <vector>
 #include "ModeBase.h"
 #include "Math.h"
-//#include "SplitWindow.h"
-
-class SplitWindow;
+#include "SplitWindow.h"
 
 class Darkness {
 	public:

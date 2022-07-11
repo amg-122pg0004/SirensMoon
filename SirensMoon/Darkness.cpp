@@ -1,6 +1,7 @@
 #include "Darkness.h"
 #include "ActorServer.h"
 #include "ImageServer.h"
+#include "Game.h"
 
 class SplitWindow;
 

@@ -10,14 +10,14 @@
 #include "Camera.h"
 #include "ActorServer.h"
 #include "Darkness.h"
-
+#include "Player.h"
 
 class Camera;
 class Darkness;
 
 class SplitWindow {
 	public:
-		SplitWindow(Game&, int pos_x, int pos_y,int window_no);
+		SplitWindow(ModeBase& mode, int pos_x, int pos_y,int window_no);
 		void Update();
 		void Render();
 		void Debug();
@@ -33,7 +33,7 @@ class SplitWindow {
 		int _windowSize_H;
 		Vector2 _windowPos;
 		std::unique_ptr<Camera> _camera;
-		Game& _game;
+		ModeBase& _mode;
 
 		std::unique_ptr<Darkness> _darkness;
 

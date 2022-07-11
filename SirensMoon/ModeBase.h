@@ -11,8 +11,8 @@ public:
 	virtual void Update();  // çXêV
 	virtual void Render();	// ï`âÊ
 
-	virtual ActorServer& GetActorServer() { return _actorServer; }
-	virtual ActorServer::TypeActors GetObjects() { return _actorServer.GetObjects(); }
+	std::unique_ptr<ActorServer>& GetActorServer() { return _actorServer; }
+	//virtual ActorServer::TypeActors GetObjects() { return _actorServer->GetObjects(); }
 
 	virtual bool	IsDead() { return _dead; }
 	virtual void	Dead() { _dead = true; }
@@ -20,6 +20,6 @@ public:
 protected:
 	Game& _game;
 	bool	_dead;
-	ActorServer	_actorServer;
+	std::unique_ptr<ActorServer> _actorServer;
 
 };

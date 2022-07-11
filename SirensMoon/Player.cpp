@@ -14,7 +14,7 @@
 
 #include "Bullet.h"
 
-Player::Player(Game& game,int playernum)
+Player::Player(ModeBase& game,int playernum)
 	:Actor{ game }, _speed{ 0,0 },_speedMax{5.0}, _playerNum{playernum}
 	,_stress{ 0 }, _stressSpeed{ 0.05f }, _lastDir{1,0}
 {
