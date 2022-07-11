@@ -61,6 +61,9 @@
     <Filter Include="Actor\Bullet">
       <UniqueIdentifier>{13fa08dd-107a-41f1-b5a6-a81f8c9f9ee0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Mode">
+      <UniqueIdentifier>{f529ad92-31fa-40fb-a42e-c8b01c6b26a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
