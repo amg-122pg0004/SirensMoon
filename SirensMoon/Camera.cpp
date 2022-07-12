@@ -2,8 +2,9 @@
 #include "InputManager.h"
 #include <sstream>
 
-Camera::Camera(Game& game,SplitWindow& sw) :
+Camera::Camera(Game& game,ModeBase& mode,SplitWindow& sw) :
 	_game{ game },
+	_mode{mode},
 	_splitWindow{sw},
 	_pos{0,0},
 	_speed{10},

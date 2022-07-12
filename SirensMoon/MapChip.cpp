@@ -7,7 +7,7 @@
 #include <memory>
 #include <fstream>
 
-MapChips::MapChips(Game& game) :_game{game}{
+MapChips::MapChips(Game& game, ModeBase& mode) :_game{ game }, _mode{mode}{
 	_mapDataStandard.clear();
 	_mapDataRecon.clear();
 	LoadMap("resource/", "test3_01.json");

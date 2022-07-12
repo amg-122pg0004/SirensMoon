@@ -11,9 +11,9 @@ class ModeGame :public ModeBase {
 public:
 	ModeGame(Game& game);
 
-	void Update();
-	void Render();
-	void Debug();
+	void Update() override;
+	void Render()override;
+	void Debug()override;
 
 
 	inline  auto& GetMapChips() { return _mapChips; }

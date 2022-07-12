@@ -5,6 +5,7 @@
 #include "Actor.h"
 
 class Game;
+class ModeBase;
 class SplitWindow;
 
 class MapChip {
@@ -14,7 +15,7 @@ public:
 
 class MapChips {
 public:
-	MapChips(Game& game);
+	MapChips(Game& game,ModeBase& mode);
 	~MapChips();
 	bool LoadMap(std::string folderpath, std::string filename);
 
@@ -38,6 +39,7 @@ public:
 
 private:
 	Game& _game;
+	ModeBase& _mode;
 
 	int _mapSize_W;
 	int _mapSize_H;

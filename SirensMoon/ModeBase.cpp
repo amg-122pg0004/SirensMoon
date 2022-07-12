@@ -7,10 +7,9 @@ class Game;
 
 ModeBase::ModeBase(Game& game)
 	: _game(game)
-
 	, _dead(false)
+	,_actorServer{*this}
 {
-	_actorServer = std::make_unique<ActorServer>(_game);
 }
 
 ModeBase::~ModeBase()
@@ -23,5 +22,9 @@ void ModeBase::Update() {
 
 // •`‰æ
 void ModeBase::Render() {
+}
+
+void ModeBase::Debug() {
+
 }
 

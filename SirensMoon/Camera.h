@@ -11,11 +11,12 @@
 #include <memory>
 
 class Game;
+class ModeBase;
 class SplitWindow;
 
 class Camera {
 	public:
-		Camera(Game&game,SplitWindow&sw);
+		Camera(Game&game,ModeBase& mode,SplitWindow&sw);
 		void Update(int playernum);//<カメラの移動
 		Vector2 GetPosition() { return _pos; }//<カメラ座標の取得
 
@@ -34,6 +35,7 @@ class Camera {
 #endif
 	private:
 		Game& _game;//<Game参照
+		ModeBase& _mode;
 		SplitWindow& _splitWindow; //<SplitWindow参照
 		std::shared_ptr<InputManager> _inputManager;//<InputManagerの参照
 		int _speed;//<カメラの移動速度

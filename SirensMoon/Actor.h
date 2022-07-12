@@ -25,11 +25,11 @@ class Actor{
 			Light1,
 			Light2
 		};
-		virtual Type GetType();
+		virtual Type GetType() = 0;
 
 		Actor(Game& game,ModeBase& mode);
 		~Actor();
-
+		
 		virtual void Update();
 		virtual void StandardRender(int stageNum,Vector2 window_pos, Vector2 camera_pos);
 		virtual void ReconRender(int stageNum, Vector2 window_pos, Vector2 camera_pos);
@@ -42,8 +42,7 @@ class Actor{
 		virtual Vector2 GetSize() { return _size; }
 		/*ライトを所有しているか*/
 		virtual bool HaveLight() { return _validLight; }
-
-
+		
 	protected:
 		Game& _game;
 		ModeBase& _mode;
@@ -54,4 +53,3 @@ class Actor{
 		int _stage;
 		bool _validLight;//<ライトを所有しているか
 };
-

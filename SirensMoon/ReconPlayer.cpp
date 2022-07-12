@@ -31,11 +31,6 @@ void  ReconPlayer::Update() {
 	}
 
 	_pos = _pos + _dir * _speed;
-
-	if (_inputManager->CheckInput("ACTION", 't', _playerNum)) {
-		auto light = std::make_unique<Light1>(_game,*this);
-		_mode.GetActorServer()->Add(std::move(light));
-	}
 }
 
 void  ReconPlayer::ReconRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) {

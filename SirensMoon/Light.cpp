@@ -18,7 +18,7 @@ Light2::Light2(Game& game, ModeBase& mode, Actor& owner) : _owner{ owner }, Acto
 }
 
 void Light2::Update() {
-	if(!_owner.IsDead())
+
 	_pos = _owner.GetPosition();
 
 }

@@ -10,9 +10,12 @@ public:
 
 	virtual void Update();  // 更新
 	virtual void Render();	// 描画
+	virtual void Debug(); //デバッグ
 
-	std::unique_ptr<ActorServer>& GetActorServer() { return _actorServer; }
-	virtual ActorServer::TypeActors GetObjects() { return _actorServer->GetObjects(); }
+	//virtual std::unique_ptr<ActorServer>& GetActorServer() { return _actorServer; }
+	//virtual ActorServer::TypeActors GetObjects() { return _actorServer->GetObjects(); }
+	virtual ActorServer& GetActorServer() { return _actorServer; }
+	 virtual ActorServer::TypeActors& GetObjects() { return _actorServer.GetObjects(); }
 
 	virtual bool	IsDead() { return _dead; }
 	virtual void	Dead() { _dead = true; }
@@ -20,6 +23,7 @@ public:
 protected:
 	Game& _game;
 	bool	_dead;
-	std::unique_ptr<ActorServer> _actorServer;
+	//std::unique_ptr<ActorServer> _actorServer;
+	ActorServer _actorServer;
 
 };

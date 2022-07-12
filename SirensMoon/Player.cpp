@@ -49,13 +49,14 @@ void Player::Update() {
 
 
 void Player::Move() {
-
+	
 	_dir=_inputManager->CheckAnalogInput(_playerNum);
 	if (_dir.Length() != 0) {
 		_lastDir = _dir;
 	}
 
 	/*障害物衝突処理*/
+	
 	_pos.x += _dir.x/1000*_speedMax;
 	if (dynamic_cast<ModeGame&>(_mode).GetMapChips() ->IsHit(_stage - 1, *this)) {
 		_pos.x += -1*_dir.x / 1000 * _speedMax;
@@ -65,7 +66,7 @@ void Player::Move() {
 	if (dynamic_cast<ModeGame&>(_mode).GetMapChips() ->IsHit(_stage - 1, *this)) {
 		_pos.y += -1 * _dir.y / 1000 * _speedMax;
 	}
-
+	
 	/*ステージ外に出ないようにする処理*/
 	if (_pos.x < 0) {
 		_pos.x = 0;
@@ -97,14 +98,14 @@ void Player::Move() {
 	else if (renderposition.y > screen_H&&_dir.y>0) {
 		rendercamera->ChangePosition(Camera::ChangeDir::DOWN);
 	}
-
+	
 }
 
 void Player::GunShoot() {
 	if (_inputManager->CheckInput("ACTION",'t', _playerNum)) {
 		_lastDir.Normalize();
-		auto bullet = std::make_unique<Bullet>(_game, _pos,_lastDir);
-		_mode.GetActorServer()->Add(std::move(bullet));
+		auto bullet = std::make_unique<Bullet>(_game,_mode, _pos,_lastDir);
+		_mode.GetActorServer().Add(std::move(bullet));
 
 	}
 }
@@ -140,7 +141,7 @@ void Player::ReconRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
 }
 
 void Player::CheckStress(){
-	for (auto&& actor:_mode.GetActorServer()->GetObjects()) {
+	for (auto&& actor:_mode.GetActorServer().GetObjects()) {
 		if (actor->GetType() == Actor::Type::Player) {
 			if (dynamic_cast<Player*>(actor.get())->GetPlayerNum() != _playerNum) {
 				if ((actor->GetPosition() - _pos).Length() < 200) {

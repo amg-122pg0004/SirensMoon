@@ -5,8 +5,7 @@
 class Game;
 
 ModeServer::ModeServer(Game& game)
-	: _game(game)
-	, _updating(false)
+	: _game(game), _updating(false)
 {
 }
 
@@ -28,6 +27,7 @@ void ModeServer::Clear()
 }
 
 void	ModeServer::Add(std::unique_ptr<ModeBase> mode) {
+	
 	if (_updating) {
 		_vPendingModes.push_back(std::move(mode));
 	}
@@ -96,4 +96,8 @@ void ModeServer::Render() {
 	for (auto&& mode : _vModes) {
 		mode->Render();
 	}
+}
+
+
+void ModeServer::Debug() {
 }
