@@ -43,7 +43,7 @@ void Player::Update() {
 		GunShoot();
 	}
 	if (_playerNum == 1) {
-
+		OpenMap();
 	}
 }
 
@@ -106,13 +106,12 @@ void Player::GunShoot() {
 		_lastDir.Normalize();
 		auto bullet = std::make_unique<Bullet>(_game,_mode, _pos,_lastDir);
 		_mode.GetActorServer().Add(std::move(bullet));
-
 	}
 }
 
 void Player::OpenMap() {
 	if (_inputManager->CheckInput("ACTION", 't', _playerNum)) {
-
+		
 	}
 }
 

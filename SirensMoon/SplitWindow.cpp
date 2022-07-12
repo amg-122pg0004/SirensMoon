@@ -25,9 +25,9 @@ SplitWindow::SplitWindow(Game& game,ModeBase& mode,int pos_x, int pos_y,int wind
 	_mode.GetActorServer().Add(std::move(player));
 
 	if (_windowNo == 1) {
-		Vector2 map_pos = { 480,0 };
+		Vector2 map_pos = { 1080,0 };
 		Vector2 map_size = { 780,600 };
-		//_ui.emplace_back(std::make_unique<MiniMap>(_game, _mode, _windowSize_W * 1.5, 200));
+		_ui.emplace_back(std::make_unique<MiniMap>(_game, _mode, map_pos, map_size));
 	}
 	
 }

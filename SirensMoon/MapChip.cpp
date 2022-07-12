@@ -150,10 +150,11 @@ void MapChips::ReconRender(int stageNum, Vector2 windowPos, Vector2 cameraPos)
 		int plotsize = _mapDataRecon[stageNum][i].size();
 		for (int plot = 0; plot < plotsize; ++plot) 
 		{
-			DrawLineAA(static_cast<float>(_mapDataRecon[stageNum][i][plot].x )+ static_cast<float>(windowPos.x),
-				static_cast<float>(_mapDataRecon[stageNum][i][plot].y )+ static_cast<float>(windowPos.y),
-				static_cast<float>(_mapDataRecon[stageNum][i][(plot + 1) % plotsize].x )+ static_cast<float>(windowPos.x),
-				static_cast<float>(_mapDataRecon[stageNum][i][(plot + 1) % plotsize].y )+ static_cast<int>(windowPos.y),
+			float scale = 410.0/3240.0*0.97;
+			DrawLineAA(static_cast<float>(_mapDataRecon[stageNum][i][plot].x*scale + windowPos.x),
+				static_cast<float>(_mapDataRecon[stageNum][i][plot].y*scale + windowPos.y ),
+				static_cast<float>(_mapDataRecon[stageNum][i][(plot + 1) % plotsize].x *scale+ windowPos.x),
+				static_cast<float>(_mapDataRecon[stageNum][i][(plot + 1) % plotsize].y*scale + windowPos.y ),
 				GetColor(0, 255, 255));
 		}
 	}
