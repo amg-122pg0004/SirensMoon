@@ -70,6 +70,12 @@
     <Filter Include="Actor\Light">
       <UniqueIdentifier>{fa317c28-c165-47b6-91d6-0d6e6d566c63}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{84abf6ab-5980-4670-9b3a-a5a5907657c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\MiniMap">
+      <UniqueIdentifier>{41403de4-b1dc-4330-a137-12a8f2a25fef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -132,6 +138,12 @@
     <ClCompile Include="ModeServer.cpp">
       <Filter>ModeServer</Filter>
     </ClCompile>
+    <ClCompile Include="MiniMap.cpp">
+      <Filter>UI\MiniMap</Filter>
+    </ClCompile>
+    <ClCompile Include="UIBase.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -193,6 +205,12 @@
     </ClInclude>
     <ClInclude Include="ModeServer.h">
       <Filter>ModeServer</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniMap.h">
+      <Filter>UI\MiniMap</Filter>
+    </ClInclude>
+    <ClInclude Include="UIBase.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

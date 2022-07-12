@@ -14,7 +14,7 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }
 }
 
 void ModeGame::Update() {
-	_actorServer->Update();
+	_actorServer.Update();
 	for (auto&& splitwindows : _splitWindow) {
 		splitwindows->Update();
 	}

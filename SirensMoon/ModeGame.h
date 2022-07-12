@@ -24,7 +24,6 @@ private:
 
 	std::unique_ptr<MapChips>_mapChips;
 	std::vector<std::unique_ptr<SplitWindow>>_splitWindow;
-	std::unique_ptr <ActorServer> _actorServer;
 
 	std::shared_ptr<InputManager> _inputManager;
 };

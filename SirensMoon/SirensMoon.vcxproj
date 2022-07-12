@@ -156,12 +156,14 @@
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="MapChip.cpp" />
     <ClCompile Include="Math.cpp" />
+    <ClCompile Include="MiniMap.cpp" />
     <ClCompile Include="ModeBase.cpp" />
     <ClCompile Include="ModeGame.cpp" />
     <ClCompile Include="ModeServer.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ReconPlayer.cpp" />
     <ClCompile Include="SplitWindow.cpp" />
+    <ClCompile Include="UIBase.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +180,7 @@
     <ClInclude Include="Light.h" />
     <ClInclude Include="MapChip.h" />
     <ClInclude Include="Math.h" />
+    <ClInclude Include="MiniMap.h" />
     <ClInclude Include="ModeBase.h" />
     <ClInclude Include="ModeGame.h" />
     <ClInclude Include="ModeServer.h" />
@@ -185,6 +188,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="ReconPlayer.h" />
     <ClInclude Include="SplitWindow.h" />
+    <ClInclude Include="UIBase.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -11,6 +11,7 @@
 #include "ActorServer.h"
 #include "Darkness.h"
 #include "Player.h"
+#include "UIBase.h"
 
 class Camera;
 class Darkness;
@@ -37,6 +38,7 @@ class SplitWindow {
 		ModeBase& _mode;
 
 		std::unique_ptr<Darkness> _darkness;
+		std::vector<std::unique_ptr<UIBase>> _ui;
 
 		/*暗闇表現用のスクリーンハンドル*/
 		int _darknessScreen;
