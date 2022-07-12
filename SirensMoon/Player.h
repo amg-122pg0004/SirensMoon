@@ -9,13 +9,15 @@
 #pragma once
 #include "Actor.h"
 #include "InputManager.h"
-#include "ModeBase.h"
 #include "Math.h"
 #include "Light.h"
 
+class Game;
+class ModeBase;
+
 class Player :public Actor {
 	public:
-		Player(ModeBase& base,int playernum);
+		Player(Game& game,ModeBase& base,int playernum);
 		void Update() override ;
 		void StandardRender(int stageNum,Vector2 window_pos,Vector2 camera_pos) override ;
 		void ReconRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) override;

@@ -6,14 +6,16 @@
  * \date   June 2022
  *********************************************************************/
 #include "Game.h"
+#include "ModeBase.h"
+#include "ModeGame.h"
 
 Game::Game()
 {
-	_modeServer = std::make_unique<ModeServer>();
+	_modeServer = std::make_unique<ModeServer>(*this);
 	_inputManager = std::make_unique<InputManager>();
 
-	auto mode = std::make_unique<ModeGame>(*this);
-	_modeServer->Add(std::move(mode));
+	//auto mode = std::make_unique<ModeGame>(*this);
+	//_modeServer->Add(std::move(mode));
 }
 
 void Game::Input() {

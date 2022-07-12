@@ -3,7 +3,6 @@
 */
 
 #include "ModeBase.h"
-
 class Game;
 
 ModeBase::ModeBase(Game& game)

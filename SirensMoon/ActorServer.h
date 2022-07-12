@@ -9,16 +9,16 @@
 
 #include <memory>
 #include <vector>
-#include "Actor.h"
 #include "Math.h"
+#include "Actor.h"
 
-class Actor;
-class Game;
+class ModeBase;
+//class Actor;
 
 class ActorServer {
 
 	public:
-		ActorServer(Game&);
+		ActorServer(ModeBase&);
 
 		typedef std::vector<std::unique_ptr<Actor>> TypeActors;
 		TypeActors& GetObjects() { return _typeActors; }
@@ -47,6 +47,6 @@ class ActorServer {
 
 		void DeleteObjects();
 
-		Game& _game;
+		ModeBase& _mode;
 
 };

@@ -15,7 +15,7 @@ public:
 	void Render();
 	void Debug();
 
-	inline auto& GetGame() { return _game; }
+
 	inline  auto& GetMapChips() { return _mapChips; }
 	inline auto& GetSplitWindow() { return _splitWindow; }
 

@@ -13,13 +13,16 @@
 #include <sstream>
 
 #include "Bullet.h"
+#include "Game.h"
+#include "ModeGame.h"
 
-Player::Player(ModeBase& game,int playernum)
-	:Actor{ game }, _speed{ 0,0 },_speedMax{5.0}, _playerNum{playernum}
+
+Player::Player(Game& game,ModeBase& mode,int playernum)
+	:Actor{ game,mode }, _speed{ 0,0 },_speedMax{5.0}, _playerNum{playernum}
 	,_stress{ 0 }, _stressSpeed{ 0.05f }, _lastDir{1,0}
 {
-	 _inputManager = _game.GetInputManager();
-	 
+
+	_inputManager = _game.GetInputManager();
 	 _cg_up = ImageServer::LoadGraph("resource/player/up.png");
 	 _cg_side = ImageServer::LoadGraph("resource/player/side.png");
 	 _cg_down = ImageServer::LoadGraph("resource/player/down.png");
@@ -54,12 +57,12 @@ void Player::Move() {
 
 	/*障害物衝突処理*/
 	_pos.x += _dir.x/1000*_speedMax;
-	if (_game.GetMapChips()->IsHit(_stage - 1, *this)) {
+	if (dynamic_cast<ModeGame&>(_mode).GetMapChips() ->IsHit(_stage - 1, *this)) {
 		_pos.x += -1*_dir.x / 1000 * _speedMax;
 	}
 
 	_pos.y += _dir.y / 1000 * _speedMax;
-	if (_game.GetMapChips()->IsHit(_stage - 1, *this)) {
+	if (dynamic_cast<ModeGame&>(_mode).GetMapChips() ->IsHit(_stage - 1, *this)) {
 		_pos.y += -1 * _dir.y / 1000 * _speedMax;
 	}
 
@@ -79,7 +82,7 @@ void Player::Move() {
 	}
 
 	/*フレームアウトした際にカメラを動かす処理*/
-	auto&& rendercamera = _game.GetSplitWindow()[_playerNum]->GetCamera();
+	auto&& rendercamera = dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[_playerNum]->GetCamera();
 	Vector2 renderposition = _pos - rendercamera->GetPosition();
 
 	if (renderposition.x < 0 && _dir.x < 0) {
@@ -101,7 +104,7 @@ void Player::GunShoot() {
 	if (_inputManager->CheckInput("ACTION",'t', _playerNum)) {
 		_lastDir.Normalize();
 		auto bullet = std::make_unique<Bullet>(_game, _pos,_lastDir);
-		_game.GetActorServer()->Add(std::move(bullet));
+		_mode.GetActorServer()->Add(std::move(bullet));
 
 	}
 }
@@ -137,7 +140,7 @@ void Player::ReconRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
 }
 
 void Player::CheckStress(){
-	for (auto&& actor:_game.GetActorServer()->GetObjects()) {
+	for (auto&& actor:_mode.GetActorServer()->GetObjects()) {
 		if (actor->GetType() == Actor::Type::Player) {
 			if (dynamic_cast<Player*>(actor.get())->GetPlayerNum() != _playerNum) {
 				if ((actor->GetPosition() - _pos).Length() < 200) {

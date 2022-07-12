@@ -1,7 +1,6 @@
 #include "ModeGame.h"
 
-ModeGame::ModeGame(Game& game) 
-	:ModeGame{ game }
+ModeGame::ModeGame(Game& game) :ModeBase{ game }
 {
 	_actorServer = std::make_unique<ActorServer>();
 

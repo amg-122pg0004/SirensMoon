@@ -55,9 +55,6 @@
     <Filter Include="Darkness">
       <UniqueIdentifier>{5eb8d2b1-712c-4271-ac43-9a6a8010a44b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Light">
-      <UniqueIdentifier>{fa317c28-c165-47b6-91d6-0d6e6d566c63}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Actor\Bullet">
       <UniqueIdentifier>{13fa08dd-107a-41f1-b5a6-a81f8c9f9ee0}</UniqueIdentifier>
     </Filter>
@@ -69,6 +66,9 @@
     </Filter>
     <Filter Include="ModeServer">
       <UniqueIdentifier>{246b0c6e-9763-45ff-b568-b06a5712ddb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Light">
+      <UniqueIdentifier>{fa317c28-c165-47b6-91d6-0d6e6d566c63}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -115,7 +115,7 @@
       <Filter>Darkness</Filter>
     </ClCompile>
     <ClCompile Include="Light.cpp">
-      <Filter>Light</Filter>
+      <Filter>Actor\Light</Filter>
     </ClCompile>
     <ClCompile Include="ReconPlayer.cpp">
       <Filter>Actor\Player</Filter>
@@ -177,7 +177,7 @@
       <Filter>Darkness</Filter>
     </ClInclude>
     <ClInclude Include="Light.h">
-      <Filter>Light</Filter>
+      <Filter>Actor\Light</Filter>
     </ClInclude>
     <ClInclude Include="ReconPlayer.h">
       <Filter>Actor\Player</Filter>

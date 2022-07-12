@@ -8,8 +8,8 @@
 
 #include "ActorServer.h"
 
-ActorServer::ActorServer(Game& game) :
-	_game{game}, _updating{ false }
+ActorServer::ActorServer(ModeBase& mode) :
+	_mode{mode}, _updating{ false }
 {
 	Clear();
 }

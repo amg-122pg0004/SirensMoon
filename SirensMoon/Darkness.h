@@ -1,13 +1,15 @@
 #pragma once
 #include <DxLib.h>
 #include <vector>
-#include "ModeBase.h"
 #include "Math.h"
-#include "SplitWindow.h"
+
+class Game;
+class ModeBase;
+class SplitWindow;
 
 class Darkness {
 	public:
-		Darkness(ModeBase& mode,SplitWindow& splitwindow);
+		Darkness(Game& game, ModeBase& mode, SplitWindow& splitwindow);
 		/*マスクデータの作成*/
 		int MakeDarkness();
 		/*マスクデータの更新*/
@@ -16,6 +18,7 @@ class Darkness {
 		void DeleteDarkness();
 
 	private:
+		Game& _game;
 		ModeBase& _mode;
 		SplitWindow& _splitWindow;
 

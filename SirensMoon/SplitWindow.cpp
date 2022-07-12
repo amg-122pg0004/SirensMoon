@@ -11,8 +11,8 @@
 #include "ModeGame.h"
 
 
-SplitWindow::SplitWindow(ModeBase& mode,int pos_x, int pos_y,int window_no) :
-	_mode{ mode }, _windowPos{ pos_x ,pos_y }, _windowNo{window_no}, _renderStage{ 1 }
+SplitWindow::SplitWindow(Game& game,ModeBase& mode,int pos_x, int pos_y,int window_no) :
+	_game{game}, _mode{mode}, _windowPos{pos_x ,pos_y}, _windowNo{window_no}, _renderStage{1}
 {
 	_camera = std::make_unique<Camera>(_mode,*this);
 	_windowSize_H = screen_H;
@@ -40,8 +40,8 @@ void SplitWindow::Render() {
 			static_cast<int>(_windowPos.x + _windowSize_W),
 			static_cast<int>(_windowPos.y + _windowSize_H));
 
-		auto mode = dynamic_cast<ModeGame>&_mode;
-		_mode.GetMapChips()->StandardRender(_renderStage - 1, _windowPos, _camera->GetPosition());
+
+		static_cast<ModeGame&>(_mode).GetMapChips()->StandardRender(_renderStage - 1, _windowPos, _camera->GetPosition());
 		_mode.GetActorServer()->StandardRender(_renderStage, _windowPos, _camera->GetPosition());
 
 		GraphBlend(_normalScreen, _darknessScreen, 255, DX_GRAPH_BLEND_MULTIPLE);
@@ -59,5 +59,5 @@ void SplitWindow::ChangeRenderStage(int changedelta) {
 }
 
 void SplitWindow::Debug(){
-	_game.GetActorServer()->Debug(_renderStage, _windowPos, _camera->GetPosition());
+	_mode.GetActorServer()->Debug(_renderStage, _windowPos, _camera->GetPosition());
 }

@@ -4,7 +4,7 @@
 #include <string>
 #include <sstream>
 
-ReconPlayer::ReconPlayer(Game& game, int playernum):Actor{ game }, _speed{ 5 }, _playerNum{ playernum }
+ReconPlayer::ReconPlayer(Game& game,ModeBase& mode, int playernum):Actor{ game,mode }, _speed{ 5 }, _playerNum{ playernum }
 	, _dir{0,0}
 {
 	_inputManager = _game.GetInputManager();
@@ -34,7 +34,7 @@ void  ReconPlayer::Update() {
 
 	if (_inputManager->CheckInput("ACTION", 't', _playerNum)) {
 		auto light = std::make_unique<Light1>(_game,*this);
-		_game.GetActorServer()->Add(std::move(light));
+		_mode.GetActorServer()->Add(std::move(light));
 	}
 }
 

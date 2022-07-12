@@ -8,7 +8,9 @@
 
 #include "Actor.h"
 
-Actor::Actor(ModeBase& mode) : _mode{ mode }, _pos{ 0,0 }, _size{ 40,40 }, _dead{ false }, _stage{ -1 },_validLight{false}
+
+Actor::Actor(Game& game, ModeBase& mode) 
+	: _game{game},_mode { mode }, _pos{0,0}, _size{40,40}, _dead{false}, _stage{-1}, _validLight{false}
 {
 	_collision.min = { _pos };
 	_collision.max = { _pos + _size };

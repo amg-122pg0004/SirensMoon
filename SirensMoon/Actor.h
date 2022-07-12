@@ -7,13 +7,11 @@
  *********************************************************************/
 
 #pragma once
-#include <DxLib.h>
-#include "ActorServer.h"
 #include "Math.h"
 #include "Collision.h"
-#include "ModeBase.h"
-
 class Game;
+class ModeBase;
+
 
 class Actor{
 	public:
@@ -29,7 +27,7 @@ class Actor{
 		};
 		virtual Type GetType();
 
-		Actor(ModeBase& mode);
+		Actor(Game& game,ModeBase& mode);
 		~Actor();
 
 		virtual void Update();
@@ -47,6 +45,7 @@ class Actor{
 
 
 	protected:
+		Game& _game;
 		ModeBase& _mode;
 		Vector2 _pos,_size;
 		bool _dead;

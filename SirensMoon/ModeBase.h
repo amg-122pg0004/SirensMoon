@@ -12,7 +12,7 @@ public:
 	virtual void Render();	// •`‰æ
 
 	std::unique_ptr<ActorServer>& GetActorServer() { return _actorServer; }
-	//virtual ActorServer::TypeActors GetObjects() { return _actorServer->GetObjects(); }
+	virtual ActorServer::TypeActors GetObjects() { return _actorServer->GetObjects(); }
 
 	virtual bool	IsDead() { return _dead; }
 	virtual void	Dead() { _dead = true; }

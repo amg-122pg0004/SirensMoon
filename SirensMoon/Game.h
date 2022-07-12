@@ -7,10 +7,8 @@
  *********************************************************************/
 #pragma once
 
-#include <DxLib.h>
 #include <memory>
 #include <vector>
-#include "Math.h"
 #include "InputManager.h"
 #include "ModeServer.h"
 

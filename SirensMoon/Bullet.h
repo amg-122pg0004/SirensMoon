@@ -8,10 +8,11 @@
 #pragma once
 #include "Player.h"
 #include "Light.h"
+class Game;
 
 class Bullet:public Actor {
 	public:
-		Bullet(ModeBase& mode,Vector2 pos,Vector2 dir);
+		Bullet(Game& game, ModeBase& mode,Vector2 pos,Vector2 dir);
 		~Bullet();
 		void Update()override;
 		void StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;

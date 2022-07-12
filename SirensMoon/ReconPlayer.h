@@ -6,10 +6,11 @@
 #include "Light.h"
 #include <memory>
 
+class ModeBase;
 
 class ReconPlayer :public Actor {
 public:
-	ReconPlayer(Game& game, int playernum);
+	ReconPlayer(Game& game,ModeBase& mode, int playernum);
 	void Update() override;
 	void ReconRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) override;
 	Type GetType() override { return Type::ReconPlayer; }

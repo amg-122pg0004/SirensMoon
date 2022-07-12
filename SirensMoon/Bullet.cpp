@@ -8,14 +8,14 @@
 #include "Bullet.h"
 #include "ImageServer.h"
 
-Bullet::Bullet(ModeBase& mode,Vector2 pos, Vector2 dir) 
-	:Actor{ mode }, _dir{ dir }, _speed{ 25 }, _lifetime{ 180 }
+Bullet::Bullet(Game& game, ModeBase& mode,Vector2 pos, Vector2 dir)
+	:Actor{ game,mode }, _dir{ dir }, _speed{ 25 }, _lifetime{ 180 }
 {
 	_cg = ImageServer::LoadGraph("resource/Bullet/Bullet_1.png");
 	_pos = pos;
 
 	_validLight = true;
-	_light= std::make_unique<Light2>(_mode, *this); 
+	_light= std::make_unique<Light2>(_game,_mode, *this); 
 }
 
 Bullet::~Bullet() {
