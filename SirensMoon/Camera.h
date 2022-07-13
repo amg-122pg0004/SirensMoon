@@ -19,7 +19,7 @@ class Camera {
 		Camera(Game&game,ModeBase& mode,SplitWindow&sw);
 		void Update(int playernum);//<ƒJƒƒ‰‚ÌˆÚ“®
 		Vector2 GetPosition() { return _pos; }//<ƒJƒƒ‰À•W‚ÌŽæ“¾
-
+		//void Render(int x, int y);
 		enum class ChangeDir {
 			UP,
 			DOWN,
