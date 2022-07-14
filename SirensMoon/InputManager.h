@@ -13,8 +13,6 @@
 class InputManager{
 
 	public:
-		
-		
 
 		InputManager();//<コンストラクタ
 
@@ -58,7 +56,6 @@ private:
 		Vector2 Value;
 		int PadNo;
 	};
-
 
 	/*ゲーム内で使用する各アクションについての入力状態を保存する*/
 	std::vector<KeyInfo> _keyState;

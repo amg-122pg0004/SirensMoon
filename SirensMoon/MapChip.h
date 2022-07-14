@@ -1,4 +1,5 @@
 #pragma once
+#include <unordered_map>
 #include "picojson/picojson.h"
 #include "Math.h"
 #include <vector>
@@ -52,11 +53,23 @@ private:
 	int _chipSize_W;
 	int _chipSize_H;
 
-	/*マップデータ*/
+	/*マップデータ ステージNo,レイヤー,*/
 	std::vector<std::vector<std::vector<std::vector<MapChip>>>> _mapDataStandard;
-
+	/*ミニマップデータ*/
 	std::vector<std::vector<std::vector<Vector2>>> _mapDataRecon;
+	/*マップごとのプレイヤーデータ*/
+	std::vector<std::vector<Vector2>> _playerStart;
+	/*エネミーデータ*/
+	struct EnemyData {
+		int	   Enemytype;
+		Vector2 StartPosition;
+		int patrolID;
+	};
 
+	/*マップごとのエネミーデータ*/
+	std::vector<std::vector<EnemyData>> _enemyDataList;
+	/*マップごとのエネミーの巡回ルート*/
+	std::vector<std::unordered_map<int, std::vector<Vector2>>> _patrolPoints;
+	
 	std::vector<int> _cgChip;
-
 };

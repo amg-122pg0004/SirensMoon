@@ -40,5 +40,3 @@ class ImageServer {
 		}DIVGRAPH;
 		static std::unordered_map<std::string, DIVGRAPH> _mapDivGraph;
 };
-
-

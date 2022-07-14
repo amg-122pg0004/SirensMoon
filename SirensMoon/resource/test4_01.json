@@ -134,9 +134,14 @@
                  "name":"",
                  "properties":[
                         {
-                         "name":"No",
+                         "name":"EnemyType",
                          "type":"int",
                          "value":1
+                        }, 
+                        {
+                         "name":"PatrolLine",
+                         "type":"object",
+                         "value":38
                         }],
                  "rotation":0,
                  "visible":true,
@@ -150,6 +155,17 @@
                  "height":30,
                  "id":34,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"EnemyType",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"PatrolLine",
+                         "type":"object",
+                         "value":42
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":30,
@@ -162,46 +178,22 @@
                  "height":30,
                  "id":35,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"EnemyType",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"PatrolLine",
+                         "type":"object",
+                         "value":39
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":30,
                  "x":1200.15151515152,
                  "y":3124.09090909091
-                }, 
-                {
-                 "class":"",
-                 "height":830.30303030303,
-                 "id":36,
-                 "name":"",
-                 "rotation":0,
-                 "visible":true,
-                 "width":706.060606060606,
-                 "x":1096.9696969697,
-                 "y":2293.93939393939
-                }, 
-                {
-                 "class":"",
-                 "height":0,
-                 "id":37,
-                 "name":"",
-                 "polyline":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":578.787878787879,
-                         "y":-54.5454545454545
-                        }, 
-                        {
-                         "x":624.242424242424,
-                         "y":-827.272727272727
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":0,
-                 "x":1145.45454545455,
-                 "y":2048.48484848485
                 }, 
                 {
                  "class":"",
@@ -230,6 +222,99 @@
                  "width":0,
                  "x":1127.27272727273,
                  "y":984.848484848485
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":39,
+                 "name":"",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":612,
+                         "y":44
+                        }, 
+                        {
+                         "x":624,
+                         "y":780
+                        }, 
+                        {
+                         "x":4,
+                         "y":772
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":1112,
+                 "y":2360
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":42,
+                 "name":"",
+                 "polyline":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":582,
+                         "y":6
+                        }, 
+                        {
+                         "x":560,
+                         "y":778
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":1188,
+                 "y":1234
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":4,
+         "name":"Player",
+         "objects":[
+                {
+                 "class":"",
+                 "gid":5,
+                 "height":30,
+                 "id":40,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":91.6666666666667,
+                 "y":120.333333333333
+                }, 
+                {
+                 "class":"",
+                 "gid":5,
+                 "height":30,
+                 "id":41,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"PlayerNo",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":150.333333333333,
+                 "y":121.666666666667
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -240,7 +325,7 @@
         {
          "draworder":"topdown",
          "id":2,
-         "name":"object_Layer",
+         "name":"MiniMap",
          "objects":[
                 {
                  "class":"",
@@ -2632,8 +2717,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":4,
- "nextobjectid":39,
+ "nextlayerid":5,
+ "nextobjectid":43,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.0",
@@ -2655,12 +2740,21 @@
                  "id":2,
                  "properties":[
                         {
-                         "name":"ID",
+                         "name":"EnemyType",
                          "type":"int",
                          "value":0
                         }, 
                         {
-                         "name":"No",
+                         "name":"PatrolLine",
+                         "type":"object",
+                         "value":0
+                        }]
+                }, 
+                {
+                 "id":4,
+                 "properties":[
+                        {
+                         "name":"PlayerNo",
                          "type":"int",
                          "value":0
                         }]
