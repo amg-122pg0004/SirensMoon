@@ -3,11 +3,11 @@
 #include "picojson/picojson.h"
 #include "Math.h"
 #include <vector>
-#include "Actor.h"
 
 class Game;
 class ModeBase;
 class SplitWindow;
+class Actor;
 
 class MapChip {
 public:
@@ -16,6 +16,19 @@ public:
 
 class MapChips {
 public:
+	/*エネミーデータ*/
+	struct EnemyData {
+		int	   Enemytype;
+		Vector2 StartPosition;
+		int patrolID;
+	};
+
+	/*エネミー巡回経路データ*/
+	struct EnemyPatrol {
+		std::vector<Vector2> PatrolPoints;
+		bool TruckingMode;
+	};
+
 	MapChips(Game& game,ModeBase& mode);
 	~MapChips();
 	bool LoadMap(std::string folderpath, std::string filename);
@@ -34,6 +47,9 @@ public:
 	int GetChipSize_H() { return _chipSize_H; }
 	int GetChipSize_W() { return _chipSize_W; }
 
+	Vector2 GetPlayerStartPosition(int playerno) { return _playerStart[0][playerno]; }
+	std::vector<EnemyData> GetEnemyData() { return _enemyDataList[0]; }
+	EnemyPatrol FindPatrol(int id);
 	int CheckHitChipNo(int objectstage, int x, int y);
 	bool IsHit(int objectstage, Actor& o);
 
@@ -59,17 +75,12 @@ private:
 	std::vector<std::vector<std::vector<Vector2>>> _mapDataRecon;
 	/*マップごとのプレイヤーデータ*/
 	std::vector<std::vector<Vector2>> _playerStart;
-	/*エネミーデータ*/
-	struct EnemyData {
-		int	   Enemytype;
-		Vector2 StartPosition;
-		int patrolID;
-	};
+
 
 	/*マップごとのエネミーデータ*/
 	std::vector<std::vector<EnemyData>> _enemyDataList;
 	/*マップごとのエネミーの巡回ルート*/
-	std::vector<std::unordered_map<int, std::vector<Vector2>>> _patrolPoints;
+	std::unordered_map<int, EnemyPatrol> _patrolPoints;
 	
 	std::vector<int> _cgChip;
 };

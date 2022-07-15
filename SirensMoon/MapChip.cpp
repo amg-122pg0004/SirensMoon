@@ -5,6 +5,7 @@
 #include "ImageServer.h"
 #include <memory>
 #include <fstream>
+#include <unordered_map>
 
 MapChips::MapChips(Game& game, ModeBase& mode) :_game{ game }, _mode{mode}{
 	_mapDataStandard.clear();
@@ -17,7 +18,8 @@ MapChips::~MapChips() {
 	_mapDataRecon.clear();
 }
 
-bool MapChips::LoadMap(std::string folderpath, std::string filename) {
+bool MapChips::LoadMap(std::string folderpath, std::string filename) 
+{
 
 	// ファイルからjsonデータの読み込み
 	std::ifstream ifs(folderpath + filename);
@@ -54,12 +56,16 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename) {
 	std::vector<std::vector<std::vector<MapChip>>>onestagedata;
 	/*一つのステージのポリゴンデータ*/
 	std::vector<std::vector<Vector2>>  onestagepolygons;
-	for (int i = 0; i < aLayers.size(); i++) {
+	/*1ステージ分のエネミーデータ*/
+	std::vector<EnemyData> aEnemyData;
+	for (int i = 0; i < aLayers.size(); i++) 
+	{
 
 		picojson::object jsLayer = aLayers[i].get<picojson::object>();		// レイヤーオブジェクト
 		// レイヤー種類が「tilelayer」のものをカウントする
 
-		if (jsLayer["name"].get<std::string>() == "tile_Layer") {
+		if (jsLayer["name"].get<std::string>() == "tile_Layer") 
+		{
 			picojson::array aData = jsLayer["data"].get<picojson::array>();			// マップ配列
 			int index = 0;
 			std::vector<std::vector<MapChip>>	vMapLayer;	// 1レイヤー分のデータ
@@ -79,16 +85,17 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename) {
 
 		}
 		/*レイヤーの種類がオブジェクトグループかつ、名前がMiniMapの物を取得*/
-		else if (jsLayer["name"].get<std::string>() == "MiniMap") {
+		else if (jsLayer["name"].get<std::string>() == "MiniMap") 
+		{
 			/*オブジェクト（ポリゴン）の数を確認、回数分ループ*/
 			picojson::array aObjects = jsLayer["objects"].get<picojson::array>();
-			for (int i = 0; i < aObjects.size(); ++i) 
+			for (int i = 0; i < aObjects.size(); ++i)
 			{
 				/*一つのポリゴンの頂点データ*/
-			std::vector<Vector2> polygonplots;
+				std::vector<Vector2> polygonplots;
 				/*ポリゴンの頂点数分ループ*/
 				picojson::array polylineplots = aObjects[i].get<picojson::object>()["polyline"].get<picojson::array>();
-				for (int i2 = 0; i2 < polylineplots.size(); ++i2) 
+				for (int i2 = 0; i2 < polylineplots.size(); ++i2)
 				{
 					auto x = polylineplots[i2].get<picojson::object>()["x"].get<double>()
 						+ aObjects[i].get<picojson::object>()["x"].get<double>();
@@ -97,14 +104,16 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename) {
 					Vector2 plot = { x,y };
 					polygonplots.push_back(plot);
 				}
-			onestagepolygons.push_back(polygonplots);
+				onestagepolygons.push_back(polygonplots);
 			}
+			_mapDataRecon.push_back(onestagepolygons);
 		}
-		else if (jsLayer["name"].get<std::string>() == "Player") {
-			
+		else if (jsLayer["name"].get<std::string>() == "Player") 
+		{
+
 			picojson::array aObjects = jsLayer["objects"].get<picojson::array>();
 			std::vector<Vector2> aStartPoint;
-			for (int i = 0; i<aObjects.size(); ++i) {
+			for (int i = 0; i < aObjects.size(); ++i) {
 				double posX = aObjects[i].get<picojson::object>()["x"].get<double>();
 				double posY = aObjects[i].get<picojson::object>()["y"].get<double>();
 
@@ -114,41 +123,67 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename) {
 			}
 			_playerStart.push_back(aStartPoint);
 		}
-		else if (jsLayer["name"].get<std::string>() == "Enemy") {
-			
-			std::vector<EnemyData> aEnemyData;
+		else if (jsLayer["name"].get<std::string>() == "Enemy") 
+		{
 			picojson::array aObjects = jsLayer["objects"].get<picojson::array>();
 			for (int i = 0; i < aObjects.size(); ++i) {
-				if (aObjects[i].get<picojson::object>()["gid"].get<std::string>() == "3") {
+				if (aObjects[i].get<picojson::object>()["gid"].is<double>()) {
 
 					int     aEnemyType;
 					Vector2	aEnemyPosition;
 					int aPatrolID;
 
 					picojson::array properties = aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
-					
+
 					aEnemyType = properties[0].get<picojson::object>()["value"].get<double>();
 					aPatrolID = properties[1].get<picojson::object>()["value"].get<double>();
-					
+
 					double posX = aObjects[i].get<picojson::object>()["x"].get<double>();
 					double posY = aObjects[i].get<picojson::object>()["y"].get<double>();
 					aEnemyPosition = { posX,posY };
-					aEnemyData.push_back( { aEnemyType, aEnemyPosition, aPatrolID });
-					
+					aEnemyData.push_back({ aEnemyType, aEnemyPosition, aPatrolID });
 				}
-				if (aObjects[i].get<picojson::object>()["height"].get<double>() == 0) {
-					
-					std::vector<Vector2> aPatrolPoints;
-					aPatrolPoints = aObjects[i].get<picojson::object>()["polyline"].get<picojson::array>();
+				/*height=0はPolylineかpolygonによる巡回ルートオブジェクト*/
+				else {
+					/*敵1体分の巡回ルート*/
+					EnemyPatrol aPatrolData;
+					std::string linestyle = "null";
+					/*polylineが存在するか確認*/
+					if (aObjects[i].get<picojson::object>()["polyline"].is<picojson::array>()) {
+						linestyle = "polyline";
+						aPatrolData.TruckingMode = 0;
+					}
+					/*polygonが存在するか確認*/
+					else if (aObjects[i].get<picojson::object>()["polygon"].is<picojson::array>()) {
+						linestyle = "polygon";
+						aPatrolData.TruckingMode = 1;
+					}
+					/*polylineかpolygonがあれば巡回座標読み込み*/
+					if (linestyle != "null") 
+					{
+						auto pointsArray = aObjects[i].get<picojson::object>()[linestyle].get<picojson::array>();
+						for (int p = 1; p < pointsArray.size(); ++p) 
+						{
+							double x = pointsArray[p].get <picojson::object>()["x"].get<double>();
+							double y = pointsArray[p].get <picojson::object>()["y"].get<double>();
+							x += aObjects[i].get<picojson::object>()["x"].get<double>();
+							y += aObjects[i].get<picojson::object>()["y"].get<double>();
+							Vector2 pos = { x,y };
+							aPatrolData.PatrolPoints.push_back(pos);
+						}
+						/*巡回ルートに対応するID読み混み*/
+						int id = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
+						std::unordered_map<int, std::vector<Vector2>> map;
+						/*mapにIDをキーとして巡回ルート登録*/
+
+						_patrolPoints[id] = aPatrolData;
+					}
 				}
 			}
 			_enemyDataList.push_back(aEnemyData);
-			
 		}
+		_mapDataStandard.push_back(onestagedata);
 	}
-	_mapDataStandard.push_back(onestagedata);
-	_mapDataRecon.push_back(onestagepolygons);
-
 	return true;
 }
 
@@ -175,9 +210,7 @@ void MapChips::StandardRender(int stageNum,Vector2 windowPos,Vector2 cameraPos) 
 				int pos_x = x * _chipSize_W +static_cast<int>(windowPos.x) - static_cast<int>(cameraPos.x);
 				int pos_y = y * _chipSize_H + static_cast<int>(windowPos.y) - static_cast<int>(cameraPos.y);
 				int chip_no = _mapDataStandard[stageNum][layer][y][x]._id;
-
 				chip_no--;
-
 				if (chip_no >= 0) {
 					DrawGraph(pos_x, pos_y, _cgChip[chip_no], TRUE);
 				}
@@ -251,7 +284,7 @@ bool MapChips::IsHit(int objectstage,Actor& o)
 	l = static_cast<int>(o.GetPosition().x);
 	t = static_cast<int>(o.GetPosition().y);
 	r = static_cast<int>(o.GetPosition().x+o.GetSize().x);
-	b = static_cast<int>(o.GetPosition().y + o.GetSize().y);
+	b = static_cast<int>(o.GetPosition().y+o.GetSize().y);
 
 	// キャラの左上座標～右下座標にあたるマップチップと、当たり判定を行う
 	for (y = t / _chipSize_H; y <= b / _chipSize_H; y++)
@@ -270,4 +303,13 @@ bool MapChips::IsHit(int objectstage,Actor& o)
 	}
 	// 当たらなかった
 	return 0;
+}
+
+MapChips::EnemyPatrol MapChips::FindPatrol(int id){
+	auto points = _patrolPoints.find(id);
+	if (points != _patrolPoints.end()) {
+		return points->second;
+	}
+
+	return { { {0,0} }, false };
 }
