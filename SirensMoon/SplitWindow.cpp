@@ -21,7 +21,7 @@ SplitWindow::SplitWindow(Game& game,ModeBase& mode,int pos_x, int pos_y,int wind
 	_darknessScreen = _darkness->MakeDarkness();
 	_normalScreen = MakeScreen(screen_W, screen_H, 1);
 
-	auto player = std::make_unique<Player>(_game,_mode, _windowNo);
+	auto player = std::make_unique<Player>(_game,_mode,window_no);
 	_mode.GetActorServer().Add(std::move(player));
 
 	if (_windowNo == 1) {

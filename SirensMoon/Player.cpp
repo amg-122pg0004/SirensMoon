@@ -27,8 +27,8 @@ Player::Player(Game& game,ModeBase& mode,int playernum)
 	 _cg_side = ImageServer::LoadGraph("resource/player/side.png");
 	 _cg_down = ImageServer::LoadGraph("resource/player/down.png");
 	 _cg_recon = ImageServer::LoadGraph("resource/player/recon.png");
-
-	 _pos = { 200,200 };
+	 Vector2 pos = dynamic_cast<ModeGame&>(_mode).GetMapChips()->GetPlayerStartPosition(_playerNum);
+	 _pos = { pos.x,pos.y };
 	 _stage = 1;
 
 	 _validLight = true;
