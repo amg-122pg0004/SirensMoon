@@ -115,26 +115,35 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename) {
 			_playerStart.push_back(aStartPoint);
 		}
 		else if (jsLayer["name"].get<std::string>() == "Enemy") {
+			
 			std::vector<EnemyData> aEnemyData;
 			picojson::array aObjects = jsLayer["objects"].get<picojson::array>();
 			for (int i = 0; i < aObjects.size(); ++i) {
-				if (jsLayer["gid"].get<std::string>() == "3") {
+				if (aObjects[i].get<picojson::object>()["gid"].get<std::string>() == "3") {
 
 					int     aEnemyType;
 					Vector2	aEnemyPosition;
 					int aPatrolID;
 
 					picojson::array properties = aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
-					aEnemyType = properties[0].get<picojson::object>()["value"].get<int>();
-					aPatrolID = properties[1].get<picojson::object>()["value"].get<int>();
-
+					
+					aEnemyType = properties[0].get<picojson::object>()["value"].get<double>();
+					aPatrolID = properties[1].get<picojson::object>()["value"].get<double>();
+					
 					double posX = aObjects[i].get<picojson::object>()["x"].get<double>();
 					double posY = aObjects[i].get<picojson::object>()["y"].get<double>();
 					aEnemyPosition = { posX,posY };
 					aEnemyData.push_back( { aEnemyType, aEnemyPosition, aPatrolID });
+					
+				}
+				if (aObjects[i].get<picojson::object>()["height"].get<double>() == 0) {
+					
+					std::vector<Vector2> aPatrolPoints;
+					aPatrolPoints = aObjects[i].get<picojson::object>()["polyline"].get<picojson::array>();
 				}
 			}
 			_enemyDataList.push_back(aEnemyData);
+			
 		}
 	}
 	_mapDataStandard.push_back(onestagedata);
