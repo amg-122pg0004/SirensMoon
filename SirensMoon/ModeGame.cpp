@@ -13,17 +13,11 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }
 	_splitWindow.emplace_back(std::make_unique<SplitWindow>(_game,*this, 0, 0, 0));
 	_splitWindow.emplace_back(std::make_unique<SplitWindow>(_game,*this, screen_W / 2, 0, 1));
 
-	Vector2 pos = { 0, 0 };
-	auto enemy = std::make_unique<Enemy>(_game,*this,pos);
-	_actorServer.Add(std::move(enemy));
-
-	Vector2 pos2 = { 1050, 1050 };
-	auto enemy2 = std::make_unique<Enemy>(_game, *this, pos2);
-	_actorServer.Add(std::move(enemy2));
-
-	Vector2 pos3 = { 2050, 2150 };
-	auto enemy3 = std::make_unique<Enemy>(_game, *this, pos3);
-	_actorServer.Add(std::move(enemy3));
+	auto enemydata=_mapChips->GetEnemyData();
+	for (auto&& data : enemydata) {
+		auto enemy =std::make_unique<Enemy>(_game, *this, data);
+		_actorServer.Add(std::move(enemy));
+	}
 }
 
 void ModeGame::Update() {

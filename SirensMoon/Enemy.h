@@ -8,15 +8,15 @@
 
 #pragma once
 #include "Actor.h"
-
 #include <vector>
+#include "MapChip.h"
 
 class Game;
 class ModeBase;
 
 class Enemy :public Actor {
 	public :
-		Enemy(Game& game, ModeBase& mode,Vector2 _pos);
+		Enemy(Game& game, ModeBase& mode,MapChips::EnemyData enemy);
 		/**
 		 * @brief 行動の決定、更新
 		 * 
@@ -55,6 +55,11 @@ class Enemy :public Actor {
 		/*歩くスピード*/
 		int _speed;
 
+		/*巡回ルートのID*/
+		int _patrolID;
+		/*巡回パターン*/
+		bool _patrolMode;
+		int _patrolFlag;
 		/*向かっている座標の配列番号*/
 		int _patrolIndex;
 		/*向かっている座標*/

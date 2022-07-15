@@ -9,13 +9,15 @@
 #include "Enemy.h"
 #include "Math.h"
 #include "ImageServer.h"
+#include "ModeGame.h"
 
-Enemy::Enemy(Game& game,ModeBase& mode,Vector2 pos) :Actor{ game,mode }, _speed{5}
+Enemy::Enemy(Game& game,ModeBase& mode,MapChips::EnemyData enemydata) :Actor{ game,mode }, _speed{5}
 {
 	_validLight = true;
 	_cg=ImageServer::LoadGraph("resource/Enemy/up.png");
-	_pos = {pos.x+700,pos.y+900};
-	_initPos = pos;
+	_pos = {enemydata.StartPosition.x,enemydata.StartPosition.y};
+	_patrolID = enemydata.patrolID;
+	_patrolFlag = 1;
 	SetPatrolPoints();
 
 };
@@ -35,17 +37,10 @@ void Enemy::StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos)
 }
 
 void Enemy::SetPatrolPoints() {
-	Vector2 a = { _initPos.x+700, _initPos.y+900 };
-	_patrolPoints.emplace_back(a);
-	Vector2 b = { _initPos.x + 100, _initPos.y + 900 };
-	_patrolPoints.emplace_back(b);
-	Vector2 c = { _initPos.x + 100, _initPos.y + 100 };
-	_patrolPoints.emplace_back(c);
-	Vector2 d = { _initPos.x + 700,_initPos.y + 100 };
-	_patrolPoints.emplace_back(d);
-
+	_patrolPoints = dynamic_cast<ModeGame&>(_mode).GetMapChips()->FindPatrol(_patrolID).PatrolPoints;
 	_patrolLength = _patrolPoints.size()-1;
-	_nextPos = _patrolPoints[1];
+	_nextPos = _patrolPoints[0];
+	_patrolMode = dynamic_cast<ModeGame&>(_mode).GetMapChips()->FindPatrol(_patrolID).TruckingMode;
 }
 
 void Enemy::MoveNextPoint() {
@@ -64,9 +59,25 @@ bool Enemy::CheckReachPoint() {
 }
 
 void Enemy::GetNextPoints() {
-	++_patrolIndex;
-	if (_patrolIndex > _patrolLength) {
-		_patrolIndex = 0;
+	if (_patrolMode = true) {
+		++_patrolIndex;
+		if (_patrolIndex > _patrolLength) {
+			_patrolIndex = 0;
+		}
+		_nextPos = _patrolPoints[_patrolIndex];
 	}
-	_nextPos=_patrolPoints[_patrolIndex];
+	else if(_patrolMode =false) {
+		_patrolIndex = _patrolFlag + _patrolFlag;
+		if (_patrolIndex > _patrolLength) 
+		{
+			_patrolIndex -= 2;
+			_patrolFlag = -1;
+		}
+		if (_patrolIndex < 0) 
+		{
+			_patrolIndex += 2;
+			_patrolFlag = 1;
+		}
+		
+	}	
 }
