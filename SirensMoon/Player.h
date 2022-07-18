@@ -29,6 +29,7 @@ class Player :public Actor {
 		void CheckStress();
 		void GunShoot();
 		void OpenMap();
+		void UpdateCollision();
 
 		void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;
 
@@ -40,6 +41,8 @@ class Player :public Actor {
 		Vector2 _speed;//移動の速さ
 		double _speedMax;//移動の最大速度
 		int _playerNum;//<プレイヤーの番号(0なら左プレイヤー、1なら右プレイヤー）
+		int _hp;//<体力
+		int _bullet;//残りの弾数
 
 		float _stress;//<ストレスゲージ
 		float _stressSpeed;//<ストレスゲージが変化する速度
@@ -49,6 +52,4 @@ class Player :public Actor {
 		int _cg_side;
 		int _cg_down;
 		int _cg_recon;
-
-		//std::unique_ptr<Light2> _light;
 };

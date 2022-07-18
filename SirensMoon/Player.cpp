@@ -19,7 +19,7 @@
 
 Player::Player(Game& game,ModeBase& mode,int playernum)
 	:Actor{ game,mode }, _speed{ 0,0 },_speedMax{5.0}, _playerNum{playernum}
-	,_stress{ 0 }, _stressSpeed{ 0.05f }, _lastDir{1,0}
+	,_stress{ 0 }, _stressSpeed{ 0.05f }, _lastDir{1,0},_hp{3},_bullet{5}
 {
 
 	_inputManager = _game.GetInputManager();
@@ -39,6 +39,7 @@ void Player::Update() {
 
 	CheckStress();
 	Move();
+	UpdateCollision();
 	if (_playerNum == 0) {
 		GunShoot();
 	}
@@ -104,8 +105,12 @@ void Player::Move() {
 void Player::GunShoot() {
 	if (_inputManager->CheckInput("ACTION",'t', _playerNum)) {
 		_lastDir.Normalize();
-		auto bullet = std::make_unique<Bullet>(_game,_mode, _pos,_lastDir);
-		_mode.GetActorServer().Add(std::move(bullet));
+		if (_bullet > 0) {
+			auto bullet = std::make_unique<Bullet>(_game, _mode, _pos, _lastDir);
+			_mode.GetActorServer().Add(std::move(bullet));
+			//--_bullet;
+		}
+		
 	}
 }
 
@@ -132,6 +137,12 @@ void Player::StandardRender(int stageNum,Vector2 window_pos,Vector2 camera_pos){
 		DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
 		static_cast<int>(_pos.y + window_pos.y - camera_pos.y), _cg, 0);
 	}
+	_collision.Draw(255,255,0);
+}
+
+void Player::UpdateCollision() {
+	_collision.min = _pos;
+	_collision.max = _pos + _size;
 }
 
 void Player::ReconRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
@@ -159,16 +170,13 @@ void Player::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
 	//デバッグ用座標表示
 
 	std::stringstream ss;
+	ss << "ストレスゲージ" << round(_stress) << "%" << "\n";
+	ss << "HP" << _hp << "\n";
+	if (_playerNum == 0) {
+		ss << "弾薬" << _bullet << "\n";
+	}
 
-	//ss << (_pos.x + _size.x / 2) / _game.GetMapChips()->GetChipSize_W()<<"\n";
-	//ss << (_pos.y + _size.y / 2) / _game.GetMapChips()->GetChipSize_H() << "\n";
-	//ss << "_pos.x"<<_pos.x<<"\n";
-	//ss << "_pos.y" << _pos.y << "\n";
-
-	//ss << "ストレス" << round(_stress) << "%" << "\n";
-	ss << "_dir.x" << _speed.x << "\n";
-	ss << "_dir.y" << _speed.y << "\n";
-	ss << "_speed.x" << _speed.x << "\n";
-	ss << "_speed.y" << _speed.y << "\n";
-	DrawString(500 + _playerNum * 800, 100, ss.str().c_str(), GetColor(0, 255, 255));
+	ss << "_collision.max.x" << _collision.max.x << "\n";
+	ss << "_collision.max.y" << _collision.max.y << "\n";
+	DrawString(50 + _playerNum * 960, 100, ss.str().c_str(), GetColor(255, 0, 255));
 }
