@@ -37,7 +37,7 @@ class InputManager{
 		Vector2 CheckAnalogInput(const int playernum);
 
 #ifdef _DEBUG
-		void Render();
+		//void Render();
 #endif 
 
 		

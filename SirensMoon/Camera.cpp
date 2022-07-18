@@ -1,6 +1,5 @@
 #include "Camera.h"
 #include "InputManager.h"
-#include <sstream>
 
 Camera::Camera(Game& game,ModeBase& mode,SplitWindow& sw) :
 	_game{ game },
@@ -58,11 +57,4 @@ void Camera::Update(int playernum) {
 	if (_inputManager->CheckInput("RIGHT", 'h', playernum)) {
 		_pos.x = _pos.x - _speed;
 	}
-}
-
-void Camera::Render(int x,int y) {
-	std::stringstream ss;
-	ss <<"カメラX座標"<< _pos.x << "\n";
-	ss << "カメラY座標" << _pos.y << "\n";
-	DrawString(x, y, ss.str().c_str(), GetColor(255,255,255));
 }

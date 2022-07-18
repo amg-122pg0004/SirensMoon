@@ -9,6 +9,7 @@
 #include "Game.h"
 #include "SplitWindow.h"
 #include <memory>
+#include <sstream>
 
 class Game;
 class ModeBase;

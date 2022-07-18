@@ -124,7 +124,8 @@ Vector2 InputManager::CheckAnalogInput(const int playernum) {
 	return { 0,0 };
 }
 
-void InputManager::Render() {
+//void InputManager::Render() {
+	/*
 	std::stringstream ss;
 	for (auto&& key : _keyState) {
 		ss << key.ActionName <<" "<< key.KeyName <<" " << key.Hold <<" "<< key.Trigger << "\n";
@@ -134,4 +135,5 @@ void InputManager::Render() {
 	}
 
 	DrawString(50, 100, ss.str().c_str(), GetColor(255, 255, 255));
-}
+	*/
+//}
