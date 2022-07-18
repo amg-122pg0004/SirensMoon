@@ -100,4 +100,7 @@ void ModeServer::Render() {
 
 
 void ModeServer::Debug() {
+	for (auto&& mode : _vModes) {
+		mode->Debug();
+	}
 }
