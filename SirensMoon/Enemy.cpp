@@ -11,13 +11,18 @@
 #include "ImageServer.h"
 #include "ModeGame.h"
 
-Enemy::Enemy(Game& game,ModeBase& mode,MapChips::EnemyData enemydata) :Actor{ game,mode }, _speed{5}
+Enemy::Enemy(Game& game,ModeBase& mode,MapChips::EnemyData enemydata) 
+	:Actor{ game,mode }, _speed{ 1 }, _sight_H{ 60 }, _sight_W{330}, _detectionFrame{ 0 }
 {
 	_validLight = true;
 	_cg=ImageServer::LoadGraph("resource/Enemy/up.png");
+	_cg2.resize(29);
+	//ImageServer::LoadDivGraph("resource/Enemy/test_sheet1.png", 29, 17, 2, 60, 90, _cg2.data());
+	ImageServer::LoadDivGraph("resource/Enemy/test_sheet2.png", 29, 5, 6, 180, 270, _cg2.data());
 	_pos = {enemydata.StartPosition.x,enemydata.StartPosition.y};
 	_patrolID = enemydata.patrolID;
 	_patrolFlag = 1;
+	_eyePos = _pos;
 	SetPatrolPoints();
 
 };
@@ -29,24 +34,38 @@ void Enemy::Update() {
 	else {
 		MoveNextPoint();
 	}
+	SightUpdate();
+	if (CheckDetection()) {
+		++_detectionFrame;
+	}
+	else {
+		_detectionFrame = 0;
+	}
+	AnimationUpdate();
 }
 
+void Enemy::AnimationUpdate() {
+	_animeNo = _game.GetFrameCount()/2 % 29;
+}
 void Enemy::StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
-	DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
-		static_cast<int>(_pos.y + window_pos.y - camera_pos.y), _cg, 0);
+	DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x-30),
+		static_cast<int>(_pos.y + window_pos.y - camera_pos.y-30), _cg2[_animeNo], 1);
+
 }
 
 void Enemy::SetPatrolPoints() {
-	_patrolPoints = dynamic_cast<ModeGame&>(_mode).GetMapChips()->FindPatrol(_patrolID).PatrolPoints;
-	_patrolLength = _patrolPoints.size()-1;
+	auto patroldata = dynamic_cast<ModeGame&>(_mode).GetMapChips()->FindPatrol(_patrolID);
+	_patrolPoints = patroldata.PatrolPoints;
+	_patrolMode = patroldata.TruckingMode;
+	_patrolLength = static_cast<int>(_patrolPoints.size()) - 1;
 	_nextPos = _patrolPoints[0];
-	_patrolMode = dynamic_cast<ModeGame&>(_mode).GetMapChips()->FindPatrol(_patrolID).TruckingMode;
+
 }
 
 void Enemy::MoveNextPoint() {
-	Vector2 dir = _nextPos - _pos;
-	dir.Normalize();
-	_pos += dir * _speed;
+	_dir = _nextPos - _pos;
+	_dir.Normalize();
+	_pos += _dir * _speed;
 }
 
 bool Enemy::CheckReachPoint() {
@@ -59,15 +78,15 @@ bool Enemy::CheckReachPoint() {
 }
 
 void Enemy::GetNextPoints() {
-	if (_patrolMode = true) {
+	if (_patrolMode == true) {
 		++_patrolIndex;
 		if (_patrolIndex > _patrolLength) {
 			_patrolIndex = 0;
 		}
 		_nextPos = _patrolPoints[_patrolIndex];
 	}
-	else if(_patrolMode =false) {
-		_patrolIndex = _patrolFlag + _patrolFlag;
+	else if(_patrolMode == false) {
+		_patrolIndex = _patrolIndex + _patrolFlag;
 		if (_patrolIndex > _patrolLength) 
 		{
 			_patrolIndex -= 2;
@@ -78,6 +97,114 @@ void Enemy::GetNextPoints() {
 			_patrolIndex += 2;
 			_patrolFlag = 1;
 		}
-		
+		_nextPos = _patrolPoints[_patrolIndex];
 	}	
 }
+
+void Enemy::SightUpdate() {
+	_eyePos = _pos + _size / 2;
+	auto fov = _eyePos + _dir * _sight_W;
+	Vector2 dirside = { _dir.y * -1,_dir.x };//<視界に垂直なベクトル
+	/*視界範囲4点作成*/
+	_sightPos.pos1 = { _eyePos.x - dirside.x*(_sight_H/2),_eyePos.y-dirside.y*(_sight_H/2)};
+	_sightPos.pos2 = { _eyePos.x + dirside.x * (_sight_H/2),_eyePos.y + dirside.y * (_sight_H/2) };
+	_sightPos.pos3 = { (_eyePos + _dir * _sight_W).x - dirside.x * (_sight_H/2),(_eyePos + _dir * _sight_W).y - dirside.y * (_sight_H/2)};
+	_sightPos.pos4 = { (_eyePos + _dir * _sight_W).x + dirside.x * (_sight_H/2),(_eyePos + _dir * _sight_W).y + dirside.y * (_sight_H/2) };
+}
+
+bool Enemy::CheckDetection() {
+	for (auto&& actor : _mode.GetActorServer().GetObjects()) {
+		if (actor->GetType() == Type::Player) {
+			auto col=actor->GetCollision();
+			Vector2 righttop = { col.max.x,col.min.y };
+			Vector2 leftbottom = { col.min.x,col.max.y };
+
+			AABB enemyaround;
+			enemyaround.min = { _eyePos.x - 60,_eyePos.y - 75 };
+			enemyaround.max = { _eyePos.x + 60,_eyePos.y + 75 };
+			/*周辺判定*/
+			if (Intersect(enemyaround, col)) {
+				return 1;
+			}
+			/*pos1,pos2は周辺判定の範囲に含まれるため判定を行わない*/
+			/*pos2,pos4とプレイヤーコリジョン4辺*/
+			if (IsCrossed(_sightPos.pos2, _sightPos.pos4, col.min, righttop) ||
+				IsCrossed(_sightPos.pos2, _sightPos.pos4, righttop, col.max) ||
+				IsCrossed(_sightPos.pos2, _sightPos.pos4, col.max, leftbottom) ||
+				IsCrossed(_sightPos.pos2, _sightPos.pos4, leftbottom, col.min)) {
+				return 1;
+			}
+			/*pos1,pos3とプレイヤーコリジョン4辺*/
+			if (IsCrossed(_sightPos.pos1, _sightPos.pos3, col.min, righttop) ||
+				IsCrossed(_sightPos.pos1, _sightPos.pos3, righttop, col.max) ||
+				IsCrossed(_sightPos.pos1, _sightPos.pos3, col.max, leftbottom) ||
+				IsCrossed(_sightPos.pos1, _sightPos.pos3, leftbottom, col.min)) {
+				return 1;
+			}
+			/*pos3,pos4とプレイヤーコリジョン4辺*/
+			if (IsCrossed(_sightPos.pos3, _sightPos.pos4, col.min, righttop) ||
+				IsCrossed(_sightPos.pos3, _sightPos.pos4, righttop, col.max) ||
+				IsCrossed(_sightPos.pos3, _sightPos.pos4, col.max, leftbottom) ||
+				IsCrossed(_sightPos.pos3, _sightPos.pos4, leftbottom, col.min)) {
+				return 1;
+			}
+
+		}
+	}
+	return 0;
+}
+
+bool Enemy::IsCrossed(Vector2 a, Vector2 b, Vector2 c, Vector2 d) {
+	Vector2 vec_a1 = b - a;
+	Vector2 vec_a2 = c - a;
+	Vector2 vec_a3 = d - a;
+
+	Vector2 vec_c1 = a - c;
+	Vector2 vec_c2 = b - c;
+	Vector2 vec_c3 = d - c;
+
+	if (Vector2::Cross(vec_a1, vec_a2) * Vector2::Cross(vec_a1, vec_a3) < 0) {
+		if (Vector2::Cross(vec_c3, vec_c1) * Vector2::Cross(vec_c3, vec_c2) < 0) {
+			return 1;
+		}
+	}
+	return 0;
+}
+
+
+void Enemy::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
+	/*周辺知覚範囲表示*/
+	DrawBox(static_cast<int>(_eyePos.x + window_pos.x - camera_pos.x -60),
+		static_cast<int>(_eyePos.y + window_pos.y - camera_pos.y -75),
+		static_cast<int>(_eyePos.x + window_pos.x - camera_pos.x +60),
+		static_cast<int>(_eyePos.y + window_pos.y - camera_pos.y + 75),
+		GetColor(255, 0, 0), 0);
+
+	/*視野範囲表示*/
+	DrawLine(static_cast<int>(_sightPos.pos1.x + window_pos.x - camera_pos.x),
+			static_cast<int>(_sightPos.pos1.y + window_pos.y - camera_pos.y),
+			static_cast<int>(_sightPos.pos2.x + window_pos.x - camera_pos.x),
+			static_cast<int>(_sightPos.pos2.y + window_pos.y - camera_pos.y),
+			GetColor(255, 0, 0), 1);
+	DrawLine(static_cast<int>(_sightPos.pos2.x + window_pos.x - camera_pos.x),
+		static_cast<int>(_sightPos.pos2.y + window_pos.y - camera_pos.y),
+		static_cast<int>(_sightPos.pos4.x + window_pos.x - camera_pos.x),
+		static_cast<int>(_sightPos.pos4.y + window_pos.y - camera_pos.y),
+		GetColor(255, 0, 0), 1);
+	DrawLine(static_cast<int>(_sightPos.pos4.x + window_pos.x - camera_pos.x),
+		static_cast<int>(_sightPos.pos4.y + window_pos.y - camera_pos.y),
+		static_cast<int>(_sightPos.pos3.x + window_pos.x - camera_pos.x),
+		static_cast<int>(_sightPos.pos3.y + window_pos.y - camera_pos.y),
+		GetColor(255, 0, 0), 1);
+	DrawLine(static_cast<int>(_sightPos.pos3.x + window_pos.x - camera_pos.x),
+		static_cast<int>(_sightPos.pos3.y + window_pos.y - camera_pos.y),
+		static_cast<int>(_sightPos.pos1.x + window_pos.x - camera_pos.x),
+		static_cast<int>(_sightPos.pos1.y + window_pos.y - camera_pos.y),
+		GetColor(255, 0, 0), 1);
+
+	//発見フレーム数表示
+	std::stringstream ss;
+	ss << "発見フレーム数" << _detectionFrame << "\n";
+	DrawString(_pos.x+window_pos.x-camera_pos.x, _pos.y + window_pos.y - camera_pos.y-10, ss.str().c_str(), GetColor(255, 0, 255));
+}
+

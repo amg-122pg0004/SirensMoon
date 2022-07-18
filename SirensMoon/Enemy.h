@@ -49,16 +49,53 @@ class Enemy :public Actor {
 		 */
 		bool CheckReachPoint();
 
+		/*視界判定を更新*/
+		void  SightUpdate();
+		/*視界内にプレイヤーが居るか判定*/
+		bool CheckDetection();
+		/**
+		 * \brief 線分ABとCDが交差しているか
+		 * 
+		 * \param a　線分ABの始点
+		 * \param b　線分ABの終点
+		 * \param c　線分CDの始点
+		 * \param d　線分CDの始点
+		 * \return 　交差していればTrue
+		 */
+		bool IsCrossed(Vector2 a,Vector2 b,Vector2 c,Vector2 d);
+
+		void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos) override;
+
+		void AnimationUpdate();
+
 	private:
 		/*初期位置*/
 		Vector2 _initPos;
 		/*歩くスピード*/
 		int _speed;
+		/*向いている方向*/
+		Vector2 _dir;
+
+		/*視界判定*/
+		class BoxSight {
+		public:
+			Vector2 pos1, pos2, pos3, pos4;//<敵視点から手前左右、奥左右
+		};
+
+		BoxSight _sightPos;
+		/*眼の位置*/
+		Vector2 _eyePos;
+
+		/*視界範囲*/
+		const int _sight_H, _sight_W;
+		/*視界範囲内にいたフレーム数*/
+		int _detectionFrame;
 
 		/*巡回ルートのID*/
 		int _patrolID;
 		/*巡回パターン*/
 		bool _patrolMode;
+		/*巡回の方向*/
 		int _patrolFlag;
 		/*向かっている座標の配列番号*/
 		int _patrolIndex;
@@ -71,4 +108,7 @@ class Enemy :public Actor {
 
 		/*Enemy仮画像*/
 		int _cg;
+		std::vector<int> _cg2;
+
+		int _animeNo;//<アニメーションの表示番号
 };
