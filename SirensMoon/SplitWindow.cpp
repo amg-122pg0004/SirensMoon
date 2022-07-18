@@ -61,7 +61,7 @@ void SplitWindow::Render() {
 		u->Render();
 	}
 
-	_camera->Render(static_cast<int>(_windowPos.x + 50),static_cast<int>(_windowPos.y + 50));
+	//_camera->Render(static_cast<int>(_windowPos.x + 50),static_cast<int>(_windowPos.y + 50));
 	/*描画範囲をウィンドウサイズ全体に戻す*/
 	SetDrawArea(0,0,screen_W,screen_H);
 }
@@ -71,5 +71,12 @@ void SplitWindow::ChangeRenderStage(int changedelta) {
 }
 
 void SplitWindow::Debug(){
+	/*描画範囲を分割画面範囲に設定*/
+	SetDrawArea(static_cast<int>(_windowPos.x),
+		static_cast<int>(_windowPos.y),
+		static_cast<int>(_windowPos.x + _windowSize_W),
+		static_cast<int>(_windowPos.y + _windowSize_H));
 	_mode.GetActorServer().Debug(_renderStage, _windowPos, _camera->GetPosition());
+	/*描画範囲をウィンドウサイズ全体に戻す*/
+	SetDrawArea(0, 0, screen_W, screen_H);
 }

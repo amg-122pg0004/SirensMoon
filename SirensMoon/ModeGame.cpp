@@ -33,7 +33,7 @@ void ModeGame::Render() {
 	for (auto&& splitwindows : _splitWindow) {
 		splitwindows->Render();
 	}
-	_inputManager->Render();
+	//_inputManager->Render();
 }
 
 void ModeGame::Debug() {
