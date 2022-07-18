@@ -36,6 +36,11 @@ public:
     friend Vector2 operator*(double scalar, const Vector2& v) {
         return { v.x * scalar, v.y * scalar };
     }
+
+    // ベクトルのスカラー除算 scalar * v ※外部関数
+    friend Vector2 operator/(const Vector2& v,double scalar) {
+        return { v.x / scalar, v.y / scalar };
+    }
     // ベクトル加算代入
     Vector2& operator+=(const Vector2& right) {
         x += right.x;
@@ -69,6 +74,14 @@ public:
         auto temp = vec;
         temp.Normalize();
         return temp;
+    }
+    // ベクトルの内積(Dot product) a・b
+    static double Dot(const Vector2& a, const Vector2& b) {
+        return (a.x * b.x + a.y * b.y);
+    }
+    // ベクトルの外積(Cross product) a×b
+    static double Cross(const Vector2& a, const Vector2& b) {
+        return (a.x * b.y - a.y * b.x);
     }
 };
 
