@@ -29,7 +29,8 @@ void MiniMap::Update() {
 void MiniMap::Render() {
 
 	if (_visible) {
-		DrawExtendGraph(_pos.x, _pos.y, _pos.x + _size.x, _pos.y + _size.y, _cg_map, 0);
+		DrawExtendGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y),
+			static_cast<int>(_pos.x + _size.x),static_cast<int>(_pos.y + _size.y), _cg_map, 0);
 
 		Vector2 pos = { 1290,103 };
 		Vector2 pos2 = { 0,0 };

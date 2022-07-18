@@ -135,8 +135,8 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename)
 
 					picojson::array properties = aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
 
-					aEnemyType = properties[0].get<picojson::object>()["value"].get<double>();
-					aPatrolID = properties[1].get<picojson::object>()["value"].get<double>();
+					aEnemyType =static_cast<int>(properties[0].get<picojson::object>()["value"].get<double>());
+					aPatrolID = static_cast<int>(properties[1].get<picojson::object>()["value"].get<double>());
 
 					double posX = aObjects[i].get<picojson::object>()["x"].get<double>();
 					double posY = aObjects[i].get<picojson::object>()["y"].get<double>();
@@ -162,7 +162,7 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename)
 					if (linestyle != "null") 
 					{
 						auto pointsArray = aObjects[i].get<picojson::object>()[linestyle].get<picojson::array>();
-						for (int p = 1; p < pointsArray.size(); ++p) 
+						for (int p = 0; p < pointsArray.size(); ++p) 
 						{
 							double x = pointsArray[p].get <picojson::object>()["x"].get<double>();
 							double y = pointsArray[p].get <picojson::object>()["y"].get<double>();
@@ -223,10 +223,10 @@ void MapChips::ReconRender(int stageNum, Vector2 windowPos, Vector2 cameraPos)
 {
 	for (int i = 0; i < _mapDataRecon[stageNum].size(); ++i) 
 	{
-		int plotsize = _mapDataRecon[stageNum][i].size();
+		int plotsize = static_cast<int>(_mapDataRecon[stageNum][i].size());
 		for (int plot = 0; plot < plotsize; ++plot) 
 		{
-			float scale = 410.0/3240.0*0.97;
+			float scale =static_cast<float>( 410.0/3240.0*0.97);
 			DrawLineAA(static_cast<float>(_mapDataRecon[stageNum][i][plot].x*scale + windowPos.x),
 				static_cast<float>(_mapDataRecon[stageNum][i][plot].y*scale + windowPos.y ),
 				static_cast<float>(_mapDataRecon[stageNum][i][(plot + 1) % plotsize].x *scale+ windowPos.x),
