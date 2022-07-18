@@ -7,13 +7,14 @@
  *********************************************************************/
 #include "Bullet.h"
 #include "ImageServer.h"
+#include "ModeGame.h"
 
 Bullet::Bullet(Game& game, ModeBase& mode,Vector2 pos, Vector2 dir)
 	:Actor{ game,mode }, _dir{ dir }, _speed{ 25 }, _lifetime{ 180 }
 {
 	_cg = ImageServer::LoadGraph("resource/Bullet/Bullet_1.png");
 	_pos = pos;
-
+	_size = {5,5};
 	_validLight = true;
 	_light= std::make_unique<Light2>(_game,_mode, *this); 
 }
@@ -27,6 +28,9 @@ void Bullet::Update() {
 	--_lifetime;
 
 	if (_lifetime < 0) {
+		_dead = true;
+	}
+	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHit(1, *this)) {
 		_dead = true;
 	}
 }
