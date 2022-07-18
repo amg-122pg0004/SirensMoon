@@ -77,7 +77,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(SolutionDir)DxLib;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)DxLib;$(IncludePath);$(LibraryPath)</LibraryPath>
-    <OutDir>..\..\2022summerEXE</OutDir>
+    <OutDir>..\..\..\2022summerEXE</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)DxLib;$(IncludePath)</IncludePath>
@@ -86,7 +86,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)DxLib;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)DxLib;$(IncludePath);$(LibraryPath)</LibraryPath>
-    <OutDir>..\..\2022summerEXE</OutDir>
+    <OutDir>..\..\..\2022summerEXE</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
