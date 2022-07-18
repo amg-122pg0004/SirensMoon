@@ -32,8 +32,11 @@ class Game {
 		 */
 		inline  auto GetInputManager() { return _inputManager; }
 
+		inline int GetFrameCount() { return _frameCount; }
+
 
 	private:
 		std::shared_ptr<InputManager> _inputManager;
 		std::unique_ptr<ModeServer> _modeServer;
+		int _frameCount;
 };

@@ -9,7 +9,7 @@
 #include "ModeBase.h"
 #include "ModeGame.h"
 
-Game::Game()
+Game::Game() :_frameCount{0}
 {
 	_modeServer = std::make_unique<ModeServer>(*this);
 	_inputManager = std::make_unique<InputManager>();
@@ -22,6 +22,7 @@ void Game::Input() {
 	_inputManager->InputUpdate();
 }
 void Game::Update() {
+	++_frameCount;
 	_modeServer->Update();
 }
 
