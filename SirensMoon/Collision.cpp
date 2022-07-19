@@ -31,3 +31,10 @@ bool Intersect(const AABB& r1, const AABB& r2) {
 void AABB::Draw(int red, int green, int blue) const {
     DrawBox(min.x, min.y, max.x, max.y, GetColor(red, green, blue), FALSE);
 }
+
+void AABB::Draw2(int stageNum, Vector2 window_pos, Vector2 camera_pos) const {
+    DrawBox(min.x+ window_pos.x - camera_pos.x,
+        min.y + window_pos.y - camera_pos.y,
+        max.x + window_pos.x - camera_pos.x,
+        max.y + window_pos.y - camera_pos.y, GetColor(255,255,0), FALSE);
+}

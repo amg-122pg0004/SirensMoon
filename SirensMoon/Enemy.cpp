@@ -14,11 +14,12 @@
 Enemy::Enemy(Game& game,ModeBase& mode,MapChips::EnemyData enemydata) 
 	:Actor{ game,mode }, _speed{ 1 }, _sight_H{ 60 }, _sight_W{330}, _detectionFrame{ 0 }
 {
+	_size = { 60,90 };
 	_validLight = true;
 	_cg=ImageServer::LoadGraph("resource/Enemy/up.png");
 	_cg2.resize(29);
-	//ImageServer::LoadDivGraph("resource/Enemy/test_sheet1.png", 29, 17, 2, 60, 90, _cg2.data());
-	ImageServer::LoadDivGraph("resource/Enemy/test_sheet2.png", 29, 5, 6, 180, 270, _cg2.data());
+	ImageServer::LoadDivGraph("resource/Enemy/test_sheet1.png", 29, 17, 2, 60, 90, _cg2.data());
+	//ImageServer::LoadDivGraph("resource/Enemy/test_sheet2.png", 29, 5, 6, 180, 270, _cg2.data());
 	_pos = {enemydata.StartPosition.x,enemydata.StartPosition.y};
 	_patrolID = enemydata.patrolID;
 	_patrolFlag = 1;
@@ -37,11 +38,16 @@ void Enemy::Update() {
 	SightUpdate();
 	if (CheckDetection()) {
 		++_detectionFrame;
+		if (_detectionFrame >= 120) {
+			ApplyDamage();
+		}
 	}
 	else {
 		_detectionFrame = 0;
 	}
 	AnimationUpdate();
+	UpdateCollision();
+	CheckDamage();
 }
 
 void Enemy::AnimationUpdate() {
@@ -124,6 +130,7 @@ bool Enemy::CheckDetection() {
 			enemyaround.max = { _eyePos.x + 60,_eyePos.y + 75 };
 			/*周辺判定*/
 			if (Intersect(enemyaround, col)) {
+				_lastDetection = actor.get();
 				return 1;
 			}
 			/*pos1,pos2は周辺判定の範囲に含まれるため判定を行わない*/
@@ -132,6 +139,7 @@ bool Enemy::CheckDetection() {
 				IsCrossed(_sightPos.pos2, _sightPos.pos4, righttop, col.max) ||
 				IsCrossed(_sightPos.pos2, _sightPos.pos4, col.max, leftbottom) ||
 				IsCrossed(_sightPos.pos2, _sightPos.pos4, leftbottom, col.min)) {
+				_lastDetection = actor.get();
 				return 1;
 			}
 			/*pos1,pos3とプレイヤーコリジョン4辺*/
@@ -139,6 +147,7 @@ bool Enemy::CheckDetection() {
 				IsCrossed(_sightPos.pos1, _sightPos.pos3, righttop, col.max) ||
 				IsCrossed(_sightPos.pos1, _sightPos.pos3, col.max, leftbottom) ||
 				IsCrossed(_sightPos.pos1, _sightPos.pos3, leftbottom, col.min)) {
+				_lastDetection = actor.get();
 				return 1;
 			}
 			/*pos3,pos4とプレイヤーコリジョン4辺*/
@@ -146,8 +155,18 @@ bool Enemy::CheckDetection() {
 				IsCrossed(_sightPos.pos3, _sightPos.pos4, righttop, col.max) ||
 				IsCrossed(_sightPos.pos3, _sightPos.pos4, col.max, leftbottom) ||
 				IsCrossed(_sightPos.pos3, _sightPos.pos4, leftbottom, col.min)) {
+				_lastDetection = actor.get();
 				return 1;
 			}
+			/*視界内に完全に納まっている場合の確認*/
+			if (Vector2::Cross(_sightPos.pos1 - _sightPos.pos3, col.min - _sightPos.pos3)<0 &&
+				Vector2::Cross(_sightPos.pos3 - _sightPos.pos4, col.min - _sightPos.pos4)<0 &&
+				Vector2::Cross(_sightPos.pos4 - _sightPos.pos2, col.min - _sightPos.pos2)<0 &&
+				Vector2::Cross(_sightPos.pos2 - _sightPos.pos1, col.min - _sightPos.pos1)<0) {
+				_lastDetection = actor.get();
+				return 1;
+			}
+
 
 		}
 	}
@@ -171,8 +190,29 @@ bool Enemy::IsCrossed(Vector2 a, Vector2 b, Vector2 c, Vector2 d) {
 	return 0;
 }
 
+void Enemy::CheckDamage() {
+	for (auto&& actor : _mode.GetActorServer().GetObjects()) {
+		if (actor->GetType() == Type::Bullet) {
+			if(Intersect(_collision, actor->GetCollision())) {
+				actor->Dead();
+				_dead = true;
+			}
+		}
+	}
+}
+
+void Enemy::ApplyDamage() {
+	dynamic_cast<Player&>(*_lastDetection).TakeDamage();
+	_dead = true;
+}
+
+void Enemy::UpdateCollision() {
+	_collision.min = _pos;
+	_collision.max = _pos + _size;
+}
 
 void Enemy::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
+	_collision.Draw2(stageNum,window_pos,camera_pos);
 	/*周辺知覚範囲表示*/
 	DrawBox(static_cast<int>(_eyePos.x + window_pos.x - camera_pos.x -60),
 		static_cast<int>(_eyePos.y + window_pos.y - camera_pos.y -75),

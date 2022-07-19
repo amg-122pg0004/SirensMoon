@@ -64,8 +64,11 @@ class Enemy :public Actor {
 		 */
 		bool IsCrossed(Vector2 a,Vector2 b,Vector2 c,Vector2 d);
 
+		void CheckDamage();
+		void ApplyDamage();
 		void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos) override;
 
+		void UpdateCollision();
 		void AnimationUpdate();
 
 	private:
@@ -90,6 +93,8 @@ class Enemy :public Actor {
 		const int _sight_H, _sight_W;
 		/*視界範囲内にいたフレーム数*/
 		int _detectionFrame;
+		/*最後に発見した物体*/
+		Actor* _lastDetection;
 
 		/*巡回ルートのID*/
 		int _patrolID;

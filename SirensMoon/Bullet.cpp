@@ -26,6 +26,8 @@ Bullet::~Bullet() {
 
 void Bullet::Update() {
 	_pos = _pos + _dir * _speed;
+	UpdateCollision();
+
 	--_lifetime;
 
 	if (_lifetime < 0) {
@@ -35,6 +37,22 @@ void Bullet::Update() {
 	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHit(1, *this)) {
 		_dead = true;
 	}
+	/*
+	else {
+		for (auto&& actor : _mode.GetActorServer().GetObjects()) {
+			if (actor->GetType() == Type::Enemy) {
+				if (Intersect(_collision, actor->GetCollision())) {
+					_dead = true;
+				}
+			}
+		}
+	}
+	*/
+}
+
+void Bullet::UpdateCollision() {
+	_collision.min = _pos;
+	_collision.max = _pos + _size;
 }
 
 void Bullet::StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos){

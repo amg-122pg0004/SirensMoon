@@ -19,7 +19,7 @@
 
 Player::Player(Game& game,ModeBase& mode,int playernum)
 	:Actor{ game,mode }, _speed{ 0,0 },_speedMax{5.0}, _playerNum{playernum}
-	,_stress{ 0 }, _stressSpeed{ 0.05f }, _lastDir{1,0},_hp{3},_bullet{5},_movable{1},_charge{0},_cooldown{0}
+	, _lastDir{1,0},_hp{3},_bullet{5},_movable{1},_charge{0},_cooldown{0}
 {
 
 	_inputManager = _game.GetInputManager();
@@ -27,6 +27,8 @@ Player::Player(Game& game,ModeBase& mode,int playernum)
 	 _cg_side = ImageServer::LoadGraph("resource/player/side.png");
 	 _cg_down = ImageServer::LoadGraph("resource/player/down.png");
 	 _cg_recon = ImageServer::LoadGraph("resource/player/recon.png");
+	 _cg_dead = ImageServer::LoadGraph("resource/player/dead.png");
+
 	 Vector2 pos = dynamic_cast<ModeGame&>(_mode).GetMapChips()->GetPlayerStartPosition(_playerNum);
 	 _pos = { pos.x,pos.y };
 	 _stage = 1;
@@ -36,8 +38,6 @@ Player::Player(Game& game,ModeBase& mode,int playernum)
 }
 
 void Player::Update() {
-
-	CheckStress();
 
 	/*アナログ入力取得*/
 	_dir = _inputManager->CheckAnalogInput(_playerNum);
@@ -164,6 +164,9 @@ void Player::StandardRender(int stageNum,Vector2 window_pos,Vector2 camera_pos){
 				_cg = _cg_down;
 			}
 		}
+	if (_hp < 1) {
+		_cg = _cg_dead;
+	}
 		DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
 		static_cast<int>(_pos.y + window_pos.y - camera_pos.y), _cg, 0);
 		DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
@@ -182,27 +185,18 @@ void Player::ReconRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
 		static_cast<int>(_pos.y + window_pos.y - camera_pos.y), _cg_recon, 0);
 }
 
-void Player::CheckStress(){
-	for (auto&& actor:_mode.GetActorServer().GetObjects()) {
-		if (actor->GetType() == Actor::Type::Player) {
-			if (dynamic_cast<Player*>(actor.get())->GetPlayerNum() != _playerNum) {
-				if ((actor->GetPosition() - _pos).Length() < 200) {
-					_stress=_stress-_stressSpeed*4;
-				}
-			}
-		}
-	}
+void Player::TakeDamage() {
+	--_hp;
 
-	_stress = _stress + _stressSpeed;
-
-	_stress = Math::Clamp(_stress,0.0f,100.0f);
 }
+
+
+
 
 void Player::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
 	//デバッグ用座標表示
 
 	std::stringstream ss;
-	ss << "ストレスゲージ" << round(_stress) << "%" << "\n";
 	ss << "HP" << _hp << "\n";
 	if (_playerNum == 0) {
 		ss << "弾薬" << _bullet << "\n";

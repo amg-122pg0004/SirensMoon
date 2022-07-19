@@ -28,10 +28,10 @@ class Player :public Actor {
 		int GetCharge() { return _charge; }
 
 		void Move();
-		void CheckStress();
 		void GunShoot();
 		void OpenMap();
 		void UpdateCollision();
+		void TakeDamage();
 
 		void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;
 
@@ -52,14 +52,12 @@ class Player :public Actor {
 		int _charge;//チャージ
 		int _cooldown;//クールダウン
 
-		float _stress;//<ストレスゲージ
-		float _stressSpeed;//<ストレスゲージが変化する速度
-
 		/*キャラクターの画像ハンドル*/
 		int _cg_up;
 		int _cg_side;
 		int _cg_down;
 		int _cg_recon;
+		int _cg_dead;
 
 		/*ライトの光画像*/
 		int _cg_light;
