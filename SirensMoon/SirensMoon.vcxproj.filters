@@ -67,14 +67,14 @@
     <Filter Include="ModeServer">
       <UniqueIdentifier>{246b0c6e-9763-45ff-b568-b06a5712ddb5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Light">
-      <UniqueIdentifier>{fa317c28-c165-47b6-91d6-0d6e6d566c63}</UniqueIdentifier>
-    </Filter>
     <Filter Include="UI">
       <UniqueIdentifier>{84abf6ab-5980-4670-9b3a-a5a5907657c8}</UniqueIdentifier>
     </Filter>
     <Filter Include="UI\MiniMap">
       <UniqueIdentifier>{41403de4-b1dc-4330-a137-12a8f2a25fef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Light">
+      <UniqueIdentifier>{fa317c28-c165-47b6-91d6-0d6e6d566c63}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -120,8 +120,8 @@
     <ClCompile Include="Darkness.cpp">
       <Filter>Darkness</Filter>
     </ClCompile>
-    <ClCompile Include="Light.cpp">
-      <Filter>Actor\Light</Filter>
+    <ClCompile Include="LightBase.cpp">
+      <Filter>Light</Filter>
     </ClCompile>
     <ClCompile Include="ReconPlayer.cpp">
       <Filter>Actor\Player</Filter>
@@ -188,8 +188,8 @@
     <ClInclude Include="Darkness.h">
       <Filter>Darkness</Filter>
     </ClInclude>
-    <ClInclude Include="Light.h">
-      <Filter>Actor\Light</Filter>
+    <ClInclude Include="LightBase.h">
+      <Filter>Light</Filter>
     </ClInclude>
     <ClInclude Include="ReconPlayer.h">
       <Filter>Actor\Player</Filter>

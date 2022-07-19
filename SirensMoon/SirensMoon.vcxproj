@@ -155,7 +155,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="ImageServer.cpp" />
     <ClCompile Include="InputManager.cpp" />
-    <ClCompile Include="Light.cpp" />
+    <ClCompile Include="LightBase.cpp" />
     <ClCompile Include="MapChip.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="MiniMap.cpp" />
@@ -179,7 +179,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="ImageServer.h" />
     <ClInclude Include="InputManager.h" />
-    <ClInclude Include="Light.h" />
+    <ClInclude Include="LightBase.h" />
     <ClInclude Include="MapChip.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="MiniMap.h" />
