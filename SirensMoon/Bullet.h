@@ -23,7 +23,5 @@ class Bullet:public Actor {
 		int _cg;
 		int _speed;
 		Vector2 _dir;//<e’e‚Ì”òãÄ•ûŒü
-
-		std::unique_ptr<Light2> _light;
 		int _lifetime;
 };
