@@ -45,6 +45,12 @@ void InputManager::InputUpdate() {
 					key.Trigger = false;
 				}
 				key.Hold = true;
+
+				continue;
+			}
+			else if(key.Hold==true){
+				key.Release = true;
+				key.Hold = false;
 				continue;
 			}
 			break;
@@ -58,6 +64,10 @@ void InputManager::InputUpdate() {
 				}
 				key.Hold = true;
 				continue;
+			}else if (key.Hold == true) {
+				key.Release = true;
+				key.Hold = false;
+				continue;
 			}
 			break;
 		default:
@@ -66,6 +76,7 @@ void InputManager::InputUpdate() {
 
 		key.Trigger = false;
 		key.Hold = false;
+		key.Release = false;
 	}
 
 	for (auto&& analog : _analogState) {
@@ -89,7 +100,7 @@ void InputManager::InputUpdate() {
  * @brief 特定のキーの入力状態を確認する
  * 
  * \param actionname 確認したいキーアクションの名前
- * \param keystate 確認したいキーの状態 'h'で押し続けているか？'t'で押した瞬間か？
+ * \param keystate 確認したいキーの状態 'h'で押し続けているか？'t'で押した瞬間か？'r'で離した瞬間か？
  * \return 入力があればtrue
  */
 bool InputManager::CheckInput(const std::string actionname, const char keystate,int playernum) {
@@ -104,6 +115,8 @@ bool InputManager::CheckInput(const std::string actionname, const char keystate,
 			case 't':
 				return key.Trigger;
 				break;
+			case 'r':
+				return key.Release;
 			default:
 				return false;
 				break;
@@ -124,16 +137,16 @@ Vector2 InputManager::CheckAnalogInput(const int playernum) {
 	return { 0,0 };
 }
 
-//void InputManager::Render() {
-	/*
+void InputManager::Render() {
+	
 	std::stringstream ss;
 	for (auto&& key : _keyState) {
-		ss << key.ActionName <<" "<< key.KeyName <<" " << key.Hold <<" "<< key.Trigger << "\n";
+		ss << key.ActionName <<" "<< key.KeyName <<" " << key.Hold <<" "<< key.Trigger<<" "<<key.Release << "\n";
 	}
 	for (auto&& analog : _analogState) {
 		ss  <<"アナログスティックプレイヤー"<<analog.PadNo<<" "<< analog.Value.x <<" "<<analog.Value.y << "\n";
 	}
 
 	DrawString(50, 100, ss.str().c_str(), GetColor(255, 255, 255));
-	*/
-//}
+	
+}

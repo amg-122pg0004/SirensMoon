@@ -37,7 +37,7 @@ class InputManager{
 		Vector2 CheckAnalogInput(const int playernum);
 
 #ifdef _DEBUG
-		//void Render();
+		void Render();
 #endif 
 
 		
@@ -49,6 +49,7 @@ private:
 		int KeyName;			//<アクションに紐付いているボタンの名前
 		bool Hold;				//<入力され続けている間trueを返す
 		bool Trigger;			//<入力された瞬間のみtrueを返す
+		bool Release;			//入力が無くなった瞬間のみtrueを返す
 		int PadNo;				//<入力したコントローラーの番号
 	};
 
