@@ -22,8 +22,7 @@ class Actor{
 			ReconPlayer,
 			Enemy,
 			Bullet,
-			Light1,
-			Light2
+			Light,
 		};
 		virtual Type GetType() = 0;
 
@@ -52,4 +51,5 @@ class Actor{
 
 		int _stage;
 		bool _validLight;//<ƒ‰ƒCƒg‚ðŠ—L‚µ‚Ä‚¢‚é‚©
+		std::vector<LightBase> _lights;
 };
