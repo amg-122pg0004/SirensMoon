@@ -19,7 +19,7 @@
 
 Player::Player(Game& game,ModeBase& mode,int playernum)
 	:Actor{ game,mode }, _speed{ 0,0 },_speedMax{5.0}, _playerNum{playernum}
-	,_stress{ 0 }, _stressSpeed{ 0.05f }, _lastDir{1,0},_hp{3},_bullet{5}
+	,_stress{ 0 }, _stressSpeed{ 0.05f }, _lastDir{1,0},_hp{3},_bullet{5},_movable{1},_charge{0},_cooldown{0}
 {
 
 	_inputManager = _game.GetInputManager();
@@ -38,23 +38,31 @@ Player::Player(Game& game,ModeBase& mode,int playernum)
 void Player::Update() {
 
 	CheckStress();
-	Move();
-	UpdateCollision();
+
+	/*アナログ入力取得*/
+	_dir = _inputManager->CheckAnalogInput(_playerNum);
+	if (_dir.Length() != 0) {
+		_lastDir = _dir;
+	}
+
+
 	if (_playerNum == 0) {
 		GunShoot();
 	}
 	if (_playerNum == 1) {
 		OpenMap();
 	}
+
+	if (_movable) {
+		Move();
+	}
+	UpdateCollision();
 }
 
 
 void Player::Move() {
 	
-	_dir=_inputManager->CheckAnalogInput(_playerNum);
-	if (_dir.Length() != 0) {
-		_lastDir = _dir;
-	}
+
 
 	/*障害物衝突処理*/
 	
@@ -103,14 +111,29 @@ void Player::Move() {
 }
 
 void Player::GunShoot() {
-	if (_inputManager->CheckInput("ACTION",'t', _playerNum)) {
+	--_cooldown;
+	if (_cooldown < 0) {
+		_cooldown = 0;
+	}
+
+	if (_inputManager->CheckInput("ACTION",'r', _playerNum)&&_charge>=120) {
 		_lastDir.Normalize();
 		if (_bullet > 0) {
 			auto bullet = std::make_unique<Bullet>(_game, _mode, _pos, _lastDir);
 			_mode.GetActorServer().Add(std::move(bullet));
 			//--_bullet;
+			_cooldown = 180;
 		}
 		
+	}
+
+	if (_inputManager->CheckInput("ACTION", 'h', _playerNum)) {
+		_movable = 0;
+		++_charge;
+	}
+	else {
+		_movable = 1;
+		_charge = 0;
 	}
 }
 
@@ -176,7 +199,8 @@ void Player::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
 		ss << "弾薬" << _bullet << "\n";
 	}
 
-	ss << "_collision.max.x" << _collision.max.x << "\n";
-	ss << "_collision.max.y" << _collision.max.y << "\n";
+	//ss << "_collision.max.x" << _collision.max.x << "\n";
+	//ss << "_collision.max.y" << _collision.max.y << "\n";
+	ss << "チャージ" << _charge << "\n";
 	DrawString(50 + _playerNum * 960, 100, ss.str().c_str(), GetColor(255, 0, 255));
 }

@@ -39,10 +39,16 @@ class Player :public Actor {
 		Vector2 _dir;//<キャラの向き
 		Vector2 _lastDir;//最後に向いたキャラの向き
 		Vector2 _speed;//移動の速さ
-		double _speedMax;//移動の最大速度
+		double _speedMax;//移動の最大速
+		bool _movable;
+
 		int _playerNum;//<プレイヤーの番号(0なら左プレイヤー、1なら右プレイヤー）
 		int _hp;//<体力
+
+		/*射撃関係*/
 		int _bullet;//残りの弾数
+		int _charge;//チャージ
+		int _cooldown;//クールダウン
 
 		float _stress;//<ストレスゲージ
 		float _stressSpeed;//<ストレスゲージが変化する速度
