@@ -11,6 +11,7 @@
 #include "Collision.h"
 class Game;
 class ModeBase;
+class LightBase;
 
 
 class Actor{
@@ -51,5 +52,5 @@ class Actor{
 
 		int _stage;
 		bool _validLight;//<ƒ‰ƒCƒg‚ðŠ—L‚µ‚Ä‚¢‚é‚©
-		std::vector<LightBase> _lights;
+		//std::vector<LightBase> _lights;
 };

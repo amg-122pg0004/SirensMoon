@@ -15,7 +15,7 @@
 #include "Bullet.h"
 #include "Game.h"
 #include "ModeGame.h"
-
+#include "ProjectionLight.h"
 
 Player::Player(Game& game,ModeBase& mode,int playernum)
 	:Actor{ game,mode }, _speed{ 0,0 },_speedMax{5.0}, _playerNum{playernum}
@@ -32,7 +32,7 @@ Player::Player(Game& game,ModeBase& mode,int playernum)
 	 _stage = 1;
 
 	 _validLight = true;
-	 //_light = std::make_unique<Light1>(_game, *this);
+
 }
 
 void Player::Update() {
@@ -41,7 +41,9 @@ void Player::Update() {
 
 	/*アナログ入力取得*/
 	_dir = _inputManager->CheckAnalogInput(_playerNum);
+
 	if (_dir.Length() != 0) {
+		_dir.Normalize();
 		_lastDir = _dir;
 	}
 
@@ -66,14 +68,14 @@ void Player::Move() {
 
 	/*障害物衝突処理*/
 	
-	_pos.x += _dir.x/1000*_speedMax;
+	_pos.x += _dir.x * _speedMax;
 	if (dynamic_cast<ModeGame&>(_mode).GetMapChips() ->IsHit(_stage - 1, *this)) {
-		_pos.x += -1*_dir.x / 1000 * _speedMax;
+		_pos.x += -1*_dir.x  * _speedMax;
 	}
 
-	_pos.y += _dir.y / 1000 * _speedMax;
+	_pos.y += _dir.y * _speedMax;
 	if (dynamic_cast<ModeGame&>(_mode).GetMapChips() ->IsHit(_stage - 1, *this)) {
-		_pos.y += -1 * _dir.y / 1000 * _speedMax;
+		_pos.y += -1 * _dir.y  * _speedMax;
 	}
 	
 	/*ステージ外に出ないようにする処理*/
@@ -129,6 +131,11 @@ void Player::GunShoot() {
 
 	if (_inputManager->CheckInput("ACTION", 'h', _playerNum)) {
 		_movable = 0;
+		if (_charge == 0) {
+			auto gunlight = std::make_unique<ProjectionLight>(_game, _mode, *this);
+			_mode.GetActorServer().Add(std::move(gunlight));
+		}
+
 		++_charge;
 	}
 	else {
@@ -159,6 +166,8 @@ void Player::StandardRender(int stageNum,Vector2 window_pos,Vector2 camera_pos){
 		}
 		DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
 		static_cast<int>(_pos.y + window_pos.y - camera_pos.y), _cg, 0);
+		DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
+			static_cast<int>(_pos.y + window_pos.y - camera_pos.y), _cg_light, 1);
 	}
 	_collision.Draw(255,255,0);
 }
@@ -202,5 +211,6 @@ void Player::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
 	//ss << "_collision.max.x" << _collision.max.x << "\n";
 	//ss << "_collision.max.y" << _collision.max.y << "\n";
 	ss << "チャージ" << _charge << "\n";
+	ss << "方向" << _lastDir.x <<"  "<<_lastDir.y << "\n";
 	DrawString(50 + _playerNum * 960, 100, ss.str().c_str(), GetColor(255, 0, 255));
 }

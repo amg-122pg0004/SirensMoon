@@ -1,6 +1,7 @@
 #include "Darkness.h"
 #include "ImageServer.h"
 #include "SplitWindow.h"
+#include "LightBase.h"
 
 
 Darkness::Darkness(Game& game,ModeBase& mode, SplitWindow& splitwindow) :_game{game},_mode { mode }, _cg{-1}, _alphaHandle{-1}, _splitWindow{splitwindow}{
@@ -22,8 +23,19 @@ void Darkness::Update(Vector2 window_pos, Vector2 camera_pos) {
 			DrawGraph(static_cast<int>(actor->GetPosition().x+window_pos.x-240.0 - _splitWindow.GetCamera()->GetPosition().x),
 				static_cast<int>(actor->GetPosition().y + window_pos.y -240.0 - _splitWindow.GetCamera()->GetPosition().y), _cg, 1);
 		}
-	}
-	
+		if (actor->GetType()==Actor::Type::Light) {
+			/*
+			auto cg=dynamic_cast<LightBase&>(*actor).GetGrHandle();
+			DrawGraph(static_cast<int>(actor->GetPosition().x + window_pos.x - 240.0 - _splitWindow.GetCamera()->GetPosition().x),
+				static_cast<int>(actor->GetPosition().y + window_pos.y - 240.0 - _splitWindow.GetCamera()->GetPosition().y), cg, 1);
+			*/
+			
+			auto light = dynamic_cast<LightBase&>(*actor);
+			DrawRotaGraph2(static_cast<int>(actor->GetPosition().x + window_pos.x - _splitWindow.GetCamera()->GetPosition().x),
+				static_cast<int>(actor->GetPosition().y + window_pos.y - _splitWindow.GetCamera()->GetPosition().y),
+				light.GetCenterPosition().x, light.GetCenterPosition().y, 1.0, light.GetAngle(), light.GetGrHandle(), 1, 0);
+		}
+	}	
 }
 
 void Darkness::DeleteDarkness() {

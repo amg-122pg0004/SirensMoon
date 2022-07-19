@@ -10,7 +10,7 @@
 #include "Actor.h"
 #include "InputManager.h"
 #include "Math.h"
-#include "Light.h"
+#include "LightBase.h"
 
 class Game;
 class ModeBase;
@@ -24,6 +24,8 @@ class Player :public Actor {
 
 		Type GetType() override { return Type::Player; }
 		int GetPlayerNum() { return _playerNum; }
+		Vector2 GetDirection() { return _lastDir; }
+		int GetCharge() { return _charge; }
 
 		void Move();
 		void CheckStress();
@@ -58,4 +60,7 @@ class Player :public Actor {
 		int _cg_side;
 		int _cg_down;
 		int _cg_recon;
+
+		/*ƒ‰ƒCƒg‚ÌŒõ‰æ‘œ*/
+		int _cg_light;
 };

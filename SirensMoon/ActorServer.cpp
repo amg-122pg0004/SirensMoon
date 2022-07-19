@@ -28,7 +28,7 @@ void	ActorServer::Add(std::unique_ptr<Actor> actor) {
 }
 
 void	ActorServer::AddPendingActors() {
-	
+	std::reverse(begin(_pendingTypeActors),end(_pendingTypeActors));
 	_typeActors.insert(
 		_typeActors.end(),
 		make_move_iterator(_pendingTypeActors.begin()),

@@ -3,7 +3,7 @@
 #include "InputManager.h"
 #include "Game.h"
 #include "Math.h"
-#include "Light.h"
+#include "LightBase.h"
 #include <memory>
 
 class ModeBase;

@@ -7,7 +7,7 @@
  *********************************************************************/
 #pragma once
 #include "Player.h"
-#include "Light.h"
+#include "LightBase.h"
 class Game;
 
 class Bullet:public Actor {

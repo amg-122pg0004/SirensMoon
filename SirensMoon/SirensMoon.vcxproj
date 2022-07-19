@@ -163,6 +163,7 @@
     <ClCompile Include="ModeGame.cpp" />
     <ClCompile Include="ModeServer.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="ProjectionLight.cpp" />
     <ClCompile Include="ReconPlayer.cpp" />
     <ClCompile Include="SplitWindow.cpp" />
     <ClCompile Include="UIBase.cpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="ModeServer.h" />
     <ClInclude Include="picojson\picojson.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="ProjectionLight.h" />
     <ClInclude Include="ReconPlayer.h" />
     <ClInclude Include="SplitWindow.h" />
     <ClInclude Include="UIBase.h" />

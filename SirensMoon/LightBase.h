@@ -8,25 +8,21 @@
 class Actor;
 class Game;
 
-class LightBase  {
+class LightBase:public Actor  {
 	public:
-		struct Parameter {
-			Vector2 pos;
-			int _rotation;
-			Vector2 _scale;
-		};
 
 		LightBase(Game& game,ModeBase& mode,Actor& owner);
 		void Update();
-		Parameter GetParameter();
-		
 
-	private:
+		Actor::Type GetType()override { return Type::Light; };
+		int GetGrHandle() { return _cg; }
+		Vector2 GetCenterPosition() { return _centerPos; }
+		double GetAngle() { return _angle; }
 
+	protected:
 		Actor& _owner;
-		Vector2 _pos;
-		int _rotation;
-		Vector2 _scale;
-
+		int _cg;
+		Vector2 _centerPos;
+		double _angle;
 };
 

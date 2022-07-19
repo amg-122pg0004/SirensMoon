@@ -16,7 +16,7 @@ Bullet::Bullet(Game& game, ModeBase& mode, Vector2 pos, Vector2 dir)
 	_pos = pos;
 	_size = { 5,5 };
 
-	auto light = std::make_unique<LightBase>();
+	auto light = std::make_unique<LightBase>(_game,_mode,*this);
 	_mode.GetActorServer().Add(std::move(light));
 }
 
@@ -33,7 +33,6 @@ void Bullet::Update() {
 		_dead = true;
 	}
 	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHit(1, *this)) {
-		_lightref->Dead();
 		_dead = true;
 	}
 }
