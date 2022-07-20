@@ -19,23 +19,13 @@ void Darkness::Update(Vector2 window_pos, Vector2 camera_pos) {
 	SetDrawScreen(_alphaHandle);
 	DrawBox(0, 0, screen_W, screen_H, GetColor(0, 0, 0), 1);
 	for (auto&& actor : _mode.GetActorServer().GetObjects()) {
-		if (actor->HaveLight()==1) {
-			DrawGraph(static_cast<int>(actor->GetPosition().x+window_pos.x-240.0 - _splitWindow.GetCamera()->GetPosition().x),
-				static_cast<int>(actor->GetPosition().y + window_pos.y -240.0 - _splitWindow.GetCamera()->GetPosition().y), _cg, 1);
-		}
-		if (actor->GetType()==Actor::Type::Light) {
-			/*
-			auto cg=dynamic_cast<LightBase&>(*actor).GetGrHandle();
-			DrawGraph(static_cast<int>(actor->GetPosition().x + window_pos.x - 240.0 - _splitWindow.GetCamera()->GetPosition().x),
-				static_cast<int>(actor->GetPosition().y + window_pos.y - 240.0 - _splitWindow.GetCamera()->GetPosition().y), cg, 1);
-			*/
-			
+		if (actor->GetType()==Actor::Type::Light) {		
 			auto light = dynamic_cast<LightBase&>(*actor);
 			DrawRotaGraph2(static_cast<int>(light.GetPosition().x + window_pos.x - _splitWindow.GetCamera()->GetPosition().x),
 				static_cast<int>(light.GetPosition().y + window_pos.y - _splitWindow.GetCamera()->GetPosition().y),
-				light.GetCenterPosition().x, light.GetCenterPosition().y, 1.0, light.GetAngle(), light.GetGrHandle(), 1, 0);
+				light.GetCenterPosition().x, light.GetCenterPosition().y, light.GetScale(), light.GetAngle(), light.GetGrHandle(), 1, 0);
 		}
-	}	
+	}
 }
 
 void Darkness::DeleteDarkness() {

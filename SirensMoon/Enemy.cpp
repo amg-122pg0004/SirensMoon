@@ -10,12 +10,12 @@
 #include "Math.h"
 #include "ImageServer.h"
 #include "ModeGame.h"
+#include "BlinkLight.h"
 
 Enemy::Enemy(Game& game,ModeBase& mode,MapChips::EnemyData enemydata) 
 	:Actor{ game,mode }, _speed{ 1 }, _sight_H{ 60 }, _sight_W{330}, _detectionFrame{ 0 }
 {
 	_size = { 60,90 };
-	_validLight = true;
 	_cg=ImageServer::LoadGraph("resource/Enemy/up.png");
 	_cg2.resize(29);
 	ImageServer::LoadDivGraph("resource/Enemy/test_sheet1.png", 29, 17, 2, 60, 90, _cg2.data());
@@ -25,6 +25,8 @@ Enemy::Enemy(Game& game,ModeBase& mode,MapChips::EnemyData enemydata)
 	_patrolFlag = 1;
 	_eyePos = _pos;
 	SetPatrolPoints();
+	auto light = std::make_unique<BlinkLight>(_game, _mode, *this);
+	_mode.GetActorServer().Add(std::move(light));
 
 };
 

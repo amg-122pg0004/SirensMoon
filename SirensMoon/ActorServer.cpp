@@ -61,6 +61,9 @@ void	ActorServer::Update() {
 		for (auto&& object : _typeActors) {
 			object->Update();
 		}
+		for (auto&& object : _typeActors) {
+			object->CheckDeadOwner();
+		}
 		_updating = false;
 		AddPendingActors();
 		DeleteObjects();	// 削除予約されたオブジェクトを削除する

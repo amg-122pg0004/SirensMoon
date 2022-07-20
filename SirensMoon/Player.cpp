@@ -16,6 +16,7 @@
 #include "Game.h"
 #include "ModeGame.h"
 #include "ProjectionLight.h"
+#include "LightBase.h"
 
 Player::Player(Game& game,ModeBase& mode,int playernum)
 	:Actor{ game,mode }, _speed{ 0,0 },_speedMax{5.0}, _playerNum{playernum}
@@ -33,7 +34,8 @@ Player::Player(Game& game,ModeBase& mode,int playernum)
 	 _pos = { pos.x,pos.y };
 	 _stage = 1;
 
-	 _validLight = true;
+	 auto light = std::make_unique<LightBase>(_game, _mode, *this);
+	 _mode.GetActorServer().Add(std::move(light));
 
 }
 

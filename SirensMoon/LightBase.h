@@ -18,11 +18,15 @@ class LightBase:public Actor  {
 		int GetGrHandle() { return _cg; }
 		Vector2 GetCenterPosition() { return _centerPos; }
 		double GetAngle() { return _angle; }
+		double GetScale() { return _scale; }
+
+		void CheckDeadOwner()override;
 
 	protected:
 		Actor& _owner;
 		int _cg;
 		Vector2 _centerPos;
 		double _angle;
+		double _scale;
 };
 

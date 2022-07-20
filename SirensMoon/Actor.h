@@ -34,14 +34,13 @@ class Actor{
 		virtual void StandardRender(int stageNum,Vector2 window_pos, Vector2 camera_pos);
 		virtual void ReconRender(int stageNum, Vector2 window_pos, Vector2 camera_pos);
 		virtual void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos);
+		virtual void CheckDeadOwner();
 
 		virtual bool IsDead() { return _dead; }
 		virtual void Dead() { _dead = true; }
 		virtual AABB GetCollision() { return _collision; }
 		virtual Vector2 GetPosition() { return _pos; }
 		virtual Vector2 GetSize() { return _size; }
-		/*ライトを所有しているか*/
-		virtual bool HaveLight() { return _validLight; }
 		
 	protected:
 		Game& _game;
@@ -51,6 +50,5 @@ class Actor{
 		AABB _collision;
 
 		int _stage;
-		bool _validLight;//<ライトを所有しているか
 		//std::vector<LightBase> _lights;
 };
