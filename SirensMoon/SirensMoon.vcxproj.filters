@@ -79,6 +79,12 @@
     <Filter Include="Actor\Light\ProjectionLight">
       <UniqueIdentifier>{3de48b82-d295-48d8-a7ee-6cd771f2071e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Light\BlinkLight">
+      <UniqueIdentifier>{eac98229-8b05-42ca-ae1e-67a8aeecde25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\PauseMenu">
+      <UniqueIdentifier>{b44f53f6-20d6-465a-8b48-13d362974c4d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -150,6 +156,12 @@
     <ClCompile Include="ProjectionLight.cpp">
       <Filter>Actor\Light\ProjectionLight</Filter>
     </ClCompile>
+    <ClCompile Include="BlinkLight.cpp">
+      <Filter>Actor\Light\BlinkLight</Filter>
+    </ClCompile>
+    <ClCompile Include="Pause.cpp">
+      <Filter>UI\PauseMenu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -220,6 +232,12 @@
     </ClInclude>
     <ClInclude Include="ProjectionLight.h">
       <Filter>Actor\Light\ProjectionLight</Filter>
+    </ClInclude>
+    <ClInclude Include="BlinkLight.h">
+      <Filter>Actor\Light\BlinkLight</Filter>
+    </ClInclude>
+    <ClInclude Include="Pause.h">
+      <Filter>UI\PauseMenu</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

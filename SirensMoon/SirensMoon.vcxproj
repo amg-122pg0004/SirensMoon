@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="ActorServer.cpp" />
+    <ClCompile Include="BlinkLight.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />
@@ -162,6 +163,7 @@
     <ClCompile Include="ModeBase.cpp" />
     <ClCompile Include="ModeGame.cpp" />
     <ClCompile Include="ModeServer.cpp" />
+    <ClCompile Include="Pause.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ProjectionLight.cpp" />
     <ClCompile Include="ReconPlayer.cpp" />
@@ -172,6 +174,7 @@
   <ItemGroup>
     <ClInclude Include="Actor.h" />
     <ClInclude Include="ActorServer.h" />
+    <ClInclude Include="BlinkLight.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collision.h" />
@@ -187,6 +190,7 @@
     <ClInclude Include="ModeBase.h" />
     <ClInclude Include="ModeGame.h" />
     <ClInclude Include="ModeServer.h" />
+    <ClInclude Include="Pause.h" />
     <ClInclude Include="picojson\picojson.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ProjectionLight.h" />
