@@ -10,6 +10,7 @@
 #include "MapChip.h"
 #include "ModeGame.h"
 #include "MiniMap.h"
+#include "Pause.h"
 
 SplitWindow::SplitWindow(Game& game,ModeBase& mode,int pos_x, int pos_y,int window_no) :
 	_game{game}, _mode{mode}, _windowPos{pos_x ,pos_y}, _windowNo{window_no}, _renderStage{1}
@@ -29,6 +30,10 @@ SplitWindow::SplitWindow(Game& game,ModeBase& mode,int pos_x, int pos_y,int wind
 		Vector2 map_size = { 780,600 };
 		_ui.emplace_back(std::make_unique<MiniMap>(_game, _mode, map_pos, map_size));
 	}
+
+	Vector2 pause_pos = { 1080,0 };
+	Vector2 pause_size = { 780,600 };
+	_ui.emplace_back(std::make_unique<Pause>(_game, _mode, pause_pos, pause_size));
 	
 }
 
