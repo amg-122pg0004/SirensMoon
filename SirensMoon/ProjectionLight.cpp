@@ -8,6 +8,7 @@ ProjectionLight::ProjectionLight(Game& game, ModeBase& mode, Actor& owner)
 {
 	_cg = ImageServer::LoadGraph("resource/Light/Light_6.png");
 	_centerPos = { 40,300 };
+	_scale = 1.3;
 }
 
 void ProjectionLight::Update(){
