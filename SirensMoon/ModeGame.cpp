@@ -1,12 +1,10 @@
 #include "ModeGame.h"
 #include "Enemy.h"
 
-ModeGame::ModeGame(Game& game) :ModeBase{ game }
+ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false}
 {
 
 	_inputManager=_game.GetInputManager();
-
-	_stopObjectProccess = false;
 
 	_mapChips = std::make_unique<MapChips>(_game,*this);
 
@@ -21,9 +19,13 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }
 }
 
 void ModeGame::Update() {
-	_actorServer.Update();
+	/*UIの更新*/
 	for (auto&& splitwindows : _splitWindow) {
 		splitwindows->Update();
+	}
+	/*Actorの更新*/
+	if (_stopActorUpdate!=1) {
+		_actorServer.Update();
 	}
 }
 

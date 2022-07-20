@@ -18,9 +18,10 @@ public:
 
 	inline  auto& GetMapChips() { return _mapChips; }
 	inline auto& GetSplitWindow() { return _splitWindow; }
+	void SetPauseGame(bool flag) { _stopActorUpdate = flag; }
 
 private:
-	bool _stopObjectProccess;
+	bool _stopActorUpdate;
 
 	std::unique_ptr<MapChips>_mapChips;
 	std::vector<std::unique_ptr<SplitWindow>>_splitWindow;
