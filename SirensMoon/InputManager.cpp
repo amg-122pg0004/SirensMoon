@@ -18,11 +18,13 @@ InputManager::InputManager() {
 			{"LEFT",PAD_INPUT_LEFT,false,false,0},
 			{"RIGHT",PAD_INPUT_RIGHT,false,false,0},
 			{"ACTION",PAD_INPUT_1,false,false,0},
+			{"PAUSE",PAD_INPUT_12,false,false,0},
 			{"UP",PAD_INPUT_UP,false,false,1},
 			{"DOWN",PAD_INPUT_DOWN,false,false,1},
 			{"LEFT",PAD_INPUT_LEFT,false,false,1},
 			{"RIGHT",PAD_INPUT_RIGHT,false,false,1},
 			{"ACTION",PAD_INPUT_1,false,false,1},
+			{"PAUSE",PAD_INPUT_12,false,false,1}
 	};
 
 	_analogState = {
