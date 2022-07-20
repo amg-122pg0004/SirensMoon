@@ -149,11 +149,13 @@
     <ClCompile Include="ActorServer.cpp" />
     <ClCompile Include="BlinkLight.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="BulletItem.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Darkness.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="HPItem.cpp" />
     <ClCompile Include="ImageServer.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="LightBase.cpp" />
@@ -176,11 +178,13 @@
     <ClInclude Include="ActorServer.h" />
     <ClInclude Include="BlinkLight.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="BulletItem.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Darkness.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="HPItem.h" />
     <ClInclude Include="ImageServer.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="LightBase.h" />
