@@ -24,6 +24,7 @@ class Actor{
 			Enemy,
 			Bullet,
 			Light,
+			Item
 		};
 		virtual Type GetType() = 0;
 
@@ -48,6 +49,7 @@ class Actor{
 		Vector2 _pos,_size;
 		bool _dead;
 		AABB _collision;
+		int _cg;
 
 		int _stage;
 		//std::vector<LightBase> _lights;

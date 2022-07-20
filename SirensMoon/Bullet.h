@@ -21,7 +21,6 @@ class Bullet:public Actor {
 		Type GetType() override { return Type::Bullet; }
 
 	private:
-		int _cg;
 		int _speed;
 		Vector2 _dir;//<e’e‚Ì”òãÄ•ûŒü
 		int _lifetime;
