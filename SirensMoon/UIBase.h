@@ -16,4 +16,5 @@ protected:
 	Vector2 _size;
 	Game& _game;
 	ModeBase& _mode;
+	bool _visible;
 };
