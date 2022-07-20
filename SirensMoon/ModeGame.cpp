@@ -1,5 +1,7 @@
 #include "ModeGame.h"
 #include "Enemy.h"
+#include "HPItem.h"
+#include "BulletItem.h"
 
 ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false}
 {
@@ -15,6 +17,18 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false}
 	for (auto&& data : enemydata) {
 		auto enemy =std::make_unique<Enemy>(_game, *this, data);
 		_actorServer.Add(std::move(enemy));
+	}
+
+	auto hp_pos = _mapChips->GetHPItemData();
+	for (int i=0; i < hp_pos.size();++i) {
+		auto hp = std::make_unique<HPItem>(_game, *this, hp_pos[i]);
+		_actorServer.Add(std::move(hp));
+	}
+
+	auto bullet_pos = _mapChips->GetBulletData();
+	for (int i=0; i < bullet_pos.size(); ++i) {
+		auto bullet = std::make_unique<BulletItem>(_game, *this, bullet_pos[i]);
+		_actorServer.Add(std::move(bullet));
 	}
 }
 

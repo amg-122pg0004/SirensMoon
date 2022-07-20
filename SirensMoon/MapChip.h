@@ -49,6 +49,8 @@ public:
 
 	Vector2 GetPlayerStartPosition(int playerno) { return _playerStart[0][playerno]; }
 	std::vector<EnemyData> GetEnemyData() { return _enemyDataList[0]; }
+	std::vector<Vector2> GetHPItemData() { return _hpItems[0]; }
+	std::vector<Vector2> GetBulletData() { return _bulletItems[0]; }
 	EnemyPatrol FindPatrol(int id);
 	int CheckHitChipNo(int objectstage, int x, int y);
 	bool IsHit(int objectstage, Actor& o);
@@ -75,7 +77,10 @@ private:
 	std::vector<std::vector<std::vector<Vector2>>> _mapDataRecon;
 	/*マップごとのプレイヤーデータ*/
 	std::vector<std::vector<Vector2>> _playerStart;
-
+	/*マップごとのHPアイテムデータ*/
+	std::vector<std::vector<Vector2>> _hpItems;
+	/*マップごとの弾薬アイテムデータ*/
+	std::vector<std::vector<Vector2>> _bulletItems;
 
 	/*マップごとのエネミーデータ*/
 	std::vector<std::vector<EnemyData>> _enemyDataList;

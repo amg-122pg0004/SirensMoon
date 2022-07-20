@@ -123,6 +123,28 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename)
 			}
 			_playerStart.push_back(aStartPoint);
 		}
+		else if (jsLayer["name"].get<std::string>() == "Item") {
+			picojson::array aObjects = jsLayer["objects"].get<picojson::array>();
+			std::vector<Vector2> aHPPosition;
+			std::vector<Vector2> aBulletPosition;
+			for (int i = 0; i < aObjects.size(); ++i) {
+				double posX, posY;
+				if (aObjects[i].get<picojson::object>()["gid"].get<double>() == 8) {
+					posX = aObjects[i].get<picojson::object>()["x"].get<double>();
+					posY = aObjects[i].get<picojson::object>()["y"].get<double>();
+					Vector2 pos = { posX,posY };
+					aBulletPosition.push_back(pos);
+				}
+				else if (aObjects[i].get<picojson::object>()["gid"].get<double>() == 9) {
+					posX = aObjects[i].get<picojson::object>()["x"].get<double>();
+					posY = aObjects[i].get<picojson::object>()["y"].get<double>();
+					Vector2 pos = { posX,posY };
+					aHPPosition.push_back(pos);
+				}
+			}
+			_hpItems.push_back(aHPPosition);
+			_bulletItems.push_back(aBulletPosition);
+		}
 		else if (jsLayer["name"].get<std::string>() == "Enemy") 
 		{
 			picojson::array aObjects = jsLayer["objects"].get<picojson::array>();
