@@ -169,9 +169,11 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ProjectionLight.cpp" />
     <ClCompile Include="ReconPlayer.cpp" />
+    <ClCompile Include="ServerMachine.cpp" />
     <ClCompile Include="SplitWindow.cpp" />
     <ClCompile Include="UIBase.cpp" />
     <ClCompile Include="WinMain.cpp" />
+    <ClCompile Include="ソース.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
@@ -199,6 +201,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="ProjectionLight.h" />
     <ClInclude Include="ReconPlayer.h" />
+    <ClInclude Include="ServerMachine.h" />
     <ClInclude Include="SplitWindow.h" />
     <ClInclude Include="UIBase.h" />
   </ItemGroup>
