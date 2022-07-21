@@ -1,6 +1,13 @@
+/*****************************************************************//**
+ * \file   MiniMap.h
+ * \brief  ミニマップを表示するUIです。
+ * 
+ * \author 土居将太郎
+ * \date   July 2022
+ *********************************************************************/
+
 #pragma once
 #include "UIBase.h"
-//#include "InputManager.h"
 #include <memory>
 
 class Game;

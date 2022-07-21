@@ -22,7 +22,6 @@ Player::Player(Game& game,ModeBase& mode,int playernum)
 	:Actor{ game,mode }, _speed{ 0,0 },_speedMax{5.0}, _playerNum{playernum}
 	, _lastDir{1,0},_hp{3},_bullet{5},_movable{1},_charge{0},_cooldown{0}
 {
-
 	_inputManager = _game.GetInputManager();
 	 _cg_up = ImageServer::LoadGraph("resource/player/up.png");
 	 _cg_side = ImageServer::LoadGraph("resource/player/side.png");
@@ -36,7 +35,6 @@ Player::Player(Game& game,ModeBase& mode,int playernum)
 
 	 auto light = std::make_unique<LightBase>(_game, _mode, *this);
 	 _mode.GetActorServer().Add(std::move(light));
-
 }
 
 void Player::Update() {
@@ -60,7 +58,16 @@ void Player::Update() {
 	if (_movable) {
 		Move();
 	}
+
 	UpdateCollision();
+
+#ifdef _DEBUG
+
+	if (_inputManager->CheckInput("CHANGE", 't',0)|| _inputManager->CheckInput("CHANGE", 't', 1)) {
+		ChangePlayer();
+	}
+
+#endif _DEBUG
 }
 
 
@@ -74,25 +81,31 @@ void Player::Move() {
 	if (dynamic_cast<ModeGame&>(_mode).GetMapChips() ->IsHit(_stage - 1, *this)) {
 		_pos.x += -1*_dir.x  * _speedMax;
 	}
+	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHitBarrier(_stage - 1, *this, _playerNum)) {
+		_pos.x += -1 * _dir.x * _speedMax;
+	}
 
 	_pos.y += _dir.y * _speedMax;
 	if (dynamic_cast<ModeGame&>(_mode).GetMapChips() ->IsHit(_stage - 1, *this)) {
 		_pos.y += -1 * _dir.y  * _speedMax;
+	}
+	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHitBarrier(_stage - 1, *this, _playerNum)) {
+		_pos.x += -1 * _dir.y * _speedMax;
 	}
 	
 	/*ステージ外に出ないようにする処理*/
 	if (_pos.x < 0) {
 		_pos.x = 0;
 	}
-	else if (_pos.x > screen_W / 2 * 3) {
-		_pos.x = screen_W / 2 * 3;
+	else if (static_cast<int>(_pos.x)+_size.x > screen_W / 2 * 3) {
+		_pos.x = screen_W / 2 * 3-_size.x;
 	}
 
 	if (_pos.y < 0) {
 		_pos.y = 0;
 	}
-	else if (_pos.y > screen_H * 3) {
-		_pos.y = screen_H * 3;
+	else if (static_cast<int>(_pos.y)+_size.y> screen_H * 3) {
+		_pos.y = screen_H * 3-_size.y;
 	}
 
 	/*フレームアウトした際にカメラを動かす処理*/
@@ -102,7 +115,7 @@ void Player::Move() {
 	if (renderposition.x < 0 && _dir.x < 0) {
 		rendercamera->ChangePosition(Camera::ChangeDir::LEFT);
 	}
-	else if (renderposition.x > screen_W / 2 && _dir.x > 0) {
+	else if (renderposition.x > static_cast<double>(screen_W) / 2 && _dir.x > 0) {
 		rendercamera->ChangePosition(Camera::ChangeDir::RIGHT);
 	}
 	if (renderposition.y < 0 && _dir.y < 0) {
@@ -131,7 +144,7 @@ void Player::GunShoot() {
 		
 	}
 
-	if (_inputManager->CheckInput("ACTION", 'h', _playerNum)) {
+	if (_inputManager->CheckInput("ACTION", 'h', _playerNum)&&_cooldown==0) {
 		_movable = 0;
 		if (_charge == 0) {
 			auto gunlight = std::make_unique<ProjectionLight>(_game, _mode, *this);
@@ -171,10 +184,7 @@ void Player::StandardRender(int stageNum,Vector2 window_pos,Vector2 camera_pos){
 	}
 		DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
 		static_cast<int>(_pos.y + window_pos.y - camera_pos.y), _cg, 0);
-		DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
-			static_cast<int>(_pos.y + window_pos.y - camera_pos.y), _cg_light, 1);
 	}
-	_collision.Draw(255,255,0);
 }
 
 void Player::UpdateCollision() {
@@ -189,11 +199,14 @@ void Player::ReconRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
 
 void Player::TakeDamage() {
 	--_hp;
-
 }
 
-
-
+void Player::Heal() {
+	++_hp;
+}
+void Player::TakeAmmo() {
+	++_bullet;
+}
 
 void Player::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
 	//デバッグ用座標表示
@@ -208,5 +221,17 @@ void Player::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
 	//ss << "_collision.max.y" << _collision.max.y << "\n";
 	ss << "チャージ" << _charge << "\n";
 	ss << "方向" << _lastDir.x <<"  "<<_lastDir.y << "\n";
+	ss << "プレイヤー" << _playerNum << "\n";
 	DrawString(50 + _playerNum * 960, 100, ss.str().c_str(), GetColor(255, 0, 255));
 }
+
+#ifdef _DEBUG
+void Player::ChangePlayer() {
+	if (_playerNum == 0) {
+		_playerNum = 1;
+	}
+	else if (_playerNum == 1) {
+		_playerNum = 0;
+	}
+}
+#endif _DEBUG

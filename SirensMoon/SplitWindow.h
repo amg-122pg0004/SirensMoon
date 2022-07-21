@@ -29,6 +29,7 @@ class SplitWindow {
 		int GetWindowSize_H() { return _windowSize_H;}
 
 		void ChangeRenderStage(int changedelta);
+
 	private:
 		int	_windowSize_W;
 		int _windowSize_H;

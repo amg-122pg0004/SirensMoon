@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   ProjectionLight.cpp
+ * \brief  特定方向に放射するようなライトです。
+ * 
+ * \author 土居将太郎
+ * \date   July 2022
+ *********************************************************************/
+
 #include "ProjectionLight.h"
 #include "ImageServer.h"
 #include "Player.h"

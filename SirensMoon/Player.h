@@ -32,6 +32,13 @@ class Player :public Actor {
 		void OpenMap();
 		void UpdateCollision();
 		void TakeDamage();
+		void Heal();
+		void TakeAmmo();
+
+#ifdef _DEBUG
+		void ChangePlayer();
+#endif _DEBUG
+
 
 		void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;
 

@@ -1,6 +1,6 @@
 /*****************************************************************//**
  * \file   Actor.h
- * \brief  アクター（画面に表示される物体）の親クラスです。
+ * \brief  アクターの親クラスです。抽象クラス
  * 
  * \author 土居将太郎
  * \date   June 2022
@@ -24,7 +24,8 @@ class Actor{
 			Enemy,
 			Bullet,
 			Light,
-			Item
+			Item,
+			Server
 		};
 		virtual Type GetType() = 0;
 

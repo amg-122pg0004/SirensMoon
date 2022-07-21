@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   Darkness.cpp
+ * \brief  暗闇表現用クラス
+ * 
+ * \author 土居太郎
+ * \date   July 2022
+ *********************************************************************/
+
 #include "Darkness.h"
 #include "ImageServer.h"
 #include "SplitWindow.h"

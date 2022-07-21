@@ -10,7 +10,7 @@
 MapChips::MapChips(Game& game, ModeBase& mode) :_game{ game }, _mode{mode}{
 	_mapDataStandard.clear();
 	_mapDataRecon.clear();
-	LoadMap("resource/", "test4_01.json");
+	LoadMap("resource/", "TestMap_01.json");
 }
 
 MapChips::~MapChips() {
@@ -321,6 +321,54 @@ bool MapChips::IsHit(int objectstage,Actor& o)
 				// 当たったので戻る
 				return 1;
 			}
+		}
+	}
+	// 当たらなかった
+	return 0;
+}
+
+// オブジェクトとマップチップが当たったかの判定、および当たった場合の処理
+// 引数：
+//  
+//   o = オブジェクト
+// 戻値：
+//   0 : 当たってない
+//   1 : 当たった
+bool MapChips::IsHitBarrier(int objectstage, Actor& o,int playerno)
+{
+	int x, y;
+	int dxordy = 0;
+
+	// キャラ矩形を作成する
+	int l, t, r, b;		// 左上(left,top) - 右下(right,bottom)
+	l = static_cast<int>(o.GetPosition().x);
+	t = static_cast<int>(o.GetPosition().y);
+	r = static_cast<int>(o.GetPosition().x + o.GetSize().x);
+	b = static_cast<int>(o.GetPosition().y + o.GetSize().y);
+
+	// キャラの左上座標～右下座標にあたるマップチップと、当たり判定を行う
+	for (y = t / _chipSize_H; y <= b / _chipSize_H; y++)
+	{
+		for (x = l / _chipSize_W; x <= r / _chipSize_W; x++)
+		{
+			// (x,y)は、マップチップの座標（チップ単位）
+			// この位置のチップは当たるか？
+			int chip_no = CheckHitChipNo(objectstage, x, y);
+			if (playerno == 0) {
+				if (chip_no == 10)
+				{	// このチップと当たった。
+					// 当たったので戻る
+					return 1;
+				}
+			}
+			else if (playerno == 1) {
+				if (chip_no == 11)
+				{	// このチップと当たった。
+					// 当たったので戻る
+					return 1;
+				}
+			}
+
 		}
 	}
 	// 当たらなかった

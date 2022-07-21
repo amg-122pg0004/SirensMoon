@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   MiniMap.cpp
+ * \brief  ミニマップを表示するUIです。
+ * 
+ * \author 土居将太郎
+ * \date   July 2022
+ *********************************************************************/
+
 #include "MiniMap.h"
 #include "ImageServer.h"
 #include "ModeGame.h"
@@ -18,11 +26,11 @@ MiniMap::~MiniMap() {
 
 void MiniMap::Update() {
 
-	if (_inputManager->CheckInput("ACTION", 'h', 0)) {
+	if (_inputManager->CheckInput("ACTION", 'h', 1)) {
 		_visible =true;
 	}
 	else {
-		_visible = true;
+		_visible = false;
 	}
 }
 

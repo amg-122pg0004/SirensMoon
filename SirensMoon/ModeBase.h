@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   ModeBase.h
+ * \brief  モードの親クラスです。
+ * 
+ * \author 土居将太郎
+ * \date   July 2022
+ *********************************************************************/
+
 #pragma once
 #include "ActorServer.h"
 
@@ -12,8 +20,6 @@ public:
 	virtual void Render();	// 描画
 	virtual void Debug(); //デバッグ
 
-	//virtual std::unique_ptr<ActorServer>& GetActorServer() { return _actorServer; }
-	//virtual ActorServer::TypeActors GetObjects() { return _actorServer->GetObjects(); }
 	virtual ActorServer& GetActorServer() { return _actorServer; }
 	 virtual ActorServer::TypeActors& GetObjects() { return _actorServer.GetObjects(); }
 

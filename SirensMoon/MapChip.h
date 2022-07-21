@@ -54,6 +54,7 @@ public:
 	EnemyPatrol FindPatrol(int id);
 	int CheckHitChipNo(int objectstage, int x, int y);
 	bool IsHit(int objectstage, Actor& o);
+	bool IsHitBarrier(int objectstage, Actor& o, int playerno);
 
 
 private:
