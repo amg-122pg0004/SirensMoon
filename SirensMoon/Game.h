@@ -39,4 +39,6 @@ class Game {
 		std::shared_ptr<InputManager> _inputManager;
 		std::unique_ptr<ModeServer> _modeServer;
 		int _frameCount;
+		
+		bool _debug;
 };

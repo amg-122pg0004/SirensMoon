@@ -20,6 +20,12 @@ Game::Game() :_frameCount{0}
 
 void Game::Input() {
 	_inputManager->InputUpdate();
+	if (_inputManager->CheckInput("CHANGE", 'r', 0)|| _inputManager->CheckInput("CHANGE", 'r', 1)) {
+		_inputManager->ChangeControllerNo();
+	}
+	if (_inputManager->CheckInput("DEBUG", 'r', 0) || _inputManager->CheckInput("DEBUG", 'r', 1)) {
+		_debug = !_debug;
+	}
 }
 void Game::Update() {
 	++_frameCount;
@@ -28,9 +34,11 @@ void Game::Update() {
 
 void Game::Render() {
 	_modeServer ->Render();
-	
 }
 
 void Game::Debug(){
-	_modeServer->Debug();
+	if (_debug) {
+		_modeServer->Debug();
+	}
+	
 }
