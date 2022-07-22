@@ -10,6 +10,7 @@
 #include "Enemy.h"
 #include "HPItem.h"
 #include "BulletItem.h"
+#include "ServerMachine.h"
 
 ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false}
 {
@@ -38,6 +39,10 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false}
 		auto bullet = std::make_unique<BulletItem>(_game, *this, bullet_pos[i]);
 		_actorServer.Add(std::move(bullet));
 	}
+
+	Vector2 pos = { 300,600 };
+	auto server = std::make_unique<ServerMachine>(_game, *this, pos,4);
+	_actorServer.Add(std::move(server));
 }
 
 void ModeGame::Update() {
