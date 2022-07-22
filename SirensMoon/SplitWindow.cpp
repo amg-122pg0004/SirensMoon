@@ -11,9 +11,10 @@
 #include "ModeGame.h"
 #include "MiniMap.h"
 #include "Pause.h"
+#include "ServerMachine.h"
 
 SplitWindow::SplitWindow(Game& game,ModeBase& mode,int pos_x, int pos_y,int window_no) :
-	_game{game}, _mode{mode}, _windowPos{pos_x ,pos_y}, _windowNo{window_no}, _renderStage{1}
+	_game{game}, _mode{mode}, _windowPos{pos_x ,pos_y}, _windowNo{window_no}, _renderStage{1},_lightup{255}
 {
 	_camera = std::make_unique<Camera>(_game,_mode,*this);
 	_windowSize_H = screen_H;
@@ -41,6 +42,23 @@ void SplitWindow::Update() {
 	for (auto&& u : _ui) {
 		u->Update();
 	}
+	for (auto&& actor : _mode.GetObjects()) {
+		if (actor->GetType() == Actor::Type::Server) {
+			ServerMachine& machine  =dynamic_cast<ServerMachine&>(*actor);
+			if (machine.GetValidFlag()) {
+				--_lightup;
+				if (_lightup < 100) {
+					_lightup = 100;
+				}
+			}
+			else {
+				_lightup =_lightup+ 20;
+				if (_lightup > 255) {
+					_lightup = 255;
+				}
+			}
+		}
+	}
 }
 
 void SplitWindow::Render() {
@@ -57,8 +75,8 @@ void SplitWindow::Render() {
 
 	static_cast<ModeGame&>(_mode).GetMapChips()->StandardRender(_renderStage - 1, _windowPos, _camera->GetPosition());
 	_mode.GetActorServer().StandardRender(_renderStage, _windowPos, _camera->GetPosition());
+	GraphBlend(_normalScreen, _darknessScreen, _lightup, DX_GRAPH_BLEND_MULTIPLE);
 
-	GraphBlend(_normalScreen, _darknessScreen, 255, DX_GRAPH_BLEND_MULTIPLE);
 	SetDrawScreen(DX_SCREEN_BACK);
 	DrawGraph(0, 0, _normalScreen, 1);
 

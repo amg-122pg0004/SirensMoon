@@ -27,10 +27,14 @@ class SplitWindow {
 		int GetRenderStage() { return _renderStage; }
 		int GetWindowSize_W() {return _windowSize_W;}
 		int GetWindowSize_H() { return _windowSize_H;}
+		std::vector<std::unique_ptr<UIBase>>& GetUIServer(){return _ui; }
 
 		void ChangeRenderStage(int changedelta);
 
 	private:
+		/*–¾‚é‚¢‚©‚Ç‚¤‚©*/
+		int _lightup;
+
 		int	_windowSize_W;
 		int _windowSize_H;
 		Vector2 _windowPos;
