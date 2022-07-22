@@ -11,22 +11,26 @@
 #include <string>
 #include <sstream>
 
-InputManager::InputManager() {
+InputManager::InputManager() :_changeFlag{0} {
 	_keyState= {
-			{"UP",PAD_INPUT_UP,false,false,0},
-			{"DOWN",PAD_INPUT_DOWN,false,false,0},
-			{"LEFT",PAD_INPUT_LEFT,false,false,0},
-			{"RIGHT",PAD_INPUT_RIGHT,false,false,0},
-			{"ACTION",PAD_INPUT_1,false,false,0},
-			{"PAUSE",PAD_INPUT_12,false,false,0},
-			{"CHANGE",PAD_INPUT_13,false,false,0},
-			{"UP",PAD_INPUT_UP,false,false,1},
-			{"DOWN",PAD_INPUT_DOWN,false,false,1},
-			{"LEFT",PAD_INPUT_LEFT,false,false,1},
-			{"RIGHT",PAD_INPUT_RIGHT,false,false,1},
-			{"ACTION",PAD_INPUT_1,false,false,1},
-			{"PAUSE",PAD_INPUT_12,false,false,1},
-			{"CHANGE",PAD_INPUT_13,false,false,1},
+			{"UP",PAD_INPUT_UP,false,false,false,0},
+			{"DOWN",PAD_INPUT_DOWN,false,false,false,0},
+			{"LEFT",PAD_INPUT_LEFT,false,false,false,0},
+			{"RIGHT",PAD_INPUT_RIGHT,false,false,false,0},
+			{"ACTION",PAD_INPUT_1,false,false,false,0},
+			{"PAUSE",PAD_INPUT_12,false,false,false,0},
+			{"CHANGE",PAD_INPUT_13,false,false,false,0},
+			{"ACCESS",PAD_INPUT_3,false,false,false,0},
+			{"DEBUG",PAD_INPUT_11,false,false,false,0},
+			{"UP",PAD_INPUT_UP,false,false,false,1},
+			{"DOWN",PAD_INPUT_DOWN,false,false,false,1},
+			{"LEFT",PAD_INPUT_LEFT,false,false,false,1},
+			{"RIGHT",PAD_INPUT_RIGHT,false,false,false,1},
+			{"ACTION",PAD_INPUT_1,false,false,false,1},
+			{"PAUSE",PAD_INPUT_12,false,false,false,1},
+			{"CHANGE",PAD_INPUT_13,false,false,false,1},
+			{"ACCESS",PAD_INPUT_3,false,false,false,1},
+			{"DEBUG",PAD_INPUT_11,false,false,false,1},
 	};
 
 	_analogState = {
@@ -37,11 +41,20 @@ InputManager::InputManager() {
 
 /**@brief 使用する各キーについてインプット状態を確認して保存 */
 void InputManager::InputUpdate() {
-
+	int padno0=-1,padno1=-1;
+	if (_changeFlag) {
+		padno0 = DX_INPUT_PAD2;
+		padno1 = DX_INPUT_KEY_PAD1;
+	}
+	else {
+		padno0 = DX_INPUT_KEY_PAD1;
+		padno1 = DX_INPUT_PAD2;
+	}
+	
 	for (auto&& key :_keyState) {
 		switch (key.PadNo) {
 		case 0:
-			if (GetJoypadInputState(DX_INPUT_KEY_PAD1) & key.KeyName) {
+			if (GetJoypadInputState(padno0) & key.KeyName) {
 				if (key.Hold == false) {
 					key.Trigger = true;
 				}
@@ -59,7 +72,7 @@ void InputManager::InputUpdate() {
 			}
 			break;
 		case 1:
-			if (GetJoypadInputState(DX_INPUT_PAD2) & key.KeyName) {
+			if (GetJoypadInputState(padno1) & key.KeyName) {
 				if (key.Hold == false) {
 					key.Trigger = true;
 				}
@@ -87,11 +100,11 @@ void InputManager::InputUpdate() {
 		int InputX, InputY;
 		switch (analog.PadNo) {
 		case 0:
-			GetJoypadAnalogInput(&InputX, &InputY, DX_INPUT_KEY_PAD1);
+			GetJoypadAnalogInput(&InputX, &InputY, padno0);
 			analog.Value = { static_cast<double>(InputX),static_cast<double>(InputY) };
 			continue;
 		case 1:
-			GetJoypadAnalogInput(&InputX, &InputY, DX_INPUT_PAD2);
+			GetJoypadAnalogInput(&InputX, &InputY, padno1);
 			analog.Value = { static_cast<double>(InputX),static_cast<double>(InputY) };
 			continue;
 		default:
@@ -132,6 +145,7 @@ bool InputManager::CheckInput(const std::string actionname, const char keystate,
 }
 
 Vector2 InputManager::CheckAnalogInput(const int playernum) {
+
 	for (auto&& analog : _analogState) {
 		if (analog.PadNo == playernum) {
 			return analog.Value;
@@ -153,4 +167,19 @@ void InputManager::Render() {
 
 	DrawString(50, 100, ss.str().c_str(), GetColor(255, 255, 255));
 	
+}
+
+void InputManager::ChangeControllerNo(){
+
+	if (_changeFlag) {
+		_changeFlag = 0;
+	}
+	else {
+		_changeFlag = 1;
+	}
+	for (auto&& key : _keyState) {
+		key.Trigger = false;
+		key.Hold = false;
+		key.Release = false;
+	}
 }

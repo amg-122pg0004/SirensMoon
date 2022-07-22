@@ -36,6 +36,8 @@ class InputManager{
 		*/
 		Vector2 CheckAnalogInput(const int playernum);
 
+		void ChangeControllerNo();
+
 #ifdef _DEBUG
 		void Render();
 #endif 
@@ -63,4 +65,7 @@ private:
 	
 	/*アナログスティックの入力情報*/
 	std::vector<AnalogInfo> _analogState;
+
+	/*コントローラーを入れ替えるフラグ*/
+	bool _changeFlag;
 };
