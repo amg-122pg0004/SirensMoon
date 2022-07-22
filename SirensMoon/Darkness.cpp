@@ -28,10 +28,14 @@ void Darkness::Update(Vector2 window_pos, Vector2 camera_pos) {
 	DrawBox(0, 0, screen_W, screen_H, GetColor(0, 0, 0), 1);
 	for (auto&& actor : _mode.GetActorServer().GetObjects()) {
 		if (actor->GetType()==Actor::Type::Light) {		
-			auto light = dynamic_cast<LightBase&>(*actor);
+			LightBase& light = dynamic_cast<LightBase&>(*actor);
 			DrawRotaGraph2(static_cast<int>(light.GetPosition().x + window_pos.x - _splitWindow.GetCamera()->GetPosition().x),
 				static_cast<int>(light.GetPosition().y + window_pos.y - _splitWindow.GetCamera()->GetPosition().y),
-				light.GetCenterPosition().x, light.GetCenterPosition().y, light.GetScale(), light.GetAngle(), light.GetGrHandle(), 1, 0);
+				light.GetCenterPosition().x,
+				light.GetCenterPosition().y,
+				light.GetScale(), 
+				light.GetAngle(), 
+				light.GetGrHandle(), 1, 0);
 		}
 	}
 }
