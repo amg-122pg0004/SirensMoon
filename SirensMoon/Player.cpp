@@ -60,14 +60,6 @@ void Player::Update() {
 	}
 
 	UpdateCollision();
-
-#ifdef _DEBUG
-
-	if (_inputManager->CheckInput("CHANGE", 't',0)|| _inputManager->CheckInput("CHANGE", 't', 1)) {
-		ChangePlayer();
-	}
-
-#endif _DEBUG
 }
 
 
@@ -76,7 +68,7 @@ void Player::Move() {
 
 
 	/*障害物衝突処理*/
-	
+	/*X方向*/
 	_pos.x += _dir.x * _speedMax;
 	if (dynamic_cast<ModeGame&>(_mode).GetMapChips() ->IsHit(_stage - 1, *this)) {
 		_pos.x += -1*_dir.x  * _speedMax;
@@ -84,6 +76,11 @@ void Player::Move() {
 	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHitBarrier(_stage - 1, *this, _playerNum)) {
 		_pos.x += -1 * _dir.x * _speedMax;
 	}
+	UpdateCollision();
+	if (IsHitActor()) {
+		_pos.x += -1 * _dir.x * _speedMax;
+	}
+
 
 	_pos.y += _dir.y * _speedMax;
 	if (dynamic_cast<ModeGame&>(_mode).GetMapChips() ->IsHit(_stage - 1, *this)) {
@@ -92,6 +89,12 @@ void Player::Move() {
 	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHitBarrier(_stage - 1, *this, _playerNum)) {
 		_pos.x += -1 * _dir.y * _speedMax;
 	}
+	UpdateCollision();
+	if (IsHitActor()) {
+		_pos.y += -1 * _dir.y * _speedMax;
+	}
+	
+	
 	
 	/*ステージ外に出ないようにする処理*/
 	if (_pos.x < 0) {
@@ -125,6 +128,18 @@ void Player::Move() {
 		rendercamera->ChangePosition(Camera::ChangeDir::DOWN);
 	}
 	
+}
+
+bool Player::IsHitActor() {
+	for (auto&& actor : _mode.GetActorServer().GetObjects()) {
+		if (actor->GetType() != Type::Player&& actor->GetType()!=Type::Item) {
+			if (Intersect(_collision, actor->GetCollision())) {
+				return true;
+			}
+		}
+
+	}
+	return false;
 }
 
 void Player::GunShoot() {
@@ -164,6 +179,9 @@ void Player::OpenMap() {
 		
 	}
 }
+
+
+
 
 void Player::StandardRender(int stageNum,Vector2 window_pos,Vector2 camera_pos){
 	int _cg = -1;
@@ -225,13 +243,3 @@ void Player::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
 	DrawString(50 + _playerNum * 960, 100, ss.str().c_str(), GetColor(255, 0, 255));
 }
 
-#ifdef _DEBUG
-void Player::ChangePlayer() {
-	if (_playerNum == 0) {
-		_playerNum = 1;
-	}
-	else if (_playerNum == 1) {
-		_playerNum = 0;
-	}
-}
-#endif _DEBUG
