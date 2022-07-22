@@ -19,10 +19,17 @@ public:
 	~UIBase();
 	virtual void Update();
 	virtual void Render();
+	enum class Type {
+		MiniMap,
+		ServerMachine,
+		Pause
+	};
+	virtual Type GetType() = 0;
 protected:
 	Vector2 _pos;
 	Vector2 _size;
 	Game& _game;
 	ModeBase& _mode;
 	bool _visible;
+	int _cg;
 };

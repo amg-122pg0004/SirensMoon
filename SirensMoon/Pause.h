@@ -18,9 +18,9 @@ class InputManager;
 class Pause :public UIBase{
 	public:
 		Pause(Game& game, ModeBase& mode, Vector2 pos, Vector2 size);
+		Type GetType() { return Type::Pause; }
 		void Update() override;
 		void Render() override ;
 	private:
 		std::shared_ptr<InputManager> _inputManager;
-		int _cg;
 };

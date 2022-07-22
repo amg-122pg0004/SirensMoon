@@ -18,6 +18,7 @@ class MiniMap :public UIBase{
 public:
 	MiniMap(Game&,ModeBase&,Vector2 pos,Vector2 size);
 	~MiniMap();
+	Type GetType() { return Type::MiniMap; }
 	void Update() override;
 	void Render() override;
 
