@@ -97,6 +97,9 @@
     <Filter Include="Actor\ServerMachine">
       <UniqueIdentifier>{abfa538e-6572-4545-9312-30014e6657e8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI\ServerMachineUI">
+      <UniqueIdentifier>{a35e19d9-2309-4eaf-b6c7-e619abd66b72}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -183,8 +186,8 @@
     <ClCompile Include="ServerMachine.cpp">
       <Filter>Actor\ServerMachine</Filter>
     </ClCompile>
-    <ClCompile Include="ソース.cpp">
-      <Filter>Actor\ServerMachine</Filter>
+    <ClCompile Include="ServerMachineUI.cpp">
+      <Filter>UI\ServerMachineUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -271,6 +274,9 @@
     </ClInclude>
     <ClInclude Include="ServerMachine.h">
       <Filter>Actor\ServerMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerMachineUI.h">
+      <Filter>UI\ServerMachineUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

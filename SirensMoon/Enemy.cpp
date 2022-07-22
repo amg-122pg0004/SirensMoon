@@ -127,7 +127,7 @@ bool Enemy::CheckDetection() {
 			Vector2 righttop = { col.max.x,col.min.y };
 			Vector2 leftbottom = { col.min.x,col.max.y };
 
-			AABB enemyaround;
+			AABB enemyaround={{0,0},{0,0}};
 			enemyaround.min = { _eyePos.x - 60,_eyePos.y - 75 };
 			enemyaround.max = { _eyePos.x + 60,_eyePos.y + 75 };
 			/*周辺判定*/
@@ -247,6 +247,8 @@ void Enemy::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
 	//発見フレーム数表示
 	std::stringstream ss;
 	ss << "発見フレーム数" << _detectionFrame << "\n";
-	DrawString(_pos.x+window_pos.x-camera_pos.x, _pos.y + window_pos.y - camera_pos.y-10, ss.str().c_str(), GetColor(255, 0, 255));
+	DrawString(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
+		static_cast<int>(_pos.y + window_pos.y - camera_pos.y - 10),
+		ss.str().c_str(), GetColor(255, 0, 255));
 }
 
