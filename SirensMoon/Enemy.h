@@ -114,9 +114,7 @@ class Enemy :public Actor {
 		/*Enemy仮画像*/
 		int _cg;
 		std::vector<int> _cg2;
-		std::vector<int> _cg_red1, _cg_red2, _cg_red3;
-		std::vector<int> _cg_blue1, _cg_blue2, _cg_blue3;
-		std::vector<int> _cg_green1, _cg_green2, _cg_green3;
+
 
 		int _animeNo;//<アニメーションの表示番号
 };

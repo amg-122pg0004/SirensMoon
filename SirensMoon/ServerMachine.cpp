@@ -61,7 +61,8 @@ ServerMachine::ServerMachine(Game& game, ModeBase& mode, Vector2 pos, int dir)
 	auto window = std::make_unique<ServerMachineUI>(_game, _mode, map_pos, map_size, *this);
 	spw[1]->GetUIServer().emplace_back(std::move(window));
 	
-	GenerateEnemy();
+	_generatedEnemy.resize(3);
+	_generatedEnemy = { -1,-1,-1 };
 }
 
 
@@ -72,6 +73,10 @@ void ServerMachine::Update() {
 				Player player = dynamic_cast<Player&>(*actor);
 				if (player.GetPlayerNum() == 1 && Intersect(_accessArea, actor->GetCollision())) {
 					_valid = true;
+					if ((_inputManager->CheckInput("ACCESS", 't', 1))){
+						GenerateEnemy();
+					}
+
 					break;
 				}
 			}
@@ -92,9 +97,9 @@ void ServerMachine::GenerateEnemy() {
 	std::mt19937 mt(rnd());
 	std::uniform_int_distribution<> rand3(1, 3);
 
-	_generatedEnemy.top = rand3(mt);
-	_generatedEnemy.mid = rand3(mt);
-	_generatedEnemy.bot = rand3(mt);
+	_generatedEnemy[0] = rand3(mt);
+	_generatedEnemy[1] = rand3(mt);
+	_generatedEnemy[2] = rand3(mt);
 
 }
 
