@@ -8,12 +8,19 @@ class InputManager;
 
 class ServerMachine:public Actor{
 	public:
+		struct EnemyPattern {
+			int top;
+			int mid;
+			int bot;
+		};
 		ServerMachine(Game& game, ModeBase& mode, Vector2 pos,int dir);
 		Type GetType() { return Type::Server; }
 		void Update()override;
 		void ChangeValidFlag(bool);
 		bool GetValidFlag() { return _valid; }
 		AABB GetAccessArea() { return _accessArea; }
+		EnemyPattern GetGeneratedEnemy() { return _generatedEnemy; }
+		void GenerateEnemy();
 		void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;
 	private:
 		/*1上,2右,3下,4左*/
@@ -23,6 +30,8 @@ class ServerMachine:public Actor{
 		int _cg_right;
 		int _cg_down;
 		int _cg_left;
+
+		EnemyPattern _generatedEnemy;
 
 		AABB _accessArea;
 		/*アクセス可能な状態か*/

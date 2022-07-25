@@ -18,6 +18,7 @@ Enemy::Enemy(Game& game,ModeBase& mode,MapChips::EnemyData enemydata)
 	_size = { 60,90 };
 	_cg=ImageServer::LoadGraph("resource/Enemy/up.png");
 	_cg2.resize(29);
+
 	ImageServer::LoadDivGraph("resource/Enemy/test_sheet1.png", 29, 17, 2, 60, 90, _cg2.data());
 	//ImageServer::LoadDivGraph("resource/Enemy/test_sheet2.png", 29, 5, 6, 180, 270, _cg2.data());
 	_pos = {enemydata.StartPosition.x,enemydata.StartPosition.y};
@@ -28,6 +29,24 @@ Enemy::Enemy(Game& game,ModeBase& mode,MapChips::EnemyData enemydata)
 	auto light = std::make_unique<BlinkLight>(_game, _mode, *this);
 	_mode.GetActorServer().Add(std::move(light));
 
+	_cg_red1.resize(30);
+	_cg_red2.resize(30);
+	_cg_red3.resize(30);
+	_cg_blue1.resize(30);
+	_cg_blue2.resize(30);
+	_cg_blue3.resize(30);
+	_cg_green1.resize(30);
+	_cg_green2.resize(30);
+	_cg_green3.resize(30);
+	ImageServer::LoadDivGraph("resource/Enemy/test_sheet1.png", 30, 7, 5, 250, 370, _cg_red1.data());
+	ImageServer::LoadDivGraph("resource/Enemy/test_sheet1.png", 30, 7, 5, 250, 370, _cg_red2.data());
+	ImageServer::LoadDivGraph("resource/Enemy/test_sheet1.png", 30, 7, 5, 250, 370, _cg_red3.data());
+	ImageServer::LoadDivGraph("resource/Enemy/test_sheet1.png", 30, 7, 5, 250, 370, _cg_blue1.data());
+	ImageServer::LoadDivGraph("resource/Enemy/test_sheet1.png", 30, 7, 5, 250, 370, _cg_blue2.data());
+	ImageServer::LoadDivGraph("resource/Enemy/test_sheet1.png", 30, 7, 5, 250, 370, _cg_blue3.data());
+	ImageServer::LoadDivGraph("resource/Enemy/test_sheet1.png", 30, 7, 5, 250, 370, _cg_green1.data());
+	ImageServer::LoadDivGraph("resource/Enemy/test_sheet1.png", 30, 7, 5, 250, 370, _cg_green2.data());
+	ImageServer::LoadDivGraph("resource/Enemy/test_sheet1.png", 30, 7, 5, 250, 370, _cg_green3.data());
 };
 
 void Enemy::Update() {

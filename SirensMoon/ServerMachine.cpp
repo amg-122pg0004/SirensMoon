@@ -5,6 +5,7 @@
 #include "ModeBase.h"
 #include "ModeGame.h"
 #include <memory>
+#include <random>
 
 #include "SplitWindow.h"
 #include "ServerMachineUI.h"
@@ -60,6 +61,7 @@ ServerMachine::ServerMachine(Game& game, ModeBase& mode, Vector2 pos, int dir)
 	auto window = std::make_unique<ServerMachineUI>(_game, _mode, map_pos, map_size, *this);
 	spw[1]->GetUIServer().emplace_back(std::move(window));
 	
+	GenerateEnemy();
 }
 
 
@@ -83,6 +85,17 @@ void ServerMachine::Update() {
 
 void ServerMachine::ChangeValidFlag(bool flag) {
 	_valid = flag;
+}
+
+void ServerMachine::GenerateEnemy() {
+	std::random_device rnd;
+	std::mt19937 mt(rnd());
+	std::uniform_int_distribution<> rand3(1, 3);
+
+	_generatedEnemy.top = rand3(mt);
+	_generatedEnemy.mid = rand3(mt);
+	_generatedEnemy.bot = rand3(mt);
+
 }
 
 void ServerMachine::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
