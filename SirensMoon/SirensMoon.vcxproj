@@ -171,6 +171,7 @@
     <ClCompile Include="ReconPlayer.cpp" />
     <ClCompile Include="ServerMachine.cpp" />
     <ClCompile Include="ServerMachineUI.cpp" />
+    <ClCompile Include="SoundServer.cpp" />
     <ClCompile Include="SplitWindow.cpp" />
     <ClCompile Include="UIBase.cpp" />
     <ClCompile Include="WinMain.cpp" />
@@ -203,6 +204,7 @@
     <ClInclude Include="ReconPlayer.h" />
     <ClInclude Include="ServerMachine.h" />
     <ClInclude Include="ServerMachineUI.h" />
+    <ClInclude Include="SoundServer.h" />
     <ClInclude Include="SplitWindow.h" />
     <ClInclude Include="UIBase.h" />
   </ItemGroup>

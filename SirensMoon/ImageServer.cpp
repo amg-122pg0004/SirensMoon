@@ -33,7 +33,6 @@ int ImageServer::Find(std::string filename)
 	if (itr != _mapGraph.end()) {
 		return itr->second;
 	}
-
 	return -1;
 }
 
@@ -76,7 +75,5 @@ int	ImageServer::LoadDivGraph(const TCHAR* filename, int AllNum,
             HandleBuf[i] = hbuf[i];
         }
     }
-
     return err;
-
 }

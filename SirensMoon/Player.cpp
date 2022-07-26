@@ -17,10 +17,11 @@
 #include "ModeGame.h"
 #include "ProjectionLight.h"
 #include "LightBase.h"
+#include "SoundServer.h"
 
 Player::Player(Game& game,ModeBase& mode,int playernum)
 	:Actor{ game,mode }, _speed{ 0,0 },_speedMax{5.0}, _playerNum{playernum}
-	, _lastDir{1,0},_hp{3},_bullet{5},_movable{1},_charge{0},_cooldown{0}
+	, _dir{0,0}, _lastDir{ 1,0 }, _hp{ 3 }, _bullet{ 5 }, _movable{ 1 }, _charge{ 0 }, _cooldown{ 0 }
 {
 	_inputManager = _game.GetInputManager();
 	 _cg_up = ImageServer::LoadGraph("resource/player/up.png");
@@ -41,10 +42,14 @@ void Player::Update() {
 
 	/*アナログ入力取得*/
 	_dir = _inputManager->CheckAnalogInput(_playerNum);
+	_dir = _dir/1000;
+	if (_dir.Length() > 1) {
+		_dir.Normalize();
+	}
 
 	if (_dir.Length() != 0) {
-		_dir.Normalize();
 		_lastDir = _dir;
+		_lastDir.Normalize();
 	}
 
 
@@ -55,9 +60,7 @@ void Player::Update() {
 		OpenMap();
 	}
 
-	if (_movable) {
-		Move();
-	}
+	Move();
 
 	UpdateCollision();
 }
@@ -66,35 +69,59 @@ void Player::Update() {
 void Player::Move() {
 	
 
+	if (_movable){
+		_speed = _speed + _dir * 0.2;
+	}
+	auto dir = _dir;
+	if (dir.Length() == 0||!_movable) {
+		_speed *= 0.9;
+	}
+
+	if (_speed.x > _speedMax) {
+		_speed.x = _speedMax;
+	}
+	if (_speed.x < -_speedMax) {
+		_speed.x = -_speedMax;
+	}
+	if (_speed.y > _speedMax) {
+		_speed.y = _speedMax;
+	}
+	if (_speed.y < -_speedMax) {
+		_speed.y = -_speedMax;
+	}
+
+	auto tmpspeed = _speed;
+	if (tmpspeed.Length() > _speedMax) {
+		_speed.Normalize();
+		_speed *= _speedMax;
+	}
+	
 
 	/*障害物衝突処理*/
 	/*X方向*/
-	_pos.x += _dir.x * _speedMax;
+	_pos.x += _speed.x;
 	if (dynamic_cast<ModeGame&>(_mode).GetMapChips() ->IsHit(_stage - 1, *this)) {
-		_pos.x += -1*_dir.x  * _speedMax;
+		_pos.x += -1*_speed.x;
 	}
 	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHitBarrier(_stage - 1, *this, _playerNum)) {
-		_pos.x += -1 * _dir.x * _speedMax;
+		_pos.x += -1 * _speed.x;
 	}
 	UpdateCollision();
 	if (IsHitActor()) {
-		_pos.x += -1 * _dir.x * _speedMax;
+		_pos.x += -1 * _speed.x;
 	}
 
-
-	_pos.y += _dir.y * _speedMax;
+	_pos.y += _speed.y;
 	if (dynamic_cast<ModeGame&>(_mode).GetMapChips() ->IsHit(_stage - 1, *this)) {
-		_pos.y += -1 * _dir.y  * _speedMax;
+		_pos.y += -1 * _speed.y;
 	}
 	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHitBarrier(_stage - 1, *this, _playerNum)) {
-		_pos.x += -1 * _dir.y * _speedMax;
+		_pos.y += -1 * _speed.y;
 	}
 	UpdateCollision();
 	if (IsHitActor()) {
-		_pos.y += -1 * _dir.y * _speedMax;
+		_pos.y += -1 * _speed.y;
 	}
-	
-	
 	
 	/*ステージ外に出ないようにする処理*/
 	if (_pos.x < 0) {
@@ -128,6 +155,21 @@ void Player::Move() {
 		rendercamera->ChangePosition(Camera::ChangeDir::DOWN);
 	}
 	
+	PlayFootSteps();
+}
+
+void Player::PlayFootSteps() {
+	double speed = _dir.Length();
+	if (speed > 0 && speed <=0.98) {
+		if (_game.GetFrameCount() % 25 == 0) {
+			PlaySoundMem(SoundServer::Find("PlayerWalk"), DX_PLAYTYPE_BACK);
+		}
+	}
+	else if(speed>0.98) {
+		if (_game.GetFrameCount() % 15 == 0) {
+			PlaySoundMem(SoundServer::Find("PlayerRun"), DX_PLAYTYPE_BACK);
+		}
+	}
 }
 
 bool Player::IsHitActor() {
@@ -153,7 +195,7 @@ void Player::GunShoot() {
 		if (_bullet > 0) {
 			auto bullet = std::make_unique<Bullet>(_game, _mode, _pos, _lastDir);
 			_mode.GetActorServer().Add(std::move(bullet));
-			//--_bullet;
+			PlaySoundMem(SoundServer::Find("PlayerShoot"), DX_PLAYTYPE_BACK);
 			_cooldown = 180;
 		}
 		
@@ -167,16 +209,28 @@ void Player::GunShoot() {
 		}
 
 		++_charge;
+		if (_charge == 1) {
+			PlaySoundMem(SoundServer::Find("PlayerAim"), DX_PLAYTYPE_BACK);
+			PlaySoundMem(SoundServer::Find("PlayerCharge"), DX_PLAYTYPE_BACK);
+		}
+		if (_charge == 10) {
+			PlaySoundMem(SoundServer::Find("PlayerCharge"), DX_PLAYTYPE_BACK);
+		}
+		if (_charge == 105) {
+			PlaySoundMem(SoundServer::Find("PlayerChargeMAX"), DX_PLAYTYPE_BACK);
+		}
+		
 	}
 	else {
 		_movable = 1;
 		_charge = 0;
+		StopSoundMem(SoundServer::Find("PlayerCharge"));
 	}
 }
 
 void Player::OpenMap() {
 	if (_inputManager->CheckInput("ACTION", 't', _playerNum)) {
-		
+		PlaySoundMem(SoundServer::Find("PlayerOpenMap"), DX_PLAYTYPE_BACK);
 	}
 }
 
@@ -238,8 +292,9 @@ void Player::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
 	//ss << "_collision.max.x" << _collision.max.x << "\n";
 	//ss << "_collision.max.y" << _collision.max.y << "\n";
 	ss << "チャージ" << _charge << "\n";
-	ss << "方向" << _lastDir.x <<"  "<<_lastDir.y << "\n";
+	ss << "方向" << _dir.x <<"  "<<_dir.y << "\n";
 	ss << "プレイヤー" << _playerNum << "\n";
+	ss << "_dir.length" << _dir.Length() << "\n";
 	DrawString(50 + _playerNum * 960, 100, ss.str().c_str(), GetColor(255, 0, 255));
 }
 

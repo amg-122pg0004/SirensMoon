@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "ImageServer.h"
 #include "ServerMachine.h"
+#include "SoundServer.h"
 
 ServerMachineUI::ServerMachineUI(Game& game, ModeBase& mode, Vector2 pos, Vector2 size, ServerMachine& owner)
 	:UIBase{game,mode,pos,size},_visible{false},_owner{owner}

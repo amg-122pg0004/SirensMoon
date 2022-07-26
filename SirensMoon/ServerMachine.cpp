@@ -9,6 +9,7 @@
 
 #include "SplitWindow.h"
 #include "ServerMachineUI.h"
+#include "SoundServer.h"
 
 ServerMachine::ServerMachine(Game& game, ModeBase& mode, Vector2 pos, int dir)
 	:Actor(game, mode), _dir{ dir },_valid{false}
@@ -63,6 +64,7 @@ ServerMachine::ServerMachine(Game& game, ModeBase& mode, Vector2 pos, int dir)
 	
 	_generatedEnemy.resize(3);
 	_generatedEnemy = { -1,-1,-1 };
+	GenerateEnemy();
 }
 
 
@@ -74,7 +76,7 @@ void ServerMachine::Update() {
 				if (player.GetPlayerNum() == 1 && Intersect(_accessArea, actor->GetCollision())) {
 					_valid = true;
 					if ((_inputManager->CheckInput("ACCESS", 't', 1))){
-						GenerateEnemy();
+						PlaySoundMem(SoundServer::Find("PlayerOpenMap"), DX_PLAYTYPE_BACK);
 					}
 
 					break;

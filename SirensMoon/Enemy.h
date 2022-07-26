@@ -13,6 +13,7 @@
 
 class Game;
 class ModeBase;
+class ModeGame;
 
 class Enemy :public Actor {
 	public :
@@ -71,6 +72,9 @@ class Enemy :public Actor {
 		void UpdateCollision();
 		void AnimationUpdate();
 
+		void GenerateEnemy();
+		bool CheckWantedEnemy(ModeGame&);
+
 	private:
 		/*初期位置*/
 		Vector2 _initPos;
@@ -111,10 +115,13 @@ class Enemy :public Actor {
 		/*座標リストの長さ*/
 		int _patrolLength;
 
-		/*Enemy仮画像*/
-		int _cg;
-		std::vector<int> _cg2;
 
+		/*Enemyランダム生成パターン*/
+		std::vector<int> _generatedEnemy;
+		/*Enemy仮画像*/
+		std::vector<int> _cg_top;
+		std::vector<int> _cg_mid;
+		std::vector<int> _cg_bot;
 
 		int _animeNo;//<アニメーションの表示番号
 };

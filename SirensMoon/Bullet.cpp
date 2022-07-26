@@ -8,6 +8,7 @@
 #include "Bullet.h"
 #include "ImageServer.h"
 #include "ModeGame.h"
+#include "SoundServer.h"
 
 Bullet::Bullet(Game& game, ModeBase& mode, Vector2 pos, Vector2 dir)
 	:Actor{ game,mode }, _dir{ dir }, _speed{ 25 }, _lifetime{ 180 }
@@ -36,18 +37,8 @@ void Bullet::Update() {
 	}
 	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHit(1, *this)) {
 		_dead = true;
+		PlaySoundMem(SoundServer::Find("BulletToWall"), DX_PLAYTYPE_BACK);
 	}
-	/*
-	else {
-		for (auto&& actor : _mode.GetActorServer().GetObjects()) {
-			if (actor->GetType() == Type::Enemy) {
-				if (Intersect(_collision, actor->GetCollision())) {
-					_dead = true;
-				}
-			}
-		}
-	}
-	*/
 }
 
 void Bullet::UpdateCollision() {

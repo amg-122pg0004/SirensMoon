@@ -100,6 +100,9 @@
     <Filter Include="UI\ServerMachineUI">
       <UniqueIdentifier>{a35e19d9-2309-4eaf-b6c7-e619abd66b72}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource\SoundServer">
+      <UniqueIdentifier>{ed159ccb-774c-4f37-89ef-768c7454acf0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -189,6 +192,9 @@
     <ClCompile Include="ServerMachineUI.cpp">
       <Filter>UI\ServerMachineUI</Filter>
     </ClCompile>
+    <ClCompile Include="SoundServer.cpp">
+      <Filter>Resource\SoundServer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -277,6 +283,9 @@
     </ClInclude>
     <ClInclude Include="ServerMachineUI.h">
       <Filter>UI\ServerMachineUI</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundServer.h">
+      <Filter>Resource\SoundServer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

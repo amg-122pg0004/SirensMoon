@@ -23,11 +23,14 @@ public:
 	void Render()override;
 	void Debug()override;
 
+	void LoadResource();
+
 
 	inline  auto& GetMapChips() { return _mapChips; }
 	inline auto& GetSplitWindow() { return _splitWindow; }
-	void SetPauseGame(bool flag) { _stopActorUpdate = flag; }
+	inline auto& GetWantedenemys() { return _wantedEnemys; }
 
+	void SetPauseGame(bool flag) { _stopActorUpdate = flag; }
 	
 	
 private:
@@ -39,4 +42,6 @@ private:
 	std::vector<std::unique_ptr<SplitWindow>>_splitWindow;
 
 	std::shared_ptr<InputManager> _inputManager;
+
+	std::vector<std::vector<int>> _wantedEnemys;
 };

@@ -31,6 +31,7 @@ class Player :public Actor {
 		bool IsHitActor();
 		void GunShoot();
 		void OpenMap();
+		void PlayFootSteps();
 		void UpdateCollision();
 		void TakeDamage();
 		void Heal();

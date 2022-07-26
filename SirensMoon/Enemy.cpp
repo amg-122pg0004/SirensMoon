@@ -11,16 +11,17 @@
 #include "ImageServer.h"
 #include "ModeGame.h"
 #include "BlinkLight.h"
+#include "SoundServer.h"
+#include <random>
 
 Enemy::Enemy(Game& game,ModeBase& mode,MapChips::EnemyData enemydata) 
 	:Actor{ game,mode }, _speed{ 1 }, _sight_H{ 60 }, _sight_W{330}, _detectionFrame{ 0 }
 {
 	_size = { 60,90 };
-	_cg=ImageServer::LoadGraph("resource/Enemy/up.png");
-	_cg2.resize(29);
+	_cg_top.resize(30);
+	_cg_mid.resize(30);
+	_cg_bot.resize(30);
 
-	ImageServer::LoadDivGraph("resource/Enemy/test_sheet1.png", 29, 17, 2, 60, 90, _cg2.data());
-	//ImageServer::LoadDivGraph("resource/Enemy/test_sheet2.png", 29, 5, 6, 180, 270, _cg2.data());
 	_pos = {enemydata.StartPosition.x,enemydata.StartPosition.y};
 	_patrolID = enemydata.patrolID;
 	_patrolFlag = 1;
@@ -29,7 +30,41 @@ Enemy::Enemy(Game& game,ModeBase& mode,MapChips::EnemyData enemydata)
 	auto light = std::make_unique<BlinkLight>(_game, _mode, *this);
 	_mode.GetActorServer().Add(std::move(light));
 
+	GenerateEnemy();
 
+	switch (_generatedEnemy[0]) {
+	case 1:
+		ImageServer::LoadDivGraph("resource/Enemy/red_top2.png", 30, 5, 6, 250, 370, _cg_top.data());
+		break;
+	case 2:
+		ImageServer::LoadDivGraph("resource/Enemy/blue_top2.png", 30, 5, 6, 250, 370, _cg_top.data());
+		break;
+	case 3:
+		ImageServer::LoadDivGraph("resource/Enemy/green_top2.png", 30, 5, 6, 250, 370, _cg_top.data());
+		break;
+	}
+	switch (_generatedEnemy[1]) {
+	case 1:
+		ImageServer::LoadDivGraph("resource/Enemy/red_mid2.png", 30, 5, 6, 250, 370, _cg_mid.data());
+		break;
+	case 2:
+		ImageServer::LoadDivGraph("resource/Enemy/blue_mid2.png", 30, 5, 6, 250, 370, _cg_mid.data());
+		break;
+	case 3:
+		ImageServer::LoadDivGraph("resource/Enemy/green_mid2.png", 30, 5, 6, 250, 370, _cg_mid.data());
+		break;
+	}
+	switch (_generatedEnemy[2]) {
+	case 1:
+		ImageServer::LoadDivGraph("resource/Enemy/red_bot2.png", 30, 5, 6, 250, 370, _cg_bot.data());
+		break;
+	case 2:
+		ImageServer::LoadDivGraph("resource/Enemy/blue_bot2.png", 30, 5, 6, 250, 370, _cg_bot.data());
+		break;
+	case 3:
+		ImageServer::LoadDivGraph("resource/Enemy/green_bot2.png", 30, 5, 6, 250, 370, _cg_bot.data());
+		break;
+	}
 };
 
 void Enemy::Update() {
@@ -57,10 +92,26 @@ void Enemy::Update() {
 void Enemy::AnimationUpdate() {
 	_animeNo = _game.GetFrameCount()/2 % 29;
 }
-void Enemy::StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
-	DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x-30),
-		static_cast<int>(_pos.y + window_pos.y - camera_pos.y-30), _cg2[_animeNo], 1);
 
+void Enemy::StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
+	DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
+		static_cast<int>(_pos.y + window_pos.y - camera_pos.y),
+		static_cast<int>(_pos.x + window_pos.x - camera_pos.x+_size.x ),
+		static_cast<int>(_pos.y + window_pos.y - camera_pos.y+_size.y),
+		_cg_top[_animeNo],
+		1);
+	DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x ),
+		static_cast<int>(_pos.y + window_pos.y - camera_pos.y ),
+		static_cast<int>(_pos.x + window_pos.x - camera_pos.x + _size.x),
+		static_cast<int>(_pos.y + window_pos.y - camera_pos.y + _size.y ),
+		_cg_mid[_animeNo],
+		1);
+	DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
+		static_cast<int>(_pos.y + window_pos.y - camera_pos.y ),
+		static_cast<int>(_pos.x + window_pos.x - camera_pos.x + _size.x ),
+		static_cast<int>(_pos.y + window_pos.y - camera_pos.y + _size.y ),
+		_cg_bot[_animeNo],
+		1);
 }
 
 void Enemy::SetPatrolPoints() {
@@ -170,8 +221,6 @@ bool Enemy::CheckDetection() {
 				_lastDetection = actor.get();
 				return 1;
 			}
-
-
 		}
 	}
 	return 0;
@@ -200,6 +249,7 @@ void Enemy::CheckDamage() {
 			if(Intersect(_collision, actor->GetCollision())) {
 				actor->Dead();
 				_dead = true;
+				PlaySoundMem(SoundServer::Find("BulletToEnemy"), DX_PLAYTYPE_BACK);
 			}
 		}
 	}
@@ -254,3 +304,30 @@ void Enemy::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
 		ss.str().c_str(), GetColor(255, 0, 255));
 }
 
+void Enemy::GenerateEnemy(){
+	std::random_device rnd;
+	std::mt19937 mt(rnd());
+	std::uniform_int_distribution<> rand3(1, 3);
+	ModeGame& modegame = dynamic_cast<ModeGame&>(_mode);
+
+	_generatedEnemy.resize(3);
+	_generatedEnemy[0] = rand3(mt);
+	_generatedEnemy[1] = rand3(mt);
+	_generatedEnemy[2] = rand3(mt);
+
+	while (CheckWantedEnemy(modegame)) {
+		_generatedEnemy[0] = rand3(mt);
+		_generatedEnemy[1] = rand3(mt);
+		_generatedEnemy[2] = rand3(mt);
+	}
+
+}
+
+bool Enemy::CheckWantedEnemy(ModeGame& modegame) {
+	for (int i = 0; i < modegame.GetWantedenemys().size(); ++i) {
+		if (modegame.GetWantedenemys()[i] == _generatedEnemy) {
+			return 1;
+		}
+	}
+	return 0;
+}

@@ -361,7 +361,7 @@ bool MapChips::IsHitBarrier(int objectstage, Actor& o,int playerno)
 					return 1;
 				}
 			}
-			else if (playerno == 1) {
+			if (playerno == 1) {
 				if (chip_no == 11)
 				{	// このチップと当たった。
 					// 当たったので戻る
