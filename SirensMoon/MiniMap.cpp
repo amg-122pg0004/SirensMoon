@@ -45,7 +45,8 @@ void MiniMap::Render() {
 
 		dynamic_cast<ModeGame&>(_mode).GetMapChips()->ReconRender(0, pos, pos2);
 		
-		float scale = 410.0f / 3240.0f * 0.97f;
+		//float scale = 410.0f / 3240.0f * 0.97f;
+		float scale = 410.0f / 4320.0f * 0.97f;
 		for (auto&& actor : _mode.GetObjects()) {
 			if (actor->GetType() == Actor::Type::Player) {
 				DrawGraph(static_cast<int>(actor->GetPosition().x * scale + pos.x),

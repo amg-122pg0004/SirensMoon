@@ -11,20 +11,19 @@
 #include "ServerMachineUI.h"
 #include "SoundServer.h"
 
-ServerMachine::ServerMachine(Game& game, ModeBase& mode, Vector2 pos, int dir)
-	:Actor(game, mode), _dir{ dir },_valid{false}
+ServerMachine::ServerMachine(Game& game, ModeBase& mode, MapChips::ServerMachineData data)
+	:Actor(game, mode),_valid{false},_serverData{data}
 {
 	_inputManager = _game.GetInputManager();
 	_accessArea.min = {0,0};
-	_accessArea.max = { 0,0 };
+	_accessArea.max = {0,0};
 	_cg_up = ImageServer::LoadGraph("resource/Server/up.png");
 	_cg_right = ImageServer::LoadGraph("resource/Server/right.png");
 	_cg_down = ImageServer::LoadGraph("resource/Server/down.png");
 	_cg_left = ImageServer::LoadGraph("resource/Server/left.png");
-
-	_pos = pos;
+	_pos = _serverData.Position;
 	
-	switch (_dir) {
+	switch (_serverData.Direction) {
 		case 1:
 			_cg = _cg_up;
 		case 2:
@@ -40,7 +39,7 @@ ServerMachine::ServerMachine(Game& game, ModeBase& mode, Vector2 pos, int dir)
 	_collision.min = _pos;
 	_collision.max = _pos + _size;
 
-	switch (_dir) {
+	switch (_serverData.Direction) {
 		case 1:
 			_accessArea.min = { _pos.x ,_pos.y - 10 };
 			_accessArea.max = { _pos.x + _size.x , _pos.y + _size.y };
@@ -77,8 +76,8 @@ void ServerMachine::Update() {
 					_valid = true;
 					if ((_inputManager->CheckInput("ACCESS", 't', 1))){
 						PlaySoundMem(SoundServer::Find("PlayerOpenMap"), DX_PLAYTYPE_BACK);
+						SpawnEnemyVIP();
 					}
-
 					break;
 				}
 			}
@@ -103,6 +102,14 @@ void ServerMachine::GenerateEnemy() {
 	_generatedEnemy[1] = rand3(mt);
 	_generatedEnemy[2] = rand3(mt);
 
+}
+
+void ServerMachine::SpawnEnemyVIP() {
+	ModeGame& mode=dynamic_cast<ModeGame&>(_mode);
+	auto vipdata = mode.GetMapChips()->GetEnemyVIPData();
+	auto data = vipdata.find(_serverData.SpawnEnemyID)->second;
+	auto enemy = std::make_unique<EnemyVIP>(_game, _mode,data,*this);
+	mode.GetActorServer().Add(std::move(enemy));
 }
 
 void ServerMachine::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){

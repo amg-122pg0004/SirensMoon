@@ -52,8 +52,10 @@ public:
 
 	Vector2 GetPlayerStartPosition(int playerno) { return _playerStart[0][playerno]; }
 	std::vector<EnemyData> GetEnemyData() { return _enemyDataList[0]; }
+	std::unordered_map<int, EnemyData> GetEnemyVIPData() { return _enemyVIPDataList[0]; }
 	std::vector<Vector2> GetHPItemData() { return _hpItems[0]; }
 	std::vector<Vector2> GetBulletData() { return _bulletItems[0]; }
+	std::vector<ServerMachineData> GetServerData() { return _serverMachineDataList[0]; }
 	EnemyPatrol FindPatrol(int id);
 	std::vector<int> CheckHitChipNo(int objectstage, int x, int y);
 	bool IsHit(int objectstage, Actor& o);
@@ -86,12 +88,14 @@ private:
 	/*マップごとの弾薬アイテムデータ*/
 	std::vector<std::vector<Vector2>> _bulletItems;
 
-	/*マップごとのエネミーデータ*/
+	/*マップごとの通常エネミーデータ*/
 	std::vector<std::vector<EnemyData>> _enemyDataList;
+	/*マップごとの重要エネミーデータ*/
+	std::vector<std::unordered_map<int,EnemyData>> _enemyVIPDataList;
 	/*マップごとのエネミーの巡回ルート*/
 	std::unordered_map<int, EnemyPatrol> _patrolPoints;
 	/*マップごとのサーバーデータ*/
-	std::vector<std::vector<ServerMachineData>> _serverMachineData;
+	std::vector<std::vector<ServerMachineData>> _serverMachineDataList;
 	
 	std::vector<int> _cgChip;
 };

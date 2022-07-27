@@ -10,7 +10,7 @@
 MapChips::MapChips(Game& game, ModeBase& mode) :_game{ game }, _mode{mode}{
 	_mapDataStandard.clear();
 	_mapDataRecon.clear();
-	LoadMap("resource/", "TestMap_01.json");
+	LoadMap("resource/", "TestMap_02.json");
 }
 
 MapChips::~MapChips() {
@@ -58,6 +58,10 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename)
 	std::vector<std::vector<Vector2>>  onestagepolygons;
 	/*1ステージ分のエネミーデータ*/
 	std::vector<EnemyData> aEnemyData;
+	/*1ステージ分のVIPエネミーデータ*/
+	std::unordered_map<int, EnemyData> aEnemyVIPData;
+	/*1ステージ分のサーバーデータ*/
+	std::vector<ServerMachineData> aServerData;
 	for (int i = 0; i < aLayers.size(); i++) 
 	{
 
@@ -83,16 +87,25 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename)
 			onestagedata.push_back(vMapLayer);
 		}
 		/*レイヤーの名前がMiniMapの物を取得*/
-		else if (jsLayer["name"].get<std::string>() == "MiniMap") 
+		else if (jsLayer["name"].get<std::string>() == "MiniMap")
 		{
 			/*オブジェクト（ポリゴン）の数を確認、回数分ループ*/
 			picojson::array aObjects = jsLayer["objects"].get<picojson::array>();
 			for (int i = 0; i < aObjects.size(); ++i)
 			{
+			std::string linestyle = "NULL";
+			/*polylineが存在するか確認*/
+			if (aObjects[i].get<picojson::object>()["polyline"].is<picojson::array>()) {
+				linestyle = "polyline";
+			}
+			/*polygonが存在するか確認*/
+			else if (aObjects[i].get<picojson::object>()["polygon"].is<picojson::array>()) {
+				linestyle = "polygon";
+			}
 				/*一つのポリゴンの頂点データ*/
 				std::vector<Vector2> polygonplots;
 				/*ポリゴンの頂点数分ループ*/
-				picojson::array polylineplots = aObjects[i].get<picojson::object>()["polyline"].get<picojson::array>();
+				picojson::array polylineplots = aObjects[i].get<picojson::object>()[linestyle].get<picojson::array>();
 				for (int i2 = 0; i2 < polylineplots.size(); ++i2)
 				{
 					auto x = polylineplots[i2].get<picojson::object>()["x"].get<double>()
@@ -148,28 +161,60 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename)
 			picojson::array aObjects = jsLayer["objects"].get<picojson::array>();
 			for (int i = 0; i < aObjects.size(); ++i) {
 				/*マップタイル3番はエネミー*/
-				if (aObjects[i].get<picojson::object>()["gid"].get<double>()==3){
+				if (aObjects[i].get<picojson::object>()["gid"].is<double>()){
+					if (aObjects[i].get<picojson::object>()["gid"].get<double>()==3) {
 
-					int aEnemyID;
-					int     aEnemyType;
-					Vector2	aEnemyPosition;
-					int aPatrolID;
+						int aEnemyID;
+						int     aEnemyType;
+						Vector2	aEnemyPosition;
+						int aPatrolID;
 
-					aEnemyID = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
+						aEnemyID = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
 
-					picojson::array properties = aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
+						picojson::array properties = aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
 
-					aEnemyType =static_cast<int>(properties[0].get<picojson::object>()["value"].get<double>());
-					aPatrolID = static_cast<int>(properties[1].get<picojson::object>()["value"].get<double>());
+						aEnemyType = static_cast<int>(properties[0].get<picojson::object>()["value"].get<double>());
+						aPatrolID = static_cast<int>(properties[1].get<picojson::object>()["value"].get<double>());
 
-					double posX = aObjects[i].get<picojson::object>()["x"].get<double>();
-					double posY = aObjects[i].get<picojson::object>()["y"].get<double>();
-					aEnemyPosition = { posX,posY };
-					aEnemyData.push_back({ aEnemyID,aEnemyType, aEnemyPosition, aPatrolID });
+						double posX = aObjects[i].get<picojson::object>()["x"].get<double>();
+						double posY = aObjects[i].get<picojson::object>()["y"].get<double>();
+						aEnemyPosition = { posX,posY };
+						if (aEnemyType == 0) {
+							aEnemyData.push_back({ aEnemyID,aEnemyType, aEnemyPosition, aPatrolID });
+						}
+						else {
+							aEnemyVIPData[aEnemyID] = { aEnemyID,aEnemyType, aEnemyPosition, aPatrolID };
+						}
+						
+					}
+					else {
+						/*残りはサーバーのデータ*/
+						Vector2 pos{ 0,0 };
+						int dir{ -1 }, id{ 0 };
+						if (aObjects[i].get<picojson::object>()["gid"].get<double>() == 13) {
+							dir = 1;
+						}
+						if (aObjects[i].get<picojson::object>()["gid"].get<double>() == 17) {
+							dir = 4;
+						}
+						if (aObjects[i].get<picojson::object>()["gid"].get<double>() == 19) {
+							dir = 2;
+						}
+						if (aObjects[i].get<picojson::object>()["gid"].get<double>() == 29) {
+							dir = 3;
+						}
+						if (dir != -1) {
+							pos.x = aObjects[i].get<picojson::object>()["x"].get<double>();
+							pos.y = aObjects[i].get<picojson::object>()["y"].get<double>();
+							picojson::array properties = aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
+							id = properties[0].get<picojson::object>()["value"].get<double>();
+							aServerData.push_back({ pos,dir,id });
+						}
+					}
 				}
 				/*height=0はPolylineかpolygonによる巡回ルートオブジェクト*/
-				else if(aObjects[i].get<picojson::object>()["polygon"].is<double>()||
-					aObjects[i].get<picojson::object>()["polyline"].is<double>()) {
+				else if(aObjects[i].get<picojson::object>()["polygon"].is<picojson::array>()||
+					aObjects[i].get<picojson::object>()["polyline"].is<picojson::array>()) {
 					/*敵1体分の巡回ルート*/
 					EnemyPatrol aPatrolData;
 					std::string linestyle = "null";
@@ -200,17 +245,13 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename)
 						int id = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
 						std::unordered_map<int, std::vector<Vector2>> map;
 						/*mapにIDをキーとして巡回ルート登録*/
-
 						_patrolPoints[id] = aPatrolData;
 					}
 				}
-				/*残りはサーバーのデータ*/
-				else {
-
-				}
-
 			}
 			_enemyDataList.push_back(aEnemyData);
+			_enemyVIPDataList.push_back(aEnemyVIPData);
+			_serverMachineDataList.push_back(aServerData);
 		}
 	}
 	_mapDataStandard.push_back(onestagedata);
@@ -256,7 +297,8 @@ void MapChips::ReconRender(int stageNum, Vector2 windowPos, Vector2 cameraPos)
 		int plotsize = static_cast<int>(_mapDataRecon[stageNum][i].size());
 		for (int plot = 0; plot < plotsize; ++plot) 
 		{
-			float scale =static_cast<float>( 410.0/3240.0*0.97);
+			//float scale =static_cast<float>( 410.0/3240.0*0.97);
+			float scale = static_cast<float>(410.0 / 4320.0 * 0.97);
 			DrawLineAA(static_cast<float>(_mapDataRecon[stageNum][i][plot].x*scale + windowPos.x),
 				static_cast<float>(_mapDataRecon[stageNum][i][plot].y*scale + windowPos.y ),
 				static_cast<float>(_mapDataRecon[stageNum][i][(plot + 1) % plotsize].x *scale+ windowPos.x),

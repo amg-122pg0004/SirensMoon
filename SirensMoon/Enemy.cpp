@@ -31,6 +31,7 @@ Enemy::Enemy(Game& game,ModeBase& mode,MapChips::EnemyData enemydata)
 	_mode.GetActorServer().Add(std::move(light));
 
 	GenerateEnemy();
+	Init();
 };
 
 void Enemy::Init() {

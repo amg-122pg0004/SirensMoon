@@ -23,18 +23,17 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false}
 	_splitWindow.emplace_back(std::make_unique<SplitWindow>(_game,*this, 0, 0, 0));
 	_splitWindow.emplace_back(std::make_unique<SplitWindow>(_game,*this, screen_W / 2, 0, 1));
 
-	Vector2 pos = { 300,600 };
-	auto server = std::make_unique<ServerMachine>(_game, *this, pos, 4);
-	_wantedEnemys.push_back(server->GetGeneratedEnemy());
-	_actorServer.Add(std::move(server));
-
+	auto serverdata = _mapChips->GetServerData();
+	for (auto&& data : serverdata) {
+		auto server = std::make_unique<ServerMachine>(_game, *this, data);
+		_wantedEnemys.push_back(server->GetGeneratedEnemy());
+		_actorServer.Add(std::move(server));
+	}
 
 	auto enemydata=_mapChips->GetEnemyData();
 	for (auto&& data : enemydata) {
-		if (data.ID != 1) {
-			auto enemy = std::make_unique<Enemy>(_game, *this, data);
-			_actorServer.Add(std::move(enemy));
-		}
+		auto enemy = std::make_unique<Enemy>(_game, *this, data);
+		_actorServer.Add(std::move(enemy));
 	}
 
 	auto hp_pos = _mapChips->GetHPItemData();

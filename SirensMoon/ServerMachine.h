@@ -1,5 +1,7 @@
 #pragma once
 #include "Actor.h"
+#include "MapChip.h"
+#include "EnemyVIP.h"
 #include <memory>
 #include <vector>
 
@@ -9,7 +11,7 @@ class InputManager;
 
 class ServerMachine:public Actor{
 	public:
-		ServerMachine(Game& game, ModeBase& mode, Vector2 pos,int dir);
+		ServerMachine(Game& game, ModeBase& mode, MapChips::ServerMachineData data);
 		Type GetType() { return Type::Server; }
 		void Update()override;
 		void ChangeValidFlag(bool);
@@ -17,10 +19,11 @@ class ServerMachine:public Actor{
 		AABB GetAccessArea() { return _accessArea; }
 		std::vector<int> GetGeneratedEnemy() { return _generatedEnemy; }
 		void GenerateEnemy();
+		void SpawnEnemyVIP();
 		void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;
 	private:
 		/*1è„,2âE,3â∫,4ç∂*/
-		int _dir;
+		MapChips::ServerMachineData _serverData;
 
 		int _cg_up;
 		int _cg_right;
