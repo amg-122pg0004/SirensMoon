@@ -128,75 +128,6 @@
          "objects":[
                 {
                  "class":"",
-                 "gid":3,
-                 "height":30,
-                 "id":32,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"EnemyType",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
-                         "name":"PatrolLine",
-                         "type":"object",
-                         "value":38
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":30,
-                 "x":1785,
-                 "y":771
-                }, 
-                {
-                 "class":"",
-                 "gid":3,
-                 "height":30,
-                 "id":34,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"EnemyType",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
-                         "name":"PatrolLine",
-                         "type":"object",
-                         "value":42
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":30,
-                 "x":1672.88,
-                 "y":2030.15
-                }, 
-                {
-                 "class":"",
-                 "gid":3,
-                 "height":30,
-                 "id":35,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"EnemyType",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
-                         "name":"PatrolLine",
-                         "type":"object",
-                         "value":39
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":30,
-                 "x":1200.15,
-                 "y":3124.09
-                }, 
-                {
-                 "class":"",
                  "height":0,
                  "id":38,
                  "name":"",
@@ -274,29 +205,6 @@
                  "width":0,
                  "x":1188,
                  "y":1234
-                }, 
-                {
-                 "class":"",
-                 "gid":17,
-                 "height":30,
-                 "id":73,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"PatrolLine",
-                         "type":"object",
-                         "value":79
-                        }, 
-                        {
-                         "name":"SpawnEnemy",
-                         "type":"object",
-                         "value":85
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":30,
-                 "x":180,
-                 "y":570
                 }, 
                 {
                  "class":"",
@@ -386,6 +294,11 @@
                  "name":"",
                  "properties":[
                         {
+                         "name":"EnemyType",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
                          "name":"PatrolLine",
                          "type":"object",
                          "value":38
@@ -393,8 +306,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":1318.33,
-                 "y":101.667
+                 "x":1100.99666666667,
+                 "y":108.333666666667
                 }, 
                 {
                  "class":"",
@@ -404,23 +317,10 @@
                  "name":"",
                  "properties":[
                         {
-                         "name":"PatrolLine",
-                         "type":"object",
-                         "value":39
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":30,
-                 "x":1097,
-                 "y":2451
-                }, 
-                {
-                 "class":"",
-                 "gid":3,
-                 "height":30,
-                 "id":82,
-                 "name":"",
-                 "properties":[
+                         "name":"EnemyType",
+                         "type":"int",
+                         "value":0
+                        }, 
                         {
                          "name":"PatrolLine",
                          "type":"object",
@@ -429,8 +329,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":1726.33,
-                 "y":2735
+                 "x":1093,
+                 "y":2371
                 }, 
                 {
                  "class":"",
@@ -443,6 +343,11 @@
                          "name":"EnemyType",
                          "type":"int",
                          "value":1
+                        }, 
+                        {
+                         "name":"PatrolLine",
+                         "type":"object",
+                         "value":79
                         }],
                  "rotation":0,
                  "visible":true,
@@ -486,6 +391,11 @@
                  "name":"",
                  "properties":[
                         {
+                         "name":"EnemyType",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
                          "name":"PatrolLine",
                          "type":"object",
                          "value":86
@@ -493,7 +403,7 @@
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":463.667,
+                 "x":99.667,
                  "y":1273.67
                 }, 
                 {
@@ -504,23 +414,10 @@
                  "name":"",
                  "properties":[
                         {
-                         "name":"PatrolLine",
-                         "type":"object",
-                         "value":86
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":30,
-                 "x":825,
-                 "y":1676.33
-                }, 
-                {
-                 "class":"",
-                 "gid":3,
-                 "height":30,
-                 "id":89,
-                 "name":"",
-                 "properties":[
+                         "name":"EnemyType",
+                         "type":"int",
+                         "value":0
+                        }, 
                         {
                          "name":"PatrolLine",
                          "type":"object",
@@ -529,8 +426,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":462.333,
-                 "y":2088.33
+                 "x":831.666666666667,
+                 "y":1273.66333333333
                 }, 
                 {
                  "class":"",
@@ -540,6 +437,11 @@
                  "name":"",
                  "properties":[
                         {
+                         "name":"EnemyType",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
                          "name":"PatrolLine",
                          "type":"object",
                          "value":86
@@ -547,8 +449,95 @@
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":87.6667,
-                 "y":1675
+                 "x":74.3333666666667,
+                 "y":2083
+                }, 
+                {
+                 "class":"",
+                 "gid":17,
+                 "height":30,
+                 "id":91,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"SpawnEnemy",
+                         "type":"object",
+                         "value":85
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":180,
+                 "y":570
+                }, 
+                {
+                 "class":"",
+                 "gid":3,
+                 "height":30,
+                 "id":93,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"EnemyType",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
+                         "name":"PatrolLine",
+                         "type":"object",
+                         "value":39
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":1094.33333333333,
+                 "y":3232.33333333333
+                }, 
+                {
+                 "class":"",
+                 "gid":3,
+                 "height":30,
+                 "id":94,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"EnemyType",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
+                         "name":"PatrolLine",
+                         "type":"object",
+                         "value":42
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":1157,
+                 "y":1251
+                }, 
+                {
+                 "class":"",
+                 "gid":3,
+                 "height":30,
+                 "id":95,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"EnemyType",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
+                         "name":"PatrolLine",
+                         "type":"object",
+                         "value":38
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":1107.66666666667,
+                 "y":1000.33333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -3244,7 +3233,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":91,
+ "nextobjectid":96,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.0",
@@ -3268,7 +3257,7 @@
                         {
                          "name":"EnemyType",
                          "type":"int",
-                         "value":0
+                         "value":-1
                         }, 
                         {
                          "name":"PatrolLine",
@@ -3290,16 +3279,6 @@
                  "id":12,
                  "properties":[
                         {
-                         "name":"EnemyType",
-                         "type":"int",
-                         "value":0
-                        }, 
-                        {
-                         "name":"PatrolLine",
-                         "type":"object",
-                         "value":0
-                        }, 
-                        {
                          "name":"SpawnEnemy",
                          "type":"object",
                          "value":0
@@ -3318,16 +3297,6 @@
                  "id":16,
                  "properties":[
                         {
-                         "name":"EnemyType",
-                         "type":"int",
-                         "value":0
-                        }, 
-                        {
-                         "name":"PatrolLine",
-                         "type":"object",
-                         "value":0
-                        }, 
-                        {
                          "name":"SpawnEnemy",
                          "type":"object",
                          "value":0
@@ -3341,16 +3310,6 @@
                  "class":"Server",
                  "id":18,
                  "properties":[
-                        {
-                         "name":"EnemyType",
-                         "type":"int",
-                         "value":0
-                        }, 
-                        {
-                         "name":"PatrolLine",
-                         "type":"object",
-                         "value":0
-                        }, 
                         {
                          "name":"SpawnEnemy",
                          "type":"object",
@@ -3393,16 +3352,6 @@
                  "class":"Server",
                  "id":28,
                  "properties":[
-                        {
-                         "name":"EnemyType",
-                         "type":"int",
-                         "value":0
-                        }, 
-                        {
-                         "name":"PatrolLine",
-                         "type":"object",
-                         "value":0
-                        }, 
                         {
                          "name":"SpawnEnemy",
                          "type":"object",
