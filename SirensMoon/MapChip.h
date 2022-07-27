@@ -9,24 +9,27 @@ class ModeBase;
 class SplitWindow;
 class Actor;
 
-class MapChip {
-public:
-	int _id;
-};
-
 class MapChips {
 public:
-	/*エネミーデータ*/
+	/*エネミーデータ構造*/
 	struct EnemyData {
-		int	   Enemytype;
+		int ID;
+		int	Enemytype;
 		Vector2 StartPosition;
 		int patrolID;
 	};
 
-	/*エネミー巡回経路データ*/
+	/*エネミー巡回経路データ構造*/
 	struct EnemyPatrol {
 		std::vector<Vector2> PatrolPoints;
-		bool TruckingMode;
+		bool TruckingMode{false};
+	};
+
+	/*サーバーデータ構造*/
+	struct ServerMachineData {
+		Vector2 Position;
+		int Direction;
+		int SpawnEnemyID;
 	};
 
 	MapChips(Game& game,ModeBase& mode);
@@ -52,7 +55,7 @@ public:
 	std::vector<Vector2> GetHPItemData() { return _hpItems[0]; }
 	std::vector<Vector2> GetBulletData() { return _bulletItems[0]; }
 	EnemyPatrol FindPatrol(int id);
-	int CheckHitChipNo(int objectstage, int x, int y);
+	std::vector<int> CheckHitChipNo(int objectstage, int x, int y);
 	bool IsHit(int objectstage, Actor& o);
 	bool IsHitBarrier(int objectstage, Actor& o, int playerno);
 
@@ -73,7 +76,7 @@ private:
 	int _chipSize_H;
 
 	/*マップデータ ステージNo,レイヤー,*/
-	std::vector<std::vector<std::vector<std::vector<MapChip>>>> _mapDataStandard;
+	std::vector<std::vector<std::vector<std::vector<int>>>> _mapDataStandard;
 	/*ミニマップデータ*/
 	std::vector<std::vector<std::vector<Vector2>>> _mapDataRecon;
 	/*マップごとのプレイヤーデータ*/
@@ -87,6 +90,8 @@ private:
 	std::vector<std::vector<EnemyData>> _enemyDataList;
 	/*マップごとのエネミーの巡回ルート*/
 	std::unordered_map<int, EnemyPatrol> _patrolPoints;
+	/*マップごとのサーバーデータ*/
+	std::vector<std::vector<ServerMachineData>> _serverMachineData;
 	
 	std::vector<int> _cgChip;
 };

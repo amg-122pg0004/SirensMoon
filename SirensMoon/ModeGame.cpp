@@ -31,8 +31,10 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false}
 
 	auto enemydata=_mapChips->GetEnemyData();
 	for (auto&& data : enemydata) {
-		auto enemy =std::make_unique<Enemy>(_game, *this, data);
-		_actorServer.Add(std::move(enemy));
+		if (data.ID != 1) {
+			auto enemy = std::make_unique<Enemy>(_game, *this, data);
+			_actorServer.Add(std::move(enemy));
+		}
 	}
 
 	auto hp_pos = _mapChips->GetHPItemData();

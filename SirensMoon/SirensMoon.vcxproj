@@ -154,6 +154,7 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Darkness.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyVIP.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="HPItem.cpp" />
     <ClCompile Include="ImageServer.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Darkness.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyVIP.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="HPItem.h" />
     <ClInclude Include="ImageServer.h" />

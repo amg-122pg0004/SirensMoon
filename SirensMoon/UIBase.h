@@ -12,7 +12,6 @@
 class Game;
 class ModeBase;
 
-
 class UIBase{
 public:
 	UIBase(Game&,ModeBase&,Vector2 pos,Vector2 size);

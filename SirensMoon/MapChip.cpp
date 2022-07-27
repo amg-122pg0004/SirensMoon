@@ -53,7 +53,7 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename)
 	picojson::array aLayers = jsRoot["layers"].get<picojson::array>();
 
 	// レイヤー内データの取得
-	std::vector<std::vector<std::vector<MapChip>>>onestagedata;
+	std::vector<std::vector<std::vector<int>>>onestagedata;
 	/*一つのステージのポリゴンデータ*/
 	std::vector<std::vector<Vector2>>  onestagepolygons;
 	/*1ステージ分のエネミーデータ*/
@@ -62,29 +62,27 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename)
 	{
 
 		picojson::object jsLayer = aLayers[i].get<picojson::object>();		// レイヤーオブジェクト
-		// レイヤー種類が「tilelayer」のものをカウントする
 
-		if (jsLayer["name"].get<std::string>() == "tile_Layer") 
+		// レイヤー種類が「tilelayer」のもの
+		if (jsLayer["type"].get<std::string>() == "tilelayer") 
 		{
 			picojson::array aData = jsLayer["data"].get<picojson::array>();			// マップ配列
 			int index = 0;
-			std::vector<std::vector<MapChip>>	vMapLayer;	// 1レイヤー分のデータ
+			std::vector<std::vector<int>>	vMapLayer;	// 1レイヤー分のデータ
 			for (int y = 0; y < _mapSize_H; y++) {
-				std::vector<MapChip>	vMapLine;	// 1行分のデータ
+				std::vector<int>	vMapLine;	// 1行分のデータ
 				for (int x = 0; x < _mapSize_W; x++) {
-					MapChip chip;
-					chip._id = (int)aData[index].get<double>();
-					vMapLine.push_back(chip);
+					int chip_id;
+					chip_id = (int)aData[index].get<double>();
+					vMapLine.push_back(chip_id);
 					index++;
 				}
 				vMapLayer.push_back(vMapLine);
 			}
 			// レイヤーデータを追加
-
 			onestagedata.push_back(vMapLayer);
-
 		}
-		/*レイヤーの種類がオブジェクトグループかつ、名前がMiniMapの物を取得*/
+		/*レイヤーの名前がMiniMapの物を取得*/
 		else if (jsLayer["name"].get<std::string>() == "MiniMap") 
 		{
 			/*オブジェクト（ポリゴン）の数を確認、回数分ループ*/
@@ -149,11 +147,15 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename)
 		{
 			picojson::array aObjects = jsLayer["objects"].get<picojson::array>();
 			for (int i = 0; i < aObjects.size(); ++i) {
-				if (aObjects[i].get<picojson::object>()["gid"].is<double>()) {
+				/*マップタイル3番はエネミー*/
+				if (aObjects[i].get<picojson::object>()["gid"].get<double>()==3){
 
+					int aEnemyID;
 					int     aEnemyType;
 					Vector2	aEnemyPosition;
 					int aPatrolID;
+
+					aEnemyID = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
 
 					picojson::array properties = aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
 
@@ -163,10 +165,11 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename)
 					double posX = aObjects[i].get<picojson::object>()["x"].get<double>();
 					double posY = aObjects[i].get<picojson::object>()["y"].get<double>();
 					aEnemyPosition = { posX,posY };
-					aEnemyData.push_back({ aEnemyType, aEnemyPosition, aPatrolID });
+					aEnemyData.push_back({ aEnemyID,aEnemyType, aEnemyPosition, aPatrolID });
 				}
 				/*height=0はPolylineかpolygonによる巡回ルートオブジェクト*/
-				else {
+				else if(aObjects[i].get<picojson::object>()["polygon"].is<double>()||
+					aObjects[i].get<picojson::object>()["polyline"].is<double>()) {
 					/*敵1体分の巡回ルート*/
 					EnemyPatrol aPatrolData;
 					std::string linestyle = "null";
@@ -183,7 +186,7 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename)
 					/*polylineかpolygonがあれば巡回座標読み込み*/
 					if (linestyle != "null") 
 					{
-						auto pointsArray = aObjects[i].get<picojson::object>()[linestyle].get<picojson::array>();
+						picojson::array pointsArray = aObjects[i].get<picojson::object>()[linestyle].get<picojson::array>();
 						for (int p = 0; p < pointsArray.size(); ++p) 
 						{
 							double x = pointsArray[p].get <picojson::object>()["x"].get<double>();
@@ -201,11 +204,16 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename)
 						_patrolPoints[id] = aPatrolData;
 					}
 				}
+				/*残りはサーバーのデータ*/
+				else {
+
+				}
+
 			}
 			_enemyDataList.push_back(aEnemyData);
 		}
-		_mapDataStandard.push_back(onestagedata);
 	}
+	_mapDataStandard.push_back(onestagedata);
 	return true;
 }
 
@@ -231,7 +239,7 @@ void MapChips::StandardRender(int stageNum,Vector2 windowPos,Vector2 cameraPos) 
 				int index = y * _mapSize_W + x;
 				int pos_x = x * _chipSize_W +static_cast<int>(windowPos.x) - static_cast<int>(cameraPos.x);
 				int pos_y = y * _chipSize_H + static_cast<int>(windowPos.y) - static_cast<int>(cameraPos.y);
-				int chip_no = _mapDataStandard[stageNum][layer][y][x]._id;
+				int chip_no = _mapDataStandard[stageNum][layer][y][x];
 				chip_no--;
 				if (chip_no >= 0) {
 					DrawGraph(pos_x, pos_y, _cgChip[chip_no], TRUE);
@@ -252,7 +260,7 @@ void MapChips::ReconRender(int stageNum, Vector2 windowPos, Vector2 cameraPos)
 			DrawLineAA(static_cast<float>(_mapDataRecon[stageNum][i][plot].x*scale + windowPos.x),
 				static_cast<float>(_mapDataRecon[stageNum][i][plot].y*scale + windowPos.y ),
 				static_cast<float>(_mapDataRecon[stageNum][i][(plot + 1) % plotsize].x *scale+ windowPos.x),
-				static_cast<float>(_mapDataRecon[stageNum][i][(plot + 1) % plotsize].y*scale + windowPos.y ),
+				static_cast<float>(_mapDataRecon[stageNum][i][(plot + 1) % plotsize].y *scale+ windowPos.y ),
 				GetColor(0, 255, 255));
 		}
 	}
@@ -264,28 +272,24 @@ void MapChips::ReconRender(int stageNum, Vector2 windowPos, Vector2 cameraPos)
 // 戻値：
 //   0 : 当たり判定を行わない
 //   0以外 : 当たり判定を行う（チップ番号を返す）
-int MapChips::CheckHitChipNo(int stagenum,int x, int y)
+std::vector<int> MapChips::CheckHitChipNo(int stagenum,int x, int y)
 {
+	std::vector<int> v_chip_no;
 	// マップチップ位置はマップデータからはみ出ているか？
 	if (0 <= x && x < _mapSize_W && 0 <= y && y < _mapSize_H)
-	{	// はみでていない
-		
-		//int layer = 0;
-		//int chip_no = _mapData[stagenum][layer][y][x]._id;
-
-		// 当たった
-		//return chip_no;
-		
+	{	
 		// マップチップIDが0以外は当たり判定を行う
-		// 現在、レイヤーは考慮されていない
-		for( int layer = 0; layer <= 1; ++layer ) {
-			int chip_no = _mapDataStandard[stagenum][layer][y][x]._id;
+		for( int layer = 0; layer < _mapDataStandard[stagenum].size(); ++layer) {
+			int chip_no = _mapDataStandard[stagenum][layer][y][x];
 			// 当たった
-			return chip_no;
+			v_chip_no.emplace_back(chip_no);
 		}
 	}
-	// 当たっていない
-	return 0;
+	// 何もマップチップと当たっていなければ-1を入れる
+	if (v_chip_no.size() == 0) {
+		v_chip_no.emplace_back(-1);
+	}
+	return v_chip_no;
 }
 
 
@@ -300,14 +304,12 @@ bool MapChips::IsHit(int objectstage,Actor& o)
 {
 	int x, y;
 	int dxordy=0;
-
 	// キャラ矩形を作成する
 	int l, t, r, b;		// 左上(left,top) - 右下(right,bottom)
 	l = static_cast<int>(o.GetPosition().x);
 	t = static_cast<int>(o.GetPosition().y);
 	r = static_cast<int>(o.GetPosition().x+o.GetSize().x);
 	b = static_cast<int>(o.GetPosition().y+o.GetSize().y);
-
 	// キャラの左上座標～右下座標にあたるマップチップと、当たり判定を行う
 	for (y = t / _chipSize_H; y <= b / _chipSize_H; y++)
 	{
@@ -315,11 +317,18 @@ bool MapChips::IsHit(int objectstage,Actor& o)
 		{
 			// (x,y)は、マップチップの座標（チップ単位）
 			// この位置のチップは当たるか？
-			int chip_no = CheckHitChipNo(objectstage,x,y);
-			if (chip_no == 2)
-			{	// このチップと当たった。
-				// 当たったので戻る
-				return 1;
+			std::vector<int> v_chip_no = CheckHitChipNo(objectstage,x,y);
+			int list[] = {2,-1};
+			for (int chip_no : v_chip_no) {
+			int i = 0;
+				while (list[i] != -1) {
+					if (chip_no == list[i])
+					{	// このチップと当たった。
+						// 当たったので戻る
+						return 1;
+					}
+					++i;
+				}
 			}
 		}
 	}
@@ -353,22 +362,23 @@ bool MapChips::IsHitBarrier(int objectstage, Actor& o,int playerno)
 		{
 			// (x,y)は、マップチップの座標（チップ単位）
 			// この位置のチップは当たるか？
-			int chip_no = CheckHitChipNo(objectstage, x, y);
-			if (playerno == 0) {
-				if (chip_no == 10)
-				{	// このチップと当たった。
-					// 当たったので戻る
-					return 1;
+			std::vector<int> v_chip_no = CheckHitChipNo(objectstage, x, y);
+			for (int chip_no : v_chip_no) {
+				if (playerno == 0) {
+					if (chip_no == 10)
+					{	// このチップと当たった。
+						// 当たったので戻る
+						return 1;
+					}
+				}
+				if (playerno == 1) {
+					if (chip_no == 11)
+					{	// このチップと当たった。
+						// 当たったので戻る
+						return 1;
+					}
 				}
 			}
-			if (playerno == 1) {
-				if (chip_no == 11)
-				{	// このチップと当たった。
-					// 当たったので戻る
-					return 1;
-				}
-			}
-
 		}
 	}
 	// 当たらなかった

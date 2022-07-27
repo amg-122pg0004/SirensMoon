@@ -18,6 +18,7 @@ class ModeGame;
 class Enemy :public Actor {
 	public :
 		Enemy(Game& game, ModeBase& mode,MapChips::EnemyData enemy);
+		virtual void Init();
 		/**
 		 * @brief 行動の決定、更新
 		 * 
@@ -75,7 +76,7 @@ class Enemy :public Actor {
 		void GenerateEnemy();
 		bool CheckWantedEnemy(ModeGame&);
 
-	private:
+	protected:
 		/*初期位置*/
 		Vector2 _initPos;
 		/*歩くスピード*/

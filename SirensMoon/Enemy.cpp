@@ -31,7 +31,9 @@ Enemy::Enemy(Game& game,ModeBase& mode,MapChips::EnemyData enemydata)
 	_mode.GetActorServer().Add(std::move(light));
 
 	GenerateEnemy();
+};
 
+void Enemy::Init() {
 	switch (_generatedEnemy[0]) {
 	case 1:
 		ImageServer::LoadDivGraph("resource/Enemy/red_top2.png", 30, 5, 6, 250, 370, _cg_top.data());
@@ -65,7 +67,7 @@ Enemy::Enemy(Game& game,ModeBase& mode,MapChips::EnemyData enemydata)
 		ImageServer::LoadDivGraph("resource/Enemy/green_bot2.png", 30, 5, 6, 250, 370, _cg_bot.data());
 		break;
 	}
-};
+}
 
 void Enemy::Update() {
 	if (CheckReachPoint()) {

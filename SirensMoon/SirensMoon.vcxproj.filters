@@ -103,6 +103,9 @@
     <Filter Include="Resource\SoundServer">
       <UniqueIdentifier>{ed159ccb-774c-4f37-89ef-768c7454acf0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Enemy\EnemyVIP">
+      <UniqueIdentifier>{c66cbfe4-64f7-4815-a661-0f1598a78b1c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -195,6 +198,9 @@
     <ClCompile Include="SoundServer.cpp">
       <Filter>Resource\SoundServer</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyVIP.cpp">
+      <Filter>Actor\Enemy\EnemyVIP</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -286,6 +292,9 @@
     </ClInclude>
     <ClInclude Include="SoundServer.h">
       <Filter>Resource\SoundServer</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyVIP.h">
+      <Filter>Actor\Enemy\EnemyVIP</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
