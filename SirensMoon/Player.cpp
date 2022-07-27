@@ -159,15 +159,17 @@ void Player::Move() {
 }
 
 void Player::PlayFootSteps() {
-	double speed = _dir.Length();
-	if (speed > 0 && speed <=0.98) {
-		if (_game.GetFrameCount() % 25 == 0) {
-			PlaySoundMem(SoundServer::Find("PlayerWalk"), DX_PLAYTYPE_BACK);
+	if (_movable) {
+		double speed = _dir.Length();
+		if (speed > 0 && speed <= 0.98) {
+			if (_game.GetFrameCount() % 25 == 0) {
+				PlaySoundMem(SoundServer::Find("PlayerWalk"), DX_PLAYTYPE_BACK);
+			}
 		}
-	}
-	else if(speed>0.98) {
-		if (_game.GetFrameCount() % 15 == 0) {
-			PlaySoundMem(SoundServer::Find("PlayerRun"), DX_PLAYTYPE_BACK);
+		else if (speed > 0.98) {
+			if (_game.GetFrameCount() % 15 == 0) {
+				PlaySoundMem(SoundServer::Find("PlayerRun"), DX_PLAYTYPE_BACK);
+			}
 		}
 	}
 }
@@ -211,9 +213,8 @@ void Player::GunShoot() {
 		++_charge;
 		if (_charge == 1) {
 			PlaySoundMem(SoundServer::Find("PlayerAim"), DX_PLAYTYPE_BACK);
-			PlaySoundMem(SoundServer::Find("PlayerCharge"), DX_PLAYTYPE_BACK);
 		}
-		if (_charge == 10) {
+		if (_charge == 12) {
 			PlaySoundMem(SoundServer::Find("PlayerCharge"), DX_PLAYTYPE_BACK);
 		}
 		if (_charge == 105) {

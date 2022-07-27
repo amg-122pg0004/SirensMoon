@@ -17,6 +17,11 @@ ProjectionLight::ProjectionLight(Game& game, ModeBase& mode, Actor& owner)
 	_cg = ImageServer::LoadGraph("resource/Light/Light_6.png");
 	_centerPos = { 40,300 };
 	_scale = 1.3;
+	Vector2 fix = { 20 ,20 };
+	_pos = _owner.GetPosition() + fix;
+	auto player = dynamic_cast<Player&>(_owner);
+	_angle = atan2(player.GetDirection().y, player.GetDirection().x) + (3.14 / 2.0);
+
 }
 
 void ProjectionLight::Update(){

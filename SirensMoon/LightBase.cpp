@@ -12,6 +12,11 @@
 LightBase::LightBase(Game& game, ModeBase& mode, Actor& owner)
 	:Actor{ game,mode }, _owner{ owner }, _angle{ 0 }, _scale{ 0.7 }, _centerPos{ _pos + _size / 2 }
 {
+	int x, y;
+	GetGraphSize(_cg, &x, &y);
+	x *= _scale;
+	y *= _scale;
+	_pos = { _owner.GetPosition().x - x / 2 + 40,_owner.GetPosition().y - y / 2 + 40 };
 	_cg = ImageServer::LoadGraph("resource/Light/Light_3.png");
 }
 
