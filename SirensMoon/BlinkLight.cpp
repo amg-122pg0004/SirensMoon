@@ -18,6 +18,7 @@ BlinkLight::BlinkLight(Game& game, ModeBase& mode, Actor& owner)
 
 	_cg = ImageServer::LoadGraph("resource/Light/Light_4.png");
 	_centerPos = { 250,250 };
+	_scale = 0;
 
 }
 
