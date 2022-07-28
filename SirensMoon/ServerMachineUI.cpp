@@ -78,11 +78,15 @@ void ServerMachineUI::Render() {
 			break;
 		}
 
+		int alpha = _owner.GetEnergy();
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
 		DrawExtendGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y),
 			static_cast<int>(_pos.x + _size.x), static_cast<int>(_pos.y + _size.y), _cg, 0);
 
 		DrawGraph(static_cast<int>(_pos.x)+250, static_cast<int>(_pos.y)+130, cg_bot[_game.GetFrameCount()/10%30], 1);
 		DrawGraph(static_cast<int>(_pos.x)+250, static_cast<int>(_pos.y)+130, cg_mid[_game.GetFrameCount()/10%30], 1);
 		DrawGraph(static_cast<int>(_pos.x)+250, static_cast<int>(_pos.y)+130, cg_top[_game.GetFrameCount()/10% 30], 1);
+
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 	}
 }

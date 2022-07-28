@@ -45,6 +45,7 @@ void SplitWindow::Update() {
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Actor::Type::Server) {
 			ServerMachine& machine  =dynamic_cast<ServerMachine&>(*actor);
+			/*連打仕様以前の物
 			if (machine.GetValidFlag()) {
 				--_lightup;
 				if (_lightup < 100) {
@@ -56,6 +57,11 @@ void SplitWindow::Update() {
 				if (_lightup > 255) {
 					_lightup = 255;
 				}
+			}
+			*/
+			_lightup =255- machine.GetEnergy();//<連打仕様
+			if (_lightup < 100) {
+				_lightup = 100;
 			}
 		}
 	}
@@ -72,9 +78,11 @@ void SplitWindow::Render() {
 		static_cast<int>(_windowPos.x + _windowSize_W),
 		static_cast<int>(_windowPos.y + _windowSize_H));
 
-
+	/*背景描画*/
 	static_cast<ModeGame&>(_mode).GetMapChips()->StandardRender(_renderStage - 1, _windowPos, _camera->GetPosition());
+	/*アクター描画*/
 	_mode.GetActorServer().StandardRender(_renderStage, _windowPos, _camera->GetPosition());
+
 	GraphBlend(_normalScreen, _darknessScreen, _lightup, DX_GRAPH_BLEND_MULTIPLE);
 
 	SetDrawScreen(DX_SCREEN_BACK);

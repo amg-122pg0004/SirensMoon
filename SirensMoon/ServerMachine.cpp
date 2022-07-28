@@ -12,7 +12,7 @@
 #include "SoundServer.h"
 
 ServerMachine::ServerMachine(Game& game, ModeBase& mode, MapChips::ServerMachineData data)
-	:Actor(game, mode),_valid{false},_serverData{data}
+	:Actor(game, mode),_valid{false},_serverData{data},_energy{0}
 {
 	_inputManager = _game.GetInputManager();
 	_accessArea.min = {0,0};
@@ -68,25 +68,35 @@ ServerMachine::ServerMachine(Game& game, ModeBase& mode, MapChips::ServerMachine
 
 
 void ServerMachine::Update() {
-	if (_inputManager->CheckInput("ACCESS", 'h', 1)) {
+	if ((_inputManager->CheckInput("ACCESS", 't', 1))) {
 		for (auto&& actor : _mode.GetActorServer().GetObjects()) {
 			if (actor->GetType() == Type::Player) {
 				Player player = dynamic_cast<Player&>(*actor);
 				if (player.GetPlayerNum() == 1 && Intersect(_accessArea, actor->GetCollision())) {
-					_valid = true;
-					if ((_inputManager->CheckInput("ACCESS", 't', 1))){
-						PlaySoundMem(SoundServer::Find("PlayerOpenMap"), DX_PLAYTYPE_BACK);
-						SpawnEnemyVIP();
-					}
+					_energy += 50;
 					break;
 				}
 			}
-			_valid = false;
 		}
 	}
-	else {
+	if (_energy >300) {
+		_energy = 300;
+	}
+	_energy-=3;
+	if (_energy < 0) {
+		_energy = 0;
+	}
+	if(_energy > 0 ) {
+		//PlaySoundMem(SoundServer::Find("PlayerOpenMap"), DX_PLAYTYPE_BACK);
+		if (_valid == false) {
+			_valid = true;
+			SpawnEnemyVIP();
+		}
+	}
+	if(_energy==0) {
 		_valid = false;
 	}
+
 }
 
 void ServerMachine::ChangeValidFlag(bool flag) {

@@ -16,12 +16,16 @@ class ServerMachine:public Actor{
 		void Update()override;
 		void ChangeValidFlag(bool);
 		bool GetValidFlag() { return _valid; }
+		int GetEnergy() { return _energy; }
 		AABB GetAccessArea() { return _accessArea; }
 		std::vector<int> GetGeneratedEnemy() { return _generatedEnemy; }
 		void GenerateEnemy();
 		void SpawnEnemyVIP();
 		void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;
 	private:
+		/*サーバーが起動するかの判定に使用*/
+		int _energy;
+
 		/*1上,2右,3下,4左*/
 		MapChips::ServerMachineData _serverData;
 
