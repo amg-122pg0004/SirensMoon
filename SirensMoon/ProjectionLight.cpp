@@ -12,11 +12,13 @@
 #include <math.h>
 
 ProjectionLight::ProjectionLight(Game& game, ModeBase& mode, Actor& owner)
-	:LightBase{ game,mode,owner }
-{
-	_cg = ImageServer::LoadGraph("resource/Light/Light_6.png");
+	:_scaleStart{ 0.0 }, _scaleMax{ 1.3 }
+	,_alphaStart{0},_alphaMax{255}
+	,LightBase{ game,mode,owner }
+{	_cg = ImageServer::LoadGraph("resource/Light/Light_6.png");
 	_centerPos = { 40,300 };
-	_scale = 1.3;
+	_scale = _scaleStart;
+	_alpha = _alphaStart;
 	Vector2 fix = { 20 ,20 };
 	_pos = _owner.GetPosition() + fix;
 	auto player = dynamic_cast<Player&>(_owner);
@@ -29,6 +31,15 @@ void ProjectionLight::Update(){
 	Vector2 fix = {20 ,20 };
 	_pos = _owner.GetPosition()+fix;
 	_angle = atan2(player.GetDirection().y,player.GetDirection().x)+(3.14/2.0);
+
+	_scale += 0.01;
+	_alpha += 10;
+	if (_scale > _scaleMax) {
+		_scale = _scaleMax;
+	}
+	if (_alpha > _alphaMax) {
+		_alpha = _alphaMax;
+	}
 
 	if (player.GetCharge() == 0) {
 		_dead = true;

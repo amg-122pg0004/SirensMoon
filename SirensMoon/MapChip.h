@@ -77,6 +77,8 @@ private:
 	int _chipSize_W;
 	int _chipSize_H;
 
+	std::vector<int> _tilesetsFirstgid;
+
 	/*マップデータ ステージNo,レイヤー,*/
 	std::vector<std::vector<std::vector<std::vector<int>>>> _mapDataStandard;
 	/*ミニマップデータ*/
@@ -97,5 +99,5 @@ private:
 	/*マップごとのサーバーデータ*/
 	std::vector<std::vector<ServerMachineData>> _serverMachineDataList;
 	
-	std::vector<int> _cgChip;
+	std::vector<std::vector<int>> _cgChip;
 };

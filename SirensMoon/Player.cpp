@@ -43,14 +43,16 @@ void Player::Update() {
 	/*アナログ入力取得*/
 	_dir = _inputManager->CheckAnalogInput(_playerNum);
 	_dir = _dir/1000;
+
+	if (_dir.Length() != 0) {
+		_lastDir = _dir;
+		//_lastDir.Normalize();
+	}
+
 	if (_dir.Length() > 1) {
 		_dir.Normalize();
 	}
 
-	if (_dir.Length() != 0) {
-		_lastDir = _dir;
-		_lastDir.Normalize();
-	}
 
 
 	if (_playerNum == 0) {
@@ -127,15 +129,15 @@ void Player::Move() {
 	if (_pos.x < 0) {
 		_pos.x = 0;
 	}
-	else if (static_cast<int>(_pos.x)+_size.x > screen_W / 2 * 3) {
-		_pos.x = screen_W / 2 * 3-_size.x;
+	else if (static_cast<int>(_pos.x)+_size.x > screen_W / 2 * 4) {
+		_pos.x = screen_W / 2 * 4-_size.x;
 	}
 
 	if (_pos.y < 0) {
 		_pos.y = 0;
 	}
-	else if (static_cast<int>(_pos.y)+_size.y> screen_H * 3) {
-		_pos.y = screen_H * 3-_size.y;
+	else if (static_cast<int>(_pos.y)+_size.y> screen_H * 4) {
+		_pos.y = screen_H * 4-_size.y;
 	}
 
 	/*フレームアウトした際にカメラを動かす処理*/
@@ -199,12 +201,13 @@ void Player::GunShoot() {
 			_mode.GetActorServer().Add(std::move(bullet));
 			PlaySoundMem(SoundServer::Find("PlayerShoot"), DX_PLAYTYPE_BACK);
 			_cooldown = 180;
+			_movable = false;
 		}
 		
 	}
 
 	if (_inputManager->CheckInput("ACTION", 'h', _playerNum)&&_cooldown==0) {
-		_movable = 0;
+		_movable = false;
 		if (_charge == 0) {
 			auto gunlight = std::make_unique<ProjectionLight>(_game, _mode, *this);
 			_mode.GetActorServer().Add(std::move(gunlight));
@@ -223,7 +226,9 @@ void Player::GunShoot() {
 		
 	}
 	else {
-		_movable = 1;
+		if (_cooldown < 132) {
+			_movable = true;
+		}
 		_charge = 0;
 		StopSoundMem(SoundServer::Find("PlayerCharge"));
 	}
@@ -232,6 +237,9 @@ void Player::GunShoot() {
 void Player::OpenMap() {
 	if (_inputManager->CheckInput("ACTION", 't', _playerNum)) {
 		PlaySoundMem(SoundServer::Find("PlayerOpenMap"), DX_PLAYTYPE_BACK);
+		_movable = false;
+	}else 	if (_inputManager->CheckInput("ACTION", 'r', _playerNum)) {
+		_movable = true;
 	}
 }
 
@@ -295,7 +303,7 @@ void Player::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
 	ss << "チャージ" << _charge << "\n";
 	ss << "方向" << _dir.x <<"  "<<_dir.y << "\n";
 	ss << "プレイヤー" << _playerNum << "\n";
-	ss << "_dir.length" << _dir.Length() << "\n";
+	ss << "_lastdir" << _lastDir.x<<" "<<_lastDir.y << "\n";
 	DrawString(50 + _playerNum * 960, 100, ss.str().c_str(), GetColor(255, 0, 255));
 }
 

@@ -106,6 +106,9 @@
     <Filter Include="Actor\Enemy\EnemyVIP">
       <UniqueIdentifier>{c66cbfe4-64f7-4815-a661-0f1598a78b1c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Light\FeedLight">
+      <UniqueIdentifier>{c9611b86-540a-4708-9b45-c8a8109c871c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">

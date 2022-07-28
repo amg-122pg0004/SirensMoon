@@ -18,5 +18,8 @@ class ProjectionLight :public LightBase {
 		ProjectionLight(Game&,ModeBase&,Actor&);
 		void Update()override;
 	private:
-
+		double _scaleStart;
+		double _scaleMax;
+		int _alphaStart;
+		int _alphaMax;
 };

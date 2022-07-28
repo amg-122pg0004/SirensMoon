@@ -33,20 +33,24 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename)
 
 	// タイルセット取得(1つのみ対応)
 	picojson::array aTileSets = jsRoot["tilesets"].get<picojson::array>();
-	picojson::object jsTile = aTileSets[0].get<picojson::object>();
-	_chipCount = (int)jsTile["tilecount"].get<double>();
-	_chipCount_W = (int)jsTile["columns"].get<double>();
-	_chipCount_H = (_chipCount / _chipCount_W);		// 計算で出す
-	_chipSize_W = (int)jsRoot["tilewidth"].get<double>();
-	_chipSize_H = (int)jsRoot["tileheight"].get<double>();
-	std::string strChipFile = jsTile["image"].get<std::string>();       // 画像ファイル名
-
+	for (int i = 0; i < aTileSets.size(); ++i) {
+		picojson::object jsTile = aTileSets[i].get<picojson::object>();
+		_tilesetsFirstgid.push_back((int)jsTile["firstgid"].get<double>());
+		_chipCount = (int)jsTile["tilecount"].get<double>();
+		_chipCount_W = (int)jsTile["columns"].get<double>();
+		_chipCount_H = (_chipCount / _chipCount_W);		// 計算で出す
+		_chipSize_W = (int)jsRoot["tilewidth"].get<double>();
+		_chipSize_H = (int)jsRoot["tileheight"].get<double>();
+		std::string strChipFile = jsTile["image"].get<std::string>();       // 画像ファイル名
 	// チップ画像読み込み
-	_cgChip.resize(_chipCount);
-	ImageServer::LoadDivGraph((folderpath + strChipFile).c_str()
-		, _chipCount, _chipCount_W, _chipCount_H
-		, _chipSize_W, _chipSize_H
-		, _cgChip.data());
+		std::vector<int> cghandle;
+		cghandle.resize(_chipCount);
+		ImageServer::LoadDivGraph((folderpath + strChipFile).c_str()
+			, _chipCount, _chipCount_W, _chipCount_H
+			, _chipSize_W, _chipSize_H
+			, cghandle.data());
+		_cgChip.push_back(cghandle);
+	}
 
 
 	// レイヤー情報の取得
@@ -282,8 +286,16 @@ void MapChips::StandardRender(int stageNum,Vector2 windowPos,Vector2 cameraPos) 
 				int pos_y = y * _chipSize_H + static_cast<int>(windowPos.y) - static_cast<int>(cameraPos.y);
 				int chip_no = _mapDataStandard[stageNum][layer][y][x];
 				chip_no--;
+				int chiplayer = 0;
+				for (int i = _cgChip.size()-1; 0<=i; --i) {
+					if (chip_no >= (_tilesetsFirstgid[i] - 1)) {
+						chiplayer = i;
+						chip_no = chip_no - (_tilesetsFirstgid[i] - 1);
+						break;
+					}
+				}
 				if (chip_no >= 0) {
-					DrawGraph(pos_x, pos_y, _cgChip[chip_no], TRUE);
+					DrawGraph(pos_x, pos_y, _cgChip[chiplayer][chip_no], TRUE);
 				}
 			}
 		}

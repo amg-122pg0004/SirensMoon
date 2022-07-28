@@ -25,6 +25,7 @@ class LightBase:public Actor  {
 		Vector2 GetCenterPosition() { return _centerPos; }
 		double GetAngle() { return _angle; }
 		double GetScale() { return _scale; }
+		int GetAlpha() { return _alpha; }
 
 		void CheckDeadOwner()override;
 
@@ -34,5 +35,6 @@ class LightBase:public Actor  {
 		Vector2 _centerPos;
 		double _angle;
 		double _scale;
+		int _alpha;
 };
 

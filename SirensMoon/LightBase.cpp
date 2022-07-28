@@ -10,7 +10,8 @@
 #include "ImageServer.h"
 
 LightBase::LightBase(Game& game, ModeBase& mode, Actor& owner)
-	:Actor{ game,mode }, _owner{ owner }, _angle{ 0 }, _scale{ 0.7 }, _centerPos{ _pos + _size / 2 }
+	:Actor{ game,mode }, _owner{ owner }, _angle{ 0 }, _scale{ 0.7 }
+	, _centerPos{ _pos + _size / 2 },_alpha{255}
 {
 	int x, y;
 	GetGraphSize(_cg, &x, &y);

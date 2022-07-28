@@ -7,7 +7,7 @@ Camera::Camera(Game& game,ModeBase& mode,SplitWindow& sw) :
 	_splitWindow{sw},
 	_pos{0,0},
 	_speed{10},
-	_stageSize{3,3}
+	_stageSize{4,4}
  {
 
 }
