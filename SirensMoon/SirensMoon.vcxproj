@@ -175,6 +175,7 @@
     <ClCompile Include="SoundServer.cpp" />
     <ClCompile Include="SplitWindow.cpp" />
     <ClCompile Include="UIBase.cpp" />
+    <ClCompile Include="UnstableLight.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -209,6 +210,7 @@
     <ClInclude Include="SoundServer.h" />
     <ClInclude Include="SplitWindow.h" />
     <ClInclude Include="UIBase.h" />
+    <ClInclude Include="UnstableLight.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

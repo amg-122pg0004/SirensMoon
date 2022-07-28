@@ -106,8 +106,8 @@
     <Filter Include="Actor\Enemy\EnemyVIP">
       <UniqueIdentifier>{c66cbfe4-64f7-4815-a661-0f1598a78b1c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Light\FeedLight">
-      <UniqueIdentifier>{c9611b86-540a-4708-9b45-c8a8109c871c}</UniqueIdentifier>
+    <Filter Include="Actor\Light\UnstableLight">
+      <UniqueIdentifier>{68f1b438-d8f8-4503-aa95-5dae7a798d54}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -204,6 +204,9 @@
     <ClCompile Include="EnemyVIP.cpp">
       <Filter>Actor\Enemy\EnemyVIP</Filter>
     </ClCompile>
+    <ClCompile Include="UnstableLight.cpp">
+      <Filter>Actor\Light\UnstableLight</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -298,6 +301,9 @@
     </ClInclude>
     <ClInclude Include="EnemyVIP.h">
       <Filter>Actor\Enemy\EnemyVIP</Filter>
+    </ClInclude>
+    <ClInclude Include="UnstableLight.h">
+      <Filter>Actor\Light\UnstableLight</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
