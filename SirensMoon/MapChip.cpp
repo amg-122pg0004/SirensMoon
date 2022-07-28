@@ -37,10 +37,14 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename)
 		picojson::object jsTile = aTileSets[i].get<picojson::object>();
 		_tilesetsFirstgid.push_back((int)jsTile["firstgid"].get<double>());
 		_chipCount = (int)jsTile["tilecount"].get<double>();
+
 		_chipCount_W = (int)jsTile["columns"].get<double>();
-		_chipCount_H = (_chipCount / _chipCount_W);		// 計算で出す
+		//_chipCount_H = (_chipCount / _chipCount_W);		// 計算で出す
+
 		_chipSize_W = (int)jsRoot["tilewidth"].get<double>();
 		_chipSize_H = (int)jsRoot["tileheight"].get<double>();
+		auto a= (int)jsTile["imageheight"].get<double>();
+		_chipCount_H = a / _chipSize_H;
 		std::string strChipFile = jsTile["image"].get<std::string>();       // 画像ファイル名
 	// チップ画像読み込み
 		std::vector<int> cghandle;
