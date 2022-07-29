@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="128" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="10" nextobjectid="132">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="128" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="10" nextobjectid="135">
  <editorsettings>
   <export target="TestMap_02.json" format="json"/>
  </editorsettings>
  <tileset firstgid="1" name="tile_test" tilewidth="30" tileheight="30" tilecount="54" columns="8">
   <image source="tile_test.png" width="240" height="150"/>
   <tile id="0"/>
-  <tile id="1"/>
-  <tile id="2">
+  <tile id="1" class="BackGround">
    <properties>
-    <property name="EnemyType" type="int" value="-1"/>
-    <property name="PatrolLine" type="object" value="0"/>
+    <property name="Collision" type="bool" value="true"/>
    </properties>
   </tile>
-  <tile id="3"/>
-  <tile id="4">
-   <properties>
-    <property name="PlayerNo" type="int" value="0"/>
-   </properties>
-  </tile>
+  <tile id="2" class="Enemy"/>
+  <tile id="3" class="BackGround"/>
+  <tile id="4" class="Player"/>
   <tile id="5"/>
-  <tile id="6"/>
-  <tile id="7"/>
-  <tile id="8"/>
-  <tile id="9"/>
-  <tile id="10"/>
+  <tile id="6" class="ItemRailgun"/>
+  <tile id="7" class="ItemAmmo"/>
+  <tile id="8" class="ItemHP"/>
+  <tile id="9" class="Barrier"/>
+  <tile id="10" class="Barrier">
+   <properties>
+    <property name="Player" type="int" propertytype="PlayerList" value="1"/>
+   </properties>
+  </tile>
   <tile id="11"/>
   <tile id="12" class="Server">
    <properties>
     <property name="SpawnEnemy" type="object" value="0"/>
+    <property name="upperleft" type="bool" value="false"/>
    </properties>
   </tile>
   <tile id="13" class="Server"/>
@@ -36,13 +36,17 @@
   <tile id="15"/>
   <tile id="16" class="Server">
    <properties>
+    <property name="Direction" propertytype="Direction" value="right"/>
     <property name="SpawnEnemy" type="object" value="0"/>
+    <property name="upperleft" type="bool" value="true"/>
    </properties>
   </tile>
   <tile id="17" class="Server"/>
   <tile id="18" class="Server">
    <properties>
+    <property name="Direction" propertytype="Direction" value="up"/>
     <property name="SpawnEnemy" type="object" value="0"/>
+    <property name="upperleft" type="bool" value="true"/>
    </properties>
   </tile>
   <tile id="19" class="Server"/>
@@ -56,10 +60,16 @@
   <tile id="27" class="Server"/>
   <tile id="28" class="Server">
    <properties>
+    <property name="Direction" propertytype="Direction" value="down"/>
     <property name="SpawnEnemy" type="object" value="0"/>
+    <property name="upperleft" type="bool" value="true"/>
    </properties>
   </tile>
-  <tile id="29" class="Server"/>
+  <tile id="29" class="Server">
+   <properties>
+    <property name="upperleft" type="bool" value="false"/>
+   </properties>
+  </tile>
   <tile id="30" class="Server"/>
   <tile id="31"/>
   <tile id="32" class="Server"/>
@@ -87,8 +97,103 @@
  </tileset>
  <tileset firstgid="72" name="tile_test2" tilewidth="30" tileheight="30" tilecount="55" columns="11">
   <image source="tile_test2.png" width="354" height="177"/>
+  <tile id="0" class="BackGround"/>
+  <tile id="1" class="BackGround"/>
+  <tile id="2" class="BackGround"/>
+  <tile id="3" class="BackGround"/>
+  <tile id="4" class="BackGround"/>
+  <tile id="5" class="BackGround"/>
+  <tile id="6" class="BackGround"/>
+  <tile id="7" class="BackGround"/>
+  <tile id="8" class="BackGround"/>
+  <tile id="9" class="BackGround"/>
+  <tile id="10" class="BackGround"/>
+  <tile id="11" class="BackGround"/>
+  <tile id="12" class="BackGround"/>
+  <tile id="13" class="BackGround"/>
+  <tile id="14" class="BackGround"/>
+  <tile id="15" class="BackGround"/>
+  <tile id="16" class="BackGround"/>
+  <tile id="17" class="BackGround"/>
+  <tile id="18" class="BackGround"/>
+  <tile id="19" class="BackGround">
+   <properties>
+    <property name="Collision" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="20" class="BackGround">
+   <properties>
+    <property name="Collision" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="21" class="BackGround"/>
+  <tile id="22" class="BackGround"/>
+  <tile id="23" class="BackGround"/>
+  <tile id="24" class="BackGround"/>
+  <tile id="25" class="BackGround"/>
+  <tile id="26" class="BackGround"/>
+  <tile id="27" class="BackGround"/>
+  <tile id="28" class="BackGround"/>
+  <tile id="29" class="BackGround"/>
+  <tile id="30" class="BackGround">
+   <properties>
+    <property name="Collision" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="31" class="BackGround">
+   <properties>
+    <property name="Collision" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="32" class="BackGround"/>
+  <tile id="33" class="BackGround"/>
+  <tile id="34" class="BackGround"/>
+  <tile id="35" class="BackGround"/>
+  <tile id="36" class="BackGround"/>
+  <tile id="37" class="BackGround"/>
+  <tile id="38" class="BackGround"/>
+  <tile id="39" class="BackGround"/>
+  <tile id="40" class="BackGround"/>
+  <tile id="41" class="BackGround">
+   <properties>
+    <property name="Collision" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="42" class="BackGround">
+   <properties>
+    <property name="Collision" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="43" class="BackGround"/>
+  <tile id="44" class="BackGround">
+   <properties>
+    <property name="Collision" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="45" class="BackGround">
+   <properties>
+    <property name="Collision" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="46" class="BackGround">
+   <properties>
+    <property name="Collision" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="47" class="BackGround">
+   <properties>
+    <property name="Collision" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="48" class="BackGround"/>
+  <tile id="49" class="BackGround"/>
+  <tile id="50" class="BackGround"/>
+  <tile id="51" class="BackGround"/>
+  <tile id="52" class="BackGround"/>
+  <tile id="53" class="BackGround"/>
+  <tile id="54" class="BackGround"/>
  </tileset>
- <layer id="1" name="tile_Layer1" width="128" height="144">
+ <layer id="1" name="tile_Layer1" width="128" height="144" visible="0">
   <data encoding="csv">
 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
@@ -295,10 +400,12 @@
   </object>
   <object id="91" gid="17" x="180" y="570" width="30" height="30">
    <properties>
+    <property name="Direction" propertytype="Direction" value="left"/>
     <property name="SpawnEnemy" type="object" value="85"/>
+    <property name="upperleft" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="93" gid="3" x="1094.33" y="3232.33" width="30" height="30">
+  <object id="93" gid="3" x="1126.33" y="3179.33" width="30" height="30">
    <properties>
     <property name="EnemyType" type="int" value="0"/>
     <property name="PatrolLine" type="object" value="39"/>
@@ -310,22 +417,18 @@
     <property name="PatrolLine" type="object" value="42"/>
    </properties>
   </object>
-  <object id="95" gid="3" x="1107.67" y="1000.33" width="30" height="30">
+  <object id="132" gid="3" x="1098" y="1001" width="30" height="30">
    <properties>
-    <property name="EnemyType" type="int" value="0"/>
+    <property name="EnemyType" type="int" propertytype="EnemyTypeList" value="1"/>
     <property name="PatrolLine" type="object" value="38"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="4" name="Player">
-  <object id="40" gid="5" x="91.6667" y="120.333" width="30" height="30"/>
-  <object id="41" gid="5" x="150.333" y="121.667" width="30" height="30">
-   <properties>
-    <property name="PlayerNo" type="int" value="1"/>
-   </properties>
-  </object>
+ <objectgroup id="4" name="Player" visible="0">
+  <object id="133" gid="5" x="46" y="93" width="30" height="30"/>
+  <object id="134" gid="5" x="119" y="93" width="30" height="30"/>
  </objectgroup>
- <objectgroup id="5" name="Item">
+ <objectgroup id="5" name="Item" visible="0">
   <object id="43" gid="9" x="622.333" y="1569.67" width="30" height="30"/>
   <object id="44" gid="9" x="649" y="2553.67" width="30" height="30"/>
   <object id="45" gid="8" x="2087.67" y="2319" width="30" height="30"/>
@@ -347,7 +450,7 @@
   <object id="68" gid="9" x="213" y="165.667" width="30" height="30"/>
   <object id="69" gid="9" x="219.667" y="155" width="30" height="30"/>
  </objectgroup>
- <objectgroup id="2" name="MiniMap">
+ <objectgroup id="2" name="MiniMap" visible="0">
   <object id="1" x="930" y="0">
    <polyline points="0,0 0,180 60,180 60,0 0,0"/>
   </object>

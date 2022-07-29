@@ -1,0 +1,173 @@
+[
+    {
+        "color": "#ffa0a0a4",
+        "id": 1,
+        "members": [
+            {
+                "name": "Collision",
+                "type": "bool",
+                "value": false
+            }
+        ],
+        "name": "BackGround",
+        "type": "class",
+        "useAs": [
+            "property",
+            "tile"
+        ]
+    },
+    {
+        "color": "#ffffff00",
+        "id": 9,
+        "members": [
+            {
+                "name": "Player",
+                "propertyType": "PlayerList",
+                "type": "int",
+                "value": 0
+            }
+        ],
+        "name": "Barrier",
+        "type": "class",
+        "useAs": [
+            "property",
+            "tile"
+        ]
+    },
+    {
+        "id": 13,
+        "name": "Direction",
+        "storageType": "string",
+        "type": "enum",
+        "values": [
+            "up",
+            "right",
+            "down",
+            "left"
+        ],
+        "valuesAsFlags": false
+    },
+    {
+        "color": "#ffff0000",
+        "id": 2,
+        "members": [
+            {
+                "name": "EnemyType",
+                "propertyType": "EnemyTypeList",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "PatrolLine",
+                "type": "object",
+                "value": 0
+            }
+        ],
+        "name": "Enemy",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset"
+        ]
+    },
+    {
+        "id": 3,
+        "name": "EnemyTypeList",
+        "storageType": "int",
+        "type": "enum",
+        "values": [
+            "0",
+            "1"
+        ],
+        "valuesAsFlags": false
+    },
+    {
+        "color": "#ff00aa00",
+        "id": 6,
+        "members": [
+        ],
+        "name": "ItemAmmo",
+        "type": "class",
+        "useAs": [
+            "property",
+            "tile"
+        ]
+    },
+    {
+        "color": "#ffff55ff",
+        "id": 8,
+        "members": [
+        ],
+        "name": "ItemHP",
+        "type": "class",
+        "useAs": [
+            "property",
+            "tile"
+        ]
+    },
+    {
+        "color": "#ffa0a0a4",
+        "id": 5,
+        "members": [
+        ],
+        "name": "ItemRailgun",
+        "type": "class",
+        "useAs": [
+            "property",
+            "tile"
+        ]
+    },
+    {
+        "color": "#ff0407a4",
+        "id": 11,
+        "members": [
+            {
+                "name": "Player",
+                "propertyType": "PlayerList",
+                "type": "int",
+                "value": 0
+            }
+        ],
+        "name": "Player",
+        "type": "class",
+        "useAs": [
+            "property",
+            "tile"
+        ]
+    },
+    {
+        "id": 10,
+        "name": "PlayerList",
+        "storageType": "int",
+        "type": "enum",
+        "values": [
+            "0",
+            "1"
+        ],
+        "valuesAsFlags": false
+    },
+    {
+        "color": "#ffa0a0a4",
+        "id": 12,
+        "members": [
+            {
+                "name": "Direction",
+                "propertyType": "Direction",
+                "type": "string",
+                "value": "up"
+            }
+        ],
+        "name": "Server",
+        "type": "class",
+        "useAs": [
+            "property",
+            "tile"
+        ]
+    }
+]

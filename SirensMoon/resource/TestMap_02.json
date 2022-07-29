@@ -496,9 +496,20 @@
                  "name":"",
                  "properties":[
                         {
+                         "name":"Direction",
+                         "propertytype":"Direction",
+                         "type":"string",
+                         "value":"left"
+                        }, 
+                        {
                          "name":"SpawnEnemy",
                          "type":"object",
                          "value":85
+                        }, 
+                        {
+                         "name":"upperleft",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "visible":true,
@@ -526,8 +537,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":1094.33,
-                 "y":3232.33
+                 "x":1126.33,
+                 "y":3179.33
                 }, 
                 {
                  "class":"",
@@ -556,13 +567,14 @@
                  "class":"",
                  "gid":3,
                  "height":30,
-                 "id":95,
+                 "id":132,
                  "name":"",
                  "properties":[
                         {
                          "name":"EnemyType",
+                         "propertytype":"EnemyTypeList",
                          "type":"int",
-                         "value":0
+                         "value":1
                         }, 
                         {
                          "name":"PatrolLine",
@@ -572,8 +584,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":1107.67,
-                 "y":1000.33
+                 "x":1098,
+                 "y":1001
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -590,31 +602,25 @@
                  "class":"",
                  "gid":5,
                  "height":30,
-                 "id":40,
+                 "id":133,
                  "name":"",
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":91.6667,
-                 "y":120.333
+                 "x":46,
+                 "y":93
                 }, 
                 {
                  "class":"",
                  "gid":5,
                  "height":30,
-                 "id":41,
+                 "id":134,
                  "name":"",
-                 "properties":[
-                        {
-                         "name":"PlayerNo",
-                         "type":"int",
-                         "value":1
-                        }],
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":150.333,
-                 "y":121.667
+                 "x":119,
+                 "y":93
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -5380,12 +5386,12 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":132,
+ "nextobjectid":135,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.0",
@@ -5407,51 +5413,56 @@
                  "id":0
                 }, 
                 {
-                 "id":1
-                }, 
-                {
-                 "id":2,
+                 "class":"BackGround",
+                 "id":1,
                  "properties":[
                         {
-                         "name":"EnemyType",
-                         "type":"int",
-                         "value":-1
-                        }, 
-                        {
-                         "name":"PatrolLine",
-                         "type":"object",
-                         "value":0
+                         "name":"Collision",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
+                 "class":"Enemy",
+                 "id":2
+                }, 
+                {
+                 "class":"BackGround",
                  "id":3
                 }, 
                 {
-                 "id":4,
-                 "properties":[
-                        {
-                         "name":"PlayerNo",
-                         "type":"int",
-                         "value":0
-                        }]
+                 "class":"Player",
+                 "id":4
                 }, 
                 {
                  "id":5
                 }, 
                 {
+                 "class":"ItemRailgun",
                  "id":6
                 }, 
                 {
+                 "class":"ItemAmmo",
                  "id":7
                 }, 
                 {
+                 "class":"ItemHP",
                  "id":8
                 }, 
                 {
+                 "class":"Barrier",
                  "id":9
                 }, 
                 {
-                 "id":10
+                 "class":"Barrier",
+                 "id":10,
+                 "properties":[
+                        {
+                         "name":"Player",
+                         "propertytype":"PlayerList",
+                         "type":"int",
+                         "value":1
+                        }]
                 }, 
                 {
                  "id":11
@@ -5464,6 +5475,11 @@
                          "name":"SpawnEnemy",
                          "type":"object",
                          "value":0
+                        }, 
+                        {
+                         "name":"upperleft",
+                         "type":"bool",
+                         "value":false
                         }]
                 }, 
                 {
@@ -5482,9 +5498,20 @@
                  "id":16,
                  "properties":[
                         {
+                         "name":"Direction",
+                         "propertytype":"Direction",
+                         "type":"string",
+                         "value":"right"
+                        }, 
+                        {
                          "name":"SpawnEnemy",
                          "type":"object",
                          "value":0
+                        }, 
+                        {
+                         "name":"upperleft",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -5496,9 +5523,20 @@
                  "id":18,
                  "properties":[
                         {
+                         "name":"Direction",
+                         "propertytype":"Direction",
+                         "type":"string",
+                         "value":"up"
+                        }, 
+                        {
                          "name":"SpawnEnemy",
                          "type":"object",
                          "value":0
+                        }, 
+                        {
+                         "name":"upperleft",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -5541,14 +5579,31 @@
                  "id":28,
                  "properties":[
                         {
+                         "name":"Direction",
+                         "propertytype":"Direction",
+                         "type":"string",
+                         "value":"down"
+                        }, 
+                        {
                          "name":"SpawnEnemy",
                          "type":"object",
                          "value":0
+                        }, 
+                        {
+                         "name":"upperleft",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
                  "class":"Server",
-                 "id":29
+                 "id":29,
+                 "properties":[
+                        {
+                         "name":"upperleft",
+                         "type":"bool",
+                         "value":false
+                        }]
                 }, 
                 {
                  "class":"Server",
@@ -5643,6 +5698,287 @@
          "spacing":0,
          "tilecount":55,
          "tileheight":30,
+         "tiles":[
+                {
+                 "class":"BackGround",
+                 "id":0
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":1
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":2
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":3
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":4
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":5
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":6
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":7
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":8
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":9
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":10
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":11
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":12
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":13
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":14
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":15
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":16
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":17
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":18
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":19,
+                 "properties":[
+                        {
+                         "name":"Collision",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":20,
+                 "properties":[
+                        {
+                         "name":"Collision",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":21
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":22
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":23
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":24
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":25
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":26
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":27
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":28
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":29
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":30,
+                 "properties":[
+                        {
+                         "name":"Collision",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":31,
+                 "properties":[
+                        {
+                         "name":"Collision",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":32
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":33
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":34
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":35
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":36
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":37
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":38
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":39
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":40
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":41,
+                 "properties":[
+                        {
+                         "name":"Collision",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":42,
+                 "properties":[
+                        {
+                         "name":"Collision",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":43
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":44,
+                 "properties":[
+                        {
+                         "name":"Collision",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":45,
+                 "properties":[
+                        {
+                         "name":"Collision",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":46,
+                 "properties":[
+                        {
+                         "name":"Collision",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":47,
+                 "properties":[
+                        {
+                         "name":"Collision",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":48
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":49
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":50
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":51
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":52
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":53
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":54
+                }],
          "tilewidth":30
         }],
  "tilewidth":30,
