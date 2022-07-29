@@ -107,7 +107,7 @@ private:
 
 	/*ŠeƒNƒ‰ƒX‚ªİ’è‚³‚ê‚Ä‚¢‚égid*/
 	std::vector<int> _gidEnemy;
-	std::vector<int> _gidBarrier;
+	std::vector<std::vector<int>> _gidBarrier;
 	std::vector<int> _gidItemAmmo;
 	std::vector<int> _gidItemHP;
 	std::vector<int> _gidPlayer;

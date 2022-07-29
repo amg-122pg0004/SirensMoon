@@ -65,6 +65,7 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename)
 					_gidEnemy.push_back(static_cast<int>((*i).get<picojson::object>()["id"].get<double>()+1));
 				}
 				if ((*i).get<picojson::object>()["class"].get<std::string>() == "Barrier") {
+					//int playerno = (*i).get<picojson::object>()["class"].get<std::string>();
 					_gidBarrier.push_back(static_cast<int>((*i).get<picojson::object>()["id"].get<double>()+1));
 				}
 				if ((*i).get<picojson::object>()["class"].get<std::string>() == "ItemAmmo") {
