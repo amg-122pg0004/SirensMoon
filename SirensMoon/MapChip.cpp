@@ -288,9 +288,13 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename)
 				/*残りはサーバーのデータ*/
 				Vector2 pos{ 0,0 };
 				int dir{ -1 };
+				bool upperleft{false};
 				if (aObjects[i].get<picojson::object>()["properties"].is<picojson::array>()) {
 					picojson::array properties = aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
 					for (int i2 = 0; i2<properties.size(); ++i2) {
+						if (properties[i2].get<picojson::object>()["value"].is<bool>()) {
+							upperleft = properties[i2].get<picojson::object>()["value"].get<bool>();
+						}
 						if (properties[i2].get<picojson::object>()["value"].is<std::string>()) {
 							if (properties[i2].get<picojson::object>()["value"].get<std::string>() == "up") {
 								dir = 1;
@@ -306,7 +310,7 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename)
 							}
 						}
 					}
-					if (dir != -1) {
+					if (upperleft==true||dir != -1) {
 						pos.x = aObjects[i].get<picojson::object>()["x"].get<double>();
 						pos.y = aObjects[i].get<picojson::object>()["y"].get<double>();
 						aServerData.push_back({ pos,dir });
