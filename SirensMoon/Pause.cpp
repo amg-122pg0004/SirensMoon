@@ -15,7 +15,7 @@ Pause::Pause(Game& game, ModeBase& mode, Vector2 pos, Vector2 size)
 	:UIBase{ game,mode,pos,size }
 {
 	_inputManager = _game.GetInputManager();
-	_cg = ImageServer::LoadGraph("resource/Map/pause.png");
+	_cg = ImageServer::LoadGraph("resource/UI/pause.png");
 	
 }
 

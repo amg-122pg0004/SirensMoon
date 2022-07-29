@@ -13,7 +13,7 @@
 MiniMap::MiniMap(Game& game, ModeBase& mode, Vector2 pos, Vector2 size)
 	:UIBase{ game,mode,pos,size }
 {
-	_cg_map = ImageServer::LoadGraph("resource/Map/map_frame.png");
+	_cg_map = ImageServer::LoadGraph("resource/UI/map_frame.png");
 	_cg_player = ImageServer::LoadGraph("resource/Player/recon.png");
 	_cg_enemy = ImageServer::LoadGraph("resource/enemy/recon.png");
 	_visible = false;
