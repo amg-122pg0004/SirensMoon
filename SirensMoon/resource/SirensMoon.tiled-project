@@ -171,11 +171,6 @@
                     "value": "none"
                 },
                 {
-                    "name": "SpawnEnemy",
-                    "type": "object",
-                    "value": 0
-                },
-                {
                     "name": "upperleft",
                     "type": "bool",
                     "value": false
