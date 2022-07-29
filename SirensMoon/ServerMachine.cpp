@@ -54,8 +54,8 @@ ServerMachine::ServerMachine(Game& game, ModeBase& mode, MapChips::ServerMachine
 			_accessArea.max = { _pos.x,_pos.y + _size.y };
 	}
 
-	Vector2 map_pos = { 1080,480 };
-	Vector2 map_size = { 780,600 };
+	Vector2 map_pos = { 1080,660 };
+	Vector2 map_size = { 780,420 };
 	
 	std::vector<std::unique_ptr<SplitWindow>>& spw = dynamic_cast<ModeGame&>(_mode).GetSplitWindow();
 	auto window = std::make_unique<ServerMachineUI>(_game, _mode, map_pos, map_size, *this);
@@ -115,11 +115,31 @@ void ServerMachine::GenerateEnemy() {
 }
 
 void ServerMachine::SpawnEnemyVIP() {
-	ModeGame& mode=dynamic_cast<ModeGame&>(_mode);
-	auto vipdata = mode.GetMapChips()->GetEnemyVIPData();
-	auto data = vipdata.find(_serverData.SpawnEnemyID)->second;
-	auto enemy = std::make_unique<EnemyVIP>(_game, _mode,data,*this);
+	Vector2 player0pos={0,0};
+	for (auto&& actor:_mode.GetActorServer().GetObjects()) {
+		if (actor->GetType() == Type::Player) {
+			auto player =dynamic_cast<Player&>(*actor);
+			if (player.GetPlayerNum() == 0) {
+				player0pos=player.GetPosition();
+			}
+		}
+	}
+	int count_x=ceil(player0pos.x / 960);
+	int count_y=ceil(player0pos.y / 1080);
+	int count_x2 = ceil(_pos.x / 960);
+	int count_y2 = ceil(_pos.y / 1080);
+
+	ModeGame& mode = dynamic_cast<ModeGame&>(_mode);
+	auto vipdata = mode.GetMapChips()->GetPatrolPointsVIP();
+	int random = _game.GetFrameCount() % vipdata.size();
+
+	auto loot = vipdata[random];
+	auto pos = loot.PatrolPoints[0];
+	auto id = loot.ID;
+	MapChips::EnemyData data = { id,0,pos,0 };
+	auto enemy = std::make_unique<EnemyVIP>(_game, _mode, data, *this,loot);
 	mode.GetActorServer().Add(std::move(enemy));
+
 }
 
 void ServerMachine::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){

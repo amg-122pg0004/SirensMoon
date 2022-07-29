@@ -8,7 +8,7 @@ ServerMachineUI::ServerMachineUI(Game& game, ModeBase& mode, Vector2 pos, Vector
 	:UIBase{game,mode,pos,size},_visible{false},_owner{owner}
 {
 	_inputManager = _game.GetInputManager();
-	_cg = ImageServer::LoadGraph("resource/Map/map_frame.png");
+	_cg = ImageServer::LoadGraph("resource/UI/wanted.png");
 
 	_cg_red1.resize(30);
 	_cg_red2.resize(30);
@@ -80,12 +80,14 @@ void ServerMachineUI::Render() {
 
 		int alpha = _owner.GetEnergy();
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
+		DrawBox(static_cast<int>(_pos.x), static_cast<int>(_pos.y),
+			static_cast<int>(_pos.x + _size.x), static_cast<int>(_pos.y + _size.y), GetColor(0, 0, 0), 1);
 		DrawExtendGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y),
-			static_cast<int>(_pos.x + _size.x), static_cast<int>(_pos.y + _size.y), _cg, 0);
+			static_cast<int>(_pos.x + _size.x), static_cast<int>(_pos.y + _size.y), _cg, 1);
 
-		DrawGraph(static_cast<int>(_pos.x)+250, static_cast<int>(_pos.y)+130, cg_bot[_game.GetFrameCount()/10%30], 1);
-		DrawGraph(static_cast<int>(_pos.x)+250, static_cast<int>(_pos.y)+130, cg_mid[_game.GetFrameCount()/10%30], 1);
-		DrawGraph(static_cast<int>(_pos.x)+250, static_cast<int>(_pos.y)+130, cg_top[_game.GetFrameCount()/10% 30], 1);
+		DrawGraph(static_cast<int>(_pos.x)+20, static_cast<int>(_pos.y)+30, cg_bot[_game.GetFrameCount()/10%30], 1);
+		DrawGraph(static_cast<int>(_pos.x)+20, static_cast<int>(_pos.y)+30, cg_mid[_game.GetFrameCount()/10%30], 1);
+		DrawGraph(static_cast<int>(_pos.x)+20, static_cast<int>(_pos.y)+30, cg_top[_game.GetFrameCount()/10% 30], 1);
 
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 	}
