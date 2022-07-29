@@ -21,6 +21,7 @@ public:
 
 	/*エネミー巡回経路データ構造*/
 	struct EnemyPatrol {
+		int ID;
 		std::vector<Vector2> PatrolPoints;
 		bool TruckingMode{false};
 	};
@@ -29,7 +30,6 @@ public:
 	struct ServerMachineData {
 		Vector2 Position;
 		int Direction;
-		int SpawnEnemyID;
 	};
 
 	MapChips(Game& game,ModeBase& mode);
@@ -52,7 +52,7 @@ public:
 
 	Vector2 GetPlayerStartPosition(int playerno) { return _playerStart[0][playerno]; }
 	std::vector<EnemyData> GetEnemyData() { return _enemyDataList[0]; }
-	std::unordered_map<int, EnemyData> GetEnemyVIPData() { return _enemyVIPDataList[0]; }
+	std::vector<EnemyPatrol> GetPatrolPointsVIP() { return _patrolPointsVIP; }
 	std::vector<Vector2> GetHPItemData() { return _hpItems[0]; }
 	std::vector<Vector2> GetBulletData() { return _bulletItems[0]; }
 	std::vector<ServerMachineData> GetServerData() { return _serverMachineDataList[0]; }
@@ -92,10 +92,10 @@ private:
 
 	/*マップごとの通常エネミーデータ[stage][配置個数分]*/
 	std::vector<std::vector<EnemyData>> _enemyDataList;
-	/*マップごとの重要エネミーデータ[stage]*/
-	std::vector<std::unordered_map<int,EnemyData>> _enemyVIPDataList;
 	/*マップごとのエネミーの巡回ルート*/
 	std::unordered_map<int, EnemyPatrol> _patrolPoints;
+	/*マップごとの重要エネミー巡回ルート*/
+	std::vector<EnemyPatrol> _patrolPointsVIP;
 	/*マップごとのサーバーデータ[stage][配置個数分]*/
 	std::vector<std::vector<ServerMachineData>> _serverMachineDataList;
 	

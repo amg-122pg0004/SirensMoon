@@ -111,8 +111,6 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename)
 	std::vector<std::vector<Vector2>>  onestagepolygons;
 	/*1ステージ分のエネミーデータ*/
 	std::vector<EnemyData> aEnemyData;
-	/*1ステージ分のVIPエネミーデータ*/
-	std::unordered_map<int, EnemyData> aEnemyVIPData;
 	/*1ステージ分のサーバーデータ*/
 	std::vector<ServerMachineData> aServerData;
 	for (int i = 0; i < aLayers.size(); i++) 
@@ -240,34 +238,6 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename)
 							if (aEnemyType == 0) {
 								aEnemyData.push_back({ aEnemyID,aEnemyType, aEnemyPosition, aPatrolID });
 							}
-							else {
-								aEnemyVIPData[aEnemyID] = { aEnemyID,aEnemyType, aEnemyPosition, aPatrolID };
-							}
-
-						}
-						else {
-							/*残りはサーバーのデータ*/
-							Vector2 pos{ 0,0 };
-							int dir{ -1 }, id{ 0 };
-							if (aObjects[i].get<picojson::object>()["gid"].get<double>() == 13) {
-								dir = 1;
-							}
-							if (aObjects[i].get<picojson::object>()["gid"].get<double>() == 17) {
-								dir = 4;
-							}
-							if (aObjects[i].get<picojson::object>()["gid"].get<double>() == 19) {
-								dir = 2;
-							}
-							if (aObjects[i].get<picojson::object>()["gid"].get<double>() == 29) {
-								dir = 3;
-							}
-							if (dir != -1) {
-								pos.x = aObjects[i].get<picojson::object>()["x"].get<double>();
-								pos.y = aObjects[i].get<picojson::object>()["y"].get<double>();
-								picojson::array properties = aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
-								id = properties[1].get<picojson::object>()["value"].get<double>();
-								aServerData.push_back({ pos,dir,id });
-							}
 						}
 					}
 				}
@@ -302,15 +272,85 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename)
 						}
 						/*巡回ルートに対応するID読み混み*/
 						int id = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
-						std::unordered_map<int, std::vector<Vector2>> map;
+						aPatrolData.ID = id;
 						/*mapにIDをキーとして巡回ルート登録*/
 						_patrolPoints[id] = aPatrolData;
 					}
 				}
 			}
 			_enemyDataList.push_back(aEnemyData);
-			_enemyVIPDataList.push_back(aEnemyVIPData);
-			_serverMachineDataList.push_back(aServerData);
+		}
+		else if (jsLayer["name"].get<std::string>() == "Server") {
+			picojson::array aObjects = jsLayer["objects"].get<picojson::array>();
+			for (int i = 0; i < aObjects.size(); ++i) {
+			/*マップタイル3番はエネミー*/
+				if (aObjects[i].get<picojson::object>()["gid"].is<double>()) {
+				/*残りはサーバーのデータ*/
+				Vector2 pos{ 0,0 };
+				int dir{ -1 };
+				if (aObjects[i].get<picojson::object>()["properties"].is<picojson::array>()) {
+					picojson::array properties = aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
+					for (int i2 = 0; i2<properties.size(); ++i2) {
+						if (properties[i2].get<picojson::object>()["value"].is<std::string>()) {
+							if (properties[i2].get<picojson::object>()["value"].get<std::string>() == "up") {
+								dir = 1;
+							}
+							if (properties[i2].get<picojson::object>()["value"].get<std::string>() == "down") {
+								dir = 3;
+							}
+							if (properties[i2].get<picojson::object>()["value"].get<std::string>() == "right") {
+								dir = 2;
+							}
+							if (properties[i2].get<picojson::object>()["value"].get<std::string>() == "left") {
+								dir = 4;
+							}
+						}
+					}
+					if (dir != -1) {
+						pos.x = aObjects[i].get<picojson::object>()["x"].get<double>();
+						pos.y = aObjects[i].get<picojson::object>()["y"].get<double>();
+						aServerData.push_back({ pos,dir });
+					}
+				}
+			}
+			/*height=0はPolylineかpolygonによる巡回ルートオブジェクト*/
+			if (aObjects[i].get<picojson::object>()["polygon"].is<picojson::array>() ||
+				aObjects[i].get<picojson::object>()["polyline"].is<picojson::array>()) {
+				/*敵1体分の巡回ルート*/
+				EnemyPatrol aPatrolData;
+				std::string linestyle = "null";
+				/*polylineが存在するか確認*/
+				if (aObjects[i].get<picojson::object>()["polyline"].is<picojson::array>()) {
+					linestyle = "polyline";
+					aPatrolData.TruckingMode = 0;
+				}
+				/*polygonが存在するか確認*/
+				else if (aObjects[i].get<picojson::object>()["polygon"].is<picojson::array>()) {
+					linestyle = "polygon";
+					aPatrolData.TruckingMode = 1;
+				}
+				/*polylineかpolygonがあれば巡回座標読み込み*/
+				if (linestyle != "null")
+				{
+					picojson::array pointsArray = aObjects[i].get<picojson::object>()[linestyle].get<picojson::array>();
+					for (int p = 0; p < pointsArray.size(); ++p)
+					{
+						double x = pointsArray[p].get <picojson::object>()["x"].get<double>();
+						double y = pointsArray[p].get <picojson::object>()["y"].get<double>();
+						x += aObjects[i].get<picojson::object>()["x"].get<double>();
+						y += aObjects[i].get<picojson::object>()["y"].get<double>();
+						Vector2 pos = { x,y };
+						aPatrolData.PatrolPoints.push_back(pos);
+					}
+					/*巡回ルートに対応するID読み混み*/
+					int id = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
+					aPatrolData.ID = id;
+					/*mapにIDをキーとして巡回ルート登録*/
+					_patrolPointsVIP.push_back(aPatrolData);
+				}
+			}
+		}
+		_serverMachineDataList.push_back(aServerData);
 		}
 	}
 	_mapDataStandard.push_back(onestagedata);
@@ -493,5 +533,5 @@ MapChips::EnemyPatrol MapChips::FindPatrol(int id){
 		return points->second;
 	}
 
-	return { { {0,0} }, false };
+	return {-1, { {0,0} }, false };
 }
