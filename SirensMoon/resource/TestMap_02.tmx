@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="128" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="10" nextobjectid="135">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="128" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="11" nextobjectid="159">
  <editorsettings>
   <export target="TestMap_02.json" format="json"/>
  </editorsettings>
@@ -193,7 +193,7 @@
   <tile id="53" class="BackGround"/>
   <tile id="54" class="BackGround"/>
  </tileset>
- <layer id="1" name="tile_Layer1" width="128" height="144" visible="0">
+ <layer id="1" name="tile_Layer1" width="128" height="144">
   <data encoding="csv">
 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
@@ -351,14 +351,6 @@
   <object id="42" x="1188" y="1234">
    <polyline points="0,0 582,6 560,778"/>
   </object>
-  <object id="74" gid="18" x="210" y="570" width="30" height="30"/>
-  <object id="75" gid="25" x="180" y="600" width="30" height="30"/>
-  <object id="76" gid="26" x="210" y="600" width="30" height="30"/>
-  <object id="77" gid="33" x="180" y="630" width="30" height="30"/>
-  <object id="78" gid="34" x="210" y="630" width="30" height="30"/>
-  <object id="79" x="748" y="108">
-   <polyline points="0,0 -2.66667,858.667"/>
-  </object>
   <object id="80" gid="3" x="1101" y="108.334" width="30" height="30">
    <properties>
     <property name="EnemyType" type="int" value="0"/>
@@ -369,12 +361,6 @@
    <properties>
     <property name="EnemyType" type="int" value="0"/>
     <property name="PatrolLine" type="object" value="39"/>
-   </properties>
-  </object>
-  <object id="85" gid="3" x="731.667" y="987" width="30" height="30">
-   <properties>
-    <property name="EnemyType" type="int" value="1"/>
-    <property name="PatrolLine" type="object" value="79"/>
    </properties>
   </object>
   <object id="86" x="112" y="1260">
@@ -398,13 +384,6 @@
     <property name="PatrolLine" type="object" value="86"/>
    </properties>
   </object>
-  <object id="91" gid="17" x="180" y="570" width="30" height="30">
-   <properties>
-    <property name="Direction" propertytype="Direction" value="left"/>
-    <property name="SpawnEnemy" type="object" value="85"/>
-    <property name="upperleft" type="bool" value="true"/>
-   </properties>
-  </object>
   <object id="93" gid="3" x="1126.33" y="3179.33" width="30" height="30">
    <properties>
     <property name="EnemyType" type="int" value="0"/>
@@ -424,11 +403,72 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="4" name="Player" visible="0">
+ <objectgroup id="10" name="Server">
+  <object id="135" x="750" y="150">
+   <polyline points="0,0 0,810"/>
+  </object>
+  <object id="136" x="1140" y="120">
+   <polygon points="0,0 600,0 600,840 -30,840"/>
+  </object>
+  <object id="137" x="2100" y="150">
+   <polyline points="0,0 0,780 630,780"/>
+  </object>
+  <object id="138" x="3000" y="180">
+   <polygon points="0,0 0,780 780,780 780,0"/>
+  </object>
+  <object id="139" x="3090" y="1290">
+   <polyline points="0,0 660,0 660,720 0,720"/>
+  </object>
+  <object id="140" x="2100" y="1290">
+   <polyline points="0,0 0,720 630,720"/>
+  </object>
+  <object id="141" x="1170" y="1320">
+   <polyline points="0,0 0,690 600,690 600,0"/>
+  </object>
+  <object id="142" x="150" y="1920">
+   <polyline points="0,0 0,-660 630,-660"/>
+  </object>
+  <object id="143" x="120" y="2370">
+   <polygon points="0,0 0,750 660,750 660,0"/>
+  </object>
+  <object id="144" x="1110" y="2370">
+   <polygon points="0,0 630,0 630,750 0,750"/>
+  </object>
+  <object id="145" x="2080" y="2332">
+   <polygon points="0,0 620,8 620,758 20,758"/>
+  </object>
+  <object id="146" x="90" y="4230">
+   <polyline points="0,0 0,-780 780,-780 750,0"/>
+  </object>
+  <object id="147" x="1168" y="3472">
+   <polyline points="0,0 602,8"/>
+  </object>
+  <object id="148" x="2072" y="3440">
+   <polyline points="0,0 688,10 688,790 20,780"/>
+  </object>
+  <object id="149" x="3016" y="2364">
+   <polyline points="0,0 700,-4 696,788 4,780"/>
+  </object>
+  <object id="150" x="3060" y="4208">
+   <polygon points="0,0 4,-768 672,-768 664,0"/>
+  </object>
+  <object id="151" gid="34" x="240" y="630" width="30" height="30"/>
+  <object id="152" gid="33" x="210" y="630" width="30" height="30"/>
+  <object id="153" gid="26" x="240" y="600" width="30" height="30"/>
+  <object id="154" gid="25" x="210" y="600" width="30" height="30"/>
+  <object id="155" gid="17" x="210" y="570" width="30" height="30">
+   <properties>
+    <property name="Direction" propertytype="Direction" value="left"/>
+    <property name="upperleft" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="156" gid="18" x="240" y="570" width="30" height="30"/>
+ </objectgroup>
+ <objectgroup id="4" name="Player">
   <object id="133" gid="5" x="46" y="93" width="30" height="30"/>
   <object id="134" gid="5" x="119" y="93" width="30" height="30"/>
  </objectgroup>
- <objectgroup id="5" name="Item" visible="0">
+ <objectgroup id="5" name="Item">
   <object id="43" gid="9" x="622.333" y="1569.67" width="30" height="30"/>
   <object id="44" gid="9" x="649" y="2553.67" width="30" height="30"/>
   <object id="45" gid="8" x="2087.67" y="2319" width="30" height="30"/>
@@ -450,7 +490,7 @@
   <object id="68" gid="9" x="213" y="165.667" width="30" height="30"/>
   <object id="69" gid="9" x="219.667" y="155" width="30" height="30"/>
  </objectgroup>
- <objectgroup id="2" name="MiniMap" visible="0">
+ <objectgroup id="2" name="MiniMap">
   <object id="1" x="930" y="0">
    <polyline points="0,0 0,180 60,180 60,0 0,0"/>
   </object>

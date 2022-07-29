@@ -1,15 +1,18 @@
 {
-    "activeFile": "",
+    "activeFile": "TestMap_02.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "すべてのファイル (*)",
     "fileStates": {
+        "": {
+            "scaleInEditor": 1
+        },
         "TestMap_02.tmx": {
-            "scale": 0.125,
-            "selectedLayer": 0,
+            "scale": 0.25,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 4488,
-                "y": 3132
+                "x": 2076,
+                "y": 1710
             }
         },
         "TestMap_02.tmx#tile_test": {
@@ -24,7 +27,9 @@
     "last.exportedFilePath": "D:/doi/2022summer/SirensMoon/resource",
     "last.objectTypesPath": "D:/doi/2022summer/SirensMoon/resource/propertytypes.json",
     "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
+    "map.lastUsedFormat": "tmx",
     "openFiles": [
+        "TestMap_02.tmx"
     ],
     "project": "SirensMoon.tiled-project",
     "property.type": "bool",
