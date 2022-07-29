@@ -79,25 +79,37 @@ private:
 
 	std::vector<int> _tilesetsFirstgid;
 
-	/*マップデータ ステージNo,レイヤー,*/
+	/*マップデータ [stageNo][layer][y][x]*/
 	std::vector<std::vector<std::vector<std::vector<int>>>> _mapDataStandard;
-	/*ミニマップデータ*/
+	/*ミニマップデータ [y][x]*/
 	std::vector<std::vector<std::vector<Vector2>>> _mapDataRecon;
-	/*マップごとのプレイヤーデータ*/
+	/*マップごとのプレイヤーデータ [stageNo][player1か2]*/
 	std::vector<std::vector<Vector2>> _playerStart;
-	/*マップごとのHPアイテムデータ*/
+	/*マップごとのHPアイテムデータ [stage][配置個数分]*/
 	std::vector<std::vector<Vector2>> _hpItems;
-	/*マップごとの弾薬アイテムデータ*/
+	/*マップごとの弾薬アイテムデータ[stage][配置個数分]*/
 	std::vector<std::vector<Vector2>> _bulletItems;
 
-	/*マップごとの通常エネミーデータ*/
+	/*マップごとの通常エネミーデータ[stage][配置個数分]*/
 	std::vector<std::vector<EnemyData>> _enemyDataList;
-	/*マップごとの重要エネミーデータ*/
+	/*マップごとの重要エネミーデータ[stage]*/
 	std::vector<std::unordered_map<int,EnemyData>> _enemyVIPDataList;
 	/*マップごとのエネミーの巡回ルート*/
 	std::unordered_map<int, EnemyPatrol> _patrolPoints;
-	/*マップごとのサーバーデータ*/
+	/*マップごとのサーバーデータ[stage][配置個数分]*/
 	std::vector<std::vector<ServerMachineData>> _serverMachineDataList;
 	
+	/*マップチップのグラフィックハンドル用コンテナ*/
+	/*[タイル用画像の枚数分][画像を分割した際のチップ画像の数]*/
 	std::vector<std::vector<int>> _cgChip;
+	/*各マップチップのあたり判定を保存するコンテナ*/
+	std::vector<std::vector<bool>> _chipCollision;
+
+	/*各クラスが設定されているgid*/
+	std::vector<int> _gidEnemy;
+	std::vector<int> _gidBarrier;
+	std::vector<int> _gidItemAmmo;
+	std::vector<int> _gidItemHP;
+	std::vector<int> _gidPlayer;
+	std::vector<int> _gidServer;
 };

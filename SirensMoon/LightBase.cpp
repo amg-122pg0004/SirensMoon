@@ -17,7 +17,7 @@ LightBase::LightBase(Game& game, ModeBase& mode, Actor& owner)
 	GetGraphSize(_cg, &x, &y);
 	x *= _scale;
 	y *= _scale;
-	_pos = { _owner.GetPosition().x - x / 2 + 40,_owner.GetPosition().y - y / 2 + 40 };
+	_pos = { _owner.GetPosition().x+_owner.GetSize().x - x / 2,_owner.GetPosition().y + _owner.GetSize().y - y / 2};
 	_cg = ImageServer::LoadGraph("resource/Light/Light_3.png");
 }
 
@@ -27,7 +27,7 @@ void LightBase::Update() {
 		GetGraphSize(_cg, &x, &y);
 		x *= _scale;
 		y *= _scale;
-		_pos = { _owner.GetPosition().x - x / 2 + 40,_owner.GetPosition().y - y / 2 + 40 };
+		_pos = { _owner.GetPosition().x + _owner.GetSize().x - x / 2 ,_owner.GetPosition().y + _owner.GetSize().y - y / 2 };
 	}
 }
 

@@ -54,6 +54,51 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename)
 			, _chipSize_W, _chipSize_H
 			, cghandle.data());
 		_cgChip.push_back(cghandle);
+		//チップデータ読み込み
+		std::vector<bool> chip_col;
+		chip_col.push_back(0);
+		picojson::array  tiles = jsTile["tiles"].get<picojson::array>();
+		for (auto i = tiles.begin(); i != tiles.end();++i) {
+			/*各クラスgid読み込み*/
+			if ((*i).get<picojson::object>()["class"].is<std::string>()) {
+				if ((*i).get<picojson::object>()["class"].get<std::string>() == "Enemy") {
+					_gidEnemy.push_back(static_cast<int>((*i).get<picojson::object>()["id"].get<double>()+1));
+				}
+				if ((*i).get<picojson::object>()["class"].get<std::string>() == "Barrier") {
+					_gidBarrier.push_back(static_cast<int>((*i).get<picojson::object>()["id"].get<double>()+1));
+				}
+				if ((*i).get<picojson::object>()["class"].get<std::string>() == "ItemAmmo") {
+					_gidItemAmmo.push_back(static_cast<int>((*i).get<picojson::object>()["id"].get<double>()+1));
+				}
+				if ((*i).get<picojson::object>()["class"].get<std::string>() == "ItemHP") {
+					_gidItemHP.push_back(static_cast<int>((*i).get<picojson::object>()["id"].get<double>()+1));
+				}
+				if ((*i).get<picojson::object>()["class"].get<std::string>() == "Player") {
+					_gidPlayer.push_back(static_cast<int>((*i).get<picojson::object>()["id"].get<double>()+1));
+				}
+				if ((*i).get<picojson::object>()["class"].get<std::string>() == "Server") {
+					_gidServer.push_back(static_cast<int>((*i).get<picojson::object>()["id"].get<double>()+1));
+				}
+			}
+			// チップコリジョンデータ読み込み
+			if ((*i).get<picojson::object>()["properties"].is<picojson::array>()) {
+				auto properties = (*i).get<picojson::object>()["properties"].get<picojson::array>();
+				for (int i2 = 0; i2 < properties.size();++i2) {
+					if (properties[i2].get<picojson::object>()["name"].is<std::string>()) {
+						if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "Collision") {
+							auto debug = properties[i2].get<picojson::object>()["value"].get<bool>();
+							chip_col.push_back(properties[i2].get<picojson::object>()["value"].get<bool>());
+							break;
+						}
+					}
+					chip_col.push_back(0);
+				}
+			}
+			else {
+				chip_col.push_back(0);
+			}
+		}
+		_chipCollision.push_back(chip_col);
 	}
 
 
@@ -148,17 +193,21 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename)
 			std::vector<Vector2> aBulletPosition;
 			for (int i = 0; i < aObjects.size(); ++i) {
 				double posX, posY;
-				if (aObjects[i].get<picojson::object>()["gid"].get<double>() == 8) {
-					posX = aObjects[i].get<picojson::object>()["x"].get<double>();
-					posY = aObjects[i].get<picojson::object>()["y"].get<double>();
-					Vector2 pos = { posX,posY };
-					aBulletPosition.push_back(pos);
+				for (auto gid : _gidItemAmmo) {
+					if (aObjects[i].get<picojson::object>()["gid"].get<double>() == gid) {
+						posX = aObjects[i].get<picojson::object>()["x"].get<double>();
+						posY = aObjects[i].get<picojson::object>()["y"].get<double>();
+						Vector2 pos = { posX,posY };
+						aBulletPosition.push_back(pos);
+					}
 				}
-				else if (aObjects[i].get<picojson::object>()["gid"].get<double>() == 9) {
-					posX = aObjects[i].get<picojson::object>()["x"].get<double>();
-					posY = aObjects[i].get<picojson::object>()["y"].get<double>();
-					Vector2 pos = { posX,posY };
-					aHPPosition.push_back(pos);
+				for (auto gid : _gidItemHP) {
+					if (aObjects[i].get<picojson::object>()["gid"].get<double>() == gid) {
+						posX = aObjects[i].get<picojson::object>()["x"].get<double>();
+						posY = aObjects[i].get<picojson::object>()["y"].get<double>();
+						Vector2 pos = { posX,posY };
+						aHPPosition.push_back(pos);
+					}
 				}
 			}
 			_hpItems.push_back(aHPPosition);
@@ -170,53 +219,55 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename)
 			for (int i = 0; i < aObjects.size(); ++i) {
 				/*マップタイル3番はエネミー*/
 				if (aObjects[i].get<picojson::object>()["gid"].is<double>()){
-					if (aObjects[i].get<picojson::object>()["gid"].get<double>()==3) {
+					for (auto gid : _gidEnemy) {
+						if (aObjects[i].get<picojson::object>()["gid"].get<double>() == gid) {
 
-						int aEnemyID;
-						int     aEnemyType;
-						Vector2	aEnemyPosition;
-						int aPatrolID;
+							int aEnemyID;
+							int     aEnemyType;
+							Vector2	aEnemyPosition;
+							int aPatrolID;
 
-						aEnemyID = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
+							aEnemyID = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
 
-						picojson::array properties = aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
+							picojson::array properties = aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
 
-						aEnemyType = static_cast<int>(properties[0].get<picojson::object>()["value"].get<double>());
-						aPatrolID = static_cast<int>(properties[1].get<picojson::object>()["value"].get<double>());
+							aEnemyType = static_cast<int>(properties[0].get<picojson::object>()["value"].get<double>());
+							aPatrolID = static_cast<int>(properties[1].get<picojson::object>()["value"].get<double>());
 
-						double posX = aObjects[i].get<picojson::object>()["x"].get<double>();
-						double posY = aObjects[i].get<picojson::object>()["y"].get<double>();
-						aEnemyPosition = { posX,posY };
-						if (aEnemyType == 0) {
-							aEnemyData.push_back({ aEnemyID,aEnemyType, aEnemyPosition, aPatrolID });
+							double posX = aObjects[i].get<picojson::object>()["x"].get<double>();
+							double posY = aObjects[i].get<picojson::object>()["y"].get<double>();
+							aEnemyPosition = { posX,posY };
+							if (aEnemyType == 0) {
+								aEnemyData.push_back({ aEnemyID,aEnemyType, aEnemyPosition, aPatrolID });
+							}
+							else {
+								aEnemyVIPData[aEnemyID] = { aEnemyID,aEnemyType, aEnemyPosition, aPatrolID };
+							}
+
 						}
 						else {
-							aEnemyVIPData[aEnemyID] = { aEnemyID,aEnemyType, aEnemyPosition, aPatrolID };
-						}
-						
-					}
-					else {
-						/*残りはサーバーのデータ*/
-						Vector2 pos{ 0,0 };
-						int dir{ -1 }, id{ 0 };
-						if (aObjects[i].get<picojson::object>()["gid"].get<double>() == 13) {
-							dir = 1;
-						}
-						if (aObjects[i].get<picojson::object>()["gid"].get<double>() == 17) {
-							dir = 4;
-						}
-						if (aObjects[i].get<picojson::object>()["gid"].get<double>() == 19) {
-							dir = 2;
-						}
-						if (aObjects[i].get<picojson::object>()["gid"].get<double>() == 29) {
-							dir = 3;
-						}
-						if (dir != -1) {
-							pos.x = aObjects[i].get<picojson::object>()["x"].get<double>();
-							pos.y = aObjects[i].get<picojson::object>()["y"].get<double>();
-							picojson::array properties = aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
-							id = properties[0].get<picojson::object>()["value"].get<double>();
-							aServerData.push_back({ pos,dir,id });
+							/*残りはサーバーのデータ*/
+							Vector2 pos{ 0,0 };
+							int dir{ -1 }, id{ 0 };
+							if (aObjects[i].get<picojson::object>()["gid"].get<double>() == 13) {
+								dir = 1;
+							}
+							if (aObjects[i].get<picojson::object>()["gid"].get<double>() == 17) {
+								dir = 4;
+							}
+							if (aObjects[i].get<picojson::object>()["gid"].get<double>() == 19) {
+								dir = 2;
+							}
+							if (aObjects[i].get<picojson::object>()["gid"].get<double>() == 29) {
+								dir = 3;
+							}
+							if (dir != -1) {
+								pos.x = aObjects[i].get<picojson::object>()["x"].get<double>();
+								pos.y = aObjects[i].get<picojson::object>()["y"].get<double>();
+								picojson::array properties = aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
+								id = properties[1].get<picojson::object>()["value"].get<double>();
+								aServerData.push_back({ pos,dir,id });
+							}
 						}
 					}
 				}
@@ -376,16 +427,9 @@ bool MapChips::IsHit(int objectstage,Actor& o)
 			// (x,y)は、マップチップの座標（チップ単位）
 			// この位置のチップは当たるか？
 			std::vector<int> v_chip_no = CheckHitChipNo(objectstage,x,y);
-			int list[] = {2,-1};
 			for (int chip_no : v_chip_no) {
-			int i = 0;
-				while (list[i] != -1) {
-					if (chip_no == list[i])
-					{	// このチップと当たった。
-						// 当たったので戻る
-						return 1;
-					}
-					++i;
+				if (_chipCollision[objectstage][chip_no]){
+					return 1;
 				}
 			}
 		}

@@ -19,8 +19,7 @@ ProjectionLight::ProjectionLight(Game& game, ModeBase& mode, Actor& owner)
 	_centerPos = { 40,300 };
 	_scale = _scaleStart;
 	_alpha = _alphaStart;
-	Vector2 fix = { 20 ,20 };
-	_pos = _owner.GetPosition() + fix;
+	_pos = _owner.GetPosition()+_owner.GetSize()/2;
 	auto player = dynamic_cast<Player&>(_owner);
 	_angle = atan2(player.GetDirection().y, player.GetDirection().x) + (3.14 / 2.0);
 
@@ -28,8 +27,7 @@ ProjectionLight::ProjectionLight(Game& game, ModeBase& mode, Actor& owner)
 
 void ProjectionLight::Update(){
 	auto player =dynamic_cast<Player&>(_owner);
-	Vector2 fix = {20 ,20 };
-	_pos = _owner.GetPosition()+fix;
+	_pos = _owner.GetPosition() + _owner.GetSize() / 2;
 	_angle = atan2(player.GetDirection().y,player.GetDirection().x)+(3.14/2.0);
 
 	_scale += 0.01;

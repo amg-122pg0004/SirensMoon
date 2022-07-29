@@ -25,6 +25,7 @@ int Darkness::MakeDarkness() {
 void Darkness::Update(Vector2 window_pos, Vector2 camera_pos) {
 	
 	SetDrawScreen(_alphaHandle);
+	ClearDrawScreen();
 	DrawBox(0, 0, screen_W, screen_H, GetColor(0, 0, 0), 1);
 	SetDrawMode(DX_DRAWMODE_BILINEAR);
 	for (auto&& actor : _mode.GetActorServer().GetObjects()) {

@@ -72,6 +72,7 @@ void SplitWindow::Render() {
 	_darkness->Update(_windowPos, _camera->GetPosition());
 
 	SetDrawScreen(_normalScreen);
+	ClearDrawScreen();
 	/*•`‰æ”ÍˆÍ‚ğ•ªŠ„‰æ–Ê”ÍˆÍ‚Éİ’è*/
 	SetDrawArea(static_cast<int>(_windowPos.x),
 		static_cast<int>(_windowPos.y),
