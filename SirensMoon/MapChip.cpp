@@ -107,19 +107,33 @@ void MapChips::LoadTilesets(picojson::object jsRoot,std::string folderpath) {
 			/*各クラスgid読み込み*/
 			if ((*i).get<picojson::object>()["class"].is<std::string>()) {
 				if ((*i).get<picojson::object>()["class"].get<std::string>() == "Enemy") {
-					_gidEnemy.push_back(static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + 1));
+					_gidEnemy.push_back(static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back()));
 				}
 				if ((*i).get<picojson::object>()["class"].get<std::string>() == "Barrier") {
-					_gidBarrier.push_back(static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + 1));
+					int player{ 1 };
+					if ((*i).get<picojson::object>()["properties"].is<picojson::array>()) {
+						auto properties = (*i).get<picojson::object>()["properties"].get<picojson::array>();
+						for (int i2 = 0; i2 < properties.size(); ++i2) {
+							if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "Player") {
+								player = properties[i2].get<picojson::object>()["value"].get<double>();
+							}
+						}
+					}
+					if (player == 1) {
+						_gidBarrier1.push_back(static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back()));
+					}
+					else {
+						_gidBarrier2.push_back(static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back()));
+					}
 				}
 				if ((*i).get<picojson::object>()["class"].get<std::string>() == "ItemAmmo") {
-					_gidItemAmmo.push_back(static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + 1));
+					_gidItemAmmo.push_back(static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back()));
 				}
 				if ((*i).get<picojson::object>()["class"].get<std::string>() == "ItemHP") {
-					_gidItemHP.push_back(static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + 1));
+					_gidItemHP.push_back(static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back()));
 				}
 				if ((*i).get<picojson::object>()["class"].get<std::string>() == "Player") {
-					_gidPlayer.push_back(static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + 1));
+					_gidPlayer.push_back(static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back()));
 				}
 				if ((*i).get<picojson::object>()["class"].get<std::string>() == "Server") {
 					std::string direction = "up";
@@ -136,7 +150,7 @@ void MapChips::LoadTilesets(picojson::object jsRoot,std::string folderpath) {
 						}
 					}
 					if (upperleft == true) {
-						auto gid = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + 1);
+						auto gid = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
 						_gidServer.push_back({ gid,direction, });
 					}
 				}
@@ -552,17 +566,21 @@ bool MapChips::IsHitBarrier(int objectstage, Actor& o,int playerno)
 			std::vector<int> v_chip_no = CheckHitChipNo(objectstage, x, y);
 			for (int chip_no : v_chip_no) {
 				if (playerno == 0) {
-					if (chip_no == 10)
-					{	// このチップと当たった。
-						// 当たったので戻る
-						return 1;
+					for (auto gid : _gidBarrier1) {
+						if (chip_no == gid)
+						{	// このチップと当たった。
+							// 当たったので戻る
+							return 1;
+						}
 					}
 				}
 				if (playerno == 1) {
-					if (chip_no == 11)
-					{	// このチップと当たった。
-						// 当たったので戻る
-						return 1;
+					for (auto gid : _gidBarrier2) {
+						if (chip_no == gid)
+						{	// このチップと当たった。
+							// 当たったので戻る
+							return 1;
+						}
 					}
 				}
 			}

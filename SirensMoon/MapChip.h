@@ -119,7 +119,8 @@ private:
 
 	/*各クラスが設定されているタイル(gid)を保存*/
 	std::vector<int> _gidEnemy;
-	std::vector<int> _gidBarrier;
+	std::vector<int> _gidBarrier1;
+	std::vector<int> _gidBarrier2;
 	std::vector<int> _gidItemAmmo;
 	std::vector<int> _gidItemHP;
 	std::vector<int> _gidPlayer;
