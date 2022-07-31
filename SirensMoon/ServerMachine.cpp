@@ -23,35 +23,36 @@ ServerMachine::ServerMachine(Game& game, ModeBase& mode, MapChips::ServerMachine
 	_cg_left = ImageServer::LoadGraph("resource/Server/left.png");
 	_pos = _serverData.Position;
 	
-	switch (_serverData.Direction) {
-		case 1:
-			_cg = _cg_up;
-		case 2:
-			_cg = _cg_right;
-		case 3:
-			_cg = _cg_down;
-		case 4:
-			_cg = _cg_left;
+	if (_serverData.Direction == "up") {
+		_cg = _cg_up;
+	}else 	if(_serverData.Direction == "down") {
+		_cg = _cg_down;
+	}else if(_serverData.Direction == "right") {
+		_cg = _cg_left;
+	}else if(_serverData.Direction == "left") {
+		_cg = _cg_left;
 	}
+
 	int x, y;
 	GetGraphSize(_cg,&x,&y);
 	_size = { static_cast<double>(x),static_cast<double>(y) };
 	_collision.min = _pos;
 	_collision.max = _pos + _size;
-
-	switch (_serverData.Direction) {
-		case 1:
-			_accessArea.min = { _pos.x ,_pos.y - 10 };
-			_accessArea.max = { _pos.x + _size.x , _pos.y + _size.y };
-		case 2:
-			_accessArea.min = { _pos.x + _size.x,_pos.y };
-			_accessArea.max = { _pos.x + _size.x + 10,_pos.y + _size.y };
-		case 3:
-			_accessArea.min = { _pos.x,_pos.y + _size.y };
-			_accessArea.max = { _pos.x + _size.x,_pos.y + _size.y + 10 };
-		case 4:
-			_accessArea.min = { _pos.x - 10,_pos.y };
-			_accessArea.max = { _pos.x,_pos.y + _size.y };
+	if (_serverData.Direction == "up") {
+		_accessArea.min = { _pos.x ,_pos.y - 10 };
+		_accessArea.max = { _pos.x + _size.x , _pos.y + _size.y };
+	}
+	else 	if (_serverData.Direction == "down") {
+		_accessArea.min = { _pos.x + _size.x,_pos.y };
+		_accessArea.max = { _pos.x + _size.x + 10,_pos.y + _size.y };
+	}
+	else if (_serverData.Direction == "right") {
+		_accessArea.min = { _pos.x,_pos.y + _size.y };
+		_accessArea.max = { _pos.x + _size.x,_pos.y + _size.y + 10 };
+	}
+	else if (_serverData.Direction == "left") {
+		_accessArea.min = { _pos.x - 10,_pos.y };
+		_accessArea.max = { _pos.x,_pos.y + _size.y };
 	}
 
 	Vector2 map_pos = { 1080,660 };

@@ -29,12 +29,25 @@ public:
 	/*サーバーデータ構造*/
 	struct ServerMachineData {
 		Vector2 Position;
-		int Direction;
+		std::string Direction;
+	};
+
+	/*サーバータイルセットデータ構造*/
+	struct ServerTileData {
+		int gid;
+		std::string Direction;
 	};
 
 	MapChips(Game& game,ModeBase& mode);
 	~MapChips();
 	bool LoadMap(std::string folderpath, std::string filename);
+	void LoadTilesets(picojson::object jsRoot, std::string folderpath);
+	void LoadTileLayer(picojson::object);
+	void LoadMiniMapLayer(picojson::array aObjects);
+	void LoadPlayerLayer(picojson::array aObjects);
+	void LoadEnemyLayer(picojson::array aObjects);
+	void LoadServerLayer(picojson::array aObjects);
+	void LoadItemLayer(picojson::array aObjects);
 
 	/**
 	 * \brief タイルの表示を行う関数
@@ -50,12 +63,12 @@ public:
 	int GetChipSize_H() { return _chipSize_H; }
 	int GetChipSize_W() { return _chipSize_W; }
 
-	Vector2 GetPlayerStartPosition(int playerno) { return _playerStart[0][playerno]; }
-	std::vector<EnemyData> GetEnemyData() { return _enemyDataList[0]; }
+	Vector2 GetPlayerStartPosition(int playerno);
+	std::vector<EnemyData> GetEnemyData() { return _enemyDataList; }
 	std::vector<EnemyPatrol> GetPatrolPointsVIP() { return _patrolPointsVIP; }
-	std::vector<Vector2> GetHPItemData() { return _hpItems[0]; }
-	std::vector<Vector2> GetBulletData() { return _bulletItems[0]; }
-	std::vector<ServerMachineData> GetServerData() { return _serverMachineDataList[0]; }
+	std::vector<Vector2> GetHPItemData() { return _hpItems; }
+	std::vector<Vector2> GetBulletData() { return _bulletItems; }
+	std::vector<ServerMachineData> GetServerData() { return _serverMachineDataList; }
 	EnemyPatrol FindPatrol(int id);
 	std::vector<int> CheckHitChipNo(int objectstage, int x, int y);
 	bool IsHit(int objectstage, Actor& o);
@@ -79,37 +92,36 @@ private:
 
 	std::vector<int> _tilesetsFirstgid;
 
-	/*マップデータ [stageNo][layer][y][x]*/
-	std::vector<std::vector<std::vector<std::vector<int>>>> _mapDataStandard;
-	/*ミニマップデータ [y][x]*/
-	std::vector<std::vector<std::vector<Vector2>>> _mapDataRecon;
-	/*マップごとのプレイヤーデータ [stageNo][player1か2]*/
-	std::vector<std::vector<Vector2>> _playerStart;
-	/*マップごとのHPアイテムデータ [stage][配置個数分]*/
-	std::vector<std::vector<Vector2>> _hpItems;
-	/*マップごとの弾薬アイテムデータ[stage][配置個数分]*/
-	std::vector<std::vector<Vector2>> _bulletItems;
-
-	/*マップごとの通常エネミーデータ[stage][配置個数分]*/
-	std::vector<std::vector<EnemyData>> _enemyDataList;
-	/*マップごとのエネミーの巡回ルート*/
+	/*マップデータ [layer][y][x]*/
+	std::vector<std::vector<std::vector<int>>> _mapTileData;
+	/*ミニマップデータ [line][plot]*/
+	std::vector<std::vector<Vector2>> _minimapData;
+	/*プレイヤー初期位置データ[player1か2] */
+	std::unordered_map<int,Vector2> _playerStart;
+	/*HPアイテムデータ [配置個数分]*/
+	std::vector<Vector2> _hpItems;
+	/*弾薬アイテムデータ[配置個数分]*/
+	std::vector<Vector2> _bulletItems;
+	/*通常エネミーデータ[配置個数分]*/
+	std::vector<EnemyData> _enemyDataList;
+	/*エネミーの巡回ルート*/
 	std::unordered_map<int, EnemyPatrol> _patrolPoints;
 	/*マップごとの重要エネミー巡回ルート*/
 	std::vector<EnemyPatrol> _patrolPointsVIP;
-	/*マップごとのサーバーデータ[stage][配置個数分]*/
-	std::vector<std::vector<ServerMachineData>> _serverMachineDataList;
+	/*サーバーデータ[配置個数分]*/
+	std::vector<ServerMachineData> _serverMachineDataList;
 	
 	/*マップチップのグラフィックハンドル用コンテナ*/
 	/*[タイル用画像の枚数分][画像を分割した際のチップ画像の数]*/
 	std::vector<std::vector<int>> _cgChip;
-	/*各マップチップのあたり判定を保存するコンテナ*/
+	/*各マップタイルセットのあたり判定を保存するコンテナ*/
 	std::vector<std::vector<bool>> _chipCollision;
 
-	/*各クラスが設定されているgid*/
+	/*各クラスが設定されているタイル(gid)を保存*/
 	std::vector<int> _gidEnemy;
 	std::vector<int> _gidBarrier;
 	std::vector<int> _gidItemAmmo;
 	std::vector<int> _gidItemHP;
 	std::vector<int> _gidPlayer;
-	std::vector<int> _gidServer;
+	std::vector<ServerTileData> _gidServer;
 };

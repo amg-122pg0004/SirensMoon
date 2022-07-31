@@ -71,12 +71,15 @@ void Enemy::Init() {
 }
 
 void Enemy::Update() {
-	if (CheckReachPoint()) {
-		GetNextPoints();
+	if (_patrolLength != 1) {
+		if (CheckReachPoint()) {
+			GetNextPoints();
+		}
+		else {
+			MoveNextPoint();
+		}
 	}
-	else {
-		MoveNextPoint();
-	}
+
 	SightUpdate();
 	if (CheckDetection()) {
 		++_detectionFrame;
@@ -118,11 +121,20 @@ void Enemy::StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos)
 }
 
 void Enemy::SetPatrolPoints() {
-	auto patroldata = dynamic_cast<ModeGame&>(_mode).GetMapChips()->FindPatrol(_patrolID);
-	_patrolPoints = patroldata.PatrolPoints;
-	_patrolMode = patroldata.TruckingMode;
-	_patrolLength = static_cast<int>(_patrolPoints.size()) - 1;
-	_nextPos = _patrolPoints[0];
+	if (_patrolID != -1) {
+		auto patroldata = dynamic_cast<ModeGame&>(_mode).GetMapChips()->FindPatrol(_patrolID);
+		_patrolPoints = patroldata.PatrolPoints;
+		_patrolMode = patroldata.TruckingMode;
+		_patrolLength = static_cast<int>(_patrolPoints.size()) - 1;
+		_nextPos = _patrolPoints[0];
+	}
+	else {
+		_patrolPoints.emplace_back(_pos);
+		_patrolMode = false;
+		_patrolLength = 1;
+		_nextPos = _patrolPoints[0];
+	}
+	
 
 }
 

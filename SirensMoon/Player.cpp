@@ -183,7 +183,6 @@ bool Player::IsHitActor() {
 				return true;
 			}
 		}
-
 	}
 	return false;
 }

@@ -155,8 +155,8 @@
             "type": "enum",
             "values": [
                 "-1",
-                "0",
-                "1"
+                "1",
+                "2"
             ],
             "valuesAsFlags": false
         },
@@ -180,8 +180,8 @@
             "type": "class",
             "useAs": [
                 "property",
-                "object",
-                "tile"
+                "tile",
+                "tileset"
             ]
         }
     ]

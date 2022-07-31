@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="128" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="11" nextobjectid="159">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="128" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="11" nextobjectid="173">
  <editorsettings>
   <export target="TestMap_02.json" format="json"/>
  </editorsettings>
@@ -27,8 +27,8 @@
   <tile id="11"/>
   <tile id="12" class="Server">
    <properties>
-    <property name="SpawnEnemy" type="object" value="0"/>
-    <property name="upperleft" type="bool" value="false"/>
+    <property name="Direction" propertytype="Direction" value="up"/>
+    <property name="upperleft" type="bool" value="true"/>
    </properties>
   </tile>
   <tile id="13" class="Server"/>
@@ -36,16 +36,14 @@
   <tile id="15"/>
   <tile id="16" class="Server">
    <properties>
-    <property name="Direction" propertytype="Direction" value="right"/>
-    <property name="SpawnEnemy" type="object" value="0"/>
+    <property name="Direction" propertytype="Direction" value="left"/>
     <property name="upperleft" type="bool" value="true"/>
    </properties>
   </tile>
   <tile id="17" class="Server"/>
   <tile id="18" class="Server">
    <properties>
-    <property name="Direction" propertytype="Direction" value="up"/>
-    <property name="SpawnEnemy" type="object" value="0"/>
+    <property name="Direction" propertytype="Direction" value="right"/>
     <property name="upperleft" type="bool" value="true"/>
    </properties>
   </tile>
@@ -61,7 +59,6 @@
   <tile id="28" class="Server">
    <properties>
     <property name="Direction" propertytype="Direction" value="down"/>
-    <property name="SpawnEnemy" type="object" value="0"/>
     <property name="upperleft" type="bool" value="true"/>
    </properties>
   </tile>
@@ -97,7 +94,11 @@
  </tileset>
  <tileset firstgid="72" name="tile_test2" tilewidth="30" tileheight="30" tilecount="55" columns="11">
   <image source="tile_test2.png" width="354" height="177"/>
-  <tile id="0" class="BackGround"/>
+  <tile id="0" class="BackGround">
+   <properties>
+    <property name="Collision" type="bool" value="true"/>
+   </properties>
+  </tile>
   <tile id="1" class="BackGround"/>
   <tile id="2" class="BackGround"/>
   <tile id="3" class="BackGround"/>
@@ -199,9 +200,9 @@
 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
-4,4,4,4,4,4,4,4,4,4,4,4,4,4,72,72,72,72,72,72,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
-4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,72,72,72,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
-4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,10,10,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
+4,4,4,4,4,4,4,4,4,4,4,4,4,4,72,72,72,72,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
+4,4,4,4,4,4,4,4,4,4,4,4,4,4,72,72,72,4,72,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
+4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,72,72,72,4,4,4,4,4,4,4,4,4,4,4,4,10,10,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,10,10,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,10,10,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
 4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,10,10,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
@@ -390,12 +391,6 @@
     <property name="PatrolLine" type="object" value="39"/>
    </properties>
   </object>
-  <object id="94" gid="3" x="1157" y="1251" width="30" height="30">
-   <properties>
-    <property name="EnemyType" type="int" value="0"/>
-    <property name="PatrolLine" type="object" value="42"/>
-   </properties>
-  </object>
   <object id="132" gid="3" x="1098" y="1001" width="30" height="30">
    <properties>
     <property name="EnemyType" type="int" propertytype="EnemyTypeList" value="1"/>
@@ -452,21 +447,24 @@
   <object id="150" x="3060" y="4208">
    <polygon points="0,0 4,-768 672,-768 664,0"/>
   </object>
-  <object id="151" gid="34" x="240" y="630" width="30" height="30"/>
-  <object id="152" gid="33" x="210" y="630" width="30" height="30"/>
-  <object id="153" gid="26" x="240" y="600" width="30" height="30"/>
-  <object id="154" gid="25" x="210" y="600" width="30" height="30"/>
-  <object id="155" gid="17" x="210" y="570" width="30" height="30">
-   <properties>
-    <property name="Direction" propertytype="Direction" value="left"/>
-    <property name="upperleft" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="156" gid="18" x="240" y="570" width="30" height="30"/>
+  <object id="164" gid="17" x="180" y="600" width="30" height="30"/>
+  <object id="165" gid="18" x="210" y="600" width="30" height="30"/>
+  <object id="166" gid="26" x="210" y="630" width="30" height="30"/>
+  <object id="167" gid="34" x="210" y="660" width="30" height="30"/>
+  <object id="168" gid="25" x="180" y="630" width="30" height="30"/>
+  <object id="169" gid="33" x="180" y="660" width="30" height="30"/>
  </objectgroup>
  <objectgroup id="4" name="Player">
-  <object id="133" gid="5" x="46" y="93" width="30" height="30"/>
-  <object id="134" gid="5" x="119" y="93" width="30" height="30"/>
+  <object id="133" gid="5" x="46" y="93" width="30" height="30">
+   <properties>
+    <property name="Player" type="int" propertytype="PlayerList" value="1"/>
+   </properties>
+  </object>
+  <object id="134" gid="5" x="119" y="93" width="30" height="30">
+   <properties>
+    <property name="Player" type="int" propertytype="PlayerList" value="2"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="5" name="Item">
   <object id="43" gid="9" x="622.333" y="1569.67" width="30" height="30"/>
@@ -490,7 +488,7 @@
   <object id="68" gid="9" x="213" y="165.667" width="30" height="30"/>
   <object id="69" gid="9" x="219.667" y="155" width="30" height="30"/>
  </objectgroup>
- <objectgroup id="2" name="MiniMap">
+ <objectgroup id="2" name="MiniMap" visible="0">
   <object id="1" x="930" y="0">
    <polyline points="0,0 0,180 60,180 60,0 0,0"/>
   </object>
