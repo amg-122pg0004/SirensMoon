@@ -56,6 +56,9 @@
         },
         "TestMap_03.tmx#tile_test2": {
             "scaleInEditor": 1
+        },
+        "tmp.tsx": {
+            "scaleInDock": 1
         }
     },
     "last.exportedFilePath": "D:/Users/syotaro/Documents/AMG/2022summer/SirensMoon/resource",
@@ -78,6 +81,7 @@
         "D:/doi/2022summer/x64/Debug/resource/TestMap_02.tmx"
     ],
     "tileset.lastUsedFilter": "Tiledタイルセットファイル (*.tsx)",
+    "tileset.lastUsedFormat": "tsx",
     "tileset.margin": 0,
     "tileset.spacing": 0,
     "tileset.tileSize": {

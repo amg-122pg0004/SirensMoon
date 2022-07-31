@@ -109,6 +109,10 @@ void SplitWindow::Debug(){
 		static_cast<int>(_windowPos.x + _windowSize_W),
 		static_cast<int>(_windowPos.y + _windowSize_H));
 	_mode.GetActorServer().Debug(_renderStage, _windowPos, _camera->GetPosition());
+	std::stringstream ss;
+	auto pos =_camera->GetPosition();
+	ss << "カメラx" << pos.x << "カメラy" << pos.y;
+	DrawString(50 + _windowNo * 960, 300, ss.str().c_str(), GetColor(255, 0, 255));
 	/*描画範囲をウィンドウサイズ全体に戻す*/
 	SetDrawArea(0, 0, screen_W, screen_H);
 }

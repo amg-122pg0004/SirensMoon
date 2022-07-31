@@ -11,7 +11,7 @@
 #include "MapChip.h"
 #include <string>
 #include <sstream>
-
+#include <mutex>
 #include "Bullet.h"
 #include "Game.h"
 #include "ModeGame.h"
@@ -21,7 +21,7 @@
 
 Player::Player(Game& game,ModeBase& mode,int playernum)
 	:Actor{ game,mode }, _speed{ 0,0 },_speedMax{5.0}, _playerNum{playernum}
-	, _dir{0,0}, _lastDir{ 1,0 }, _hp{ 3 }, _bullet{ 5 }, _movable{ 1 }, _charge{ 0 }, _cooldown{ 0 }
+	, _dir{0,0}, _lastDir{ 1,0 }, _hp{ 3 }, _bullet{ 5 }, _movable{ 1 }, _charge{ 0 }, _cooldown{ 0 },_init{false}
 {
 	_inputManager = _game.GetInputManager();
 	 _cg_up = ImageServer::LoadGraph("resource/player/up.png");
@@ -36,9 +36,21 @@ Player::Player(Game& game,ModeBase& mode,int playernum)
 
 	 auto light = std::make_unique<LightBase>(_game, _mode, *this);
 	 _mode.GetActorServer().Add(std::move(light));
+
+
+}
+
+void Player::Init() {
+	auto&& rendercamera = dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[_playerNum]->GetCamera();
+	rendercamera->SetPosition(_pos);
 }
 
 void Player::Update() {
+
+	if (_init == false) {
+		Init();
+		_init = true;
+	}
 
 	/*アナログ入力取得*/
 	_dir = _inputManager->CheckAnalogInput(_playerNum);
@@ -140,6 +152,12 @@ void Player::Move() {
 		_pos.y = screen_H * 4-_size.y;
 	}
 
+	UpdateCamera();
+	
+	PlayFootSteps();
+}
+
+void Player::UpdateCamera() {
 	/*フレームアウトした際にカメラを動かす処理*/
 	auto&& rendercamera = dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[_playerNum]->GetCamera();
 	Vector2 renderposition = _pos - rendercamera->GetPosition();
@@ -153,11 +171,9 @@ void Player::Move() {
 	if (renderposition.y < 0 && _dir.y < 0) {
 		rendercamera->ChangePosition(Camera::ChangeDir::UP);
 	}
-	else if (renderposition.y > screen_H&&_dir.y>0) {
+	else if (renderposition.y > screen_H && _dir.y > 0) {
 		rendercamera->ChangePosition(Camera::ChangeDir::DOWN);
 	}
-	
-	PlayFootSteps();
 }
 
 void Player::PlayFootSteps() {

@@ -527,8 +527,10 @@ bool MapChips::IsHit(int objectstage,Actor& o)
 						break;
 					}
 				}
-				if (_chipCollision[tileset][chip_no]){
-					return 1;
+				if (chip_no != -1) {
+					if (_chipCollision[tileset][chip_no]) {
+						return 1;
+					}
 				}
 			}
 		}

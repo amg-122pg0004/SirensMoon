@@ -40,5 +40,5 @@ void Game::Debug(){
 	if (_debug) {
 		_modeServer->Debug();
 	}
-	
+	//_inputManager->Render();
 }

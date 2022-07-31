@@ -29,6 +29,7 @@ class Camera {
 		};
 
 		void ChangePosition(ChangeDir direction);
+		void SetPosition(Vector2 playerpos);
 
 		
 #ifdef _DEBUG

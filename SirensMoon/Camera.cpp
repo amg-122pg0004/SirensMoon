@@ -41,7 +41,12 @@ void Camera::ChangePosition(Camera::ChangeDir dir) {
 		_pos.y = screen_H * (_stageSize.y-1);
 	}
 }
-
+void Camera::SetPosition(Vector2 playerpos) {
+	int x= ceil(playerpos.x / (screen_W / 2))-1;
+	int y = ceil(playerpos.y / screen_H)-1;
+	_pos.x = x * screen_W/4;
+	_pos.y = y * screen_H;
+}
 
 void Camera::Update(int playernum) {
 	_inputManager = _game.GetInputManager();

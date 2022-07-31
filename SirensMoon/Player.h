@@ -21,6 +21,9 @@ class Player :public Actor {
 		void Update() override ;
 		void StandardRender(int stageNum,Vector2 window_pos,Vector2 camera_pos) override ;
 		void ReconRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) override;
+		void UpdateCamera();
+		void Init();
+
 
 		Type GetType() override { return Type::Player; }
 		int GetPlayerNum() { return _playerNum; }
@@ -65,4 +68,6 @@ class Player :public Actor {
 
 		/*ƒ‰ƒCƒg‚ÌŒõ‰æ‘œ*/
 		int _cg_light;
+
+		bool _init;
 };

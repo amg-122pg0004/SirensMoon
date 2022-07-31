@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="128" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="11" nextobjectid="173">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="128" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="11" nextobjectid="174">
  <editorsettings>
-  <export target="TestMap_02.json" format="json"/>
+  <export target="TestMap_01.json" format="json"/>
  </editorsettings>
  <tileset firstgid="1" name="tile_test" tilewidth="30" tileheight="30" tilecount="54" columns="8">
   <image source="tile_test.png" width="240" height="150"/>
@@ -460,7 +460,7 @@
     <property name="Player" type="int" propertytype="PlayerList" value="1"/>
    </properties>
   </object>
-  <object id="134" gid="5" x="119" y="93" width="30" height="30">
+  <object id="173" gid="5" x="668" y="4298" width="30" height="30">
    <properties>
     <property name="Player" type="int" propertytype="PlayerList" value="2"/>
    </properties>
