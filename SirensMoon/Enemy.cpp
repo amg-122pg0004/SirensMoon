@@ -14,7 +14,7 @@
 #include "SoundServer.h"
 #include <random>
 
-Enemy::Enemy(Game& game,ModeBase& mode,MapChips::EnemyData enemydata) 
+Enemy::Enemy(Game& game,ModeBase& mode,MapChips::EnemyData enemydata, EnemyGenerator::EnemyPattern pattern)
 	:Actor{ game,mode }, _speed{ 1 }, _sight_H{ 60 }, _sight_W{330}, _detectionFrame{ 0 }
 {
 	_size = { 60,90 };
@@ -30,7 +30,9 @@ Enemy::Enemy(Game& game,ModeBase& mode,MapChips::EnemyData enemydata)
 	auto light = std::make_unique<BlinkLight>(_game, _mode, *this);
 	_mode.GetActorServer().Add(std::move(light));
 
-	GenerateEnemy();
+	_generatedEnemy.emplace_back(pattern.head);
+	_generatedEnemy.emplace_back(pattern.body);
+	_generatedEnemy.emplace_back(pattern.foot);
 	Init();
 };
 
@@ -126,7 +128,14 @@ void Enemy::SetPatrolPoints() {
 		_patrolPoints = patroldata.PatrolPoints;
 		_patrolMode = patroldata.TruckingMode;
 		_patrolLength = static_cast<int>(_patrolPoints.size()) - 1;
-		_nextPos = _patrolPoints[0];
+		int startpoint{0};
+		for (int i = 0; i < _patrolPoints.size();++i) {
+			if ((_patrolPoints[i]-_pos).Length() < (_patrolPoints[startpoint]-_pos).Length()) {
+				startpoint = i;
+			}
+		}
+		_patrolIndex=startpoint;
+		_nextPos = _patrolPoints[startpoint];
 	}
 	else {
 		_patrolPoints.emplace_back(_pos);
@@ -317,32 +326,4 @@ void Enemy::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
 	DrawString(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
 		static_cast<int>(_pos.y + window_pos.y - camera_pos.y - 10),
 		ss.str().c_str(), GetColor(255, 0, 255));
-}
-
-void Enemy::GenerateEnemy(){
-	std::random_device rnd;
-	std::mt19937 mt(rnd());
-	std::uniform_int_distribution<> rand3(1, 3);
-	ModeGame& modegame = dynamic_cast<ModeGame&>(_mode);
-
-	_generatedEnemy.resize(3);
-	_generatedEnemy[0] = rand3(mt);
-	_generatedEnemy[1] = rand3(mt);
-	_generatedEnemy[2] = rand3(mt);
-
-	while (CheckWantedEnemy(modegame)) {
-		_generatedEnemy[0] = rand3(mt);
-		_generatedEnemy[1] = rand3(mt);
-		_generatedEnemy[2] = rand3(mt);
-	}
-
-}
-
-bool Enemy::CheckWantedEnemy(ModeGame& modegame) {
-	for (int i = 0; i < modegame.GetWantedenemys().size(); ++i) {
-		if (modegame.GetWantedenemys()[i] == _generatedEnemy) {
-			return 1;
-		}
-	}
-	return 0;
 }

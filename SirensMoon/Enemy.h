@@ -10,6 +10,7 @@
 #include "Actor.h"
 #include <vector>
 #include "MapChip.h"
+#include "EnemyGenerator.h"
 
 class Game;
 class ModeBase;
@@ -17,7 +18,7 @@ class ModeGame;
 
 class Enemy :public Actor {
 	public :
-		Enemy(Game& game, ModeBase& mode,MapChips::EnemyData enemy);
+		Enemy(Game& game, ModeBase& mode,MapChips::EnemyData enemy,EnemyGenerator::EnemyPattern pattern);
 		virtual void Init();
 		/**
 		 * @brief 行動の決定、更新
@@ -72,9 +73,6 @@ class Enemy :public Actor {
 
 		void UpdateCollision();
 		void AnimationUpdate();
-
-		void GenerateEnemy();
-		bool CheckWantedEnemy(ModeGame&);
 
 	protected:
 		/*初期位置*/

@@ -12,6 +12,8 @@
 #include "BulletItem.h"
 #include "ServerMachine.h"
 #include "SoundServer.h"
+#include "EnemyGenerator.h"
+#include "ModeMovie.h"
 
 ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false}
 {
@@ -23,16 +25,24 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false}
 	_splitWindow.emplace_back(std::make_unique<SplitWindow>(_game,*this, 0, 0, 0));
 	_splitWindow.emplace_back(std::make_unique<SplitWindow>(_game,*this, screen_W / 2, 0, 1));
 
+	EnemyGenerator::EnemyPattern pattern;
+	pattern.body = 3;
+	pattern.head = 3;
+	pattern.foot = 3;
+
+	auto enemygen = std::make_unique<EnemyGenerator>(pattern);
+
 	auto serverdata = _mapChips->GetServerData();
 	for (auto&& data : serverdata) {
-		auto server = std::make_unique<ServerMachine>(_game, *this, data);
-		_wantedEnemys.push_back(server->GetGeneratedEnemy());
+		auto pattern =enemygen->GetEnemyVIPPattern();
+		auto server = std::make_unique<ServerMachine>(_game, *this, data,pattern);
 		_actorServer.Add(std::move(server));
 	}
 
 	auto enemydata=_mapChips->GetEnemyData();
 	for (auto&& data : enemydata) {
-		auto enemy = std::make_unique<Enemy>(_game, *this, data);
+		auto pattern = enemygen->GetEnemyPattern();
+		auto enemy = std::make_unique<Enemy>(_game, *this, data,pattern);
 		_actorServer.Add(std::move(enemy));
 	}
 
@@ -81,6 +91,7 @@ void ModeGame::Update() {
 	if (_stopActorUpdate!=1) {
 		_actorServer.Update();
 	}
+
 }
 
 void ModeGame::Render() {
@@ -95,5 +106,13 @@ void ModeGame::Render() {
 void ModeGame::Debug() {
 	for (auto&& splitwindows : _splitWindow) {
 		splitwindows->Debug();
+	}
+}
+
+void ModeGame::StageClearCheck(){
+	++_enemyVIPDeadCount;
+	if (_enemyVIPDeadCount >= _mapChips->GetServerData().size()) {
+		auto mode = std::make_unique<ModeMovie>(_game, "resource/Movie/rocket.mp4");
+		_game.GetModeServer()->Add(std::move(mode));
 	}
 }

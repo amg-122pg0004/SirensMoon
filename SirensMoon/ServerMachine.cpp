@@ -11,8 +11,8 @@
 #include "ServerMachineUI.h"
 #include "SoundServer.h"
 
-ServerMachine::ServerMachine(Game& game, ModeBase& mode, MapChips::ServerMachineData data)
-	:Actor(game, mode),_valid{false},_serverData{data},_energy{0}
+ServerMachine::ServerMachine(Game& game, ModeBase& mode, MapChips::ServerMachineData data, EnemyGenerator::EnemyPattern pattern)
+	:Actor(game, mode),_valid{false},_serverData{data},_energy{0}, _enemypattern{pattern}
 {
 	_inputManager = _game.GetInputManager();
 	_accessArea.min = {0,0};
@@ -62,9 +62,11 @@ ServerMachine::ServerMachine(Game& game, ModeBase& mode, MapChips::ServerMachine
 	auto window = std::make_unique<ServerMachineUI>(_game, _mode, map_pos, map_size, *this);
 	spw[1]->GetUIServer().emplace_back(std::move(window));
 	
-	_generatedEnemy.resize(3);
-	_generatedEnemy = { -1,-1,-1 };
-	GenerateEnemy();
+	
+	_generatedEnemy.emplace_back(pattern.head);
+	_generatedEnemy.emplace_back(pattern.body);
+	_generatedEnemy.emplace_back(pattern.foot);
+
 }
 
 
@@ -104,17 +106,6 @@ void ServerMachine::ChangeValidFlag(bool flag) {
 	_valid = flag;
 }
 
-void ServerMachine::GenerateEnemy() {
-	std::random_device rnd;
-	std::mt19937 mt(rnd());
-	std::uniform_int_distribution<> rand3(1, 3);
-
-	_generatedEnemy[0] = rand3(mt);
-	_generatedEnemy[1] = rand3(mt);
-	_generatedEnemy[2] = rand3(mt);
-
-}
-
 void ServerMachine::SpawnEnemyVIP() {
 	Vector2 player0pos={0,0};
 	for (auto&& actor:_mode.GetActorServer().GetObjects()) {
@@ -125,6 +116,7 @@ void ServerMachine::SpawnEnemyVIP() {
 			}
 		}
 	}
+
 	int count_x=ceil(player0pos.x / 960);
 	int count_y=ceil(player0pos.y / 1080);
 	int count_x2 = ceil(_pos.x / 960);
@@ -132,13 +124,26 @@ void ServerMachine::SpawnEnemyVIP() {
 
 	ModeGame& mode = dynamic_cast<ModeGame&>(_mode);
 	auto vipdata = mode.GetMapChips()->GetPatrolPointsVIP();
-	int random = _game.GetFrameCount() % vipdata.size();
+	std::random_device seed_gen;
+	std::mt19937 engine(seed_gen());
+	std::shuffle(vipdata.begin(), vipdata.end(), engine);
 
-	auto loot = vipdata[random];
-	auto pos = loot.PatrolPoints[0];
+	int i = 0;
+	for (i; i < vipdata.size(); ++i) {
+		auto pos = vipdata[i].PatrolPoints[0];
+		int count_x3 = ceil(pos.x / (static_cast<double>(screen_W) / 2));
+		int count_y3 = ceil(pos.y / screen_H);
+		if (count_x3 != count_x || count_y3 != count_y) {
+			if (count_x3 != count_x2 || count_y3 != count_y2) {
+				break;
+			}
+		}
+	}
+	auto loot = vipdata[i];
+	Vector2 pos=loot.PatrolPoints[0];
 	auto id = loot.ID;
 	MapChips::EnemyData data = { id,0,pos,0 };
-	auto enemy = std::make_unique<EnemyVIP>(_game, _mode, data, *this,loot);
+	auto enemy = std::make_unique<EnemyVIP>(_game, _mode, data, *this,loot, _enemypattern);
 	mode.GetActorServer().Add(std::move(enemy));
 
 }
@@ -146,4 +151,8 @@ void ServerMachine::SpawnEnemyVIP() {
 void ServerMachine::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
 	_collision.Draw2(stageNum, window_pos, camera_pos);
 	_accessArea.Draw2(stageNum,window_pos,camera_pos);
+	
+	std::stringstream ss;
+	ss << "ƒGƒlƒ‹ƒM[" << _energy;
+	DrawString(500,500, ss.str().c_str(), GetColor(255, 0, 255));
 }

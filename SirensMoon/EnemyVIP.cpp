@@ -2,8 +2,8 @@
 #include "ServerMachine.h"
 
 EnemyVIP::EnemyVIP(Game& game, ModeBase& mode, MapChips::EnemyData enemydata, 
-	ServerMachine& owner, MapChips::EnemyPatrol patrol) 
-	:Enemy(game, mode, enemydata), _owner{ owner }
+	ServerMachine& owner, MapChips::EnemyPatrol patrol, EnemyGenerator::EnemyPattern pattern)
+	:Enemy(game, mode, enemydata,pattern), _owner{ owner }
 {
 	_generatedEnemy=_owner.GetGeneratedEnemy();
 	Init();
