@@ -42,6 +42,7 @@ void SplitWindow::Update() {
 	for (auto&& u : _ui) {
 		u->Update();
 	}
+	_lightup = 255;
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Actor::Type::Server) {
 			ServerMachine& machine  =dynamic_cast<ServerMachine&>(*actor);
@@ -59,7 +60,11 @@ void SplitWindow::Update() {
 				}
 			}
 			*/
-			_lightup =255- machine.GetEnergy();//<連打仕様
+
+			if (_lightup > 255 - machine.GetEnergy()) {
+				_lightup = 255 - machine.GetEnergy();//<連打仕様
+			}
+
 			if (_lightup < 100) {
 				_lightup = 100;
 			}
@@ -112,6 +117,7 @@ void SplitWindow::Debug(){
 	std::stringstream ss;
 	auto pos =_camera->GetPosition();
 	ss << "カメラx" << pos.x << "カメラy" << pos.y;
+	ss << "ライトアップ" << _lightup;
 	DrawString(50 + _windowNo * 960, 300, ss.str().c_str(), GetColor(255, 0, 255));
 	/*描画範囲をウィンドウサイズ全体に戻す*/
 	SetDrawArea(0, 0, screen_W, screen_H);
