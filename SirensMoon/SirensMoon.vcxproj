@@ -156,6 +156,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyVIP.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="EnemyGenerator.cpp" />
     <ClCompile Include="HPItem.cpp" />
     <ClCompile Include="ImageServer.cpp" />
     <ClCompile Include="InputManager.cpp" />
@@ -165,6 +166,7 @@
     <ClCompile Include="MiniMap.cpp" />
     <ClCompile Include="ModeBase.cpp" />
     <ClCompile Include="ModeGame.cpp" />
+    <ClCompile Include="ModeMovie.cpp" />
     <ClCompile Include="ModeServer.cpp" />
     <ClCompile Include="Pause.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -190,6 +192,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyVIP.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="EnemyGenerator.h" />
     <ClInclude Include="HPItem.h" />
     <ClInclude Include="ImageServer.h" />
     <ClInclude Include="InputManager.h" />
@@ -199,6 +202,7 @@
     <ClInclude Include="MiniMap.h" />
     <ClInclude Include="ModeBase.h" />
     <ClInclude Include="ModeGame.h" />
+    <ClInclude Include="ModeMovie.h" />
     <ClInclude Include="ModeServer.h" />
     <ClInclude Include="Pause.h" />
     <ClInclude Include="picojson\picojson.h" />

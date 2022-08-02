@@ -5,13 +5,12 @@
  * \author 土居将太郎
  * \date   June 2022
  *********************************************************************/
-#pragma once
 
+#pragma once
 #include <memory>
 #include <vector>
 #include "InputManager.h"
 #include "ModeServer.h"
-
 
 constexpr int screen_W{1920};//<ウィンドウの解像度：横
 constexpr int screen_H{1080};//<ウィンドウの解像度：縦
@@ -34,6 +33,8 @@ class Game {
 
 		inline int GetFrameCount() { return _frameCount; }
 
+		std::unique_ptr<ModeServer>& GetModeServer() { return _modeServer; }
+
 
 	private:
 		std::shared_ptr<InputManager> _inputManager;
@@ -41,4 +42,5 @@ class Game {
 		int _frameCount;
 		
 		bool _debug;
+
 };

@@ -109,6 +109,15 @@
     <Filter Include="Actor\Light\UnstableLight">
       <UniqueIdentifier>{68f1b438-d8f8-4503-aa95-5dae7a798d54}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utillity">
+      <UniqueIdentifier>{3f838af6-39a3-46a5-8292-d42a831dec3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utillity\EnemyGenerator">
+      <UniqueIdentifier>{d8f6d4fb-0c34-4b9e-b0f0-33c261a14df0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mode\ModeMovie">
+      <UniqueIdentifier>{4c50646e-507e-42d3-ad42-b9ac3c213012}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -207,6 +216,12 @@
     <ClCompile Include="UnstableLight.cpp">
       <Filter>Actor\Light\UnstableLight</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyGenerator.cpp">
+      <Filter>Utillity\EnemyGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="ModeMovie.cpp">
+      <Filter>Mode\ModeMovie</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -304,6 +319,12 @@
     </ClInclude>
     <ClInclude Include="UnstableLight.h">
       <Filter>Actor\Light\UnstableLight</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyGenerator.h">
+      <Filter>Utillity\EnemyGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="ModeMovie.h">
+      <Filter>Mode\ModeMovie</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
