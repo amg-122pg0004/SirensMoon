@@ -1,11 +1,51 @@
 {
-    "activeFile": "TestMap_01.tmx",
+    "activeFile": "",
     "expandedProjectPaths": [
+        "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource"
     ],
     "file.lastUsedOpenFilter": "すべてのファイル (*)",
     "fileStates": {
         "": {
             "scaleInEditor": 1
+        },
+        "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/TestMap_01.json": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 548.5,
+                "y": 3658.5
+            }
+        },
+        "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/TestMap_01.json#tile_test": {
+            "scaleInDock": 1
+        },
+        "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/TestMap_01.tmx": {
+            "scale": 0.125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 3052,
+                "y": 3092
+            }
+        },
+        "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/TestMap_01.tmx#tile_test": {
+            "scaleInDock": 1
+        },
+        "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/TestMap_01.tmx#tile_test2": {
+            "scaleInDock": 1
+        },
+        "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/TestMap_011.tmx": {
+            "scale": 0.1869212962962963,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2541.176470588235,
+                "y": 2305.783281733746
+            }
+        },
+        "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/TestMap_011.tmx#tile_test": {
+            "scaleInDock": 1
+        },
+        "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/TestMap_011.tmx#tile_test2": {
+            "scaleInDock": 1
         },
         "D:/doi/2022summer/x64/Debug/resource/TestMap_02.tmx": {
             "scale": 0.19901620370370368,
@@ -21,12 +61,27 @@
         "D:/doi/2022summer/x64/Debug/resource/TestMap_02.tmx#tile_test2": {
             "scaleInDock": 1
         },
-        "TestMap_01.tmx": {
-            "scale": 1,
+        "D:/doi/ゲームプログラミング基礎/220519_PG1年_ゲームプログラミング基礎/220519_PG1年_ゲームプログラミング基礎/tiled/マップツール用データ/field_layerB/field_layerB.tmx": {
+            "scale": 2,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 663.5,
-                "y": 305.5
+                "x": 379.75,
+                "y": 191.75
+            }
+        },
+        "D:/doi/ゲームプログラミング基礎/220519_PG1年_ゲームプログラミング基礎/220519_PG1年_ゲームプログラミング基礎/tiled/マップツール用データ/field_layerB/field_layerB.tmx#field_layerB": {
+            "scaleInDock": 1
+        },
+        "TestMap_01.tmx": {
+            "expandedObjectLayers": [
+                10,
+                3
+            ],
+            "scale": 0.25,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 1920,
+                "y": 4616
             }
         },
         "TestMap_01.tmx#tile_test": {
@@ -61,7 +116,7 @@
             "scaleInDock": 1
         }
     },
-    "last.exportedFilePath": "D:/Users/syotaro/Documents/AMG/2022summer/SirensMoon/resource",
+    "last.exportedFilePath": "D:/doi/2022summer/SirensMoon/resource",
     "last.objectTypesPath": "D:/doi/2022summer/SirensMoon/resource/propertytypes.json",
     "map.height": 108,
     "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
@@ -71,12 +126,14 @@
     "map.tileWidth": 30,
     "map.width": 96,
     "openFiles": [
-        "TestMap_01.tmx"
     ],
     "project": "SirensMoon.tiled-project",
     "property.type": "bool",
     "recentFiles": [
+        "D:/doi/ゲームプログラミング基礎/220519_PG1年_ゲームプログラミング基礎/220519_PG1年_ゲームプログラミング基礎/tiled/マップツール用データ/field_layerB/field_layerB.tmx",
+        "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/TestMap_011.tmx",
         "TestMap_01.tmx",
+        "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/TestMap_01.tmx",
         "TestMap_02.tmx",
         "D:/doi/2022summer/x64/Debug/resource/TestMap_02.tmx"
     ],
