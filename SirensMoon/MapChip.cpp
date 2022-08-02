@@ -100,12 +100,14 @@ void MapChips::LoadTilesets(picojson::object jsRoot,std::string folderpath) {
 			, cghandle.data());
 		_cgChip.push_back(cghandle);
 		//チップデータ読み込み
-		std::vector<bool> chip_col;
-		chip_col.push_back(0);
+		std::vector<bool> tiles_col;
+		//tiles_col.push_back(0);
 		picojson::array  tiles = jsTile["tiles"].get<picojson::array>();
 		for (auto i = tiles.begin(); i != tiles.end(); ++i) {
+		bool atile_col{ false };
 			/*各クラスgid読み込み*/
 			if ((*i).get<picojson::object>()["class"].is<std::string>()) {
+
 				if ((*i).get<picojson::object>()["class"].get<std::string>() == "Enemy") {
 					_gidEnemy.push_back(static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back()));
 				}
@@ -162,18 +164,15 @@ void MapChips::LoadTilesets(picojson::object jsRoot,std::string folderpath) {
 					if (properties[i2].get<picojson::object>()["name"].is<std::string>()) {
 						if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "Collision") {
 							auto debug = properties[i2].get<picojson::object>()["value"].get<bool>();
-							chip_col.push_back(properties[i2].get<picojson::object>()["value"].get<bool>());
+							atile_col=(properties[i2].get<picojson::object>()["value"].get<bool>());
 							break;
 						}
 					}
-					chip_col.push_back(0);
 				}
 			}
-			else {
-				chip_col.push_back(0);
-			}
+			tiles_col.push_back(atile_col);
 		}
-		_chipCollision.push_back(chip_col);
+		_chipCollision.push_back(tiles_col);
 	}
 	std::sort(_tilesetsFirstgid.begin(), _tilesetsFirstgid.end());
 }
@@ -522,7 +521,6 @@ bool MapChips::IsHit(int objectstage,Actor& o)
 				for (int i2 = _tilesetsFirstgid.size()-1;i2>=0;--i2) {
 					if (chip_no>=_tilesetsFirstgid[i2]) {
 						chip_no = chip_no- _tilesetsFirstgid[i2];
-						++chip_no;
 						tileset = i2;
 						break;
 					}
