@@ -11,6 +11,8 @@
 #include "InputManager.h"
 #include "Math.h"
 #include "LightBase.h"
+#include <unordered_map>
+
 
 class Game;
 class ModeBase;
@@ -20,10 +22,9 @@ class Player :public Actor {
 		Player(Game& game,ModeBase& base,int playernum);
 		void Update() override ;
 		void StandardRender(int stageNum,Vector2 window_pos,Vector2 camera_pos) override ;
-		void ReconRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) override;
 		void UpdateCamera();
 		void Init();
-
+		void Load();
 
 		Type GetType() override { return Type::Player; }
 		int GetPlayerNum() { return _playerNum; }
@@ -41,6 +42,20 @@ class Player :public Actor {
 		void TakeAmmo();
 
 		void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;
+
+		/*グラフィック用状態*/
+		enum class PlayerState {
+			Wait,
+			Walk,
+			Run,
+		};
+		/*グラフィック用方向*/
+		enum class PlayerDirection {
+			Up,
+			Down,
+			Left,
+			Right,
+		};
 
 	private:
 		std::shared_ptr<InputManager> _inputManager;
@@ -60,11 +75,7 @@ class Player :public Actor {
 		int _cooldown;//クールダウン
 
 		/*キャラクターの画像ハンドル*/
-		int _cg_up;
-		int _cg_side;
-		int _cg_down;
-		int _cg_recon;
-		int _cg_dead;
+		std::unordered_map <std::pair<PlayerState, PlayerDirection>, std::vector<int >> _cg;
 
 		/*ライトの光画像*/
 		int _cg_light;
