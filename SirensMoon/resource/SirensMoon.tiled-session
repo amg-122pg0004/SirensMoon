@@ -1,5 +1,9 @@
 {
-    "activeFile": "",
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/無題.tmx",
     "expandedProjectPaths": [
         "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource"
     ],
@@ -48,6 +52,20 @@
         "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/TestMap_011.tmx#tile_test2": {
             "scaleInDock": 1
         },
+        "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/kari.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/無題.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": -816,
+                "y": 1340
+            }
+        },
+        "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/無題.tmx#tile_test2": {
+            "scaleInDock": 1
+        },
         "D:/doi/2022summer/x64/Debug/resource/TestMap_02.tmx": {
             "scale": 0.19901620370370368,
             "selectedLayer": 0,
@@ -75,14 +93,14 @@
         },
         "TestMap_01.tmx": {
             "expandedObjectLayers": [
-                10,
-                3
+                3,
+                10
             ],
             "scale": 0.25,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 1920,
-                "y": 4616
+                "x": 3314,
+                "y": 4726
             }
         },
         "TestMap_01.tmx#tile_test": {
@@ -127,15 +145,16 @@
     "map.tileWidth": 30,
     "map.width": 96,
     "openFiles": [
-        "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/TestMap_01.json"
+        "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/無題.tmx"
     ],
     "project": "SirensMoon.tiled-project",
     "property.type": "bool",
     "recentFiles": [
+        "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/無題.tmx",
         "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/TestMap_01.json",
+        "TestMap_01.tmx",
         "D:/doi/ゲームプログラミング基礎/220519_PG1年_ゲームプログラミング基礎/220519_PG1年_ゲームプログラミング基礎/tiled/マップツール用データ/field_layerB/field_layerB.tmx",
         "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/TestMap_011.tmx",
-        "TestMap_01.tmx",
         "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/TestMap_01.tmx",
         "TestMap_02.tmx",
         "D:/doi/2022summer/x64/Debug/resource/TestMap_02.tmx"
