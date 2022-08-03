@@ -235,7 +235,7 @@ void MapChips::LoadPlayerLayer(picojson::array aObjects) {
 				auto properties=aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
 				/*カスタムプロパティ0番目にPlayerの項目があるか*/
 				if (properties[0].get<picojson::object>()["name"].get<std::string>() == "Player") {
-					int playerno = properties[0].get<picojson::object>()["value"].get<double>();
+					int playerno = static_cast<int>(properties[0].get<picojson::object>()["value"].get<double>());
 					double posX = aObjects[i].get<picojson::object>()["x"].get<double>();
 					double posY = aObjects[i].get<picojson::object>()["y"].get<double>();
 					_playerStart[playerno] = { posX,posY };
