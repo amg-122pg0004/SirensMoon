@@ -21,51 +21,71 @@
 
 Player::Player(Game& game,ModeBase& mode,int playernum)
 	:Actor{ game,mode }, _speed{ 0,0 },_speedMax{5.0}, _playerNum{playernum}
-	, _dir{0,0}, _lastDir{ 1,0 }, _hp{ 3 }, _bullet{ 5 }, _movable{ 1 }, _charge{ 0 }, _cooldown{ 0 },_init{false}
+	, _dir{0,0}, _lastDir{ 1,0 }, _hp{ 3 }, _bullet{ 5 }, _movable{ 1 }, _charge{ 0 }, _cooldown{ 0 }
+	,_init{false},_state{PlayerState::Wait},_direction{PlayerDirection::Right},_animNo{0}
 {
 	_inputManager = _game.GetInputManager();
 
 	 Vector2 pos = dynamic_cast<ModeGame&>(_mode).GetMapChips()->GetPlayerStartPosition(_playerNum);
 	 _pos = { pos.x,pos.y };
 	 _stage = 1;
-
+	 _size = { 60,90 };
 	 auto light = std::make_unique<LightBase>(_game, _mode, *this);
 	 _mode.GetActorServer().Add(std::move(light));
 
-
+	 Load();
 }
 
 void Player::Load() {
 	std::vector<int> handle;
 	handle.resize(81);
-	/*
-	ImageServer::LoadDivGraph("resource/Wait/back.png",81,10,9,150,150,handle.data());
+
+	ImageServer::LoadDivGraph("resource/Player/Wait/back.png",81,10,9,150,150,handle.data());
 	_cg[{PlayerState::Wait, PlayerDirection::Up}] = handle;
-	ImageServer::LoadDivGraph("resource/Wait/front.png", 81, 10, 9, 150, 150, handle.data());
+	ImageServer::LoadDivGraph("resource/Player/Wait/front.png", 81, 10, 9, 150, 150, handle.data());
 	_cg[{PlayerState::Wait, PlayerDirection::Down}] = handle;
-	ImageServer::LoadDivGraph("resource/Wait/left.png", 81, 10, 9, 150, 150, handle.data());
+	ImageServer::LoadDivGraph("resource/Player/Wait/left.png", 81, 10, 9, 150, 150, handle.data());
 	_cg[{PlayerState::Wait, PlayerDirection::Left}] = handle;
-	ImageServer::LoadDivGraph("resource/Wait/right.png", 81, 10, 9, 150, 150, handle.data());
+	ImageServer::LoadDivGraph("resource/Player/Wait/right.png", 81, 10, 9, 150, 150, handle.data());
 	_cg[{PlayerState::Wait, PlayerDirection::Right}] = handle;
 
-	ImageServer::LoadDivGraph("resource/Walk/back.png", 81, 10, 9, 150, 150, handle.data());
+	ImageServer::LoadDivGraph("resource/Player/Walk/back.png", 81, 10, 9, 150, 150, handle.data());
 	_cg[{PlayerState::Walk, PlayerDirection::Up}] = handle;
-	ImageServer::LoadDivGraph("resource/Walk/front.png", 81, 10, 9, 150, 150, handle.data());
+	ImageServer::LoadDivGraph("resource/Player/Walk/front.png", 81, 10, 9, 150, 150, handle.data());
 	_cg[{PlayerState::Walk, PlayerDirection::Down}] = handle;
-	ImageServer::LoadDivGraph("resource/Walk/left.png", 81, 10, 9, 150, 150, handle.data());
+	ImageServer::LoadDivGraph("resource/Player/Walk/left.png", 81, 10, 9, 150, 150, handle.data());
 	_cg[{PlayerState::Walk, PlayerDirection::Left}] = handle;
-	ImageServer::LoadDivGraph("resource/Walk/right.png", 81, 10, 9, 150, 150, handle.data());
+	ImageServer::LoadDivGraph("resource/Player/Walk/right.png", 81, 10, 9, 150, 150, handle.data());
 	_cg[{PlayerState::Walk, PlayerDirection::Right}] = handle;
 	handle.resize(60);
-	ImageServer::LoadDivGraph("resource/Run/back.png", 60, 10, 6, 150, 150, handle.data());
-	_cg[{PlayerState::Walk, PlayerDirection::Up}] = handle;
-	ImageServer::LoadDivGraph("resource/Run/front.png", 60, 10, 6, 150, 150, handle.data());
-	_cg[{PlayerState::Walk, PlayerDirection::Down}] = handle;
-	ImageServer::LoadDivGraph("resource/Run/left.png", 60, 10, 6, 150, 150, handle.data());
-	_cg[{PlayerState::Walk, PlayerDirection::Left}] = handle;
-	ImageServer::LoadDivGraph("resource/Run/right.png", 60, 10, 6, 150, 150, handle.data());
-	_cg[{PlayerState::Walk, PlayerDirection::Right}] = handle;
-	*/
+	ImageServer::LoadDivGraph("resource/Player/Run/back.png", 60, 10, 6, 150, 150, handle.data());
+	_cg[{PlayerState::Run, PlayerDirection::Up}] = handle;
+	ImageServer::LoadDivGraph("resource/Player/Run/front.png", 60, 10, 6, 150, 150, handle.data());
+	_cg[{PlayerState::Run, PlayerDirection::Down}] = handle;
+	ImageServer::LoadDivGraph("resource/Player/Run/left.png", 60, 10, 6, 150, 150, handle.data());
+	_cg[{PlayerState::Run, PlayerDirection::Left}] = handle;
+	ImageServer::LoadDivGraph("resource/Player/Run/right.png", 60, 10, 6, 150, 150, handle.data());
+	_cg[{PlayerState::Run, PlayerDirection::Right}] = handle;
+
+	handle.resize(16);
+	ImageServer::LoadDivGraph("resource/Player/Set/back.png", 16, 8, 2, 150, 150, handle.data());
+	_cg[{PlayerState::Set, PlayerDirection::Up}] = handle;
+	ImageServer::LoadDivGraph("resource/Player/Set/front.png", 16, 8, 2, 150, 150, handle.data());
+	_cg[{PlayerState::Set, PlayerDirection::Down}] = handle;
+	ImageServer::LoadDivGraph("resource/Player/Set/left.png", 16, 8, 2, 150, 150, handle.data());
+	_cg[{PlayerState::Set, PlayerDirection::Left}] = handle;
+	ImageServer::LoadDivGraph("resource/Player/Set/right.png", 16, 8, 2, 150, 150, handle.data());
+	_cg[{PlayerState::Set, PlayerDirection::Right}] = handle;
+
+	handle.resize(41);
+	ImageServer::LoadDivGraph("resource/Player/Shoot/back.png", 41, 10, 5, 150, 150, handle.data());
+	_cg[{PlayerState::Shoot, PlayerDirection::Up}] = handle;
+	ImageServer::LoadDivGraph("resource/Player/Shoot/front.png", 41, 10, 5, 150, 150, handle.data());
+	_cg[{PlayerState::Shoot, PlayerDirection::Down}] = handle;
+	ImageServer::LoadDivGraph("resource/Player/Shoot/left.png", 41, 10, 5, 150, 150, handle.data());
+	_cg[{PlayerState::Shoot, PlayerDirection::Left}] = handle;
+	ImageServer::LoadDivGraph("resource/Player/Shoot/right.png", 41, 10, 5, 150, 150, handle.data());
+	_cg[{PlayerState::Shoot, PlayerDirection::Right}] = handle;
 }
 
 void Player::Init() {
@@ -93,7 +113,7 @@ void Player::Update() {
 		_dir.Normalize();
 	}
 
-
+	Move();
 
 	if (_playerNum == 0) {
 		GunShoot();
@@ -102,7 +122,7 @@ void Player::Update() {
 		OpenMap();
 	}
 
-	Move();
+
 
 	UpdateCollision();
 }
@@ -183,6 +203,32 @@ void Player::Move() {
 	UpdateCamera();
 	
 	PlayFootSteps();
+
+	if (_speed.Length()<0.1) {
+		_state=PlayerState::Wait;
+	}
+	else if (_speed.Length() < 4.9) {
+		_state = PlayerState::Walk;
+	}
+	else {
+		_state = PlayerState::Run;
+	}
+	if (abs(_lastDir.x)>abs(_lastDir.y)) {
+		if (_lastDir.x >= 0) {
+			_direction = PlayerDirection::Right;
+		}
+		else {
+			_direction = PlayerDirection::Left;
+		}
+	}
+	else {
+		if (_lastDir.y >= 0) {
+			_direction = PlayerDirection::Down;
+		}
+		else {
+			_direction = PlayerDirection::Up;
+		}
+	}
 }
 
 void Player::UpdateCamera() {
@@ -233,6 +279,9 @@ bool Player::IsHitActor() {
 
 void Player::GunShoot() {
 	--_cooldown;
+	if (_cooldown > 0) {
+		_state = PlayerState::Shoot;
+	}
 	if (_cooldown < 0) {
 		_cooldown = 0;
 	}
@@ -245,15 +294,19 @@ void Player::GunShoot() {
 			PlaySoundMem(SoundServer::Find("PlayerShoot"), DX_PLAYTYPE_BACK);
 			_cooldown = 180;
 			_movable = false;
+			_state = PlayerState::Shoot;
+			_animNo = 0;
 		}
 		
 	}
 
 	if (_inputManager->CheckInput("ACTION", 'h', _playerNum)&&_cooldown==0) {
 		_movable = false;
+		_state = PlayerState::Set;
 		if (_charge == 0) {
 			auto gunlight = std::make_unique<ProjectionLight>(_game, _mode, *this);
 			_mode.GetActorServer().Add(std::move(gunlight));
+			_animNo = 0;
 		}
 
 		++_charge;
@@ -286,20 +339,23 @@ void Player::OpenMap() {
 	}
 }
 
-
-
-
 void Player::StandardRender(int stageNum,Vector2 window_pos,Vector2 camera_pos){
-	std::vector<int>;
-	auto itr = _cg.find( { PlayerState::Wait, PlayerDirection::Down });
-	if (itr != _cg.end()) {
-		cg=itr->second;
+	std::vector<int> cg = _cg[{_state, _direction}];
+	if (_state == PlayerState::Set|| _state == PlayerState::Shoot) {
+		DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x) - 40,
+			static_cast<int>(_pos.y + window_pos.y - camera_pos.y) - 40, cg[_animNo], 1);
+		++_animNo;
+		if (_animNo >= cg.size()) {
+			_animNo = cg.size() - 1;
+		}
 	}
-	int number = cg.size();
-	if (_stage == stageNum) {
-		DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
-			static_cast<int>(_pos.y + window_pos.y - camera_pos.y), cg[_game.GetFrameCount()%number], 0);
+	else {
+		if (_stage == stageNum) {
+			DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x) - 40,
+				static_cast<int>(_pos.y + window_pos.y - camera_pos.y) - 40, cg[_game.GetFrameCount() % cg.size()], 1);
+		}
 	}
+	
 }
 
 void Player::UpdateCollision() {
@@ -314,6 +370,7 @@ void Player::TakeDamage() {
 void Player::Heal() {
 	++_hp;
 }
+
 void Player::TakeAmmo() {
 	++_bullet;
 }
@@ -321,6 +378,7 @@ void Player::TakeAmmo() {
 void Player::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
 	//デバッグ用座標表示
 
+	_collision.Draw2(stageNum, window_pos, camera_pos);
 	std::stringstream ss;
 	ss << "HP" << _hp << "\n";
 	if (_playerNum == 0) {
@@ -335,4 +393,3 @@ void Player::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
 	ss << "_lastdir" << _lastDir.x<<" "<<_lastDir.y << "\n";
 	DrawString(50 + _playerNum * 960, 100, ss.str().c_str(), GetColor(255, 0, 255));
 }
-

@@ -11,7 +11,7 @@
 #include "InputManager.h"
 #include "Math.h"
 #include "LightBase.h"
-#include <unordered_map>
+#include <map>
 
 
 class Game;
@@ -48,6 +48,8 @@ class Player :public Actor {
 			Wait,
 			Walk,
 			Run,
+			Set,
+			Shoot
 		};
 		/*グラフィック用方向*/
 		enum class PlayerDirection {
@@ -75,10 +77,15 @@ class Player :public Actor {
 		int _cooldown;//クールダウン
 
 		/*キャラクターの画像ハンドル*/
-		std::unordered_map <std::pair<PlayerState, PlayerDirection>, std::vector<int >> _cg;
+		std::map <std::pair<PlayerState, PlayerDirection>, std::vector<int >> _cg;
+
+		int _animNo;
 
 		/*ライトの光画像*/
 		int _cg_light;
 
 		bool _init;
+
+		PlayerState _state;
+		PlayerDirection _direction;
 };
