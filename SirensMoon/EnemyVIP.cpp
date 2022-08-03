@@ -19,6 +19,9 @@ void EnemyVIP::Init() {
 
 void EnemyVIP::Update() {
 	Enemy::Update();
+	if (_dead == true) {
+		_owner.DeadEnemyVIP();
+	}
 	if (!_owner.GetValidFlag()) {
 		_dead = true;
 	}

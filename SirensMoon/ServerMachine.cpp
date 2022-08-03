@@ -12,7 +12,7 @@
 #include "SoundServer.h"
 
 ServerMachine::ServerMachine(Game& game, ModeBase& mode, MapChips::ServerMachineData data, EnemyGenerator::EnemyPattern pattern)
-	:Actor(game, mode),_valid{false},_serverData{data},_energy{0}, _enemypattern{pattern}
+	:Actor(game, mode),_valid{false},_serverData{data},_energy{0}, _enemypattern{pattern},_deadVIP{false}
 {
 	_inputManager = _game.GetInputManager();
 	_accessArea.min = {0,0};
@@ -71,35 +71,36 @@ ServerMachine::ServerMachine(Game& game, ModeBase& mode, MapChips::ServerMachine
 
 
 void ServerMachine::Update() {
-	if ((_inputManager->CheckInput("ACCESS", 't', 1))) {
-		for (auto&& actor : _mode.GetActorServer().GetObjects()) {
-			if (actor->GetType() == Type::Player) {
-				Player player = dynamic_cast<Player&>(*actor);
-				if (player.GetPlayerNum() == 1 && Intersect(_accessArea, actor->GetCollision())) {
-					_energy += 50;
-					break;
+	if (_deadVIP == false) {
+		if ((_inputManager->CheckInput("ACCESS", 't', 1))) {
+			for (auto&& actor : _mode.GetActorServer().GetObjects()) {
+				if (actor->GetType() == Type::Player) {
+					Player player = dynamic_cast<Player&>(*actor);
+					if (player.GetPlayerNum() == 1 && Intersect(_accessArea, actor->GetCollision())) {
+						_energy += 50;
+						break;
+					}
 				}
 			}
 		}
-	}
-	if (_energy >300) {
-		_energy = 300;
-	}
-	_energy-=3;
-	if (_energy < 0) {
-		_energy = 0;
-	}
-	if(_energy > 0 ) {
-		//PlaySoundMem(SoundServer::Find("PlayerOpenMap"), DX_PLAYTYPE_BACK);
-		if (_valid == false) {
-			_valid = true;
-			SpawnEnemyVIP();
+		if (_energy > 300) {
+			_energy = 300;
+		}
+		_energy -= 3;
+		if (_energy < 0) {
+			_energy = 0;
+		}
+		if (_energy > 0) {
+			//PlaySoundMem(SoundServer::Find("PlayerOpenMap"), DX_PLAYTYPE_BACK);
+			if (_valid == false) {
+				_valid = true;
+				SpawnEnemyVIP();
+			}
+		}
+		if (_energy == 0) {
+			_valid = false;
 		}
 	}
-	if(_energy==0) {
-		_valid = false;
-	}
-
 }
 
 void ServerMachine::ChangeValidFlag(bool flag) {
@@ -148,6 +149,13 @@ void ServerMachine::SpawnEnemyVIP() {
 
 }
 
+void ServerMachine::DeadEnemyVIP() {
+	_energy = 0;
+	_deadVIP = true;
+	ModeGame& mode=dynamic_cast<ModeGame&>(_mode);
+	mode.StageClearCheck();
+}
+
 void ServerMachine::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
 	_collision.Draw2(stageNum, window_pos, camera_pos);
 	_accessArea.Draw2(stageNum,window_pos,camera_pos);
@@ -156,3 +164,4 @@ void ServerMachine::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
 	ss << "ƒGƒlƒ‹ƒM[" << _energy;
 	DrawString(500,500, ss.str().c_str(), GetColor(255, 0, 255));
 }
+

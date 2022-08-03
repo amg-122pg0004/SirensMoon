@@ -49,15 +49,40 @@ void MiniMap::Render() {
 		float scale = 410.0f / 4320.0f * 0.97f;
 		for (auto&& actor : _mode.GetObjects()) {
 			if (actor->GetType() == Actor::Type::Player) {
-				DrawGraph(static_cast<int>(actor->GetPosition().x * scale + pos.x),
-					static_cast<int>(actor->GetPosition().y * scale + pos.y),
-					_cg_player, 1);
+				Player& player = dynamic_cast<Player&>(*actor);
+				if (player.GetPlayerNum() == 0) {
+					DrawBox(static_cast<int>(actor->GetPosition().x * scale + pos.x),
+						static_cast<int>(actor->GetPosition().y * scale + pos.y),
+						static_cast<int>(actor->GetPosition().x * scale + pos.x) + 5,
+						static_cast<int>(actor->GetPosition().y * scale + pos.y) + 5,
+						GetColor(0, 0, 255), 1);
+				}
+			}
+			if (actor->GetType() == Actor::Type::Player) {
+				Player& player = dynamic_cast<Player&>(*actor);
+				if (player.GetPlayerNum() == 1) {
+					DrawBox(static_cast<int>(actor->GetPosition().x * scale + pos.x),
+						static_cast<int>(actor->GetPosition().y * scale + pos.y),
+						static_cast<int>(actor->GetPosition().x * scale + pos.x) + 5,
+						static_cast<int>(actor->GetPosition().y * scale + pos.y) + 5,
+						GetColor(255, 0, 0), 1);
+				}
 			}
 			
 			if (actor->GetType() == Actor::Type::Enemy) {
-					DrawGraph(static_cast<int>(actor->GetPosition().x * scale + pos.x),
-						static_cast<int>(actor->GetPosition().y * scale + pos.y),
-						_cg_enemy, 1);
+				DrawBox(static_cast<int>(actor->GetPosition().x * scale + pos.x),
+					static_cast<int>(actor->GetPosition().y * scale + pos.y),
+					static_cast<int>(actor->GetPosition().x * scale + pos.x) + 5,
+					static_cast<int>(actor->GetPosition().y * scale + pos.y) + 5,
+					GetColor(255, 255, 255), 1);
+			}
+
+			if (actor->GetType() == Actor::Type::Server) {
+				DrawBox(static_cast<int>(actor->GetPosition().x * scale + pos.x),
+					static_cast<int>(actor->GetPosition().y * scale + pos.y),
+					static_cast<int>(actor->GetPosition().x * scale + pos.x) + 5,
+					static_cast<int>(actor->GetPosition().y * scale + pos.y) + 5,
+					GetColor(255, 255, 0), 1);
 			}
 			
 		}

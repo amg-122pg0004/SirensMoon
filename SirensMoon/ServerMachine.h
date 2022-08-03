@@ -21,6 +21,7 @@ class ServerMachine:public Actor{
 		AABB GetAccessArea() { return _accessArea; }
 		std::vector<int> GetGeneratedEnemy() { return _generatedEnemy; }
 		void SpawnEnemyVIP();
+		void DeadEnemyVIP();
 		void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;
 	private:
 		/*サーバーが起動するかの判定に使用*/
@@ -40,6 +41,9 @@ class ServerMachine:public Actor{
 		AABB _accessArea;
 		/*アクセス可能な状態か*/
 		bool _valid;
+
+		/*重要宇宙人を倒したか*/
+		bool _deadVIP;
 
 		std::shared_ptr<InputManager> _inputManager;
 };
