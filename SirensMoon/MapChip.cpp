@@ -71,6 +71,9 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename)
 		else if (jsLayer["name"].get<std::string>() == "Server") {
 			LoadServerLayer(aObjects);
 		}
+		else if (jsLayer["name"].get<std::string>() == "Light") {
+			LoadLightLayer(aObjects);
+		}
 	}
 	return true;
 }
@@ -155,6 +158,50 @@ void MapChips::LoadTilesets(picojson::object jsRoot,std::string folderpath) {
 						auto gid = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
 						_gidServer.push_back({ gid,direction, });
 					}
+				}
+				if ((*i).get<picojson::object>()["class"].get<std::string>() == "Light") {
+					SquareLight::SquareLightStats stats;
+					stats.image = "resource/Light/Light_square.png";
+					stats.activate = 1;
+					stats.alpha = 100;
+					stats.pos = { 0,0 };
+					stats.size = { 100,100 };
+					stats.r = 255,
+					stats.g = 255;
+					stats.b = 255;
+					/*id*/
+					auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
+
+					if ((*i).get<picojson::object>()["properties"].is<picojson::array>()) {
+						auto properties = (*i).get<picojson::object>()["properties"].get<picojson::array>();
+						for (int i = 0; i < properties.size(); ++i) {
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Activate") {
+								stats.activate = properties[i].get<picojson::object>()["value"].get<bool>();
+							}
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Color : A") {
+								stats.alpha = static_cast<int>(properties[i].get<picojson::object>()["value"].get<double>());
+							}
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Color : B") {
+								stats.b = static_cast<int>(properties[i].get<picojson::object>()["value"].get<double>());
+							}
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Color : G") {
+								stats.g = static_cast<int>(properties[i].get<picojson::object>()["value"].get<double>());
+							}
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Color : R") {
+								stats.r = static_cast<int>(properties[i].get<picojson::object>()["value"].get<double>());
+							}
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Image") {
+								stats.image = properties[i].get<picojson::object>()["value"].get<std::string>();
+							}
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Size_X") {
+								stats.size.x = properties[i].get<picojson::object>()["value"].get<double>();
+							}
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Size_Y") {
+								stats.size.y = properties[i].get<picojson::object>()["value"].get<double>();
+							}
+						}
+					}
+					_gidLight.push_back({ id,stats });
 				}
 			}
 			// チップコリジョンデータ読み込み
@@ -333,6 +380,51 @@ void MapChips::LoadEnemyLayer(picojson::array aObjects) {
 			_patrolPoints[id] = aPatrolData;
 		}
 	}
+}
+
+void MapChips::LoadLightLayer(picojson::array aObjects) {
+	for (int i = 0; i < aObjects.size(); ++i) {
+		if (aObjects[i].get<picojson::object>()["gid"].is<double>()) {
+			for (auto gid : _gidLight) {
+				if (aObjects[i].get<picojson::object>()["gid"].get<double>() == gid.first) {
+					auto stats =gid.second;
+					if (aObjects[i].get<picojson::object>()["properties"].is<picojson::array>()) {
+						auto properties = aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
+						for (int i = 0; i < properties.size(); ++i) {
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Activate") {
+								stats.activate = properties[i].get<picojson::object>()["value"].get<bool>();
+							}
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Color : A") {
+								stats.alpha = static_cast<int>(properties[i].get<picojson::object>()["value"].get<double>());
+							}
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Color : B") {
+								stats.b = static_cast<int>(properties[i].get<picojson::object>()["value"].get<double>());
+							}
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Color : G") {
+								stats.g = static_cast<int>(properties[i].get<picojson::object>()["value"].get<double>());
+							}
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Color : R") {
+								stats.r = static_cast<int>(properties[i].get<picojson::object>()["value"].get<double>());
+							}
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Image") {
+								stats.image = properties[i].get<picojson::object>()["value"].get<std::string>();
+							}
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Size_X") {
+								stats.size.x = properties[i].get<picojson::object>()["value"].get<double>();
+							}
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Size_Y") {
+								stats.size.y = properties[i].get<picojson::object>()["value"].get<double>();
+							}
+						}
+					}
+					stats.pos = { aObjects[i].get<picojson::object>()["x"].get<double>()-(stats.size.x/2),
+						aObjects[i].get<picojson::object>()["y"].get<double>()-(stats.size.y / 2) };
+
+					_lightDataList.push_back(stats);
+				}
+			}
+		}
+	};
 }
 
 void MapChips::LoadServerLayer(picojson::array aObjects) {

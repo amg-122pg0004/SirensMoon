@@ -3,6 +3,7 @@
 #include "picojson/picojson.h"
 #include "Math.h"
 #include <vector>
+#include "SquareLight.h"
 
 class Game;
 class ModeBase;
@@ -48,6 +49,7 @@ public:
 	void LoadEnemyLayer(picojson::array aObjects);
 	void LoadServerLayer(picojson::array aObjects);
 	void LoadItemLayer(picojson::array aObjects);
+	void LoadLightLayer(picojson::array aObjects);
 
 	/**
 	 * \brief タイルの表示を行う関数
@@ -69,6 +71,7 @@ public:
 	std::vector<Vector2> GetHPItemData() { return _hpItems; }
 	std::vector<Vector2> GetBulletData() { return _bulletItems; }
 	std::vector<ServerMachineData> GetServerData() { return _serverMachineDataList; }
+	std::vector<SquareLight::SquareLightStats> GetLightData() { return _lightDataList; }
 	EnemyPatrol FindPatrol(int id);
 	std::vector<int> CheckHitChipNo(int objectstage, int x, int y);
 	bool IsHit(int objectstage, Actor& o);
@@ -110,6 +113,9 @@ private:
 	std::vector<EnemyPatrol> _patrolPointsVIP;
 	/*サーバーデータ[配置個数分]*/
 	std::vector<ServerMachineData> _serverMachineDataList;
+	/*ライトデータ*/
+	std::vector<SquareLight::SquareLightStats> _lightDataList;
+
 	
 	/*マップチップのグラフィックハンドル用コンテナ*/
 	/*[タイル用画像の枚数分][画像を分割した際のチップ画像の数]*/
@@ -125,4 +131,5 @@ private:
 	std::vector<int> _gidItemHP;
 	std::vector<int> _gidPlayer;
 	std::vector<ServerTileData> _gidServer;
+	std::vector<std::pair<int,SquareLight::SquareLightStats>> _gidLight;
 };
