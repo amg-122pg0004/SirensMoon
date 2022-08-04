@@ -10,7 +10,7 @@
  *********************************************************************/
 #include "Player.h"
 
-HPItem::HPItem(Game& game, ModeBase& mode,Vector2 pos)
+HPItem::HPItem(Game& game, ModeGame& mode,Vector2 pos)
 	:Actor(game, mode)
 {
 	_cg = ImageServer::LoadGraph("resource/Item/HP.png");

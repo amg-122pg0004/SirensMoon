@@ -4,7 +4,7 @@
 #include "Game.h"
 #include "ModeGame.h"
 
-PlayerB::PlayerB(Game& game, ModeBase& base, int playernum) :Player(game,base,playernum)
+PlayerB::PlayerB(Game& game, ModeGame& base, int playernum) :Player(game,base,playernum)
 {
 		Load();
 }

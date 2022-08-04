@@ -12,7 +12,7 @@
 #include "Game.h"
 #include <math.h>
 
-BlinkLight::BlinkLight(Game& game, ModeBase& mode, Actor& owner)
+BlinkLight::BlinkLight(Game& game, ModeGame& mode, Actor& owner)
 	:LightBase{ game,mode,owner }
 {
 

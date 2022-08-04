@@ -11,7 +11,7 @@
 #include "Player.h"
 #include <math.h>
 
-ProjectionLight::ProjectionLight(Game& game, ModeBase& mode, Actor& owner)
+ProjectionLight::ProjectionLight(Game& game, ModeGame& mode, Actor& owner)
 	:_scaleStart{ 0.0 }, _scaleMax{ 1.3 }
 	,_alphaStart{0},_alphaMax{255}
 	,LightBase{ game,mode,owner }

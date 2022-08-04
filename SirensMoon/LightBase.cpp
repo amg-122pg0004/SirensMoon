@@ -8,10 +8,11 @@
 #include "LightBase.h"
 #include "Actor.h"
 #include "ImageServer.h"
+#include "ModeGame.h"
 
-LightBase::LightBase(Game& game, ModeBase& mode, Actor& owner)
+LightBase::LightBase(Game& game, ModeGame& mode, Actor& owner)
 	:Actor{ game,mode }, _owner{ owner }, _angle{ 0 }, _scale{ 0.7 }
-	, _centerPos{ _pos + _size / 2 },_alpha{255}
+	, _centerPos{ _pos + _size / 2 },_alpha{255},_activate{true}
 {
 	int x, y;
 	GetGraphSize(_cg, &x, &y);
@@ -34,5 +35,18 @@ void LightBase::Update() {
 void LightBase::CheckDeadOwner() {
 	if (_owner.IsDead()){
 		_dead = true;
+	}
+}
+
+void LightBase::MaskRender(Vector2 window_pos, Vector2 camera_pos){
+	if (_activate) {
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, _alpha);
+		DrawRotaGraph2(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
+			static_cast<int>(_pos.y + window_pos.y - camera_pos.y),
+			_centerPos.x,
+			_centerPos.y,
+			_scale,
+			_angle,
+			_cg, 1, 0);
 	}
 }

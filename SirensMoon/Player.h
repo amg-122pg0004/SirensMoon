@@ -10,25 +10,26 @@
 #include "Actor.h"
 #include "InputManager.h"
 #include "Math.h"
-#include "LightBase.h"
 #include <map>
+#include <memory>
 
 
 class Game;
-class ModeBase;
+class ModeGame;
 
 class Player :public Actor {
 	public:
-		Player(Game& game,ModeBase& base,int playernum);
+		Player(Game& game,ModeGame& base,int playernum);
 		void Update() override ;
-		virtual void StandardRender(int stageNum,Vector2 window_pos,Vector2 camera_pos) override ;
+		virtual void StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos ) override;
 		void UpdateCamera();
 		void Init();
 
-		Type GetType() override { return Type::Player; }
+		virtual Actor::Type GetType() override { return Type::Player; }
 		int GetPlayerNum() { return _playerNum; }
 		Vector2 GetDirection() { return _lastDir; }
 		int GetCharge() { return _charge; }
+		int GetHP() { return _hp; }
 
 		virtual void Move();
 		bool IsHitActor();
@@ -86,4 +87,5 @@ class Player :public Actor {
 
 		PlayerState _state;
 		PlayerDirection _direction;
+
 };

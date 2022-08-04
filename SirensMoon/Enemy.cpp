@@ -14,8 +14,8 @@
 #include "SoundServer.h"
 #include <random>
 
-Enemy::Enemy(Game& game,ModeBase& mode,MapChips::EnemyData enemydata, EnemyGenerator::EnemyPattern pattern)
-	:Actor{ game,mode }, _speed{ 1 }, _sight_H{ 60 }, _sight_W{330}, _detectionFrame{ 0 }
+Enemy::Enemy(Game& game,ModeGame& mode,MapChips::EnemyData enemydata, EnemyGenerator::EnemyPattern pattern)
+	:Actor{ game,mode }, _speed{ 1 }, _sight_H{ 210 }, _sight_W{330}, _detectionFrame{ 0 }
 {
 	_size = { 60,90 };
 	_cg_top.resize(30);
@@ -135,7 +135,7 @@ void Enemy::SetPatrolPoints() {
 			}
 		}
 		_patrolIndex=startpoint;
-		_nextPos = _patrolPoints[startpoint];
+		_nextPos = _patrolPoints[startpoint]-(_size / 2);
 	}
 	else {
 		_patrolPoints.emplace_back(_pos);

@@ -11,7 +11,7 @@
 #include "ServerMachineUI.h"
 #include "SoundServer.h"
 
-ServerMachine::ServerMachine(Game& game, ModeBase& mode, MapChips::ServerMachineData data, EnemyGenerator::EnemyPattern pattern)
+ServerMachine::ServerMachine(Game& game, ModeGame& mode, MapChips::ServerMachineData data, EnemyGenerator::EnemyPattern pattern)
 	:Actor(game, mode),_valid{false},_serverData{data},_energy{0}, _enemypattern{pattern},_deadVIP{false}
 {
 	_inputManager = _game.GetInputManager();

@@ -10,7 +10,7 @@
 #include "Math.h"
 #include "Collision.h"
 class Game;
-class ModeBase;
+class ModeGame;
 class LightBase;
 
 
@@ -26,11 +26,12 @@ class Actor{
 			Bullet,
 			Light,
 			Item,
-			Server
+			Server,
+			FloorLamp
 		};
 		virtual Type GetType() = 0;
 
-		Actor(Game& game,ModeBase& mode);
+		Actor(Game& game,ModeGame& mode);
 		~Actor();
 		
 		virtual void Update();
@@ -47,12 +48,11 @@ class Actor{
 		
 	protected:
 		Game& _game;
-		ModeBase& _mode;
+		ModeGame& _mode;
 		Vector2 _pos,_size;
 		bool _dead;
 		AABB _collision;
 		int _cg;
 
 		int _stage;
-		//std::vector<LightBase> _lights;
 };

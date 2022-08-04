@@ -11,7 +11,7 @@
 #include "ModeGame.h"
 #include "Player.h"
 
-BulletItem::BulletItem(Game& game, ModeBase& mode,Vector2 pos)
+BulletItem::BulletItem(Game& game, ModeGame& mode,Vector2 pos)
 	:Actor(game,mode)
 {
 	_cg = ImageServer::LoadGraph("resource/Item/Ammo.png");

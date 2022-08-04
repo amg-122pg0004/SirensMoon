@@ -3,8 +3,8 @@
 
 class PlayerA :public Player {
 public:
-	PlayerA(Game& game, ModeBase& base, int playernum);
-	Type GetType() override { return Type::PlayerA; }
+	PlayerA(Game& game, ModeGame& base, int playernum);
+	Actor::Type GetType() override { return Actor::Type::PlayerA; }
 	/*‰æ‘œ‚ğƒ[ƒh‚·‚é*/
 	void Load();
 

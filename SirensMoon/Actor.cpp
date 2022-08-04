@@ -9,7 +9,7 @@
 #include "Actor.h"
 
 
-Actor::Actor(Game& game, ModeBase& mode) 
+Actor::Actor(Game& game, ModeGame& mode) 
 	: _game{ game }, _mode{ mode }, _pos{ 0,0 }, _size{ 40,40 }, _dead{ false }, _stage{ -1 }, _cg{-1}
 {
 	_collision.min = { _pos };

@@ -7,12 +7,12 @@
 #include "EnemyGenerator.h"
 
 class Game;
-class ModeBase;
+class ModeGame;
 class InputManager;
 
 class ServerMachine:public Actor{
 	public:
-		ServerMachine(Game& game, ModeBase& mode, MapChips::ServerMachineData data, EnemyGenerator::EnemyPattern pattern);
+		ServerMachine(Game& game, ModeGame& mode, MapChips::ServerMachineData data, EnemyGenerator::EnemyPattern pattern);
 		Type GetType() { return Type::Server; }
 		void Update()override;
 		void ChangeValidFlag(bool);

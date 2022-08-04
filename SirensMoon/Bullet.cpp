@@ -10,7 +10,7 @@
 #include "ModeGame.h"
 #include "SoundServer.h"
 
-Bullet::Bullet(Game& game, ModeBase& mode, Vector2 pos, Vector2 dir)
+Bullet::Bullet(Game& game, ModeGame& mode, Vector2 pos, Vector2 dir)
 	:Actor{ game,mode }, _dir{ dir }, _speed{ 25 }, _lifetime{ 180 }
 {
 	_cg = ImageServer::LoadGraph("resource/Bullet/Bullet_1.png");

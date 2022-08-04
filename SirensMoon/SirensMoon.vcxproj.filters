@@ -124,6 +124,12 @@
     <Filter Include="UI\HP">
       <UniqueIdentifier>{dbf5f2cd-2eff-421f-890c-3b5593748d97}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Light\SquereLight">
+      <UniqueIdentifier>{d2bdd3e0-0f2e-4ddd-969c-cd8951eda55a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\FloorLamp">
+      <UniqueIdentifier>{1bc590f5-6dad-41bf-9a02-68cd5e643d88}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -234,6 +240,12 @@
     <ClCompile Include="HPUI.cpp">
       <Filter>UI\HP</Filter>
     </ClCompile>
+    <ClCompile Include="SquareLight.cpp">
+      <Filter>Actor\Light\SquereLight</Filter>
+    </ClCompile>
+    <ClCompile Include="FloorLamp.cpp">
+      <Filter>Actor\FloorLamp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -343,6 +355,12 @@
     </ClInclude>
     <ClInclude Include="HPUI.h">
       <Filter>UI\HP</Filter>
+    </ClInclude>
+    <ClInclude Include="SquareLight.h">
+      <Filter>Actor\Light\SquereLight</Filter>
+    </ClInclude>
+    <ClInclude Include="FloorLamp.h">
+      <Filter>Actor\FloorLamp</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

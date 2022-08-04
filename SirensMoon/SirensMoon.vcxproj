@@ -155,6 +155,7 @@
     <ClCompile Include="Darkness.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyVIP.cpp" />
+    <ClCompile Include="FloorLamp.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="EnemyGenerator.cpp" />
     <ClCompile Include="HPItem.cpp" />
@@ -178,6 +179,7 @@
     <ClCompile Include="ServerMachineUI.cpp" />
     <ClCompile Include="SoundServer.cpp" />
     <ClCompile Include="SplitWindow.cpp" />
+    <ClCompile Include="SquareLight.cpp" />
     <ClCompile Include="UIBase.cpp" />
     <ClCompile Include="UnstableLight.cpp" />
     <ClCompile Include="WinMain.cpp" />
@@ -193,6 +195,7 @@
     <ClInclude Include="Darkness.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyVIP.h" />
+    <ClInclude Include="FloorLamp.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="EnemyGenerator.h" />
     <ClInclude Include="HPItem.h" />
@@ -219,6 +222,7 @@
     <ClInclude Include="SplitWindow.h" />
     <ClInclude Include="UIBase.h" />
     <ClInclude Include="UnstableLight.h" />
+    <ClInclude Include="SquareLight.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

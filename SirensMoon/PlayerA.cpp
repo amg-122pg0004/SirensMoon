@@ -3,8 +3,9 @@
 #include "SoundServer.h"
 #include "Bullet.h"
 #include "ProjectionLight.h"
+#include "ModeGame.h"
 
-PlayerA::PlayerA(Game& game, ModeBase& base, int playernum) :Player(game, base, playernum)
+PlayerA::PlayerA(Game& game, ModeGame& base, int playernum) :Player(game, base, playernum)
 {
 	Load();
 }

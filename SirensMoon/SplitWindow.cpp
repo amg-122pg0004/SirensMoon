@@ -12,8 +12,9 @@
 #include "MiniMap.h"
 #include "Pause.h"
 #include "ServerMachine.h"
+#include "HPUI.h"
 
-SplitWindow::SplitWindow(Game& game,ModeBase& mode,int pos_x, int pos_y,int window_no) :
+SplitWindow::SplitWindow(Game& game,ModeGame& mode,int pos_x, int pos_y,int window_no) :
 	_game{game}, _mode{mode}, _windowPos{pos_x ,pos_y}, _windowNo{window_no}, _renderStage{1},_lightup{255}
 {
 	_camera = std::make_unique<Camera>(_game,_mode,*this);
@@ -41,6 +42,10 @@ SplitWindow::SplitWindow(Game& game,ModeBase& mode,int pos_x, int pos_y,int wind
 	Vector2 pause_pos = { 1080,0 };
 	Vector2 pause_size = { 780,600 };
 	_ui.emplace_back(std::make_unique<Pause>(_game, _mode, pause_pos, pause_size));
+
+	Vector2 hp_pos = { 840+90*static_cast<double>(_windowNo),810};
+	Vector2 hp_size = { 90,270 };
+	_ui.emplace_back(std::make_unique<HPUI>(_game, _mode, hp_pos, hp_size,_windowNo));
 	
 }
 
@@ -93,7 +98,7 @@ void SplitWindow::Render() {
 	/*”wŒi•`‰æ*/
 	static_cast<ModeGame&>(_mode).GetMapChips()->StandardRender(_renderStage - 1, _windowPos, _camera->GetPosition());
 	/*ƒAƒNƒ^[•`‰æ*/
-	_mode.GetActorServer().StandardRender(_renderStage, _windowPos, _camera->GetPosition());
+	_mode.GetActorServer().StandardRender(_windowNo, _windowPos, _camera->GetPosition());
 
 	GraphBlend(_normalScreen, _darknessScreen, _lightup, DX_GRAPH_BLEND_MULTIPLE);
 

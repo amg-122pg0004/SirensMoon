@@ -18,7 +18,7 @@ class ModeGame;
 
 class Enemy :public Actor {
 	public :
-		Enemy(Game& game, ModeBase& mode,MapChips::EnemyData enemy,EnemyGenerator::EnemyPattern pattern);
+		Enemy(Game& game, ModeGame& mode,MapChips::EnemyData enemy,EnemyGenerator::EnemyPattern pattern);
 		virtual void Init();
 		/**
 		 * @brief 行動の決定、更新

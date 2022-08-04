@@ -9,16 +9,17 @@
 #pragma once
 #include <DxLib.h>
 #include "Math.h"
-#include "ModeBase.h"
+#include "Actor.h"
 
-class Actor;
+class ModeGame;
 class Game;
 
 class LightBase:public Actor  {
 	public:
 
-		LightBase(Game& game,ModeBase& mode,Actor& owner);
+		LightBase(Game& game,ModeGame& mode,Actor& owner);
 		void Update();
+		virtual void MaskRender(Vector2 window_pos,Vector2 camera_pos);
 
 		Actor::Type GetType()override { return Type::Light; };
 		int GetGrHandle() { return _cg; }
@@ -26,6 +27,8 @@ class LightBase:public Actor  {
 		double GetAngle() { return _angle; }
 		double GetScale() { return _scale; }
 		int GetAlpha() { return _alpha; }
+
+		Actor& GetOwner() { return _owner; }
 
 		void CheckDeadOwner()override;
 
@@ -36,5 +39,6 @@ class LightBase:public Actor  {
 		double _angle;
 		double _scale;
 		int _alpha;
+		bool _activate;
 };
 

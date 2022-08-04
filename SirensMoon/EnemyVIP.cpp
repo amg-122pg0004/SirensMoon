@@ -1,7 +1,7 @@
 #include "EnemyVIP.h"
 #include "ServerMachine.h"
 
-EnemyVIP::EnemyVIP(Game& game, ModeBase& mode, MapChips::EnemyData enemydata, 
+EnemyVIP::EnemyVIP(Game& game, ModeGame& mode, MapChips::EnemyData enemydata,
 	ServerMachine& owner, MapChips::EnemyPatrol patrol, EnemyGenerator::EnemyPattern pattern)
 	:Enemy(game, mode, enemydata,pattern), _owner{ owner }
 {

@@ -19,7 +19,7 @@ class Darkness;
 
 class SplitWindow {
 	public:
-		SplitWindow(Game& _game,ModeBase& mode, int pos_x, int pos_y,int window_no);
+		SplitWindow(Game& _game,ModeGame& mode, int pos_x, int pos_y,int window_no);
 		void Update();
 		void Render();
 		void Debug();
@@ -29,8 +29,12 @@ class SplitWindow {
 		int GetWindowSize_W() {return _windowSize_W;}
 		int GetWindowSize_H() { return _windowSize_H;}
 		std::vector<std::unique_ptr<UIBase>>& GetUIServer(){return _ui; }
+		Vector2 GetWindowPos() { return _windowPos; }
 
 		void ChangeRenderStage(int changedelta);
+
+
+		int GetWindowNo() { return _windowNo; }
 
 	private:
 		/*明るいかどうか*/
@@ -41,7 +45,7 @@ class SplitWindow {
 		Vector2 _windowPos;
 		std::unique_ptr<Camera> _camera;
 		Game& _game;
-		ModeBase& _mode;
+		ModeGame& _mode;
 
 		std::unique_ptr<Darkness> _darkness;
 		std::vector<std::unique_ptr<UIBase>> _ui;
@@ -51,7 +55,8 @@ class SplitWindow {
 		/*分割画面内に通常レンダリングするスクリーンハンドル*/
 		int _normalScreen;
 
-
 		int _windowNo;
 		int _renderStage;
+
+
 }; 

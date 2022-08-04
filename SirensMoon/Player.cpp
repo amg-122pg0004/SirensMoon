@@ -19,23 +19,23 @@
 #include "LightBase.h"
 #include "SoundServer.h"
 
-Player::Player(Game& game,ModeBase& mode,int playernum)
+Player::Player(Game& game,ModeGame& mode,int playernum)
 	:Actor{ game,mode }, _speed{ 0,0 },_speedMax{5.0}, _playerNum{playernum}
 	, _dir{0,0}, _lastDir{ 1,0 }, _hp{ 3 }, _bullet{ 5 }, _movable{ 1 }, _charge{ 0 }, _cooldown{ 0 }
 	,_init{false},_state{PlayerState::Wait},_direction{PlayerDirection::Right},_animNo{0}
 {
 	_inputManager = _game.GetInputManager();
 
-	 Vector2 pos = dynamic_cast<ModeGame&>(_mode).GetMapChips()->GetPlayerStartPosition(_playerNum);
+	 Vector2 pos = _mode.GetMapChips()->GetPlayerStartPosition(_playerNum);
 	 _pos = { pos.x,pos.y };
 	 _stage = 1;
-	 _size = { 60,90 };
+	 _size = { 30,60 };
 	 auto light = std::make_unique<LightBase>(_game, _mode, *this);
 	 _mode.GetActorServer().Add(std::move(light));
 }
 
 void Player::Init() {
-	auto&& rendercamera = dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[_playerNum]->GetCamera();
+	auto&& rendercamera = _mode.GetSplitWindow()[_playerNum]->GetCamera();
 	rendercamera->SetPosition(_pos);
 }
 
@@ -101,10 +101,10 @@ void Player::Move() {
 	/*障害物衝突処理*/
 	/*X方向*/
 	_pos.x += _speed.x;
-	if (dynamic_cast<ModeGame&>(_mode).GetMapChips() ->IsHit(_stage - 1, *this)) {
+	if (_mode.GetMapChips() ->IsHit(_stage - 1, *this)) {
 		_pos.x += -1*_speed.x;
 	}
-	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHitBarrier(_stage - 1, *this, _playerNum)) {
+	if (_mode.GetMapChips()->IsHitBarrier(_stage - 1, *this, _playerNum)) {
 		_pos.x += -1 * _speed.x;
 	}
 	UpdateCollision();
@@ -113,10 +113,10 @@ void Player::Move() {
 	}
 
 	_pos.y += _speed.y;
-	if (dynamic_cast<ModeGame&>(_mode).GetMapChips() ->IsHit(_stage - 1, *this)) {
+	if (_mode.GetMapChips() ->IsHit(_stage - 1, *this)) {
 		_pos.y += -1 * _speed.y;
 	}
-	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHitBarrier(_stage - 1, *this, _playerNum)) {
+	if (_mode.GetMapChips()->IsHitBarrier(_stage - 1, *this, _playerNum)) {
 		_pos.y += -1 * _speed.y;
 	}
 	UpdateCollision();
@@ -173,7 +173,7 @@ void Player::Move() {
 
 void Player::UpdateCamera() {
 	/*フレームアウトした際にカメラを動かす処理*/
-	auto&& rendercamera = dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[_playerNum]->GetCamera();
+	auto&& rendercamera = _mode.GetSplitWindow()[_playerNum]->GetCamera();
 	Vector2 renderposition = _pos - rendercamera->GetPosition();
 
 	if (renderposition.x < 0 && _dir.x < 0) {
@@ -221,21 +221,31 @@ void Player::Action() {
 	/*子クラスにてプレイヤーごとの固有アクション設定*/
 }
 
-void Player::StandardRender(int stageNum,Vector2 window_pos,Vector2 camera_pos){
+void Player::StandardRender(int windowNum,Vector2 window_pos,Vector2 camera_pos){
+	
+	
+	if (_mode.GetBlindFlag() && windowNum != _playerNum) {
+		return;
+	}
+
+
 	std::vector<int> cg = _cg[{_state, _direction}];
 	if (_state == PlayerState::Set|| _state == PlayerState::Shoot) {
-		DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x) - 40,
-			static_cast<int>(_pos.y + window_pos.y - camera_pos.y) - 40, cg[_animNo], 1);
+		DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x) - (_size.y/2),
+			static_cast<int>(_pos.y + window_pos.y - camera_pos.y) - (_size.y / 2)*0.5,
+			static_cast<int>(_pos.x + window_pos.x - camera_pos.x) - (_size.y / 2)+_size.y*1.5,
+			static_cast<int>(_pos.y + window_pos.y - camera_pos.y) - (_size.y / 2)*0.5+_size.y*1.5, cg[_animNo], 1);
 		++_animNo;
 		if (_animNo >= cg.size()) {
 			_animNo = cg.size() - 1;
 		}
 	}
 	else {
-		if (_stage == stageNum) {
-			DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x) - 40,
-				static_cast<int>(_pos.y + window_pos.y - camera_pos.y) - 40, cg[_game.GetFrameCount() % cg.size()], 1);
-		}
+			DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x) - (_size.y / 2),
+				static_cast<int>(_pos.y + window_pos.y - camera_pos.y) - (_size.y / 2)*0.5,
+				static_cast<int>(_pos.x + window_pos.x - camera_pos.x) - (_size.y / 2) + _size.y*1.5,
+				static_cast<int>(_pos.y + window_pos.y - camera_pos.y) - (_size.y / 2)*0.5 + _size.y*1.5,
+				cg[_game.GetFrameCount() % cg.size()], 1);
 	}
 	
 }
@@ -267,8 +277,8 @@ void Player::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
 		ss << "弾薬" << _bullet << "\n";
 	}
 
-	//ss << "_collision.max.x" << _collision.max.x << "\n";
-	//ss << "_collision.max.y" << _collision.max.y << "\n";
+	ss << "_collision.max.x" << _collision.max.x << "\n";
+	ss << "_collision.max.y" << _collision.max.y << "\n";
 	ss << "チャージ" << _charge << "\n";
 	ss << "方向" << _dir.x <<"  "<<_dir.y << "\n";
 	ss << "プレイヤー" << _playerNum << "\n";

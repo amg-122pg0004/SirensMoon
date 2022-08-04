@@ -10,12 +10,12 @@
 #include "LightBase.h"
 
 class Game;
-class ModeBase;
+class ModeGame;
 class Actor;
 
 class BlinkLight :public LightBase {
 public:
-	BlinkLight(Game&, ModeBase&, Actor&);
+	BlinkLight(Game&, ModeGame&, Actor&);
 	void Update()override;
 private:
 
