@@ -11,12 +11,12 @@
 #include "Math.h"
 
 class Game;
-class ModeBase;
+class ModeGame;
 class SplitWindow;
 
 class Darkness {
 	public:
-		Darkness(Game& game, ModeBase& mode, SplitWindow& splitwindow);
+		Darkness(Game& game, ModeGame& mode, SplitWindow& splitwindow);
 		/*マスクデータの作成*/
 		int MakeDarkness();
 		/*マスクデータの更新*/
@@ -26,7 +26,7 @@ class Darkness {
 
 	private:
 		Game& _game;
-		ModeBase& _mode;
+		ModeGame& _mode;
 		SplitWindow& _splitWindow;
 
 		int _cg;//マスク用画像取得用

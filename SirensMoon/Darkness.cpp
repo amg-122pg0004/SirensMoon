@@ -10,9 +10,12 @@
 #include "ImageServer.h"
 #include "SplitWindow.h"
 #include "LightBase.h"
+#include "ModeGame.h"
 
 
-Darkness::Darkness(Game& game, ModeBase& mode, SplitWindow& splitwindow) :_game{ game }, _mode{ mode }, _cg{ -1 }, _alphaHandle{ -1 }, _splitWindow{ splitwindow }{
+Darkness::Darkness(Game& game, ModeGame& mode, SplitWindow& splitwindow) 
+	:_game{ game }, _mode{ mode }, _cg{ -1 }, _alphaHandle{ -1 }, _splitWindow{ splitwindow }
+{
 	_cg = ImageServer::LoadGraph("resource/Light/Light_3.png");
 	_cg2 = ImageServer::LoadGraph("resource/Light/Light_4.png");
 }
@@ -31,15 +34,20 @@ void Darkness::Update(Vector2 window_pos, Vector2 camera_pos) {
 	for (auto&& actor : _mode.GetActorServer().GetObjects()) {
 		if (actor->GetType()==Actor::Type::Light) {		
 			LightBase& light = dynamic_cast<LightBase&>(*actor);
-			int alpha =light.GetAlpha();
-			SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
-			DrawRotaGraph2(static_cast<int>(light.GetPosition().x + window_pos.x - _splitWindow.GetCamera()->GetPosition().x),
-				static_cast<int>(light.GetPosition().y + window_pos.y - _splitWindow.GetCamera()->GetPosition().y),
-				light.GetCenterPosition().x,
-				light.GetCenterPosition().y,
-				light.GetScale(), 
-				light.GetAngle(), 
-				light.GetGrHandle(), 1, 0);
+
+			if (_mode.GetBlindFlag()) {
+				if (_splitWindow.GetWindowNo()==0) {
+					if (light.GetOwner().GetType() == Actor::Type::PlayerB) {
+						continue;
+					}
+				}
+				else {
+					if (light.GetOwner().GetType() == Actor::Type::PlayerA) {
+						continue;
+					}
+				}
+			}
+			light.MaskRender(_splitWindow.GetWindowPos(), _splitWindow.GetCamera()->GetPosition());
 		}
 	}
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
