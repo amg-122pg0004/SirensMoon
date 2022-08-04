@@ -23,7 +23,7 @@ BulletItem::BulletItem(Game& game, ModeBase& mode,Vector2 pos)
 
 void BulletItem::Update() {
 	for (auto&& actor : _mode.GetActorServer().GetObjects()) {
-		if (actor->GetType() == Type::Player) {
+		if (actor->GetType() == Type::PlayerA|| actor->GetType() == Type::PlayerB) {
 			if(Intersect(_collision, actor->GetCollision())) {
 				dynamic_cast<Player&>(*actor).TakeAmmo();
 				_dead = true;

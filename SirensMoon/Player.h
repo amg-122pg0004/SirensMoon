@@ -21,20 +21,18 @@ class Player :public Actor {
 	public:
 		Player(Game& game,ModeBase& base,int playernum);
 		void Update() override ;
-		void StandardRender(int stageNum,Vector2 window_pos,Vector2 camera_pos) override ;
+		virtual void StandardRender(int stageNum,Vector2 window_pos,Vector2 camera_pos) override ;
 		void UpdateCamera();
 		void Init();
-		void Load();
 
 		Type GetType() override { return Type::Player; }
 		int GetPlayerNum() { return _playerNum; }
 		Vector2 GetDirection() { return _lastDir; }
 		int GetCharge() { return _charge; }
 
-		void Move();
+		virtual void Move();
 		bool IsHitActor();
-		void GunShoot();
-		void OpenMap();
+		virtual void Action();
 		void PlayFootSteps();
 		void UpdateCollision();
 		void TakeDamage();
@@ -59,7 +57,7 @@ class Player :public Actor {
 			Right,
 		};
 
-	private:
+	protected:
 		std::shared_ptr<InputManager> _inputManager;
 
 		Vector2 _dir;//<ƒLƒƒƒ‰‚ÌŒü‚«

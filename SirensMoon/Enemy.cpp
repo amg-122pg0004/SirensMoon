@@ -199,7 +199,7 @@ void Enemy::SightUpdate() {
 
 bool Enemy::CheckDetection() {
 	for (auto&& actor : _mode.GetActorServer().GetObjects()) {
-		if (actor->GetType() == Type::Player) {
+		if (actor->GetType() == Type::PlayerA|| actor->GetType() == Type::PlayerB) {
 			auto col=actor->GetCollision();
 			Vector2 righttop = { col.max.x,col.min.y };
 			Vector2 leftbottom = { col.min.x,col.max.y };

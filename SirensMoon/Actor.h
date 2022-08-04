@@ -20,7 +20,8 @@ class Actor{
 		enum class Type {
 			Actor,
 			Player,
-			ReconPlayer,
+			PlayerA,
+			PlayerB,
 			Enemy,
 			Bullet,
 			Light,

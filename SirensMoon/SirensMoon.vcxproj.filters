@@ -118,6 +118,12 @@
     <Filter Include="Mode\ModeMovie">
       <UniqueIdentifier>{4c50646e-507e-42d3-ad42-b9ac3c213012}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Player\PlayerAB">
+      <UniqueIdentifier>{2cc87e12-c088-47ee-b99f-7abea17e027a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\HP">
+      <UniqueIdentifier>{dbf5f2cd-2eff-421f-890c-3b5593748d97}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -164,9 +170,6 @@
     </ClCompile>
     <ClCompile Include="LightBase.cpp">
       <Filter>Actor\Light</Filter>
-    </ClCompile>
-    <ClCompile Include="ReconPlayer.cpp">
-      <Filter>Actor\Player</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>Actor\Bullet</Filter>
@@ -222,6 +225,15 @@
     <ClCompile Include="ModeMovie.cpp">
       <Filter>Mode\ModeMovie</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerA.cpp">
+      <Filter>Actor\Player\PlayerAB</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerB.cpp">
+      <Filter>Actor\Player\PlayerAB</Filter>
+    </ClCompile>
+    <ClCompile Include="HPUI.cpp">
+      <Filter>UI\HP</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -268,9 +280,6 @@
     </ClInclude>
     <ClInclude Include="LightBase.h">
       <Filter>Actor\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="ReconPlayer.h">
-      <Filter>Actor\Player</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>Actor\Bullet</Filter>
@@ -325,6 +334,15 @@
     </ClInclude>
     <ClInclude Include="ModeMovie.h">
       <Filter>Mode\ModeMovie</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerA.h">
+      <Filter>Actor\Player\PlayerAB</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerB.h">
+      <Filter>Actor\Player\PlayerAB</Filter>
+    </ClInclude>
+    <ClInclude Include="HPUI.h">
+      <Filter>UI\HP</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

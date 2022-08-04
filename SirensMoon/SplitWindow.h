@@ -10,7 +10,8 @@
 #include "Camera.h"
 #include "ActorServer.h"
 #include "Darkness.h"
-#include "Player.h"
+#include "PlayerA.h"
+#include "PlayerB.h"
 #include "UIBase.h"
 
 class Camera;

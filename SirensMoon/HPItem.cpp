@@ -22,7 +22,7 @@ HPItem::HPItem(Game& game, ModeBase& mode,Vector2 pos)
 
 void HPItem::Update(){
 	for (auto&& actor : _mode.GetActorServer().GetObjects()) {
-		if (actor->GetType() == Type::Player) {
+		if (actor->GetType() == Type::PlayerA|| actor->GetType() == Type::PlayerB) {
 			if (Intersect(_collision, actor->GetCollision())) {
 				dynamic_cast<Player&>(*actor).Heal();
 				_dead = true;
