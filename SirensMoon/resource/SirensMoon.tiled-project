@@ -131,6 +131,64 @@
             ]
         },
         {
+            "color": "#ffa0a0a4",
+            "id": 15,
+            "members": [
+                {
+                    "name": "Activate",
+                    "type": "bool",
+                    "value": true
+                },
+                {
+                    "name": "Color : A",
+                    "type": "int",
+                    "value": 255
+                },
+                {
+                    "name": "Color : B",
+                    "type": "int",
+                    "value": 255
+                },
+                {
+                    "name": "Color : G",
+                    "type": "int",
+                    "value": 255
+                },
+                {
+                    "name": "Color : R",
+                    "type": "int",
+                    "value": 255
+                },
+                {
+                    "name": "Image",
+                    "type": "string",
+                    "value": "resource/Light/Light_square.png"
+                },
+                {
+                    "name": "Size_X",
+                    "type": "float",
+                    "value": 100
+                },
+                {
+                    "name": "Size_Y",
+                    "type": "float",
+                    "value": 100
+                }
+            ],
+            "name": "Light",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset"
+            ]
+        },
+        {
             "color": "#ff0407a4",
             "id": 11,
             "members": [

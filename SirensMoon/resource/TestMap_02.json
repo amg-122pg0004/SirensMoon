@@ -949,6 +949,45 @@
         }, 
         {
          "draworder":"topdown",
+         "id":12,
+         "name":"Light",
+         "objects":[
+                {
+                 "class":"",
+                 "gid":29,
+                 "height":30,
+                 "id":288,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"Color : B",
+                         "type":"int",
+                         "value":255
+                        }, 
+                        {
+                         "name":"Size_X",
+                         "type":"float",
+                         "value":200
+                        }, 
+                        {
+                         "name":"Size_Y",
+                         "type":"float",
+                         "value":500
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":469.666666666667,
+                 "y":3826.33333333333
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "id":5,
          "name":"Item",
          "objects":[
@@ -5127,8 +5166,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":12,
- "nextobjectid":285,
+ "nextlayerid":13,
+ "nextobjectid":289,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.0",
@@ -5366,13 +5405,18 @@
                         }]
                 }, 
                 {
-                 "class":"BackGround",
+                 "class":"Light",
                  "id":28,
                  "properties":[
                         {
-                         "name":"Collision",
-                         "type":"bool",
-                         "value":false
+                         "name":"Color : A",
+                         "type":"int",
+                         "value":255
+                        }, 
+                        {
+                         "name":"Color : B",
+                         "type":"int",
+                         "value":0
                         }]
                 }, 
                 {
