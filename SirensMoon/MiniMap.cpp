@@ -48,7 +48,7 @@ void MiniMap::Render() {
 		//float scale = 410.0f / 3240.0f * 0.97f;
 		float scale = 410.0f / 4320.0f * 0.97f;
 		for (auto&& actor : _mode.GetObjects()) {
-			if (actor->GetType() == Actor::Type::Player) {
+			if (actor->GetType() == Actor::Type::PlayerA) {
 				Player& player = dynamic_cast<Player&>(*actor);
 				if (player.GetPlayerNum() == 0) {
 					DrawBox(static_cast<int>(actor->GetPosition().x * scale + pos.x),
@@ -58,7 +58,7 @@ void MiniMap::Render() {
 						GetColor(0, 0, 255), 1);
 				}
 			}
-			if (actor->GetType() == Actor::Type::Player) {
+			if (actor->GetType() == Actor::Type::PlayerB) {
 				Player& player = dynamic_cast<Player&>(*actor);
 				if (player.GetPlayerNum() == 1) {
 					DrawBox(static_cast<int>(actor->GetPosition().x * scale + pos.x),
