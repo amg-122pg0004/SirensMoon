@@ -21,7 +21,8 @@ public:
 	enum class Type {
 		MiniMap,
 		ServerMachine,
-		Pause
+		Pause,
+		HP
 	};
 	virtual Type GetType() = 0;
 protected:
