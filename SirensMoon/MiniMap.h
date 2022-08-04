@@ -28,4 +28,5 @@ private:
 	int _cg_map;//<ミニマップ仮画像
 	int _cg_enemy;//<敵の位置画像
 
+	bool _blind2Flag;
 };

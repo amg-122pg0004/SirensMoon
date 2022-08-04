@@ -14,8 +14,9 @@
 #include "SoundServer.h"
 #include "EnemyGenerator.h"
 #include "ModeMovie.h"
+#include "FloorLamp.h"
 
-ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false}
+ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blindFlag{false}
 {
 
 	_inputManager=_game.GetInputManager();
@@ -58,6 +59,12 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false}
 		_actorServer.Add(std::move(bullet));
 	}
 
+	auto light_pos = _mapChips->GetLightData();
+	for (int i = 0; i < light_pos.size(); ++i) {
+		auto lamp = std::make_unique<FloorLamp>(_game, *this, light_pos[i]);
+		_actorServer.Add(std::move(lamp));
+	}
+
 	LoadResource();
 }
 
@@ -83,6 +90,9 @@ void ModeGame::LoadResource() {
 }
 
 void ModeGame::Update() {
+	if (_inputManager->CheckInput("BLIND", 't', 0) || _inputManager->CheckInput("BLINd", 't', 1)) {
+		_blindFlag = !_blindFlag;
+	}
 	/*UI‚ÌXV*/
 	for (auto&& splitwindows : _splitWindow) {
 		splitwindows->Update();

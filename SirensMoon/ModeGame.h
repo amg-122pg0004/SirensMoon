@@ -28,6 +28,7 @@ public:
 
 	inline  auto& GetMapChips() { return _mapChips; }
 	inline auto& GetSplitWindow() { return _splitWindow; }
+	bool GetBlindFlag() { return _blindFlag; }
 
 	void SetPauseGame(bool flag) { _stopActorUpdate = flag; }
 	void StageClearCheck();
@@ -44,4 +45,7 @@ private:
 	std::shared_ptr<InputManager> _inputManager;
 
 	int _enemyVIPDeadCount;
+
+	/*お互いのプレイヤーを視認できなくなるフラグ*/
+	bool _blindFlag;
 };
