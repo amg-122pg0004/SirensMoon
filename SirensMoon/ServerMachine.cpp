@@ -28,7 +28,7 @@ ServerMachine::ServerMachine(Game& game, ModeGame& mode, MapChips::ServerMachine
 	}else 	if(_serverData.Direction == "down") {
 		_cg = _cg_down;
 	}else if(_serverData.Direction == "right") {
-		_cg = _cg_left;
+		_cg = _cg_right;
 	}else if(_serverData.Direction == "left") {
 		_cg = _cg_left;
 	}
@@ -42,11 +42,11 @@ ServerMachine::ServerMachine(Game& game, ModeGame& mode, MapChips::ServerMachine
 		_accessArea.min = { _pos.x ,_pos.y - 10 };
 		_accessArea.max = { _pos.x + _size.x , _pos.y + _size.y };
 	}
-	else 	if (_serverData.Direction == "down") {
+	else 	if (_serverData.Direction == "right") {
 		_accessArea.min = { _pos.x + _size.x,_pos.y };
 		_accessArea.max = { _pos.x + _size.x + 10,_pos.y + _size.y };
 	}
-	else if (_serverData.Direction == "right") {
+	else if (_serverData.Direction == "down") {
 		_accessArea.min = { _pos.x,_pos.y + _size.y };
 		_accessArea.max = { _pos.x + _size.x,_pos.y + _size.y + 10 };
 	}
@@ -74,9 +74,8 @@ void ServerMachine::Update() {
 	if (_deadVIP == false) {
 		if ((_inputManager->CheckInput("ACCESS", 't', 1))) {
 			for (auto&& actor : _mode.GetActorServer().GetObjects()) {
-				if (actor->GetType() == Type::Player) {
-					Player player = dynamic_cast<Player&>(*actor);
-					if (player.GetPlayerNum() == 1 && Intersect(_accessArea, actor->GetCollision())) {
+				if (actor->GetType() == Type::PlayerB) {
+					if (Intersect(_accessArea, actor->GetCollision())) {
 						_energy += 50;
 						break;
 					}
@@ -125,9 +124,15 @@ void ServerMachine::SpawnEnemyVIP() {
 
 	ModeGame& mode = dynamic_cast<ModeGame&>(_mode);
 	auto vipdata = mode.GetMapChips()->GetPatrolPointsVIP();
+
+	if (vipdata.size() < 4) {
+		return;
+	}
+
 	std::random_device seed_gen;
 	std::mt19937 engine(seed_gen());
 	std::shuffle(vipdata.begin(), vipdata.end(), engine);
+
 
 	int i = 0;
 	for (i; i < vipdata.size(); ++i) {
