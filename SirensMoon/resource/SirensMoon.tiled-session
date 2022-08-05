@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "TestMap_02.json",
     "expandedProjectPaths": [
         "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource"
     ],
@@ -127,11 +127,11 @@
             "expandedObjectLayers": [
                 4
             ],
-            "scale": 0.75,
-            "selectedLayer": 5,
+            "scale": 0.125,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 1919.9999999999998,
-                "y": 2158.6666666666665
+                "x": -1256,
+                "y": 2472
             }
         },
         "TestMap_02.json#tile_icon": {
@@ -184,8 +184,8 @@
     "project": "SirensMoon.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "TestMap_01.tmx",
         "TestMap_02.json",
+        "TestMap_01.tmx",
         "TestMap_01.json",
         "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/無題.tmx",
         "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/TestMap_01.json",
