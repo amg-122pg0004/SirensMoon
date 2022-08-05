@@ -902,6 +902,124 @@
         }, 
         {
          "draworder":"topdown",
+         "id":13,
+         "name":"Gimmick",
+         "objects":[
+                {
+                 "class":"",
+                 "gid":290,
+                 "height":30,
+                 "id":306,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"Random",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Tereport_OUT",
+                         "type":"object",
+                         "value":307
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":690,
+                 "y":4110
+                }, 
+                {
+                 "class":"",
+                 "gid":291,
+                 "height":30,
+                 "id":307,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":3270,
+                 "y":270
+                }, 
+                {
+                 "class":"",
+                 "gid":291,
+                 "height":30,
+                 "id":308,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"RandomPort",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":2160,
+                 "y":270
+                }, 
+                {
+                 "class":"",
+                 "gid":291,
+                 "height":30,
+                 "id":309,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"RandomPort",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":390,
+                 "y":420
+                }, 
+                {
+                 "class":"",
+                 "gid":291,
+                 "height":30,
+                 "id":310,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"RandomPort",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":3420,
+                 "y":3930
+                }, 
+                {
+                 "class":"",
+                 "gid":291,
+                 "height":30,
+                 "id":311,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"RandomPort",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":2580,
+                 "y":2400
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "id":4,
          "name":"Player",
          "objects":[
@@ -959,6 +1077,11 @@
                  "id":288,
                  "name":"",
                  "properties":[
+                        {
+                         "name":"Color : A",
+                         "type":"int",
+                         "value":100
+                        }, 
                         {
                          "name":"Color : B",
                          "type":"int",
@@ -5166,8 +5289,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":13,
- "nextobjectid":289,
+ "nextlayerid":14,
+ "nextobjectid":312,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.0",
@@ -5357,6 +5480,7 @@
                  "properties":[
                         {
                          "name":"Direction",
+                         "propertytype":"Direction",
                          "type":"string",
                          "value":"up"
                         }, 
@@ -5495,6 +5619,7 @@
                  "properties":[
                         {
                          "name":"Direction",
+                         "propertytype":"Direction",
                          "type":"string",
                          "value":"left"
                         }, 
@@ -5514,6 +5639,7 @@
                  "properties":[
                         {
                          "name":"Direction",
+                         "propertytype":"Direction",
                          "type":"string",
                          "value":"right"
                         }, 
@@ -5671,6 +5797,7 @@
                  "properties":[
                         {
                          "name":"Direction",
+                         "propertytype":"Direction",
                          "type":"string",
                          "value":"down"
                         }, 
@@ -7291,6 +7418,11 @@
                          "name":"Collision",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"FrontRender",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -7301,6 +7433,11 @@
                          "name":"Collision",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"FrontRender",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -7311,6 +7448,11 @@
                          "name":"Collision",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"FrontRender",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -7321,6 +7463,11 @@
                          "name":"Collision",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"FrontRender",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -7331,6 +7478,11 @@
                          "name":"Collision",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"FrontRender",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -7341,6 +7493,11 @@
                          "name":"Collision",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"FrontRender",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -7471,6 +7628,11 @@
                          "name":"Collision",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"FrontRender",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -7481,6 +7643,11 @@
                          "name":"Collision",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"FrontRender",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -7491,6 +7658,11 @@
                          "name":"Collision",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"FrontRender",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -7501,6 +7673,11 @@
                          "name":"Collision",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"FrontRender",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -7511,6 +7688,11 @@
                          "name":"Collision",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"FrontRender",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -7521,6 +7703,11 @@
                          "name":"Collision",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"FrontRender",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -7651,6 +7838,11 @@
                         {
                          "name":"Collision",
                          "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"FrontRender",
+                         "type":"bool",
                          "value":false
                         }]
                 }, 
@@ -7660,6 +7852,11 @@
                  "properties":[
                         {
                          "name":"Collision",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"FrontRender",
                          "type":"bool",
                          "value":false
                         }]
@@ -7671,6 +7868,11 @@
                         {
                          "name":"Collision",
                          "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"FrontRender",
+                         "type":"bool",
                          "value":false
                         }]
                 }, 
@@ -7680,6 +7882,11 @@
                  "properties":[
                         {
                          "name":"Collision",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"FrontRender",
                          "type":"bool",
                          "value":false
                         }]
@@ -7691,6 +7898,11 @@
                         {
                          "name":"Collision",
                          "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"FrontRender",
+                         "type":"bool",
                          "value":false
                         }]
                 }, 
@@ -7700,6 +7912,11 @@
                  "properties":[
                         {
                          "name":"Collision",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"FrontRender",
                          "type":"bool",
                          "value":false
                         }]
@@ -7923,6 +8140,44 @@
                          "type":"bool",
                          "value":false
                         }]
+                }],
+         "tilewidth":30
+        }, 
+        {
+         "columns":10,
+         "firstgid":289,
+         "image":"tile_icon.png",
+         "imageheight":150,
+         "imagewidth":300,
+         "margin":0,
+         "name":"tile_icon",
+         "spacing":0,
+         "tilecount":50,
+         "tileheight":30,
+         "tiles":[
+                {
+                 "class":"Tereport_IN",
+                 "id":1
+                }, 
+                {
+                 "class":"Tereport_OUT",
+                 "id":2
+                }, 
+                {
+                 "class":"Mine",
+                 "id":3
+                }, 
+                {
+                 "class":"Switch",
+                 "id":4
+                }, 
+                {
+                 "class":"Wall",
+                 "id":5
+                }, 
+                {
+                 "class":"TNT",
+                 "id":6
                 }],
          "tilewidth":30
         }],

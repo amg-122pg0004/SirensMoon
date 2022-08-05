@@ -39,17 +39,16 @@ public:
 		std::string Direction;
 	};
 
+	/*テレポーター(in)データ構造*/
+	struct TereporterData {
+		Vector2 pos;
+		bool random;
+		int tereortID;
+	};
+
 	MapChips(Game& game,ModeBase& mode);
 	~MapChips();
-	bool LoadMap(std::string folderpath, std::string filename);
-	void LoadTilesets(picojson::object jsRoot, std::string folderpath);
-	void LoadTileLayer(picojson::object);
-	void LoadMiniMapLayer(picojson::array aObjects);
-	void LoadPlayerLayer(picojson::array aObjects);
-	void LoadEnemyLayer(picojson::array aObjects);
-	void LoadServerLayer(picojson::array aObjects);
-	void LoadItemLayer(picojson::array aObjects);
-	void LoadLightLayer(picojson::array aObjects);
+
 
 	/**
 	 * \brief タイルの表示を行う関数
@@ -61,6 +60,7 @@ public:
 
 	void StandardRender(int stageNum, Vector2 windowPos, Vector2 cameraPos);
 	void ReconRender(int stageNum, Vector2 windowPos, Vector2 cameraPos);
+	void FrontRender(int stageNum, Vector2 windowPos, Vector2 cameraPos);
 
 	int GetChipSize_H() { return _chipSize_H; }
 	int GetChipSize_W() { return _chipSize_W; }
@@ -72,6 +72,8 @@ public:
 	std::vector<Vector2> GetBulletData() { return _bulletItems; }
 	std::vector<ServerMachineData> GetServerData() { return _serverMachineDataList; }
 	std::vector<SquareLight::SquareLightStats> GetLightData() { return _lightDataList; }
+	std::vector<TereporterData> GetTereporterInData() { return _teleporterInDataList; }
+	std::unordered_map<int, std::pair<Vector2, bool>> GetTereporterOutData() { return _teleporterOutDataList; }
 	EnemyPatrol FindPatrol(int id);
 	std::vector<int> CheckHitChipNo(int objectstage, int x, int y);
 	bool IsHit(int objectstage, Actor& o);
@@ -79,6 +81,17 @@ public:
 
 
 private:
+	bool LoadMap(std::string folderpath, std::string filename);
+	void LoadTilesets(picojson::object jsRoot, std::string folderpath);
+	void LoadTileLayer(picojson::object);
+	void LoadMiniMapLayer(picojson::array aObjects);
+	void LoadPlayerLayer(picojson::array aObjects);
+	void LoadEnemyLayer(picojson::array aObjects);
+	void LoadServerLayer(picojson::array aObjects);
+	void LoadItemLayer(picojson::array aObjects);
+	void LoadLightLayer(picojson::array aObjects);
+	void LoadGimmickLayer(picojson::array aObjects);
+
 	Game& _game;
 	ModeBase& _mode;
 
@@ -95,8 +108,10 @@ private:
 
 	std::vector<int> _tilesetsFirstgid;
 
-	/*マップデータ [layer][y][x]*/
+	/*奥マップデータ [layer][y][x]*/
 	std::vector<std::vector<std::vector<int>>> _mapTileData;
+	/*手前マップデータ[layer][y][x]*/
+	std::vector<std::vector<std::vector<int>>> _mapFrontTileData;
 	/*ミニマップデータ [line][plot]*/
 	std::vector<std::vector<Vector2>> _minimapData;
 	/*プレイヤー初期位置データ[player1か2] */
@@ -113,15 +128,21 @@ private:
 	std::vector<EnemyPatrol> _patrolPointsVIP;
 	/*サーバーデータ[配置個数分]*/
 	std::vector<ServerMachineData> _serverMachineDataList;
-	/*ライトデータ*/
+	/*配置ライトデータ*/
 	std::vector<SquareLight::SquareLightStats> _lightDataList;
-
+	/*テレポーターデータ*/
+	std::vector<TereporterData> _teleporterInDataList;
+	std::unordered_map<int, std::pair<Vector2,bool>> _teleporterOutDataList;
 	
 	/*マップチップのグラフィックハンドル用コンテナ*/
 	/*[タイル用画像の枚数分][画像を分割した際のチップ画像の数]*/
 	std::vector<std::vector<int>> _cgChip;
+
 	/*各マップタイルセットのあたり判定を保存するコンテナ*/
 	std::vector<std::vector<bool>> _chipCollision;
+
+	/*手前描画するタイルのgidを保存*/
+	std::vector<int> _gidFront;
 
 	/*各クラスが設定されているタイル(gid)を保存*/
 	std::vector<int> _gidEnemy;
@@ -132,4 +153,6 @@ private:
 	std::vector<int> _gidPlayer;
 	std::vector<ServerTileData> _gidServer;
 	std::vector<std::pair<int,SquareLight::SquareLightStats>> _gidLight;
+	std::unordered_map<int, bool> _gidTereportOut;//<boolはランダムにワープするフラグ
+	std::unordered_map<int, bool> _gidTereportIn;//<boolはランダム抽選に参加するフラグ
 };

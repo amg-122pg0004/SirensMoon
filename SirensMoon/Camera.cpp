@@ -44,7 +44,7 @@ void Camera::ChangePosition(Camera::ChangeDir dir) {
 void Camera::SetPosition(Vector2 playerpos) {
 	int x= static_cast<int>(ceil(playerpos.x / (static_cast<double>(screen_W) / 2))-1);
 	int y =static_cast<int>(ceil(playerpos.y / screen_H)-1);
-	_pos.x = x * static_cast<double>(screen_W)/4;
+	_pos.x = x * static_cast<double>(screen_W)/2;
 	_pos.y = y * screen_H;
 }
 

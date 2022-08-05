@@ -18,6 +18,7 @@
 #include "ProjectionLight.h"
 #include "LightBase.h"
 #include "SoundServer.h"
+#include "Tereporter.h"
 
 Player::Player(Game& game,ModeGame& mode,int playernum)
 	:Actor{ game,mode }, _speed{ 0,0 },_speedMax{5.0}, _playerNum{playernum}
@@ -61,9 +62,13 @@ void Player::Update() {
 
 	Move();
 
+	CheckTereport();
+
 	Action();
 
 	UpdateCollision();
+
+
 }
 
 
@@ -171,6 +176,12 @@ void Player::Move() {
 	}
 }
 
+void Player::ChangePosition(Vector2 pos) {
+	_pos = pos;
+	auto&& rendercamera = _mode.GetSplitWindow()[_playerNum]->GetCamera();
+	rendercamera->SetPosition(_pos);
+}
+
 void Player::UpdateCamera() {
 	/*フレームアウトした際にカメラを動かす処理*/
 	auto&& rendercamera = _mode.GetSplitWindow()[_playerNum]->GetCamera();
@@ -208,7 +219,7 @@ void Player::PlayFootSteps() {
 
 bool Player::IsHitActor() {
 	for (auto&& actor : _mode.GetActorServer().GetObjects()) {
-		if (actor->GetType() != Type::PlayerA&& actor->GetType()!=Type::Item&& actor->GetType() != Type::PlayerB) {
+		if (actor->GetType() == Type::Enemy) {
 			if (Intersect(_collision, actor->GetCollision())) {
 				return true;
 			}
@@ -232,9 +243,9 @@ void Player::StandardRender(int windowNum,Vector2 window_pos,Vector2 camera_pos)
 	std::vector<int> cg = _cg[{_state, _direction}];
 	if (_state == PlayerState::Set|| _state == PlayerState::Shoot) {
 		DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x) - (_size.y/2),
-			static_cast<int>(_pos.y + window_pos.y - camera_pos.y) - (_size.y / 2)*0.5,
+			static_cast<int>(_pos.y + window_pos.y - camera_pos.y) - (_size.y / 2)*0.6,
 			static_cast<int>(_pos.x + window_pos.x - camera_pos.x) - (_size.y / 2)+_size.y*1.5,
-			static_cast<int>(_pos.y + window_pos.y - camera_pos.y) - (_size.y / 2)*0.5+_size.y*1.5, cg[_animNo], 1);
+			static_cast<int>(_pos.y + window_pos.y - camera_pos.y) - (_size.y / 2)*0.6+_size.y*1.5, cg[_animNo], 1);
 		++_animNo;
 		if (_animNo >= cg.size()) {
 			_animNo = cg.size() - 1;
@@ -242,9 +253,9 @@ void Player::StandardRender(int windowNum,Vector2 window_pos,Vector2 camera_pos)
 	}
 	else {
 			DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x) - (_size.y / 2),
-				static_cast<int>(_pos.y + window_pos.y - camera_pos.y) - (_size.y / 2)*0.5,
+				static_cast<int>(_pos.y + window_pos.y - camera_pos.y) - (_size.y / 2)*0.6,
 				static_cast<int>(_pos.x + window_pos.x - camera_pos.x) - (_size.y / 2) + _size.y*1.5,
-				static_cast<int>(_pos.y + window_pos.y - camera_pos.y) - (_size.y / 2)*0.5 + _size.y*1.5,
+				static_cast<int>(_pos.y + window_pos.y - camera_pos.y) - (_size.y / 2)*0.6 + _size.y*1.5,
 				cg[_game.GetFrameCount() % cg.size()], 1);
 	}
 	
@@ -265,6 +276,33 @@ void Player::Heal() {
 
 void Player::TakeAmmo() {
 	++_bullet;
+}
+
+void Player::CheckTereport() {
+	for (auto&& actor : _mode.GetObjects()) {
+		if (actor->GetType() == Type::Tereporter|| actor->GetType() == Type::Server) {
+			if (Intersect(_collision, actor->GetCollision())) {
+				auto tereport = dynamic_cast<TereporterIn&>(*actor);
+				auto id = tereport.GetTereportID();
+				if (tereport.GetRandomFlag()) {
+					auto data = _mode.GetMapChips()->GetTereporterOutData();
+					std::vector<Vector2> positions;
+					for (auto&& pair : data) {
+						if (pair.second.second) {
+							positions.push_back(pair.second.first);
+						}
+					}
+					if (positions.size() != 0) {
+						_pos = positions[_game.GetFrameCount() % positions.size()];
+					}
+				}
+				else {
+					_pos = _mode.GetMapChips()->GetTereporterOutData()[id].first;
+				}
+				Init();
+			}
+		}
+	}
 }
 
 void Player::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){

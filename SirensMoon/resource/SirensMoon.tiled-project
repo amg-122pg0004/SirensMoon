@@ -16,6 +16,11 @@
                     "name": "Collision",
                     "type": "bool",
                     "value": false
+                },
+                {
+                    "name": "FrontRender",
+                    "type": "bool",
+                    "value": false
                 }
             ],
             "name": "BackGround",
@@ -189,6 +194,30 @@
             ]
         },
         {
+            "color": "#ffa0a0a4",
+            "id": 20,
+            "members": [
+                {
+                    "name": "Direction",
+                    "propertyType": "Direction",
+                    "type": "string",
+                    "value": "none"
+                }
+            ],
+            "name": "Mine",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset"
+            ]
+        },
+        {
             "color": "#ff0407a4",
             "id": 11,
             "members": [
@@ -241,6 +270,132 @@
                 "property",
                 "tile",
                 "tileset"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "id": 19,
+            "members": [
+                {
+                    "name": "LinkGimmick1",
+                    "type": "object",
+                    "value": 0
+                },
+                {
+                    "name": "LinkGimmick2",
+                    "type": "object",
+                    "value": 0
+                },
+                {
+                    "name": "LinkGimmick3",
+                    "type": "object",
+                    "value": 0
+                },
+                {
+                    "name": "LinkGimmick4",
+                    "type": "object",
+                    "value": 0
+                },
+                {
+                    "name": "LinkGimmick5",
+                    "type": "object",
+                    "value": 0
+                }
+            ],
+            "name": "Switch",
+            "type": "class",
+            "useAs": [
+                "property",
+                "object",
+                "tile",
+                "tileset"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "id": 17,
+            "members": [
+                {
+                    "name": "Random",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "Tereport_OUT",
+                    "type": "object",
+                    "value": 0
+                }
+            ],
+            "name": "Tereport_IN",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "id": 18,
+            "members": [
+                {
+                    "name": "RandomPort",
+                    "type": "bool",
+                    "value": false
+                }
+            ],
+            "name": "Tereport_OUT",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "id": 22,
+            "members": [
+            ],
+            "name": "TNT",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "id": 21,
+            "members": [
+            ],
+            "name": "Wall",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset"
             ]
         }
     ]

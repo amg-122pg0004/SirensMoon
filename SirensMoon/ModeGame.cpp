@@ -15,6 +15,7 @@
 #include "EnemyGenerator.h"
 #include "ModeMovie.h"
 #include "FloorLamp.h"
+#include "Tereporter.h"
 
 ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blindFlag{false}
 {
@@ -65,6 +66,19 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blind
 		_actorServer.Add(std::move(lamp));
 	}
 
+	auto tereportIn_pos = _mapChips->GetTereporterInData();
+	for (int i = 0; i < tereportIn_pos.size(); ++i) {
+		auto tereportin = std::make_unique<TereporterIn>(_game, *this, tereportIn_pos[i]);
+		_actorServer.Add(std::move(tereportin));
+	}
+	
+	auto data = _mapChips->GetTereporterOutData();
+	for (auto&& pair:data) {
+		auto tereportout = std::make_unique<TereporterOut>(_game, *this, pair.second.first);
+		_actorServer.Add(std::move(tereportout));
+	}
+	
+
 	LoadResource();
 }
 
@@ -90,7 +104,7 @@ void ModeGame::LoadResource() {
 }
 
 void ModeGame::Update() {
-	if (_inputManager->CheckInput("BLIND", 't', 0) || _inputManager->CheckInput("BLINd", 't', 1)) {
+	if (_inputManager->CheckInput("BLIND", 't', 0) || _inputManager->CheckInput("BLIND", 't', 1)) {
 		_blindFlag = !_blindFlag;
 	}
 	/*UI‚ÌXV*/

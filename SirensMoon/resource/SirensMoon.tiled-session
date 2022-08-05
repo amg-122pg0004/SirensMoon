@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "TestMap_01.tmx",
+    "activeFile": "",
     "expandedProjectPaths": [
         "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource"
     ],
@@ -107,14 +107,14 @@
         },
         "TestMap_01.tmx": {
             "expandedObjectLayers": [
-                10,
-                3
+                3,
+                10
             ],
             "scale": 0.75,
             "selectedLayer": 2,
             "viewCenter": {
                 "x": 748,
-                "y": 3971.333333333333
+                "y": 3969.333333333333
             }
         },
         "TestMap_01.tmx#tile_test": {
@@ -127,15 +127,20 @@
             "expandedObjectLayers": [
                 4
             ],
-            "scale": 0.25,
+            "scale": 0.75,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": -256,
-                "y": 3618
+                "x": 1919.9999999999998,
+                "y": 2158.6666666666665
             }
         },
+        "TestMap_02.json#tile_icon": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "TestMap_02.json#tile_test": {
-            "scaleInDock": 1
+            "scaleInDock": 0.5,
+            "scaleInEditor": 1
         },
         "TestMap_02.tmx": {
             "scale": 1,
@@ -164,6 +169,7 @@
         }
     },
     "last.exportedFilePath": "D:/doi/2022summer/SirensMoon/resource",
+    "last.imagePath": "D:/doi/2022summer/SirensMoon/resource",
     "last.objectTypesPath": "D:/doi/2022summer/SirensMoon/resource/propertytypes.json",
     "map.height": 108,
     "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
@@ -173,11 +179,10 @@
     "map.tileWidth": 30,
     "map.width": 96,
     "openFiles": [
-        "TestMap_02.json",
-        "TestMap_01.tmx"
+        "TestMap_02.json"
     ],
     "project": "SirensMoon.tiled-project",
-    "property.type": "int",
+    "property.type": "bool",
     "recentFiles": [
         "TestMap_01.tmx",
         "TestMap_02.json",
@@ -190,6 +195,7 @@
         "TestMap_02.tmx",
         "D:/doi/2022summer/x64/Debug/resource/TestMap_02.tmx"
     ],
+    "tileset.embedInMap": true,
     "tileset.lastUsedFilter": "Tiledタイルセットファイル (*.tsx)",
     "tileset.lastUsedFormat": "tsx",
     "tileset.margin": 0,

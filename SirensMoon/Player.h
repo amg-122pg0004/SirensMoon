@@ -39,6 +39,8 @@ class Player :public Actor {
 		void TakeDamage();
 		void Heal();
 		void TakeAmmo();
+		void ChangePosition(Vector2 pos);
+		void CheckTereport();
 
 		void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;
 

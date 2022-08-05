@@ -180,6 +180,7 @@
     <ClCompile Include="SoundServer.cpp" />
     <ClCompile Include="SplitWindow.cpp" />
     <ClCompile Include="SquareLight.cpp" />
+    <ClCompile Include="Tereporter.cpp" />
     <ClCompile Include="UIBase.cpp" />
     <ClCompile Include="UnstableLight.cpp" />
     <ClCompile Include="WinMain.cpp" />
@@ -220,6 +221,7 @@
     <ClInclude Include="ServerMachineUI.h" />
     <ClInclude Include="SoundServer.h" />
     <ClInclude Include="SplitWindow.h" />
+    <ClInclude Include="Tereporter.h" />
     <ClInclude Include="UIBase.h" />
     <ClInclude Include="UnstableLight.h" />
     <ClInclude Include="SquareLight.h" />

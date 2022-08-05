@@ -100,6 +100,9 @@ void SplitWindow::Render() {
 	/*ƒAƒNƒ^[•`‰æ*/
 	_mode.GetActorServer().StandardRender(_windowNo, _windowPos, _camera->GetPosition());
 
+	/*Žè‘O”wŒi•`‰æ*/
+	static_cast<ModeGame&>(_mode).GetMapChips()->FrontRender(_renderStage - 1, _windowPos, _camera->GetPosition());
+
 	GraphBlend(_normalScreen, _darknessScreen, _lightup, DX_GRAPH_BLEND_MULTIPLE);
 
 	SetDrawScreen(DX_SCREEN_BACK);

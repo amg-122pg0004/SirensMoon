@@ -27,7 +27,8 @@ class Actor{
 			Light,
 			Item,
 			Server,
-			FloorLamp
+			FloorLamp,
+			Tereporter
 		};
 		virtual Type GetType() = 0;
 

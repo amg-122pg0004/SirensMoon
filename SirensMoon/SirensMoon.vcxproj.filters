@@ -130,6 +130,9 @@
     <Filter Include="Actor\FloorLamp">
       <UniqueIdentifier>{1bc590f5-6dad-41bf-9a02-68cd5e643d88}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Tereporter">
+      <UniqueIdentifier>{a13577f6-b8b2-418a-964a-252ca85851d0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -246,6 +249,9 @@
     <ClCompile Include="FloorLamp.cpp">
       <Filter>Actor\FloorLamp</Filter>
     </ClCompile>
+    <ClCompile Include="Tereporter.cpp">
+      <Filter>Actor\Tereporter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -361,6 +367,9 @@
     </ClInclude>
     <ClInclude Include="FloorLamp.h">
       <Filter>Actor\FloorLamp</Filter>
+    </ClInclude>
+    <ClInclude Include="Tereporter.h">
+      <Filter>Actor\Tereporter</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
