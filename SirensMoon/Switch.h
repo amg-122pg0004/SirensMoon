@@ -1,15 +1,20 @@
 #pragma once
-#include "Actor.h"
-#include <vector>
+#include "Gimmick.h"
+#include "MapChip.h"
 
-class Switch :public Actor{
+class Switch :public Gimmick{
 public:
-	Switch(Game& game, ModeGame& mode);
+
+	Switch(Game& game, ModeGame& mode, MapChips::SwitchData data);
+
+	Type GetType()override { return Type::Gimmick; }
+	GimmickType GetGimmickType() override { return GimmickType::Switch; }
 
 	void Update()override;
-	void StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;
+	void LinkGimmickActivate(bool flag);
+	void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos);
 
 private:
 
-	std::vector<Actor*> _linkGimmiks;
+	std::vector<int> _linkGimmiks;
 };

@@ -40,10 +40,17 @@ public:
 	};
 
 	/*テレポーター(in)データ構造*/
-	struct TereporterData {
+	struct teleporterData {
 		Vector2 pos;
 		bool random;
 		int tereortID;
+	};
+
+	/*スイッチデータ構造*/
+	struct SwitchData {
+		int ID;
+		Vector2 pos;
+		std::vector<int> links;
 	};
 
 	MapChips(Game& game,ModeBase& mode);
@@ -71,9 +78,10 @@ public:
 	std::vector<Vector2> GetHPItemData() { return _hpItems; }
 	std::vector<Vector2> GetBulletData() { return _bulletItems; }
 	std::vector<ServerMachineData> GetServerData() { return _serverMachineDataList; }
-	std::vector<SquareLight::SquareLightStats> GetLightData() { return _lightDataList; }
-	std::vector<TereporterData> GetTereporterInData() { return _teleporterInDataList; }
-	std::unordered_map<int, std::pair<Vector2, bool>> GetTereporterOutData() { return _teleporterOutDataList; }
+	std::vector<std::pair<int,SquareLight::SquareLightStats>> GetLightData() { return _lightDataList; }
+	std::vector<teleporterData> GetteleporterInData() { return _teleporterInDataList; }
+	std::unordered_map<int, std::pair<Vector2, bool>> GetteleporterOutData() { return _teleporterOutDataList; }
+	std::vector<SwitchData> GetSwitchData() { return _switchDataList; }
 	EnemyPatrol FindPatrol(int id);
 	std::vector<int> CheckHitChipNo(int objectstage, int x, int y);
 	bool IsHit(int objectstage, Actor& o);
@@ -128,11 +136,14 @@ private:
 	std::vector<EnemyPatrol> _patrolPointsVIP;
 	/*サーバーデータ[配置個数分]*/
 	std::vector<ServerMachineData> _serverMachineDataList;
-	/*配置ライトデータ*/
-	std::vector<SquareLight::SquareLightStats> _lightDataList;
-	/*テレポーターデータ*/
-	std::vector<TereporterData> _teleporterInDataList;
+	/*配置ライトデータ<ID,stats>*/
+	std::vector<std::pair<int,SquareLight::SquareLightStats>> _lightDataList;
+	/*テレポーター入口データ*/
+	std::vector<teleporterData> _teleporterInDataList;
+	/*テレポーター出口データ<ID,<座標,ランダムフラグ>>*/
 	std::unordered_map<int, std::pair<Vector2,bool>> _teleporterOutDataList;
+	/*スイッチデータ*/
+	std::vector<SwitchData> _switchDataList;
 	
 	/*マップチップのグラフィックハンドル用コンテナ*/
 	/*[タイル用画像の枚数分][画像を分割した際のチップ画像の数]*/
@@ -153,6 +164,7 @@ private:
 	std::vector<int> _gidPlayer;
 	std::vector<ServerTileData> _gidServer;
 	std::vector<std::pair<int,SquareLight::SquareLightStats>> _gidLight;
-	std::unordered_map<int, bool> _gidTereportOut;//<boolはランダムにワープするフラグ
-	std::unordered_map<int, bool> _gidTereportIn;//<boolはランダム抽選に参加するフラグ
+	std::unordered_map<int, bool> _gidteleportOut;//<boolはランダムにワープするフラグ
+	std::unordered_map<int, bool> _gidteleportIn;//<boolはランダム抽選に参加するフラグ
+	std::vector<int> _gidSwitch;
 };

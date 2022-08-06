@@ -82,7 +82,7 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename)
 }
 
 void MapChips::LoadTilesets(picojson::object jsRoot,std::string folderpath) {
-	// タイルセット取得(1つのみ対応)
+	// 各タイルセット取得
 	picojson::array aTileSets = jsRoot["tilesets"].get<picojson::array>();
 	for (int i = 0; i < aTileSets.size(); ++i) {
 		picojson::object jsTile = aTileSets[i].get<picojson::object>();
@@ -206,7 +206,7 @@ void MapChips::LoadTilesets(picojson::object jsRoot,std::string folderpath) {
 					}
 					_gidLight.push_back({ id,stats });
 				}
-				if ((*i).get<picojson::object>()["class"].get<std::string>() == "Tereport_IN") {
+				if ((*i).get<picojson::object>()["class"].get<std::string>() == "Teleport_IN") {
 					bool randamFlag{0};
 					if ((*i).get<picojson::object>()["properties"].is<picojson::array>()) {
 						auto properties = (*i).get<picojson::object>()["properties"].get<picojson::array>();
@@ -217,9 +217,9 @@ void MapChips::LoadTilesets(picojson::object jsRoot,std::string folderpath) {
 						}
 					}
 					auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
-					_gidTereportIn[id] = randamFlag;
+					_gidteleportIn[id] = randamFlag;
 				}
-				if ((*i).get<picojson::object>()["class"].get<std::string>() == "Tereport_OUT") {
+				if ((*i).get<picojson::object>()["class"].get<std::string>() == "Teleport_OUT") {
 					bool randamFlag{ 0 };
 					if ((*i).get<picojson::object>()["properties"].is<picojson::array>()) {
 						auto properties = (*i).get<picojson::object>()["properties"].get<picojson::array>();
@@ -230,7 +230,11 @@ void MapChips::LoadTilesets(picojson::object jsRoot,std::string folderpath) {
 						}
 					}
 					auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
-					_gidTereportOut[id] = randamFlag;
+					_gidteleportOut[id] = randamFlag;
+				}
+				if ((*i).get<picojson::object>()["class"].get<std::string>() == "Switch") {
+					auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
+					_gidSwitch.push_back(id);
 				}
 			}
 			// チップコリジョンデータ読み込み
@@ -470,8 +474,8 @@ void MapChips::LoadLightLayer(picojson::array aObjects) {
 					}
 					stats.pos = { aObjects[i].get<picojson::object>()["x"].get<double>()-(stats.size.x/2),
 						aObjects[i].get<picojson::object>()["y"].get<double>()-(stats.size.y / 2) };
-
-					_lightDataList.push_back(stats);
+					int id = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
+					_lightDataList.push_back({ id,stats });
 				}
 			}
 		}
@@ -549,12 +553,12 @@ void MapChips::LoadServerLayer(picojson::array aObjects) {
 
 void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 	for (int i = 0; i < aObjects.size(); ++i) {
-		/*マップタイル3番はエネミー*/
+		/*テレポーター入口読み込み*/
 		if (aObjects[i].get<picojson::object>()["gid"].is<double>()) {
 			auto gid = static_cast<int>(aObjects[i].get<picojson::object>()["gid"].get<double>());
-			if (_gidTereportIn.find(gid) != _gidTereportIn.end()) {
-				TereporterData stat;
-				stat.random = _gidTereportIn[gid];
+			if (_gidteleportIn.find(gid) != _gidteleportIn.end()) {
+				teleporterData stat;
+				stat.random = _gidteleportIn[gid];
 				stat.tereortID = -1;
 				stat.pos.x = aObjects[i].get<picojson::object>()["x"].get<double>();
 				stat.pos.y = aObjects[i].get<picojson::object>()["y"].get<double>();
@@ -564,16 +568,18 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 						if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Random") {
 							stat.random = properties[i].get<picojson::object>()["value"].get<bool>();
 						}
-						if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Tereport_OUT") {
+						if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Teleport_OUT") {
 							stat.tereortID = static_cast<int>(properties[i].get<picojson::object>()["value"].get<double>());
 						}
 					}
 				}
 				if (stat.random == true || stat.tereortID != -1) {
+
 					_teleporterInDataList.push_back(stat);
 				}
 			}
-			if (_gidTereportOut.find(gid) != _gidTereportOut.end()) {
+			/*テレポーター出口読み込み*/
+			if (_gidteleportOut.find(gid) != _gidteleportOut.end()) {
 				bool randomflag{0};
 				Vector2 pos;
 				pos.x = aObjects[i].get<picojson::object>()["x"].get<double>();
@@ -588,6 +594,31 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 				}
 				auto id = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
 				_teleporterOutDataList[id] = { pos,randomflag };
+			}
+			/*スイッチ読み込み*/
+			for (auto gid : _gidSwitch) {
+				if (gid == static_cast<int>(aObjects[i].get<picojson::object>()["gid"].get<double>())) {
+					SwitchData data;
+					if (aObjects[i].get<picojson::object>()["properties"].is<picojson::array>()) {
+						auto properties = aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
+						for (int i = 0; i < properties.size(); ++i) {
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "LinkGimmick1"||
+								properties[i].get<picojson::object>()["name"].get<std::string>() == "LinkGimmick2" ||
+								properties[i].get<picojson::object>()["name"].get<std::string>() == "LinkGimmick3" ||
+								properties[i].get<picojson::object>()["name"].get<std::string>() == "LinkGimmick4" ||
+								properties[i].get<picojson::object>()["name"].get<std::string>() == "LinkGimmick5") {
+								data.links.push_back(static_cast<int>(properties[i].get<picojson::object>()["value"].get<double>()));
+							}
+						}
+					}
+					if (data.links.size() != 0) {
+
+						data.pos.x = aObjects[i].get<picojson::object>()["x"].get<double>();
+						data.pos.y = aObjects[i].get<picojson::object>()["y"].get<double>();
+						data.ID = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
+						_switchDataList.push_back(data);
+					}
+				}
 			}
 		}
 	}

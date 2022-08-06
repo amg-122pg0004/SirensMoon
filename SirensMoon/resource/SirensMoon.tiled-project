@@ -321,12 +321,12 @@
                     "value": false
                 },
                 {
-                    "name": "Tereport_OUT",
+                    "name": "Teleport_OUT",
                     "type": "object",
                     "value": 0
                 }
             ],
-            "name": "Tereport_IN",
+            "name": "Teleport_IN",
             "type": "class",
             "useAs": [
                 "property",
@@ -349,7 +349,7 @@
                     "value": false
                 }
             ],
-            "name": "Tereport_OUT",
+            "name": "Teleport_OUT",
             "type": "class",
             "useAs": [
                 "property",

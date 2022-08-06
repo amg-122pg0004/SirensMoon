@@ -918,7 +918,7 @@
                          "value":true
                         }, 
                         {
-                         "name":"Tereport_OUT",
+                         "name":"Teleport_OUT",
                          "type":"object",
                          "value":307
                         }],
@@ -1011,6 +1011,24 @@
                  "width":30,
                  "x":2580,
                  "y":2400
+                }, 
+                {
+                 "class":"",
+                 "gid":293,
+                 "height":30,
+                 "id":313,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"LinkGimmick1",
+                         "type":"object",
+                         "value":288
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":612,
+                 "y":3884
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -5290,7 +5308,7 @@
          "y":0
         }],
  "nextlayerid":14,
- "nextobjectid":312,
+ "nextobjectid":314,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.0",
@@ -8156,11 +8174,11 @@
          "tileheight":30,
          "tiles":[
                 {
-                 "class":"Tereport_IN",
+                 "class":"Teleport_IN",
                  "id":1
                 }, 
                 {
-                 "class":"Tereport_OUT",
+                 "class":"Teleport_OUT",
                  "id":2
                 }, 
                 {

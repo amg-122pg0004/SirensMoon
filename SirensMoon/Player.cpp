@@ -18,7 +18,7 @@
 #include "ProjectionLight.h"
 #include "LightBase.h"
 #include "SoundServer.h"
-#include "Tereporter.h"
+#include "teleporter.h"
 
 Player::Player(Game& game,ModeGame& mode,int playernum)
 	:Actor{ game,mode }, _speed{ 0,0 },_speedMax{5.0}, _playerNum{playernum}
@@ -62,7 +62,7 @@ void Player::Update() {
 
 	Move();
 
-	CheckTereport();
+	Checkteleport();
 
 	Action();
 
@@ -278,28 +278,30 @@ void Player::TakeAmmo() {
 	++_bullet;
 }
 
-void Player::CheckTereport() {
+void Player::Checkteleport() {
 	for (auto&& actor : _mode.GetObjects()) {
-		if (actor->GetType() == Type::Tereporter|| actor->GetType() == Type::Server) {
-			if (Intersect(_collision, actor->GetCollision())) {
-				auto tereport = dynamic_cast<TereporterIn&>(*actor);
-				auto id = tereport.GetTereportID();
-				if (tereport.GetRandomFlag()) {
-					auto data = _mode.GetMapChips()->GetTereporterOutData();
-					std::vector<Vector2> positions;
-					for (auto&& pair : data) {
-						if (pair.second.second) {
-							positions.push_back(pair.second.first);
+		if (actor->GetType() == Type::Gimmick) {
+			if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::Teleporter) {
+				if (Intersect(_collision, actor->GetCollision())) {
+					auto teleport = dynamic_cast<teleporterIn&>(*actor);
+					auto id = teleport.GetteleportID();
+					if (teleport.GetRandomFlag()) {
+						auto data = _mode.GetMapChips()->GetteleporterOutData();
+						std::vector<Vector2> positions;
+						for (auto&& pair : data) {
+							if (pair.second.second) {
+								positions.push_back(pair.second.first);
+							}
+						}
+						if (positions.size() != 0) {
+							_pos = positions[_game.GetFrameCount() % positions.size()];
 						}
 					}
-					if (positions.size() != 0) {
-						_pos = positions[_game.GetFrameCount() % positions.size()];
+					else {
+						_pos = _mode.GetMapChips()->GetteleporterOutData()[id].first;
 					}
+					Init();
 				}
-				else {
-					_pos = _mode.GetMapChips()->GetTereporterOutData()[id].first;
-				}
-				Init();
 			}
 		}
 	}

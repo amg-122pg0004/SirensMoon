@@ -127,13 +127,16 @@
     <Filter Include="Actor\Light\SquereLight">
       <UniqueIdentifier>{d2bdd3e0-0f2e-4ddd-969c-cd8951eda55a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\FloorLamp">
+    <Filter Include="Actor\Gimmick">
+      <UniqueIdentifier>{cdf8cfc1-8c5b-4647-9bd4-82b21fee741a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Gimmick\FloorLamp">
       <UniqueIdentifier>{1bc590f5-6dad-41bf-9a02-68cd5e643d88}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Tereporter">
+    <Filter Include="Actor\Gimmick\Tereporter">
       <UniqueIdentifier>{a13577f6-b8b2-418a-964a-252ca85851d0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Switch">
+    <Filter Include="Actor\Gimmick\Switch">
       <UniqueIdentifier>{0f81dcc4-ae02-4b96-b35d-bbb57db2c95e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -250,13 +253,19 @@
       <Filter>Actor\Light\SquereLight</Filter>
     </ClCompile>
     <ClCompile Include="FloorLamp.cpp">
-      <Filter>Actor\FloorLamp</Filter>
+      <Filter>Actor\Gimmick\FloorLamp</Filter>
     </ClCompile>
-    <ClCompile Include="Tereporter.cpp">
-      <Filter>Actor\Tereporter</Filter>
+    <ClCompile Include="Teleporter.cpp">
+      <Filter>Actor\Gimmick\Tereporter</Filter>
     </ClCompile>
     <ClCompile Include="Switch.cpp">
-      <Filter>Actor\Switch</Filter>
+      <Filter>Actor\Gimmick\Switch</Filter>
+    </ClCompile>
+    <ClCompile Include="Gimmick.cpp">
+      <Filter>Actor\Gimmick</Filter>
+    </ClCompile>
+    <ClCompile Include="TileSetLoad.cpp">
+      <Filter>MapChip</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -372,13 +381,19 @@
       <Filter>Actor\Light\SquereLight</Filter>
     </ClInclude>
     <ClInclude Include="FloorLamp.h">
-      <Filter>Actor\FloorLamp</Filter>
+      <Filter>Actor\Gimmick\FloorLamp</Filter>
     </ClInclude>
-    <ClInclude Include="Tereporter.h">
-      <Filter>Actor\Tereporter</Filter>
+    <ClInclude Include="Teleporter.h">
+      <Filter>Actor\Gimmick\Tereporter</Filter>
     </ClInclude>
     <ClInclude Include="Switch.h">
-      <Filter>Actor\Switch</Filter>
+      <Filter>Actor\Gimmick\Switch</Filter>
+    </ClInclude>
+    <ClInclude Include="Gimmick.h">
+      <Filter>Actor\Gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="TileSetLoad.h">
+      <Filter>MapChip</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,8 +2,8 @@
 #include <memory>
 #include "ModeGame.h"
 
-FloorLamp::FloorLamp(Game& game, ModeGame& mode, SquareLight::SquareLightStats stats)
-	:Actor(game,mode)
+FloorLamp::FloorLamp(Game& game, ModeGame& mode, int ID, SquareLight::SquareLightStats stats)
+	:Gimmick(game,mode, ID)
 {
 	_activate = stats.activate;
 	_pos = stats.pos;

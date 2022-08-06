@@ -15,7 +15,8 @@
 #include "EnemyGenerator.h"
 #include "ModeMovie.h"
 #include "FloorLamp.h"
-#include "Tereporter.h"
+#include "teleporter.h"
+#include "Switch.h"
 
 ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blindFlag{false}
 {
@@ -59,25 +60,32 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blind
 		auto bullet = std::make_unique<BulletItem>(_game, *this, bullet_pos[i]);
 		_actorServer.Add(std::move(bullet));
 	}
-
+	
 	auto light_pos = _mapChips->GetLightData();
 	for (int i = 0; i < light_pos.size(); ++i) {
-		auto lamp = std::make_unique<FloorLamp>(_game, *this, light_pos[i]);
+		auto lamp = std::make_unique<FloorLamp>(_game, *this, light_pos[i].first, light_pos[i].second);
 		_actorServer.Add(std::move(lamp));
 	}
+	
 
-	auto tereportIn_pos = _mapChips->GetTereporterInData();
-	for (int i = 0; i < tereportIn_pos.size(); ++i) {
-		auto tereportin = std::make_unique<TereporterIn>(_game, *this, tereportIn_pos[i]);
-		_actorServer.Add(std::move(tereportin));
+	auto teleportIn_pos = _mapChips->GetteleporterInData();
+	for (int i = 0; i < teleportIn_pos.size(); ++i) {
+		auto teleportin = std::make_unique<teleporterIn>(_game, *this,-1, teleportIn_pos[i]);
+		_actorServer.Add(std::move(teleportin));
 	}
 	
-	auto data = _mapChips->GetTereporterOutData();
+	auto data = _mapChips->GetteleporterOutData();
 	for (auto&& pair:data) {
-		auto tereportout = std::make_unique<TereporterOut>(_game, *this, pair.second.first);
-		_actorServer.Add(std::move(tereportout));
+		auto teleportout = std::make_unique<teleporterOut>(_game, *this,-1, pair.second.first);
+		_actorServer.Add(std::move(teleportout));
 	}
-	
+
+	auto switchdata = _mapChips->GetSwitchData();
+	for (auto aswitch  : switchdata) {
+		auto switch_obj = std::make_unique<Switch>(_game, *this,aswitch);
+		_actorServer.Add(std::move(switch_obj));
+	}
+
 
 	LoadResource();
 }
