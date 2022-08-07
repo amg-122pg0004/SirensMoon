@@ -107,8 +107,8 @@
         },
         "TestMap_01.tmx": {
             "expandedObjectLayers": [
-                3,
-                10
+                10,
+                3
             ],
             "scale": 0.75,
             "selectedLayer": 2,
@@ -130,8 +130,8 @@
             "scale": 1.5,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 942,
-                "y": 4057
+                "x": 525,
+                "y": 3812.333333333333
             }
         },
         "TestMap_02.json#tile_icon": {

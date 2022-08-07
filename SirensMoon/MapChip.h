@@ -82,6 +82,8 @@ public:
 	std::vector<teleporterData> GetteleporterInData() { return _teleporterInDataList; }
 	std::unordered_map<int, std::pair<Vector2, bool>> GetteleporterOutData() { return _teleporterOutDataList; }
 	std::vector<SwitchData> GetSwitchData() { return _switchDataList; }
+	std::vector<std::pair<int, Vector2>>GetDoorData() { return _doorDataList; }
+	std::vector<std::pair<int, Vector2>>GetTNTData() { return _tNTDataList; }
 	EnemyPatrol FindPatrol(int id);
 	std::vector<int> CheckHitChipNo(int objectstage, int x, int y);
 	bool IsHit(int objectstage, Actor& o);
@@ -144,6 +146,10 @@ private:
 	std::unordered_map<int, std::pair<Vector2,bool>> _teleporterOutDataList;
 	/*スイッチデータ*/
 	std::vector<SwitchData> _switchDataList;
+	/*ドアデータ*/
+	std::vector<std::pair<int,Vector2>> _doorDataList;
+	/*TNTデータ*/
+	std::vector<std::pair<int, Vector2>> _tNTDataList;
 	
 	/*マップチップのグラフィックハンドル用コンテナ*/
 	/*[タイル用画像の枚数分][画像を分割した際のチップ画像の数]*/
@@ -167,4 +173,6 @@ private:
 	std::unordered_map<int, bool> _gidteleportOut;//<boolはランダムにワープするフラグ
 	std::unordered_map<int, bool> _gidteleportIn;//<boolはランダム抽選に参加するフラグ
 	std::vector<int> _gidSwitch;
+	std::vector<int> _gidDoor;
+	std::vector<int> _gidTNT;
 };

@@ -117,10 +117,10 @@ void ServerMachine::SpawnEnemyVIP() {
 		}
 	}
 
-	int count_x=ceil(player0pos.x / 960);
-	int count_y=ceil(player0pos.y / 1080);
-	int count_x2 = ceil(_pos.x / 960);
-	int count_y2 = ceil(_pos.y / 1080);
+	int count_x=static_cast<int>(ceil(player0pos.x / 960));
+	int count_y= static_cast<int>(ceil(player0pos.y / 1080));
+	int count_x2 = static_cast<int>(ceil(_pos.x / 960));
+	int count_y2 = static_cast<int>(ceil(_pos.y / 1080));
 
 	ModeGame& mode = dynamic_cast<ModeGame&>(_mode);
 	auto vipdata = mode.GetMapChips()->GetPatrolPointsVIP();
@@ -137,8 +137,8 @@ void ServerMachine::SpawnEnemyVIP() {
 	int i = 0;
 	for (i; i < vipdata.size(); ++i) {
 		auto pos = vipdata[i].PatrolPoints[0];
-		int count_x3 = ceil(pos.x / (static_cast<double>(screen_W) / 2));
-		int count_y3 = ceil(pos.y / screen_H);
+		int count_x3 = static_cast<int>(ceil(pos.x / (static_cast<double>(screen_W) / 2)));
+		int count_y3 = static_cast<int>(ceil(pos.y / screen_H));
 		if (count_x3 != count_x || count_y3 != count_y) {
 			if (count_x3 != count_x2 || count_y3 != count_y2) {
 				break;

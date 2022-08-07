@@ -15,6 +15,6 @@ public:
 	void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos);
 
 private:
-
+	AABB _accessArea;
 	std::vector<int> _linkGimmiks;
 };

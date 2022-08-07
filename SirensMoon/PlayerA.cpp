@@ -81,6 +81,7 @@ void PlayerA::Action(){
 			_movable = false;
 			_state = PlayerState::Shoot;
 			_animNo = 0;
+			--_bullet;
 		}
 
 	}

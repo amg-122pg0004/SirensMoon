@@ -236,6 +236,14 @@ void MapChips::LoadTilesets(picojson::object jsRoot,std::string folderpath) {
 					auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
 					_gidSwitch.push_back(id);
 				}
+				if ((*i).get<picojson::object>()["class"].get<std::string>() == "Door") {
+					auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
+					_gidDoor.push_back(id);
+				}
+				if ((*i).get<picojson::object>()["class"].get<std::string>() == "TNT") {
+					auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
+					_gidTNT.push_back(id);
+				}
 			}
 			// チップコリジョンデータ読み込み
 			if ((*i).get<picojson::object>()["properties"].is<picojson::array>()) {
@@ -618,6 +626,24 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 						data.ID = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
 						_switchDataList.push_back(data);
 					}
+				}
+			}
+			for (auto gid : _gidDoor) {
+				if (gid == static_cast<int>(aObjects[i].get<picojson::object>()["gid"].get<double>())) {
+					Vector2 pos;
+					pos.x = static_cast<int>(aObjects[i].get<picojson::object>()["x"].get<double>());
+					pos.y = static_cast<int>(aObjects[i].get<picojson::object>()["y"].get<double>());
+					auto id = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
+					_doorDataList.push_back({ id, pos });
+				}
+			}
+			for (auto gid : _gidTNT) {
+				if (gid == static_cast<int>(aObjects[i].get<picojson::object>()["gid"].get<double>())) {
+					Vector2 pos;
+					pos.x = static_cast<int>(aObjects[i].get<picojson::object>()["x"].get<double>());
+					pos.y = static_cast<int>(aObjects[i].get<picojson::object>()["y"].get<double>());
+					auto id = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
+					_tNTDataList.push_back({ id, pos });
 				}
 			}
 		}

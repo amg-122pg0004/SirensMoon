@@ -13,6 +13,7 @@
 #include "Pause.h"
 #include "ServerMachine.h"
 #include "HPUI.h"
+#include "AmmoUI.h"
 
 SplitWindow::SplitWindow(Game& game,ModeGame& mode,int pos_x, int pos_y,int window_no) :
 	_game{game}, _mode{mode}, _windowPos{pos_x ,pos_y}, _windowNo{window_no}, _renderStage{1},_lightup{255}
@@ -31,6 +32,12 @@ SplitWindow::SplitWindow(Game& game,ModeGame& mode,int pos_x, int pos_y,int wind
 	else {
 		auto player = std::make_unique<PlayerB>(_game, _mode, window_no);
 		_mode.GetActorServer().Add(std::move(player));
+	}
+
+	if (_windowNo == 0) {
+		Vector2 map_pos = { 0,0 };
+		Vector2 map_size = { 480,180 };
+		_ui.emplace_back(std::make_unique<AmmoUI>(_game, _mode, map_pos, map_size));
 	}
 
 	if (_windowNo == 1) {

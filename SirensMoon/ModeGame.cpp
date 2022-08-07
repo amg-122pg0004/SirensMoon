@@ -17,6 +17,8 @@
 #include "FloorLamp.h"
 #include "teleporter.h"
 #include "Switch.h"
+#include "Door.h"
+#include "TNT.h"
 
 ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blindFlag{false}
 {
@@ -86,6 +88,18 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blind
 		_actorServer.Add(std::move(switch_obj));
 	}
 
+	auto doordata = _mapChips->GetDoorData();
+	for (auto adoor : doordata) {
+		auto door = std::make_unique<Door>(_game, *this, adoor.first,adoor.second);
+		_actorServer.Add(std::move(door));
+	}
+
+	auto tntdata = _mapChips->GetTNTData();
+	for (auto atnt : tntdata) {
+		auto tnt = std::make_unique<TNT>(_game, *this, atnt.first, atnt.second);
+		_actorServer.Add(std::move(tnt));
+	}
+
 
 	LoadResource();
 }
@@ -108,6 +122,8 @@ void ModeGame::LoadResource() {
 	SoundServer::LoadSound("BulletToEnemy", "resource/Sounds/Player/se_sk2020.wav");
 	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("BulletToEnemy"));
 	SoundServer::LoadSound("PlayerOpenMap", "resource/Sounds/Player/se_sk2050.wav");
+	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("PlayerOpenMap"));
+	SoundServer::LoadSound("Explosion", "resource/Sounds/Gimmick/se_sk2063.wav");
 	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("PlayerOpenMap"));
 }
 

@@ -23,7 +23,7 @@
 Player::Player(Game& game,ModeGame& mode,int playernum)
 	:Actor{ game,mode }, _speed{ 0,0 },_speedMax{5.0}, _playerNum{playernum}
 	, _dir{0,0}, _lastDir{ 1,0 }, _hp{ 3 }, _bullet{ 5 }, _movable{ 1 }, _charge{ 0 }, _cooldown{ 0 }
-	,_init{false},_state{PlayerState::Wait},_direction{PlayerDirection::Right},_animNo{0}
+	,_init{false},_state{PlayerState::Wait},_direction{PlayerDirection::Right},_animNo{0}, _invincibleTime{0}
 {
 	_inputManager = _game.GetInputManager();
 
@@ -68,7 +68,7 @@ void Player::Update() {
 
 	UpdateCollision();
 
-
+	CheckDamage();
 }
 
 
@@ -218,14 +218,35 @@ void Player::PlayFootSteps() {
 }
 
 bool Player::IsHitActor() {
+
+
+
 	for (auto&& actor : _mode.GetActorServer().GetObjects()) {
-		if (actor->GetType() == Type::Enemy) {
+		if (actor->GetType() == Type::Enemy || actor->GetType() == Type::Gimmick) {
 			if (Intersect(_collision, actor->GetCollision())) {
 				return true;
 			}
 		}
 	}
 	return false;
+}
+
+void Player::CheckDamage() {
+	--_invincibleTime;
+
+	if (_invincibleTime < 0) {
+		_invincibleTime = 0;
+	}
+	if (_invincibleTime == 0) {
+		for (auto&& actor : _mode.GetActorServer().GetObjects()) {
+			if (actor->GetType() == Type::Explode) {
+				if (Intersect(_collision, actor->GetCollision())) {
+					TakeDamage();
+					_invincibleTime = 90;
+				}
+			}
+		}
+	}
 }
 
 void Player::Action() {

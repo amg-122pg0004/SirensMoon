@@ -28,6 +28,7 @@ class Actor{
 			Item,
 			Server,
 			Gimmick,
+			Explode
 		};
 		virtual Type GetType() = 0;
 

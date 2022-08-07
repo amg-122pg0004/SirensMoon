@@ -20,9 +20,6 @@
     <Filter Include="MapChip">
       <UniqueIdentifier>{8e83c6a0-2072-48f4-a386-4ffed9bf938c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Math">
-      <UniqueIdentifier>{bbdb0008-9cfc-4c4c-801f-7909200dd01c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="WinMain">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
@@ -139,6 +136,27 @@
     <Filter Include="Actor\Gimmick\Switch">
       <UniqueIdentifier>{0f81dcc4-ae02-4b96-b35d-bbb57db2c95e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI\AmmoUI">
+      <UniqueIdentifier>{41ebb9d0-80ca-429d-a0d4-aa22ec921d5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utillity\Easing">
+      <UniqueIdentifier>{06cb272b-52e7-453d-95aa-4967289934e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Gimmick\Door">
+      <UniqueIdentifier>{210ca4e2-4225-42f0-8c48-908974165a9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utillity\Math">
+      <UniqueIdentifier>{bbdb0008-9cfc-4c4c-801f-7909200dd01c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Gimmick\Mine">
+      <UniqueIdentifier>{f416ee63-efc5-43c3-931a-185d7c9e3a78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Gimmick\TNT">
+      <UniqueIdentifier>{6030b69b-67b1-405c-b18e-aff4dfe20118}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Explode">
+      <UniqueIdentifier>{df561fd6-b343-41d0-9c1f-489273a23e84}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -160,7 +178,7 @@
       <Filter>MapChip</Filter>
     </ClCompile>
     <ClCompile Include="Math.cpp">
-      <Filter>Math</Filter>
+      <Filter>Utillity\Math</Filter>
     </ClCompile>
     <ClCompile Include="Actor.cpp">
       <Filter>Actor</Filter>
@@ -267,6 +285,24 @@
     <ClCompile Include="TileSetLoad.cpp">
       <Filter>MapChip</Filter>
     </ClCompile>
+    <ClCompile Include="AmmoUI.cpp">
+      <Filter>UI\AmmoUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Easing.cpp">
+      <Filter>Utillity\Easing</Filter>
+    </ClCompile>
+    <ClCompile Include="Door.cpp">
+      <Filter>Actor\Gimmick\Door</Filter>
+    </ClCompile>
+    <ClCompile Include="Mine.cpp">
+      <Filter>Actor\Gimmick\Mine</Filter>
+    </ClCompile>
+    <ClCompile Include="TNT.cpp">
+      <Filter>Actor\Gimmick\TNT</Filter>
+    </ClCompile>
+    <ClCompile Include="Explode.cpp">
+      <Filter>Actor\Explode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -285,7 +321,7 @@
       <Filter>MapChip</Filter>
     </ClInclude>
     <ClInclude Include="Math.h">
-      <Filter>Math</Filter>
+      <Filter>Utillity\Math</Filter>
     </ClInclude>
     <ClInclude Include="picojson\picojson.h">
       <Filter>picojson</Filter>
@@ -394,6 +430,24 @@
     </ClInclude>
     <ClInclude Include="TileSetLoad.h">
       <Filter>MapChip</Filter>
+    </ClInclude>
+    <ClInclude Include="AmmoUI.h">
+      <Filter>UI\AmmoUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Easing.h">
+      <Filter>Utillity\Easing</Filter>
+    </ClInclude>
+    <ClInclude Include="Door.h">
+      <Filter>Actor\Gimmick\Door</Filter>
+    </ClInclude>
+    <ClInclude Include="Mine.h">
+      <Filter>Actor\Gimmick\Mine</Filter>
+    </ClInclude>
+    <ClInclude Include="Explode.h">
+      <Filter>Actor\Explode</Filter>
+    </ClInclude>
+    <ClInclude Include="TNT.h">
+      <Filter>Actor\Gimmick</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

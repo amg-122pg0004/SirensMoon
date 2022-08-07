@@ -925,8 +925,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":690,
-                 "y":4110
+                 "x":948.666666666667,
+                 "y":3654.66666666667
                 }, 
                 {
                  "class":"",
@@ -1022,13 +1022,45 @@
                         {
                          "name":"LinkGimmick1",
                          "type":"object",
-                         "value":288
+                         "value":318
+                        }, 
+                        {
+                         "name":"LinkGimmick2",
+                         "type":"object",
+                         "value":314
+                        }, 
+                        {
+                         "name":"LinkGimmick3",
+                         "type":"object",
+                         "value":315
+                        }, 
+                        {
+                         "name":"LinkGimmick4",
+                         "type":"object",
+                         "value":316
+                        }, 
+                        {
+                         "name":"LinkGimmick5",
+                         "type":"object",
+                         "value":317
                         }],
                  "rotation":0,
                  "visible":true,
                  "width":30,
                  "x":612,
                  "y":3884
+                }, 
+                {
+                 "class":"",
+                 "gid":295,
+                 "height":30,
+                 "id":318,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":526.666666666667,
+                 "y":3836
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1087,40 +1119,7 @@
          "draworder":"topdown",
          "id":12,
          "name":"Light",
-         "objects":[
-                {
-                 "class":"",
-                 "gid":29,
-                 "height":30,
-                 "id":288,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"Color : A",
-                         "type":"int",
-                         "value":100
-                        }, 
-                        {
-                         "name":"Color : B",
-                         "type":"int",
-                         "value":255
-                        }, 
-                        {
-                         "name":"Size_X",
-                         "type":"float",
-                         "value":200
-                        }, 
-                        {
-                         "name":"Size_Y",
-                         "type":"float",
-                         "value":500
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":30,
-                 "x":469.666666666667,
-                 "y":3826.33333333333
-                }],
+         "objects":[],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -5308,7 +5307,7 @@
          "y":0
         }],
  "nextlayerid":14,
- "nextobjectid":314,
+ "nextobjectid":319,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.0",
@@ -8190,7 +8189,7 @@
                  "id":4
                 }, 
                 {
-                 "class":"Wall",
+                 "class":"Door",
                  "id":5
                 }, 
                 {

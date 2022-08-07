@@ -22,7 +22,8 @@ public:
 		MiniMap,
 		ServerMachine,
 		Pause,
-		HP
+		HP,
+		Ammo
 	};
 	virtual Type GetType() = 0;
 protected:

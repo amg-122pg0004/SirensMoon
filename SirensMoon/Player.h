@@ -30,12 +30,14 @@ class Player :public Actor {
 		Vector2 GetDirection() { return _lastDir; }
 		int GetCharge() { return _charge; }
 		int GetHP() { return _hp; }
+		int GetAmmo() { return _bullet; }
 
 		virtual void Move();
 		bool IsHitActor();
 		virtual void Action();
 		void PlayFootSteps();
 		void UpdateCollision();
+		void CheckDamage();
 		void TakeDamage();
 		void Heal();
 		void TakeAmmo();
@@ -71,6 +73,8 @@ class Player :public Actor {
 
 		int _playerNum;//<プレイヤーの番号(0なら左プレイヤー、1なら右プレイヤー）
 		int _hp;//<体力
+
+		int _invincibleTime;
 
 		/*射撃関係*/
 		int _bullet;//残りの弾数
