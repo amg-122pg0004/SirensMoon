@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "D:/Users/syotaro/Documents/AMG/2022summer/x64/Debug/resource/TestMap_01.tmx",
     "expandedProjectPaths": [
         "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource"
     ],
@@ -70,7 +70,7 @@
             "scale": 0.75,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 216.66666666666663,
+                "x": 217.33333333333326,
                 "y": 515.3333333333333
             }
         },
@@ -193,7 +193,8 @@
     "map.tileWidth": 30,
     "map.width": 96,
     "openFiles": [
-        "TestMap_02.json"
+        "TestMap_02.json",
+        "D:/Users/syotaro/Documents/AMG/2022summer/x64/Debug/resource/TestMap_01.tmx"
     ],
     "project": "SirensMoon.tiled-project",
     "property.type": "bool",
