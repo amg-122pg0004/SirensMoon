@@ -222,7 +222,7 @@ bool Player::IsHitActor() {
 
 
 	for (auto&& actor : _mode.GetActorServer().GetObjects()) {
-		if (actor->GetType() == Type::Enemy) {
+		if (actor->GetType() == Type::Enemy|| actor->GetType() == Type::Server) {
 			if (Intersect(_collision, actor->GetCollision())) {
 			return true;
 			}

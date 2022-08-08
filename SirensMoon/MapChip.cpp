@@ -288,6 +288,9 @@ void MapChips::LoadTileLayer(picojson::object jsLayer) {
 			chip_id = (int)aData[index].get<double>();
 			vMapLine.push_back(chip_id);
 
+			if (_gidFront.size() == 0) {
+				vFrontMapLine.push_back(-1);
+			}
 			for (int i = 0; i < _gidFront.size();++i) {
 				if (chip_id == _gidFront[i]) {
 					vFrontMapLine.push_back(chip_id);

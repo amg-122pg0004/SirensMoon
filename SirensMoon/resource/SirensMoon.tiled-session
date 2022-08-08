@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "TestMap_02.json",
+    "activeFile": "",
     "expandedProjectPaths": [
         "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource"
     ],
@@ -64,6 +64,20 @@
             }
         },
         "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/無題.tmx#tile_test2": {
+            "scaleInDock": 1
+        },
+        "D:/Users/syotaro/Documents/AMG/2022summer/x64/Debug/resource/TestMap_01.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 216.66666666666663,
+                "y": 515.3333333333333
+            }
+        },
+        "D:/Users/syotaro/Documents/AMG/2022summer/x64/Debug/resource/TestMap_01.tmx#tile_test": {
+            "scaleInDock": 1
+        },
+        "D:/Users/syotaro/Documents/AMG/2022summer/x64/Debug/resource/TestMap_01.tmx#tile_test2": {
             "scaleInDock": 1
         },
         "D:/doi/2022summer/x64/Debug/resource/TestMap_02.tmx": {
@@ -127,19 +141,19 @@
             "expandedObjectLayers": [
                 4
             ],
-            "scale": 0.5,
+            "scale": 3,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 1919,
-                "y": 2159
+                "x": 544.3333333333333,
+                "y": 3466.5
             }
         },
         "TestMap_02.json#tile_icon": {
             "scaleInDock": 1.5,
-            "scaleInEditor": 1
+            "scaleInEditor": 2
         },
         "TestMap_02.json#tile_test": {
-            "scaleInDock": 0.5,
+            "scaleInDock": 1.5,
             "scaleInEditor": 1
         },
         "TestMap_02.tmx": {
@@ -168,7 +182,7 @@
             "scaleInDock": 1
         }
     },
-    "last.exportedFilePath": "D:/doi/2022summer/SirensMoon/resource",
+    "last.exportedFilePath": "D:/Users/syotaro/Documents/AMG/2022summer/x64/Debug/resource",
     "last.imagePath": "D:/doi/2022summer/SirensMoon/resource",
     "last.objectTypesPath": "D:/doi/2022summer/SirensMoon/resource/propertytypes.json",
     "map.height": 108,
@@ -184,8 +198,9 @@
     "project": "SirensMoon.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "TestMap_01.tmx",
         "TestMap_02.json",
+        "D:/Users/syotaro/Documents/AMG/2022summer/x64/Debug/resource/TestMap_01.tmx",
+        "TestMap_01.tmx",
         "TestMap_01.json",
         "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/無題.tmx",
         "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/TestMap_01.json",
