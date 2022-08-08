@@ -72,7 +72,7 @@ class Player :public Actor {
 		bool _movable;
 
 		int _playerNum;//<プレイヤーの番号(0なら左プレイヤー、1なら右プレイヤー）
-		int _hp;//<体力
+		int _hp,_hpMAX;//<体力
 
 		int _invincibleTime;
 

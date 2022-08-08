@@ -22,10 +22,10 @@ void Camera::ChangePosition(Camera::ChangeDir dir) {
 			_pos.y = _pos.y + screen_H;
 			break;
 		case Camera::ChangeDir::LEFT:
-			_pos.x = _pos.x - static_cast<double>(screen_W)/2;
+			_pos.x = _pos.x - splitscreen_W;
 			break;
 		case Camera::ChangeDir::RIGHT:
-			_pos.x = _pos.x + static_cast<double>(screen_W)/2;
+			_pos.x = _pos.x + splitscreen_W;
 			break;
 	}
 	if (_pos.x <= 0) {
@@ -42,7 +42,7 @@ void Camera::ChangePosition(Camera::ChangeDir dir) {
 	}
 }
 void Camera::SetPosition(Vector2 playerpos) {
-	int x= static_cast<int>(ceil(playerpos.x / (static_cast<double>(screen_W) / 2))-1);
+	int x= static_cast<int>(ceil(playerpos.x / (static_cast<double>(splitscreen_W)))-1);
 	int y =static_cast<int>(ceil(playerpos.y / screen_H)-1);
 	_pos.x = x * static_cast<double>(screen_W)/2;
 	_pos.y = y * screen_H;

@@ -20,7 +20,7 @@ SplitWindow::SplitWindow(Game& game,ModeGame& mode,int pos_x, int pos_y,int wind
 {
 	_camera = std::make_unique<Camera>(_game,_mode,*this);
 	_windowSize_H = screen_H;
-	_windowSize_W = screen_W / 2;
+	_windowSize_W = splitscreen_W;
 	_darkness = std::make_unique<Darkness>(_game,_mode,*this);
 	_darknessScreen = _darkness->MakeDarkness();
 	_normalScreen = MakeScreen(screen_W, screen_H, 1);
@@ -35,24 +35,30 @@ SplitWindow::SplitWindow(Game& game,ModeGame& mode,int pos_x, int pos_y,int wind
 	}
 
 	if (_windowNo == 0) {
-		Vector2 map_pos = { 0,0 };
+		Vector2 map_pos = _windowPos;
 		Vector2 map_size = { 480,180 };
 		_ui.emplace_back(std::make_unique<AmmoUI>(_game, _mode, map_pos, map_size));
+
+		Vector2 hp_pos = { splitscreen_W-90,screen_H-270 };
+		Vector2 hp_size = { 90,270 };
+		_ui.emplace_back(std::make_unique<HPUI>(_game, _mode, hp_pos, hp_size, _windowNo));
 	}
 
 	if (_windowNo == 1) {
-		Vector2 map_pos = { 1080,0 };
+		Vector2 map_pos = {_windowPos.x + splitscreen_W / 2-780/2, _windowPos.y};
 		Vector2 map_size = { 780,600 };
 		_ui.emplace_back(std::make_unique<MiniMap>(_game, _mode, map_pos, map_size));
+
+		Vector2 hp_pos = { _windowPos.x ,screen_H - 270 };
+		Vector2 hp_size = { 90,270 };
+		_ui.emplace_back(std::make_unique<HPUI>(_game, _mode, hp_pos, hp_size, _windowNo));
 	}
 
-	Vector2 pause_pos = { 1080,0 };
+	Vector2 pause_pos = { _windowPos.x + splitscreen_W / 2, _windowPos.y };
 	Vector2 pause_size = { 780,600 };
 	_ui.emplace_back(std::make_unique<Pause>(_game, _mode, pause_pos, pause_size));
 
-	Vector2 hp_pos = { 840+90*static_cast<double>(_windowNo),810};
-	Vector2 hp_size = { 90,270 };
-	_ui.emplace_back(std::make_unique<HPUI>(_game, _mode, hp_pos, hp_size,_windowNo));
+
 	
 }
 

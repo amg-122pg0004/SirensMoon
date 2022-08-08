@@ -22,7 +22,7 @@
 
 Player::Player(Game& game,ModeGame& mode,int playernum)
 	:Actor{ game,mode }, _speed{ 0,0 },_speedMax{5.0}, _playerNum{playernum}
-	, _dir{0,0}, _lastDir{ 1,0 }, _hp{ 3 }, _bullet{ 5 }, _movable{ 1 }, _charge{ 0 }, _cooldown{ 0 }
+	, _dir{0,0}, _lastDir{ 1,0 }, _hp{ 3 },_hpMAX{3}, _bullet{5}, _movable{1}, _charge{0}, _cooldown{0}
 	,_init{false},_state{PlayerState::Wait},_direction{PlayerDirection::Right},_animNo{0}, _invincibleTime{0}
 {
 	_inputManager = _game.GetInputManager();
@@ -133,7 +133,7 @@ void Player::Move() {
 	if (_pos.x < 0) {
 		_pos.x = 0;
 	}
-	else if (static_cast<int>(_pos.x)+_size.x > screen_W / 2 * 4) {
+	else if (static_cast<int>(_pos.x)+_size.x > splitscreen_W / 2 * 4) {
 		_pos.x = screen_W / 2 * 4-_size.x;
 	}
 
@@ -285,6 +285,8 @@ void Player::StandardRender(int windowNum,Vector2 window_pos,Vector2 camera_pos)
 				static_cast<int>(_pos.x + window_pos.x - camera_pos.x) - (_size.y / 2) + _size.y*1.5,
 				static_cast<int>(_pos.y + window_pos.y - camera_pos.y) - (_size.y / 2)*0.6 + _size.y*1.5,
 				cg[_game.GetFrameCount() % cg.size()], 1);
+
+
 	}
 	
 }
@@ -300,6 +302,9 @@ void Player::TakeDamage() {
 
 void Player::Heal() {
 	++_hp;
+	if (_hp > _hpMAX) {
+		_hp = _hpMAX;
+	}
 }
 
 void Player::TakeAmmo() {
@@ -349,6 +354,6 @@ void Player::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
 	ss << "_collision.max.y" << _collision.max.y << "\n";
 	ss << "チャージ" << _charge << "\n";
 	ss << "方向" << _dir.x <<"  "<<_dir.y << "\n";
-	ss << "プレイヤー" << _playerNum << "\n";
+	ss << "プレイヤー" << _animNo << "\n";
 	DrawString(50 + _playerNum * 960, 100, ss.str().c_str(), GetColor(255, 0, 255));
 }

@@ -44,7 +44,7 @@ void MiniMap::Render() {
 		DrawExtendGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y),
 			static_cast<int>(_pos.x + _size.x),static_cast<int>(_pos.y + _size.y), _cg_map, 0);
 
-		Vector2 pos = { 1290,103 };
+		Vector2 pos = { 1280,103 };
 		Vector2 pos2 = { 0,0 };
 
 		dynamic_cast<ModeGame&>(_mode).GetMapChips()->ReconRender(0, pos, pos2);

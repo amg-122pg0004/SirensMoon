@@ -66,9 +66,15 @@ void PlayerA::Action(){
 	--_cooldown;
 	if (_cooldown > 0) {
 		_state = PlayerState::Shoot;
+
+		std::vector<int> cg = _cg[{_state, _direction}];
+		if (_animNo >= cg.size()-1) {
+			_state = PlayerState::Wait;
+		}
 	}
 	if (_cooldown < 0) {
 		_cooldown = 0;
+		
 	}
 
 	if (_inputManager->CheckInput("ACTION", 'r', _playerNum) && _charge >= 120) {

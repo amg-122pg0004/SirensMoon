@@ -15,6 +15,7 @@
 constexpr int screen_W{1920};//<ウィンドウの解像度：横
 constexpr int screen_H{1080};//<ウィンドウの解像度：縦
 constexpr int screen_Depth{32};//<ウィンドウの色数(bit)
+constexpr int splitscreen_W{ screen_W / 2 -30};
 
 class Game {
 
