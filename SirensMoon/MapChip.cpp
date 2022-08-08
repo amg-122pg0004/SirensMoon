@@ -244,6 +244,10 @@ void MapChips::LoadTilesets(picojson::object jsRoot,std::string folderpath) {
 					auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
 					_gidTNT.push_back(id);
 				}
+				if ((*i).get<picojson::object>()["class"].get<std::string>() == "Mine") {
+					auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
+					_gidMine.push_back(id);
+				}
 			}
 			// チップコリジョンデータ読み込み
 			if ((*i).get<picojson::object>()["properties"].is<picojson::array>()) {
@@ -644,6 +648,42 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 					pos.y = static_cast<int>(aObjects[i].get<picojson::object>()["y"].get<double>());
 					auto id = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
 					_tNTDataList.push_back({ id, pos });
+				}
+			}
+			for (auto gid : _gidMine) {
+				if (gid == static_cast<int>(aObjects[i].get<picojson::object>()["gid"].get<double>())) {
+					MineData data;
+					data.pos.x = static_cast<int>(aObjects[i].get<picojson::object>()["x"].get<double>());
+					data.pos.y = static_cast<int>(aObjects[i].get<picojson::object>()["y"].get<double>());
+					data.ID = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
+					std::string direction{ "none" };
+					if (aObjects[i].get<picojson::object>()["properties"].is<picojson::array>()) {
+						auto properties = aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
+						for (int i = 0; i < properties.size(); ++i) {
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Direction"){
+								direction = properties[i].get<picojson::object>()["value"].get<std::string>();
+							}
+						}
+					}
+					if (direction == "up") {
+						data.dir = 4;
+					}
+					else if (direction == "down") {
+						data.dir = 2;
+
+					}
+					else if (direction == "right") {
+
+						data.dir = 1;
+					}
+					else if (direction == "left") {
+						data.dir = 3;
+					}
+					else {
+						data.dir = -1;
+					}
+
+					_mineDataList.push_back(data);
 				}
 			}
 		}

@@ -127,15 +127,15 @@
             "expandedObjectLayers": [
                 4
             ],
-            "scale": 1.5,
+            "scale": 2,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 525,
-                "y": 3812.333333333333
+                "x": 505.25,
+                "y": 3764.25
             }
         },
         "TestMap_02.json#tile_icon": {
-            "scaleInDock": 1,
+            "scaleInDock": 1.5,
             "scaleInEditor": 1
         },
         "TestMap_02.json#tile_test": {

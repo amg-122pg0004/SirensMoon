@@ -53,6 +53,14 @@ public:
 		std::vector<int> links;
 	};
 
+	/*Mineデータ構造*/
+	struct MineData {
+		int ID;
+		Vector2 pos;
+		int dir;
+	};
+
+
 	MapChips(Game& game,ModeBase& mode);
 	~MapChips();
 
@@ -84,6 +92,7 @@ public:
 	std::vector<SwitchData> GetSwitchData() { return _switchDataList; }
 	std::vector<std::pair<int, Vector2>>GetDoorData() { return _doorDataList; }
 	std::vector<std::pair<int, Vector2>>GetTNTData() { return _tNTDataList; }
+	std::vector<MineData> GetMineData() { return _mineDataList; }
 	EnemyPatrol FindPatrol(int id);
 	std::vector<int> CheckHitChipNo(int objectstage, int x, int y);
 	bool IsHit(int objectstage, Actor& o);
@@ -150,6 +159,8 @@ private:
 	std::vector<std::pair<int,Vector2>> _doorDataList;
 	/*TNTデータ*/
 	std::vector<std::pair<int, Vector2>> _tNTDataList;
+	/*Mineデータ*/
+	std::vector<MineData> _mineDataList;
 	
 	/*マップチップのグラフィックハンドル用コンテナ*/
 	/*[タイル用画像の枚数分][画像を分割した際のチップ画像の数]*/
@@ -175,4 +186,5 @@ private:
 	std::vector<int> _gidSwitch;
 	std::vector<int> _gidDoor;
 	std::vector<int> _gidTNT;
+	std::vector<int> _gidMine;
 };

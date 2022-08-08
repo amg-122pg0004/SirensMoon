@@ -19,6 +19,7 @@
 #include "Switch.h"
 #include "Door.h"
 #include "TNT.h"
+#include "Mine.h"
 
 ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blindFlag{false}
 {
@@ -98,6 +99,12 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blind
 	for (auto atnt : tntdata) {
 		auto tnt = std::make_unique<TNT>(_game, *this, atnt.first, atnt.second);
 		_actorServer.Add(std::move(tnt));
+	}
+
+	auto minedata = _mapChips->GetMineData();
+	for (auto amine : minedata) {
+		auto mine = std::make_unique<Mine>(_game, *this, amine);
+		_actorServer.Add(std::move(mine));
 	}
 
 
