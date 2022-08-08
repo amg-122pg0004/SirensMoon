@@ -2,6 +2,7 @@
 #include "ModeGame.h"
 #include "Player.h"
 #include "ImageServer.h"
+#include "SoundServer.h"
 
 Mine::Mine(Game& game, ModeGame& mode, MapChips::MineData data)
 	:Gimmick(game,mode,data.ID),_dir{data.dir}
@@ -44,6 +45,7 @@ void Mine::Update(){
 			if(Intersect(_detectionArea, actor->GetCollision())) {
 				dynamic_cast<Player&>(*actor).TakeDamage();
 				_dead = true;
+				PlaySoundMem(SoundServer::Find("Explosion"), DX_PLAYTYPE_BACK);
 			}
 		}
 	}
