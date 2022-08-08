@@ -222,9 +222,16 @@ bool Player::IsHitActor() {
 
 
 	for (auto&& actor : _mode.GetActorServer().GetObjects()) {
-		if (actor->GetType() == Type::Enemy || actor->GetType() == Type::Gimmick) {
+		if (actor->GetType() == Type::Enemy) {
 			if (Intersect(_collision, actor->GetCollision())) {
-				return true;
+			return true;
+			}
+		}
+		if (actor->GetType() == Type::Gimmick) {
+			if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() != Gimmick::GimmickType::Teleporter) {
+				if (Intersect(_collision, actor->GetCollision())) {
+					return true;
+				}
 			}
 		}
 	}

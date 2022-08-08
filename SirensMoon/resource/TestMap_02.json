@@ -915,7 +915,7 @@
                         {
                          "name":"Random",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"Teleport_OUT",
@@ -1030,6 +1030,152 @@
                  "width":30,
                  "x":392.333333333333,
                  "y":3810.33333333333
+                }, 
+                {
+                 "class":"",
+                 "gid":293,
+                 "height":30,
+                 "id":320,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"LinkGimmick1",
+                         "type":"object",
+                         "value":322
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":223,
+                 "y":4171.66666666667
+                }, 
+                {
+                 "class":"",
+                 "gid":294,
+                 "height":30,
+                 "id":323,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":420,
+                 "y":3600
+                }, 
+                {
+                 "class":"",
+                 "gid":294,
+                 "height":30,
+                 "id":324,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":450,
+                 "y":3600
+                }, 
+                {
+                 "class":"",
+                 "gid":294,
+                 "height":30,
+                 "id":325,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":510,
+                 "y":3600
+                }, 
+                {
+                 "class":"",
+                 "gid":294,
+                 "height":30,
+                 "id":326,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":510,
+                 "y":3600
+                }, 
+                {
+                 "class":"",
+                 "gid":294,
+                 "height":30,
+                 "id":327,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":480,
+                 "y":3600
+                }, 
+                {
+                 "class":"",
+                 "gid":293,
+                 "height":30,
+                 "id":328,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"LinkGimmick1",
+                         "type":"object",
+                         "value":329
+                        }, 
+                        {
+                         "name":"LinkGimmick2",
+                         "type":"object",
+                         "value":323
+                        }, 
+                        {
+                         "name":"LinkGimmick3",
+                         "type":"object",
+                         "value":324
+                        }, 
+                        {
+                         "name":"LinkGimmick4",
+                         "type":"object",
+                         "value":327
+                        }, 
+                        {
+                         "name":"LinkGimmick5",
+                         "type":"object",
+                         "value":326
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":510.666666666667,
+                 "y":3750
+                }, 
+                {
+                 "class":"",
+                 "gid":295,
+                 "height":30,
+                 "id":329,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":450,
+                 "y":3750
+                }, 
+                {
+                 "class":"",
+                 "gid":290,
+                 "height":30,
+                 "id":330,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"Random",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":2490,
+                 "y":2400
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1088,7 +1234,45 @@
          "draworder":"topdown",
          "id":12,
          "name":"Light",
-         "objects":[],
+         "objects":[
+                {
+                 "class":"",
+                 "gid":29,
+                 "height":30,
+                 "id":322,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"Activate",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"Color : B",
+                         "type":"int",
+                         "value":50
+                        }, 
+                        {
+                         "name":"Color : R",
+                         "type":"int",
+                         "value":100
+                        }, 
+                        {
+                         "name":"Size_X",
+                         "type":"float",
+                         "value":960
+                        }, 
+                        {
+                         "name":"Size_Y",
+                         "type":"float",
+                         "value":1200
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":472.666666666667,
+                 "y":3890.66666666667
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -5276,7 +5460,7 @@
          "y":0
         }],
  "nextlayerid":14,
- "nextobjectid":320,
+ "nextobjectid":331,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.0",
