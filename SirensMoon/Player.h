@@ -46,6 +46,10 @@ class Player :public Actor {
 
 		void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;
 
+
+
+	protected:
+
 		/*グラフィック用状態*/
 		enum class PlayerState {
 			Wait,
@@ -62,7 +66,6 @@ class Player :public Actor {
 			Right,
 		};
 
-	protected:
 		std::shared_ptr<InputManager> _inputManager;
 
 		Vector2 _dir;//<キャラの向き

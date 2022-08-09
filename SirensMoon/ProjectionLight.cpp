@@ -16,7 +16,9 @@ ProjectionLight::ProjectionLight(Game& game, ModeGame& mode, Actor& owner)
 	,_alphaStart{0},_alphaMax{255}
 	,LightBase{ game,mode,owner }
 {	_cg = ImageServer::LoadGraph("resource/Light/Light_6.png");
-	_centerPos = { 40,300 };
+	int x, y;
+	GetGraphSize(_cg, &x, &y);
+	_centerPos = { static_cast<double>(x/2),static_cast<double>(y) };
 	_scale = _scaleStart;
 	_alpha = _alphaStart;
 	_pos = _owner.GetPosition()+_owner.GetSize()/2;

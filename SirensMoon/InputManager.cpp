@@ -24,6 +24,8 @@ InputManager::InputManager() :_changeFlag{0} {
 			{"DEBUG",PAD_INPUT_11,false,false,false,0},
 			{"BLIND",PAD_INPUT_8,false,false,false,0},
 			{"BLIND2",PAD_INPUT_7,false,false,false,0},
+			{"BULLET1",PAD_INPUT_5,false,false,false,0},
+			{"BULLET2",PAD_INPUT_6,false,false,false,0},
 			{"UP",PAD_INPUT_UP,false,false,false,1},
 			{"DOWN",PAD_INPUT_DOWN,false,false,false,1},
 			{"LEFT",PAD_INPUT_LEFT,false,false,false,1},
@@ -34,7 +36,9 @@ InputManager::InputManager() :_changeFlag{0} {
 			{"ACCESS",PAD_INPUT_3,false,false,false,1},
 			{"DEBUG",PAD_INPUT_11,false,false,false,1},
 			{"BLIND",PAD_INPUT_8,false,false,false,1},
-			{"BLIND2",PAD_INPUT_7,false,false,false,1}
+			{"BLIND2",PAD_INPUT_7,false,false,false,1},
+			{"BULLET1",PAD_INPUT_5,false,false,false,0},
+			{"BULLET2",PAD_INPUT_6,false,false,false,0},
 	};
 
 	_analogState = {

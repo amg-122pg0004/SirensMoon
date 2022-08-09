@@ -7,6 +7,14 @@
  *********************************************************************/
 
 #include "BlinkLight.h"
+ /*****************************************************************//**
+  * \file   BlinkLight.cpp
+  * \brief  赤い点滅するライトです。
+  *
+  * \author 土居将太郎
+  * \date   July 2022
+  *********************************************************************/
+
 #include "ImageServer.h"
 #include "Enemy.h"
 #include "Game.h"
@@ -17,7 +25,9 @@ BlinkLight::BlinkLight(Game& game, ModeGame& mode, Actor& owner)
 {
 
 	_cg = ImageServer::LoadGraph("resource/Light/Light_4.png");
-	_centerPos = { 250,250 };
+	int x, y;
+	GetGraphSize(_cg, &x, &y);
+	_centerPos = { static_cast<double>(x / 2)+100,static_cast<double>(y) +100};
 	_scale = 0;
 
 }

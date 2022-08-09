@@ -57,16 +57,15 @@ ServerMachine::ServerMachine(Game& game, ModeGame& mode, MapChips::ServerMachine
 
 	Vector2 map_pos = { 1080,660 };
 	Vector2 map_size = { 780,420 };
-	
-	std::vector<std::unique_ptr<SplitWindow>>& spw = dynamic_cast<ModeGame&>(_mode).GetSplitWindow();
-	auto window = std::make_unique<ServerMachineUI>(_game, _mode, map_pos, map_size, *this);
-	spw[1]->GetUIServer().emplace_back(std::move(window));
-	
-	
 	_generatedEnemy.emplace_back(pattern.head);
 	_generatedEnemy.emplace_back(pattern.body);
 	_generatedEnemy.emplace_back(pattern.foot);
+	
 
+
+	std::vector<std::unique_ptr<SplitWindow>>& spw = dynamic_cast<ModeGame&>(_mode).GetSplitWindow();
+	auto window = std::make_unique<ServerMachineUI>(_game, _mode, map_pos, map_size, *this);
+	spw[1]->GetUIServer().emplace_back(std::move(window));
 }
 
 

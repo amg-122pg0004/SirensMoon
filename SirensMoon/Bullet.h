@@ -18,7 +18,7 @@ class Bullet:public Actor {
 		void StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;
 		void UpdateCollision();
 
-		Type GetType() override { return Type::Bullet; }
+		virtual Type GetType() override { return Type::Bullet; }
 
 	private:
 		int _speed;

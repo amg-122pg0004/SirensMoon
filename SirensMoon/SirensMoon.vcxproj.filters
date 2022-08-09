@@ -157,6 +157,12 @@
     <Filter Include="Actor\Explode">
       <UniqueIdentifier>{df561fd6-b343-41d0-9c1f-489273a23e84}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Bullet\RedBullet">
+      <UniqueIdentifier>{6ade2d66-d421-4e9d-8a5c-24bb55034793}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Bullet\GreenBullet">
+      <UniqueIdentifier>{51c7ed0a-1e03-4f6f-b691-94d1a0639acd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -303,6 +309,12 @@
     <ClCompile Include="Explode.cpp">
       <Filter>Actor\Explode</Filter>
     </ClCompile>
+    <ClCompile Include="RedBullet.cpp">
+      <Filter>Actor\Bullet\RedBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="GreenBullet.cpp">
+      <Filter>Actor\Bullet\GreenBullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -448,6 +460,12 @@
     </ClInclude>
     <ClInclude Include="TNT.h">
       <Filter>Actor\Gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="RedBullet.h">
+      <Filter>Actor\Bullet\RedBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="GreenBullet.h">
+      <Filter>Actor\Bullet\GreenBullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

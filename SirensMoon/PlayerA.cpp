@@ -1,11 +1,12 @@
 #include "PlayerA.h"
 #include "ImageServer.h"
 #include "SoundServer.h"
-#include "Bullet.h"
+#include "RedBullet.h"
+#include "GreenBullet.h"
 #include "ProjectionLight.h"
 #include "ModeGame.h"
 
-PlayerA::PlayerA(Game& game, ModeGame& base, int playernum) :Player(game, base, playernum)
+PlayerA::PlayerA(Game& game, ModeGame& base, int playernum) :Player(game, base, playernum),_setGreenBullet{false}
 {
 	Load();
 }
@@ -63,6 +64,13 @@ void PlayerA::Load(){
 }
 
 void PlayerA::Action(){
+	if (_inputManager->CheckInput("BULLET1", 't', _playerNum) ) {
+		_setGreenBullet = true;
+	}
+	if (_inputManager->CheckInput("BULLET2", 't', _playerNum)) {
+		_setGreenBullet = false;
+	}
+
 	--_cooldown;
 	if (_cooldown > 0) {
 		_state = PlayerState::Shoot;
@@ -80,8 +88,16 @@ void PlayerA::Action(){
 	if (_inputManager->CheckInput("ACTION", 'r', _playerNum) && _charge >= 120) {
 		_lastDir.Normalize();
 		if (_bullet > 0) {
-			auto bullet = std::make_unique<Bullet>(_game, _mode, _pos, _lastDir);
-			_mode.GetActorServer().Add(std::move(bullet));
+			if (_setGreenBullet) {
+				auto bullet = std::make_unique<GreenBullet>(_game, _mode, _pos, _lastDir);
+				_mode.GetActorServer().Add(std::move(bullet));
+			}
+			else {
+				auto bullet = std::make_unique<RedBullet>(_game, _mode, _pos, _lastDir);
+				_mode.GetActorServer().Add(std::move(bullet));
+			}
+
+
 			PlaySoundMem(SoundServer::Find("PlayerShoot"), DX_PLAYTYPE_BACK);
 			_cooldown = 180;
 			_movable = false;

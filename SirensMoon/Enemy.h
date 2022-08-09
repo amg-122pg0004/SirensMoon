@@ -67,7 +67,11 @@ class Enemy :public Actor {
 		 */
 		bool IsCrossed(Vector2 a,Vector2 b,Vector2 c,Vector2 d);
 
-		void CheckDamage();
+		/*弾、プレイヤーと触れているか確認する*/
+		virtual void CheckDamage();
+		/*プレイヤーへ接近する*/
+		void MoveToPlayer();
+		/*プレイヤーにダメージを与える*/
 		void ApplyDamage();
 		void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos) override;
 
@@ -75,6 +79,23 @@ class Enemy :public Actor {
 		void AnimationUpdate();
 
 	protected:
+
+
+		/*グラフィック用方向*/
+		enum class EnemyDirection {
+			Up,
+			Down,
+			Left,
+			Right,
+			UpRight,
+			DownRight,
+			UpLeft,
+			DownLeft
+		};
+
+		void SetDirection();
+		void Resize(std::map<EnemyDirection, std::vector<int>> set);
+
 		/*初期位置*/
 		Vector2 _initPos;
 		/*歩くスピード*/
@@ -92,6 +113,8 @@ class Enemy :public Actor {
 		/*眼の位置*/
 		Vector2 _eyePos;
 
+		/*追跡フラグ*/
+		bool _chase;
 		/*視界範囲*/
 		const int _sight_H, _sight_W;
 		/*視界範囲内にいたフレーム数*/
@@ -118,9 +141,11 @@ class Enemy :public Actor {
 		/*Enemyランダム生成パターン*/
 		std::vector<int> _generatedEnemy;
 		/*Enemy仮画像*/
-		std::vector<int> _cg_top;
-		std::vector<int> _cg_mid;
-		std::vector<int> _cg_bot;
+		std::map<EnemyDirection,int> _cg_top;
+		std::map<EnemyDirection,int> _cg_mid;
+		std::map<EnemyDirection,int> _cg_top2;
+		std::map<EnemyDirection,int> _cg_bot;
 
+		EnemyDirection _cg_direction;
 		int _animeNo;//<アニメーションの表示番号
 };

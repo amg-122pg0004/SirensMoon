@@ -10,4 +10,7 @@ public:
 
 	/*e‚ğŒ‚‚Â*/
 	void Action() override;
+
+private:
+	bool _setGreenBullet;
 };

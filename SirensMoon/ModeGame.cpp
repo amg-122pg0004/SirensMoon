@@ -32,9 +32,9 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blind
 	_splitWindow.emplace_back(std::make_unique<SplitWindow>(_game,*this, screen_W-splitscreen_W, 0, 1));
 
 	EnemyGenerator::EnemyPattern pattern;
-	pattern.body = 3;
-	pattern.head = 3;
-	pattern.foot = 3;
+	pattern.body = 2;
+	pattern.head = 2;
+	pattern.foot = 2;
 
 	auto enemygen = std::make_unique<EnemyGenerator>(pattern);
 

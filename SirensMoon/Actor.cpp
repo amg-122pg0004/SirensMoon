@@ -7,10 +7,11 @@
  *********************************************************************/
 
 #include "Actor.h"
+#include "Game.h"
 
 
 Actor::Actor(Game& game, ModeGame& mode) 
-	: _game{ game }, _mode{ mode }, _pos{ 0,0 }, _size{ 40,40 }, _dead{ false }, _stage{ -1 }, _cg{-1}
+	: _game{ game }, _mode{ mode }, _pos{ 0,0 }, _size{ 40,40 }, _dead{ false }, _stage{ -1 }, _cg{-1},_roomPosition{1,1}
 {
 	_collision.min =  _pos ;
 	_collision.max =  _pos + _size ;
@@ -40,3 +41,11 @@ void Actor::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
 void Actor::CheckDeadOwner() {
 
 }
+
+
+void Actor::CheckRoomPosition() {
+	int x = static_cast<int>(floor((_pos.x + _size.x / 2.0) / (static_cast<double>(splitscreen_W))));
+	int y = static_cast<int>(ceil(_pos.y+_size.y/2 / screen_H) );
+	_roomPosition = { x,y };
+}
+

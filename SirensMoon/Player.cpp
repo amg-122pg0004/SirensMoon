@@ -59,16 +59,19 @@ void Player::Update() {
 	if (_dir.Length() > 1) {
 		_dir.Normalize();
 	}
-
+	
+	/*移動*/
 	Move();
-
+	/*テレポートに触れていたら起動*/
 	Checkteleport();
-
+	/*固有のアクション*/
 	Action();
-
+	/*コリジョンの更新*/
 	UpdateCollision();
-
+	/*敵かダメージギミックに触れていたらダメージ*/
 	CheckDamage();
+	/*自分の位置を確認*/
+	CheckRoomPosition();
 }
 
 
