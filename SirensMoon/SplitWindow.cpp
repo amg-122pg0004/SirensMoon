@@ -14,6 +14,7 @@
 #include "ServerMachine.h"
 #include "HPUI.h"
 #include "AmmoUI.h"
+#include "BulletTypeUI.h"
 
 SplitWindow::SplitWindow(Game& game,ModeGame& mode,int pos_x, int pos_y,int window_no) :
 	_game{game}, _mode{mode}, _windowPos{pos_x ,pos_y}, _windowNo{window_no}, _renderStage{1},_lightup{255}
@@ -35,9 +36,13 @@ SplitWindow::SplitWindow(Game& game,ModeGame& mode,int pos_x, int pos_y,int wind
 	}
 
 	if (_windowNo == 0) {
-		Vector2 map_pos = _windowPos;
+		Vector2 map_pos = { _windowPos.x+90,_windowPos.y -5 };
 		Vector2 map_size = { 480,180 };
 		_ui.emplace_back(std::make_unique<AmmoUI>(_game, _mode, map_pos, map_size));
+
+		Vector2 bullettype_pos = { _windowPos.x + 5,_windowPos.y+5 };
+		Vector2 bullettype_size = { 90,180 };
+		_ui.emplace_back(std::make_unique<BulletTypeUI>(_game, _mode, bullettype_pos, bullettype_size));
 
 		Vector2 hp_pos = { splitscreen_W-90,screen_H-270 };
 		Vector2 hp_size = { 90,270 };

@@ -20,6 +20,7 @@
 #include "Door.h"
 #include "TNT.h"
 #include "Mine.h"
+#include "ModeGameOver.h"
 
 ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blindFlag{false}
 {
@@ -143,7 +144,7 @@ void ModeGame::Update() {
 		splitwindows->Update();
 	}
 	/*ActorÇÃçXêV*/
-	if (_stopActorUpdate!=1) {
+	if (_stopActorUpdate==false) {
 		_actorServer.Update();
 	}
 
@@ -170,4 +171,10 @@ void ModeGame::StageClearCheck(){
 		auto mode = std::make_unique<ModeMovie>(_game, "resource/Movie/rocket.mp4");
 		_game.GetModeServer()->Add(std::move(mode));
 	}
+}
+
+void ModeGame::GameOver(){
+	_stopActorUpdate = true;
+	auto mode = std::make_unique<ModeGameOver>(_game);
+	_game.GetModeServer()->Add(std::move(mode));
 }

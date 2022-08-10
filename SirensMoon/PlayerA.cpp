@@ -66,9 +66,11 @@ void PlayerA::Load(){
 void PlayerA::Action(){
 	if (_inputManager->CheckInput("BULLET1", 't', _playerNum) ) {
 		_setGreenBullet = true;
+		PlaySoundMem(SoundServer::Find("PlayerOpenMap"), DX_PLAYTYPE_BACK);
 	}
 	if (_inputManager->CheckInput("BULLET2", 't', _playerNum)) {
 		_setGreenBullet = false;
+		PlaySoundMem(SoundServer::Find("PlayerOpenMap"), DX_PLAYTYPE_BACK);
 	}
 
 	--_cooldown;

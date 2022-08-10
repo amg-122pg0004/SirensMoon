@@ -301,6 +301,9 @@ void Player::UpdateCollision() {
 
 void Player::TakeDamage() {
 	--_hp;
+	if (_hp <= 0) {
+		_mode.GameOver();
+	}
 }
 
 void Player::Heal() {

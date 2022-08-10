@@ -1188,6 +1188,25 @@
                  "width":30,
                  "x":2490,
                  "y":2400
+                }, 
+                {
+                 "class":"",
+                 "gid":292,
+                 "height":30,
+                 "id":332,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "propertytype":"Direction",
+                         "type":"string",
+                         "value":"down"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":603,
+                 "y":4051
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -5472,7 +5491,7 @@
          "y":0
         }],
  "nextlayerid":14,
- "nextobjectid":332,
+ "nextobjectid":333,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.0",

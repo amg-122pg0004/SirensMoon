@@ -163,6 +163,18 @@
     <Filter Include="Actor\Bullet\GreenBullet">
       <UniqueIdentifier>{51c7ed0a-1e03-4f6f-b691-94d1a0639acd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI\BulletTypeUI">
+      <UniqueIdentifier>{a1668d48-cd39-4a5b-bd01-05e01549d650}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Enemy\EnemyB">
+      <UniqueIdentifier>{51d2d072-ed59-4c15-afee-76635a99111b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mode\ModeGameOver">
+      <UniqueIdentifier>{3eba0942-82ea-4733-8b56-93b2d7a061a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\GameOverUI">
+      <UniqueIdentifier>{33218133-5bb8-4239-bbd1-c884364d35b8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -315,6 +327,18 @@
     <ClCompile Include="GreenBullet.cpp">
       <Filter>Actor\Bullet\GreenBullet</Filter>
     </ClCompile>
+    <ClCompile Include="BulletTypeUI.cpp">
+      <Filter>UI\BulletTypeUI</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyB.cpp">
+      <Filter>Actor\Enemy\EnemyB</Filter>
+    </ClCompile>
+    <ClCompile Include="ModeGameOver.cpp">
+      <Filter>Mode\ModeGameOver</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverUI.cpp">
+      <Filter>UI\GameOverUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -466,6 +490,18 @@
     </ClInclude>
     <ClInclude Include="GreenBullet.h">
       <Filter>Actor\Bullet\GreenBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletTypeUI.h">
+      <Filter>UI\BulletTypeUI</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyB.h">
+      <Filter>Actor\Enemy\EnemyB</Filter>
+    </ClInclude>
+    <ClInclude Include="ModeGameOver.h">
+      <Filter>Mode\ModeGameOver</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverUI.h">
+      <Filter>UI\GameOverUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

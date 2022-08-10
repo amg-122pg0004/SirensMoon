@@ -44,8 +44,8 @@ void Actor::CheckDeadOwner() {
 
 
 void Actor::CheckRoomPosition() {
-	int x = static_cast<int>(floor((_pos.x + _size.x / 2.0) / (static_cast<double>(splitscreen_W))));
-	int y = static_cast<int>(ceil(_pos.y+_size.y/2 / screen_H) );
+	double x = floor((_pos.x + _size.x / 2.0) / (static_cast<double>(splitscreen_W)));
+	double y = floor((_pos.y + _size.y / 2) / screen_H);
 	_roomPosition = { x,y };
 }
 

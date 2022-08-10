@@ -25,7 +25,8 @@ void Pause::Update() {
 		dynamic_cast<ModeGame&>(_mode).SetPauseGame(1);
 		_visible = true;
 	}
-	else  {
+	else if (_inputManager->CheckInput("PAUSE", 'r', 0) ||
+		_inputManager->CheckInput("PAUSE", 'r', 1)) {
 		dynamic_cast<ModeGame&>(_mode).SetPauseGame(0);
 		_visible = false;
 	}

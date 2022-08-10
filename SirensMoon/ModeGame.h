@@ -32,6 +32,7 @@ public:
 
 	void SetPauseGame(bool flag) { _stopActorUpdate = flag; }
 	void StageClearCheck();
+	void GameOver();
 	
 	
 private:

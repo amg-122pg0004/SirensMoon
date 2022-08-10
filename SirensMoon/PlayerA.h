@@ -11,6 +11,13 @@ public:
 	/*e‚ğŒ‚‚Â*/
 	void Action() override;
 
+	/**
+	 * @brief ”­Ë‚·‚é’eí‚ğ•Ô‚·
+	 * 
+	 * \return GreenBullet‚ª€”õ‚³‚ê‚Ä‚¢‚ê‚ÎTrue
+	 */
+	bool GetBulletType() { return _setGreenBullet; }
+
 private:
 	bool _setGreenBullet;
 };

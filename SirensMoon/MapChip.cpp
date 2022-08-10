@@ -10,7 +10,7 @@
 MapChips::MapChips(Game& game, ModeBase& mode) :_game{ game }, _mode{mode}{
 	_mapTileData.clear();
 	_minimapData.clear();
-	LoadMap("resource/", "TestMap_01.json");
+	LoadMap("resource/", "TestMap_02.json");
 }
 
 MapChips::~MapChips() {
@@ -123,7 +123,7 @@ void MapChips::LoadTilesets(picojson::object jsRoot,std::string folderpath) {
 						auto properties = (*i).get<picojson::object>()["properties"].get<picojson::array>();
 						for (int i2 = 0; i2 < properties.size(); ++i2) {
 							if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "Player") {
-								player = properties[i2].get<picojson::object>()["value"].get<double>();
+								player = static_cast<int>(properties[i2].get<picojson::object>()["value"].get<double>());
 							}
 						}
 					}
@@ -718,7 +718,7 @@ void MapChips::StandardRender(int stageNum,Vector2 windowPos,Vector2 cameraPos) 
 				int chip_no = _mapTileData[layer][y][x];
 				chip_no--;
 				int chiplayer = 0;
-				for (int i = _cgChip.size()-1; 0<=i; --i) {
+				for (int i = static_cast<int>(_cgChip.size()) - 1; 0 <= i; --i) {
 					if (chip_no >= (_tilesetsFirstgid[i] - 1)) {
 						chiplayer = i;
 						chip_no = chip_no - (_tilesetsFirstgid[i] - 1);
@@ -767,7 +767,7 @@ void MapChips::FrontRender(int stageNum, Vector2 windowPos, Vector2 cameraPos) {
 				if (chip_no != -1) {
 					chip_no--;
 					int chiplayer = 0;
-					for (int i = _cgChip.size() - 1; 0 <= i; --i) {
+					for (int i = static_cast<int>(_cgChip.size()) - 1; 0 <= i; --i) {
 						if (chip_no >= (_tilesetsFirstgid[i] - 1)) {
 							chiplayer = i;
 							chip_no = chip_no - (_tilesetsFirstgid[i] - 1);
@@ -839,7 +839,7 @@ bool MapChips::IsHit(int objectstage,Actor& o)
 			for (int i = 0; i < v_chip_no.size(); ++i) {
 				int chip_no=v_chip_no[i];
 				int tileset=0;
-				for (int i2 = _tilesetsFirstgid.size()-1;i2>=0;--i2) {
+				for (int i2 = static_cast<int>(_tilesetsFirstgid.size()) - 1; i2 >= 0; --i2) {
 					if (chip_no>=_tilesetsFirstgid[i2]) {
 						chip_no = chip_no- _tilesetsFirstgid[i2];
 						tileset = i2;

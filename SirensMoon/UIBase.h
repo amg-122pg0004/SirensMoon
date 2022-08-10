@@ -23,7 +23,9 @@ public:
 		ServerMachine,
 		Pause,
 		HP,
-		Ammo
+		Ammo,
+		BulletType,
+		GameOver
 	};
 	virtual Type GetType() = 0;
 protected:
