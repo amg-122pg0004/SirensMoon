@@ -106,6 +106,10 @@ void PlayerA::Action(){
 			_state = PlayerState::Shoot;
 			_animNo = 0;
 			--_bullet;
+
+			if (_bullet == 0) {
+				_mode.GameOver();
+			}
 		}
 
 	}
