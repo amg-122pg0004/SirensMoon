@@ -1,5 +1,4 @@
 #include "HPUI.h"
-#include "ImageServer.h"
 #include "ModeBase.h"
 #include "Player.h"
 

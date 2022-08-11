@@ -7,12 +7,11 @@
  *********************************************************************/
 
 #include "ModeGame.h"
-#include "Enemy.h"
+#include "EnemyA.h"
 #include "HPItem.h"
 #include "BulletItem.h"
 #include "ServerMachine.h"
 #include "SoundServer.h"
-#include "EnemyGenerator.h"
 #include "ModeMovie.h"
 #include "FloorLamp.h"
 #include "teleporter.h"
@@ -36,7 +35,7 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blind
 	pattern.body = 2;
 	pattern.head = 2;
 	pattern.foot = 2;
-
+	/*Še•”2í‚Å“Gƒ‰ƒ“ƒ_ƒ€¶¬*/
 	auto enemygen = std::make_unique<EnemyGenerator>(pattern);
 
 	auto serverdata = _mapChips->GetServerData();
@@ -49,7 +48,7 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blind
 	auto enemydata=_mapChips->GetEnemyData();
 	for (auto&& data : enemydata) {
 		auto pattern = enemygen->GetEnemyPattern();
-		auto enemy = std::make_unique<Enemy>(_game, *this, data,pattern);
+		auto enemy = std::make_unique<EnemyA>(_game, *this, data,pattern);
 		_actorServer.Add(std::move(enemy));
 	}
 

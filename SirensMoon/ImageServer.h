@@ -5,7 +5,7 @@
  * \author “y‹«‘¾˜Y
  * \date   June 2022
  *********************************************************************/
-
+#pragma once
 #include <unordered_map>
 
 class ImageServer {

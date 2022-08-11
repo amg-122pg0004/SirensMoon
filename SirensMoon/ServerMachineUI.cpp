@@ -1,19 +1,15 @@
 #include "ServerMachineUI.h"
 #include "Game.h"
-#include "ImageServer.h"
 #include "ServerMachine.h"
 #include "SoundServer.h"
 
-ServerMachineUI::ServerMachineUI(Game& game, ModeBase& mode, Vector2 pos, Vector2 size, ServerMachine& owner)
+ServerMachineUI::ServerMachineUI(Game& game, ModeBase& mode, Vector2 pos, Vector2 size, ServerMachine& owner, EnemyGenerator::EnemyPattern pattern)
 	:UIBase{game,mode,pos,size},_visible{false},_owner{owner}
 {
 	_inputManager = _game.GetInputManager();
 	_cg = ImageServer::LoadGraph("resource/UI/wanted.png");
 
-
-	auto pattern = _owner.GetGeneratedEnemy();
-
-	switch (pattern[0]) {
+	switch (pattern.head) {
 	case 1:
 		_cg_top = ImageServer::LoadGraph("resource/Enemy/head1(1)/head1_down.png");
 		_cg_top2 = ImageServer::LoadGraph("resource/Enemy/blank.png");
@@ -27,7 +23,7 @@ ServerMachineUI::ServerMachineUI(Game& game, ModeBase& mode, Vector2 pos, Vector
 		_cg_top2 = ImageServer::LoadGraph("resource/Enemy/blank.png");
 		break;
 	}
-	switch (pattern[1]) {
+	switch (pattern.body) {
 	case 1:
 		_cg_mid = ImageServer::LoadGraph("resource/Enemy/body1/body1_down.png");
 		break;
@@ -38,7 +34,7 @@ ServerMachineUI::ServerMachineUI(Game& game, ModeBase& mode, Vector2 pos, Vector
 		_cg_mid = ImageServer::LoadGraph("resource/Enemy/body2/body2_down.png");
 		break;
 	}
-	switch (pattern[2]) {
+	switch (pattern.foot) {
 	case 1:
 		_cg_bot = ImageServer::LoadGraph("resource/Enemy/foot1/foot1_down.png");
 		break;

@@ -420,7 +420,7 @@ void MapChips::LoadEnemyLayer(picojson::array aObjects) {
 		else if (aObjects[i].get<picojson::object>()["polygon"].is<picojson::array>() ||
 			aObjects[i].get<picojson::object>()["polyline"].is<picojson::array>()) {
 			/*敵1体分の巡回ルート*/
-			EnemyPatrol aPatrolData;
+			St::EnemyPatrol aPatrolData;
 			std::string linestyle = "null";
 			/*polylineが存在するか確認*/
 			if (aObjects[i].get<picojson::object>()["polyline"].is<picojson::array>()) {
@@ -531,7 +531,7 @@ void MapChips::LoadServerLayer(picojson::array aObjects) {
 		if (aObjects[i].get<picojson::object>()["polygon"].is<picojson::array>() ||
 			aObjects[i].get<picojson::object>()["polyline"].is<picojson::array>()) {
 			/*敵1体分の巡回ルート*/
-			EnemyPatrol aPatrolData;
+			St::EnemyPatrol aPatrolData;
 			std::string linestyle = "null";
 			/*polylineが存在するか確認*/
 			if (aObjects[i].get<picojson::object>()["polyline"].is<picojson::array>()) {
@@ -572,7 +572,7 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 		if (aObjects[i].get<picojson::object>()["gid"].is<double>()) {
 			auto gid = static_cast<int>(aObjects[i].get<picojson::object>()["gid"].get<double>());
 			if (_gidteleportIn.find(gid) != _gidteleportIn.end()) {
-				teleporterData stat;
+				ObjectDataStructs::teleporterData stat;
 				stat.random = _gidteleportIn[gid];
 				stat.tereortID = -1;
 				stat.pos.x = aObjects[i].get<picojson::object>()["x"].get<double>();
@@ -613,7 +613,7 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 			/*スイッチ読み込み*/
 			for (auto gid : _gidSwitch) {
 				if (gid == static_cast<int>(aObjects[i].get<picojson::object>()["gid"].get<double>())) {
-					SwitchData data;
+					St::SwitchData data;
 					if (aObjects[i].get<picojson::object>()["properties"].is<picojson::array>()) {
 						auto properties = aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
 						for (int i = 0; i < properties.size(); ++i) {
@@ -655,7 +655,7 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 			}
 			for (auto gid : _gidMine) {
 				if (gid == static_cast<int>(aObjects[i].get<picojson::object>()["gid"].get<double>())) {
-					MineData data;
+					St::MineData data;
 					data.pos.x = static_cast<int>(aObjects[i].get<picojson::object>()["x"].get<double>());
 					data.pos.y = static_cast<int>(aObjects[i].get<picojson::object>()["y"].get<double>());
 					data.ID = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
@@ -911,7 +911,7 @@ bool MapChips::IsHitBarrier(int objectstage, Actor& o,int playerno)
 	return 0;
 }
 
-MapChips::EnemyPatrol MapChips::FindPatrol(int id){
+ObjectDataStructs::EnemyPatrol MapChips::FindPatrol(int id){
 	auto points = _patrolPoints.find(id);
 	if (points != _patrolPoints.end()) {
 		return points->second;

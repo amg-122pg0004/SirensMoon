@@ -83,6 +83,32 @@ public:
     static double Cross(const Vector2& a, const Vector2& b) {
         return (a.x * b.y - a.y * b.x);
     }
+
+    /**
+ * \brief 線分ABとCDが交差しているか
+ *
+ * \param a　線分ABの始点
+ * \param b　線分ABの終点
+ * \param c　線分CDの始点
+ * \param d　線分CDの始点
+ * \return 　交差していればTrue
+ */
+   static bool IsCrossed(Vector2 a, Vector2 b, Vector2 c, Vector2 d) {
+        Vector2 vec_a1 = b - a;
+        Vector2 vec_a2 = c - a;
+        Vector2 vec_a3 = d - a;
+
+        Vector2 vec_c1 = a - c;
+        Vector2 vec_c2 = b - c;
+        Vector2 vec_c3 = d - c;
+
+        if (Vector2::Cross(vec_a1, vec_a2) * Vector2::Cross(vec_a1, vec_a3) < 0) {
+            if (Vector2::Cross(vec_c3, vec_c1) * Vector2::Cross(vec_c3, vec_c2) < 0) {
+                return 1;
+            }
+        }
+        return 0;
+    }
 };
 
 namespace Math {

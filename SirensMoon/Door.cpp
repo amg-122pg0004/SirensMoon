@@ -1,5 +1,4 @@
 #include "Door.h"
-#include "ImageServer.h"
 
 Door::Door(Game& game, ModeGame& mode, int ID, Vector2 pos)
 	:Gimmick{game,mode,ID}

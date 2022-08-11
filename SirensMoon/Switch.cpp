@@ -1,8 +1,7 @@
 #include "Switch.h"
 #include "ModeGame.h"
-#include "ImageServer.h"
 
-Switch::Switch(Game& game, ModeGame& mode, MapChips::SwitchData data)
+Switch::Switch(Game& game, ModeGame& mode, ObjectDataStructs::SwitchData data)
 	:Gimmick(game, mode, data.ID), _linkGimmiks{ data.links }
 {
 	_pos = data.pos;

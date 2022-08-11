@@ -1,6 +1,4 @@
 #include "PlayerB.h"
-#include "ImageServer.h"
-#include "SoundServer.h"
 #include "Game.h"
 #include "ModeGame.h"
 

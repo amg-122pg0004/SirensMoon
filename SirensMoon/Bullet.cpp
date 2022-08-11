@@ -6,9 +6,7 @@
  * \date   July 2022
  *********************************************************************/
 #include "Bullet.h"
-#include "ImageServer.h"
 #include "ModeGame.h"
-#include "SoundServer.h"
 
 Bullet::Bullet(Game& game, ModeGame& mode, Vector2 pos, Vector2 dir)
 	:Actor{ game,mode }, _dir{ dir }, _speed{ 25 }, _lifetime{ 180 }

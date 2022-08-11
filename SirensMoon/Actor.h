@@ -9,6 +9,8 @@
 #pragma once
 #include "Math.h"
 #include "Collision.h"
+#include "ImageServer.h"
+#include "SoundServer.h"
 class Game;
 
 class ModeGame;

@@ -1,6 +1,4 @@
 #include "Explode.h"
-#include "ImageServer.h"
-#include "SoundServer.h"
 
 Explode::Explode(Game& game, ModeGame& mode, Vector2 pos) :Actor(game, mode), _lifetime{ 60 }
 {

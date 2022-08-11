@@ -7,7 +7,6 @@
  *********************************************************************/
 
 #include "Pause.h"
-#include "ImageServer.h"
 #include "ModeGame.h"
 
 

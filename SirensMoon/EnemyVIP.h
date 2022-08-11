@@ -1,12 +1,11 @@
 #pragma once
-#include "Enemy.h"
-#include "EnemyGenerator.h"
+#include "EnemyA.h"
 
 class ServerMachine;
 
-class EnemyVIP : public Enemy {
+class EnemyVIP : public EnemyA {
 public:
-	EnemyVIP(Game& game, ModeGame& mode, MapChips::EnemyData enemydata,ServerMachine& owner, MapChips::EnemyPatrol patrol,EnemyGenerator::EnemyPattern pattern);
+	EnemyVIP(Game& game, ModeGame& mode, ObjectDataStructs::EnemyData enemydata,ServerMachine& owner, ObjectDataStructs::EnemyPatrol patrol, EnemyGenerator::EnemyPattern pattern);
 	void Init() override;
 	void Update() override;
 

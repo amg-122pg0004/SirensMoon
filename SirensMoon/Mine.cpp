@@ -1,10 +1,8 @@
 #include "Mine.h"
 #include "ModeGame.h"
 #include "Player.h"
-#include "ImageServer.h"
-#include "SoundServer.h"
 
-Mine::Mine(Game& game, ModeGame& mode, MapChips::MineData data)
+Mine::Mine(Game& game, ModeGame& mode, ObjectDataStructs::MineData data)
 	:Gimmick(game,mode,data.ID),_dir{data.dir}
 {
 	_pos = data.pos;

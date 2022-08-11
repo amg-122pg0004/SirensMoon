@@ -7,7 +7,6 @@
  *********************************************************************/
 
 #include "Player.h"
-#include "ImageServer.h"
 #include "MapChip.h"
 #include <string>
 #include <sstream>
@@ -17,7 +16,6 @@
 #include "ModeGame.h"
 #include "ProjectionLight.h"
 #include "LightBase.h"
-#include "SoundServer.h"
 #include "teleporter.h"
 
 Player::Player(Game& game,ModeGame& mode,int playernum)

@@ -8,6 +8,7 @@
 
 #pragma once
 #include "Math.h"
+#include "ImageServer.h"
 
 class Game;
 class ModeBase;

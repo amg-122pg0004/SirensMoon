@@ -1,11 +1,11 @@
 #pragma once
 #include "Gimmick.h"
-#include "MapChip.h"
+#include "ObjectDataStructs.h"
 
 class Switch :public Gimmick{
 public:
 
-	Switch(Game& game, ModeGame& mode, MapChips::SwitchData data);
+	Switch(Game& game, ModeGame& mode, ObjectDataStructs::SwitchData data);
 
 	Type GetType()override { return Type::Gimmick; }
 	GimmickType GetGimmickType() override { return GimmickType::Switch; }

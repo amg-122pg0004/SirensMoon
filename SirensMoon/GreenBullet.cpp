@@ -1,5 +1,4 @@
 #include "GreenBullet.h"
-#include "ImageServer.h"
 
 GreenBullet::GreenBullet(Game& game, ModeGame& mode, Vector2 pos, Vector2 dir)
 	:Bullet(game, mode, pos, dir)

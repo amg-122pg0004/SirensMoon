@@ -1,13 +1,13 @@
 #pragma once
 #include "Gimmick.h"
-#include "MapChip.h"
+#include "ObjectDataStructs.h"
 
 class Game;
 class ModeGame;
 
 class teleporterIn :public Gimmick {
 public:
-	teleporterIn(Game& game, ModeGame& mode, int ID, MapChips::teleporterData data);
+	teleporterIn(Game& game, ModeGame& mode, int ID, ObjectDataStructs::teleporterData data);
 	Type GetType()override { return Type::Gimmick; }
 	GimmickType GetGimmickType()override { return GimmickType::Teleporter; }
 

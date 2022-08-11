@@ -1,5 +1,4 @@
 #include "SquareLight.h"
-#include "ImageServer.h"
 #include "Enemy.h"
 #include "Game.h"
 #include <math.h>

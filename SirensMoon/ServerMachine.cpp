@@ -1,18 +1,16 @@
 #include "ServerMachine.h"
-#include "InputManager.h"
-#include "ImageServer.h"
-#include "Game.h"
-#include "ModeBase.h"
-#include "ModeGame.h"
-#include <memory>
 #include <random>
+#include "Game.h"
+#include "ModeGame.h"
 
+#include "InputManager.h"
+#include "EnemyVIP.h"
 #include "SplitWindow.h"
 #include "ServerMachineUI.h"
 #include "SoundServer.h"
 
-ServerMachine::ServerMachine(Game& game, ModeGame& mode, MapChips::ServerMachineData data, EnemyGenerator::EnemyPattern pattern)
-	:Actor(game, mode),_valid{false},_serverData{data},_energy{0}, _enemypattern{pattern},_deadVIP{false}
+ServerMachine::ServerMachine(Game& game, ModeGame& mode, ObjectDataStructs::ServerMachineData data, EnemyGenerator::EnemyPattern pattern)
+	:Actor(game, mode),_valid{false},_serverData{data},_energy{0}, _pattern{pattern},_deadVIP{false}
 {
 	_inputManager = _game.GetInputManager();
 	_accessArea.min = {0,0};
@@ -57,14 +55,9 @@ ServerMachine::ServerMachine(Game& game, ModeGame& mode, MapChips::ServerMachine
 
 	Vector2 map_pos = { 1080,660 };
 	Vector2 map_size = { 780,420 };
-	_generatedEnemy.emplace_back(pattern.head);
-	_generatedEnemy.emplace_back(pattern.body);
-	_generatedEnemy.emplace_back(pattern.foot);
 	
-
-
 	std::vector<std::unique_ptr<SplitWindow>>& spw = dynamic_cast<ModeGame&>(_mode).GetSplitWindow();
-	auto window = std::make_unique<ServerMachineUI>(_game, _mode, map_pos, map_size, *this);
+	auto window = std::make_unique<ServerMachineUI>(_game, _mode, map_pos, map_size, *this,_pattern);
 	spw[1]->GetUIServer().emplace_back(std::move(window));
 }
 
@@ -147,8 +140,8 @@ void ServerMachine::SpawnEnemyVIP() {
 	auto loot = vipdata[i];
 	Vector2 pos=loot.PatrolPoints[0];
 	auto id = loot.ID;
-	MapChips::EnemyData data = { id,0,pos,0 };
-	auto enemy = std::make_unique<EnemyVIP>(_game, _mode, data, *this,loot, _enemypattern);
+	ObjectDataStructs::EnemyData data = { id,0,pos,0 };
+	auto enemy = std::make_unique<EnemyVIP>(_game, _mode, data, *this,loot, _pattern);
 	mode.GetActorServer().Add(std::move(enemy));
 
 }
@@ -168,4 +161,3 @@ void ServerMachine::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
 	ss << "ƒGƒlƒ‹ƒM[" << _energy;
 	DrawString(500,500, ss.str().c_str(), GetColor(255, 0, 255));
 }
-

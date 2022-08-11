@@ -1,6 +1,4 @@
 #include "PlayerA.h"
-#include "ImageServer.h"
-#include "SoundServer.h"
 #include "RedBullet.h"
 #include "GreenBullet.h"
 #include "ProjectionLight.h"

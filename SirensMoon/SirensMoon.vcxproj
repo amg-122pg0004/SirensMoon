@@ -158,6 +158,7 @@
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="Easing.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyA.cpp" />
     <ClCompile Include="EnemyB.cpp" />
     <ClCompile Include="EnemyVIP.cpp" />
     <ClCompile Include="Explode.cpp" />
@@ -181,6 +182,7 @@
     <ClCompile Include="ModeGameOver.cpp" />
     <ClCompile Include="ModeMovie.cpp" />
     <ClCompile Include="ModeServer.cpp" />
+    <ClCompile Include="ObjectDataStructs.cpp" />
     <ClCompile Include="Pause.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerA.cpp" />
@@ -214,6 +216,7 @@
     <ClInclude Include="Door.h" />
     <ClInclude Include="Easing.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyA.h" />
     <ClInclude Include="EnemyB.h" />
     <ClInclude Include="EnemyVIP.h" />
     <ClInclude Include="Explode.h" />
@@ -237,6 +240,7 @@
     <ClInclude Include="ModeGameOver.h" />
     <ClInclude Include="ModeMovie.h" />
     <ClInclude Include="ModeServer.h" />
+    <ClInclude Include="ObjectDataStructs.h" />
     <ClInclude Include="Pause.h" />
     <ClInclude Include="picojson\picojson.h" />
     <ClInclude Include="Player.h" />

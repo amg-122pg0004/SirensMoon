@@ -9,23 +9,29 @@
 #pragma once
 #include "Actor.h"
 #include <vector>
-#include "MapChip.h"
+#include <map>
 #include "EnemyGenerator.h"
+#include "ObjectDataStructs.h"
+
 
 class Game;
-class ModeBase;
 class ModeGame;
 
 class Enemy :public Actor {
 	public :
-		Enemy(Game& game, ModeGame& mode,MapChips::EnemyData enemy,EnemyGenerator::EnemyPattern pattern);
+
+		Enemy(Game& game, ModeGame& mode,EnemyGenerator::EnemyPattern pattern);
 		virtual void Init();
 		/**
 		 * @brief 行動の決定、更新
 		 * 
 		 */
 		Type GetType()override { return Type::Enemy; }
-		void Update()override;
+
+		virtual void Update()override;
+
+		/*グラフィックハンドルをセットする*/
+		void SetGrHandle(EnemyGenerator::EnemyPattern);
 
 		/**
 		 * @brief グラフィックの表示
@@ -34,38 +40,12 @@ class Enemy :public Actor {
 		 * \param window_pos 分割画面の位置
 		 * \param camera_pos カメラの座標
 		 */
-		void StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;
-
-		/*次に向かう座標へ進む*/
-		void MoveNextPoint();
-
-		/*移動する座標を配列にセットする。コンストラクタで呼ぶ*/
-		void SetPatrolPoints();
-
-		/*配列から次に向かう座標を取得*/
-		void GetNextPoints();
-
-		/**
-		 * @brief 向かっている座標に到着したか判定する
-		 * 
-		 * \return 到着したらTrueを返す
-		 */
-		bool CheckReachPoint();
+		virtual void StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;
 
 		/*視界判定を更新*/
 		void  SightUpdate();
 		/*視界内にプレイヤーが居るか判定*/
 		bool CheckDetection();
-		/**
-		 * \brief 線分ABとCDが交差しているか
-		 * 
-		 * \param a　線分ABの始点
-		 * \param b　線分ABの終点
-		 * \param c　線分CDの始点
-		 * \param d　線分CDの始点
-		 * \return 　交差していればTrue
-		 */
-		bool IsCrossed(Vector2 a,Vector2 b,Vector2 c,Vector2 d);
 
 		/*弾、プレイヤーと触れているか確認する*/
 		virtual void CheckDamage();
@@ -73,28 +53,25 @@ class Enemy :public Actor {
 		void MoveToPlayer();
 		/*プレイヤーにダメージを与える*/
 		void ApplyDamage();
-		void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos) override;
+		virtual void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos) override;
 
 		void UpdateCollision();
 		void AnimationUpdate();
 
 	protected:
-
-
-		/*グラフィック用方向*/
 		enum class EnemyDirection {
-			Up,
 			Down,
+			DownLeft,
 			Left,
-			Right,
-			UpRight,
-			DownRight,
 			UpLeft,
-			DownLeft
+			Up,
+			UpRight,
+			Right,
+			DownRight
 		};
 
+
 		void SetDirection();
-		void Resize(std::map<EnemyDirection, std::vector<int>> set);
 
 		/*初期位置*/
 		Vector2 _initPos;
@@ -122,24 +99,8 @@ class Enemy :public Actor {
 		/*最後に発見した物体*/
 		Actor* _lastDetection;
 
-		/*巡回ルートのID*/
-		int _patrolID;
-		/*巡回パターン*/
-		bool _patrolMode;
-		/*巡回の方向*/
-		int _patrolFlag;
-		/*向かっている座標の配列番号*/
-		int _patrolIndex;
-		/*向かっている座標*/
-		Vector2 _nextPos;
-		/*巡回する座標リスト*/
-		std::vector<Vector2> _patrolPoints;
-		/*座標リストの長さ*/
-		int _patrolLength;
-
-
 		/*Enemyランダム生成パターン*/
-		std::vector<int> _generatedEnemy;
+		EnemyGenerator::EnemyPattern _pattern;
 		/*Enemy仮画像*/
 		std::map<EnemyDirection,int> _cg_top;
 		std::map<EnemyDirection,int> _cg_mid;

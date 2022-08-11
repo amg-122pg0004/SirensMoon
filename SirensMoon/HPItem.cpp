@@ -1,5 +1,4 @@
 #include "HPItem.h"
-#include "ImageServer.h"
 #include "ModeGame.h"
 /*****************************************************************//**
  * \file   HPItem.cpp

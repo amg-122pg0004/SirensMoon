@@ -48,4 +48,3 @@ void Actor::CheckRoomPosition() {
 	double y = floor((_pos.y + _size.y / 2) / screen_H);
 	_roomPosition = { x,y };
 }
-

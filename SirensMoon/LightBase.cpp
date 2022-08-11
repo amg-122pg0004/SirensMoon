@@ -7,7 +7,6 @@
  *********************************************************************/
 #include "LightBase.h"
 #include "Actor.h"
-#include "ImageServer.h"
 #include "ModeGame.h"
 
 LightBase::LightBase(Game& game, ModeGame& mode, Actor& owner)

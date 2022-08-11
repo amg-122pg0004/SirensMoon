@@ -2,6 +2,7 @@
 #include "UIBase.h"
 #include "Math.h"
 #include "InputManager.h"
+#include "EnemyGenerator.h"
 #include <memory>
 
 class ServerMachine;
@@ -10,7 +11,7 @@ class ModeBase;
 
 class ServerMachineUI :public UIBase{
 	public:
-		ServerMachineUI(Game&,ModeBase&,Vector2,Vector2,ServerMachine&);
+		ServerMachineUI(Game&,ModeBase&,Vector2,Vector2,ServerMachine&,EnemyGenerator::EnemyPattern patern);
 		Type GetType() { return Type::ServerMachine; }
 		void Update();
 		void Render();

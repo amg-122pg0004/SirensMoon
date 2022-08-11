@@ -1,13 +1,11 @@
 #include "EnemyVIP.h"
 #include "ServerMachine.h"
 #include "ModeGame.h"
-#include "SoundServer.h"
 
-EnemyVIP::EnemyVIP(Game& game, ModeGame& mode, MapChips::EnemyData enemydata,
-	ServerMachine& owner, MapChips::EnemyPatrol patrol, EnemyGenerator::EnemyPattern pattern)
-	:Enemy(game, mode, enemydata,pattern), _owner{ owner }
+EnemyVIP::EnemyVIP(Game& game, ModeGame& mode, ObjectDataStructs::EnemyData enemydata,
+	ServerMachine& owner, ObjectDataStructs::EnemyPatrol patrol, EnemyGenerator::EnemyPattern pattern)
+	:EnemyA(game, mode, enemydata,pattern), _owner{ owner }
 {
-	_generatedEnemy=_owner.GetGeneratedEnemy();
 	Init();
 	_patrolPoints = patrol.PatrolPoints;
 	_patrolMode = patrol.TruckingMode;

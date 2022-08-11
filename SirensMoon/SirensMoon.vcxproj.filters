@@ -175,6 +175,9 @@
     <Filter Include="UI\GameOverUI">
       <UniqueIdentifier>{33218133-5bb8-4239-bbd1-c884364d35b8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Enemy\EnemyA">
+      <UniqueIdentifier>{77579d49-4261-47c1-9593-41b46c98da45}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -339,6 +342,12 @@
     <ClCompile Include="GameOverUI.cpp">
       <Filter>UI\GameOverUI</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectDataStructs.cpp">
+      <Filter>MapChip</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyA.cpp">
+      <Filter>Actor\Enemy\EnemyA</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -482,9 +491,6 @@
     <ClInclude Include="Explode.h">
       <Filter>Actor\Explode</Filter>
     </ClInclude>
-    <ClInclude Include="TNT.h">
-      <Filter>Actor\Gimmick</Filter>
-    </ClInclude>
     <ClInclude Include="RedBullet.h">
       <Filter>Actor\Bullet\RedBullet</Filter>
     </ClInclude>
@@ -502,6 +508,15 @@
     </ClInclude>
     <ClInclude Include="GameOverUI.h">
       <Filter>UI\GameOverUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectDataStructs.h">
+      <Filter>MapChip</Filter>
+    </ClInclude>
+    <ClInclude Include="TNT.h">
+      <Filter>Actor\Gimmick\TNT</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyA.h">
+      <Filter>Actor\Enemy\EnemyA</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

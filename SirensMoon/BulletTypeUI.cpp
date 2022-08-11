@@ -1,7 +1,6 @@
 #include "BulletTypeUI.h"
 #include "ModeBase.h"
 #include "PlayerA.h"
-#include "ImageServer.h"
 
 BulletTypeUI::BulletTypeUI(Game& game, ModeBase& base, Vector2 pos, Vector2 size)
 	:UIBase(game,base,pos,size),_bulletType{false}

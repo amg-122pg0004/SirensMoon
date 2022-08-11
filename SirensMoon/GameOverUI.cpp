@@ -1,5 +1,4 @@
 #include "GameOverUI.h"
-#include "ImageServer.h"
 #include "Game.h"
 #include "ModeGameOver.h"
 

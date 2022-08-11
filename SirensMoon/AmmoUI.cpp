@@ -1,5 +1,4 @@
 #include "AmmoUI.h"
-#include "ImageServer.h"
 #include "ModeBase.h"
 #include  "Player.h"
 #include "Game.h"

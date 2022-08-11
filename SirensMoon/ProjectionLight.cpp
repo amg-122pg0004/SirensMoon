@@ -7,7 +7,6 @@
  *********************************************************************/
 
 #include "ProjectionLight.h"
-#include "ImageServer.h"
 #include "Player.h"
 #include <math.h>
 

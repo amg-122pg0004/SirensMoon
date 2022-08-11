@@ -1,5 +1,4 @@
 #include "RedBullet.h"
-#include "ImageServer.h"
 
 RedBullet:: RedBullet(Game& game, ModeGame& mode, Vector2 pos, Vector2 dir)
 	:Bullet(game,mode,pos,dir)

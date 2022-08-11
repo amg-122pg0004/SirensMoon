@@ -7,7 +7,6 @@
  *********************************************************************/
 
 #include "MiniMap.h"
-#include "ImageServer.h"
 #include "ModeGame.h"
 
 MiniMap::MiniMap(Game& game, ModeBase& mode, Vector2 pos, Vector2 size)

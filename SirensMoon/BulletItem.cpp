@@ -7,7 +7,6 @@
  *********************************************************************/
 
 #include "BulletItem.h"
-#include "ImageServer.h"
 #include "ModeGame.h"
 #include "Player.h"
 

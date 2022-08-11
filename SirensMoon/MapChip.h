@@ -4,6 +4,7 @@
 #include "Math.h"
 #include <vector>
 #include "SquareLight.h"
+#include "ObjectDataStructs.h"
 
 class Game;
 class ModeBase;
@@ -12,58 +13,10 @@ class Actor;
 
 class MapChips {
 public:
-	/*エネミーデータ構造*/
-	struct EnemyData {
-		int ID;
-		int	Enemytype;
-		Vector2 StartPosition;
-		int patrolID;
-	};
-
-	/*エネミー巡回経路データ構造*/
-	struct EnemyPatrol {
-		int ID;
-		std::vector<Vector2> PatrolPoints;
-		bool TruckingMode{false};
-	};
-
-	/*サーバーデータ構造*/
-	struct ServerMachineData {
-		Vector2 Position;
-		std::string Direction;
-	};
-
-	/*サーバータイルセットデータ構造*/
-	struct ServerTileData {
-		int gid;
-		std::string Direction;
-	};
-
-	/*テレポーター(in)データ構造*/
-	struct teleporterData {
-		Vector2 pos;
-		bool random;
-		int tereortID;
-	};
-
-	/*スイッチデータ構造*/
-	struct SwitchData {
-		int ID;
-		Vector2 pos;
-		std::vector<int> links;
-	};
-
-	/*Mineデータ構造*/
-	struct MineData {
-		int ID;
-		Vector2 pos;
-		int dir;
-	};
-
-
 	MapChips(Game& game,ModeBase& mode);
 	~MapChips();
 
+	typedef ObjectDataStructs St;
 
 	/**
 	 * \brief タイルの表示を行う関数
@@ -81,19 +34,19 @@ public:
 	int GetChipSize_W() { return _chipSize_W; }
 
 	Vector2 GetPlayerStartPosition(int playerno);
-	std::vector<EnemyData> GetEnemyData() { return _enemyDataList; }
-	std::vector<EnemyPatrol> GetPatrolPointsVIP() { return _patrolPointsVIP; }
+	std::vector<St::EnemyData> GetEnemyData() { return _enemyDataList; }
+	std::vector<St::EnemyPatrol> GetPatrolPointsVIP() { return _patrolPointsVIP; }
 	std::vector<Vector2> GetHPItemData() { return _hpItems; }
 	std::vector<Vector2> GetBulletData() { return _bulletItems; }
-	std::vector<ServerMachineData> GetServerData() { return _serverMachineDataList; }
+	std::vector<St::ServerMachineData> GetServerData() { return _serverMachineDataList; }
 	std::vector<std::pair<int,SquareLight::SquareLightStats>> GetLightData() { return _lightDataList; }
-	std::vector<teleporterData> GetteleporterInData() { return _teleporterInDataList; }
+	std::vector<St::teleporterData> GetteleporterInData() { return _teleporterInDataList; }
 	std::unordered_map<int, std::pair<Vector2, bool>> GetteleporterOutData() { return _teleporterOutDataList; }
-	std::vector<SwitchData> GetSwitchData() { return _switchDataList; }
+	std::vector<St::SwitchData> GetSwitchData() { return _switchDataList; }
 	std::vector<std::pair<int, Vector2>>GetDoorData() { return _doorDataList; }
 	std::vector<std::pair<int, Vector2>>GetTNTData() { return _tNTDataList; }
-	std::vector<MineData> GetMineData() { return _mineDataList; }
-	EnemyPatrol FindPatrol(int id);
+	std::vector<St::MineData> GetMineData() { return _mineDataList; }
+	St::EnemyPatrol FindPatrol(int id);
 	std::vector<int> CheckHitChipNo(int objectstage, int x, int y);
 	bool IsHit(int objectstage, Actor& o);
 	bool IsHitBarrier(int objectstage, Actor& o, int playerno);
@@ -140,27 +93,27 @@ private:
 	/*弾薬アイテムデータ[配置個数分]*/
 	std::vector<Vector2> _bulletItems;
 	/*通常エネミーデータ[配置個数分]*/
-	std::vector<EnemyData> _enemyDataList;
+	std::vector<St::EnemyData> _enemyDataList;
 	/*エネミーの巡回ルート*/
-	std::unordered_map<int, EnemyPatrol> _patrolPoints;
+	std::unordered_map<int, St::EnemyPatrol> _patrolPoints;
 	/*マップごとの重要エネミー巡回ルート*/
-	std::vector<EnemyPatrol> _patrolPointsVIP;
+	std::vector<St::EnemyPatrol> _patrolPointsVIP;
 	/*サーバーデータ[配置個数分]*/
-	std::vector<ServerMachineData> _serverMachineDataList;
+	std::vector<St::ServerMachineData> _serverMachineDataList;
 	/*配置ライトデータ<ID,stats>*/
 	std::vector<std::pair<int,SquareLight::SquareLightStats>> _lightDataList;
 	/*テレポーター入口データ*/
-	std::vector<teleporterData> _teleporterInDataList;
+	std::vector<St::teleporterData> _teleporterInDataList;
 	/*テレポーター出口データ<ID,<座標,ランダムフラグ>>*/
 	std::unordered_map<int, std::pair<Vector2,bool>> _teleporterOutDataList;
 	/*スイッチデータ*/
-	std::vector<SwitchData> _switchDataList;
+	std::vector<St::SwitchData> _switchDataList;
 	/*ドアデータ*/
 	std::vector<std::pair<int,Vector2>> _doorDataList;
 	/*TNTデータ*/
 	std::vector<std::pair<int, Vector2>> _tNTDataList;
 	/*Mineデータ*/
-	std::vector<MineData> _mineDataList;
+	std::vector<St::MineData> _mineDataList;
 	
 	/*マップチップのグラフィックハンドル用コンテナ*/
 	/*[タイル用画像の枚数分][画像を分割した際のチップ画像の数]*/
@@ -179,7 +132,7 @@ private:
 	std::vector<int> _gidItemAmmo;
 	std::vector<int> _gidItemHP;
 	std::vector<int> _gidPlayer;
-	std::vector<ServerTileData> _gidServer;
+	std::vector<St::ServerTileData> _gidServer;
 	std::vector<std::pair<int,SquareLight::SquareLightStats>> _gidLight;
 	std::unordered_map<int, bool> _gidteleportOut;//<boolはランダムにワープするフラグ
 	std::unordered_map<int, bool> _gidteleportIn;//<boolはランダム抽選に参加するフラグ
