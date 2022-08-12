@@ -849,22 +849,22 @@
                         {
                          "name":"Direction2",
                          "type":"int",
-                         "value":180
+                         "value":271
                         }, 
                         {
                          "name":"Direction3",
                          "type":"int",
-                         "value":3
+                         "value":0
                         }, 
                         {
                          "name":"Direction4",
                          "type":"int",
-                         "value":3
+                         "value":0
                         }, 
                         {
                          "name":"LookTime1",
                          "type":"int",
-                         "value":180
+                         "value":120
                         }, 
                         {
                          "name":"LookTime2",
@@ -1015,8 +1015,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":1238.66666666667,
-                 "y":3000.66666666667
+                 "x":1238.67,
+                 "y":3000.67
                 }, 
                 {
                  "class":"",
@@ -1118,8 +1118,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":392.333333333333,
-                 "y":3810.33333333333
+                 "x":392.333,
+                 "y":3810.33
                 }, 
                 {
                  "class":"",
@@ -1137,7 +1137,7 @@
                  "visible":true,
                  "width":30,
                  "x":223,
-                 "y":4171.66666666667
+                 "y":4171.67
                 }, 
                 {
                  "class":"",
@@ -1234,8 +1234,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":510.666666666667,
-                 "y":3750
+                 "x":533.667,
+                 "y":3662
                 }, 
                 {
                  "class":"",
@@ -1246,8 +1246,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":450,
-                 "y":3750
+                 "x":578.5,
+                 "y":3632
                 }, 
                 {
                  "class":"",
@@ -1379,8 +1379,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":472.666666666667,
-                 "y":3890.66666666667
+                 "x":472.667,
+                 "y":3890.67
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1816,7 +1816,7 @@
                  "polygon":[
                         {
                          "x":-28,
-                         "y":0.666666666666515
+                         "y":0.666667
                         }, 
                         {
                          "x":-28,

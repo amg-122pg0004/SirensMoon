@@ -10,7 +10,7 @@
 MapChips::MapChips(Game& game, ModeBase& mode) :_game{ game }, _mode{mode}{
 	_mapTileData.clear();
 	_minimapData.clear();
-	LoadMap("resource/", "TestMap_01.json");
+	LoadMap("resource/MapData/", "Stage1.json");
 }
 
 MapChips::~MapChips() {
