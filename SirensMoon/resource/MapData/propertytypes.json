@@ -7,6 +7,11 @@
                 "name": "Collision",
                 "type": "bool",
                 "value": false
+            },
+            {
+                "name": "FrontRender",
+                "type": "bool",
+                "value": false
             }
         ],
         "name": "BackGround",
@@ -31,6 +36,7 @@
         "type": "class",
         "useAs": [
             "property",
+            "object",
             "tile"
         ]
     },
@@ -40,9 +46,10 @@
         "storageType": "string",
         "type": "enum",
         "values": [
+            "none",
             "up",
-            "right",
             "down",
+            "right",
             "left"
         ],
         "valuesAsFlags": false
@@ -52,18 +59,70 @@
         "id": 2,
         "members": [
             {
-                "name": "EnemyType",
-                "propertyType": "EnemyTypeList",
-                "type": "int",
+                "name": "PatrolLine",
+                "type": "object",
                 "value": 0
             },
             {
-                "name": "PatrolLine",
-                "type": "object",
+                "name": "WaitFrame",
+                "type": "int",
                 "value": 0
             }
         ],
         "name": "Enemy",
+        "type": "class",
+        "useAs": [
+            "property",
+            "object",
+            "tile"
+        ]
+    },
+    {
+        "color": "#ffa0a0a4",
+        "id": 23,
+        "members": [
+            {
+                "name": "Direction1",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "Direction2",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "Direction3",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "Direction4",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "WaitTime1",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "WaitTime2",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "WaitTime3",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "WaitTime4",
+                "type": "int",
+                "value": 0
+            }
+        ],
+        "name": "EnemyB",
         "type": "class",
         "useAs": [
             "property",
@@ -82,6 +141,7 @@
         "storageType": "int",
         "type": "enum",
         "values": [
+            "-1",
             "0",
             "1"
         ],
@@ -124,6 +184,88 @@
         ]
     },
     {
+        "color": "#ffa0a0a4",
+        "id": 15,
+        "members": [
+            {
+                "name": "Activate",
+                "type": "bool",
+                "value": true
+            },
+            {
+                "name": "Color : A",
+                "type": "int",
+                "value": 255
+            },
+            {
+                "name": "Color : B",
+                "type": "int",
+                "value": 255
+            },
+            {
+                "name": "Color : G",
+                "type": "int",
+                "value": 255
+            },
+            {
+                "name": "Color : R",
+                "type": "int",
+                "value": 255
+            },
+            {
+                "name": "Image",
+                "type": "string",
+                "value": "resource/Light/Light_square.png"
+            },
+            {
+                "name": "Size_X",
+                "type": "float",
+                "value": 100
+            },
+            {
+                "name": "Size_Y",
+                "type": "float",
+                "value": 100
+            }
+        ],
+        "name": "Light",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset"
+        ]
+    },
+    {
+        "color": "#ffa0a0a4",
+        "id": 20,
+        "members": [
+            {
+                "name": "Direction",
+                "propertyType": "Direction",
+                "type": "string",
+                "value": "none"
+            }
+        ],
+        "name": "Mine",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset"
+        ]
+    },
+    {
         "color": "#ff0407a4",
         "id": 11,
         "members": [
@@ -138,6 +280,7 @@
         "type": "class",
         "useAs": [
             "property",
+            "object",
             "tile"
         ]
     },
@@ -147,8 +290,9 @@
         "storageType": "int",
         "type": "enum",
         "values": [
-            "0",
-            "1"
+            "-1",
+            "1",
+            "2"
         ],
         "valuesAsFlags": false
     },
@@ -160,14 +304,146 @@
                 "name": "Direction",
                 "propertyType": "Direction",
                 "type": "string",
-                "value": "up"
+                "value": "none"
+            },
+            {
+                "name": "upperleft",
+                "type": "bool",
+                "value": false
             }
         ],
         "name": "Server",
         "type": "class",
         "useAs": [
             "property",
-            "tile"
+            "tile",
+            "tileset"
+        ]
+    },
+    {
+        "color": "#ffa0a0a4",
+        "id": 19,
+        "members": [
+            {
+                "name": "LinkGimmick1",
+                "type": "object",
+                "value": 0
+            },
+            {
+                "name": "LinkGimmick2",
+                "type": "object",
+                "value": 0
+            },
+            {
+                "name": "LinkGimmick3",
+                "type": "object",
+                "value": 0
+            },
+            {
+                "name": "LinkGimmick4",
+                "type": "object",
+                "value": 0
+            },
+            {
+                "name": "LinkGimmick5",
+                "type": "object",
+                "value": 0
+            }
+        ],
+        "name": "Switch",
+        "type": "class",
+        "useAs": [
+            "property",
+            "object",
+            "tile",
+            "tileset"
+        ]
+    },
+    {
+        "color": "#ffa0a0a4",
+        "id": 17,
+        "members": [
+            {
+                "name": "Random",
+                "type": "bool",
+                "value": false
+            },
+            {
+                "name": "Teleport_OUT",
+                "type": "object",
+                "value": 0
+            }
+        ],
+        "name": "Teleport_IN",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset"
+        ]
+    },
+    {
+        "color": "#ffa0a0a4",
+        "id": 18,
+        "members": [
+            {
+                "name": "RandomPort",
+                "type": "bool",
+                "value": false
+            }
+        ],
+        "name": "Teleport_OUT",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset"
+        ]
+    },
+    {
+        "color": "#ffa0a0a4",
+        "id": 22,
+        "members": [
+        ],
+        "name": "TNT",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset"
+        ]
+    },
+    {
+        "color": "#ffa0a0a4",
+        "id": 21,
+        "members": [
+        ],
+        "name": "Wall",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset"
         ]
     }
 ]
