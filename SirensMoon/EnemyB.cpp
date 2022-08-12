@@ -21,11 +21,17 @@ void EnemyB::Update(){
 		if (_elapsed > _data.LookTime[_index]) {
 			++_index;
 			_elapsed = 0;
-			while (_data.LookTime[_index] == 0) {
-				++_index;
-				if (_index >= _data.Direction.size()) {
-					_index = 0;
+			for (int i = _index; i < 4; ++i) {
+				if (_data.LookTime[_index] == 0) {
+					++_index;
+					if (_index >= _data.Direction.size()) {
+						_index = 0;
+					}
 				}
+				else {
+					break;
+				}
+
 			}
 		}
 		if (_index >= _data.Direction.size()) {
