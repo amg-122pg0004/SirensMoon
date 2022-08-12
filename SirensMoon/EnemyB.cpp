@@ -9,25 +9,29 @@ EnemyB::EnemyB(Game& game, ModeGame& mode, ObjectDataStructs::EnemyBData data, E
 }
 
 void EnemyB::Update(){
-	auto radian=_data.Direction[_index]*3.141519 / 180;
-	_dir.x = sin(radian);
-	_dir.y = cos(radian);
+	if (_chase) {
+		MoveToPlayer();
+	}
+	else {
+		auto radian = _data.Direction[_index] * 3.141519 / 180;
+		_dir.x = sin(radian);
+		_dir.y = cos(radian);
 
-	++_elapsed;
-	if (_elapsed > _data.LookTime[_index]) {
-		++_index;
-		_elapsed = 0;
-		while (_data.LookTime[_index] == 0) {
+		++_elapsed;
+		if (_elapsed > _data.LookTime[_index]) {
 			++_index;
-			if (_index >= _data.Direction.size()) {
-				_index = 0;
+			_elapsed = 0;
+			while (_data.LookTime[_index] == 0) {
+				++_index;
+				if (_index >= _data.Direction.size()) {
+					_index = 0;
+				}
 			}
 		}
+		if (_index >= _data.Direction.size()) {
+			_index = 0;
+		}
 	}
-	if (_index >= _data.Direction.size()) {
-		_index = 0;
-	}
-
 	Enemy::Update();
 }
 

@@ -36,6 +36,7 @@ class Player :public Actor {
 		bool IsHitActor();
 		virtual void Action();
 		void PlayFootSteps();
+		void PlayerOverlap();
 		void UpdateCollision();
 		void CheckDamage();
 		void TakeDamage();

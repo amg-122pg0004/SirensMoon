@@ -57,7 +57,7 @@ void Player::Update() {
 	if (_dir.Length() > 1) {
 		_dir.Normalize();
 	}
-	
+	PlayerOverlap();
 	/*移動*/
 	Move();
 	/*テレポートに触れていたら起動*/
@@ -72,6 +72,22 @@ void Player::Update() {
 	CheckRoomPosition();
 }
 
+void Player::PlayerOverlap() {
+	/*
+	for (auto&& actor : _mode.GetObjects()) {
+		if (actor->GetType() == Type::Player) {
+			if (dynamic_cast<Player&>(*actor).GetPlayerNum() != _playerNum) {
+				if(Intersect(_collision, actor->GetCollision())) {
+					Vector2 col1_centerpos = (_collision.min + _collision.max) / 2;
+					Vector2 col2_centerpos = (actor->GetCollision().max + actor->GetCollision().min) / 2;
+					Vector2 dir = col2_centerpos - col1_centerpos;
+					auto min_dir=min(dir.x, dir.y);
+				}
+			}
+		}
+	}
+	*/
+}
 
 void Player::Move() {
 	
@@ -107,7 +123,7 @@ void Player::Move() {
 	/*障害物衝突処理*/
 	/*X方向*/
 	_pos.x += _speed.x;
-	if (_mode.GetMapChips() ->IsHit(_stage - 1, *this)) {
+	if (_mode.GetMapChips() ->IsHit(*this)) {
 		_pos.x += -1*_speed.x;
 	}
 	if (_mode.GetMapChips()->IsHitBarrier(_stage - 1, *this, _playerNum)) {
@@ -119,7 +135,7 @@ void Player::Move() {
 	}
 
 	_pos.y += _speed.y;
-	if (_mode.GetMapChips() ->IsHit(_stage - 1, *this)) {
+	if (_mode.GetMapChips() ->IsHit(*this)) {
 		_pos.y += -1 * _speed.y;
 	}
 	if (_mode.GetMapChips()->IsHitBarrier(_stage - 1, *this, _playerNum)) {

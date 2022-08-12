@@ -867,7 +867,7 @@ void MapChips::FrontRender(int stageNum, Vector2 windowPos, Vector2 cameraPos) {
 // 戻値：
 //   0 : 当たり判定を行わない
 //   0以外 : 当たり判定を行う（チップ番号を返す）
-std::vector<int> MapChips::CheckHitChipNo(int stagenum,int x, int y)
+std::vector<int> MapChips::CheckHitChipNo(int x, int y)
 {
 	std::vector<int> v_chip_no;
 	v_chip_no.resize(0);
@@ -896,7 +896,7 @@ std::vector<int> MapChips::CheckHitChipNo(int stagenum,int x, int y)
 // 戻値：
 //   0 : 当たってない
 //   1 : 当たった
-bool MapChips::IsHit(int objectstage,Actor& o)
+bool MapChips::IsHit(Actor& o)
 {
 	int x, y;
 	int dxordy=0;
@@ -913,7 +913,7 @@ bool MapChips::IsHit(int objectstage,Actor& o)
 		{
 			// (x,y)は、マップチップの座標（チップ単位）
 			// この位置のチップは当たるか？
-			std::vector<int> v_chip_no = CheckHitChipNo(objectstage,x,y);
+			std::vector<int> v_chip_no = CheckHitChipNo(x,y);
 			for (int i = 0; i < v_chip_no.size(); ++i) {
 				int chip_no=v_chip_no[i];
 				int tileset=0;
@@ -962,7 +962,7 @@ bool MapChips::IsHitBarrier(int objectstage, Actor& o,int playerno)
 		{
 			// (x,y)は、マップチップの座標（チップ単位）
 			// この位置のチップは当たるか？
-			std::vector<int> v_chip_no = CheckHitChipNo(objectstage, x, y);
+			std::vector<int> v_chip_no = CheckHitChipNo(x, y);
 			for (int chip_no : v_chip_no) {
 				if (playerno == 0) {
 					for (auto gid : _gidBarrier1) {

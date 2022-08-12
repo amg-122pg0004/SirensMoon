@@ -92,7 +92,7 @@ void PlayerB::Move() {
 	/*áŠQ•¨Õ“Ëˆ—*/
 	/*X•ûŒü*/
 	_pos.x += _speed.x;
-	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHit(_stage - 1, *this)) {
+	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHit(*this)) {
 		_pos.x += -1 * _speed.x;
 	}
 	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHitBarrier(_stage - 1, *this, _playerNum)) {
@@ -104,7 +104,7 @@ void PlayerB::Move() {
 	}
 
 	_pos.y += _speed.y;
-	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHit(_stage - 1, *this)) {
+	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHit(*this)) {
 		_pos.y += -1 * _speed.y;
 	}
 	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHitBarrier(_stage - 1, *this, _playerNum)) {

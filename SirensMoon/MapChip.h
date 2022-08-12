@@ -48,8 +48,8 @@ public:
 	std::vector<std::pair<int, Vector2>>GetTNTData() { return _tNTDataList; }
 	std::vector<St::MineData> GetMineData() { return _mineDataList; }
 	St::EnemyPatrol FindPatrol(int id);
-	std::vector<int> CheckHitChipNo(int objectstage, int x, int y);
-	bool IsHit(int objectstage, Actor& o);
+	std::vector<int> CheckHitChipNo(int x, int y);
+	bool IsHit(Actor& o);
 	bool IsHitBarrier(int objectstage, Actor& o, int playerno);
 
 
