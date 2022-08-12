@@ -16,6 +16,9 @@ private:
 
 	/*目盛りハンドル*/
 	int _cg_mark;
+	int _cg_gun;
+	int _cg_line;
+
 	/*チャージバー用ハンドル[0]~[2]*/
 	std::vector<int> _cg_charge;
 	/*数字画像ハンドル[0]~[9]*/

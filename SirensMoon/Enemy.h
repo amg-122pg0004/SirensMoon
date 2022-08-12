@@ -58,6 +58,7 @@ class Enemy :public Actor {
 		void UpdateCollision();
 		void AnimationUpdate();
 
+		void CheckRoomPosition()override;
 	protected:
 		enum class EnemyDirection {
 			Down,

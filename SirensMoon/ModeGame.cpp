@@ -175,6 +175,7 @@ void ModeGame::Debug() {
 void ModeGame::StageClearCheck(){
 	++_enemyVIPDeadCount;
 	if (_enemyVIPDeadCount >= _mapChips->GetServerData().size()) {
+		_stopActorUpdate=true;
 		auto mode = std::make_unique<ModeMovie>(_game, "resource/Movie/rocket.mp4");
 		_game.GetModeServer()->Add(std::move(mode));
 	}

@@ -13,12 +13,8 @@ EnemyVIP::EnemyVIP(Game& game, ModeGame& mode, ObjectDataStructs::EnemyData enem
 	_nextPos = _patrolPoints[0];
 }
 
-void EnemyVIP::Init() {
-	Enemy::Init();
-}
-
 void EnemyVIP::Update() {
-	Enemy::Update();
+	EnemyA::Update();
 	if (_dead == true) {
 		_owner.DeadEnemyVIP();
 	}
@@ -36,7 +32,7 @@ void EnemyVIP::CheckDamage(){
 				PlaySoundMem(SoundServer::Find("BulletToEnemy"), DX_PLAYTYPE_BACK);
 			}
 		}
-		if (actor->GetType() == Type::GreenBullet) {
+		if (actor->GetType() == Type::RedBullet) {
 			if (Intersect(_collision, actor->GetCollision())) {
 				_speed = 15;
 				_chase = true;

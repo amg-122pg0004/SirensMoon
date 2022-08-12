@@ -134,8 +134,8 @@ void Player::Move() {
 	if (_pos.x < 0) {
 		_pos.x = 0;
 	}
-	else if (static_cast<int>(_pos.x)+_size.x > splitscreen_W / 2 * 4) {
-		_pos.x = screen_W / 2 * 4-_size.x;
+	else if (static_cast<int>(_pos.x)+_size.x > splitscreen_W * 4) {
+		_pos.x = splitscreen_W * 4-_size.x;
 	}
 
 	if (_pos.y < 0) {
@@ -358,6 +358,6 @@ void Player::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
 	ss << "_collision.max.y" << _collision.max.y << "\n";
 	ss << "チャージ" << _charge << "\n";
 	ss << "方向" << _dir.x <<"  "<<_dir.y << "\n";
-	ss << "プレイヤー" << _animNo << "\n";
+	ss << "プレイヤー" << _roomPosition.x<<","<<_roomPosition.y << "\n";
 	DrawString(50 + _playerNum * 960, 100, ss.str().c_str(), GetColor(255, 0, 255));
 }

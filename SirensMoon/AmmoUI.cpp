@@ -8,6 +8,8 @@ AmmoUI::AmmoUI(Game& game , ModeBase& mode, Vector2 pos, Vector2 size)
 {
 	_cg = ImageServer::LoadGraph("resource/UI/Ammo/base.png");
 	_cg_mark = ImageServer::LoadGraph("resource/UI/Ammo/mark.png");
+	_cg_gun = ImageServer::LoadGraph("resource/UI/Ammo/gun.png");
+	_cg_line = ImageServer::LoadGraph("resource/UI/Ammo/line.png");
 	_cg_number1.resize(10);
 	ImageServer::LoadDivGraph("resource/UI/Ammo/number_1.png",10,2,5,480,180,_cg_number1.data());
 	_cg_number2.resize(10);
@@ -30,6 +32,8 @@ void AmmoUI::Update() {
 
 void AmmoUI::Render(){
 	DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), _cg, 1);
+	DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), _cg_gun, 1);
+	DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), _cg_line, 1);
 	DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), _cg_mark, 1);
 	DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), _cg_number1[_bullet1], 1);
 	DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), _cg_number2[5], 1);

@@ -54,34 +54,34 @@ void Enemy::AnimationUpdate() {
 }
 
 void Enemy::StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
-	DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
-		static_cast<int>(_pos.y + window_pos.y - camera_pos.y),
-		static_cast<int>(_pos.x + window_pos.x - camera_pos.x+_size.x ),
-		static_cast<int>(_pos.y + window_pos.y - camera_pos.y+_size.y),
+	DrawExtendGraph(static_cast<int>(_pos.x - (_size.x / 2) + window_pos.x - camera_pos.x),
+		static_cast<int>(_pos.y - (_size.y / 2) + window_pos.y - camera_pos.y),
+		static_cast<int>(_pos.x - (_size.x / 2) + window_pos.x - camera_pos.x+_size.x ),
+		static_cast<int>(_pos.y - (_size.y / 2) + window_pos.y - camera_pos.y+_size.y),
 		_cg_bot[_cg_direction],
 		1);
-	DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x ),
-		static_cast<int>(_pos.y + window_pos.y - camera_pos.y ),
-		static_cast<int>(_pos.x + window_pos.x - camera_pos.x + _size.x),
-		static_cast<int>(_pos.y + window_pos.y - camera_pos.y + _size.y ),
+	DrawExtendGraph(static_cast<int>(_pos.x - (_size.x / 2) + window_pos.x - camera_pos.x ),
+		static_cast<int>(_pos.y - (_size.y / 2) + window_pos.y - camera_pos.y ),
+		static_cast<int>(_pos.x - (_size.x / 2) + window_pos.x - camera_pos.x + _size.x),
+		static_cast<int>(_pos.y - (_size.y / 2) + window_pos.y - camera_pos.y + _size.y ),
 		_cg_top2[_cg_direction], 
 		1);
-	DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
-		static_cast<int>(_pos.y + window_pos.y - camera_pos.y),
-		static_cast<int>(_pos.x + window_pos.x - camera_pos.x + _size.x),
-		static_cast<int>(_pos.y + window_pos.y - camera_pos.y + _size.y),
+	DrawExtendGraph(static_cast<int>(_pos.x - (_size.x / 2) + window_pos.x - camera_pos.x),
+		static_cast<int>(_pos.y - (_size.y / 2) + window_pos.y - camera_pos.y),
+		static_cast<int>(_pos.x - (_size.x / 2) + window_pos.x - camera_pos.x + _size.x),
+		static_cast<int>(_pos.y - (_size.y / 2) + window_pos.y - camera_pos.y + _size.y),
 		_cg_mid[_cg_direction],
 		1);
-	DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
-		static_cast<int>(_pos.y + window_pos.y - camera_pos.y ),
-		static_cast<int>(_pos.x + window_pos.x - camera_pos.x + _size.x ),
-		static_cast<int>(_pos.y + window_pos.y - camera_pos.y + _size.y ),
+	DrawExtendGraph(static_cast<int>(_pos.x - (_size.x / 2) + window_pos.x - camera_pos.x),
+		static_cast<int>(_pos.y - (_size.y / 2) + window_pos.y - camera_pos.y ),
+		static_cast<int>(_pos.x - (_size.x / 2) + window_pos.x - camera_pos.x + _size.x ),
+		static_cast<int>(_pos.y - (_size.y / 2) + window_pos.y - camera_pos.y + _size.y ),
 		_cg_top[_cg_direction],
 		1);
 }
 
 void Enemy::SightUpdate() {
-	_eyePos = _pos + _size / 2;
+	_eyePos = _pos;// +_size / 2;
 	auto fov = _eyePos + _dir * _sight_W;
 	Vector2 dirside = { _dir.y * -1,_dir.x };//<視界に垂直なベクトル
 	/*視界範囲4点作成*/
@@ -96,6 +96,7 @@ bool Enemy::CheckDetection() {
 		if (actor->GetType() == Type::PlayerA || actor->GetType() == Type::PlayerB) {
 			CheckRoomPosition();
 			if (_roomPosition.x == actor->GetRoomPosition().x && _roomPosition.y == actor->GetRoomPosition().y) {
+			//if(1){
 				auto col = actor->GetCollision();
 				Vector2 righttop = { col.max.x,col.min.y };
 				Vector2 leftbottom = { col.min.x,col.max.y };
@@ -220,12 +221,17 @@ void Enemy::ApplyDamage() {
 }
 
 void Enemy::UpdateCollision() {
-	_collision.min = { _pos.x+70,_pos.y+30 };
-	_collision.max = { _pos.x+_size.x - 70,_pos.y+_size.y - 30 };
+	_collision.min = { _pos.x - _size.x/2 + 70 , _pos.y - _size.y/2 + 30 };
+	_collision.max = { _pos.x + _size.x/2 - 70,_pos.y + _size.y/2 - 30 };
 }
 
 void Enemy::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
 	_collision.Draw2(stageNum,window_pos,camera_pos);
+	DrawBox((_collision.min.x + _collision.max.x) / 2.0 + window_pos.x - camera_pos.x,
+		(_collision.min.y + _collision.max.y) / 2.0 + window_pos.y - camera_pos.y,
+		(_collision.min.x + _collision.max.x )/ 2.0 + window_pos.x - camera_pos.x + 1,
+		(_collision.min.y + _collision.max.y) / 2.0 + window_pos.y - camera_pos.y + 1,
+		GetColor(255, 255, 0), 1);
 	/*周辺知覚範囲表示*/
 	DrawBox(static_cast<int>(_eyePos.x + window_pos.x - camera_pos.x -60),
 		static_cast<int>(_eyePos.y + window_pos.y - camera_pos.y -75),
@@ -258,6 +264,7 @@ void Enemy::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
 	//発見フレーム数表示
 	std::stringstream ss;
 	ss << "発見フレーム数" << _detectionFrame << "\n";
+	ss << "room" << _roomPosition.x<< "," << _roomPosition.y << "\n";
 	DrawString(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
 		static_cast<int>(_pos.y + window_pos.y - camera_pos.y - 10),
 		ss.str().c_str(), GetColor(255, 0, 255));
@@ -395,4 +402,10 @@ Resize(_cg_bot);
 		_cg_bot[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/foot2/foot2_downright.png");
 		break;
 	}
+}
+
+void Enemy::CheckRoomPosition() {
+	double x = floor((_collision.min.x + _collision.max.x) / 2.0 / (static_cast<double>(splitscreen_W)));
+	double y = floor((_collision.min.y + _collision.max.y) / 2.0 / (static_cast<double>(screen_H)));
+	_roomPosition = { x,y };
 }

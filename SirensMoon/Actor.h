@@ -45,7 +45,7 @@ class Actor{
 		virtual void ReconRender(int stageNum, Vector2 window_pos, Vector2 camera_pos);
 		virtual void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos);
 		virtual void CheckDeadOwner();
-		void CheckRoomPosition();
+		virtual void CheckRoomPosition();
 
 
 		virtual bool IsDead() { return _dead; }
