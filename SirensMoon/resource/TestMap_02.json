@@ -328,6 +328,11 @@
                          "name":"PatrolLine",
                          "type":"object",
                          "value":185
+                        }, 
+                        {
+                         "name":"WaitFrame",
+                         "type":"int",
+                         "value":60
                         }],
                  "rotation":0,
                  "visible":true,
@@ -422,6 +427,11 @@
                          "name":"PatrolLine",
                          "type":"object",
                          "value":187
+                        }, 
+                        {
+                         "name":"WaitFrame",
+                         "type":"int",
+                         "value":60
                         }],
                  "rotation":0,
                  "visible":true,
@@ -440,6 +450,11 @@
                          "name":"PatrolLine",
                          "type":"object",
                          "value":190
+                        }, 
+                        {
+                         "name":"WaitFrame",
+                         "type":"int",
+                         "value":60
                         }],
                  "rotation":0,
                  "visible":true,
@@ -572,6 +587,11 @@
                          "name":"PatrolLine",
                          "type":"object",
                          "value":197
+                        }, 
+                        {
+                         "name":"WaitFrame",
+                         "type":"int",
+                         "value":60
                         }],
                  "rotation":0,
                  "visible":true,
@@ -664,6 +684,11 @@
                          "name":"PatrolLine",
                          "type":"object",
                          "value":203
+                        }, 
+                        {
+                         "name":"WaitFrame",
+                         "type":"int",
+                         "value":60
                         }],
                  "rotation":0,
                  "visible":true,
@@ -710,6 +735,11 @@
                          "name":"PatrolLine",
                          "type":"object",
                          "value":221
+                        }, 
+                        {
+                         "name":"WaitFrame",
+                         "type":"int",
+                         "value":60
                         }],
                  "rotation":0,
                  "visible":true,
@@ -756,6 +786,11 @@
                          "name":"PatrolLine",
                          "type":"object",
                          "value":223
+                        }, 
+                        {
+                         "name":"WaitFrame",
+                         "type":"int",
+                         "value":60
                         }],
                  "rotation":0,
                  "visible":true,
@@ -798,6 +833,49 @@
                  "width":0,
                  "x":2070,
                  "y":2370
+                }, 
+                {
+                 "class":"",
+                 "gid":6,
+                 "height":30,
+                 "id":333,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"Direction1",
+                         "type":"int",
+                         "value":90
+                        }, 
+                        {
+                         "name":"Direction2",
+                         "type":"int",
+                         "value":180
+                        }, 
+                        {
+                         "name":"Direction3",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"Direction4",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"LookTime1",
+                         "type":"int",
+                         "value":180
+                        }, 
+                        {
+                         "name":"LookTime2",
+                         "type":"int",
+                         "value":180
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":541,
+                 "y":3811
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -937,8 +1015,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":948.666666666667,
-                 "y":3654.66666666667
+                 "x":1238.66666666667,
+                 "y":3000.66666666667
                 }, 
                 {
                  "class":"",
@@ -5491,7 +5569,7 @@
          "y":0
         }],
  "nextlayerid":14,
- "nextobjectid":333,
+ "nextobjectid":334,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.0",
@@ -5536,7 +5614,7 @@
                  "id":4
                 }, 
                 {
-                 "class":"BackGround",
+                 "class":"EnemyB",
                  "id":5
                 }, 
                 {

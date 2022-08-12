@@ -35,6 +35,7 @@ public:
 
 	Vector2 GetPlayerStartPosition(int playerno);
 	std::vector<St::EnemyData> GetEnemyData() { return _enemyDataList; }
+	std::vector<St::EnemyBData> GetEnemyBData() { return _enemyBDataList; }
 	std::vector<St::EnemyPatrol> GetPatrolPointsVIP() { return _patrolPointsVIP; }
 	std::vector<Vector2> GetHPItemData() { return _hpItems; }
 	std::vector<Vector2> GetBulletData() { return _bulletItems; }
@@ -94,6 +95,9 @@ private:
 	std::vector<Vector2> _bulletItems;
 	/*通常エネミーデータ[配置個数分]*/
 	std::vector<St::EnemyData> _enemyDataList;
+	/*通常エネミーBデータ[配置個数分]*/
+	std::vector<St::EnemyBData> _enemyBDataList;
+
 	/*エネミーの巡回ルート*/
 	std::unordered_map<int, St::EnemyPatrol> _patrolPoints;
 	/*マップごとの重要エネミー巡回ルート*/
@@ -127,6 +131,7 @@ private:
 
 	/*各クラスが設定されているタイル(gid)を保存*/
 	std::vector<int> _gidEnemy;
+	std::vector<St::EnemyBData> _gidEnemyB;
 	std::vector<int> _gidBarrier1;
 	std::vector<int> _gidBarrier2;
 	std::vector<int> _gidItemAmmo;

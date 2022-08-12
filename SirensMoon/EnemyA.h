@@ -48,4 +48,6 @@ protected:
 	std::vector<Vector2> _patrolPoints;
 	/*座標リストの長さ*/
 	int _patrolLength;
+	/*待機フレーム*/
+	int _waitFrame, _elapseFrame;
 };

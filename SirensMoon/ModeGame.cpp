@@ -8,6 +8,7 @@
 
 #include "ModeGame.h"
 #include "EnemyA.h"
+#include "EnemyB.h"
 #include "HPItem.h"
 #include "BulletItem.h"
 #include "ServerMachine.h"
@@ -49,6 +50,13 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blind
 	for (auto&& data : enemydata) {
 		auto pattern = enemygen->GetEnemyPattern();
 		auto enemy = std::make_unique<EnemyA>(_game, *this, data,pattern);
+		_actorServer.Add(std::move(enemy));
+	}
+
+	auto enemybdata = _mapChips->GetEnemyBData();
+	for (auto&& data : enemybdata) {
+		auto pattern = enemygen->GetEnemyPattern();
+		auto enemy = std::make_unique<EnemyB>(_game, *this, data, pattern);
 		_actorServer.Add(std::move(enemy));
 	}
 

@@ -140,7 +140,7 @@ void ServerMachine::SpawnEnemyVIP() {
 	auto loot = vipdata[i];
 	Vector2 pos=loot.PatrolPoints[0];
 	auto id = loot.ID;
-	ObjectDataStructs::EnemyData data = { id,0,pos,0 };
+	ObjectDataStructs::EnemyData data = { id,pos,0,0 };
 	auto enemy = std::make_unique<EnemyVIP>(_game, _mode, data, *this,loot, _pattern);
 	mode.GetActorServer().Add(std::move(enemy));
 

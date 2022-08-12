@@ -3,13 +3,14 @@
 #include "map"
 #include <random>
 
-EnemyA::EnemyA(Game& game, ModeGame& mode, ObjectDataStructs::EnemyData enemydata, EnemyGenerator::EnemyPattern grdata)
-	:Enemy { game,mode,grdata }
+EnemyA::EnemyA(Game& game, ModeGame& mode, ObjectDataStructs::EnemyData data, EnemyGenerator::EnemyPattern grdata)
+	:Enemy { game,mode,grdata }, _waitFrame{data.waitFrame}
 {
-	_pos = { enemydata.StartPosition.x,enemydata.StartPosition.y };
+	_pos = { data.StartPosition.x,data.StartPosition.y };
 	_eyePos = _pos;
-	_patrolID = enemydata.patrolID;
+	_patrolID = data.patrolID;
 	_patrolFlag = 1;
+
 	SetPatrolPoints();
 };
 
@@ -22,10 +23,14 @@ void EnemyA::Update() {
 	else {
 		if (_patrolLength != 1) {
 			if (CheckReachPoint()) {
-				GetNextPoints();
+				++_elapseFrame;
+				if (_elapseFrame >= _waitFrame) {
+					GetNextPoints();
+				}
 			}
 			else {
 				MoveNextPoint();
+				_elapseFrame = 0;
 			}
 		}
 	}

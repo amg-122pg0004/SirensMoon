@@ -10,9 +10,9 @@ public:
 	/*エネミーデータ構造*/
 	struct EnemyData {
 		int ID;
-		int	Enemytype;
 		Vector2 StartPosition;
 		int patrolID;
+		int waitFrame;
 	};
 
 	/*エネミーBデータ構造*/
@@ -20,7 +20,7 @@ public:
 		int ID;
 		Vector2 StartPosition;
 		std::vector<int> Direction;//<見る角度
-		std::vector<int> LooiTime;//<各角度を見る時間
+		std::vector<int> LookTime;//<各角度を見る時間
 	};
 
 	/*エネミー巡回経路データ構造*/
