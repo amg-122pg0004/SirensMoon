@@ -34,11 +34,17 @@ class Player :public Actor {
 
 		virtual void Move();
 		bool IsHitActor();
+		/*プレイヤー固有のアクション*/
 		virtual void Action();
+		/*足音の再生*/
 		void PlayFootSteps();
+		/*プレイヤー同士が重なっている場合の処理*/
 		void PlayerOverlap();
+		/*コリジョンボックスの位置更新*/
 		void UpdateCollision();
+		/*ダメージを判定に触れているかの確認*/
 		void CheckDamage();
+		/*被ダメージ時の処理*/
 		void TakeDamage();
 		void Heal();
 		void TakeAmmo();

@@ -844,17 +844,22 @@
                         {
                          "name":"Direction1",
                          "type":"int",
-                         "value":180
+                         "value":0
                         }, 
                         {
                          "name":"Direction2",
                          "type":"int",
-                         "value":180
+                         "value":0
+                        }, 
+                        {
+                         "name":"Direction3",
+                         "type":"int",
+                         "value":0
                         }, 
                         {
                          "name":"Direction4",
                          "type":"int",
-                         "value":180
+                         "value":0
                         }, 
                         {
                          "name":"LookTime1",
@@ -864,17 +869,17 @@
                         {
                          "name":"LookTime2",
                          "type":"int",
-                         "value":120
+                         "value":0
                         }, 
                         {
                          "name":"LookTime3",
                          "type":"int",
-                         "value":120
+                         "value":0
                         }, 
                         {
                          "name":"LookTime4",
                          "type":"int",
-                         "value":120
+                         "value":0
                         }],
                  "rotation":0,
                  "visible":true,

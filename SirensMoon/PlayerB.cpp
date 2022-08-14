@@ -92,28 +92,34 @@ void PlayerB::Move() {
 	/*障害物衝突処理*/
 	/*X方向*/
 	_pos.x += _speed.x;
-	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHit(*this)) {
-		_pos.x += -1 * _speed.x;
-	}
-	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHitBarrier(_stage - 1, *this, _playerNum)) {
+	UpdateCollision();
+	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHit(_collision)) {
 		_pos.x += -1 * _speed.x;
 	}
 	UpdateCollision();
-	if (IsHitActor()) {
+	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHitBarrier(_collision, _playerNum)) {
 		_pos.x += -1 * _speed.x;
 	}
+	UpdateCollision();
 
+	if (IsHitActor()) {
+		_pos.x += -1 * _speed.x;
+	}
+	UpdateCollision();
 	_pos.y += _speed.y;
-	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHit(*this)) {
+	UpdateCollision();
+	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHit(_collision)) {
 		_pos.y += -1 * _speed.y;
 	}
-	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHitBarrier(_stage - 1, *this, _playerNum)) {
+	UpdateCollision();
+	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHitBarrier(_collision, _playerNum)) {
 		_pos.y += -1 * _speed.y;
 	}
 	UpdateCollision();
 	if (IsHitActor()) {
 		_pos.y += -1 * _speed.y;
 	}
+	UpdateCollision();
 
 	/*ステージ外に出ないようにする処理*/
 	if (_pos.x < 0) {

@@ -11,13 +11,12 @@
 #include "ModeGame.h"
 #include "BlinkLight.h"
 #include <random>
+#include "MapChip.h"
 
 Enemy::Enemy(Game& game, ModeGame& mode, EnemyGenerator::EnemyPattern pattern)
 	:Actor{ game,mode }, _speed{ 1 }, _sight_H{ 210 }, _sight_W{330}, _detectionFrame{ 0 },_chase{false},_pattern{pattern}
 {
 	_size = { 200,200 };
-	auto light = std::make_unique<BlinkLight>(_game, _mode, *this);
-	_mode.GetActorServer().Add(std::move(light));
 
 	SetGrHandle(pattern);
 	Init();
@@ -32,12 +31,19 @@ void Enemy::Init() {
 }
 
 void Enemy::Update() {
+	_eyelineGrids.clear();
 	SightUpdate();
+	CheckRoomPosition();
 	if (CheckDetection()) {
-		++_detectionFrame;
-		if (_detectionFrame >= 120) {
-			_speed = 15;
-			_chase = true;
+		if (CheckVisualLine()) {
+			++_detectionFrame;
+			if (_detectionFrame >= 120) {
+				_speed = 15;
+				_chase = true;
+			}
+		}
+		else {
+			_detectionFrame = 0;
 		}
 	}
 	else {
@@ -148,6 +154,27 @@ bool Enemy::CheckDetection() {
 	return 0;
 }
 
+
+bool Enemy::CheckVisualLine() {
+	
+	Vector2 target_pos=_lastDetection->GetPosition();
+
+	for (double pix_x=_eyePos.x; pix_x <= target_pos.x;pix_x=pix_x+(target_pos.x-_eyePos.x)/50) {
+		int pix_y = (target_pos.y-_eyePos.y) / (target_pos.x-_eyePos.x) * (pix_x-_eyePos.x)+_eyePos.y;
+		_eyelineGrids.insert({ pix_x / 30, pix_y / 30 });
+	}
+	for (double pix_x = _eyePos.x; pix_x > target_pos.x; pix_x = pix_x + (target_pos.x - _eyePos.x) / 50) {
+		int pix_y = (target_pos.y - _eyePos.y) / (target_pos.x - _eyePos.x) * (pix_x - _eyePos.x) + _eyePos.y;
+		_eyelineGrids.insert({ pix_x / 30, pix_y / 30 });
+	}
+	
+	if (_mode.GetMapChips()->IsHit(_eyelineGrids)) {
+		return false;
+	}else {
+		return true;
+	}
+}
+
 void Enemy::SetDirection() {
 	double dir_rad = atan2(_dir.y,_dir.x);
 	double pi = 3.141519;
@@ -212,7 +239,6 @@ void Enemy::MoveToPlayer() {
 	_dir = (col.min + col.max) / 2 - (_collision.min + _collision.max) / 2;
 	_dir.Normalize();
 	_pos += _dir * _speed;
-
 }
 
 void Enemy::ApplyDamage() {
@@ -261,6 +287,24 @@ void Enemy::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
 		static_cast<int>(_sightPos.pos1.y + window_pos.y - camera_pos.y),
 		GetColor(255, 0, 0), 1);
 
+
+	if (_roomPosition.x==_lastDetection->GetRoomPosition().x&& _roomPosition.y == _lastDetection->GetRoomPosition().y) {
+		Vector2 target_pos = _lastDetection->GetPosition();
+		DrawLine(static_cast<int>(_eyePos.x) + window_pos.x - camera_pos.x,
+			static_cast<int>(_eyePos.y) + window_pos.y - camera_pos.y,
+			static_cast<int>(target_pos.x) + window_pos.x - camera_pos.x,
+			static_cast<int>(target_pos.y) + window_pos.y - camera_pos.y,
+			GetColor(255, 0, 0), 1);
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 30);
+		for (auto&& grid : _eyelineGrids) {
+			DrawBox(grid.first * 30 + window_pos.x - camera_pos.x,
+				grid.second * 30 + window_pos.y - camera_pos.y,
+				grid.first * 30 + 30 + window_pos.x - camera_pos.x,
+				grid.second * 30 + 30 + window_pos.y - camera_pos.y,
+				GetColor(255, 0, 0), 1);
+		}
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
+	}
 	//発見フレーム数表示
 	std::stringstream ss;
 	ss << "発見フレーム数" << _detectionFrame << "\n";

@@ -3,6 +3,7 @@
 #include "picojson/picojson.h"
 #include "Math.h"
 #include <vector>
+#include <set>
 #include "SquareLight.h"
 #include "ObjectDataStructs.h"
 
@@ -49,8 +50,9 @@ public:
 	std::vector<St::MineData> GetMineData() { return _mineDataList; }
 	St::EnemyPatrol FindPatrol(int id);
 	std::vector<int> CheckHitChipNo(int x, int y);
-	bool IsHit(Actor& o);
-	bool IsHitBarrier(int objectstage, Actor& o, int playerno);
+	bool IsHit(AABB col);
+	bool IsHitBarrier(AABB col, int playerno);
+	bool IsHit(std::set<std::pair<int, int>>);
 
 
 private:
@@ -64,6 +66,9 @@ private:
 	void LoadItemLayer(picojson::array aObjects);
 	void LoadLightLayer(picojson::array aObjects);
 	void LoadGimmickLayer(picojson::array aObjects);
+
+	void LoadEnemyClass(picojson::object object,St::EnemyData data);
+	void LoadEnemyBClass(picojson::object object, St::EnemyBData data);
 
 	Game& _game;
 	ModeBase& _mode;
@@ -123,8 +128,8 @@ private:
 	/*[タイル用画像の枚数分][画像を分割した際のチップ画像の数]*/
 	std::vector<std::vector<int>> _cgChip;
 
-	/*各マップタイルセットのあたり判定を保存するコンテナ*/
-	std::vector<std::vector<bool>> _chipCollision;
+	/*あたり判定が設定されているタイルのGIDを保存するコンテナ*/
+	std::vector<int> _chipCollision;
 
 	/*手前描画するタイルのgidを保存*/
 	std::vector<int> _gidFront;

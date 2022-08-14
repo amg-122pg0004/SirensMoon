@@ -31,6 +31,7 @@ void AmmoUI::Update() {
 }
 
 void AmmoUI::Render(){
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
 	DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), _cg, 1);
 	DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), _cg_gun, 1);
 	DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), _cg_line, 1);
@@ -57,5 +58,5 @@ void AmmoUI::Render(){
 
 	SetDrawArea(0,0,screen_W,screen_H);
 	
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 }

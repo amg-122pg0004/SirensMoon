@@ -19,4 +19,5 @@ public:
 private:
 	AABB _detectionArea;
 	int _dir;
+	int _range;
 };

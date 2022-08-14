@@ -64,8 +64,6 @@ void Player::Update() {
 	Checkteleport();
 	/*固有のアクション*/
 	Action();
-	/*コリジョンの更新*/
-	UpdateCollision();
 	/*敵かダメージギミックに触れていたらダメージ*/
 	CheckDamage();
 	/*自分の位置を確認*/
@@ -73,20 +71,52 @@ void Player::Update() {
 }
 
 void Player::PlayerOverlap() {
-	/*
+
 	for (auto&& actor : _mode.GetObjects()) {
-		if (actor->GetType() == Type::Player) {
-			if (dynamic_cast<Player&>(*actor).GetPlayerNum() != _playerNum) {
-				if(Intersect(_collision, actor->GetCollision())) {
-					Vector2 col1_centerpos = (_collision.min + _collision.max) / 2;
-					Vector2 col2_centerpos = (actor->GetCollision().max + actor->GetCollision().min) / 2;
-					Vector2 dir = col2_centerpos - col1_centerpos;
-					auto min_dir=min(dir.x, dir.y);
+		if (actor->GetType() == Type::PlayerA && GetType() == Type::PlayerB || actor->GetType() == Type::PlayerB && GetType() == Type::PlayerA) {
+			if (Intersect(_collision, actor->GetCollision())) {
+				Vector2 col1_centerpos = (_collision.min + _collision.max) / 2;
+				Vector2 col2_centerpos = (actor->GetCollision().max + actor->GetCollision().min) / 2;
+				Vector2 dir = col1_centerpos - col2_centerpos;
+				double dx{ 0 },dy{ 0 };
+				if (dir.y > 0) {
+					dy = _size.y - dir.y;
+				}
+				else {
+					dy = (_size.y + dir.y) * -1;
+				}
+				if (dir.x > 0) {
+					dx = _size.x - dir.x;
+				}
+				else {
+					dx = (_size.x + dir.x) * -1;
+				}
+				if (abs(dx) > abs(dy)) {
+					dx = 0;
+				}
+				else {
+					dy = 0;
+				}
+				_pos.x += dx;
+				/*衝突するなら動かない（元の位置に戻す）*/
+				if (_mode.GetMapChips()->IsHit(_collision) ||
+					_mode.GetMapChips()->IsHitBarrier(_collision, _playerNum) ||
+					IsHitActor()) {
+					_pos.x -= dx;
+					UpdateCollision();
+				}
+				_pos.y += dy;
+				/*衝突するなら動かない（元の位置に戻す）*/
+				UpdateCollision();
+				if (_mode.GetMapChips()->IsHit(_collision)||
+					_mode.GetMapChips()->IsHitBarrier(_collision, _playerNum)||
+					IsHitActor()) {
+					_pos.y -= dy;
+					UpdateCollision();
 				}
 			}
 		}
 	}
-	*/
 }
 
 void Player::Move() {
@@ -119,14 +149,15 @@ void Player::Move() {
 		_speed *= _speedMax;
 	}
 	
-
 	/*障害物衝突処理*/
 	/*X方向*/
 	_pos.x += _speed.x;
-	if (_mode.GetMapChips() ->IsHit(*this)) {
+	UpdateCollision();
+	if (_mode.GetMapChips() ->IsHit(_collision)) {
 		_pos.x += -1*_speed.x;
 	}
-	if (_mode.GetMapChips()->IsHitBarrier(_stage - 1, *this, _playerNum)) {
+	UpdateCollision();
+	if (_mode.GetMapChips()->IsHitBarrier(_collision, _playerNum)) {
 		_pos.x += -1 * _speed.x;
 	}
 	UpdateCollision();
@@ -135,13 +166,16 @@ void Player::Move() {
 	}
 
 	_pos.y += _speed.y;
-	if (_mode.GetMapChips() ->IsHit(*this)) {
-		_pos.y += -1 * _speed.y;
-	}
-	if (_mode.GetMapChips()->IsHitBarrier(_stage - 1, *this, _playerNum)) {
+	UpdateCollision();
+	if (_mode.GetMapChips() ->IsHit(_collision)) {
 		_pos.y += -1 * _speed.y;
 	}
 	UpdateCollision();
+	if (_mode.GetMapChips()->IsHitBarrier(_collision, _playerNum)) {
+		_pos.y += -1 * _speed.y;
+	}
+	UpdateCollision();
+
 	if (IsHitActor()) {
 		_pos.y += -1 * _speed.y;
 	}
@@ -160,6 +194,7 @@ void Player::Move() {
 	else if (static_cast<int>(_pos.y)+_size.y> screen_H * 4) {
 		_pos.y = screen_H * 4-_size.y;
 	}
+	UpdateCollision();
 
 	UpdateCamera();
 	
@@ -348,10 +383,12 @@ void Player::Checkteleport() {
 						}
 						if (positions.size() != 0) {
 							_pos = positions[_game.GetFrameCount() % positions.size()];
+							UpdateCollision();
 						}
 					}
 					else {
 						_pos = _mode.GetMapChips()->GetteleporterOutData()[id].first;
+						UpdateCollision();
 					}
 					Init();
 				}

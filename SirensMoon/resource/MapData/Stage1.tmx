@@ -1744,13 +1744,14 @@
   </object>
   <object id="334" gid="6" x="533" y="3815" width="30" height="30">
    <properties>
-    <property name="Direction1" type="int" value="180"/>
-    <property name="Direction2" type="int" value="180"/>
-    <property name="Direction4" type="int" value="180"/>
+    <property name="Direction1" type="int" value="0"/>
+    <property name="Direction2" type="int" value="0"/>
+    <property name="Direction3" type="int" value="0"/>
+    <property name="Direction4" type="int" value="0"/>
     <property name="LookTime1" type="int" value="120"/>
-    <property name="LookTime2" type="int" value="120"/>
-    <property name="LookTime3" type="int" value="120"/>
-    <property name="LookTime4" type="int" value="120"/>
+    <property name="LookTime2" type="int" value="0"/>
+    <property name="LookTime3" type="int" value="0"/>
+    <property name="LookTime4" type="int" value="0"/>
    </properties>
   </object>
  </objectgroup>

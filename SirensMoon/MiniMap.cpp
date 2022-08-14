@@ -57,7 +57,7 @@ void MiniMap::Render() {
 							static_cast<int>(actor->GetPosition().y * scale + pos.y),
 							static_cast<int>(actor->GetPosition().x * scale + pos.x) + 5,
 							static_cast<int>(actor->GetPosition().y * scale + pos.y) + 5,
-							GetColor(0, 0, 255), 1);
+							GetColor(255, 0, 0), 1);
 					}
 				}
 				if (actor->GetType() == Actor::Type::PlayerB) {
@@ -67,7 +67,7 @@ void MiniMap::Render() {
 							static_cast<int>(actor->GetPosition().y * scale + pos.y),
 							static_cast<int>(actor->GetPosition().x * scale + pos.x) + 5,
 							static_cast<int>(actor->GetPosition().y * scale + pos.y) + 5,
-							GetColor(255, 0, 0), 1);
+							GetColor(0, 0, 255), 1);
 					}
 				}
 			}

@@ -10,6 +10,7 @@
 #include "Actor.h"
 #include <vector>
 #include <map>
+#include <set>
 #include "EnemyGenerator.h"
 #include "ObjectDataStructs.h"
 
@@ -46,6 +47,8 @@ class Enemy :public Actor {
 		void  SightUpdate();
 		/*視界内にプレイヤーが居るか判定*/
 		bool CheckDetection();
+		
+		bool CheckVisualLine();
 
 		/*弾、プレイヤーと触れているか確認する*/
 		virtual void CheckDamage();
@@ -58,7 +61,8 @@ class Enemy :public Actor {
 		void UpdateCollision();
 		void AnimationUpdate();
 
-		void CheckRoomPosition()override;
+		void CheckRoomPosition() override;
+
 	protected:
 		enum class EnemyDirection {
 			Down,
@@ -99,7 +103,8 @@ class Enemy :public Actor {
 		int _detectionFrame;
 		/*最後に発見した物体*/
 		Actor* _lastDetection;
-
+		/*視線上のグリッド*/
+		std::set<std::pair<int, int>> _eyelineGrids;
 		/*Enemyランダム生成パターン*/
 		EnemyGenerator::EnemyPattern _pattern;
 		/*Enemy仮画像*/

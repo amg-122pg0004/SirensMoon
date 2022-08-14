@@ -5,6 +5,7 @@
 Mine::Mine(Game& game, ModeGame& mode, ObjectDataStructs::MineData data)
 	:Gimmick(game,mode,data.ID),_dir{data.dir}
 {
+	_range = data.range;
 	_pos = data.pos;
 	_size = { 30,30 };
 	_collision.min = { 0,0 };
@@ -13,25 +14,24 @@ Mine::Mine(Game& game, ModeGame& mode, ObjectDataStructs::MineData data)
 	switch (data.dir) {
 		case 1 :
 			_detectionArea.min = _pos;
-			_detectionArea.max = { _pos.x + _size.x + 180,_pos.y + _size.y};
+			_detectionArea.max = { _pos.x + _size.x + _range ,_pos.y + _size.y};
 			break;
 		case 2:
 			_detectionArea.min = _pos;
-			_detectionArea.max = { _pos.x + _size.x,_pos.y + _size.y+180 };
+			_detectionArea.max = { _pos.x + _size.x,_pos.y + _size.y + _range };
 			break;
 		case 3:
-			_detectionArea.min = { _pos.x - 180,_pos.y };
-			_detectionArea.max = { _pos.x + _size.x,_pos.y + _size.y };
+			_detectionArea.min = { _pos.x - _range,_pos.y };
+			_detectionArea.max = { _pos.x + _size.x , _pos.y + _size.y };
 			break;
 		case 4:
-			_detectionArea.min = { _pos.x,_pos.y - 180 };
-			_detectionArea.max = { _pos.x + _size.x,_pos.y + _size.y };
+			_detectionArea.min = { _pos.x , _pos.y - _range };
+			_detectionArea.max = { _pos.x + _size.x , _pos.y + _size.y };
 			break;
 		default:
 			_detectionArea.min = _pos;
 			_detectionArea.max = _pos+_size;
 			break;
-
 	}
 
 	_cg = ImageServer::LoadGraph("resource/Gimmick/mine.png");

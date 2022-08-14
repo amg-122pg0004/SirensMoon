@@ -7,6 +7,12 @@
 
 class ObjectDataStructs{
 public:
+
+	struct PlayerData {
+		Vector2 StarPosition;
+		
+	};
+
 	/*エネミーデータ構造*/
 	struct EnemyData {
 		int ID;
@@ -60,6 +66,7 @@ public:
 	struct MineData {
 		int ID;
 		Vector2 pos;
+		int range;
 		int dir;
 	};
 };

@@ -18,6 +18,7 @@ void BulletTypeUI::Update() {
 }
 
 void BulletTypeUI::Render() {
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
 	int cg{ -1 };
 	if (_bulletType) {
 		cg = _cg_green;
@@ -26,6 +27,6 @@ void BulletTypeUI::Render() {
 	}
 	
 	DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), cg, 0);
-
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 }
 
