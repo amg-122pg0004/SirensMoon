@@ -2,6 +2,8 @@
 #include "ModeGame.h"
 #include "Explode.h"
 #include "Game.h"
+#include <string>
+#include <sstream>
 
 StickyBomb::StickyBomb(Game& game, ModeGame& mode, ObjectDataStructs::StickyBombData data)
 	:Gimmick(game,mode,data.ID)
@@ -72,6 +74,14 @@ void StickyBomb::StandardRender(int stageNum, Vector2 window_pos, Vector2 camera
 		, static_cast<int>(_pos.y + window_pos.y - camera_pos.y - _size.y / 2)
 		, _cg
 		, 0);
+	if (_activate) {
+		std::stringstream ss;
+		ss << "”š”­‚Ü‚Å" << _timer / 60 << "\n";
+		DrawString(static_cast<int>(_pos.x + window_pos.x - camera_pos.x - _size.x / 2),
+			static_cast<int>(_pos.y + window_pos.y - camera_pos.y - _size.y / 2) - 60,
+			ss.str().c_str(),
+			GetColor(255, 255, 255));
+	}
 }
 
 void StickyBomb::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
