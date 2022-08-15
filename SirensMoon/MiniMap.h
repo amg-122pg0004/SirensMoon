@@ -28,4 +28,8 @@ private:
 
 
 	bool _blind2Flag;
+
+	bool _noiseFlag;
+	int _prelightUp;
+	int _movieHandle;
 };

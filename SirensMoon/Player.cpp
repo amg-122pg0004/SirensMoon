@@ -350,6 +350,8 @@ void Player::UpdateCollision() {
 
 void Player::TakeDamage() {
 	--_hp;
+	_mode.SetPauseGame(true);
+	_mode.DamageEvent();
 	if (_hp <= 0) {
 		_mode.GameOver();
 	}

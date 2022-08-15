@@ -154,6 +154,7 @@
     <ClCompile Include="BulletTypeUI.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="DamageCut.cpp" />
     <ClCompile Include="Darkness.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="Easing.cpp" />
@@ -212,6 +213,7 @@
     <ClInclude Include="BulletTypeUI.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="DamageCut.h" />
     <ClInclude Include="Darkness.h" />
     <ClInclude Include="Door.h" />
     <ClInclude Include="Easing.h" />

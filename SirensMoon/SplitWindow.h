@@ -23,6 +23,7 @@ class SplitWindow {
 		void Update();
 		void Render();
 		void Debug();
+		void DamageEvent();
 		std::unique_ptr<Camera>& GetCamera() { return _camera; }
 
 		int GetRenderStage() { return _renderStage; }
@@ -33,6 +34,7 @@ class SplitWindow {
 
 		void ChangeRenderStage(int changedelta);
 
+		int GetLightUp() { return _lightup; }
 
 		int GetWindowNo() { return _windowNo; }
 

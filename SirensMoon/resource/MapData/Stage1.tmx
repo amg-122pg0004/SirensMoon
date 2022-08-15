@@ -1742,7 +1742,7 @@
   <object id="223" x="2070" y="2370">
    <polygon points="0,0 -600,0 -600,30 -780,30 -780,990 0,990"/>
   </object>
-  <object id="334" gid="6" x="533" y="3815" width="30" height="30">
+  <object id="334" gid="6" x="524" y="3827" width="30" height="30">
    <properties>
     <property name="Direction1" type="int" value="0"/>
     <property name="Direction2" type="int" value="0"/>

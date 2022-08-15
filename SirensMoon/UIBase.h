@@ -26,9 +26,11 @@ public:
 		HP,
 		Ammo,
 		BulletType,
-		GameOver
+		GameOver,
+		DamageCut
 	};
 	virtual Type GetType() = 0;
+	virtual void DamageEvent();
 protected:
 	Vector2 _pos;
 	Vector2 _size;

@@ -28,3 +28,6 @@ void UIBase::Update() {
 void UIBase::Render(){
 
 }
+void UIBase::DamageEvent() {
+
+}

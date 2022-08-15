@@ -1,5 +1,6 @@
 #include "AmmoUI.h"
-#include "ModeBase.h"
+//#include "ModeBase.h"
+#include "ModeGame.h"
 #include  "Player.h"
 #include "Game.h"
 
@@ -55,8 +56,11 @@ void AmmoUI::Render(){
 	for (int i = 0; i < render_gage; ++i) {
 		DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), _cg_charge[i], 1);
 	}
-
-	SetDrawArea(0,0,screen_W,screen_H);
+	auto&& window =dynamic_cast<ModeGame&>(_mode).GetSplitWindow();
+	SetDrawArea(static_cast<int>(window[0]->GetWindowPos().x),
+		static_cast<int>(window[0]->GetWindowPos().y),
+		static_cast<int>(window[0]->GetWindowPos().x + splitscreen_W),
+		static_cast<int>(window[0]->GetWindowPos().y + screen_H));
 	
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 }

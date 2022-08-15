@@ -33,12 +33,10 @@ public:
 	void SetPauseGame(bool flag) { _stopActorUpdate = flag; }
 	void StageClearCheck();
 	void GameOver();
-	
+	void DamageEvent();
 	
 private:
 	bool _stopActorUpdate;
-
-	int _lightUp;
 
 	std::unique_ptr<MapChips>_mapChips;
 	std::vector<std::unique_ptr<SplitWindow>>_splitWindow;

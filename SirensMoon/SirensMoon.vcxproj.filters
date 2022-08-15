@@ -178,6 +178,12 @@
     <Filter Include="Actor\Enemy\EnemyA">
       <UniqueIdentifier>{77579d49-4261-47c1-9593-41b46c98da45}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI\DamageCut">
+      <UniqueIdentifier>{7778f93b-20d4-4f4e-86e7-c79d86e332cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\FoundIcon">
+      <UniqueIdentifier>{bdd3d21b-a424-43db-a1c0-315d7417b072}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -348,6 +354,9 @@
     <ClCompile Include="EnemyA.cpp">
       <Filter>Actor\Enemy\EnemyA</Filter>
     </ClCompile>
+    <ClCompile Include="DamageCut.cpp">
+      <Filter>UI\DamageCut</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -517,6 +526,9 @@
     </ClInclude>
     <ClInclude Include="EnemyA.h">
       <Filter>Actor\Enemy\EnemyA</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageCut.h">
+      <Filter>UI\DamageCut</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

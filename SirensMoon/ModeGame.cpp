@@ -140,6 +140,8 @@ void ModeGame::LoadResource() {
 	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("PlayerOpenMap"));
 	SoundServer::LoadSound("Explosion", "resource/Sounds/Gimmick/se_sk2063.wav");
 	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("PlayerOpenMap"));
+	SoundServer::LoadSound("DamageToPlayer", "resource/Sounds/Enemy/se_sk2077.wav");
+	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("DamageToPlayer"));
 }
 
 void ModeGame::Update() {
@@ -185,4 +187,10 @@ void ModeGame::GameOver(){
 	_stopActorUpdate = true;
 	auto mode = std::make_unique<ModeGameOver>(_game);
 	_game.GetModeServer()->Add(std::move(mode));
+}
+
+void ModeGame::DamageEvent(){
+	for (auto&& splitwindows : _splitWindow) {
+		splitwindows->DamageEvent();
+	}
 }

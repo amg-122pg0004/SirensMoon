@@ -15,6 +15,9 @@ MiniMap::MiniMap(Game& game, ModeBase& mode, Vector2 pos, Vector2 size)
 	_cg_map = ImageServer::LoadGraph("resource/UI/map_frame.png");
 	_visible = false;
 	_inputManager = _game.GetInputManager();
+
+	_movieHandle = ImageServer::LoadGraph("resource/Server/noise.mp4");
+
 }
 
 MiniMap::~MiniMap() {
@@ -33,6 +36,22 @@ void MiniMap::Update() {
 	if (_inputManager->CheckInput("BLIND2", 't', 0) || _inputManager->CheckInput("BLIND2", 't', 1)) {
 		_blind2Flag = !_blind2Flag;
 	}
+
+	if (dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetLightUp() != 255) {
+		if (_prelightUp == 255 ) {
+			_noiseFlag = true;
+			SeekMovieToGraph(_movieHandle,0);
+			PlayMovieToGraph(_movieHandle);
+		}
+	}
+	if (_noiseFlag) {
+		if (GetMovieStateToGraph(_movieHandle) != 1) {
+			_noiseFlag = false;
+		}
+	}
+
+
+	_prelightUp = dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetLightUp();
 }
 
 void MiniMap::Render() {
@@ -89,5 +108,11 @@ void MiniMap::Render() {
 			}
 			
 		}
+
+		if (_noiseFlag) {
+			DrawExtendGraph(1280, 103,1280+350,103+400, _movieHandle, 0);
+		}
+		
+
 	}
 }

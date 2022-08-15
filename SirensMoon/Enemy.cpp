@@ -242,6 +242,7 @@ void Enemy::MoveToPlayer() {
 }
 
 void Enemy::ApplyDamage() {
+	PlaySoundMem(SoundServer::Find("DamageToPlayer"), DX_PLAYTYPE_BACK);
 	dynamic_cast<Player&>(*_lastDetection).TakeDamage();
 	_dead = true;
 }

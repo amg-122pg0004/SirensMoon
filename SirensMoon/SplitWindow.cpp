@@ -15,6 +15,7 @@
 #include "HPUI.h"
 #include "AmmoUI.h"
 #include "BulletTypeUI.h"
+#include "DamageCut.h"
 
 SplitWindow::SplitWindow(Game& game,ModeGame& mode,int pos_x, int pos_y,int window_no) :
 	_game{game}, _mode{mode}, _windowPos{pos_x ,pos_y}, _windowNo{window_no}, _renderStage{1},_lightup{255}
@@ -63,7 +64,10 @@ SplitWindow::SplitWindow(Game& game,ModeGame& mode,int pos_x, int pos_y,int wind
 	Vector2 pause_size = { 780,600 };
 	_ui.emplace_back(std::make_unique<Pause>(_game, _mode, pause_pos, pause_size));
 
-
+	double damage_scale = 840 / 320;
+	Vector2 damage_pos = { _windowPos.x, _windowPos.y+screen_H/2-320 * damage_scale/2 };
+	Vector2 damage_size = { 640 * damage_scale,320 * damage_scale };
+	_ui.emplace_back(std::make_unique<DamageCut>(_game, _mode, damage_pos, damage_size));
 	
 }
 
@@ -125,7 +129,11 @@ void SplitWindow::Render() {
 
 	SetDrawScreen(DX_SCREEN_BACK);
 	DrawGraph(0, 0, _normalScreen, 1);
-
+	/*描画範囲を分割画面範囲に設定*/
+	SetDrawArea(static_cast<int>(_windowPos.x),
+		static_cast<int>(_windowPos.y),
+		static_cast<int>(_windowPos.x + _windowSize_W),
+		static_cast<int>(_windowPos.y + _windowSize_H));
 	for (auto&& u : _ui) {
 		u->Render();
 	}
@@ -153,4 +161,10 @@ void SplitWindow::Debug(){
 	DrawString(50 + _windowNo * 960, 300, ss.str().c_str(), GetColor(255, 0, 255));
 	/*描画範囲をウィンドウサイズ全体に戻す*/
 	SetDrawArea(0, 0, screen_W, screen_H);
+}
+
+void SplitWindow::DamageEvent() {
+	for (auto&& u : _ui) {
+		u->DamageEvent();
+	}
 }
