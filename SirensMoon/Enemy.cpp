@@ -1,7 +1,7 @@
 /*****************************************************************//**
  * \file   Enemy.cpp
  * \brief  基本敵キャラクター
- * 
+ *
  * \author 土居将太郎
  * \date   July 2022
  *********************************************************************/
@@ -14,7 +14,7 @@
 #include "MapChip.h"
 
 Enemy::Enemy(Game& game, ModeGame& mode, EnemyGenerator::EnemyPattern pattern)
-	:Actor{ game,mode }, _speed{ 1 }, _sight_H{ 210 }, _sight_W{330}, _detectionFrame{ 0 },_chase{false},_pattern{pattern}
+	:Actor{ game,mode }, _speed{ 1 }, _sight_H{ 210 }, _sight_W{ 330 }, _detectionFrame{ 0 }, _chase{ false }, _pattern{ pattern }
 {
 	_size = { 200,200 };
 
@@ -31,6 +31,7 @@ void Enemy::Init() {
 }
 
 void Enemy::Update() {
+	CheckDamage();
 	_eyelineGrids.clear();
 	SightUpdate();
 	CheckRoomPosition();
@@ -38,7 +39,7 @@ void Enemy::Update() {
 		if (CheckVisualLine()) {
 			++_detectionFrame;
 			if (_detectionFrame >= 120) {
-				_speed = 15;
+				_speed = 12;
 				_chase = true;
 			}
 		}
@@ -51,26 +52,26 @@ void Enemy::Update() {
 	}
 	AnimationUpdate();
 	UpdateCollision();
-	CheckDamage();
+
 }
 
 void Enemy::AnimationUpdate() {
-	_animeNo = _game.GetFrameCount()/2 % 29;
+	_animeNo = _game.GetFrameCount() / 2 % 29;
 	SetDirection();
 }
 
 void Enemy::StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
 	DrawExtendGraph(static_cast<int>(_pos.x - (_size.x / 2) + window_pos.x - camera_pos.x),
 		static_cast<int>(_pos.y - (_size.y / 2) + window_pos.y - camera_pos.y),
-		static_cast<int>(_pos.x - (_size.x / 2) + window_pos.x - camera_pos.x+_size.x ),
-		static_cast<int>(_pos.y - (_size.y / 2) + window_pos.y - camera_pos.y+_size.y),
+		static_cast<int>(_pos.x - (_size.x / 2) + window_pos.x - camera_pos.x + _size.x),
+		static_cast<int>(_pos.y - (_size.y / 2) + window_pos.y - camera_pos.y + _size.y),
 		_cg_bot[_cg_direction],
 		1);
-	DrawExtendGraph(static_cast<int>(_pos.x - (_size.x / 2) + window_pos.x - camera_pos.x ),
-		static_cast<int>(_pos.y - (_size.y / 2) + window_pos.y - camera_pos.y ),
+	DrawExtendGraph(static_cast<int>(_pos.x - (_size.x / 2) + window_pos.x - camera_pos.x),
+		static_cast<int>(_pos.y - (_size.y / 2) + window_pos.y - camera_pos.y),
 		static_cast<int>(_pos.x - (_size.x / 2) + window_pos.x - camera_pos.x + _size.x),
-		static_cast<int>(_pos.y - (_size.y / 2) + window_pos.y - camera_pos.y + _size.y ),
-		_cg_top2[_cg_direction], 
+		static_cast<int>(_pos.y - (_size.y / 2) + window_pos.y - camera_pos.y + _size.y),
+		_cg_top2[_cg_direction],
 		1);
 	DrawExtendGraph(static_cast<int>(_pos.x - (_size.x / 2) + window_pos.x - camera_pos.x),
 		static_cast<int>(_pos.y - (_size.y / 2) + window_pos.y - camera_pos.y),
@@ -79,9 +80,9 @@ void Enemy::StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos)
 		_cg_mid[_cg_direction],
 		1);
 	DrawExtendGraph(static_cast<int>(_pos.x - (_size.x / 2) + window_pos.x - camera_pos.x),
-		static_cast<int>(_pos.y - (_size.y / 2) + window_pos.y - camera_pos.y ),
-		static_cast<int>(_pos.x - (_size.x / 2) + window_pos.x - camera_pos.x + _size.x ),
-		static_cast<int>(_pos.y - (_size.y / 2) + window_pos.y - camera_pos.y + _size.y ),
+		static_cast<int>(_pos.y - (_size.y / 2) + window_pos.y - camera_pos.y),
+		static_cast<int>(_pos.x - (_size.x / 2) + window_pos.x - camera_pos.x + _size.x),
+		static_cast<int>(_pos.y - (_size.y / 2) + window_pos.y - camera_pos.y + _size.y),
 		_cg_top[_cg_direction],
 		1);
 }
@@ -91,10 +92,10 @@ void Enemy::SightUpdate() {
 	auto fov = _eyePos + _dir * _sight_W;
 	Vector2 dirside = { _dir.y * -1,_dir.x };//<視界に垂直なベクトル
 	/*視界範囲4点作成*/
-	_sightPos.pos1 = { _eyePos.x - dirside.x*(_sight_H/2),_eyePos.y-dirside.y*(_sight_H/2)};
-	_sightPos.pos2 = { _eyePos.x + dirside.x * (_sight_H/2),_eyePos.y + dirside.y * (_sight_H/2) };
-	_sightPos.pos3 = { (_eyePos + _dir * _sight_W).x - dirside.x * (_sight_H/2),(_eyePos + _dir * _sight_W).y - dirside.y * (_sight_H/2)};
-	_sightPos.pos4 = { (_eyePos + _dir * _sight_W).x + dirside.x * (_sight_H/2),(_eyePos + _dir * _sight_W).y + dirside.y * (_sight_H/2) };
+	_sightPos.pos1 = { _eyePos.x - dirside.x * (_sight_H / 2),_eyePos.y - dirside.y * (_sight_H / 2) };
+	_sightPos.pos2 = { _eyePos.x + dirside.x * (_sight_H / 2),_eyePos.y + dirside.y * (_sight_H / 2) };
+	_sightPos.pos3 = { (_eyePos + _dir * _sight_W).x - dirside.x * (_sight_H / 2),(_eyePos + _dir * _sight_W).y - dirside.y * (_sight_H / 2) };
+	_sightPos.pos4 = { (_eyePos + _dir * _sight_W).x + dirside.x * (_sight_H / 2),(_eyePos + _dir * _sight_W).y + dirside.y * (_sight_H / 2) };
 }
 
 bool Enemy::CheckDetection() {
@@ -102,7 +103,7 @@ bool Enemy::CheckDetection() {
 		if (actor->GetType() == Type::PlayerA || actor->GetType() == Type::PlayerB) {
 			CheckRoomPosition();
 			if (_roomPosition.x == actor->GetRoomPosition().x && _roomPosition.y == actor->GetRoomPosition().y) {
-			//if(1){
+				//if(1){
 				auto col = actor->GetCollision();
 				Vector2 righttop = { col.max.x,col.min.y };
 				Vector2 leftbottom = { col.min.x,col.max.y };
@@ -156,32 +157,33 @@ bool Enemy::CheckDetection() {
 
 
 bool Enemy::CheckVisualLine() {
-	
-	Vector2 target_pos=_lastDetection->GetPosition();
 
-	for (double pix_x=_eyePos.x; pix_x <= target_pos.x;pix_x=pix_x+(target_pos.x-_eyePos.x)/50) {
-		int pix_y = (target_pos.y-_eyePos.y) / (target_pos.x-_eyePos.x) * (pix_x-_eyePos.x)+_eyePos.y;
+	Vector2 target_pos = _lastDetection->GetPosition();
+
+	for (double pix_x = _eyePos.x; pix_x <= target_pos.x; pix_x = pix_x + (target_pos.x - _eyePos.x) / 50) {
+		int pix_y = (target_pos.y - _eyePos.y) / (target_pos.x - _eyePos.x) * (pix_x - _eyePos.x) + _eyePos.y;
 		_eyelineGrids.insert({ pix_x / 30, pix_y / 30 });
 	}
 	for (double pix_x = _eyePos.x; pix_x > target_pos.x; pix_x = pix_x + (target_pos.x - _eyePos.x) / 50) {
 		int pix_y = (target_pos.y - _eyePos.y) / (target_pos.x - _eyePos.x) * (pix_x - _eyePos.x) + _eyePos.y;
 		_eyelineGrids.insert({ pix_x / 30, pix_y / 30 });
 	}
-	
+
 	if (_mode.GetMapChips()->IsHit(_eyelineGrids)) {
 		return false;
-	}else {
+	}
+	else {
 		return true;
 	}
 }
 
 void Enemy::SetDirection() {
-	double dir_rad = atan2(_dir.y,_dir.x);
+	double dir_rad = atan2(_dir.y, _dir.x);
 	double pi = 3.141519;
 	double dir_deg = (dir_rad) * 180 / 3.14;
 
 	if (-180 < dir_deg && dir_deg <= -140) {
-		_cg_direction =EnemyDirection::Left;
+		_cg_direction = EnemyDirection::Left;
 	}
 	else if (-140 < dir_deg && dir_deg <= -100) {
 		_cg_direction = EnemyDirection::UpLeft;
@@ -189,19 +191,19 @@ void Enemy::SetDirection() {
 	else if (-100 < dir_deg && dir_deg <= -60) {
 		_cg_direction = EnemyDirection::Up;
 	}
-	else if (-60 < dir_deg && dir_deg <=-20 ) {
+	else if (-60 < dir_deg && dir_deg <= -20) {
 		_cg_direction = EnemyDirection::UpRight;
 	}
-	else if (-20 < dir_deg && dir_deg <=20) {
+	else if (-20 < dir_deg && dir_deg <= 20) {
 		_cg_direction = EnemyDirection::Right;
 	}
-	else if (20 < dir_deg && dir_deg <=60) {
+	else if (20 < dir_deg && dir_deg <= 60) {
 		_cg_direction = EnemyDirection::DownRight;
 	}
-	else if (60 < dir_deg && dir_deg <=100) {
+	else if (60 < dir_deg && dir_deg <= 100) {
 		_cg_direction = EnemyDirection::Down;
 	}
-	else if(100 < dir_deg && dir_deg <= 140) {
+	else if (100 < dir_deg && dir_deg <= 140) {
 		_cg_direction = EnemyDirection::DownLeft;
 	}
 	else if (140 < dir_deg && dir_deg <= 180) {
@@ -212,7 +214,7 @@ void Enemy::SetDirection() {
 void Enemy::CheckDamage() {
 	for (auto&& actor : _mode.GetActorServer().GetObjects()) {
 		if (actor->GetType() == Type::RedBullet) {
-			if(Intersect(_collision, actor->GetCollision())) {
+			if (Intersect(_collision, actor->GetCollision())) {
 				actor->Dead();
 				_dead = true;
 				PlaySoundMem(SoundServer::Find("BulletToEnemy"), DX_PLAYTYPE_BACK);
@@ -227,8 +229,7 @@ void Enemy::CheckDamage() {
 		}
 		if (actor->GetType() == Type::PlayerA || actor->GetType() == Type::PlayerB) {
 			if (Intersect(_collision, actor->GetCollision())) {
-				dynamic_cast<Player&>(*actor).TakeDamage();
-				_dead = true;
+				ApplyDamage();
 			}
 		}
 	}
@@ -248,30 +249,30 @@ void Enemy::ApplyDamage() {
 }
 
 void Enemy::UpdateCollision() {
-	_collision.min = { _pos.x - _size.x/2 + 70 , _pos.y - _size.y/2 + 30 };
-	_collision.max = { _pos.x + _size.x/2 - 70,_pos.y + _size.y/2 - 30 };
+	_collision.min = { _pos.x - _size.x / 2 + 70 , _pos.y - _size.y / 2 + 30 };
+	_collision.max = { _pos.x + _size.x / 2 - 70,_pos.y + _size.y / 2 - 30 };
 }
 
 void Enemy::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
-	_collision.Draw2(stageNum,window_pos,camera_pos);
+	_collision.Draw2(stageNum, window_pos, camera_pos);
 	DrawBox((_collision.min.x + _collision.max.x) / 2.0 + window_pos.x - camera_pos.x,
 		(_collision.min.y + _collision.max.y) / 2.0 + window_pos.y - camera_pos.y,
-		(_collision.min.x + _collision.max.x )/ 2.0 + window_pos.x - camera_pos.x + 1,
+		(_collision.min.x + _collision.max.x) / 2.0 + window_pos.x - camera_pos.x + 1,
 		(_collision.min.y + _collision.max.y) / 2.0 + window_pos.y - camera_pos.y + 1,
 		GetColor(255, 255, 0), 1);
 	/*周辺知覚範囲表示*/
-	DrawBox(static_cast<int>(_eyePos.x + window_pos.x - camera_pos.x -60),
-		static_cast<int>(_eyePos.y + window_pos.y - camera_pos.y -75),
-		static_cast<int>(_eyePos.x + window_pos.x - camera_pos.x +60),
+	DrawBox(static_cast<int>(_eyePos.x + window_pos.x - camera_pos.x - 60),
+		static_cast<int>(_eyePos.y + window_pos.y - camera_pos.y - 75),
+		static_cast<int>(_eyePos.x + window_pos.x - camera_pos.x + 60),
 		static_cast<int>(_eyePos.y + window_pos.y - camera_pos.y + 75),
 		GetColor(255, 0, 0), 0);
 
 	/*視野範囲表示*/
 	DrawLine(static_cast<int>(_sightPos.pos1.x + window_pos.x - camera_pos.x),
-			static_cast<int>(_sightPos.pos1.y + window_pos.y - camera_pos.y),
-			static_cast<int>(_sightPos.pos2.x + window_pos.x - camera_pos.x),
-			static_cast<int>(_sightPos.pos2.y + window_pos.y - camera_pos.y),
-			GetColor(255, 0, 0), 1);
+		static_cast<int>(_sightPos.pos1.y + window_pos.y - camera_pos.y),
+		static_cast<int>(_sightPos.pos2.x + window_pos.x - camera_pos.x),
+		static_cast<int>(_sightPos.pos2.y + window_pos.y - camera_pos.y),
+		GetColor(255, 0, 0), 1);
 	DrawLine(static_cast<int>(_sightPos.pos2.x + window_pos.x - camera_pos.x),
 		static_cast<int>(_sightPos.pos2.y + window_pos.y - camera_pos.y),
 		static_cast<int>(_sightPos.pos4.x + window_pos.x - camera_pos.x),
@@ -289,7 +290,7 @@ void Enemy::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
 		GetColor(255, 0, 0), 1);
 
 
-	if (_roomPosition.x==_lastDetection->GetRoomPosition().x&& _roomPosition.y == _lastDetection->GetRoomPosition().y) {
+	if (_roomPosition.x == _lastDetection->GetRoomPosition().x && _roomPosition.y == _lastDetection->GetRoomPosition().y) {
 		Vector2 target_pos = _lastDetection->GetPosition();
 		DrawLine(static_cast<int>(_eyePos.x) + window_pos.x - camera_pos.x,
 			static_cast<int>(_eyePos.y) + window_pos.y - camera_pos.y,
@@ -309,7 +310,7 @@ void Enemy::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
 	//発見フレーム数表示
 	std::stringstream ss;
 	ss << "発見フレーム数" << _detectionFrame << "\n";
-	ss << "room" << _roomPosition.x<< "," << _roomPosition.y << "\n";
+	ss << "room" << _roomPosition.x << "," << _roomPosition.y << "\n";
 	DrawString(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
 		static_cast<int>(_pos.y + window_pos.y - camera_pos.y - 10),
 		ss.str().c_str(), GetColor(255, 0, 255));

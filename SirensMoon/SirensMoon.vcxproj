@@ -164,6 +164,7 @@
     <ClCompile Include="EnemyVIP.cpp" />
     <ClCompile Include="Explode.cpp" />
     <ClCompile Include="FloorLamp.cpp" />
+    <ClCompile Include="FoundUI.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="EnemyGenerator.cpp" />
     <ClCompile Include="GameOverUI.cpp" />
@@ -223,6 +224,7 @@
     <ClInclude Include="EnemyVIP.h" />
     <ClInclude Include="Explode.h" />
     <ClInclude Include="FloorLamp.h" />
+    <ClInclude Include="FoundUI.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="EnemyGenerator.h" />
     <ClInclude Include="GameOverUI.h" />

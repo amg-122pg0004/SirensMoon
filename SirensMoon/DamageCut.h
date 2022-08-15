@@ -2,6 +2,9 @@
 #include "UIBase.h"
 #include "Easing.h"
 
+class Game;
+class ModeBase;
+
 class DamageCut :public UIBase {
 public:
 

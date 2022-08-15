@@ -184,6 +184,9 @@
     <Filter Include="UI\FoundIcon">
       <UniqueIdentifier>{bdd3d21b-a424-43db-a1c0-315d7417b072}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI\FoundUI">
+      <UniqueIdentifier>{ac759778-67ee-49ac-97a9-99cbbc35ebe1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -357,6 +360,9 @@
     <ClCompile Include="DamageCut.cpp">
       <Filter>UI\DamageCut</Filter>
     </ClCompile>
+    <ClCompile Include="FoundUI.cpp">
+      <Filter>UI\FoundUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -529,6 +535,9 @@
     </ClInclude>
     <ClInclude Include="DamageCut.h">
       <Filter>UI\DamageCut</Filter>
+    </ClInclude>
+    <ClInclude Include="FoundUI.h">
+      <Filter>UI\FoundUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
