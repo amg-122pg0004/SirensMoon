@@ -167,7 +167,6 @@
     <ClCompile Include="FoundUI.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="EnemyGenerator.cpp" />
-    <ClCompile Include="GameOverUI.cpp" />
     <ClCompile Include="Gimmick.cpp" />
     <ClCompile Include="GreenBullet.cpp" />
     <ClCompile Include="HPItem.cpp" />
@@ -196,6 +195,8 @@
     <ClCompile Include="SoundServer.cpp" />
     <ClCompile Include="SplitWindow.cpp" />
     <ClCompile Include="SquareLight.cpp" />
+    <ClCompile Include="StickeyBomb.cpp" />
+    <ClCompile Include="StickyUI.cpp" />
     <ClCompile Include="Switch.cpp" />
     <ClCompile Include="Teleporter.cpp" />
     <ClCompile Include="TileSetLoad.cpp" />
@@ -227,7 +228,6 @@
     <ClInclude Include="FoundUI.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="EnemyGenerator.h" />
-    <ClInclude Include="GameOverUI.h" />
     <ClInclude Include="Gimmick.h" />
     <ClInclude Include="GreenBullet.h" />
     <ClInclude Include="HPItem.h" />
@@ -256,6 +256,8 @@
     <ClInclude Include="ServerMachineUI.h" />
     <ClInclude Include="SoundServer.h" />
     <ClInclude Include="SplitWindow.h" />
+    <ClInclude Include="StickeyBomb.h" />
+    <ClInclude Include="StickyUI.h" />
     <ClInclude Include="Switch.h" />
     <ClInclude Include="Teleporter.h" />
     <ClInclude Include="TileSetLoad.h" />

@@ -121,7 +121,6 @@ void Player::PlayerOverlap() {
 
 void Player::Move() {
 	
-
 	if (_movable){
 		_speed = _speed + _dir * 0.2;
 	}
@@ -194,6 +193,7 @@ void Player::Move() {
 	else if (static_cast<int>(_pos.y)+_size.y> screen_H * 4) {
 		_pos.y = screen_H * 4-_size.y;
 	}
+
 	UpdateCollision();
 
 	UpdateCamera();
@@ -300,7 +300,7 @@ void Player::CheckDamage() {
 		for (auto&& actor : _mode.GetActorServer().GetObjects()) {
 			if (actor->GetType() == Type::Explode) {
 				if (Intersect(_collision, actor->GetCollision())) {
-					TakeDamage();
+					TakeDamage(GetType());
 					_invincibleTime = 90;
 				}
 			}
@@ -348,10 +348,13 @@ void Player::UpdateCollision() {
 	_collision.max = _pos + _size;
 }
 
-void Player::TakeDamage() {
+void Player::TakeDamage(Actor::Type type) {
 	--_hp;
-	_mode.SetPauseGame(true);
-	_mode.DamageEvent();
+
+	if (type == Type::Enemy) {
+		_mode.SetPauseGame(true);
+		_mode.DamageEvent();
+	}
 	if (_hp <= 0) {
 		_mode.GameOver();
 	}

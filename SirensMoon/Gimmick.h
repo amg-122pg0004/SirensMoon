@@ -13,7 +13,8 @@ public:
 		Teleporter,
 		Door,
 		Mine,
-		TNT
+		TNT,
+		StickyBomb
 	};
 	virtual GimmickType GetGimmickType() = 0;
 

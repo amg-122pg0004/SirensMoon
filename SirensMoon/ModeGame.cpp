@@ -21,8 +21,9 @@
 #include "TNT.h"
 #include "Mine.h"
 #include "ModeGameOver.h"
+#include "StickeyBomb.h"
 
-ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blindFlag{false}
+ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blindFlag{false},_makedNextMode{false}
 {
 
 	_inputManager=_game.GetInputManager();
@@ -115,6 +116,12 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blind
 		_actorServer.Add(std::move(mine));
 	}
 
+	auto stickydata = _mapChips->GetStikyBombData();
+	for (auto astick : stickydata) {
+		auto stick = std::make_unique<StickyBomb>(_game, *this, astick);
+		_actorServer.Add(std::move(stick));
+	}
+
 
 	LoadResource();
 }
@@ -176,21 +183,35 @@ void ModeGame::Debug() {
 
 void ModeGame::StageClearCheck(){
 	++_enemyVIPDeadCount;
-	if (_enemyVIPDeadCount >= _mapChips->GetServerData().size()) {
-		_stopActorUpdate=true;
-		auto mode = std::make_unique<ModeMovie>(_game, "resource/Movie/rocket.mp4");
-		_game.GetModeServer()->Add(std::move(mode));
+	if (_makedNextMode == false) {
+		_makedNextMode = true;
+		if (_enemyVIPDeadCount >= _mapChips->GetServerData().size()) {
+			_stopActorUpdate = true;
+
+			auto mode = std::make_unique<ModeMovie>(_game, "resource/Movie/rocket.mp4");
+			_game.GetModeServer()->Add(std::move(mode));
+		}
 	}
+
 }
 
 void ModeGame::GameOver(){
 	_stopActorUpdate = true;
-	auto mode = std::make_unique<ModeGameOver>(_game);
-	_game.GetModeServer()->Add(std::move(mode));
+	if (_makedNextMode == false) {
+		_makedNextMode = true;
+		auto mode = std::make_unique<ModeGameOver>(_game);
+		_game.GetModeServer()->Add(std::move(mode));
+	}
 }
 
 void ModeGame::DamageEvent(){
 	for (auto&& splitwindows : _splitWindow) {
 		splitwindows->DamageEvent();
+	}
+}
+
+void ModeGame::SetPauseGame(bool flag){
+	if (!_makedNextMode) {
+		_stopActorUpdate = flag;
 	}
 }

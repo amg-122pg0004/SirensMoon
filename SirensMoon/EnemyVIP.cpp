@@ -41,7 +41,7 @@ void EnemyVIP::CheckDamage(){
 		}
 		if (actor->GetType() == Type::PlayerA || actor->GetType() == Type::PlayerB) {
 			if (Intersect(_collision, actor->GetCollision())) {
-				dynamic_cast<Player&>(*actor).TakeDamage();
+				dynamic_cast<Player&>(*actor).TakeDamage(GetType());
 				_dead = true;
 			}
 		}

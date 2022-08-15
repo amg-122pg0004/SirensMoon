@@ -69,4 +69,12 @@ public:
 		int range;
 		int dir;
 	};
+
+	/*StickyBomb*/
+	struct StickyBombData {
+		int ID;
+		Vector2 pos;
+		int range;
+		int timer;
+	};
 };

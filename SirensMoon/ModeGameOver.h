@@ -1,7 +1,6 @@
 #pragma once
 #include "ModeBase.h"
 #include "InputManager.h"
-#include "UIBase.h"
 
 class ModeGameOver :public ModeBase {
 public:
@@ -14,7 +13,10 @@ public:
 
 private:
 
-	std::shared_ptr<InputManager> _inputManager;
-	std::vector<std::unique_ptr<UIBase>> _ui;
+	int _delay;
 
+	std::shared_ptr<InputManager> _inputManager;
+	int _movieHandle;
+
+	bool _restart;
 };

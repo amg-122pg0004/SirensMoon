@@ -41,7 +41,7 @@ void Mine::Update(){
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::PlayerA|| actor->GetType() == Type::PlayerB) {
 			if(Intersect(_detectionArea, actor->GetCollision())) {
-				dynamic_cast<Player&>(*actor).TakeDamage();
+				dynamic_cast<Player&>(*actor).TakeDamage(GetType());
 				_dead = true;
 				PlaySoundMem(SoundServer::Find("Explosion"), DX_PLAYTYPE_BACK);
 			}

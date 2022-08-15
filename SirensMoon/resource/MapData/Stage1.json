@@ -884,8 +884,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":533,
-                 "y":3815
+                 "x":524,
+                 "y":3827
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -981,18 +981,6 @@
                  "width":30,
                  "x":3600,
                  "y":120
-                }, 
-                {
-                 "class":"",
-                 "gid":37,
-                 "height":30,
-                 "id":331,
-                 "name":"",
-                 "rotation":0,
-                 "visible":true,
-                 "width":30,
-                 "x":180,
-                 "y":4080
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1114,25 +1102,6 @@
                 }, 
                 {
                  "class":"",
-                 "gid":292,
-                 "height":30,
-                 "id":319,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"Direction",
-                         "propertytype":"Direction",
-                         "type":"string",
-                         "value":"up"
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":30,
-                 "x":392.333,
-                 "y":3810.33
-                }, 
-                {
-                 "class":"",
                  "gid":293,
                  "height":30,
                  "id":320,
@@ -1146,8 +1115,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":223,
-                 "y":4171.67
+                 "x":243,
+                 "y":4191.67
                 }, 
                 {
                  "class":"",
@@ -1279,22 +1248,21 @@
                 }, 
                 {
                  "class":"",
-                 "gid":292,
+                 "gid":296,
                  "height":30,
-                 "id":332,
+                 "id":338,
                  "name":"",
                  "properties":[
                         {
-                         "name":"Direction",
-                         "propertytype":"Direction",
-                         "type":"string",
-                         "value":"down"
+                         "name":"Timer",
+                         "type":"int",
+                         "value":600
                         }],
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":603,
-                 "y":4051
+                 "x":510,
+                 "y":4110
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -5579,7 +5547,7 @@
          "y":0
         }],
  "nextlayerid":14,
- "nextobjectid":335,
+ "nextobjectid":339,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.0",
@@ -8467,6 +8435,10 @@
                 {
                  "class":"TNT",
                  "id":6
+                }, 
+                {
+                 "class":"StickyBomb",
+                 "id":7
                 }],
          "tilewidth":30
         }],

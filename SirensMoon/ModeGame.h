@@ -30,7 +30,7 @@ public:
 	inline auto& GetSplitWindow() { return _splitWindow; }
 	bool GetBlindFlag() { return _blindFlag; }
 
-	void SetPauseGame(bool flag) { _stopActorUpdate = flag; }
+	void SetPauseGame(bool flag);
 	void StageClearCheck();
 	void GameOver();
 	void DamageEvent();
@@ -47,4 +47,6 @@ private:
 
 	/*お互いのプレイヤーを視認できなくなるフラグ*/
 	bool _blindFlag;
+
+	bool _makedNextMode;
 };

@@ -26,6 +26,7 @@ void DamageCut::Update() {
 	}
 	if (_lifetime <= 0) {
 		_visible = false;
+
 		dynamic_cast<ModeGame&>(_mode).SetPauseGame(false);
 	}
 }

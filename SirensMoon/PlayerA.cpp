@@ -72,13 +72,11 @@ void PlayerA::Action(){
 	}
 
 	--_cooldown;
-	if (_cooldown > 0) {
+	if (_cooldown > 180-30) {
 		_state = PlayerState::Shoot;
 
 		std::vector<int> cg = _cg[{_state, _direction}];
-		if (_animNo >= cg.size()-1) {
-			_state = PlayerState::Wait;
-		}
+
 	}
 	if (_cooldown < 0) {
 		_cooldown = 0;

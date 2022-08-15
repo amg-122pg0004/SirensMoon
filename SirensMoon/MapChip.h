@@ -48,6 +48,7 @@ public:
 	std::vector<std::pair<int, Vector2>>GetDoorData() { return _doorDataList; }
 	std::vector<std::pair<int, Vector2>>GetTNTData() { return _tNTDataList; }
 	std::vector<St::MineData> GetMineData() { return _mineDataList; }
+	std::vector<St::StickyBombData> GetStikyBombData() { return _stickyBombDataList; }
 	St::EnemyPatrol FindPatrol(int id);
 	std::vector<int> CheckHitChipNo(int x, int y);
 	bool IsHit(AABB col);
@@ -123,6 +124,8 @@ private:
 	std::vector<std::pair<int, Vector2>> _tNTDataList;
 	/*Mineデータ*/
 	std::vector<St::MineData> _mineDataList;
+	/*StickyBombデータ*/
+	std::vector<St::StickyBombData> _stickyBombDataList;
 	
 	/*マップチップのグラフィックハンドル用コンテナ*/
 	/*[タイル用画像の枚数分][画像を分割した際のチップ画像の数]*/
@@ -150,4 +153,5 @@ private:
 	std::vector<int> _gidDoor;
 	std::vector<int> _gidTNT;
 	std::vector<int> _gidMine;
+	std::vector<int> _gidStickyBomb;
 };

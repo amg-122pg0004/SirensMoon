@@ -45,7 +45,7 @@ class Player :public Actor {
 		/*ダメージを判定に触れているかの確認*/
 		void CheckDamage();
 		/*被ダメージ時の処理*/
-		void TakeDamage();
+		void TakeDamage(Actor::Type);
 		void Heal();
 		void TakeAmmo();
 		void ChangePosition(Vector2 pos);

@@ -283,6 +283,10 @@ void MapChips::LoadTilesets(picojson::object jsRoot,std::string folderpath) {
 					auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
 					_gidMine.push_back(id);
 				}
+				if ((*i).get<picojson::object>()["class"].get<std::string>() == "StickyBomb") {
+					auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
+					_gidStickyBomb.push_back(id);
+				}
 			}
 			// チップコリジョンデータ読み込み
 			if ((*i).get<picojson::object>()["class"].get<std::string>() == "BackGround") {
@@ -390,7 +394,7 @@ void MapChips::LoadPlayerLayer(picojson::array aObjects) {
 				if (properties[0].get<picojson::object>()["name"].get<std::string>() == "Player") {
 					int playerno = static_cast<int>(properties[0].get<picojson::object>()["value"].get<double>());
 					double posX = aObjects[i].get<picojson::object>()["x"].get<double>();
-					double posY = aObjects[i].get<picojson::object>()["y"].get<double>();
+					double posY = aObjects[i].get<picojson::object>()["y"].get<double>()-_chipSize_H;
 					_playerStart[playerno] = { posX,posY };
 				}
 			}
@@ -404,14 +408,14 @@ void MapChips::LoadItemLayer(picojson::array aObjects) {
 		for (auto gid : _gidItemAmmo) {
 			if (aObjects[i].get<picojson::object>()["gid"].get<double>() == gid) {
 				posX = aObjects[i].get<picojson::object>()["x"].get<double>();
-				posY = aObjects[i].get<picojson::object>()["y"].get<double>();
+				posY = aObjects[i].get<picojson::object>()["y"].get<double>()+ _chipSize_H;
 				_bulletItems.push_back({posX,posY});
 			}
 		}
 		for (auto gid : _gidItemHP) {
 			if (aObjects[i].get<picojson::object>()["gid"].get<double>() == gid) {
 				posX = aObjects[i].get<picojson::object>()["x"].get<double>();
-				posY = aObjects[i].get<picojson::object>()["y"].get<double>();
+				posY = aObjects[i].get<picojson::object>()["y"].get<double>()+_chipSize_H;
 				_hpItems.push_back({posX,posY});
 			}
 		}
@@ -555,7 +559,7 @@ void MapChips::LoadServerLayer(picojson::array aObjects) {
 					}
 					if (upperleft == true ){
 						pos.x = aObjects[i].get<picojson::object>()["x"].get<double>();
-						pos.y = aObjects[i].get<picojson::object>()["y"].get<double>();
+						pos.y = aObjects[i].get<picojson::object>()["y"].get<double>()-_chipSize_H;
 						_serverMachineDataList.push_back({ pos,dir });
 					}
 				}
@@ -610,7 +614,7 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 				stat.random = _gidteleportIn[gid];
 				stat.tereortID = -1;
 				stat.pos.x = aObjects[i].get<picojson::object>()["x"].get<double>();
-				stat.pos.y = aObjects[i].get<picojson::object>()["y"].get<double>();
+				stat.pos.y = aObjects[i].get<picojson::object>()["y"].get<double>()-_chipSize_H;
 				if (aObjects[i].get<picojson::object>()["properties"].is<picojson::array>()) {
 					auto properties = aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
 					for (int i = 0; i < properties.size(); ++i) {
@@ -632,7 +636,7 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 				bool randomflag{0};
 				Vector2 pos;
 				pos.x = aObjects[i].get<picojson::object>()["x"].get<double>();
-				pos.y = aObjects[i].get<picojson::object>()["y"].get<double>();
+				pos.y = aObjects[i].get<picojson::object>()["y"].get<double>()-_chipSize_H;
 				if (aObjects[i].get<picojson::object>()["properties"].is<picojson::array>()) {
 					auto properties = aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
 					for (int i = 0; i < properties.size(); ++i) {
@@ -663,7 +667,7 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 					if (data.links.size() != 0) {
 
 						data.pos.x = aObjects[i].get<picojson::object>()["x"].get<double>();
-						data.pos.y = aObjects[i].get<picojson::object>()["y"].get<double>();
+						data.pos.y = aObjects[i].get<picojson::object>()["y"].get<double>()-_chipSize_H;
 						data.ID = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
 						_switchDataList.push_back(data);
 					}
@@ -673,7 +677,7 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 				if (gid == static_cast<int>(aObjects[i].get<picojson::object>()["gid"].get<double>())) {
 					Vector2 pos;
 					pos.x = static_cast<int>(aObjects[i].get<picojson::object>()["x"].get<double>());
-					pos.y = static_cast<int>(aObjects[i].get<picojson::object>()["y"].get<double>());
+					pos.y = static_cast<int>(aObjects[i].get<picojson::object>()["y"].get<double>()) - _chipSize_H;
 					auto id = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
 					_doorDataList.push_back({ id, pos });
 				}
@@ -682,9 +686,29 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 				if (gid == static_cast<int>(aObjects[i].get<picojson::object>()["gid"].get<double>())) {
 					Vector2 pos;
 					pos.x = static_cast<int>(aObjects[i].get<picojson::object>()["x"].get<double>());
-					pos.y = static_cast<int>(aObjects[i].get<picojson::object>()["y"].get<double>());
+					pos.y = static_cast<int>(aObjects[i].get<picojson::object>()["y"].get<double>()) - _chipSize_H;
 					auto id = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
 					_tNTDataList.push_back({ id, pos });
+				}
+			}
+			for (auto gid : _gidStickyBomb) {
+				if (gid == static_cast<int>(aObjects[i].get<picojson::object>()["gid"].get<double>())) {
+					St::StickyBombData data{ -1,{0,0},75,1800 };
+					auto id = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
+					data.pos.x = static_cast<int>(aObjects[i].get<picojson::object>()["x"].get<double>());
+					data.pos.y = static_cast<int>(aObjects[i].get<picojson::object>()["y"].get<double>()) - _chipSize_H;
+					if (aObjects[i].get<picojson::object>()["properties"].is<picojson::array>()) {
+						auto properties = aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
+						for (int i = 0; i < properties.size(); ++i) {
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Range") {
+								data.range = static_cast<int>(properties[i].get<picojson::object>()["value"].get<double>());
+							}
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Timer") {
+								data.timer = static_cast<int>(properties[i].get<picojson::object>()["value"].get<double>());
+							}
+						}
+					}
+					_stickyBombDataList.push_back(data);
 				}
 			}
 			for (auto gid : _gidMine) {
@@ -692,7 +716,7 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 					St::MineData data;
 					data.range = 180;
 					data.pos.x = static_cast<int>(aObjects[i].get<picojson::object>()["x"].get<double>());
-					data.pos.y = static_cast<int>(aObjects[i].get<picojson::object>()["y"].get<double>());
+					data.pos.y = static_cast<int>(aObjects[i].get<picojson::object>()["y"].get<double>())-_chipSize_H;
 					data.ID = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
 					std::string direction{ "none" };
 					if (aObjects[i].get<picojson::object>()["properties"].is<picojson::array>()) {
@@ -983,7 +1007,7 @@ void MapChips::LoadEnemyClass(picojson::object object,St::EnemyData data){
 	}
 	data.ID = static_cast<int>(object["id"].get<double>());
 	double posX = object["x"].get<double>();
-	double posY = object["y"].get<double>();
+	double posY = object["y"].get<double>()-_chipSize_H;
 	data.StartPosition = { posX,posY };
 	_enemyDataList.push_back(data);
 }
@@ -991,7 +1015,7 @@ void MapChips::LoadEnemyClass(picojson::object object,St::EnemyData data){
 void MapChips::LoadEnemyBClass(picojson::object object,St::EnemyBData data) {
 	data.ID = static_cast<int>(object["id"].get<double>());
 	data.StartPosition.x = object["x"].get<double>();
-	data.StartPosition.y = object["y"].get<double>();
+	data.StartPosition.y = object["y"].get<double>()-_chipSize_H;
 	if (object["properties"].is<picojson::array>()) {
 		auto properties = object["properties"].get<picojson::array>();
 		for (int i2 = 0; i2 < properties.size(); ++i2) {
