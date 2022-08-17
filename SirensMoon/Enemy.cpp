@@ -161,11 +161,11 @@ bool Enemy::CheckVisualLine() {
 	Vector2 target_pos = _lastDetection->GetPosition();
 
 	for (double pix_x = _eyePos.x; pix_x <= target_pos.x; pix_x = pix_x + (target_pos.x - _eyePos.x) / 50) {
-		int pix_y = (target_pos.y - _eyePos.y) / (target_pos.x - _eyePos.x) * (pix_x - _eyePos.x) + _eyePos.y;
+		int pix_y = static_cast<int>((target_pos.y - _eyePos.y) / (target_pos.x - _eyePos.x) * (pix_x - _eyePos.x) + _eyePos.y);
 		_eyelineGrids.insert({ pix_x / 30, pix_y / 30 });
 	}
 	for (double pix_x = _eyePos.x; pix_x > target_pos.x; pix_x = pix_x + (target_pos.x - _eyePos.x) / 50) {
-		int pix_y = (target_pos.y - _eyePos.y) / (target_pos.x - _eyePos.x) * (pix_x - _eyePos.x) + _eyePos.y;
+		int pix_y = static_cast<int>((target_pos.y - _eyePos.y) / (target_pos.x - _eyePos.x) * (pix_x - _eyePos.x) + _eyePos.y);
 		_eyelineGrids.insert({ pix_x / 30, pix_y / 30 });
 	}
 
@@ -255,10 +255,10 @@ void Enemy::UpdateCollision() {
 
 void Enemy::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
 	_collision.Draw2(stageNum, window_pos, camera_pos);
-	DrawBox((_collision.min.x + _collision.max.x) / 2.0 + window_pos.x - camera_pos.x,
-		(_collision.min.y + _collision.max.y) / 2.0 + window_pos.y - camera_pos.y,
-		(_collision.min.x + _collision.max.x) / 2.0 + window_pos.x - camera_pos.x + 1,
-		(_collision.min.y + _collision.max.y) / 2.0 + window_pos.y - camera_pos.y + 1,
+	DrawBox(static_cast<int>((_collision.min.x + _collision.max.x) / 2.0 + window_pos.x - camera_pos.x),
+		static_cast<int>((_collision.min.y + _collision.max.y) / 2.0 + window_pos.y - camera_pos.y),
+		static_cast<int>((_collision.min.x + _collision.max.x) / 2.0 + window_pos.x - camera_pos.x + 1),
+		static_cast<int>((_collision.min.y + _collision.max.y) / 2.0 + window_pos.y - camera_pos.y + 1),
 		GetColor(255, 255, 0), 1);
 	/*Žü•Ó’mŠo”ÍˆÍ•\Ž¦*/
 	DrawBox(static_cast<int>(_eyePos.x + window_pos.x - camera_pos.x - 60),
@@ -292,17 +292,17 @@ void Enemy::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
 
 	if (_roomPosition.x == _lastDetection->GetRoomPosition().x && _roomPosition.y == _lastDetection->GetRoomPosition().y) {
 		Vector2 target_pos = _lastDetection->GetPosition();
-		DrawLine(static_cast<int>(_eyePos.x) + window_pos.x - camera_pos.x,
-			static_cast<int>(_eyePos.y) + window_pos.y - camera_pos.y,
-			static_cast<int>(target_pos.x) + window_pos.x - camera_pos.x,
-			static_cast<int>(target_pos.y) + window_pos.y - camera_pos.y,
+		DrawLine(static_cast<int>(_eyePos.x + window_pos.x - camera_pos.x),
+			static_cast<int>(_eyePos.y + window_pos.y - camera_pos.y),
+			static_cast<int>(target_pos.x + window_pos.x - camera_pos.x),
+			static_cast<int>(target_pos.y + window_pos.y - camera_pos.y),
 			GetColor(255, 0, 0), 1);
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 30);
 		for (auto&& grid : _eyelineGrids) {
-			DrawBox(grid.first * 30 + window_pos.x - camera_pos.x,
-				grid.second * 30 + window_pos.y - camera_pos.y,
-				grid.first * 30 + 30 + window_pos.x - camera_pos.x,
-				grid.second * 30 + 30 + window_pos.y - camera_pos.y,
+			DrawBox(static_cast<int>(grid.first * 30 + window_pos.x - camera_pos.x),
+				static_cast<int>(grid.second * 30 + window_pos.y - camera_pos.y),
+				static_cast<int>(grid.first * 30 + 30 + window_pos.x - camera_pos.x),
+				static_cast<int>(grid.second * 30 + 30 + window_pos.y - camera_pos.y),
 				GetColor(255, 0, 0), 1);
 		}
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);

@@ -19,7 +19,6 @@ class LightBase;
 
 class Actor{
 	public:
-
 		enum class Type {
 			Actor,
 			Player,
@@ -33,7 +32,8 @@ class Actor{
 			Item,
 			Server,
 			Gimmick,
-			Explode
+			Explode,
+			Effect
 		};
 		virtual Type GetType() = 0;
 
@@ -47,7 +47,6 @@ class Actor{
 		virtual void CheckDeadOwner();
 		virtual void CheckRoomPosition();
 
-
 		virtual bool IsDead() { return _dead; }
 		virtual void Dead() { _dead = true; }
 		virtual AABB GetCollision() { return _collision; }
@@ -56,11 +55,16 @@ class Actor{
 		virtual Vector2 GetRoomPosition() { return _roomPosition; }
 		
 	protected:
+		/*関数アクセス用の参照*/
 		Game& _game;
 		ModeGame& _mode;
+		/*アクターの位置とサイズ*/
 		Vector2 _pos,_size;
+		/*Trueの物を削除するフラグ*/
 		bool _dead;
+		/*あたり判定*/
 		AABB _collision;
+		/*画像描画用のハンドル*/
 		int _cg;
 
 		/*4*4に区切られたマップのどこに存在するか*/

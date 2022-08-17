@@ -158,6 +158,7 @@
     <ClCompile Include="Darkness.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="Easing.cpp" />
+    <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyA.cpp" />
     <ClCompile Include="EnemyB.cpp" />
@@ -165,6 +166,7 @@
     <ClCompile Include="Explode.cpp" />
     <ClCompile Include="FloorLamp.cpp" />
     <ClCompile Include="FoundUI.cpp" />
+    <ClCompile Include="FX_Boom.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="EnemyGenerator.cpp" />
     <ClCompile Include="Gimmick.cpp" />
@@ -219,6 +221,7 @@
     <ClInclude Include="Darkness.h" />
     <ClInclude Include="Door.h" />
     <ClInclude Include="Easing.h" />
+    <ClInclude Include="Effect.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyA.h" />
     <ClInclude Include="EnemyB.h" />
@@ -226,6 +229,7 @@
     <ClInclude Include="Explode.h" />
     <ClInclude Include="FloorLamp.h" />
     <ClInclude Include="FoundUI.h" />
+    <ClInclude Include="FX_Boom.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="EnemyGenerator.h" />
     <ClInclude Include="Gimmick.h" />

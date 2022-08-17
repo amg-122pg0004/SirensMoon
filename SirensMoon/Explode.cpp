@@ -1,4 +1,6 @@
 #include "Explode.h"
+#include "ModeGame.h"
+#include "FX_Boom.h"
 
 Explode::Explode(Game& game, ModeGame& mode, Vector2 pos) :Actor(game, mode), _lifetime{ 60 }
 {
@@ -9,6 +11,8 @@ Explode::Explode(Game& game, ModeGame& mode, Vector2 pos) :Actor(game, mode), _l
 	_collision.min = _pos;
 	_collision.max = _pos + _size;
 	PlaySoundMem(SoundServer::Find("Explosion"), DX_PLAYTYPE_BACK);
+	auto fxboom = std::make_unique<FX_Boom>(game, mode, pos, game.GetFrameCount());
+	mode.GetActorServer().Add(std::move(fxboom));
 }
 
 void Explode::Update(){
@@ -19,10 +23,12 @@ void Explode::Update(){
 }
 
 void Explode::StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
+	/*
 	DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x)
 		, static_cast<int>(_pos.y + window_pos.y - camera_pos.y)
 		, _cg
 		, 1);
+		*/
 }
 
 void Explode::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){

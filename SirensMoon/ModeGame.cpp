@@ -79,7 +79,6 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blind
 		_actorServer.Add(std::move(lamp));
 	}
 	
-
 	auto teleportIn_pos = _mapChips->GetteleporterInData();
 	for (int i = 0; i < teleportIn_pos.size(); ++i) {
 		auto teleportin = std::make_unique<teleporterIn>(_game, *this,-1, teleportIn_pos[i]);
@@ -122,7 +121,9 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blind
 		_actorServer.Add(std::move(stick));
 	}
 
-
+	std::vector<int> cg;
+	cg.resize(120);
+	ImageServer::LoadDivGraph("resource/Effect/boom.png", 120, 8, 15, 512, 512, cg.data());
 	LoadResource();
 }
 

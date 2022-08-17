@@ -187,6 +187,12 @@
     <Filter Include="UI\StickyUI">
       <UniqueIdentifier>{decde859-b06f-4849-bc2e-e1e7451ef392}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Effect">
+      <UniqueIdentifier>{d775fd27-0b80-4950-afc5-eaca01ee048c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Effect\FX_Boom">
+      <UniqueIdentifier>{ed800ace-7fcb-4acc-bf34-0a727fba3893}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -366,6 +372,12 @@
     <ClCompile Include="StickyUI.cpp">
       <Filter>UI\StickyUI</Filter>
     </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>Actor\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="FX_Boom.cpp">
+      <Filter>Actor\Effect\FX_Boom</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -544,6 +556,12 @@
     </ClInclude>
     <ClInclude Include="StickyUI.h">
       <Filter>UI\StickyUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>Actor\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="FX_Boom.h">
+      <Filter>Actor\Effect\FX_Boom</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
