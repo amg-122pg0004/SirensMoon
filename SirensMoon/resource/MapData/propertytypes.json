@@ -41,6 +41,24 @@
         ]
     },
     {
+        "color": "#ffa0a0a4",
+        "id": 23,
+        "members": [
+        ],
+        "name": "BreakableObject",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset"
+        ]
+    },
+    {
         "id": 13,
         "name": "Direction",
         "storageType": "string",
@@ -59,13 +77,14 @@
         "id": 2,
         "members": [
             {
-                "name": "PatrolLine",
-                "type": "object",
+                "name": "EnemyType",
+                "propertyType": "EnemyTypeList",
+                "type": "int",
                 "value": 0
             },
             {
-                "name": "WaitFrame",
-                "type": "int",
+                "name": "PatrolLine",
+                "type": "object",
                 "value": 0
             }
         ],
@@ -75,64 +94,6 @@
             "property",
             "object",
             "tile"
-        ]
-    },
-    {
-        "color": "#ffa0a0a4",
-        "id": 23,
-        "members": [
-            {
-                "name": "Direction1",
-                "type": "int",
-                "value": 0
-            },
-            {
-                "name": "Direction2",
-                "type": "int",
-                "value": 0
-            },
-            {
-                "name": "Direction3",
-                "type": "int",
-                "value": 0
-            },
-            {
-                "name": "Direction4",
-                "type": "int",
-                "value": 0
-            },
-            {
-                "name": "WaitTime1",
-                "type": "int",
-                "value": 0
-            },
-            {
-                "name": "WaitTime2",
-                "type": "int",
-                "value": 0
-            },
-            {
-                "name": "WaitTime3",
-                "type": "int",
-                "value": 0
-            },
-            {
-                "name": "WaitTime4",
-                "type": "int",
-                "value": 0
-            }
-        ],
-        "name": "EnemyB",
-        "type": "class",
-        "useAs": [
-            "property",
-            "map",
-            "layer",
-            "object",
-            "tile",
-            "tileset",
-            "wangcolor",
-            "wangset"
         ]
     },
     {
@@ -270,10 +231,25 @@
         "id": 11,
         "members": [
             {
+                "name": "Accelerate",
+                "type": "float",
+                "value": 1
+            },
+            {
+                "name": "Friction",
+                "type": "float",
+                "value": 0.9
+            },
+            {
                 "name": "Player",
                 "propertyType": "PlayerList",
                 "type": "int",
                 "value": 0
+            },
+            {
+                "name": "SpeedMax",
+                "type": "float",
+                "value": 5
             }
         ],
         "name": "Player",

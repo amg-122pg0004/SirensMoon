@@ -78,7 +78,9 @@ class Player :public Actor {
 		Vector2 _dir;//<キャラの向き
 		Vector2 _lastDir;//最後に向いたキャラの向き
 		Vector2 _speed;//移動の速さ
-		double _speedMax;//移動の最大速
+		double _speedMax;//最大速度
+		double _accelerationRatio;//入力値をノーマライズした値の乗算値を加速する
+		double _friction;//速度減衰に使用する値
 		bool _movable;
 
 		int _playerNum;//<プレイヤーの番号(0なら左プレイヤー、1なら右プレイヤー）

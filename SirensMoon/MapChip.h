@@ -34,7 +34,8 @@ public:
 	int GetChipSize_H() { return _chipSize_H; }
 	int GetChipSize_W() { return _chipSize_W; }
 
-	Vector2 GetPlayerStartPosition(int playerno);
+	St::PlayerData GetPlayerData(int playerno);
+
 	std::vector<St::EnemyData> GetEnemyData() { return _enemyDataList; }
 	std::vector<St::EnemyBData> GetEnemyBData() { return _enemyBDataList; }
 	std::vector<St::EnemyPatrol> GetPatrolPointsVIP() { return _patrolPointsVIP; }
@@ -95,7 +96,7 @@ private:
 	/*ミニマップデータ [line][plot]*/
 	std::vector<std::vector<Vector2>> _minimapData;
 	/*プレイヤー初期位置データ[player1か2] */
-	std::unordered_map<int,Vector2> _playerStart;
+	std::unordered_map<int,St::PlayerData> _playerData;
 	/*HPアイテムデータ [配置個数分]*/
 	std::vector<Vector2> _hpItems;
 	/*弾薬アイテムデータ[配置個数分]*/
@@ -147,7 +148,7 @@ private:
 	std::vector<int> _gidBarrier2;
 	std::vector<int> _gidItemAmmo;
 	std::vector<int> _gidItemHP;
-	std::vector<int> _gidPlayer;
+	std::vector<std::pair<int,St::PlayerData>> _gidPlayer;
 	std::vector<St::ServerTileData> _gidServer;
 	std::vector<std::pair<int,SquareLight::SquareLightStats>> _gidLight;
 	std::unordered_map<int, bool> _gidteleportOut;//<boolはランダムにワープするフラグ

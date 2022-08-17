@@ -19,18 +19,21 @@
 #include "teleporter.h"
 
 Player::Player(Game& game,ModeGame& mode,int playernum)
-	:Actor{ game,mode }, _speed{ 0,0 },_speedMax{5.0}, _playerNum{playernum}
+	:Actor{ game,mode }, _speed{ 0,0 }, _playerNum{playernum}
 	, _dir{0,0}, _lastDir{ 1,0 }, _hp{ 3 },_hpMAX{3}, _bullet{5}, _movable{1}, _charge{0}, _cooldown{0}
 	,_init{false},_state{PlayerState::Wait},_direction{PlayerDirection::Right},_animNo{0}, _invincibleTime{0}
 {
 	_inputManager = _game.GetInputManager();
-
-	 Vector2 pos = _mode.GetMapChips()->GetPlayerStartPosition(_playerNum);
-	 _pos = { pos.x,pos.y };
-	 _stage = 1;
-	 _size = { 30,60 };
-	 auto light = std::make_unique<LightBase>(_game, _mode, *this);
-	 _mode.GetActorServer().Add(std::move(light));
+	auto data = _mode.GetMapChips()->GetPlayerData(_playerNum);
+	Vector2 pos = data.StarPosition;
+	_speedMax = data.SpeedMax;
+	_accelerationRatio = data.Accelerate;
+	_friction = data.Friction;
+	_pos = { pos.x,pos.y };
+	_stage = 1;
+	_size = { 30,60 };
+	auto light = std::make_unique<LightBase>(_game, _mode, *this);
+	_mode.GetActorServer().Add(std::move(light));
 }
 
 void Player::Init() {
@@ -122,11 +125,11 @@ void Player::PlayerOverlap() {
 void Player::Move() {
 	
 	if (_movable){
-		_speed = _speed + _dir * 0.2;
+		_speed = _speed + _dir * _accelerationRatio;
 	}
 	auto dir = _dir;
 	if (dir.Length() == 0||!_movable) {
-		_speed *= 0.9;
+		_speed *= _friction;
 	}
 
 	if (_speed.x > _speedMax) {

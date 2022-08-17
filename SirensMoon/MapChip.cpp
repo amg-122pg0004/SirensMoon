@@ -176,7 +176,23 @@ void MapChips::LoadTilesets(picojson::object jsRoot,std::string folderpath) {
 					_gidItemHP.push_back(static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back()));
 				}
 				if ((*i).get<picojson::object>()["class"].get<std::string>() == "Player") {
-					_gidPlayer.push_back(static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back()));
+					St::PlayerData data{ { 0,0 },5.0,1.0,0.9 };
+					if ((*i).get<picojson::object>()["properties"].is<picojson::array>()) {
+						auto properties = (*i).get<picojson::object>()["properties"].get<picojson::array>();
+						for (int i2 = 0; i2 < properties.size(); ++i2) {
+							if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "Accelerate") {
+								data.Accelerate = properties[i2].get<picojson::object>()["value"].get<double>();
+							}
+							if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "Friction") {
+								data.Friction = properties[i2].get<picojson::object>()["value"].get<double>();
+							}
+							if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "SpeedMax") {
+								data.SpeedMax = properties[i2].get<picojson::object>()["value"].get<double>();
+							}
+						}
+					}
+					auto gid = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
+					_gidPlayer.push_back({gid,data});
 				}
 				if ((*i).get<picojson::object>()["class"].get<std::string>() == "Server") {
 					std::string direction = "up";
@@ -392,15 +408,28 @@ void MapChips::LoadPlayerLayer(picojson::array aObjects) {
 	for (int i = 0; i < aObjects.size(); ++i) {
 		/*各オブジェクトのgidがタイルセット上でプレイヤークラスに設定されている物か*/
 		for (auto gid : _gidPlayer) {
-			if (aObjects[i].get<picojson::object>()["gid"].get<double>() == gid) {
+			if (aObjects[i].get<picojson::object>()["gid"].get<double>() == gid.first) {
+				auto data = gid.second;
+				int playerno;
+				data.StarPosition.x = aObjects[i].get<picojson::object>()["x"].get<double>();
+				data.StarPosition.y = aObjects[i].get<picojson::object>()["y"].get<double>() + _chipSize_H;
 				auto properties=aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
 				/*カスタムプロパティ0番目にPlayerの項目があるか*/
-				if (properties[0].get<picojson::object>()["name"].get<std::string>() == "Player") {
-					int playerno = static_cast<int>(properties[0].get<picojson::object>()["value"].get<double>());
-					double posX = aObjects[i].get<picojson::object>()["x"].get<double>();
-					double posY = aObjects[i].get<picojson::object>()["y"].get<double>()-_chipSize_H;
-					_playerStart[playerno] = { posX,posY };
+				for (int i2 = 0; i2 < properties.size(); ++i2) {
+					if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "Player") {
+						playerno = static_cast<int>(properties[i2].get<picojson::object>()["value"].get<double>());
+					}
+					if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "Accelerate") {
+						data.Accelerate = properties[i2].get<picojson::object>()["value"].get<double>();
+					}
+					if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "Friction") {
+						data.Friction = properties[i2].get<picojson::object>()["value"].get<double>();
+					}
+					if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "SpeedMax") {
+						data.SpeedMax = properties[i2].get<picojson::object>()["value"].get<double>();
+					}
 				}
+				_playerData[playerno] = data;
 			}
 		}
 	}
@@ -999,11 +1028,11 @@ ObjectDataStructs::EnemyPatrol MapChips::FindPatrol(int id){
 	return {-1, { {0,0} }, false };
 }
 
-Vector2 MapChips::GetPlayerStartPosition(int playerno) {
-	if (_playerStart.find(playerno + 1) != _playerStart.end()) {
-		return _playerStart[playerno + 1];
+ObjectDataStructs::PlayerData MapChips::GetPlayerData(int playerno) {
+	if (_playerData.find(playerno + 1) != _playerData.end()) {
+		return _playerData[playerno + 1];
 	}
-	return { 0,0 };
+	return{ { 0,0 },5.0,1.0,0.9 };
 }
 
 void MapChips::LoadEnemyClass(picojson::object object,St::EnemyData data){

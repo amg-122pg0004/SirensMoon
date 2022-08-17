@@ -10,7 +10,9 @@ public:
 
 	struct PlayerData {
 		Vector2 StarPosition;
-		
+		double SpeedMax;
+		double Accelerate;
+		double Friction;
 	};
 
 	/*エネミーデータ構造*/

@@ -59,87 +59,7 @@ void PlayerB::Action() {
 }
 
 void PlayerB::Move() {
-
-
-	if (_movable) {
-		_speed = _speed + _dir * 0.2;
-	}
-	auto dir = _dir;
-	if (dir.Length() == 0 || !_movable) {
-		_speed *= 0.9;
-	}
-
-	if (_speed.x > _speedMax) {
-		_speed.x = _speedMax;
-	}
-	if (_speed.x < -_speedMax) {
-		_speed.x = -_speedMax;
-	}
-	if (_speed.y > _speedMax) {
-		_speed.y = _speedMax;
-	}
-	if (_speed.y < -_speedMax) {
-		_speed.y = -_speedMax;
-	}
-
-	auto tmpspeed = _speed;
-	if (tmpspeed.Length() > _speedMax) {
-		_speed.Normalize();
-		_speed *= _speedMax;
-	}
-
-
-	/*障害物衝突処理*/
-	/*X方向*/
-	_pos.x += _speed.x;
-	UpdateCollision();
-	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHit(_collision)) {
-		_pos.x += -1 * _speed.x;
-	}
-	UpdateCollision();
-	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHitBarrier(_collision, _playerNum)) {
-		_pos.x += -1 * _speed.x;
-	}
-	UpdateCollision();
-
-	if (IsHitActor()) {
-		_pos.x += -1 * _speed.x;
-	}
-	UpdateCollision();
-	_pos.y += _speed.y;
-	UpdateCollision();
-	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHit(_collision)) {
-		_pos.y += -1 * _speed.y;
-	}
-	UpdateCollision();
-	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHitBarrier(_collision, _playerNum)) {
-		_pos.y += -1 * _speed.y;
-	}
-	UpdateCollision();
-	if (IsHitActor()) {
-		_pos.y += -1 * _speed.y;
-	}
-	UpdateCollision();
-
-	/*ステージ外に出ないようにする処理*/
-	if (_pos.x < 0) {
-		_pos.x = 0;
-	}
-	else if (static_cast<int>(_pos.x) + _size.x > screen_W / 2 * 4) {
-		_pos.x = screen_W / 2 * 4 - _size.x;
-	}
-
-	if (_pos.y < 0) {
-		_pos.y = 0;
-	}
-	else if (static_cast<int>(_pos.y) + _size.y > screen_H * 4) {
-		_pos.y = screen_H * 4 - _size.y;
-	}
-
-	UpdateCamera();
-
-	PlayFootSteps();
-
+	Player::Move();
 	if (_speed.Length() < 0.1) {
 		if (_state != PlayerState::Set&&_state !=PlayerState::Wait) {
 			_state = PlayerState::Set;
@@ -150,29 +70,7 @@ void PlayerB::Move() {
 		}
 
 	}
-	else if (_speed.Length() < 4.9) {
-		_state = PlayerState::Walk;
-	}
-	else {
-		_state = PlayerState::Run;
-	}
 
-	if (abs(_lastDir.x) > abs(_lastDir.y)) {
-		if (_lastDir.x >= 0) {
-			_direction = PlayerDirection::Right;
-		}
-		else {
-			_direction = PlayerDirection::Left;
-		}
-	}
-	else {
-		if (_lastDir.y >= 0) {
-			_direction = PlayerDirection::Down;
-		}
-		else {
-			_direction = PlayerDirection::Up;
-		}
-	}
 }
 
 void PlayerB::StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) {

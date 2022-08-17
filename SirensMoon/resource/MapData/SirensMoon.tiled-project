@@ -50,6 +50,24 @@
             ]
         },
         {
+            "color": "#ffa0a0a4",
+            "id": 23,
+            "members": [
+            ],
+            "name": "BreakableObject",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset"
+            ]
+        },
+        {
             "id": 13,
             "name": "Direction",
             "storageType": "string",
@@ -222,10 +240,25 @@
             "id": 11,
             "members": [
                 {
+                    "name": "Accelerate",
+                    "type": "float",
+                    "value": 1
+                },
+                {
+                    "name": "Friction",
+                    "type": "float",
+                    "value": 0.9
+                },
+                {
                     "name": "Player",
                     "propertyType": "PlayerList",
                     "type": "int",
                     "value": 0
+                },
+                {
+                    "name": "SpeedMax",
+                    "type": "float",
+                    "value": 5
                 }
             ],
             "name": "Player",
@@ -386,24 +419,6 @@
             "members": [
             ],
             "name": "Wall",
-            "type": "class",
-            "useAs": [
-                "property",
-                "map",
-                "layer",
-                "object",
-                "tile",
-                "tileset",
-                "wangcolor",
-                "wangset"
-            ]
-        },
-        {
-            "color": "#ffa0a0a4",
-            "id": 23,
-            "members": [
-            ],
-            "name": "BreakableObject",
             "type": "class",
             "useAs": [
                 "property",
