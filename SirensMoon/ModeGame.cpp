@@ -22,6 +22,7 @@
 #include "Mine.h"
 #include "ModeGameOver.h"
 #include "StickeyBomb.h"
+#include "BreakableObject.h"
 
 ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blindFlag{false},_makedNextMode{false}
 {
@@ -120,10 +121,21 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blind
 		auto stick = std::make_unique<StickyBomb>(_game, *this, astick);
 		_actorServer.Add(std::move(stick));
 	}
+	
+	auto breakabledata = _mapChips->GetBreakableObjectData();
+	for (auto abreakable : breakabledata) {
+		auto breakable = std::make_unique<BreakableObject>(_game, *this, abreakable);
+		_actorServer.Add(std::move(breakable));
+
+	}
 
 	std::vector<int> cg;
-	cg.resize(120);
-	ImageServer::LoadDivGraph("resource/Effect/boom.png", 120, 8, 15, 512, 512, cg.data());
+	//cg.resize(120);
+	//ImageServer::LoadDivGraph("resource/Effect/boom.png", 120, 8, 15, 512, 512, cg.data());
+
+	cg.resize(112);
+	ImageServer::LoadDivGraph("resource/Effect/boom2.png", 112, 8, 14, 512, 512, cg.data());
+
 	LoadResource();
 }
 

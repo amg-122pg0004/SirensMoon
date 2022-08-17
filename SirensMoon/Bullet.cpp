@@ -7,6 +7,7 @@
  *********************************************************************/
 #include "Bullet.h"
 #include "ModeGame.h"
+#include "Gimmick.h"
 
 Bullet::Bullet(Game& game, ModeGame& mode, Vector2 pos, Vector2 dir)
 	:Actor{ game,mode }, _dir{ dir }, _speed{ 25 }, _lifetime{ 180 }
@@ -25,6 +26,7 @@ Bullet::~Bullet() {
 
 void Bullet::Update() {
 	_pos = _pos + _dir * _speed;
+	_renderPriority = _collision.max.y;
 	UpdateCollision();
 
 	--_lifetime;
@@ -36,6 +38,17 @@ void Bullet::Update() {
 	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHit(_collision)) {
 		_dead = true;
 		PlaySoundMem(SoundServer::Find("BulletToWall"), DX_PLAYTYPE_BACK);
+	}
+	for (auto&& actor : _mode.GetObjects()) {
+		if (actor->GetType() == Type::Gimmick) {
+			if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::Door ||
+				dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::Switch ||
+				dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::TNT) {
+				if (Intersect(actor->GetCollision(), _collision)) {
+					_dead = true;
+				}
+			}
+		}
 	}
 }
 

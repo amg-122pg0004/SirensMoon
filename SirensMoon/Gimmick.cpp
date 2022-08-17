@@ -3,7 +3,7 @@
 Gimmick::Gimmick(Game& game,ModeGame& mode,int ID)
 	:Actor(game,mode),_activate{true},_id{ID}
 {
-
+	_renderPriority = -1;
 }
 
 bool Gimmick::RecieveCall(std::vector<int> IDs, bool flag) {

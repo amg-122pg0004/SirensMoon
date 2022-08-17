@@ -5,8 +5,11 @@
 FX_Boom::FX_Boom(Game& game, ModeGame& mode, const Vector2& pos, int startTime)
 	:Effect(game,mode,pos,startTime)
 {
-	_cg.resize(120);
-	ImageServer::LoadDivGraph("resource/Effect/boom.png", 120, 8, 15 , 512, 512, _cg.data());
+	//_cg.resize(120);
+	//ImageServer::LoadDivGraph("resource/Effect/boom.png", 120, 8, 15 , 512, 512, _cg.data());
+
+	_cg.resize(112);
+	ImageServer::LoadDivGraph("resource/Effect/boom2.png", 112, 8, 14, 512, 512, _cg.data());
 
 	_zoom = 0.5;
 	_lifeTime = 60*1;

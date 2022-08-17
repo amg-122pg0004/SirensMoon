@@ -193,6 +193,9 @@
     <Filter Include="Actor\Effect\FX_Boom">
       <UniqueIdentifier>{ed800ace-7fcb-4acc-bf34-0a727fba3893}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Gimmick\BreakableObject">
+      <UniqueIdentifier>{b04fb6b3-155b-401f-80fa-f2bffa4c2cfc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -378,6 +381,9 @@
     <ClCompile Include="FX_Boom.cpp">
       <Filter>Actor\Effect\FX_Boom</Filter>
     </ClCompile>
+    <ClCompile Include="BreakableObject.cpp">
+      <Filter>Actor\Gimmick\BreakableObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -562,6 +568,9 @@
     </ClInclude>
     <ClInclude Include="FX_Boom.h">
       <Filter>Actor\Effect\FX_Boom</Filter>
+    </ClInclude>
+    <ClInclude Include="BreakableObject.h">
+      <Filter>Actor\Gimmick\BreakableObject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

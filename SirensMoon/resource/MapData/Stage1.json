@@ -2613,6 +2613,18 @@
                  "width":30,
                  "x":270,
                  "y":360
+                }, 
+                {
+                 "class":"",
+                 "gid":471,
+                 "height":30,
+                 "id":945,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":482,
+                 "y":358
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -5069,7 +5081,7 @@
          "y":0
         }],
  "nextlayerid":20,
- "nextobjectid":945,
+ "nextobjectid":946,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.0",
@@ -9557,6 +9569,10 @@
                 {
                  "class":"TNT",
                  "id":6
+                }, 
+                {
+                 "class":"BreakableObject",
+                 "id":8
                 }],
          "tilewidth":30
         }],

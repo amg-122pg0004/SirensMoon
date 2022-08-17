@@ -397,6 +397,24 @@
                 "wangcolor",
                 "wangset"
             ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "id": 23,
+            "members": [
+            ],
+            "name": "BreakableObject",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset"
+            ]
         }
     ]
 }

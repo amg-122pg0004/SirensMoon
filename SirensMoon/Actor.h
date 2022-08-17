@@ -7,6 +7,7 @@
  *********************************************************************/
 
 #pragma once
+#include <memory>
 #include "Math.h"
 #include "Collision.h"
 #include "ImageServer.h"
@@ -15,7 +16,6 @@ class Game;
 
 class ModeGame;
 class LightBase;
-
 
 class Actor{
 	public:
@@ -53,6 +53,9 @@ class Actor{
 		virtual Vector2 GetPosition() { return _pos; }
 		virtual Vector2 GetSize() { return _size; }
 		virtual Vector2 GetRoomPosition() { return _roomPosition; }
+
+		int GetRenderPriority() { return _renderPriority; }
+
 		
 	protected:
 		/*関数アクセス用の参照*/
@@ -66,6 +69,8 @@ class Actor{
 		AABB _collision;
 		/*画像描画用のハンドル*/
 		int _cg;
+		/*描画優先度*/
+		int _renderPriority;
 
 		/*4*4に区切られたマップのどこに存在するか*/
 		Vector2 _roomPosition;

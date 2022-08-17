@@ -22,6 +22,7 @@ Effect::Effect(Game& game, ModeGame& mode, const Vector2& pos, int startTime)
     , _blendMode{ DX_BLENDMODE_ADD }
 {
     _pos = pos;
+    _renderPriority = 100000;
 }
 // çXêV
 void Effect::Update() {

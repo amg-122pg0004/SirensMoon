@@ -14,7 +14,8 @@ public:
 		Door,
 		Mine,
 		TNT,
-		StickyBomb
+		StickyBomb,
+		BreakableObject
 	};
 	virtual GimmickType GetGimmickType() = 0;
 

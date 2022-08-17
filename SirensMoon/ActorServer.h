@@ -15,6 +15,7 @@
 class ModeBase;
 //class Actor;
 
+
 class ActorServer {
 
 	public:
@@ -35,6 +36,8 @@ class ActorServer {
 		void ReconRender(int stageNum, Vector2 windowPos, Vector2 cameraPos);
 
 		void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos);
+
+
 	private:
 		TypeActors _typeActors;
 		TypeActors _pendingTypeActors;

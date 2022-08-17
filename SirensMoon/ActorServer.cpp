@@ -7,6 +7,7 @@
  *********************************************************************/
 
 #include "ActorServer.h"
+#include <algorithm>
 
 ActorServer::ActorServer(ModeBase& mode) :
 	_mode{mode}, _updating{ false }
@@ -56,8 +57,16 @@ void	ActorServer::DeleteObjects() {
 	}
 }
 
+bool CompRenderPriority(const std::unique_ptr<Actor>& a, const std::unique_ptr<Actor>& b)
+{
+	return a->GetRenderPriority() < b->GetRenderPriority();
+}
+
 void	ActorServer::Update() {
 		_updating = true;
+
+
+
 		for (auto&& object : _typeActors) {
 			object->Update();
 		}
@@ -67,6 +76,8 @@ void	ActorServer::Update() {
 		_updating = false;
 		AddPendingActors();
 		DeleteObjects();	// 削除予約されたオブジェクトを削除する
+
+		std::sort(_typeActors.begin(), _typeActors.end(), CompRenderPriority);
 	}
 
 	void	ActorServer::StandardRender(int stageNum,Vector2 window_pos, Vector2 camera_pos) {

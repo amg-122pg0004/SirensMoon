@@ -77,4 +77,11 @@ public:
 		int range;
 		int timer;
 	};
+
+
+	struct BreakableObjectData
+	{
+		int ID;
+		Vector2 pos;
+	};
 };

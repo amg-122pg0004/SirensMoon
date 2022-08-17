@@ -18,6 +18,7 @@ BulletItem::BulletItem(Game& game, ModeGame& mode,Vector2 pos)
 	_size = { 40,40 };
 	_collision.min = _pos;
 	_collision.max = _pos + _size;
+	_renderPriority = -1;
 }
 
 void BulletItem::Update() {

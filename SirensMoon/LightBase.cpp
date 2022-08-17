@@ -19,6 +19,7 @@ LightBase::LightBase(Game& game, ModeGame& mode, Actor& owner)
 	y *= _scale;
 	_pos = { _owner.GetPosition().x+_owner.GetSize().x - x / 2,_owner.GetPosition().y + _owner.GetSize().y - y / 2};
 	_cg = ImageServer::LoadGraph("resource/Light/Light_3.png");
+	_renderPriority = 100000;
 }
 
 void LightBase::Update() {

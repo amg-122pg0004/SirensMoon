@@ -20,7 +20,6 @@ void TNT::Update() {
 		_mode.GetActorServer().Add(std::move(explode));
 		_dead = true;
 	}
-
 }
 
 void TNT::StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) {

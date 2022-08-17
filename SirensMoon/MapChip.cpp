@@ -287,6 +287,10 @@ void MapChips::LoadTilesets(picojson::object jsRoot,std::string folderpath) {
 					auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
 					_gidStickyBomb.push_back(id);
 				}
+				if ((*i).get<picojson::object>()["class"].get<std::string>() == "BreakableObject") {
+					auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
+					_gidBreakableObject.push_back(id);
+				}
 			}
 			// チップコリジョンデータ読み込み
 			if ((*i).get<picojson::object>()["class"].get<std::string>() == "BackGround") {
@@ -691,6 +695,15 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 					_tNTDataList.push_back({ id, pos });
 				}
 			}
+			for (auto gid : _gidBreakableObject) {
+				if (gid == static_cast<int>(aObjects[i].get<picojson::object>()["gid"].get<double>())) {
+					St::BreakableObjectData data{-1,{0,0}};
+					data.pos.x = static_cast<int>(aObjects[i].get<picojson::object>()["x"].get<double>());
+					data.pos.y = static_cast<int>(aObjects[i].get<picojson::object>()["y"].get<double>()) - _chipSize_H;
+					auto id = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
+					_breakableObjectData.push_back(data);
+				}
+			}
 			for (auto gid : _gidStickyBomb) {
 				if (gid == static_cast<int>(aObjects[i].get<picojson::object>()["gid"].get<double>())) {
 					St::StickyBombData data{ -1,{0,0},75,1800 };
@@ -751,6 +764,7 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 					_mineDataList.push_back(data);
 				}
 			}
+
 		}
 	}
 }
