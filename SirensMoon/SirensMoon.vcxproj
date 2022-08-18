@@ -149,6 +149,7 @@
     <ClCompile Include="ActorServer.cpp" />
     <ClCompile Include="AmmoUI.cpp" />
     <ClCompile Include="BlinkLight.cpp" />
+    <ClCompile Include="Boss.cpp" />
     <ClCompile Include="BreakableObject.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="FX_BulletHit.cpp" />
@@ -216,6 +217,7 @@
     <ClInclude Include="ActorServer.h" />
     <ClInclude Include="AmmoUI.h" />
     <ClInclude Include="BlinkLight.h" />
+    <ClInclude Include="Boss.h" />
     <ClInclude Include="BreakableObject.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="FX_BulletHit.h" />

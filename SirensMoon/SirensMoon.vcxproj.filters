@@ -205,6 +205,9 @@
     <Filter Include="Actor\Effect\FX_BulletHit">
       <UniqueIdentifier>{b3f4005f-9136-4a85-b50c-a0eabcb3033f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Boss">
+      <UniqueIdentifier>{0f365b0e-8da2-495f-9fe6-a48ca3329bc3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -402,6 +405,9 @@
     <ClCompile Include="FX_BulletHit.cpp">
       <Filter>Actor\Effect\FX_BulletHit</Filter>
     </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>Actor\Boss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -598,6 +604,9 @@
     </ClInclude>
     <ClInclude Include="FX_BulletHit.h">
       <Filter>Actor\Effect\FX_BulletHit</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>Actor\Boss</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
