@@ -43,8 +43,8 @@ void LightBase::MaskRender(Vector2 window_pos, Vector2 camera_pos){
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, _alpha);
 		DrawRotaGraph2(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
 			static_cast<int>(_pos.y + window_pos.y - camera_pos.y),
-			_centerPos.x,
-			_centerPos.y,
+			static_cast<int>(_centerPos.x),
+			static_cast<int>(_centerPos.y),
 			_scale,
 			_angle,
 			_cg, 1, 0);

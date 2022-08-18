@@ -33,7 +33,7 @@ void HPUI::Update(){
 }
 
 void HPUI::Render() {
-	DrawGraph(_pos.x,_pos.y, _cg[_player_HP], 1);
+	DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), _cg[_player_HP], 1);
 }
 
 void HPUI::SetHPstring(int hp) {

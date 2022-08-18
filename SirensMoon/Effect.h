@@ -33,4 +33,6 @@ protected:
     double _angle;  // 回転角度
     double _zoom;   // 拡大率
     int _blendMode; // DXブレンドモード
+
+    bool _loop;//trueにするとループ表示
 };

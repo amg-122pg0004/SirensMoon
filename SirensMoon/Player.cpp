@@ -157,44 +157,54 @@ void Player::Move() {
 	UpdateCollision();
 	if (_mode.GetMapChips() ->IsHit(_collision)) {
 		_pos.x += -1*_speed.x;
+		_speed.x = 0;
 	}
 	UpdateCollision();
 	if (_mode.GetMapChips()->IsHitBarrier(_collision, _playerNum)) {
 		_pos.x += -1 * _speed.x;
+		_speed.x = 0;
 	}
 	UpdateCollision();
 	if (IsHitActor()) {
 		_pos.x += -1 * _speed.x;
+		_speed.x = 0;
 	}
 
 	_pos.y += _speed.y;
 	UpdateCollision();
 	if (_mode.GetMapChips() ->IsHit(_collision)) {
 		_pos.y += -1 * _speed.y;
+		_speed.y = 0;
 	}
 	UpdateCollision();
 	if (_mode.GetMapChips()->IsHitBarrier(_collision, _playerNum)) {
 		_pos.y += -1 * _speed.y;
+		_speed.y = 0;
 	}
 	UpdateCollision();
 
 	if (IsHitActor()) {
 		_pos.y += -1 * _speed.y;
+		_speed.y = 0;
 	}
 	
 	/*ステージ外に出ないようにする処理*/
 	if (_pos.x < 0) {
 		_pos.x = 0;
+		_speed.x = 0;
 	}
 	else if (static_cast<int>(_pos.x)+_size.x > splitscreen_W * 4) {
 		_pos.x = splitscreen_W * 4-_size.x;
+		_speed.x = 0;
 	}
 
 	if (_pos.y < 0) {
 		_pos.y = 0;
+		_speed.y = 0;
 	}
 	else if (static_cast<int>(_pos.y)+_size.y> screen_H * 4) {
 		_pos.y = screen_H * 4-_size.y;
+		_speed.y = 0;
 	}
 
 	UpdateCollision();
@@ -277,7 +287,8 @@ bool Player::IsHitActor() {
 
 
 	for (auto&& actor : _mode.GetActorServer().GetObjects()) {
-		if (actor->GetType() == Type::Enemy|| actor->GetType() == Type::Server) {
+		//actor->GetType() == Type::Enemy || エネミーへの当たり判定削除
+		if ( actor->GetType() == Type::Server) {
 			if (Intersect(_collision, actor->GetCollision())) {
 			return true;
 			}
@@ -336,9 +347,9 @@ void Player::StandardRender(int windowNum,Vector2 window_pos,Vector2 camera_pos)
 	}
 	else {
 			DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x) - (_size.y / 2),
-				static_cast<int>(_pos.y + window_pos.y - camera_pos.y) - (_size.y / 2)*0.6,
-				static_cast<int>(_pos.x + window_pos.x - camera_pos.x) - (_size.y / 2) + _size.y*1.5,
-				static_cast<int>(_pos.y + window_pos.y - camera_pos.y) - (_size.y / 2)*0.6 + _size.y*1.5,
+				static_cast<int>(_pos.y + window_pos.y - camera_pos.y - (_size.y / 2)*0.6),
+				static_cast<int>(_pos.x + window_pos.x - camera_pos.x - (_size.y / 2) + _size.y*1.5),
+				static_cast<int>(_pos.y + window_pos.y - camera_pos.y - (_size.y / 2)*0.6 + _size.y*1.5),
 				cg[_game.GetFrameCount() % cg.size()], 1);
 
 

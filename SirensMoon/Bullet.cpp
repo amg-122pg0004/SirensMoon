@@ -26,7 +26,7 @@ Bullet::~Bullet() {
 
 void Bullet::Update() {
 	_pos = _pos + _dir * _speed;
-	_renderPriority = _collision.max.y;
+	_renderPriority = static_cast<int>(_collision.max.y);
 	UpdateCollision();
 
 	--_lifetime;

@@ -18,16 +18,33 @@ class Game;
 class ModeGame;
 
 class Player :public Actor {
-	public:
-		Player(Game& game,ModeGame& base,int playernum);
-		void Update() override ;
-		virtual void StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos ) override;
-		void UpdateCamera();
-		void Init();
+public:
+	/*グラフィック用状態*/
+	enum class PlayerState {
+		Wait,
+		Walk,
+		Run,
+		Set,
+		Shoot
+	};
+	/*グラフィック用方向*/
+	enum class PlayerDirection {
+		Up,
+		Down,
+		Left,
+		Right,
+	};
 
-		virtual Actor::Type GetType() override { return Type::Player; }
-		int GetPlayerNum() { return _playerNum; }
-		Vector2 GetDirection() { return _lastDir; }
+	Player(Game& game, ModeGame& base, int playernum);
+	void Update() override;
+	virtual void StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) override;
+	void UpdateCamera();
+	void Init();
+
+	virtual Actor::Type GetType() override { return Type::Player; }
+	int GetPlayerNum() { return _playerNum; }
+	Vector2 GetDirection() { return _lastDir; }
+	PlayerDirection GetGrDirection() { return _direction; }
 		int GetCharge() { return _charge; }
 		int GetHP() { return _hp; }
 		int GetAmmo() { return _bullet; }
@@ -57,21 +74,7 @@ class Player :public Actor {
 
 	protected:
 
-		/*グラフィック用状態*/
-		enum class PlayerState {
-			Wait,
-			Walk,
-			Run,
-			Set,
-			Shoot
-		};
-		/*グラフィック用方向*/
-		enum class PlayerDirection {
-			Up,
-			Down,
-			Left,
-			Right,
-		};
+
 
 		std::shared_ptr<InputManager> _inputManager;
 

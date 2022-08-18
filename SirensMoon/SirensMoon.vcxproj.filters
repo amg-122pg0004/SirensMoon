@@ -196,6 +196,15 @@
     <Filter Include="Actor\Gimmick\BreakableObject">
       <UniqueIdentifier>{b04fb6b3-155b-401f-80fa-f2bffa4c2cfc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Effect\FX_Chargein">
+      <UniqueIdentifier>{22fce11b-3d78-4031-8278-028c89424ee2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Effect\FX_Chargenow">
+      <UniqueIdentifier>{612b11ad-d24e-4f43-b3cc-fcfe7a3595c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Effect\FX_">
+      <UniqueIdentifier>{b3f4005f-9136-4a85-b50c-a0eabcb3033f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -384,6 +393,12 @@
     <ClCompile Include="BreakableObject.cpp">
       <Filter>Actor\Gimmick\BreakableObject</Filter>
     </ClCompile>
+    <ClCompile Include="FX_Chargein.cpp">
+      <Filter>Actor\Effect\FX_Chargein</Filter>
+    </ClCompile>
+    <ClCompile Include="FX_Chargenow.cpp">
+      <Filter>Actor\Effect\FX_Chargenow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -571,6 +586,12 @@
     </ClInclude>
     <ClInclude Include="BreakableObject.h">
       <Filter>Actor\Gimmick\BreakableObject</Filter>
+    </ClInclude>
+    <ClInclude Include="FX_Chargein.h">
+      <Filter>Actor\Effect\FX_Chargein</Filter>
+    </ClInclude>
+    <ClInclude Include="FX_Chargenow.h">
+      <Filter>Actor\Effect\FX_Chargenow</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

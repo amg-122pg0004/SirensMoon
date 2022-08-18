@@ -3,6 +3,8 @@
 #include "GreenBullet.h"
 #include "ProjectionLight.h"
 #include "ModeGame.h"
+#include "FX_Chargein.h"
+#include "FX_Chargenow.h"
 
 PlayerA::PlayerA(Game& game, ModeGame& base, int playernum) :Player(game, base, playernum),_setGreenBullet{false}
 {
@@ -122,12 +124,14 @@ void PlayerA::Action(){
 		++_charge;
 		if (_charge == 1) {
 			PlaySoundMem(SoundServer::Find("PlayerAim"), DX_PLAYTYPE_BACK);
+			_mode.GetActorServer().Add(std::make_unique<FX_Chargein>(_game, _mode, _pos, _game.GetFrameCount(),*this));
 		}
 		if (_charge == 12) {
 			PlaySoundMem(SoundServer::Find("PlayerCharge"), DX_PLAYTYPE_BACK);
 		}
 		if (_charge == 105) {
 			PlaySoundMem(SoundServer::Find("PlayerChargeMAX"), DX_PLAYTYPE_BACK);
+			_mode.GetActorServer().Add(std::make_unique<FX_Chargenow>(_game, _mode, _pos, _game.GetFrameCount(), *this));
 		}
 
 	}

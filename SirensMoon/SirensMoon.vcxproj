@@ -168,6 +168,8 @@
     <ClCompile Include="FloorLamp.cpp" />
     <ClCompile Include="FoundUI.cpp" />
     <ClCompile Include="FX_Boom.cpp" />
+    <ClCompile Include="FX_Chargein.cpp" />
+    <ClCompile Include="FX_Chargenow.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="EnemyGenerator.cpp" />
     <ClCompile Include="Gimmick.cpp" />
@@ -232,6 +234,8 @@
     <ClInclude Include="FloorLamp.h" />
     <ClInclude Include="FoundUI.h" />
     <ClInclude Include="FX_Boom.h" />
+    <ClInclude Include="FX_Chargein.h" />
+    <ClInclude Include="FX_Chargenow.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="EnemyGenerator.h" />
     <ClInclude Include="Gimmick.h" />

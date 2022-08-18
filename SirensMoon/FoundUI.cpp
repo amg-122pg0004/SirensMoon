@@ -33,8 +33,8 @@ void FoundUI::Render() {
 	if (_visible) {
 		SetDrawMode(DX_DRAWMODE_BILINEAR);
 		auto&& window = dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[_playerno];
-		DrawGraph(_pos.x + window->GetWindowPos().x - window->GetCamera()->GetPosition().x - _size.x / 2,
-			_pos.y + window->GetWindowPos().y - window->GetCamera()->GetPosition().y - _size.y * 1.5,
+		DrawGraph(static_cast<int>(_pos.x + window->GetWindowPos().x - window->GetCamera()->GetPosition().x - _size.x / 2),
+			static_cast<int>(_pos.y + window->GetWindowPos().y - window->GetCamera()->GetPosition().y - _size.y * 1.5),
 			_cg[_animNo], 1);
 		SetDrawMode(DX_DRAWMODE_NEAREST);
 	}

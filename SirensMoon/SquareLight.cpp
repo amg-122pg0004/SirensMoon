@@ -30,10 +30,10 @@ void SquareLight::MaskRender(Vector2 window_pos, Vector2 camera_pos) {
 	if (_activate) {
 		SetDrawBright(_r, _g, _b);
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, _alpha);
-		DrawExtendGraph(_pos.x + window_pos.x - camera_pos.x,
-			_pos.y + window_pos.y - camera_pos.y,
-			_pos.x + _size.x + window_pos.x - camera_pos.x,
-			_pos.y + _size.y + window_pos.y - camera_pos.y,
+		DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
+			static_cast<int>(_pos.y + window_pos.y - camera_pos.y),
+			static_cast<int>(_pos.x + _size.x + window_pos.x - camera_pos.x),
+			static_cast<int>(_pos.y + _size.y + window_pos.y - camera_pos.y),
 			_cg, 1);
 
 		SetDrawBright(255, 255, 255);
