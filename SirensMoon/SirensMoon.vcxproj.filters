@@ -202,7 +202,7 @@
     <Filter Include="Actor\Effect\FX_Chargenow">
       <UniqueIdentifier>{612b11ad-d24e-4f43-b3cc-fcfe7a3595c8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Effect\FX_">
+    <Filter Include="Actor\Effect\FX_BulletHit">
       <UniqueIdentifier>{b3f4005f-9136-4a85-b50c-a0eabcb3033f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -399,6 +399,9 @@
     <ClCompile Include="FX_Chargenow.cpp">
       <Filter>Actor\Effect\FX_Chargenow</Filter>
     </ClCompile>
+    <ClCompile Include="FX_BulletHit.cpp">
+      <Filter>Actor\Effect\FX_BulletHit</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -592,6 +595,9 @@
     </ClInclude>
     <ClInclude Include="FX_Chargenow.h">
       <Filter>Actor\Effect\FX_Chargenow</Filter>
+    </ClInclude>
+    <ClInclude Include="FX_BulletHit.h">
+      <Filter>Actor\Effect\FX_BulletHit</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

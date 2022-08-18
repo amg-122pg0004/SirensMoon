@@ -151,6 +151,7 @@
     <ClCompile Include="BlinkLight.cpp" />
     <ClCompile Include="BreakableObject.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="FX_BulletHit.cpp" />
     <ClCompile Include="BulletItem.cpp" />
     <ClCompile Include="BulletTypeUI.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -217,6 +218,7 @@
     <ClInclude Include="BlinkLight.h" />
     <ClInclude Include="BreakableObject.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="FX_BulletHit.h" />
     <ClInclude Include="BulletItem.h" />
     <ClInclude Include="BulletTypeUI.h" />
     <ClInclude Include="Camera.h" />

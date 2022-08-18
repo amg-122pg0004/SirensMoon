@@ -17,7 +17,7 @@ FX_Chargenow::FX_Chargenow(Game& game, ModeGame& mode, const Vector2& pos, int s
 
 	switch (_owner.GetGrDirection()) {
 	case Player::PlayerDirection::Up:
-		_pos += {18, -15};
+		_pos += {22, -15};
 		break;
 	case Player::PlayerDirection::Down:
 		_pos += {5, 45};
@@ -26,7 +26,7 @@ FX_Chargenow::FX_Chargenow(Game& game, ModeGame& mode, const Vector2& pos, int s
 		_pos += {60, 10};
 		break;
 	case Player::PlayerDirection::Left:
-		_pos += {-30, 0};
+		_pos += {-30, 3};
 		break;
 
 	}

@@ -20,7 +20,7 @@ void FX_Chargein::Update() {
 	_pos = _owner.GetPosition();
 	switch (_owner.GetGrDirection()) {
 	case Player::PlayerDirection::Up:
-		_pos += {18, -15};
+		_pos += {20, -15};
 		break;
 	case Player::PlayerDirection::Down:
 		_pos += {5, 45};
@@ -29,7 +29,7 @@ void FX_Chargein::Update() {
 		_pos += {60, 10};
 		break;
 	case Player::PlayerDirection::Left:
-		_pos += {-30, 0};
+		_pos += {-30, 3};
 		break;
 
 	}
