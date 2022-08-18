@@ -9,6 +9,7 @@
 #include "DxLib.h"
 #include "ModeBase.h"
 #include "ModeServer.h"
+#include <algorithm>
 
 class Game;
 
@@ -87,6 +88,10 @@ void	ModeServer::DeleteModes() {
 	*/
 }
 
+bool CompRenderPriority(const std::unique_ptr<ModeBase>& a, const std::unique_ptr<ModeBase>& b)
+{
+	return a->GetRenderPriority() < b->GetRenderPriority();
+}
 
 // 更新
 void ModeServer::Update() {
@@ -97,6 +102,7 @@ void ModeServer::Update() {
 	_updating = false;
 	AddPendingModes();
 	DeleteModes();	// 削除予約されたオブジェクトを削除する
+	std::sort(_vModes.begin(), _vModes.end(), CompRenderPriority);
 }
 
 // 描画

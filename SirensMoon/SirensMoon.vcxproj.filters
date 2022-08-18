@@ -208,6 +208,15 @@
     <Filter Include="Actor\Boss">
       <UniqueIdentifier>{0f365b0e-8da2-495f-9fe6-a48ca3329bc3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\BossCanon">
+      <UniqueIdentifier>{60f71a29-ad72-4a82-a92f-5d7b59cf7e55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\BossMissile">
+      <UniqueIdentifier>{09588f22-3944-4159-9759-5d6cee248159}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\DisplayArea">
+      <UniqueIdentifier>{5344e87a-f9c2-4dc1-9f7b-8fef0ee4240a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -408,6 +417,12 @@
     <ClCompile Include="Boss.cpp">
       <Filter>Actor\Boss</Filter>
     </ClCompile>
+    <ClCompile Include="BossCanon.cpp">
+      <Filter>Actor\BossCanon</Filter>
+    </ClCompile>
+    <ClCompile Include="DisplayArea.cpp">
+      <Filter>Actor\DisplayArea</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -607,6 +622,12 @@
     </ClInclude>
     <ClInclude Include="Boss.h">
       <Filter>Actor\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="BossCanon.h">
+      <Filter>Actor\BossCanon</Filter>
+    </ClInclude>
+    <ClInclude Include="DisplayArea.h">
+      <Filter>Actor\DisplayArea</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

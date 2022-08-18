@@ -23,13 +23,11 @@ public:
 	 * \brief タイルの表示を行う関数
 	 *
 	 * \param windowPos 分割画面の左上の座標
-	 * \param cameraPos カメラの座標(基本的に0,0)
+	 * \param cameraPos 
 	 */
-	void Render(int stageNum, Vector2 windowPos, Vector2 cameraPos);
+	void Render(Vector2 windowPos, Vector2 cameraPos,std::string layer);
 
-	void StandardRender(int stageNum, Vector2 windowPos, Vector2 cameraPos);
 	void ReconRender(int stageNum, Vector2 windowPos, Vector2 cameraPos);
-	void FrontRender(int stageNum, Vector2 windowPos, Vector2 cameraPos);
 
 	int GetChipSize_H() { return _chipSize_H; }
 	int GetChipSize_W() { return _chipSize_W; }
@@ -88,8 +86,9 @@ private:
 	int _chipSize_H;
 
 	std::vector<int> _tilesetsFirstgid;
-
 	/*奥マップデータ [layer][y][x]*/
+	std::vector<std::vector<std::vector<int>>> _mapBackTileData;
+	/*中間マップデータ [layer][y][x]*/
 	std::vector<std::vector<std::vector<int>>> _mapTileData;
 	/*手前マップデータ[layer][y][x]*/
 	std::vector<std::vector<std::vector<int>>> _mapFrontTileData;
@@ -140,6 +139,8 @@ private:
 
 	/*手前描画するタイルのgidを保存*/
 	std::vector<int> _gidFront;
+	/*奥描画するタイルのgidを保存*/
+	std::vector<int> _gidBack;
 
 	/*各クラスが設定されているタイル(gid)を保存*/
 	std::vector<int> _gidEnemy;

@@ -314,7 +314,13 @@ void Player::CheckDamage() {
 		for (auto&& actor : _mode.GetActorServer().GetObjects()) {
 			if (actor->GetType() == Type::Explode) {
 				if (Intersect(_collision, actor->GetCollision())) {
-					TakeDamage(GetType());
+					TakeDamage(actor->GetType());
+					_invincibleTime = 90;
+				}
+			}
+			if (actor->GetType() == Type::BossCanon) {
+				if (Intersect(_collision, actor->GetCollision())) {
+					TakeDamage(actor->GetType());
 					_invincibleTime = 90;
 				}
 			}

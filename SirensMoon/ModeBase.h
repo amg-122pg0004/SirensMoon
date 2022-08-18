@@ -25,11 +25,14 @@ public:
 
 	virtual bool	IsDead() { return _dead; }
 	virtual void	Dead() { _dead = true; }
+	int GetRenderPriority() { return _renderPriority; }
 
 protected:
 	Game& _game;
 	bool	_dead;
 	//std::unique_ptr<ActorServer> _actorServer;
 	ActorServer _actorServer;
+
+	int _renderPriority;
 
 };

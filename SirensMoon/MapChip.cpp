@@ -313,18 +313,22 @@ void MapChips::LoadTilesets(picojson::object jsRoot,std::string folderpath) {
 				if ((*i).get<picojson::object>()["properties"].is<picojson::array>()) {
 					auto properties = (*i).get<picojson::object>()["properties"].get<picojson::array>();
 					for (int i2 = 0; i2 < properties.size(); ++i2) {
-						if (properties[i2].get<picojson::object>()["name"].is<std::string>()) {
-							if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "Collision") {
-								if (properties[i2].get<picojson::object>()["value"].get<bool>()) {
-									auto gid = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
-									_chipCollision.push_back(gid);
-								}
+						if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "Collision") {
+							if (properties[i2].get<picojson::object>()["value"].get<bool>()) {
+								auto gid = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
+								_chipCollision.push_back(gid);
 							}
-							if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "FrontRender") {
-								if (properties[i2].get<picojson::object>()["value"].get<bool>()) {
-									auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
-									_gidFront.push_back(id);
-								}
+						}
+						if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "FrontRender") {
+							if (properties[i2].get<picojson::object>()["value"].get<bool>()) {
+								auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
+								_gidFront.push_back(id);
+							}
+						}
+						if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "BackRender") {
+							if (properties[i2].get<picojson::object>()["value"].get<bool>()) {
+								auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
+								_gidBack.push_back(id);
 							}
 						}
 					}
@@ -337,39 +341,41 @@ void MapChips::LoadTilesets(picojson::object jsRoot,std::string folderpath) {
 
 void MapChips::LoadTileLayer(picojson::object jsLayer) {
 	picojson::array aData = jsLayer["data"].get<picojson::array>();			// マップ配列
-	int index = 0;
 	std::vector<std::vector<int>>	vMapLayer;	// 1レイヤー分のデータ
 	std::vector<std::vector<int>>	vFrontMapLayer;	// 1レイヤー分の手前用データ
+	std::vector<std::vector<int>>	vBackMapLayer;	// 1レイヤー分の奥用データ
 	for (int y = 0; y < _mapSize_H; y++) {
 		std::vector<int>	vMapLine;	// 1行分のデータ
 		std::vector<int>	vFrontMapLine;	// 1行分の手前データ
+		std::vector<int>	vBackMapLine;	// 1行分の奥データ
 		for (int x = 0; x < _mapSize_W; x++) {
-			int chip_id;
-			chip_id = (int)aData[index].get<double>();
-			vMapLine.push_back(chip_id);
-
-			if (_gidFront.size() == 0) {
+			int chip_id = static_cast<int>(aData[y*_mapSize_W+x].get<double>());
+			/*タイルが手前描画設定されているか*/
+			if (std::find(_gidFront.begin(), _gidFront.end(), chip_id) != _gidFront.end()) {
+				vFrontMapLine.push_back(chip_id);
+				vMapLine.push_back(-1);
+				vBackMapLine.push_back(-1);
+			}
+			/*タイルが奥描画設定されているか*/
+			else if (std::find(_gidBack.begin(), _gidBack.end(), chip_id) != _gidBack.end()) {
 				vFrontMapLine.push_back(-1);
+				vMapLine.push_back(-1);
+				vBackMapLine.push_back(chip_id);
 			}
-			for (int i = 0; i < _gidFront.size();++i) {
-				if (chip_id == _gidFront[i]) {
-					vFrontMapLine.push_back(chip_id);
-					break;
-				}
-				if (i==_gidFront.size()-1) {
-					vFrontMapLine.push_back(-1);
-					break;
-				}
+			else {
+				vFrontMapLine.push_back(-1);
+				vMapLine.push_back(chip_id);
+				vBackMapLine.push_back(-1);
 			}
-
-			index++;
 		}
 		vMapLayer.push_back(vMapLine);
 		vFrontMapLayer.push_back(vFrontMapLine);
+		vBackMapLayer.push_back(vBackMapLine);
 	}
 	// レイヤーデータを追加
 	_mapTileData.push_back(vMapLayer);
 	_mapFrontTileData.push_back(vFrontMapLayer);
+	_mapBackTileData.push_back(vBackMapLayer);
 }
 
 void MapChips::LoadMiniMapLayer(picojson::array aObjects) {
@@ -377,6 +383,7 @@ void MapChips::LoadMiniMapLayer(picojson::array aObjects) {
 	{
 		std::string linestyle = "NULL";
 		/*polylineが存在するか確認*/
+
 		if (aObjects[i].get<picojson::object>()["polyline"].is<picojson::array>()) {
 			linestyle = "polyline";
 		}
@@ -798,29 +805,30 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 	}
 }
 
-void MapChips::Render(int stageNum, Vector2 windowPos, Vector2 cameraPos) {
-	if (windowPos.x < 100) {
-		StandardRender(stageNum, windowPos, cameraPos);
+void MapChips::Render(Vector2 windowPos, Vector2 cameraPos,std::string layer) {
+	std::vector<std::vector<std::vector<int>>> tiledata;
+	if (layer == "middle") {
+		tiledata = _mapTileData;
+	}
+	else if (layer == "front") {
+		tiledata = _mapFrontTileData;
 	}
 	else {
-		ReconRender(stageNum, windowPos, cameraPos);
+		tiledata = _mapBackTileData;
 	}
-}
-
-void MapChips::StandardRender(int stageNum,Vector2 windowPos,Vector2 cameraPos) {
 
 	int x, y;
-	for (int layer = 0; layer < _mapTileData.size(); ++layer)
+	for (int layer = 0; layer < tiledata.size(); ++layer)
 	{
 		for (y = 0; y < _mapSize_H; ++y)
 		{
-			for(x = 0 ; x < _mapSize_W ; ++x)
+			for (x = 0; x < _mapSize_W; ++x)
 			{
 				int layerstart = _mapSize_W * _mapSize_H * layer;
 				int index = y * _mapSize_W + x;
-				int pos_x = x * _chipSize_W +static_cast<int>(windowPos.x) - static_cast<int>(cameraPos.x);
+				int pos_x = x * _chipSize_W + static_cast<int>(windowPos.x) - static_cast<int>(cameraPos.x);
 				int pos_y = y * _chipSize_H + static_cast<int>(windowPos.y) - static_cast<int>(cameraPos.y);
-				int chip_no = _mapTileData[layer][y][x];
+				int chip_no = tiledata[layer][y][x];
 				chip_no--;
 				int chiplayer = 0;
 				for (int i = static_cast<int>(_cgChip.size()) - 1; 0 <= i; --i) {
@@ -833,6 +841,7 @@ void MapChips::StandardRender(int stageNum,Vector2 windowPos,Vector2 cameraPos) 
 				if (chip_no >= 0) {
 					DrawGraph(pos_x, pos_y, _cgChip[chiplayer][chip_no], TRUE);
 				}
+
 			}
 		}
 	}
@@ -856,38 +865,6 @@ void MapChips::ReconRender(int stageNum, Vector2 windowPos, Vector2 cameraPos)
 	}
 }
 
-void MapChips::FrontRender(int stageNum, Vector2 windowPos, Vector2 cameraPos) {
-	int x, y;
-	for (int layer = 0; layer < _mapFrontTileData.size(); ++layer)
-	{
-		for (y = 0; y < _mapSize_H; ++y)
-		{
-			for (x = 0; x < _mapSize_W; ++x)
-			{
-				int layerstart = _mapSize_W * _mapSize_H * layer;
-				int index = y * _mapSize_W + x;
-				int pos_x = x * _chipSize_W + static_cast<int>(windowPos.x) - static_cast<int>(cameraPos.x);
-				int pos_y = y * _chipSize_H + static_cast<int>(windowPos.y) - static_cast<int>(cameraPos.y);
-				int chip_no = _mapFrontTileData[layer][y][x];
-				if (chip_no != -1) {
-					chip_no--;
-					int chiplayer = 0;
-					for (int i = static_cast<int>(_cgChip.size()) - 1; 0 <= i; --i) {
-						if (chip_no >= (_tilesetsFirstgid[i] - 1)) {
-							chiplayer = i;
-							chip_no = chip_no - (_tilesetsFirstgid[i] - 1);
-							break;
-						}
-					}
-					if (chip_no >= 0) {
-						DrawGraph(pos_x, pos_y, _cgChip[chiplayer][chip_no], TRUE);
-					}
-				}
-			}
-		}
-	}
-}
-
 // マップチップとの当たり判定
 // 引数：
 //   x,y = マップチップの位置(x,y) チップ単位
@@ -904,7 +881,11 @@ std::vector<int> MapChips::CheckHitChipNo(int x, int y)
 		// マップチップIDが0以外は当たり判定を行う
 		for( int layer = 0; layer < _mapTileData.size(); ++layer) {
 			int chip_no = _mapTileData[layer][y][x];
-			// 当たった
+			v_chip_no.emplace_back(chip_no);
+		}
+		// マップチップIDが0以外は当たり判定を行う
+		for (int layer = 0; layer < _mapBackTileData.size(); ++layer) {
+			int chip_no = _mapBackTileData[layer][y][x];
 			v_chip_no.emplace_back(chip_no);
 		}
 	}

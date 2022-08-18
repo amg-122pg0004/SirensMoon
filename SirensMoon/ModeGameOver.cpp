@@ -6,7 +6,7 @@
 ModeGameOver::ModeGameOver(Game& game):ModeBase(game), _restart{false},_delay{60}
 {
 	_inputManager = _game.GetInputManager();
-
+	_renderPriority = 2;
 
 	_movieHandle = ImageServer::LoadGraph("resource/Movie/gameover.mp4");
 	SeekMovieToGraph(_movieHandle, 0);

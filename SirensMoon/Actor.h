@@ -33,7 +33,9 @@ class Actor{
 			Server,
 			Gimmick,
 			Explode,
-			Effect
+			Effect,
+			Boss,
+			BossCanon
 		};
 		virtual Type GetType() = 0;
 
@@ -43,6 +45,7 @@ class Actor{
 		virtual void Update();
 		virtual void StandardRender(int stageNum,Vector2 window_pos, Vector2 camera_pos);
 		virtual void ReconRender(int stageNum, Vector2 window_pos, Vector2 camera_pos);
+		virtual void BackRender(Vector2 window_pos, Vector2 camera_pos);
 		virtual void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos);
 		virtual void CheckDeadOwner();
 		virtual void CheckRoomPosition();

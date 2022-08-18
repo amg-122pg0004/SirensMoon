@@ -23,11 +23,14 @@
 #include "ModeGameOver.h"
 #include "StickeyBomb.h"
 #include "BreakableObject.h"
+#include "Boss.h"
 
 ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blindFlag{false},_makedNextMode{false}
 {
 
 	_inputManager=_game.GetInputManager();
+
+	_renderPriority = 0;
 
 	_mapChips = std::make_unique<MapChips>(_game,*this);
 
@@ -128,6 +131,9 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blind
 		_actorServer.Add(std::move(breakable));
 
 	}
+
+	/*É{ÉXê∂ê¨*/
+	//_actorServer.Add(std::make_unique<Boss>(_game, *this));
 
 	std::vector<int> cg;
 	//cg.resize(120);

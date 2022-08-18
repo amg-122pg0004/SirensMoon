@@ -32,8 +32,6 @@ class SplitWindow {
 		std::vector<std::unique_ptr<UIBase>>& GetUIServer(){return _ui; }
 		Vector2 GetWindowPos() { return _windowPos; }
 
-		void ChangeRenderStage(int changedelta);
-
 		int GetLightUp() { return _lightup; }
 
 		int GetWindowNo() { return _windowNo; }

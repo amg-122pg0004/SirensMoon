@@ -121,13 +121,16 @@ void SplitWindow::Render() {
 		static_cast<int>(_windowPos.x + _windowSize_W),
 		static_cast<int>(_windowPos.y + _windowSize_H));
 
-	/*”wŒi•`‰æ*/
-	static_cast<ModeGame&>(_mode).GetMapChips()->StandardRender(_renderStage - 1, _windowPos, _camera->GetPosition());
+	/*‰œ”wŒi•`‰æ*/
+	static_cast<ModeGame&>(_mode).GetMapChips()->Render(_windowPos, _camera->GetPosition(), "back");
+	/*‰œƒAƒNƒ^[•`‰æ*/
+	_mode.GetActorServer().BackRender(_windowPos, _camera->GetPosition());
+	/*’Êí”wŒi•`‰æ*/
+	static_cast<ModeGame&>(_mode).GetMapChips()->Render(_windowPos, _camera->GetPosition(),"middle");
 	/*ƒAƒNƒ^[•`‰æ*/
 	_mode.GetActorServer().StandardRender(_windowNo, _windowPos, _camera->GetPosition());
-
 	/*è‘O”wŒi•`‰æ*/
-	static_cast<ModeGame&>(_mode).GetMapChips()->FrontRender(_renderStage - 1, _windowPos, _camera->GetPosition());
+	static_cast<ModeGame&>(_mode).GetMapChips()->Render(_windowPos, _camera->GetPosition(),"front");
 
 	GraphBlend(_normalScreen, _darknessScreen, _lightup, DX_GRAPH_BLEND_MULTIPLE);
 
@@ -144,11 +147,7 @@ void SplitWindow::Render() {
 
 	//_camera->Render(static_cast<int>(_windowPos.x + 50),static_cast<int>(_windowPos.y + 50));
 	/*•`‰æ”ÍˆÍ‚ğƒEƒBƒ“ƒhƒEƒTƒCƒY‘S‘Ì‚É–ß‚·*/
-	SetDrawArea(0, 0, screen_W, screen_H);
-}
-
-void SplitWindow::ChangeRenderStage(int changedelta) {
-	_renderStage += changedelta;
+	SetDrawArea(_windowPos.x, 0, splitscreen_W, screen_H);
 }
 
 void SplitWindow::Debug() {

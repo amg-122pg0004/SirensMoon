@@ -148,11 +148,11 @@
             "scaleInDock": 1
         },
         "Stage1.tmx": {
-            "scale": 1,
+            "scale": 0.33,
             "selectedLayer": 6,
             "viewCenter": {
-                "x": 316,
-                "y": 378
+                "x": 1254.5454545454547,
+                "y": 3200
             }
         },
         "Stage1.tmx#tile_icon": {
@@ -163,7 +163,24 @@
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "Stage3.tmx": {
+            "expandedObjectLayers": [
+                12,
+                4
+            ],
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 477.33333333333326,
+                "y": 421.33333333333337
+            }
+        },
+        "Stage3.tmx#tile_icon": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "Stage3.tmx#tile_test": {
+            "scaleInDock": 1,
             "scaleInEditor": 1
         },
         "TestMap_01.json": {
@@ -255,11 +272,13 @@
     "map.tileWidth": 30,
     "map.width": 96,
     "openFiles": [
+        "Stage3.tmx",
         "Stage1.tmx"
     ],
     "project": "SirensMoon.tiled-project",
-    "property.type": "float",
+    "property.type": "bool",
     "recentFiles": [
+        "Stage3.tmx",
         "Stage1.tmx",
         "D:/Users/syotaro/Documents/AMG/2022summer/x64/0.3.5/Debug/resource/TestMap_02.json",
         "D:/Users/syotaro/Documents/AMG/2022summer/x64/0.3.5/Debug/resource/TestMap_01.tmx",
@@ -270,8 +289,7 @@
         "TestMap_01.json",
         "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/無題.tmx",
         "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/TestMap_01.json",
-        "D:/doi/ゲームプログラミング基礎/220519_PG1年_ゲームプログラミング基礎/220519_PG1年_ゲームプログラミング基礎/tiled/マップツール用データ/field_layerB/field_layerB.tmx",
-        "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource/TestMap_011.tmx"
+        "D:/doi/ゲームプログラミング基礎/220519_PG1年_ゲームプログラミング基礎/220519_PG1年_ゲームプログラミング基礎/tiled/マップツール用データ/field_layerB/field_layerB.tmx"
     ],
     "tileset.embedInMap": true,
     "tileset.lastUsedFilter": "Tiledタイルセットファイル (*.tsx)",

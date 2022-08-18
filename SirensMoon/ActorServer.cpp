@@ -85,6 +85,11 @@ void	ActorServer::Update() {
 			object->StandardRender(stageNum,window_pos,camera_pos);
 		}
 	}
+	void	ActorServer::BackRender(Vector2 window_pos, Vector2 camera_pos) {
+		for (auto&& object : _typeActors) {
+			object->BackRender(window_pos, camera_pos);
+		}
+	}
 
 	void	ActorServer::ReconRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
 		for (auto&& object : _typeActors) {

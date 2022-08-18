@@ -150,8 +150,10 @@
     <ClCompile Include="AmmoUI.cpp" />
     <ClCompile Include="BlinkLight.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="BossCanon.cpp" />
     <ClCompile Include="BreakableObject.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="DisplayArea.cpp" />
     <ClCompile Include="FX_BulletHit.cpp" />
     <ClCompile Include="BulletItem.cpp" />
     <ClCompile Include="BulletTypeUI.cpp" />
@@ -218,8 +220,10 @@
     <ClInclude Include="AmmoUI.h" />
     <ClInclude Include="BlinkLight.h" />
     <ClInclude Include="Boss.h" />
+    <ClInclude Include="BossCanon.h" />
     <ClInclude Include="BreakableObject.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="DisplayArea.h" />
     <ClInclude Include="FX_BulletHit.h" />
     <ClInclude Include="BulletItem.h" />
     <ClInclude Include="BulletTypeUI.h" />

@@ -34,6 +34,10 @@ void Actor::ReconRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
 
 }
 
+void Actor::BackRender(Vector2 window_pos, Vector2 camera_pos) {
+
+}
+
 void Actor::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
 	_collision.Draw2(stageNum, window_pos, camera_pos);
 }
