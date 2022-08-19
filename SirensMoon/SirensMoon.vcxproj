@@ -151,6 +151,7 @@
     <ClCompile Include="BlinkLight.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="BossCanon.cpp" />
+    <ClCompile Include="BossMissile.cpp" />
     <ClCompile Include="BreakableObject.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="DisplayArea.cpp" />
@@ -221,6 +222,7 @@
     <ClInclude Include="BlinkLight.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="BossCanon.h" />
+    <ClInclude Include="BossMissile.h" />
     <ClInclude Include="BreakableObject.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="DisplayArea.h" />

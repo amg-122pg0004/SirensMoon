@@ -8,6 +8,7 @@
 
 #include "MiniMap.h"
 #include "ModeGame.h"
+#include "DisplayArea.h"
 
 MiniMap::MiniMap(Game& game, ModeBase& mode, Vector2 pos, Vector2 size)
 	:UIBase{ game,mode,pos,size },_blind2Flag{false}
@@ -106,7 +107,14 @@ void MiniMap::Render() {
 					static_cast<int>(actor->GetPosition().y * scale + pos.y) + 5,
 					GetColor(255, 255, 0), 1);
 			}
-			
+			if (actor->GetType() == Actor::Type::DisplayArea) {
+				auto area=dynamic_cast<DisplayArea&>(*actor).GetDisplayArea();
+				DrawBox(static_cast<int>(area.min.x * scale + pos.x),
+					static_cast<int>(area.min.y * scale + pos.y),
+					static_cast<int>(area.max.x * scale + pos.x),
+					static_cast<int>(area.max.y * scale + pos.y),
+					GetColor(150, 30, 30), 1);
+			}
 		}
 
 		if (_noiseFlag) {

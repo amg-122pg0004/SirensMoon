@@ -1,6 +1,7 @@
 #include "Boss.h"
 #include "ModeGame.h"
 #include "BossCanon.h"
+#include "DisplayArea.h"
 
 Boss::Boss(Game& game, ModeGame& mode) 
 	:Actor(game,mode),_scale{1.0},_angle{0},_animNo{0},_backlayer{true},_time{60}
@@ -35,10 +36,11 @@ Boss::Boss(Game& game, ModeGame& mode)
 void Boss::Update(){
 	--_time;
 	if(_state==State::Wait && _time < 0){
-		_time = 60;
+		_time = 120;
 		switch (rand3(engine)) {
 		case 1:
 			if (rand2(engine) == 1) {
+
 				GunAttack1();
 				break;
 			}
@@ -56,6 +58,12 @@ void Boss::Update(){
 			//HeadButt();
 			break;
 		}
+	}
+	if (_state == State::GunAttack1) {
+		GunAttack1();
+	}
+	if (_state == State::GunAttack2) {
+		GunAttack2();
 	}
 
 	if (_time < 0) {
@@ -84,13 +92,19 @@ void Boss::StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) 
 
 void Boss::GunAttack1() {
 	_state = State::GunAttack1;
-	Vector2 fix{ -600,0 };
-	_mode.GetActorServer().Add(std::make_unique<BossCanon>(_game, _mode, _pos+fix));
+	_mode.GetActorServer().Add(std::make_unique<DisplayArea>(_game, _mode, *this,true));
+	if (_time == 30) {
+		Vector2 fix{ -600,0 };
+		_mode.GetActorServer().Add(std::make_unique<BossCanon>(_game, _mode, _pos + fix));
+	}
 }
 void Boss::GunAttack2() {
 	_state = State::GunAttack2;
-	Vector2 fix{ 0,0 };
-	_mode.GetActorServer().Add(std::make_unique<BossCanon>(_game, _mode, _pos + fix));
+	_mode.GetActorServer().Add(std::make_unique<DisplayArea>(_game, _mode, *this,false));
+	if (_time == 30) {
+		Vector2 fix{ 0,0 };
+		_mode.GetActorServer().Add(std::make_unique<BossCanon>(_game, _mode, _pos + fix));
+	}
 }
 
 void Boss::ShootMissile() {

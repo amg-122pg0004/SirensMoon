@@ -125,24 +125,17 @@ void Player::PlayerOverlap() {
 void Player::Move() {
 	
 	if (_movable){
+		/*入力値によって加速*/
 		_speed = _speed + _dir * _accelerationRatio;
 	}
 	auto dir = _dir;
+	/*最大速度を入力値*速度max値に制限/
+	if (_speed.Length() > dir.Length() * _speedMax) {
+		_speed = dir * _speedMax;
+	}
+	/*移動入力が無ければ速度減衰*/
 	if (dir.Length() == 0||!_movable) {
 		_speed *= _friction;
-	}
-
-	if (_speed.x > _speedMax) {
-		_speed.x = _speedMax;
-	}
-	if (_speed.x < -_speedMax) {
-		_speed.x = -_speedMax;
-	}
-	if (_speed.y > _speedMax) {
-		_speed.y = _speedMax;
-	}
-	if (_speed.y < -_speedMax) {
-		_speed.y = -_speedMax;
 	}
 
 	auto tmpspeed = _speed;

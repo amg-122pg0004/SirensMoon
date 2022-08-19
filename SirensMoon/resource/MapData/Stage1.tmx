@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="128" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="20" nextobjectid="946">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="128" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="20" nextobjectid="949">
  <editorsettings>
   <export target="Stage1.json" format="json"/>
  </editorsettings>
@@ -2773,13 +2773,22 @@
     <property name="LinkGimmick3" type="object" value="907"/>
    </properties>
   </object>
-  <object id="943" gid="467" x="330" y="360" width="30" height="30">
+  <object id="945" gid="471" x="482" y="358" width="30" height="30"/>
+  <object id="946" gid="466" x="390" y="420" width="30" height="30">
    <properties>
-    <property name="LinkGimmick1" type="object" value="944"/>
+    <property name="Direction" propertytype="Direction" value="down"/>
    </properties>
   </object>
-  <object id="944" gid="469" x="270" y="360" width="30" height="30"/>
-  <object id="945" gid="471" x="482" y="358" width="30" height="30"/>
+  <object id="947" gid="466" x="300" y="420" width="30" height="30">
+   <properties>
+    <property name="Direction" propertytype="Direction" value="down"/>
+   </properties>
+  </object>
+  <object id="948" gid="466" x="210" y="420" width="30" height="30">
+   <properties>
+    <property name="Direction" propertytype="Direction" value="down"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="4" name="Player">
   <object id="332" gid="5" x="390" y="300" width="30" height="30">

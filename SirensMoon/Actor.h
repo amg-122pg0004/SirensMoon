@@ -35,7 +35,9 @@ class Actor{
 			Explode,
 			Effect,
 			Boss,
-			BossCanon
+			BossCanon,
+			BossMissile,
+			DisplayArea
 		};
 		virtual Type GetType() = 0;
 

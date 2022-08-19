@@ -423,6 +423,9 @@
     <ClCompile Include="DisplayArea.cpp">
       <Filter>Actor\DisplayArea</Filter>
     </ClCompile>
+    <ClCompile Include="BossMissile.cpp">
+      <Filter>Actor\BossMissile</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -628,6 +631,9 @@
     </ClInclude>
     <ClInclude Include="DisplayArea.h">
       <Filter>Actor\DisplayArea</Filter>
+    </ClInclude>
+    <ClInclude Include="BossMissile.h">
+      <Filter>Actor\BossMissile</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

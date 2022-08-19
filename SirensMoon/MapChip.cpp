@@ -419,7 +419,7 @@ void MapChips::LoadPlayerLayer(picojson::array aObjects) {
 				auto data = gid.second;
 				int playerno;
 				data.StarPosition.x = aObjects[i].get<picojson::object>()["x"].get<double>();
-				data.StarPosition.y = aObjects[i].get<picojson::object>()["y"].get<double>() + _chipSize_H;
+				data.StarPosition.y = aObjects[i].get<picojson::object>()["y"].get<double>() - _chipSize_H;
 				auto properties=aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
 				/*カスタムプロパティ0番目にPlayerの項目があるか*/
 				for (int i2 = 0; i2 < properties.size(); ++i2) {
@@ -448,14 +448,14 @@ void MapChips::LoadItemLayer(picojson::array aObjects) {
 		for (auto gid : _gidItemAmmo) {
 			if (aObjects[i].get<picojson::object>()["gid"].get<double>() == gid) {
 				posX = aObjects[i].get<picojson::object>()["x"].get<double>();
-				posY = aObjects[i].get<picojson::object>()["y"].get<double>()+ _chipSize_H;
+				posY = aObjects[i].get<picojson::object>()["y"].get<double>()- _chipSize_H;
 				_bulletItems.push_back({posX,posY});
 			}
 		}
 		for (auto gid : _gidItemHP) {
 			if (aObjects[i].get<picojson::object>()["gid"].get<double>() == gid) {
 				posX = aObjects[i].get<picojson::object>()["x"].get<double>();
-				posY = aObjects[i].get<picojson::object>()["y"].get<double>()+_chipSize_H;
+				posY = aObjects[i].get<picojson::object>()["y"].get<double>()-_chipSize_H;
 				_hpItems.push_back({posX,posY});
 			}
 		}

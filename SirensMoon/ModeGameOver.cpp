@@ -30,6 +30,7 @@ void ModeGameOver::Update(){
 }
 
 void ModeGameOver::Render() {
+	SetDrawArea(0, 0, screen_W, screen_W);
 	if (_delay <= 0) {
 		DrawGraph(0, 0, _movieHandle, 0);
 		DrawGraph(screen_W - splitscreen_W, 0, _movieHandle, 0);
