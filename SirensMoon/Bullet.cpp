@@ -37,7 +37,7 @@ void Bullet::Update() {
 
 		Dead();
 	}
-	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHit(_collision)) {
+	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHit(_collision,false)) {
 		Dead();
 		PlaySoundMem(SoundServer::Find("BulletToWall"), DX_PLAYTYPE_BACK);
 	}

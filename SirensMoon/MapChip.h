@@ -50,8 +50,15 @@ public:
 	std::vector<St::StickyBombData> GetStikyBombData() { return _stickyBombDataList; }
 	std::vector<St::BreakableObjectData> GetBreakableObjectData() { return _breakableObjectData; }
 	St::EnemyPatrol FindPatrol(int id);
-	std::vector<int> CheckHitChipNo(int x, int y);
-	bool IsHit(AABB col);
+	std::vector<int> CheckHitChipNo(int x, int y, bool backlayer);
+	/**
+	 * \brief マップチップとアクターの接触判定
+	 * 
+	 * \param col アクターのコリジョンボックス
+	 * \param backlayer　trueなら後ろレンダリングマップチップとの判定をとる
+	 * \return 当たったらtrue
+	 */
+	bool IsHit(AABB col,bool backlayer);
 	bool IsHitBarrier(AABB col, int playerno);
 	bool IsHit(std::set<std::pair<int, int>>);
 

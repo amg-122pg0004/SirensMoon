@@ -63,7 +63,7 @@ public:
 	void UpdateCollision();
 	void AnimationUpdate();
 
-	void CheckRoomPosition() override;
+	Vector2 CheckRoomPosition() override;
 
 protected:
 	enum class EnemyDirection {

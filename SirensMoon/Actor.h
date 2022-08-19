@@ -50,7 +50,7 @@ class Actor{
 		virtual void BackRender(Vector2 window_pos, Vector2 camera_pos);
 		virtual void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos);
 		virtual void CheckDeadOwner();
-		virtual void CheckRoomPosition();
+		virtual Vector2 CheckRoomPosition();
 
 		virtual bool IsDead() { return _dead; }
 		virtual void Dead() { _dead = true; }

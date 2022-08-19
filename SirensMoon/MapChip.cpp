@@ -868,10 +868,11 @@ void MapChips::ReconRender(int stageNum, Vector2 windowPos, Vector2 cameraPos)
 // マップチップとの当たり判定
 // 引数：
 //   x,y = マップチップの位置(x,y) チップ単位
+//  backlayer trueなら後ろのレイヤーとの接触も見る
 // 戻値：
 //   0 : 当たり判定を行わない
 //   0以外 : 当たり判定を行う（チップ番号を返す）
-std::vector<int> MapChips::CheckHitChipNo(int x, int y)
+std::vector<int> MapChips::CheckHitChipNo(int x, int y,bool backlayer)
 {
 	std::vector<int> v_chip_no;
 	v_chip_no.resize(0);
@@ -883,10 +884,12 @@ std::vector<int> MapChips::CheckHitChipNo(int x, int y)
 			int chip_no = _mapTileData[layer][y][x];
 			v_chip_no.emplace_back(chip_no);
 		}
-		// マップチップIDが0以外は当たり判定を行う
-		for (int layer = 0; layer < _mapBackTileData.size(); ++layer) {
-			int chip_no = _mapBackTileData[layer][y][x];
-			v_chip_no.emplace_back(chip_no);
+		if (backlayer) {
+			// マップチップIDが0以外は当たり判定を行う
+			for (int layer = 0; layer < _mapBackTileData.size(); ++layer) {
+				int chip_no = _mapBackTileData[layer][y][x];
+				v_chip_no.emplace_back(chip_no);
+			}
 		}
 	}
 	// 何もマップチップと当たっていなければ-1を入れる
@@ -904,14 +907,14 @@ std::vector<int> MapChips::CheckHitChipNo(int x, int y)
 // 戻値：
 //   0 : 当たってない
 //   1 : 当たった
-bool MapChips::IsHit(AABB col)
+bool MapChips::IsHit(AABB col, bool backlayer)
 {
 	// キャラの左上座標～右下座標にあたるマップチップと、当たり判定を行う
 	for (int y = static_cast<int>(col.min.y) / _chipSize_H; y <= static_cast<int>(col.max.y) / _chipSize_H; y++)
 	{
 		for (int x = static_cast<int>(col.min.x) / _chipSize_W; x <= static_cast<int>(col.max.x) / _chipSize_W; x++)
 		{
-			std::vector<int> v_chip_no = CheckHitChipNo(x,y);
+			std::vector<int> v_chip_no = CheckHitChipNo(x,y,backlayer);
 			/*触れているチップのgidでループ*/
 			for (int chip_gid:v_chip_no) {
 				/*コリジョンを持つチップのgidでループ*/
@@ -928,9 +931,10 @@ bool MapChips::IsHit(AABB col)
 	return false;
 }
 
+/*視線判定用*/
 bool MapChips::IsHit(std::set<std::pair<int, int>> grids) {
 	for (auto&& grid : grids) {
-		std::vector<int> v_chip_no = CheckHitChipNo(grid.first, grid.second);
+		std::vector<int> v_chip_no = CheckHitChipNo(grid.first, grid.second,false);
 		for (int chip_gid : v_chip_no) {
 			/*コリジョンを持つチップのgidでループ*/
 			for (int col_gid : _chipCollision) {
@@ -956,7 +960,6 @@ bool MapChips::IsHit(std::set<std::pair<int, int>> grids) {
 	return false;
 }
 
-
 // オブジェクトとマップチップが当たったかの判定、および当たった場合の処理
 // 引数：
 //  
@@ -973,7 +976,7 @@ bool MapChips::IsHitBarrier(AABB col,int playerno)
 		{
 			// (x,y)は、マップチップの座標（チップ単位）
 			// この位置のチップは当たるか？
-			std::vector<int> v_chip_no = CheckHitChipNo(x, y);
+			std::vector<int> v_chip_no = CheckHitChipNo(x, y,true);
 			for (int chip_no : v_chip_no) {
 				if (playerno == 0) {
 					for (auto gid : _gidBarrier1) {

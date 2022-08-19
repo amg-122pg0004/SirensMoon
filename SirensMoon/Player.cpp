@@ -30,7 +30,6 @@ Player::Player(Game& game,ModeGame& mode,int playernum)
 	_accelerationRatio = data.Accelerate;
 	_friction = data.Friction;
 	_pos = { pos.x,pos.y };
-	_stage = 1;
 	_size = { 30,60 };
 	auto light = std::make_unique<LightBase>(_game, _mode, *this);
 	_mode.GetActorServer().Add(std::move(light));
@@ -70,7 +69,7 @@ void Player::Update() {
 	/*敵かダメージギミックに触れていたらダメージ*/
 	CheckDamage();
 	/*自分の位置を確認*/
-	CheckRoomPosition();
+	_roomPosition=CheckRoomPosition();
 }
 
 void Player::PlayerOverlap() {
@@ -102,7 +101,7 @@ void Player::PlayerOverlap() {
 				}
 				_pos.x += dx;
 				/*衝突するなら動かない（元の位置に戻す）*/
-				if (_mode.GetMapChips()->IsHit(_collision) ||
+				if (_mode.GetMapChips()->IsHit(_collision,true) ||
 					_mode.GetMapChips()->IsHitBarrier(_collision, _playerNum) ||
 					IsHitActor()) {
 					_pos.x -= dx;
@@ -111,7 +110,7 @@ void Player::PlayerOverlap() {
 				_pos.y += dy;
 				/*衝突するなら動かない（元の位置に戻す）*/
 				UpdateCollision();
-				if (_mode.GetMapChips()->IsHit(_collision)||
+				if (_mode.GetMapChips()->IsHit(_collision,true)||
 					_mode.GetMapChips()->IsHitBarrier(_collision, _playerNum)||
 					IsHitActor()) {
 					_pos.y -= dy;
@@ -148,7 +147,7 @@ void Player::Move() {
 	/*X方向*/
 	_pos.x += _speed.x;
 	UpdateCollision();
-	if (_mode.GetMapChips() ->IsHit(_collision)) {
+	if (_mode.GetMapChips() ->IsHit(_collision,true)) {
 		_pos.x += -1*_speed.x;
 		_speed.x = 0;
 	}
@@ -165,7 +164,7 @@ void Player::Move() {
 
 	_pos.y += _speed.y;
 	UpdateCollision();
-	if (_mode.GetMapChips() ->IsHit(_collision)) {
+	if (_mode.GetMapChips() ->IsHit(_collision,true)) {
 		_pos.y += -1 * _speed.y;
 		_speed.y = 0;
 	}
@@ -293,6 +292,7 @@ bool Player::IsHitActor() {
 				}
 			}
 		}
+
 	}
 	return false;
 }

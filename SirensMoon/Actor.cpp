@@ -47,9 +47,8 @@ void Actor::CheckDeadOwner() {
 }
 
 
-void Actor::CheckRoomPosition() {
+Vector2 Actor::CheckRoomPosition() {
 	double x = floor((_pos.x + _size.x / 2.0) / (static_cast<double>(splitscreen_W)));
 	double y = floor((_pos.y + _size.y / 2.0) / (static_cast<double>(screen_H)));
-	_roomPosition = { x,y };
-	_renderPriority = _collision.max.y;
+	return { x,y };
 }

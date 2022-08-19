@@ -19,15 +19,24 @@ Pause::Pause(Game& game, ModeBase& mode, Vector2 pos, Vector2 size)
 }
 
 void Pause::Update() {
+	/*
 	if (_inputManager->CheckInput("PAUSE", 'h', 0) ||
 		_inputManager->CheckInput("PAUSE", 'h', 1)) {
 		dynamic_cast<ModeGame&>(_mode).SetPauseGame(1);
 		_visible = true;
 	}
-	else if (_inputManager->CheckInput("PAUSE", 'r', 0) ||
-		_inputManager->CheckInput("PAUSE", 'r', 1)) {
-		dynamic_cast<ModeGame&>(_mode).SetPauseGame(0);
-		_visible = false;
+	*/
+	if (_inputManager->CheckInput("PAUSE", 't', 0) ||
+		_inputManager->CheckInput("PAUSE", 't', 1)) {
+		_visible = !_visible;
+		if (_visible) {
+			dynamic_cast<ModeGame&>(_mode).SetPauseGame(true);
+		}
+		else {
+			dynamic_cast<ModeGame&>(_mode).SetPauseGame(false);
+		}
+
+
 	}
 
 }

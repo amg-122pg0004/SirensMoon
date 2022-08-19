@@ -9,6 +9,7 @@
 #include "MiniMap.h"
 #include "ModeGame.h"
 #include "DisplayArea.h"
+#include "Boss.h"
 
 MiniMap::MiniMap(Game& game, ModeBase& mode, Vector2 pos, Vector2 size)
 	:UIBase{ game,mode,pos,size },_blind2Flag{false}
@@ -99,7 +100,15 @@ void MiniMap::Render() {
 					static_cast<int>(actor->GetPosition().y * scale + pos.y) + 5,
 					GetColor(255, 0, 255), 1);
 			}
-
+			if (actor->GetType() == Actor::Type::Boss) {
+				auto size = actor->GetSize();
+				auto bossscale = dynamic_cast<Boss&>(*actor).GetScale();
+				DrawBox(static_cast<int>((actor->GetPosition().x - size.x * bossscale/2)  * scale + pos.x),
+					static_cast<int>((actor->GetPosition().y - size.y * bossscale / 2) * scale + pos.y),
+					static_cast<int>((actor->GetPosition().x + size.x * bossscale / 2) * scale + pos.x),
+					static_cast<int>((actor->GetPosition().y + size.y * bossscale / 2)  * scale + pos.y),
+					GetColor(255, 0, 255), 1);
+			}
 			if (actor->GetType() == Actor::Type::Server) {
 				DrawBox(static_cast<int>(actor->GetPosition().x * scale + pos.x),
 					static_cast<int>(actor->GetPosition().y * scale + pos.y),

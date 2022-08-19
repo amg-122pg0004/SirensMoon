@@ -34,7 +34,7 @@ void Enemy::Update() {
 	CheckDamage();
 	_eyelineGrids.clear();
 	SightUpdate();
-	CheckRoomPosition();
+	_roomPosition =CheckRoomPosition();
 	if (CheckDetection()) {
 		if (CheckVisualLine()) {
 			++_detectionFrame;
@@ -450,8 +450,8 @@ Resize(_cg_bot);
 	}
 }
 
-void Enemy::CheckRoomPosition() {
+Vector2 Enemy::CheckRoomPosition() {
 	double x = floor((_collision.min.x + _collision.max.x) / 2.0 / (static_cast<double>(splitscreen_W)));
 	double y = floor((_collision.min.y + _collision.max.y) / 2.0 / (static_cast<double>(screen_H)));
-	_roomPosition = { x,y };
+	return{ x,y };
 }
