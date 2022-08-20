@@ -38,7 +38,9 @@ Boss::Boss(Game& game, ModeGame& mode)
 }
 
 void Boss::Update(){
+
 	--_time;
+
 	switch (_state)
 	{
 	case Boss::State::Wait:
@@ -60,15 +62,12 @@ void Boss::Update(){
 		break;
 	case Boss::State::TakeDamage:
 		break;
-	default:
-		break;
 	}
-
-
 
 	if (_time < 0&&_state!=State::Wait) {
 		_time = 60;
 		_state = State::Wait;
+		_angle = 0;
 	}
 }
 
@@ -167,17 +166,35 @@ void Boss::HeadButt(){
 	if (_time < 1090 && _time>790) {
 		AABB col=_player1->GetCollision();
 		auto dir = (col.min + col.max) / 2 - _pos;
-		dir.Normalize();
-		_pos = _pos + dir * _speed;
+
+
+		if (dir.Length() < 150&& dir.Length() > 50) {
+			_angle = Math::ToRadians(90);
+		}
+		else {
+			dir.Normalize();
+			_pos = _pos + dir * _speed;
+		}
+
 		UpdateCollision();
 	}
 
 }
 
 void Boss::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
+	/*
 	DrawFormatString(static_cast<int>(_pos.x-camera_pos.x+window_pos.y),
 		static_cast<int>(_pos.y - camera_pos.y + window_pos.y),
 		GetColor(255,0,0),"%d",_time);
+		*/
+
+	AABB col = _player1->GetCollision();
+	auto dir = (col.min + col.max) / 2 - _pos;
+	auto test = dir.Length();
+	DrawFormatString(static_cast<int>(_pos.x - camera_pos.x + window_pos.y),
+		static_cast<int>(_pos.y - camera_pos.y + window_pos.y),
+		GetColor(255, 0, 0), "%d", dir.Length());
+
 }
 
 void Boss::UpdateCollision(){

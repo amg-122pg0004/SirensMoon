@@ -125,11 +125,8 @@ void MiniMap::Render() {
 					GetColor(150, 30, 30), 1);
 			}
 		}
-
 		if (_noiseFlag) {
 			DrawExtendGraph(1280, 103,1280+350,103+400, _movieHandle, 0);
 		}
-		
-
 	}
 }
