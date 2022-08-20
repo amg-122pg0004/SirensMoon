@@ -25,6 +25,7 @@ private:
 		TakeDamage
 	};
 
+	void Wait();
 	void GunAttack1();
 	void GunAttack2();
 	void ShootMissile();

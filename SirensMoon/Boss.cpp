@@ -39,48 +39,34 @@ Boss::Boss(Game& game, ModeGame& mode)
 
 void Boss::Update(){
 	--_time;
-	if(_state==State::Wait && _time < 0){
-		switch (rand3(engine)) {
-		case 1:
-			if (rand2(engine) == 1) {
-				_time = 150;
-				GunAttack1();
-
-				break;
-			}
-			else {
-				_time = 150;
-				GunAttack2();
-
-				break;
-			}
-		case 2:
-			_time = 300;
-			ShootMissile();
-
-			break;
-
-		case 3:
-			_time = 1200;
-			HeadButt();
-			break;
-		}
-		return;
-	}
-	if (_state == State::GunAttack1) {
+	switch (_state)
+	{
+	case Boss::State::Wait:
+		Wait();
+		break;
+	case Boss::State::GunAttack1:
 		GunAttack1();
-	}
-	if (_state == State::GunAttack2) {
+		break;
+	case Boss::State::GunAttack2:
 		GunAttack2();
-	}
-	if (_state == State::ShootMissile) {
+		break;
+	case Boss::State::ShootMissile:
 		ShootMissile();
-	}
-	if (_state == State::HeadButt) {
+		break;
+	case Boss::State::Jump:
+		break;
+	case Boss::State::HeadButt:
 		HeadButt();
+		break;
+	case Boss::State::TakeDamage:
+		break;
+	default:
+		break;
 	}
 
-	if (_time < 0) {
+
+
+	if (_time < 0&&_state!=State::Wait) {
 		_time = 60;
 		_state = State::Wait;
 	}
@@ -105,6 +91,34 @@ void Boss::StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) 
 				static_cast<int>(_pos.y - camera_pos.y + window_pos.y),
 				_scale, _angle, cg[_animNo], 0, 0);
 		}
+	}
+}
+
+void Boss::Wait() {
+	switch (rand3(engine)) {
+	case 1:
+		if (rand2(engine) == 1) {
+			_time = 150;
+			GunAttack1();
+
+			break;
+		}
+		else {
+			_time = 150;
+			GunAttack2();
+
+			break;
+		}
+	case 2:
+		_time = 300;
+		ShootMissile();
+
+		break;
+
+	case 3:
+		_time = 1200;
+		HeadButt();
+		break;
 	}
 }
 

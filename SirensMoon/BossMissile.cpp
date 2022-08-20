@@ -71,7 +71,7 @@ void BossMissile::StandardRender(int stageNum, Vector2 window_pos, Vector2 camer
 	DrawRotaGraph(static_cast<int>(_pos.x-camera_pos.x+window_pos.x+_size.x/2),
 		static_cast<int>(_pos.y - camera_pos.y + window_pos.y+_size.y / 2),
 		1.0,_angle-Math::ToRadians(90),
-		_cg,0,0);
+		_cg,1,0);
 }
 
 void BossMissile::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
