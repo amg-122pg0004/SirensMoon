@@ -2,7 +2,7 @@
 #include "ModeGame.h"
 
 Switch::Switch(Game& game, ModeGame& mode, ObjectDataStructs::SwitchData data)
-	:Gimmick(game, mode, data.ID), _linkGimmiks{ data.links }
+	:Gimmick(game, mode, data.ID), _linkGimmiks{ data.links }, _accessible1{0}, _accessible2{ 0 }
 {
 	_pos = data.pos;
 	_size = { 60,60 };
@@ -17,32 +17,33 @@ Switch::Switch(Game& game, ModeGame& mode, ObjectDataStructs::SwitchData data)
 void Switch::Update() {
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::PlayerA) {
-			if (_game.GetInputManager()->CheckInput("ACCESS", 'h', 0)) {
-				if (Intersect(_accessArea, dynamic_cast<Player&>(*actor).GetCollision())) {
-					LinkGimmickActivate(true);
-					return;
-				}
+			if (Intersect(_accessArea, dynamic_cast<Player&>(*actor).GetCollision())) {
+				_accessible1 = true;
 			}
-			if (_game.GetInputManager()->CheckInput("ACCESS", 'r', 0)) {
-				if (Intersect(_accessArea, dynamic_cast<Player&>(*actor).GetCollision())) {
-					LinkGimmickActivate(false);
-					return;
-				}
+			else {
+				_accessible1 = false;
 			}
+
 		}
 		if (actor->GetType() == Type::PlayerB) {
-			if (_game.GetInputManager()->CheckInput("ACCESS", 'h', 1)) {
-				if (Intersect(_accessArea, dynamic_cast<Player&>(*actor).GetCollision())) {
-					LinkGimmickActivate(true);
-					return;
-				}
+			if (Intersect(_accessArea, dynamic_cast<Player&>(*actor).GetCollision())) {
+				_accessible2 = true;
 			}
-			if (_game.GetInputManager()->CheckInput("ACCESS", 'r', 1)) {
-				if (Intersect(_accessArea, dynamic_cast<Player&>(*actor).GetCollision())) {
-					LinkGimmickActivate(false);
-					return;
-				}
+			else {
+				_accessible2 = false;
 			}
+		}
+	}
+	if (_accessible1) {
+		if (_game.GetInputManager()->CheckInput("ACCESS", 'h', 0)) {
+			LinkGimmickActivate(true);
+			return;
+		}
+	}
+	if (_accessible2) {
+		if (_game.GetInputManager()->CheckInput("ACCESS", 'h', 1)) {
+			LinkGimmickActivate(true);
+			return;
 		}
 	}
 	LinkGimmickActivate(false);

@@ -25,7 +25,7 @@ public:
 private:
 	std::shared_ptr<InputManager> _inputManager;
 	int _cg_map;//<ミニマップ仮画像
-
+	int _cg_grid;
 
 	bool _blind2Flag;
 

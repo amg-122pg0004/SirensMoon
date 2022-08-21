@@ -51,6 +51,7 @@ public:
 	std::vector<St::BreakableObjectData> GetBreakableObjectData() { return _breakableObjectData; }
 	St::EnemyPatrol FindPatrol(int id);
 	std::vector<int> CheckHitChipNo(int x, int y, bool backlayer);
+
 	/**
 	 * \brief マップチップとアクターの接触判定
 	 * 
@@ -99,8 +100,8 @@ private:
 	std::vector<std::vector<std::vector<int>>> _mapTileData;
 	/*手前マップデータ[layer][y][x]*/
 	std::vector<std::vector<std::vector<int>>> _mapFrontTileData;
-	/*ミニマップデータ [line][plot]*/
-	std::vector<std::vector<Vector2>> _minimapData;
+	/*ミニマップデータ [line][色,plot]*/
+	std::vector<std::pair<unsigned int,std::vector<Vector2>>> _minimapData;
 	/*プレイヤー初期位置データ[player1か2] */
 	std::unordered_map<int,St::PlayerData> _playerData;
 	/*HPアイテムデータ [配置個数分]*/

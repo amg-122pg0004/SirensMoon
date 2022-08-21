@@ -20,6 +20,11 @@ class ModeGame;
 
 class Enemy :public Actor {
 public:
+	/*視界判定*/
+	class BoxSight {
+	public:
+		Vector2 pos1, pos2, pos3, pos4;//<敵視点から手前左右、奥左右
+	};
 
 	Enemy(Game& game, ModeGame& mode, EnemyGenerator::EnemyPattern pattern);
 	virtual void Init();
@@ -30,6 +35,8 @@ public:
 	Type GetType()override { return Type::Enemy; }
 	bool GetChaseFlag() { return _chase; }
 	Actor* GetLastDetection() { return _lastDetection; }
+	BoxSight GetSightPosition() { return _sightPos; }
+
 
 	virtual void Update()override;
 
@@ -86,12 +93,6 @@ protected:
 	int _speed;
 	/*向いている方向*/
 	Vector2 _dir;
-
-	/*視界判定*/
-	class BoxSight {
-	public:
-		Vector2 pos1, pos2, pos3, pos4;//<敵視点から手前左右、奥左右
-	};
 
 	BoxSight _sightPos;
 	/*眼の位置*/

@@ -17,6 +17,7 @@
 #include "BulletTypeUI.h"
 #include "DamageCut.h"
 #include "FoundUI.h"
+#include "ButtonIcon.h"
 
 SplitWindow::SplitWindow(Game& game, ModeGame& mode, int pos_x, int pos_y, int window_no) :
 	_game{ game }, _mode{ mode }, _windowPos{ pos_x ,pos_y }, _windowNo{ window_no }, _renderStage{ 1 }, _lightup{ 255 }
@@ -45,34 +46,35 @@ SplitWindow::SplitWindow(Game& game, ModeGame& mode, int pos_x, int pos_y, int w
 		Vector2 bullettype_pos = { _windowPos.x + 5,_windowPos.y + 5 };
 		Vector2 bullettype_size = { 90,180 };
 		_ui.emplace_back(std::make_unique<BulletTypeUI>(_game, _mode, bullettype_pos, bullettype_size));
-
-		Vector2 hp_pos = { splitscreen_W - 90,screen_H - 270 };
-		Vector2 hp_size = { 90,270 };
-		_ui.emplace_back(std::make_unique<HPUI>(_game, _mode, hp_pos, hp_size, _windowNo));
 	}
 
 	if (_windowNo == 1) {
 		Vector2 map_pos = { _windowPos.x + splitscreen_W / 2 - 780 / 2, _windowPos.y };
 		Vector2 map_size = { 780,600 };
 		_ui.emplace_back(std::make_unique<MiniMap>(_game, _mode, map_pos, map_size));
-
-		Vector2 hp_pos = { _windowPos.x ,screen_H - 270 };
-		Vector2 hp_size = { 90,270 };
-		_ui.emplace_back(std::make_unique<HPUI>(_game, _mode, hp_pos, hp_size, _windowNo));
 	}
 
-	Vector2 pause_pos = { _windowPos.x + splitscreen_W / 2, _windowPos.y };
-	Vector2 pause_size = { 780,600 };
-	_ui.emplace_back(std::make_unique<Pause>(_game, _mode, pause_pos, pause_size));
+	Vector2 found_pos = { 0,0 };
+	Vector2 found_size = { 90,60 };
+	_ui.emplace_back(std::make_unique<FoundUI>(_game, _mode, found_pos, found_size, _windowNo));
+
+	Vector2 button_pos = { 0,0 };
+	Vector2 button_size = { 60,60 };
+	_ui.emplace_back(std::make_unique<ButtonIcon>(_game, _mode, button_pos, button_size, _windowNo));
 
 	double damage_scale = 840 / 320;
 	Vector2 damage_pos = { _windowPos.x, _windowPos.y + screen_H / 2 - 320 * damage_scale / 2 };
 	Vector2 damage_size = { 640 * damage_scale,320 * damage_scale };
 	_ui.emplace_back(std::make_unique<DamageCut>(_game, _mode, damage_pos, damage_size));
 
-	Vector2 found_pos = { 0,0 };
-	Vector2 found_size = { 90,60 };
-	_ui.emplace_back(std::make_unique<FoundUI>(_game, _mode, found_pos, found_size, _windowNo));
+	Vector2 hp_pos = { _windowPos.x ,screen_H - 270 };
+	Vector2 hp_size = { 90,270 };
+	_ui.emplace_back(std::make_unique<HPUI>(_game, _mode, hp_pos, hp_size, _windowNo));
+
+
+	Vector2 pause_pos = { _windowPos.x + splitscreen_W / 2, _windowPos.y };
+	Vector2 pause_size = { 780,600 };
+	_ui.emplace_back(std::make_unique<Pause>(_game, _mode, pause_pos, pause_size));
 }
 
 void SplitWindow::Update() {

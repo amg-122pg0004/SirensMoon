@@ -10,7 +10,7 @@
 #include "SoundServer.h"
 
 ServerMachine::ServerMachine(Game& game, ModeGame& mode, ObjectDataStructs::ServerMachineData data, EnemyGenerator::EnemyPattern pattern)
-	:Actor(game, mode),_valid{false},_serverData{data},_energy{0}, _pattern{pattern},_deadVIP{false}
+	:Actor(game, mode),_valid{false},_serverData{data},_energy{0}, _pattern{pattern},_deadVIP{false}, _accessible{0}
 {
 	_inputManager = _game.GetInputManager();
 	_accessArea.min = {0,0};
@@ -64,16 +64,20 @@ ServerMachine::ServerMachine(Game& game, ModeGame& mode, ObjectDataStructs::Serv
 
 void ServerMachine::Update() {
 	if (_deadVIP == false) {
-		if ((_inputManager->CheckInput("ACCESS", 't', 1))) {
-			for (auto&& actor : _mode.GetActorServer().GetObjects()) {
-				if (actor->GetType() == Type::PlayerB) {
-					if (Intersect(_accessArea, actor->GetCollision())) {
-						_energy += 50;
-						break;
-					}
+		for (auto&& actor : _mode.GetActorServer().GetObjects()) {
+			if (actor->GetType() == Type::PlayerB) {
+				if (Intersect(_accessArea, actor->GetCollision())) {
+					_accessible = true;
+				}
+				else {
+					_accessible = false;
 				}
 			}
 		}
+		if (_accessible&&(_inputManager->CheckInput("ACCESS", 'h', 1))) {
+			_energy += 10;
+		}
+
 		if (_energy > 300) {
 			_energy = 300;
 		}
@@ -82,7 +86,6 @@ void ServerMachine::Update() {
 			_energy = 0;
 		}
 		if (_energy > 0) {
-			//PlaySoundMem(SoundServer::Find("PlayerOpenMap"), DX_PLAYTYPE_BACK);
 			if (_valid == false) {
 				_valid = true;
 				SpawnEnemyVIP();

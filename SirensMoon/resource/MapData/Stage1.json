@@ -1659,6 +1659,18 @@
                  "width":0,
                  "x":600,
                  "y":4020
+                }, 
+                {
+                 "class":"",
+                 "gid":43,
+                 "height":30,
+                 "id":953,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":330,
+                 "y":420
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2583,75 +2595,6 @@
                  "width":30,
                  "x":2130,
                  "y":2880
-                }, 
-                {
-                 "class":"",
-                 "gid":471,
-                 "height":30,
-                 "id":945,
-                 "name":"",
-                 "rotation":0,
-                 "visible":true,
-                 "width":30,
-                 "x":482,
-                 "y":358
-                }, 
-                {
-                 "class":"",
-                 "gid":466,
-                 "height":30,
-                 "id":946,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"Direction",
-                         "propertytype":"Direction",
-                         "type":"string",
-                         "value":"down"
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":30,
-                 "x":390,
-                 "y":420
-                }, 
-                {
-                 "class":"",
-                 "gid":466,
-                 "height":30,
-                 "id":947,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"Direction",
-                         "propertytype":"Direction",
-                         "type":"string",
-                         "value":"down"
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":30,
-                 "x":300,
-                 "y":420
-                }, 
-                {
-                 "class":"",
-                 "gid":466,
-                 "height":30,
-                 "id":948,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"Direction",
-                         "propertytype":"Direction",
-                         "type":"string",
-                         "value":"down"
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":30,
-                 "x":210,
-                 "y":420
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -5100,15 +5043,51 @@
                  "width":0,
                  "x":660,
                  "y":3600
+                }, 
+                {
+                 "class":"MiniMapColorLine",
+                 "height":0,
+                 "id":959,
+                 "name":"",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":-130,
+                         "y":176
+                        }, 
+                        {
+                         "x":180,
+                         "y":146
+                        }],
+                 "properties":[
+                        {
+                         "name":"G",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
+                         "name":"R",
+                         "type":"int",
+                         "value":0
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":792,
+                 "y":24
                 }],
          "opacity":1,
+         "tintcolor":"#ffffff",
          "type":"objectgroup",
          "visible":true,
          "x":0,
          "y":0
         }],
- "nextlayerid":20,
- "nextobjectid":949,
+ "nextlayerid":22,
+ "nextobjectid":960,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.0",
@@ -9602,6 +9581,10 @@
                 {
                  "class":"TNT",
                  "id":6
+                }, 
+                {
+                 "class":"StickyBomb",
+                 "id":7
                 }, 
                 {
                  "class":"BreakableObject",

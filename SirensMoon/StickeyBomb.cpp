@@ -48,9 +48,13 @@ void StickyBomb::Update() {
 			for (auto&& actor : _mode.GetObjects()) {
 				if (actor->GetType() == Type::PlayerB) {
 					if (Intersect(_accessArea, actor->GetCollision())) {
+						_accessible2 = true;
 						if (_game.GetInputManager()->CheckInput("ACCESS", 't', 1)) {
 							_dead = true;
 						}
+					}
+					else {
+						_accessible2=false;
 					}
 				}
 			}
@@ -59,9 +63,13 @@ void StickyBomb::Update() {
 			for (auto&& actor : _mode.GetObjects()) {
 				if (actor->GetType() == Type::PlayerA) {
 					if (Intersect(_accessArea, actor->GetCollision())) {
+						_accessible1 = true;
 						if (_game.GetInputManager()->CheckInput("ACCESS", 't', 0)) {
 							_dead = true;
 						}
+					}
+					else {
+						_accessible1 = false;
 					}
 				}
 			}

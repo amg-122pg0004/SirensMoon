@@ -154,6 +154,7 @@
     <ClCompile Include="BossMissile.cpp" />
     <ClCompile Include="BreakableObject.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="ButtonIcon.cpp" />
     <ClCompile Include="DisplayArea.cpp" />
     <ClCompile Include="FX_BulletHit.cpp" />
     <ClCompile Include="BulletItem.cpp" />
@@ -217,6 +218,7 @@
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ButtonIcon.h" />
     <ClInclude Include="Actor.h" />
     <ClInclude Include="ActorServer.h" />
     <ClInclude Include="AmmoUI.h" />

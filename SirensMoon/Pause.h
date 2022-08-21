@@ -23,4 +23,5 @@ class Pause :public UIBase{
 		void Render() override ;
 	private:
 		std::shared_ptr<InputManager> _inputManager;
+		int _cg2;
 };

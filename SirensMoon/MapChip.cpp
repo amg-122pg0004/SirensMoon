@@ -394,6 +394,23 @@ void MapChips::LoadMiniMapLayer(picojson::array aObjects) {
 		/*一つのポリゴンの頂点データ*/
 		std::vector<Vector2> polygonplots;
 		if (linestyle != "NULL") {
+			int R{ 0 }, G{ 255 }, B{ 255 };
+			if (aObjects[i].get<picojson::object>()["class"].get<std::string>()=="MiniMapColorLine") {
+				if (aObjects[i].get<picojson::object>()["properties"].is<picojson::array>()) {
+					auto properties = aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
+					for (int i2 = 0; i2 < properties.size(); ++i2) {
+						if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "R") {
+							R = static_cast<int>(properties[i2].get<picojson::object>()["value"].get<double>());
+						}
+						if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "G") {
+							G = static_cast<int>(properties[i2].get<picojson::object>()["value"].get<double>());
+						}
+						if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "B") {
+							B = static_cast<int>(properties[i2].get<picojson::object>()["value"].get<double>());
+						}
+					}
+				}
+			}
 			/*ポリゴンの頂点数分ループ*/
 			picojson::array polylineplots = aObjects[i].get<picojson::object>()[linestyle].get<picojson::array>();
 			for (int i2 = 0; i2 < polylineplots.size(); ++i2)
@@ -405,7 +422,7 @@ void MapChips::LoadMiniMapLayer(picojson::array aObjects) {
 				Vector2 plot = { x,y };
 				polygonplots.push_back(plot);
 			}
-			_minimapData.push_back(polygonplots);
+			_minimapData.push_back({ GetColor(R,G,B), polygonplots });
 		}
 	}
 }
@@ -851,16 +868,17 @@ void MapChips::ReconRender(int stageNum, Vector2 windowPos, Vector2 cameraPos)
 {
 	for (int i = 0; i < _minimapData.size(); ++i)
 	{
-		int plotsize = static_cast<int>(_minimapData[i].size());
+		int plotsize = static_cast<int>(_minimapData[i].second.size());
+		unsigned int color = _minimapData[i].first;
 		for (int plot = 0; plot < plotsize; ++plot) 
 		{
 			//float scale =static_cast<float>( 410.0/3240.0*0.97);
 			float scale = static_cast<float>(410.0 / 4320.0 * 0.97);
-			DrawLineAA(static_cast<float>(_minimapData[i][plot].x*scale + windowPos.x),
-				static_cast<float>(_minimapData[i][plot].y*scale + windowPos.y ),
-				static_cast<float>(_minimapData[i][(plot + 1) % plotsize].x *scale+ windowPos.x),
-				static_cast<float>(_minimapData[i][(plot + 1) % plotsize].y *scale+ windowPos.y ),
-				GetColor(0, 255, 255));
+			DrawLineAA(static_cast<float>(_minimapData[i].second[plot].x*scale + windowPos.x),
+				static_cast<float>(_minimapData[i].second[plot].y*scale + windowPos.y ),
+				static_cast<float>(_minimapData[i].second[(plot + 1) % plotsize].x *scale+ windowPos.x),
+				static_cast<float>(_minimapData[i].second[(plot + 1) % plotsize].y *scale+ windowPos.y ),
+				color);
 		}
 	}
 }

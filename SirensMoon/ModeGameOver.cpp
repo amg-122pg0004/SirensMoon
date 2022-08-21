@@ -9,7 +9,6 @@ ModeGameOver::ModeGameOver(Game& game):ModeBase(game), _restart{false},_delay{60
 	_renderPriority = 2;
 
 	_movieHandle = ImageServer::LoadGraph("resource/Movie/gameover.mp4");
-	SeekMovieToGraph(_movieHandle, 0);
 
 }
 
@@ -38,7 +37,8 @@ void ModeGameOver::Render() {
 }
 
 void ModeGameOver::RestartGame(){
-
+	PauseMovieToGraph(_movieHandle);
+	SeekMovieToGraph(_movieHandle, 0);
 	_game.GetModeServer()->Clear();
 
 	auto mode = std::make_unique<ModeGame>(_game);

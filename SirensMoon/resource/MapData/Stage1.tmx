@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="128" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="20" nextobjectid="949">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="128" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="22" nextobjectid="960">
  <editorsettings>
   <export target="Stage1.json" format="json"/>
  </editorsettings>
@@ -2010,6 +2010,7 @@
   <tile id="4" class="Switch"/>
   <tile id="5" class="Door"/>
   <tile id="6" class="TNT"/>
+  <tile id="7" class="StickyBomb"/>
   <tile id="8" class="BreakableObject"/>
  </tileset>
  <layer id="1" name="tile_Layer1" width="128" height="144">
@@ -2614,6 +2615,7 @@
   <object id="938" x="600" y="4020">
    <polygon points="0,0 210,0 210,-210 -330,-210 -330,-150 0,-150"/>
   </object>
+  <object id="953" gid="43" x="330" y="420" width="30" height="30"/>
  </objectgroup>
  <objectgroup id="13" name="Gimmick">
   <object id="546" gid="468" x="210" y="150" width="30" height="30"/>
@@ -2773,22 +2775,6 @@
     <property name="LinkGimmick3" type="object" value="907"/>
    </properties>
   </object>
-  <object id="945" gid="471" x="482" y="358" width="30" height="30"/>
-  <object id="946" gid="466" x="390" y="420" width="30" height="30">
-   <properties>
-    <property name="Direction" propertytype="Direction" value="down"/>
-   </properties>
-  </object>
-  <object id="947" gid="466" x="300" y="420" width="30" height="30">
-   <properties>
-    <property name="Direction" propertytype="Direction" value="down"/>
-   </properties>
-  </object>
-  <object id="948" gid="466" x="210" y="420" width="30" height="30">
-   <properties>
-    <property name="Direction" propertytype="Direction" value="down"/>
-   </properties>
-  </object>
  </objectgroup>
  <objectgroup id="4" name="Player">
   <object id="332" gid="5" x="390" y="300" width="30" height="30">
@@ -2921,7 +2907,7 @@
   <object id="719" gid="8" x="3600" y="3090" width="30" height="30"/>
   <object id="720" gid="431" x="3226" y="3051" width="30" height="30"/>
  </objectgroup>
- <objectgroup id="2" name="MiniMap">
+ <objectgroup id="2" name="MiniMap" tintcolor="#ffffff">
   <object id="763" x="360" y="0">
    <polyline points="150,3930 -180,3930 -180,3450 90,3450 90,3300 150,3300 150,3030 -270,3030 -270,2820 60,2820 60,2490 -150,2490 -150,2190 30,2190 30,2100 -150,2100 -150,1560 -180,1560 -180,450 -300,450 -300,150 -180,150 -180,0 0,0 0,150 180,150 180,240 720,240 720,90 1440,90 1440,180 1800,180 1800,150 3030,150 3030,90 3420,90 3420,510 3030,510 3030,360 2160,360 2160,570 3030,570 3030,540 3420,540 3420,930 3030,930 3030,780 2160,780 2160,1170 2160,1200 2370,1200 2370,1440 3300,1440 3300,1710 2880,1710 2880,1830 3360,1830 3360,2610 3060,2610 3060,2880 3060,2910 3300,2910 3300,3150 2430,3150 2430,3300 3300,3300 3300,3450 3210,3450 3210,4050 2730,4050 2730,3840 2280,3840 2280,3990 1740,3990 1740,3750 1230,3750 1230,3660 1170,3660 1170,4080 750,4080 750,3750 540,3750 540,4080 150,4080 150,3930"/>
   </object>
@@ -2957,6 +2943,13 @@
   </object>
   <object id="775" x="660" y="3600">
    <polygon points="0,0 0,-120 450,-120 450,-30 120,-30 120,30 60,30 60,150 -300,150 -300,30 0,30"/>
+  </object>
+  <object id="959" class="MiniMapColorLine" x="792" y="24">
+   <properties>
+    <property name="G" type="int" value="0"/>
+    <property name="R" type="int" value="0"/>
+   </properties>
+   <polygon points="0,0 -130,176 180,146"/>
   </object>
  </objectgroup>
 </map>

@@ -33,6 +33,7 @@ Player::Player(Game& game,ModeGame& mode,int playernum)
 	_size = { 30,60 };
 	auto light = std::make_unique<LightBase>(_game, _mode, *this);
 	_mode.GetActorServer().Add(std::move(light));
+
 }
 
 void Player::Init() {

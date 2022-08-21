@@ -220,6 +220,9 @@
     <Filter Include="Resource\LoadResources">
       <UniqueIdentifier>{523124bf-17d0-49ca-acea-9754652858bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI\ButtonIcon">
+      <UniqueIdentifier>{45282fde-3c95-496e-abeb-84f489271e87}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -432,6 +435,9 @@
     <ClCompile Include="LoadResources.cpp">
       <Filter>Resource\LoadResources</Filter>
     </ClCompile>
+    <ClCompile Include="ButtonIcon.cpp">
+      <Filter>UI\ButtonIcon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -643,6 +649,9 @@
     </ClInclude>
     <ClInclude Include="LoadResources.h">
       <Filter>Resource\LoadResources</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonIcon.h">
+      <Filter>UI\ButtonIcon</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

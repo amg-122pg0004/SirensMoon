@@ -28,7 +28,8 @@ public:
 		BulletType,
 		GameOver,
 		DamageCut,
-		FoundUI
+		FoundUI,
+		ButtonIcon
 	};
 	virtual Type GetType() = 0;
 	virtual void DamageEvent();

@@ -16,6 +16,7 @@ class ServerMachine:public Actor{
 		bool GetValidFlag() { return _valid; }
 		int GetEnergy() { return _energy; }
 		AABB GetAccessArea() { return _accessArea; }
+		bool GetAccesible() { return _accessible; }
 		void SpawnEnemyVIP();
 		void DeadEnemyVIP();
 		void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;
@@ -34,7 +35,10 @@ class ServerMachine:public Actor{
 		EnemyGenerator::EnemyPattern _pattern;
 
 		AABB _accessArea;
-		/*アクセス可能な状態か*/
+
+		/*アクション可能*/
+		bool _accessible;
+		/*trueの間重要宇宙人を出現させる*/
 		bool _valid;
 
 		/*重要宇宙人を倒したか*/
