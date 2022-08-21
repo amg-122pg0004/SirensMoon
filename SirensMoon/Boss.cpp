@@ -109,14 +109,15 @@ void Boss::Wait() {
 			break;
 		}
 	case 2:
-		_time = 300;
+
 		ShootMissile();
 
 		break;
 
 	case 3:
-		_time = 1200;
-		HeadButt();
+		//_time = 1200;
+		_time = 300;
+		ShootMissile(); 
 		break;
 	}
 }
@@ -139,6 +140,7 @@ void Boss::GunAttack2() {
 }
 
 void Boss::ShootMissile() {
+
 	_state = State::ShootMissile;
 	if (_time == 300|| _time == 280|| _time == 260) {
 		Vector2 rand = { static_cast<double>(rand100(engine)) / 100 * splitscreen_W,0 };

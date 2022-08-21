@@ -12,6 +12,7 @@
 #include "ActorServer.h"
 #include "MapChip.h"
 #include "Camera.h"
+#include "LoadResources.h"
 class Game;
 
 class ModeGame :public ModeBase {
@@ -22,8 +23,6 @@ public:
 	void Update()override;
 	void Render()override;
 	void Debug()override;
-
-	void LoadResource();
 
 
 	inline  auto& GetMapChips() { return _mapChips; }

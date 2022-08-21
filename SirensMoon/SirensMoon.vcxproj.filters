@@ -217,6 +217,9 @@
     <Filter Include="Actor\DisplayArea">
       <UniqueIdentifier>{5344e87a-f9c2-4dc1-9f7b-8fef0ee4240a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource\LoadResources">
+      <UniqueIdentifier>{523124bf-17d0-49ca-acea-9754652858bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -426,6 +429,9 @@
     <ClCompile Include="BossMissile.cpp">
       <Filter>Actor\BossMissile</Filter>
     </ClCompile>
+    <ClCompile Include="LoadResources.cpp">
+      <Filter>Resource\LoadResources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -634,6 +640,9 @@
     </ClInclude>
     <ClInclude Include="BossMissile.h">
       <Filter>Actor\BossMissile</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadResources.h">
+      <Filter>Resource\LoadResources</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

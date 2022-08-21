@@ -15,4 +15,5 @@ public:
 
 private:
 	int _lifetime;
+	int _delay;
 };

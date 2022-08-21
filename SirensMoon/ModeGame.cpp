@@ -7,6 +7,7 @@
  *********************************************************************/
 
 #include "ModeGame.h"
+
 #include "EnemyA.h"
 #include "EnemyB.h"
 #include "HPItem.h"
@@ -30,6 +31,7 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blind
 
 	_inputManager=_game.GetInputManager();
 
+	SetUseASyncLoadFlag(true);
 	_renderPriority = 0;
 
 	_mapChips = std::make_unique<MapChips>(_game,*this);
@@ -130,44 +132,17 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blind
 		auto breakable = std::make_unique<BreakableObject>(_game, *this, abreakable);
 		_actorServer.Add(std::move(breakable));
 
+
+
 	}
 
 	/*É{ÉXê∂ê¨*/
-	_actorServer.Add(std::make_unique<Boss>(_game, *this));
+	//_actorServer.Add(std::make_unique<Boss>(_game, *this));
 
-	std::vector<int> cg;
-	//cg.resize(120);
-	//ImageServer::LoadDivGraph("resource/Effect/boom.png", 120, 8, 15, 512, 512, cg.data());
 
-	cg.resize(112);
-	ImageServer::LoadDivGraph("resource/Effect/boom2.png", 112, 8, 14, 512, 512, cg.data());
-
-	LoadResource();
-}
-
-void ModeGame::LoadResource() {
-	SoundServer::LoadSound("PlayerWalk", "resource/Sounds/Player/se_sk2206.wav");
-	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("PlayerWalk"));
-	SoundServer::LoadSound("PlayerRun", "resource/Sounds/Player/se_sk2207.wav");
-	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("PlayerRun"));
-	SoundServer::LoadSound("PlayerAim", "resource/Sounds/Player/se_sk2054.wav");
-	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("PlayerAim"));
-	SoundServer::LoadSound("PlayerCharge", "resource/Sounds/Player/se_sk2153.wav");
-	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("PlayerCharge"));
-	SoundServer::LoadSound("PlayerShoot", "resource/Sounds/Player/se_sk2177.wav");
-	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("PlayerShoot"));
-	SoundServer::LoadSound("PlayerChargeMAX", "resource/Sounds/Player/se_sk2224.wav");
-	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("PlayerChargeMAX"));
-	SoundServer::LoadSound("BulletToWall", "resource/Sounds/Player/se_sk2026.wav");
-	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("BulletToWall"));
-	SoundServer::LoadSound("BulletToEnemy", "resource/Sounds/Player/se_sk2020.wav");
-	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("BulletToEnemy"));
-	SoundServer::LoadSound("PlayerOpenMap", "resource/Sounds/Player/se_sk2050.wav");
-	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("PlayerOpenMap"));
-	SoundServer::LoadSound("Explosion", "resource/Sounds/Gimmick/se_sk2063.wav");
-	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("PlayerOpenMap"));
-	SoundServer::LoadSound("DamageToPlayer", "resource/Sounds/Enemy/se_sk2077.wav");
-	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("DamageToPlayer"));
+	LoadResources::LoadSE();
+	LoadResources::LoadEffects();
+	LoadResources::LoadMovie("resource/Movie/gameover.mp4");
 }
 
 void ModeGame::Update() {

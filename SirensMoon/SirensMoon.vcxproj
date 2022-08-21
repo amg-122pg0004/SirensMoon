@@ -184,6 +184,7 @@
     <ClCompile Include="ImageServer.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="LightBase.cpp" />
+    <ClCompile Include="LoadResources.cpp" />
     <ClCompile Include="MapChip.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="Mine.cpp" />
@@ -255,6 +256,7 @@
     <ClInclude Include="ImageServer.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="LightBase.h" />
+    <ClInclude Include="LoadResources.h" />
     <ClInclude Include="MapChip.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Mine.h" />
