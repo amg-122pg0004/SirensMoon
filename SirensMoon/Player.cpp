@@ -34,6 +34,8 @@ Player::Player(Game& game,ModeGame& mode,int playernum)
 	auto light = std::make_unique<LightBase>(_game, _mode, *this);
 	_mode.GetActorServer().Add(std::move(light));
 
+	auto gunlight = std::make_unique<ProjectionLight>(_game, _mode, *this);
+	_mode.GetActorServer().Add(std::move(gunlight));
 }
 
 void Player::Init() {

@@ -1,7 +1,6 @@
 #include "PlayerA.h"
 #include "RedBullet.h"
 #include "GreenBullet.h"
-#include "ProjectionLight.h"
 #include "ModeGame.h"
 #include "FX_Chargein.h"
 #include "FX_Chargenow.h"
@@ -116,8 +115,7 @@ void PlayerA::Action(){
 		_movable = false;
 		_state = PlayerState::Set;
 		if (_charge == 0) {
-			auto gunlight = std::make_unique<ProjectionLight>(_game, _mode, *this);
-			_mode.GetActorServer().Add(std::move(gunlight));
+
 			_animNo = 0;
 		}
 
