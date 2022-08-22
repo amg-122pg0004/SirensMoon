@@ -152,7 +152,7 @@
             "selectedLayer": 6,
             "viewCenter": {
                 "x": 1919.9999999999998,
-                "y": 2160
+                "y": 2159.333333333333
             }
         },
         "Stage1.tmx#tile_icon": {
@@ -165,14 +165,14 @@
         },
         "Stage3.tmx": {
             "expandedObjectLayers": [
-                4,
-                12
+                12,
+                4
             ],
             "scale": 0.75,
             "selectedLayer": 7,
             "viewCenter": {
-                "x": 502.6666666666667,
-                "y": 692.6666666666667
+                "x": 1918.6666666666665,
+                "y": 2158
             }
         },
         "Stage3.tmx#tile_icon": {

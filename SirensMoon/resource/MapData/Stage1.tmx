@@ -2779,11 +2779,13 @@
  <objectgroup id="4" name="Player">
   <object id="332" gid="5" x="390" y="300" width="30" height="30">
    <properties>
+    <property name="Friction" type="float" value="0.98"/>
     <property name="Player" type="int" value="2"/>
    </properties>
   </object>
   <object id="333" gid="5" x="180" y="300" width="30" height="30">
    <properties>
+    <property name="Friction" type="float" value="0.975"/>
     <property name="Player" type="int" value="1"/>
    </properties>
   </object>

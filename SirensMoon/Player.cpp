@@ -58,10 +58,6 @@ void Player::Update() {
 		_lastDir = _dir;
 		//_lastDir.Normalize();
 	}
-
-	if (_dir.Length() > 1) {
-		_dir.Normalize();
-	}
 	PlayerOverlap();
 	/*移動*/
 	Move();
@@ -125,26 +121,22 @@ void Player::PlayerOverlap() {
 }
 
 void Player::Move() {
-	
-	if (_movable){
-		/*入力値によって加速*/
-		_speed = _speed + _dir * _accelerationRatio;
-	}
-	auto dir = _dir;
-	/*最大速度を入力値*速度max値に制限/
-	if (_speed.Length() > dir.Length() * _speedMax) {
-		_speed = dir * _speedMax;
-	}
-	/*移動入力が無ければ速度減衰*/
-	if (dir.Length() == 0||!_movable) {
-		_speed *= _friction;
+	if (_dir.Length() > 1) {
+		_dir.Normalize();
 	}
 
-	auto tmpspeed = _speed;
-	if (tmpspeed.Length() > _speedMax) {
-		_speed.Normalize();
-		_speed *= _speedMax;
+	if (_movable){
+		/*入力値によって加速*/
+		_speed += _dir * _accelerationRatio;
+
+		if (_speed.Length() > _dir.Length() * _speedMax) {
+			_speed -= _dir * _accelerationRatio;
+		}
 	}
+
+	_speed *= _friction;
+
+
 	
 	/*障害物衝突処理*/
 	/*X方向*/
@@ -211,7 +203,7 @@ void Player::Move() {
 	if (_speed.Length()<0.1) {
 		_state=PlayerState::Wait;
 	}
-	else if (_speed.Length() < 4.9) {
+	else if (_speed.Length() < 2.8) {
 		_state = PlayerState::Walk;
 	}
 	else {
@@ -263,13 +255,13 @@ void Player::UpdateCamera() {
 
 void Player::PlayFootSteps() {
 	if (_movable) {
-		double speed = _dir.Length();
+		double speed = _speed.Length();
 		if (speed > 0 && speed <= 0.98) {
 			if (_game.GetFrameCount() % 25 == 0) {
 				PlaySoundMem(SoundServer::Find("PlayerWalk"), DX_PLAYTYPE_BACK);
 			}
 		}
-		else if (speed > 0.98) {
+		else if (speed > 0.9) {
 			if (_game.GetFrameCount() % 15 == 0) {
 				PlaySoundMem(SoundServer::Find("PlayerRun"), DX_PLAYTYPE_BACK);
 			}
@@ -295,7 +287,6 @@ bool Player::IsHitActor() {
 				}
 			}
 		}
-
 	}
 	return false;
 }
@@ -335,7 +326,6 @@ void Player::StandardRender(int windowNum,Vector2 window_pos,Vector2 camera_pos)
 		return;
 	}
 
-
 	std::vector<int> cg = _cg[{_state, _direction}];
 	if (_state == PlayerState::Set|| _state == PlayerState::Shoot) {
 		DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x) - (_size.y/2),
@@ -353,8 +343,6 @@ void Player::StandardRender(int windowNum,Vector2 window_pos,Vector2 camera_pos)
 				static_cast<int>(_pos.x + window_pos.x - camera_pos.x - (_size.y / 2) + _size.y*1.5),
 				static_cast<int>(_pos.y + window_pos.y - camera_pos.y - (_size.y / 2)*0.6 + _size.y*1.5),
 				cg[_game.GetFrameCount() % cg.size()], 1);
-
-
 	}
 	
 }
@@ -432,6 +420,6 @@ void Player::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
 	ss << "_collision.max.y" << _collision.max.y << "\n";
 	ss << "チャージ" << _charge << "\n";
 	ss << "方向" << _dir.x <<"  "<<_dir.y << "\n";
-	ss << "プレイヤー" << _roomPosition.x<<","<<_roomPosition.y << "\n";
+	ss << "スピード" << _speed.Length() << "\n";
 	DrawString(50 + _playerNum * 960, 100, ss.str().c_str(), GetColor(255, 0, 255));
 }

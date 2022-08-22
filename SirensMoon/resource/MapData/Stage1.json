@@ -2615,6 +2615,11 @@
                  "name":"",
                  "properties":[
                         {
+                         "name":"Friction",
+                         "type":"float",
+                         "value":0.98
+                        }, 
+                        {
                          "name":"Player",
                          "type":"int",
                          "value":2
@@ -2632,6 +2637,11 @@
                  "id":333,
                  "name":"",
                  "properties":[
+                        {
+                         "name":"Friction",
+                         "type":"float",
+                         "value":0.975
+                        }, 
                         {
                          "name":"Player",
                          "type":"int",

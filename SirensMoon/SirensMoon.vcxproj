@@ -184,6 +184,7 @@
     <ClCompile Include="HPUI.cpp" />
     <ClCompile Include="ImageServer.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="LaserLight.cpp" />
     <ClCompile Include="LightBase.cpp" />
     <ClCompile Include="LoadResources.cpp" />
     <ClCompile Include="MapChip.cpp" />
@@ -257,6 +258,7 @@
     <ClInclude Include="HPUI.h" />
     <ClInclude Include="ImageServer.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="LaserLight.h" />
     <ClInclude Include="LightBase.h" />
     <ClInclude Include="LoadResources.h" />
     <ClInclude Include="MapChip.h" />

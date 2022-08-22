@@ -134,8 +134,8 @@ void SplitWindow::Render() {
 	/*Žè‘O”wŒi•`‰æ*/
 	static_cast<ModeGame&>(_mode).GetMapChips()->Render(_windowPos, _camera->GetPosition(),"front");
 
-	GraphBlend(_normalScreen, _darknessScreen, 10, DX_GRAPH_BLEND_SCREEN);
-	GraphBlend(_normalScreen, _darknessScreen, _lightup+50, DX_GRAPH_BLEND_MULTIPLE);
+	GraphBlend(_normalScreen, _darknessScreen, 100, DX_GRAPH_BLEND_SCREEN);
+	GraphBlend(_normalScreen, _darknessScreen, _lightup+120, DX_GRAPH_BLEND_MULTIPLE);
 
 
 	SetDrawScreen(DX_SCREEN_BACK);

@@ -4,6 +4,7 @@
 #include "ModeGame.h"
 #include "FX_Chargein.h"
 #include "FX_Chargenow.h"
+#include "LaserLight.h"
 
 PlayerA::PlayerA(Game& game, ModeGame& base, int playernum) :Player(game, base, playernum),_setGreenBullet{false}
 {
@@ -117,6 +118,8 @@ void PlayerA::Action(){
 		if (_charge == 0) {
 
 			_animNo = 0;
+			auto gunlight = std::make_unique<LaserLight>(_game, _mode, *this);
+			_mode.GetActorServer().Add(std::move(gunlight));
 		}
 
 		++_charge;

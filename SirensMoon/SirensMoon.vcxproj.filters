@@ -223,6 +223,9 @@
     <Filter Include="UI\ButtonIcon">
       <UniqueIdentifier>{45282fde-3c95-496e-abeb-84f489271e87}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Light\LaserLight">
+      <UniqueIdentifier>{5d7ac3c6-523a-41ab-a210-f2ba318efe80}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -438,6 +441,9 @@
     <ClCompile Include="ButtonIcon.cpp">
       <Filter>UI\ButtonIcon</Filter>
     </ClCompile>
+    <ClCompile Include="LaserLight.cpp">
+      <Filter>Actor\Light\LaserLight</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -652,6 +658,9 @@
     </ClInclude>
     <ClInclude Include="ButtonIcon.h">
       <Filter>UI\ButtonIcon</Filter>
+    </ClInclude>
+    <ClInclude Include="LaserLight.h">
+      <Filter>Actor\Light\LaserLight</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
