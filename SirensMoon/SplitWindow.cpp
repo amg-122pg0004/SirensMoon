@@ -49,8 +49,6 @@ SplitWindow::SplitWindow(Game& game, ModeGame& mode, int pos_x, int pos_y, int w
 		_ui.emplace_back(std::make_unique<BulletTypeUI>(_game, _mode, bullettype_pos, bullettype_size));
 	}
 
-
-
 	Vector2 found_pos = { 0,0 };
 	Vector2 found_size = { 90,60 };
 	_ui.emplace_back(std::make_unique<FoundUI>(_game, _mode, found_pos, found_size, _windowNo));
@@ -68,9 +66,15 @@ SplitWindow::SplitWindow(Game& game, ModeGame& mode, int pos_x, int pos_y, int w
 	Vector2 hp_size = { 90,270 };
 	_ui.emplace_back(std::make_unique<HPUI>(_game, _mode, hp_pos, hp_size, _windowNo));
 
-	Vector2 obj_pos = { _windowPos.x+30, screen_H*0.2 };
 	Vector2 obj_size = { 360 + 30,90 };
-	_ui.emplace_back(std::make_unique<ObjectiveUI>(_game, _mode, obj_pos, obj_size));
+	if (_windowNo == 0) {
+		Vector2 obj_pos = { _windowPos.x+5, screen_H*0.19 };
+		_ui.emplace_back(std::make_unique<ObjectiveUI1>(_game, _mode, obj_pos, obj_size));
+	}
+	if (_windowNo == 1) {
+		Vector2 obj_pos = { _windowPos.x + splitscreen_W * 0.6, screen_H * 0.9 };
+		_ui.emplace_back(std::make_unique<ObjectiveUI2>(_game, _mode, obj_pos, obj_size));
+	}
 
 	if (_windowNo == 1) {
 		Vector2 map_pos = { _windowPos.x + splitscreen_W / 2 - 780 / 2, _windowPos.y };
@@ -120,9 +124,8 @@ void SplitWindow::Update() {
 				dynamic_cast<ObjectiveUI&>(*u).ChangeMessage("重要宇宙人特定し、捕獲せよ");
 			}
 			else {
-				dynamic_cast<ObjectiveUI&>(*u).ChangeMessage("NULL");
+				dynamic_cast<ObjectiveUI&>(*u).ChangeMessage("ミニマップ上のサーバーへ向かう");
 			}
-
 		}
 	}
 }
