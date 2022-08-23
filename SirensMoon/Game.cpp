@@ -8,12 +8,14 @@
 #include "Game.h"
 #include "ModeBase.h"
 #include "ModeGame.h"
+#include "ModeStart.h"
 
 Game::Game() :_frameCount{0}
 {
 	_modeServer = std::make_unique<ModeServer>(*this);
 	_inputManager = std::make_unique<InputManager>();
 
+	//auto mode = std::make_unique<ModeStart>(*this);
 	auto mode = std::make_unique<ModeGame>(*this);
 	_modeServer->Add(std::move(mode));
 }

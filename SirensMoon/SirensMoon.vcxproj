@@ -196,7 +196,9 @@
     <ClCompile Include="ModeGameOver.cpp" />
     <ClCompile Include="ModeMovie.cpp" />
     <ClCompile Include="ModeServer.cpp" />
+    <ClCompile Include="ModeStart.cpp" />
     <ClCompile Include="ObjectDataStructs.cpp" />
+    <ClCompile Include="ObjectiveUI.cpp" />
     <ClCompile Include="Pause.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerA.cpp" />
@@ -270,7 +272,9 @@
     <ClInclude Include="ModeGameOver.h" />
     <ClInclude Include="ModeMovie.h" />
     <ClInclude Include="ModeServer.h" />
+    <ClInclude Include="ModeStart.h" />
     <ClInclude Include="ObjectDataStructs.h" />
+    <ClInclude Include="ObjectiveUI.h" />
     <ClInclude Include="Pause.h" />
     <ClInclude Include="picojson\picojson.h" />
     <ClInclude Include="Player.h" />

@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Stage3.tmx",
+    "activeFile": "Stage1.tmx",
     "expandedProjectPaths": [
         "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource"
     ],
@@ -148,11 +148,14 @@
             "scaleInDock": 1
         },
         "Stage1.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
             "scale": 0.75,
-            "selectedLayer": 6,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 1919.9999999999998,
-                "y": 2159.333333333333
+                "x": 348.6666666666667,
+                "y": 390
             }
         },
         "Stage1.tmx#tile_icon": {
@@ -165,14 +168,14 @@
         },
         "Stage3.tmx": {
             "expandedObjectLayers": [
-                12,
-                4
+                4,
+                12
             ],
-            "scale": 0.75,
+            "scale": 0.5,
             "selectedLayer": 7,
             "viewCenter": {
-                "x": 1918.6666666666665,
-                "y": 2158
+                "x": -507,
+                "y": 647
             }
         },
         "Stage3.tmx#tile_icon": {
@@ -278,8 +281,8 @@
     "project": "SirensMoon.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "Stage1.tmx",
         "Stage3.tmx",
+        "Stage1.tmx",
         "D:/Users/syotaro/Documents/AMG/2022summer/x64/0.3.5/Debug/resource/TestMap_02.json",
         "D:/Users/syotaro/Documents/AMG/2022summer/x64/0.3.5/Debug/resource/TestMap_01.tmx",
         "D:/Users/syotaro/Documents/AMG/2022summer/x64/Debug/resource/TestMap_02.json",

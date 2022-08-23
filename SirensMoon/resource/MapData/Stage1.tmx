@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="128" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="22" nextobjectid="960">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="128" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="22" nextobjectid="961">
  <editorsettings>
   <export target="Stage1.json" format="json"/>
  </editorsettings>
@@ -2946,12 +2946,8 @@
   <object id="775" x="660" y="3600">
    <polygon points="0,0 0,-120 450,-120 450,-30 120,-30 120,30 60,30 60,150 -300,150 -300,30 0,30"/>
   </object>
-  <object id="959" class="MiniMapColorLine" x="792" y="24">
-   <properties>
-    <property name="G" type="int" value="0"/>
-    <property name="R" type="int" value="0"/>
-   </properties>
-   <polygon points="0,0 -130,176 180,146"/>
+  <object id="960" class="MiniMapColorLine" x="640" y="45.3333">
+   <polygon points="0,0 294.667,58.6667 30.6667,122.667"/>
   </object>
  </objectgroup>
 </map>

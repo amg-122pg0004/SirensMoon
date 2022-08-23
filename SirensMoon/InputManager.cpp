@@ -40,7 +40,6 @@ InputManager::InputManager() :_changeFlag{0} {
 			{"BULLET1",PAD_INPUT_5,false,false,false,0},
 			{"BULLET2",PAD_INPUT_6,false,false,false,0},
 	};
-
 	_analogState = {
 		{{0,0},0},
 		{{0,0},1}
@@ -58,7 +57,6 @@ void InputManager::InputUpdate() {
 		padno0 = DX_INPUT_KEY_PAD1;
 		padno1 = DX_INPUT_PAD2;
 	}
-	
 	for (auto&& key :_keyState) {
 		switch (key.PadNo) {
 		case 0:
@@ -98,7 +96,6 @@ void InputManager::InputUpdate() {
 		default:
 			break;
 		}
-
 		key.Trigger = false;
 		key.Hold = false;
 		key.Release = false;
@@ -147,7 +144,6 @@ bool InputManager::CheckInput(const std::string actionname, const char keystate,
 				break;
 			}
 		}
-
 	}
 	return false;
 }
@@ -172,9 +168,7 @@ void InputManager::Render() {
 	for (auto&& analog : _analogState) {
 		ss  <<"アナログスティックプレイヤー"<<analog.PadNo<<" "<< analog.Value.x <<" "<<analog.Value.y << "\n";
 	}
-
 	DrawString(50, 100, ss.str().c_str(), GetColor(255, 255, 255));
-	
 }
 
 void InputManager::ChangeControllerNo(){

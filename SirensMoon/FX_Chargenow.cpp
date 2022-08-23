@@ -2,11 +2,9 @@
 #include "Easing.h"
 #include "Player.h"
 
-
 FX_Chargenow::FX_Chargenow(Game& game, ModeGame& mode, const Vector2& pos, int startTime, Player& owner)
 	:Effect(game, mode, pos, startTime), _owner{ owner }
 {
-
 	_cg.resize(60);
 	ImageServer::LoadDivGraph("resource/Effect/chargenow.png", 60, 8, 8, 512, 512, _cg.data());
 
@@ -28,9 +26,7 @@ FX_Chargenow::FX_Chargenow(Game& game, ModeGame& mode, const Vector2& pos, int s
 	case Player::PlayerDirection::Left:
 		_pos += {-30, 3};
 		break;
-
 	}
-
 }
 
 void FX_Chargenow::Update() {
@@ -49,7 +45,6 @@ void FX_Chargenow::Update() {
 	case Player::PlayerDirection::Left:
 		_pos += {-30, 0};
 		break;
-
 	}
 	Effect::Update();
 	_renderPriority = _pos.y + 60;

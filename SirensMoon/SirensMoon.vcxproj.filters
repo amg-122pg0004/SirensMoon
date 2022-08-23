@@ -226,6 +226,12 @@
     <Filter Include="Actor\Light\LaserLight">
       <UniqueIdentifier>{5d7ac3c6-523a-41ab-a210-f2ba318efe80}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI\OobjectiveUI">
+      <UniqueIdentifier>{f5ac1920-582e-4b45-8f4a-9d2b8f425fe5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mode\ModeStart">
+      <UniqueIdentifier>{26e49214-e9cf-4b9c-96dd-1ebd2aed2900}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -444,6 +450,12 @@
     <ClCompile Include="LaserLight.cpp">
       <Filter>Actor\Light\LaserLight</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectiveUI.cpp">
+      <Filter>UI\OobjectiveUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ModeStart.cpp">
+      <Filter>Mode\ModeStart</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -661,6 +673,12 @@
     </ClInclude>
     <ClInclude Include="LaserLight.h">
       <Filter>Actor\Light\LaserLight</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectiveUI.h">
+      <Filter>UI\OobjectiveUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ModeStart.h">
+      <Filter>Mode\ModeStart</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

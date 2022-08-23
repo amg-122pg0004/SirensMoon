@@ -28,7 +28,6 @@
 
 ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blindFlag{false},_makedNextMode{false}
 {
-
 	_inputManager=_game.GetInputManager();
 
 	SetUseASyncLoadFlag(true);

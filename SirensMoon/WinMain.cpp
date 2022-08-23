@@ -35,7 +35,6 @@ int WINAPI WinMain(
         ScreenFlip();
     }
 
-
     DxLib_End();
 
     return 0;

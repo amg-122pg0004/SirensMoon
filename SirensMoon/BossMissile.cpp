@@ -39,10 +39,10 @@ void BossMissile::Move() {
 	auto dir_cross_a = Vector2::Cross(GetForward(), a);
 
 	if (dir_cross_a > 0) {
-		_angle += Math::ToRadians(0.1);
+		_angle += Math::ToRadians(0.1f);
 	}
 	else if (dir_cross_a < 0) {
-		_angle -= Math::ToRadians(0.1);
+		_angle -= Math::ToRadians(0.1f);
 	}
 	_pos += GetForward()*_speed;
 }

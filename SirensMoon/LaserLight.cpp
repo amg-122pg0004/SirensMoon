@@ -19,6 +19,20 @@ void LaserLight::Update() {
 	_pos = _owner.GetPosition() + _owner.GetSize() / 2;
 	_angle = atan2(player.GetDirection().y, player.GetDirection().x) + (3.14 / 2.0);
 
+	switch (player.GetGrDirection()) {
+	case Player::PlayerDirection::Up:
+		_pos += {5, -40};
+		break;
+	case Player::PlayerDirection::Down:
+		_pos += {-5, 25};
+		break;
+	case Player::PlayerDirection::Right:
+		_pos += {40, -10};
+		break;
+	case Player::PlayerDirection::Left:
+		_pos += {-50, -20};
+		break;
+	}
 
 	if (player.GetCharge() == 0) {
 		_dead = true;

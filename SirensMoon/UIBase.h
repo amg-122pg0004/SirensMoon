@@ -29,7 +29,8 @@ public:
 		GameOver,
 		DamageCut,
 		FoundUI,
-		ButtonIcon
+		ButtonIcon,
+		ObjectiveUI
 	};
 	virtual Type GetType() = 0;
 	virtual void DamageEvent();
