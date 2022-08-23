@@ -232,6 +232,12 @@
     <Filter Include="Mode\ModeStart">
       <UniqueIdentifier>{26e49214-e9cf-4b9c-96dd-1ebd2aed2900}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Gimmick\DegitalLetter">
+      <UniqueIdentifier>{d4dd2594-6fb3-4f52-819e-3502bc63289d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\MessageWindow">
+      <UniqueIdentifier>{0a63cb60-238e-4e2d-bdbb-2ec16e7c1591}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -456,6 +462,12 @@
     <ClCompile Include="ModeStart.cpp">
       <Filter>Mode\ModeStart</Filter>
     </ClCompile>
+    <ClCompile Include="DegitalLetter.cpp">
+      <Filter>Actor\Gimmick\DegitalLetter</Filter>
+    </ClCompile>
+    <ClCompile Include="MessageWindow.cpp">
+      <Filter>UI\MessageWindow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -679,6 +691,12 @@
     </ClInclude>
     <ClInclude Include="ModeStart.h">
       <Filter>Mode\ModeStart</Filter>
+    </ClInclude>
+    <ClInclude Include="DegitalLetter.h">
+      <Filter>Actor\Gimmick\DegitalLetter</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageWindow.h">
+      <Filter>UI\MessageWindow</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

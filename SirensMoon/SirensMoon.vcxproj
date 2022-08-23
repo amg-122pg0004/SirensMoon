@@ -155,6 +155,7 @@
     <ClCompile Include="BreakableObject.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="ButtonIcon.cpp" />
+    <ClCompile Include="DegitalLetter.cpp" />
     <ClCompile Include="DisplayArea.cpp" />
     <ClCompile Include="FX_BulletHit.cpp" />
     <ClCompile Include="BulletItem.cpp" />
@@ -189,6 +190,7 @@
     <ClCompile Include="LoadResources.cpp" />
     <ClCompile Include="MapChip.cpp" />
     <ClCompile Include="Math.cpp" />
+    <ClCompile Include="MessageWindow.cpp" />
     <ClCompile Include="Mine.cpp" />
     <ClCompile Include="MiniMap.cpp" />
     <ClCompile Include="ModeBase.cpp" />
@@ -231,6 +233,7 @@
     <ClInclude Include="BossMissile.h" />
     <ClInclude Include="BreakableObject.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="DegitalLetter.h" />
     <ClInclude Include="DisplayArea.h" />
     <ClInclude Include="FX_BulletHit.h" />
     <ClInclude Include="BulletItem.h" />
@@ -265,6 +268,7 @@
     <ClInclude Include="LoadResources.h" />
     <ClInclude Include="MapChip.h" />
     <ClInclude Include="Math.h" />
+    <ClInclude Include="MessageWindow.h" />
     <ClInclude Include="Mine.h" />
     <ClInclude Include="MiniMap.h" />
     <ClInclude Include="ModeBase.h" />

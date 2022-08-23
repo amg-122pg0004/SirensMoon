@@ -68,6 +68,29 @@
             ]
         },
         {
+            "color": "#ffa0a0a4",
+            "id": 26,
+            "members": [
+                {
+                    "name": "Message",
+                    "type": "string",
+                    "value": "テストメッセージ"
+                }
+            ],
+            "name": "DegitalLetter",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset"
+            ]
+        },
+        {
             "id": 13,
             "name": "Direction",
             "storageType": "string",

@@ -152,10 +152,10 @@
                 2
             ],
             "scale": 0.75,
-            "selectedLayer": 2,
+            "selectedLayer": 9,
             "viewCenter": {
-                "x": 348.6666666666667,
-                "y": 390
+                "x": 398,
+                "y": 475.33333333333337
             }
         },
         "Stage1.tmx#tile_icon": {
@@ -275,14 +275,13 @@
     "map.tileWidth": 30,
     "map.width": 96,
     "openFiles": [
-        "Stage3.tmx",
         "Stage1.tmx"
     ],
     "project": "SirensMoon.tiled-project",
-    "property.type": "bool",
+    "property.type": "int",
     "recentFiles": [
-        "Stage3.tmx",
         "Stage1.tmx",
+        "Stage3.tmx",
         "D:/Users/syotaro/Documents/AMG/2022summer/x64/0.3.5/Debug/resource/TestMap_02.json",
         "D:/Users/syotaro/Documents/AMG/2022summer/x64/0.3.5/Debug/resource/TestMap_01.tmx",
         "D:/Users/syotaro/Documents/AMG/2022summer/x64/Debug/resource/TestMap_02.json",

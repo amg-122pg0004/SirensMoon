@@ -59,6 +59,29 @@
         ]
     },
     {
+        "color": "#ffa0a0a4",
+        "id": 26,
+        "members": [
+            {
+                "name": "Message",
+                "type": "string",
+                "value": "テストメッセージ"
+            }
+        ],
+        "name": "DegitalLetter",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset"
+        ]
+    },
+    {
         "id": 13,
         "name": "Direction",
         "storageType": "string",
@@ -227,37 +250,6 @@
         ]
     },
     {
-        "color": "#ffa0a0a4",
-        "id": 26,
-        "members": [
-            {
-                "name": "B",
-                "type": "int",
-                "value": 255
-            },
-            {
-                "name": "G",
-                "type": "int",
-                "value": 255
-            },
-            {
-                "name": "R",
-                "type": "int",
-                "value": 255
-            }
-        ],
-        "name": "MiniMapColorLine",
-        "type": "class",
-        "useAs": [
-            "property",
-            "map",
-            "layer",
-            "object",
-            "tile",
-            "tileset"
-        ]
-    },
-    {
         "color": "#ff0407a4",
         "id": 11,
         "members": [
@@ -325,34 +317,6 @@
             "property",
             "tile",
             "tileset"
-        ]
-    },
-    {
-        "color": "#ffa0a0a4",
-        "id": 24,
-        "members": [
-            {
-                "name": "Range",
-                "type": "int",
-                "value": 75
-            },
-            {
-                "name": "Timer",
-                "type": "int",
-                "value": 1800
-            }
-        ],
-        "name": "StickyBomb",
-        "type": "class",
-        "useAs": [
-            "property",
-            "map",
-            "layer",
-            "object",
-            "tile",
-            "tileset",
-            "wangcolor",
-            "wangset"
         ]
     },
     {
@@ -469,6 +433,65 @@
         "members": [
         ],
         "name": "Wall",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset"
+        ]
+    },
+    {
+        "color": "#ffa0a0a4",
+        "id": 24,
+        "members": [
+            {
+                "name": "B",
+                "type": "int",
+                "value": 255
+            },
+            {
+                "name": "G",
+                "type": "int",
+                "value": 255
+            },
+            {
+                "name": "R",
+                "type": "int",
+                "value": 255
+            }
+        ],
+        "name": "MiniMapColorLine",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset"
+        ]
+    },
+    {
+        "color": "#ffa0a0a4",
+        "id": 25,
+        "members": [
+            {
+                "name": "Range",
+                "type": "int",
+                "value": 75
+            },
+            {
+                "name": "Timer",
+                "type": "int",
+                "value": 1800
+            }
+        ],
+        "name": "StickyBomb",
         "type": "class",
         "useAs": [
             "property",

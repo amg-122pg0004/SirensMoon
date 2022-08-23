@@ -15,7 +15,8 @@ public:
 		Mine,
 		TNT,
 		StickyBomb,
-		BreakableObject
+		BreakableObject,
+		DegitalLetter
 	};
 	virtual GimmickType GetGimmickType() = 0;
 

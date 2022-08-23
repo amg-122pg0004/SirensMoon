@@ -86,4 +86,11 @@ public:
 		int ID;
 		Vector2 pos;
 	};
+
+	struct DegitalLetterData
+	{
+		int ID;
+		Vector2 pos;
+		std::string message;
+	};
 };

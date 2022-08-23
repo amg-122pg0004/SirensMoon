@@ -354,7 +354,7 @@ void Player::UpdateCollision() {
 
 void Player::TakeDamage(Actor::Type type) {
 	--_hp;
-
+	StartJoypadVibration(DX_INPUT_PAD1,1000,600,-1);
 	if (type == Type::Enemy) {
 		_mode.SetPauseGame(true);
 		_mode.DamageEvent();
