@@ -9,6 +9,8 @@ ObjectiveUI::ObjectiveUI(Game& game,ModeBase& mode,Vector2 pos,Vector2 size)
 {
 	_font=CreateFontToHandle("ObjectiveFont",20,5,-1);
 	_cg = ImageServer::LoadGraph("resource/UI/Objective/orange.png");
+	_cg2 = ImageServer::LoadGraph("resource/UI/Objective/green.png");
+	_cg3 = _cg;
 }
 
 void ObjectiveUI::Update(){
@@ -17,7 +19,7 @@ void ObjectiveUI::Update(){
 
 void ObjectiveUI::Render() {
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA,100);
-	DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y),_cg,1);
+	DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y),_cg3,1);
 	
 	std::stringstream ss;
 	ss << _message;
@@ -44,6 +46,12 @@ void ObjectiveUI1::Update() {
 		if (_startPos.x - _pos.x >= _size.x) {
 			_message = _nextMessage;
 			_nextMessage = "NULL";
+			if (_cg3 == _cg) {
+				_cg3 = _cg2;
+			}
+			else {
+				_cg3 = _cg;
+			}
 		}
 		return;
 	}
@@ -66,6 +74,12 @@ void ObjectiveUI2::Update() {
 		if (_pos.y >= _startPos.y + _size.y + 25) {
 			_message = _nextMessage;
 			_nextMessage = "NULL";
+			if (_cg3 == _cg) {
+				_cg3 = _cg2;
+			}
+			else {
+				_cg3 = _cg;
+			}
 		}
 		return;
 	}

@@ -151,11 +151,11 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 0.75,
-            "selectedLayer": 9,
+            "scale": 1.5,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 398,
-                "y": 475.33333333333337
+                "x": 1919.6666666666665,
+                "y": 2159.6666666666665
             }
         },
         "Stage1.tmx#tile_icon": {

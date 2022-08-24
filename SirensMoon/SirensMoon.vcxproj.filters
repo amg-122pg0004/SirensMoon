@@ -238,6 +238,15 @@
     <Filter Include="UI\MessageWindow">
       <UniqueIdentifier>{0a63cb60-238e-4e2d-bdbb-2ec16e7c1591}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Gimmick\BigGenerator">
+      <UniqueIdentifier>{f99f4aae-652a-4a37-aba0-5287397faecd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Gimmick\BigGun">
+      <UniqueIdentifier>{307af975-d997-419f-89c7-3f0d4892546f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Gimmick\BigServer">
+      <UniqueIdentifier>{3717f5cd-b034-4e2a-af43-70b1675035bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -468,6 +477,15 @@
     <ClCompile Include="MessageWindow.cpp">
       <Filter>UI\MessageWindow</Filter>
     </ClCompile>
+    <ClCompile Include="BigGenerator.cpp">
+      <Filter>Actor\Gimmick\BigGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="BigGun.cpp">
+      <Filter>Actor\Gimmick\BigGun</Filter>
+    </ClCompile>
+    <ClCompile Include="BigServer.cpp">
+      <Filter>Actor\Gimmick\BigServer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -697,6 +715,15 @@
     </ClInclude>
     <ClInclude Include="MessageWindow.h">
       <Filter>UI\MessageWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="BigGenerator.h">
+      <Filter>Actor\Gimmick\BigGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="BigGun.h">
+      <Filter>Actor\Gimmick\BigGun</Filter>
+    </ClInclude>
+    <ClInclude Include="BigServer.h">
+      <Filter>Actor\Gimmick\BigServer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

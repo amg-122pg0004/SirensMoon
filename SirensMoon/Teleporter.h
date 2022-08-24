@@ -13,7 +13,7 @@ public:
 
 	void Update()override;
 
-	void StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;
+	void StandardRender(Vector2 window_pos, Vector2 camera_pos)override;
 	void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;
 
 	int GetteleportID() { return _teleportID; }
@@ -30,7 +30,7 @@ public:
 	Type GetType()override { return Type::Gimmick; }
 	GimmickType GetGimmickType()override { return GimmickType::Teleporter; }
 
-	void StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;
+	void StandardRender(Vector2 window_pos, Vector2 camera_pos)override;
 
 private:
 };

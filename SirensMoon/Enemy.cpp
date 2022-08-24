@@ -60,7 +60,7 @@ void Enemy::AnimationUpdate() {
 	SetDirection();
 }
 
-void Enemy::StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
+void Enemy::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 	DrawExtendGraph(static_cast<int>(_pos.x - (_size.x / 2) + window_pos.x - camera_pos.x),
 		static_cast<int>(_pos.y - (_size.y / 2) + window_pos.y - camera_pos.y),
 		static_cast<int>(_pos.x - (_size.x / 2) + window_pos.x - camera_pos.x + _size.x),
@@ -213,10 +213,10 @@ void Enemy::SetDirection() {
 
 void Enemy::CheckDamage() {
 	for (auto&& actor : _mode.GetActorServer().GetObjects()) {
-		if (actor->GetType() == Type::RedBullet) {
+		if (actor->GetType() == Type::RedBullet|| actor->GetType() == Type::Explode) {
 			if (Intersect(_collision, actor->GetCollision())) {
 				actor->Dead();
-				_dead = true;
+				TakeDamage(actor->GetType());
 				PlaySoundMem(SoundServer::Find("BulletToEnemy"), DX_PLAYTYPE_BACK);
 			}
 		}
@@ -235,6 +235,10 @@ void Enemy::CheckDamage() {
 	}
 }
 
+void Enemy::TakeDamage(Type) {
+	_dead = true;
+}
+
 void Enemy::MoveToPlayer() {
 	auto col = dynamic_cast<Player&>(*_lastDetection).GetCollision();
 	_dir = (col.min + col.max) / 2 - (_collision.min + _collision.max) / 2;
@@ -245,7 +249,7 @@ void Enemy::MoveToPlayer() {
 void Enemy::ApplyDamage() {
 	PlaySoundMem(SoundServer::Find("DamageToPlayer"), DX_PLAYTYPE_BACK);
 	dynamic_cast<Player&>(*_lastDetection).TakeDamage(GetType());
-	_dead = true;
+	TakeDamage(Type::Player);
 }
 
 void Enemy::UpdateCollision() {

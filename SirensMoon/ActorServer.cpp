@@ -80,20 +80,14 @@ void	ActorServer::Update() {
 		std::sort(_typeActors.begin(), _typeActors.end(), CompRenderPriority);
 	}
 
-	void	ActorServer::StandardRender(int stageNum,Vector2 window_pos, Vector2 camera_pos) {
+	void ActorServer::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 		for (auto&& object : _typeActors) {
-			object->StandardRender(stageNum,window_pos,camera_pos);
+			object->StandardRender(window_pos,camera_pos);
 		}
 	}
 	void	ActorServer::BackRender(Vector2 window_pos, Vector2 camera_pos) {
 		for (auto&& object : _typeActors) {
 			object->BackRender(window_pos, camera_pos);
-		}
-	}
-
-	void	ActorServer::ReconRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
-		for (auto&& object : _typeActors) {
-			object->ReconRender(stageNum, window_pos, camera_pos);
 		}
 	}
 

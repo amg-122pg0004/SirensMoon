@@ -17,7 +17,7 @@ void teleporterIn::Update(){
 	
 }
 
-void teleporterIn::StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
+void teleporterIn::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 	DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x - 20),
 		static_cast<int>(_pos.y + window_pos.y - camera_pos.y-20),
 		_cg,0
@@ -38,7 +38,7 @@ teleporterOut::teleporterOut(Game& game, ModeGame& mode, int ID, Vector2 pos):  
 	_cg = ImageServer::LoadGraph("resource/Gimmick/teleporter.png");
 }
 
-void teleporterOut::StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos){
+void teleporterOut::StandardRender(Vector2 window_pos, Vector2 camera_pos){
 	DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x - 20),
 		static_cast<int>(_pos.y + window_pos.y - camera_pos.y - 20),
 		_cg, 0

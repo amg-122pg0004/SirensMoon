@@ -24,7 +24,7 @@ void Explode::Update(){
 	--_delay;
 	if (_delay == 0) {
 		PlaySoundMem(SoundServer::Find("Explosion"), DX_PLAYTYPE_BACK);
-		auto fxboom = std::make_unique<FX_Boom>(_game, _mode, _pos, _game.GetFrameCount());
+		auto fxboom = std::make_unique<FX_Boom>(_game, _mode, _pos+_size/2, _game.GetFrameCount());
 		_mode.GetActorServer().Add(std::move(fxboom));
 		_collision.min = _pos;
 		_collision.max = _pos + _size;
@@ -37,7 +37,8 @@ void Explode::Update(){
 	}
 }
 
-void Explode::StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
+void Explode::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
+
 }
 
 void Explode::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){

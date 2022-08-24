@@ -50,7 +50,7 @@ public:
 	 * \param window_pos 分割画面の位置
 	 * \param camera_pos カメラの座標
 	 */
-	virtual void StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;
+	virtual void StandardRender(Vector2 window_pos, Vector2 camera_pos)override;
 
 	/*視界判定を更新*/
 	void  SightUpdate();
@@ -61,6 +61,8 @@ public:
 
 	/*弾、プレイヤーと触れているか確認する*/
 	virtual void CheckDamage();
+	/*ダメージを受ける*/
+	virtual void TakeDamage(Type);
 	/*プレイヤーへ接近する*/
 	void MoveToPlayer();
 	/*プレイヤーにダメージを与える*/

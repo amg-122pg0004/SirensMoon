@@ -77,7 +77,7 @@ void StickyBomb::Update() {
 	}
 }
 
-void StickyBomb::StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
+void StickyBomb::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 	DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x-_size.x/2)
 		, static_cast<int>(_pos.y + window_pos.y - camera_pos.y - _size.y / 2)
 		, _cg

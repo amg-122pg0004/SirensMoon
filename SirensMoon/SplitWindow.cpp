@@ -68,14 +68,17 @@ SplitWindow::SplitWindow(Game& game, ModeGame& mode, int pos_x, int pos_y, int w
 	_ui.emplace_back(std::make_unique<HPUI>(_game, _mode, hp_pos, hp_size, _windowNo));
 
 	Vector2 obj_size = { 360 + 30,90 };
+	/*
 	if (_windowNo == 0) {
 		Vector2 obj_pos = { _windowPos.x+5, screen_H*0.19 };
 		_ui.emplace_back(std::make_unique<ObjectiveUI1>(_game, _mode, obj_pos, obj_size));
 	}
-	if (_windowNo == 1) {
+	*/
+
+	//if (_windowNo == 1) {
 		Vector2 obj_pos = { _windowPos.x + splitscreen_W * 0.6, screen_H * 0.9 };
 		_ui.emplace_back(std::make_unique<ObjectiveUI2>(_game, _mode, obj_pos, obj_size));
-	}
+	//}
 
 	if (_windowNo == 1) {
 		Vector2 map_pos = { _windowPos.x + splitscreen_W / 2 - 780 / 2, _windowPos.y };
@@ -85,8 +88,8 @@ SplitWindow::SplitWindow(Game& game, ModeGame& mode, int pos_x, int pos_y, int w
 
 
 	Vector2 message_size = { 870,180 };
-	Vector2 message_pos = { (splitscreen_W-message_size.x)/2 ,screen_H - message_size.y };
-	_ui.emplace_back(std::make_unique<MessageWindow>(_game, _mode, message_pos, message_size));
+	Vector2 message_pos = { _windowPos.x+(splitscreen_W-message_size.x)/2 ,_windowPos.y + screen_H - message_size.y };
+	_ui.emplace_back(std::make_unique<MessageWindow>(_game, _mode, message_pos, message_size,window_no));
 
 	Vector2 pause_pos = { _windowPos.x + splitscreen_W / 2, _windowPos.y };
 	Vector2 pause_size = { 360,90 };
@@ -156,7 +159,7 @@ void SplitWindow::Render() {
 	/*í èÌîwåiï`âÊ*/
 	static_cast<ModeGame&>(_mode).GetMapChips()->Render(_windowPos, _camera->GetPosition(),"middle");
 	/*ÉAÉNÉ^Å[ï`âÊ*/
-	_mode.GetActorServer().StandardRender(_windowNo, _windowPos, _camera->GetPosition());
+	_mode.GetActorServer().StandardRender(_windowPos, _camera->GetPosition());
 	/*éËëOîwåiï`âÊ*/
 	static_cast<ModeGame&>(_mode).GetMapChips()->Render(_windowPos, _camera->GetPosition(),"front");
 
@@ -177,7 +180,7 @@ void SplitWindow::Render() {
 
 	//_camera->Render(static_cast<int>(_windowPos.x + 50),static_cast<int>(_windowPos.y + 50));
 	/*ï`âÊîÕàÕÇÉEÉBÉìÉhÉEÉTÉCÉYëSëÃÇ…ñﬂÇ∑*/
-	SetDrawArea(_windowPos.x, 0, splitscreen_W, screen_H);
+	SetDrawArea(static_cast<int>(_windowPos.x), 0, splitscreen_W, screen_H);
 }
 
 void SplitWindow::Debug() {

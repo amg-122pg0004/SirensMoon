@@ -22,7 +22,7 @@ void BreakableObject::Update(){
 	}
 }
 
-void BreakableObject::StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos)
+void BreakableObject::StandardRender(Vector2 window_pos, Vector2 camera_pos)
 {
 	DrawGraph(static_cast<int>(_pos.x - camera_pos.x + window_pos.x -10),
 		static_cast<int>(_pos.y - camera_pos.y + window_pos.y-10),

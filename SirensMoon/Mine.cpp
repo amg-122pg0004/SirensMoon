@@ -1,6 +1,7 @@
 #include "Mine.h"
 #include "ModeGame.h"
 #include "Player.h"
+#include "Enemy.h"
 
 Mine::Mine(Game& game, ModeGame& mode, ObjectDataStructs::MineData data)
 	:Gimmick(game,mode,data.ID),_dir{data.dir}
@@ -46,10 +47,17 @@ void Mine::Update(){
 				PlaySoundMem(SoundServer::Find("Explosion"), DX_PLAYTYPE_BACK);
 			}
 		}
+		if (actor->GetType() == Type::Enemy) {
+			if (Intersect(_detectionArea, actor->GetCollision())) {
+				dynamic_cast<Enemy&>(*actor).TakeDamage(GetType());
+				_dead = true;
+				PlaySoundMem(SoundServer::Find("Explosion"), DX_PLAYTYPE_BACK);
+			}
+		}
 	}
 }
 
-void Mine::StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos){
+void Mine::StandardRender(Vector2 window_pos, Vector2 camera_pos){
 	double angle{(_dir - 1) * 3.1415 / 2};
 	
 	

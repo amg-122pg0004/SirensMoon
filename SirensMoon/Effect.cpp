@@ -48,7 +48,7 @@ void Effect::Update() {
     _active = false;
 }
 // •`‰æ
-void Effect::StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
+void Effect::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
     SetDrawBlendMode(_blendMode, static_cast<int>(_alpha));
     SetDrawMode(DX_DRAWMODE_BILINEAR);
 

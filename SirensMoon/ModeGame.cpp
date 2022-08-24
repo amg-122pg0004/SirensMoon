@@ -140,7 +140,7 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blind
 	}
 
 	/*É{ÉXê∂ê¨*/
-	//_actorServer.Add(std::make_unique<Boss>(_game, *this));
+	_actorServer.Add(std::make_unique<Boss>(_game, *this));
 
 
 	LoadResources::LoadSE();

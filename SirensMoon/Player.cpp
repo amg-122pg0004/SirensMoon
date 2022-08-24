@@ -319,26 +319,21 @@ void Player::Action() {
 	/*子クラスにてプレイヤーごとの固有アクション設定*/
 }
 
-void Player::StandardRender(int windowNum,Vector2 window_pos,Vector2 camera_pos){
-	
-	
-	if (_mode.GetBlindFlag() && windowNum != _playerNum) {
-		return;
-	}
+void Player::StandardRender(Vector2 window_pos,Vector2 camera_pos){
 
 	std::vector<int> cg = _cg[{_state, _direction}];
 	if (_state == PlayerState::Set|| _state == PlayerState::Shoot) {
-		DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x) - (_size.y/2),
-			static_cast<int>(_pos.y + window_pos.y - camera_pos.y) - (_size.y / 2)*0.6,
-			static_cast<int>(_pos.x + window_pos.x - camera_pos.x) - (_size.y / 2)+_size.y*1.5,
-			static_cast<int>(_pos.y + window_pos.y - camera_pos.y) - (_size.y / 2)*0.6+_size.y*1.5, cg[_animNo], 1);
+		DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x - (_size.y/2)),
+			static_cast<int>(_pos.y + window_pos.y - camera_pos.y - (_size.y / 2)*0.6),
+			static_cast<int>(_pos.x + window_pos.x - camera_pos.x - (_size.y / 2)+_size.y*1.5),
+			static_cast<int>(_pos.y + window_pos.y - camera_pos.y - (_size.y / 2)*0.6+_size.y*1.5), cg[_animNo], 1);
 		++_animNo;
 		if (_animNo >= cg.size()) {
 			_animNo = cg.size() - 1;
 		}
 	}
 	else {
-			DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x) - (_size.y / 2),
+			DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x - (_size.y / 2)),
 				static_cast<int>(_pos.y + window_pos.y - camera_pos.y - (_size.y / 2)*0.6),
 				static_cast<int>(_pos.x + window_pos.x - camera_pos.x - (_size.y / 2) + _size.y*1.5),
 				static_cast<int>(_pos.y + window_pos.y - camera_pos.y - (_size.y / 2)*0.6 + _size.y*1.5),

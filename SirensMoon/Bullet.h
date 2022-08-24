@@ -15,7 +15,7 @@ class Bullet:public Actor {
 		Bullet(Game& game, ModeGame& mode,Vector2 pos,Vector2 dir);
 		~Bullet();
 		void Update()override;
-		void StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;
+		void StandardRender(Vector2 window_pos, Vector2 camera_pos)override;
 		void UpdateCollision();
 
 		virtual Type GetType() override { return Type::Bullet; }

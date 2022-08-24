@@ -7,7 +7,7 @@ BossMissile::BossMissile(Game& game, ModeGame& mode, Vector2 pos)
 {
 	_room = { 0,0 };
 	_pos = pos;
-	_size = { 30,90 };
+	_size = { 45,90 };
 
 	UpdateCollision();
 
@@ -50,14 +50,14 @@ void BossMissile::Move() {
 void BossMissile::HitActor() {
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::PlayerA || actor->GetType() == Type::PlayerB|| actor->GetType() == Type::Explode) {
-			if(Intersect(_collision, actor->GetCollision())) {
+			if(CheckOverlapActor(*actor)) {
 				auto explode = std::make_unique<Explode>(_game, _mode, _pos + (_size / 2));
 				_mode.GetActorServer().Add(std::move(explode));
 				_dead = true;
 			}
 		}
 		if (actor->GetType() == Type::RedBullet) {
-			if (Intersect(_collision, actor->GetCollision())) {
+			if (CheckOverlapActor(*actor)) {
 				auto explode = std::make_unique<Explode>(_game, _mode, _pos + (_size / 2));
 				_mode.GetActorServer().Add(std::move(explode));
 				_dead = true;
@@ -67,19 +67,93 @@ void BossMissile::HitActor() {
 	}
 }
 
-void BossMissile::StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
-	DrawRotaGraph(static_cast<int>(_pos.x-camera_pos.x+window_pos.x+_size.x/2),
-		static_cast<int>(_pos.y - camera_pos.y + window_pos.y+_size.y / 2),
+bool BossMissile::CheckOverlapActor(Actor& actor) {
+	auto col = actor.GetCollision();
+	Vector2 righttop = { col.max.x,col.min.y };
+	Vector2 leftbottom = { col.min.x,col.max.y };
+
+	/*pos1,pos2は周辺判定の範囲に含まれるため判定を行わない*/
+	/*pos2,pos4とプレイヤーコリジョン4辺*/
+	if (Vector2::IsCrossed(_hitbox.pos2, _hitbox.pos4, col.min, righttop) ||
+		Vector2::IsCrossed(_hitbox.pos2, _hitbox.pos4, righttop, col.max) ||
+		Vector2::IsCrossed(_hitbox.pos2, _hitbox.pos4, col.max, leftbottom) ||
+		Vector2::IsCrossed(_hitbox.pos2, _hitbox.pos4, leftbottom, col.min)) {
+		return 1;
+	}
+	/*pos1,pos3とプレイヤーコリジョン4辺*/
+	if (Vector2::IsCrossed(_hitbox.pos1, _hitbox.pos3, col.min, righttop) ||
+		Vector2::IsCrossed(_hitbox.pos1, _hitbox.pos3, righttop, col.max) ||
+		Vector2::IsCrossed(_hitbox.pos1, _hitbox.pos3, col.max, leftbottom) ||
+		Vector2::IsCrossed(_hitbox.pos1, _hitbox.pos3, leftbottom, col.min)) {
+		return 1;
+	}
+	/*pos3,pos4とプレイヤーコリジョン4辺*/
+	if (Vector2::IsCrossed(_hitbox.pos3, _hitbox.pos4, col.min, righttop) ||
+		Vector2::IsCrossed(_hitbox.pos3, _hitbox.pos4, righttop, col.max) ||
+		Vector2::IsCrossed(_hitbox.pos3, _hitbox.pos4, col.max, leftbottom) ||
+		Vector2::IsCrossed(_hitbox.pos3, _hitbox.pos4, leftbottom, col.min)) {
+		return 1;
+	}
+	/*視界内に完全に納まっている場合の確認*/
+	if (Vector2::Cross(_hitbox.pos1 - _hitbox.pos3, col.min - _hitbox.pos3) < 0 &&
+		Vector2::Cross(_hitbox.pos3 - _hitbox.pos4, col.min - _hitbox.pos4) < 0 &&
+		Vector2::Cross(_hitbox.pos4 - _hitbox.pos2, col.min - _hitbox.pos2) < 0 &&
+		Vector2::Cross(_hitbox.pos2 - _hitbox.pos1, col.min - _hitbox.pos1) < 0) {
+		return 1;
+	}
+return 0;
+}
+
+void BossMissile::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
+	DrawRotaGraph(static_cast<int>(_pos.x-camera_pos.x+window_pos.x),
+		static_cast<int>(_pos.y - camera_pos.y + window_pos.y),
 		1.0,_angle-Math::ToRadians(90),
 		_cg,1,0);
 }
 
 void BossMissile::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
-	DrawLine(_pos.x,_pos.y, _pos.x + GetForward().x*100, _pos.y + GetForward().y * 100,GetColor(255,0,0),1);
-	_collision.Draw2(stageNum, window_pos, camera_pos);
+	DrawLine(static_cast<int>(_pos.x), static_cast<int>(_pos.y),
+		static_cast<int>(_pos.x + GetForward().x * 100), static_cast<int>(_pos.y + GetForward().y * 100), GetColor(255, 0, 0), 1);
+	//_collision.Draw2(stageNum, window_pos, camera_pos);
+
+	/*視野範囲表示*/
+	DrawLine(static_cast<int>(_hitbox.pos1.x + window_pos.x - camera_pos.x),
+		static_cast<int>(_hitbox.pos1.y + window_pos.y - camera_pos.y),
+		static_cast<int>(_hitbox.pos2.x + window_pos.x - camera_pos.x),
+		static_cast<int>(_hitbox.pos2.y + window_pos.y - camera_pos.y),
+		GetColor(255, 0, 0), 1);
+	DrawLine(static_cast<int>(_hitbox.pos1.x + window_pos.x - camera_pos.x),
+		static_cast<int>(_hitbox.pos1.y + window_pos.y - camera_pos.y),
+		static_cast<int>(_hitbox.pos3.x + window_pos.x - camera_pos.x),
+		static_cast<int>(_hitbox.pos3.y + window_pos.y - camera_pos.y),
+		GetColor(255, 0, 0), 1);
+	DrawLine(static_cast<int>(_hitbox.pos2.x + window_pos.x - camera_pos.x),
+		static_cast<int>(_hitbox.pos2.y + window_pos.y - camera_pos.y),
+		static_cast<int>(_hitbox.pos4.x + window_pos.x - camera_pos.x),
+		static_cast<int>(_hitbox.pos4.y + window_pos.y - camera_pos.y),
+		GetColor(255, 0, 0), 1);
+	DrawLine(static_cast<int>(_hitbox.pos3.x + window_pos.x - camera_pos.x),
+		static_cast<int>(_hitbox.pos3.y + window_pos.y - camera_pos.y),
+		static_cast<int>(_hitbox.pos4.x + window_pos.x - camera_pos.x),
+		static_cast<int>(_hitbox.pos4.y + window_pos.y - camera_pos.y),
+		GetColor(255, 0, 0), 1);
+
 }
 
 void BossMissile::UpdateCollision(){
-	_collision.min = _pos;
-	_collision.max = _pos + _size;
+	//_collision.min = _pos-_size/2;
+	//_collision.max = _pos + _size/2;
+	auto angle = _angle+ Math::ToRadians(90);
+
+	_hitbox.pos1 = { ( - 1 * _size.x / 2)* cos(angle) - (-1 * _size.y / 2) * sin(angle) + _pos.x,
+	( - 1 * _size.x / 2) * sin(angle) + (-1 * _size.y / 2) * cos(angle) + _pos.y};
+	
+	_hitbox.pos2 = { _size.x / 2 * cos(angle) - ( - 1 * _size.y / 2) * sin(angle) + _pos.x,
+	_size.x / 2 * sin(angle) + ( - 1 * _size.y / 2) * cos(angle) + _pos.y};
+
+	_hitbox.pos3 = { ( - 1 * _size.x / 2)* cos(angle) - _size.y / 2 * sin(angle) + _pos.x,
+	( - 1 * _size.x / 2) * sin(angle) + _size.y / 2 * cos(angle) + _pos.y};
+
+	_hitbox.pos4 = { _size.x / 2 * cos(angle) - _size.y / 2 * sin(angle)+_pos.x,
+	_size.x / 2 * sin(angle) + _size.y / 2 * cos(angle)+_pos.y };
 }

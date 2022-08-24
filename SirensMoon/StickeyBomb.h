@@ -15,7 +15,7 @@ public:
 	bool GetAccessible2() { return _accessible2; }
 
 	void Update()override;
-	void StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;
+	void StandardRender(Vector2 window_pos, Vector2 camera_pos)override;
 	void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;
 
 private:

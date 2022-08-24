@@ -148,6 +148,9 @@
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="ActorServer.cpp" />
     <ClCompile Include="AmmoUI.cpp" />
+    <ClCompile Include="BigGenerator.cpp" />
+    <ClCompile Include="BigGun.cpp" />
+    <ClCompile Include="BigServer.cpp" />
     <ClCompile Include="BlinkLight.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="BossCanon.cpp" />
@@ -223,6 +226,9 @@
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BigGenerator.h" />
+    <ClInclude Include="BigGun.h" />
+    <ClInclude Include="BigServer.h" />
     <ClInclude Include="ButtonIcon.h" />
     <ClInclude Include="Actor.h" />
     <ClInclude Include="ActorServer.h" />

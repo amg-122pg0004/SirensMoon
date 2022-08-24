@@ -37,7 +37,7 @@ public:
 
 	Player(Game& game, ModeGame& base, int playernum);
 	void Update() override;
-	virtual void StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) override;
+	virtual void StandardRender(Vector2 window_pos, Vector2 camera_pos) override;
 	void UpdateCamera();
 	void Init();
 

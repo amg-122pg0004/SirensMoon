@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="128" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="25" nextobjectid="964">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="128" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="25" nextobjectid="965">
  <editorsettings>
   <export target="Stage1.json" format="json"/>
  </editorsettings>
@@ -2616,6 +2616,7 @@
   <object id="938" x="600" y="4020">
    <polygon points="0,0 210,0 210,-210 -330,-210 -330,-150 0,-150"/>
   </object>
+  <object id="964" gid="43" x="330" y="510" width="30" height="30"/>
  </objectgroup>
  <objectgroup id="13" name="Gimmick">
   <object id="546" gid="468" x="210" y="150" width="30" height="30"/>

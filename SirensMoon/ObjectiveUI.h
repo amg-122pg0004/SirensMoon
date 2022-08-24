@@ -11,6 +11,7 @@ public:
 	void ChangeMessage(std::string next);
 
 protected:
+	int _cg2, _cg3;
 	std::string _message;
 	std::string _nextMessage;
 	Vector2 _startPos;

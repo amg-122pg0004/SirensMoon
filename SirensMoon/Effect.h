@@ -17,7 +17,7 @@ public:
     // イージング処理
     virtual void Easing(int elapsed) = 0;
     virtual void Update()override;
-    virtual void StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;
+    virtual void StandardRender(Vector2 window_pos, Vector2 camera_pos)override;
     bool isDead() {
         return !_active;
     };

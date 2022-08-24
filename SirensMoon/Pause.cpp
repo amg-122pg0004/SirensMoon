@@ -44,7 +44,6 @@ void Pause::Update() {
 
 void Pause::Render() {
 	if (_visible) {
-		int x, y;
 		DrawGraph(0, 0, _cg, 1);
 		DrawGraph(screen_W-splitscreen_W,0,_cg2, 1);
 	}

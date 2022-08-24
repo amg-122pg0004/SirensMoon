@@ -8,7 +8,7 @@ public:
 	/*‰æ‘œ‚ğƒ[ƒh‚·‚é*/
 	void Load();
 
-	void StandardRender(int stageNum, Vector2 window_pos, Vector2 camera_pos) override;
+	void StandardRender(Vector2 window_pos, Vector2 camera_pos) override;
 
 	/**/
 	void Move() override;
