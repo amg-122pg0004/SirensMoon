@@ -57,6 +57,4 @@ class SplitWindow {
 
 		int _windowNo;
 		int _renderStage;
-
-
 }; 

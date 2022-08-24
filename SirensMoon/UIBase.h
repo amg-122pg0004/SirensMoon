@@ -30,7 +30,8 @@ public:
 		DamageCut,
 		FoundUI,
 		ButtonIcon,
-		ObjectiveUI
+		ObjectiveUI,
+		MessageWindow
 	};
 	virtual Type GetType() = 0;
 	virtual void DamageEvent();

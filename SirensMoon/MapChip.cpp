@@ -307,6 +307,10 @@ void MapChips::LoadTilesets(picojson::object jsRoot,std::string folderpath) {
 					auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
 					_gidBreakableObject.push_back(id);
 				}
+				if ((*i).get<picojson::object>()["class"].get<std::string>() == "DegitalLetter") {
+					auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
+					_gidDegitalLetter.push_back(id);
+				}
 			}
 			// チップコリジョンデータ読み込み
 			if ((*i).get<picojson::object>()["class"].get<std::string>() == "BackGround") {
@@ -755,6 +759,23 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 					data.pos.y = static_cast<int>(aObjects[i].get<picojson::object>()["y"].get<double>()) - _chipSize_H;
 					auto id = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
 					_breakableObjectData.push_back(data);
+				}
+			}
+			for (auto gid : _gidDegitalLetter) {
+				if (gid == static_cast<int>(aObjects[i].get<picojson::object>()["gid"].get<double>())) {
+					St::DegitalLetterData data{ -1,{0,0},"テストメッセージ"};
+					data.pos.x = static_cast<int>(aObjects[i].get<picojson::object>()["x"].get<double>());
+					data.pos.y = static_cast<int>(aObjects[i].get<picojson::object>()["y"].get<double>()) - _chipSize_H;
+					auto id = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
+					if (aObjects[i].get<picojson::object>()["properties"].is<picojson::array>()) {
+						auto properties = aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
+						for (int i = 0; i < properties.size(); ++i) {
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Message") {
+								data.message = properties[i].get<picojson::object>()["value"].get<std::string>();
+							}
+						}
+					}
+					_deditalLetterData.push_back(data);
 				}
 			}
 			for (auto gid : _gidStickyBomb) {

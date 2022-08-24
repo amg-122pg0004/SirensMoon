@@ -49,6 +49,7 @@ public:
 	std::vector<St::MineData> GetMineData() { return _mineDataList; }
 	std::vector<St::StickyBombData> GetStikyBombData() { return _stickyBombDataList; }
 	std::vector<St::BreakableObjectData> GetBreakableObjectData() { return _breakableObjectData; }
+	std::vector<St::DegitalLetterData> GetDegitalLetterData() { return _deditalLetterData; }
 	St::EnemyPatrol FindPatrol(int id);
 	std::vector<int> CheckHitChipNo(int x, int y, bool backlayer);
 
@@ -137,6 +138,8 @@ private:
 	std::vector<St::StickyBombData> _stickyBombDataList;
 	/*BrakableObjectデータ*/
 	std::vector<St::BreakableObjectData> _breakableObjectData;
+	/*DegitalLetterデータ*/
+	std::vector<St::DegitalLetterData> _deditalLetterData;
 	
 	/*マップチップのグラフィックハンドル用コンテナ*/
 	/*[タイル用画像の枚数分][画像を分割した際のチップ画像の数]*/
@@ -168,4 +171,5 @@ private:
 	std::vector<int> _gidMine;
 	std::vector<int> _gidStickyBomb;
 	std::vector<int> _gidBreakableObject;
+	std::vector<int> _gidDegitalLetter;
 };

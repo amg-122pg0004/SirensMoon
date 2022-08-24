@@ -1659,18 +1659,6 @@
                  "width":0,
                  "x":600,
                  "y":4020
-                }, 
-                {
-                 "class":"",
-                 "gid":43,
-                 "height":30,
-                 "id":953,
-                 "name":"",
-                 "rotation":0,
-                 "visible":true,
-                 "width":30,
-                 "x":330,
-                 "y":420
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2595,6 +2583,18 @@
                  "width":30,
                  "x":2130,
                  "y":2880
+                }, 
+                {
+                 "class":"",
+                 "gid":472,
+                 "height":30,
+                 "id":962,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":270,
+                 "y":390
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -5057,7 +5057,7 @@
                 {
                  "class":"MiniMapColorLine",
                  "height":0,
-                 "id":959,
+                 "id":960,
                  "name":"",
                  "polygon":[
                         {
@@ -5065,29 +5065,18 @@
                          "y":0
                         }, 
                         {
-                         "x":-130,
-                         "y":176
+                         "x":294.667,
+                         "y":58.6667
                         }, 
                         {
-                         "x":180,
-                         "y":146
-                        }],
-                 "properties":[
-                        {
-                         "name":"G",
-                         "type":"int",
-                         "value":0
-                        }, 
-                        {
-                         "name":"R",
-                         "type":"int",
-                         "value":0
+                         "x":30.6667,
+                         "y":122.667
                         }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":792,
-                 "y":24
+                 "x":640,
+                 "y":45.3333
                 }],
          "opacity":1,
          "tintcolor":"#ffffff",
@@ -5096,8 +5085,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":22,
- "nextobjectid":960,
+ "nextlayerid":25,
+ "nextobjectid":964,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.0",
@@ -9599,6 +9588,10 @@
                 {
                  "class":"BreakableObject",
                  "id":8
+                }, 
+                {
+                 "class":"DegitalLetter",
+                 "id":9
                 }],
          "tilewidth":30
         }],

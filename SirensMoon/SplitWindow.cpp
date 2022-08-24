@@ -19,6 +19,7 @@
 #include "FoundUI.h"
 #include "ButtonIcon.h"
 #include "ObjectiveUI.h"
+#include "MessageWindow.h"
 
 SplitWindow::SplitWindow(Game& game, ModeGame& mode, int pos_x, int pos_y, int window_no) :
 	_game{ game }, _mode{ mode }, _windowPos{ pos_x ,pos_y }, _windowNo{ window_no }, _renderStage{ 1 }, _lightup{ 255 }
@@ -82,9 +83,15 @@ SplitWindow::SplitWindow(Game& game, ModeGame& mode, int pos_x, int pos_y, int w
 		_ui.emplace_back(std::make_unique<MiniMap>(_game, _mode, map_pos, map_size));
 	}
 
+
+	Vector2 message_size = { 870,180 };
+	Vector2 message_pos = { (splitscreen_W-message_size.x)/2 ,screen_H - message_size.y };
+	_ui.emplace_back(std::make_unique<MessageWindow>(_game, _mode, message_pos, message_size));
+
 	Vector2 pause_pos = { _windowPos.x + splitscreen_W / 2, _windowPos.y };
 	Vector2 pause_size = { 360,90 };
 	_ui.emplace_back(std::make_unique<Pause>(_game, _mode, pause_pos, pause_size));
+
 }
 
 void SplitWindow::Update() {

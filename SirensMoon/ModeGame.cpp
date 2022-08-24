@@ -25,6 +25,7 @@
 #include "StickeyBomb.h"
 #include "BreakableObject.h"
 #include "Boss.h"
+#include "DegitalLetter.h"
 
 ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blindFlag{false},_makedNextMode{false}
 {
@@ -130,9 +131,12 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blind
 	for (auto abreakable : breakabledata) {
 		auto breakable = std::make_unique<BreakableObject>(_game, *this, abreakable);
 		_actorServer.Add(std::move(breakable));
+	}
 
-
-
+	auto degitaldata = _mapChips->GetDegitalLetterData();
+	for (auto adedital : degitaldata) {
+		auto degital = std::make_unique<DegitalLetter>(_game, *this, adedital);
+		_actorServer.Add(std::move(degital));
 	}
 
 	/*É{ÉXê∂ê¨*/

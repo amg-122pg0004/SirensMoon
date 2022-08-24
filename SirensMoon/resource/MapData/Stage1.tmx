@@ -2776,7 +2776,6 @@
    </properties>
   </object>
   <object id="962" gid="472" x="270" y="390" width="30" height="30"/>
-  <object id="963" gid="465" x="381.667" y="400.333" width="30" height="30"/>
  </objectgroup>
  <objectgroup id="4" name="Player">
   <object id="332" gid="5" x="390" y="300" width="30" height="30">

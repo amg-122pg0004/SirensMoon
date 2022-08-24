@@ -256,12 +256,12 @@ void Player::UpdateCamera() {
 void Player::PlayFootSteps() {
 	if (_movable) {
 		double speed = _speed.Length();
-		if (speed > 0 && speed <= 0.98) {
+		if (speed > 0.1 && speed <= 2.5) {
 			if (_game.GetFrameCount() % 25 == 0) {
 				PlaySoundMem(SoundServer::Find("PlayerWalk"), DX_PLAYTYPE_BACK);
 			}
 		}
-		else if (speed > 0.9) {
+		else if (speed > 2.5) {
 			if (_game.GetFrameCount() % 15 == 0) {
 				PlaySoundMem(SoundServer::Find("PlayerRun"), DX_PLAYTYPE_BACK);
 			}
