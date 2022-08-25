@@ -144,9 +144,9 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blind
 
 	auto bigservers = _mapChips->GetBigServerData();
 	auto signal = std::make_unique<SignalGenerator>();
-
+	int i = 0;
 	for (auto abigserver : bigservers) {
-		int i = 0;
+
 		auto bigserver = std::make_unique<BigGenerator>(_game, *this, abigserver, SignalGenerator::GetSignal(i));
 		_actorServer.Add(std::move(bigserver));
 		++i;

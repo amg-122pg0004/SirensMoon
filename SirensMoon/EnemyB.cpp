@@ -41,6 +41,6 @@ void EnemyB::Update(){
 	Enemy::Update();
 }
 
-void EnemyB::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
-	Enemy::Debug(stageNum, window_pos, camera_pos);
+void EnemyB::Debug(Vector2 window_pos, Vector2 camera_pos) {
+	Enemy::Debug(window_pos, camera_pos);
 }

@@ -257,8 +257,8 @@ void Enemy::UpdateCollision() {
 	_collision.max = { _pos.x + _size.x / 2 - 70,_pos.y + _size.y / 2 - 30 };
 }
 
-void Enemy::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
-	_collision.Draw2(stageNum, window_pos, camera_pos);
+void Enemy::Debug(Vector2 window_pos, Vector2 camera_pos) {
+	_collision.Draw2(window_pos, camera_pos);
 	DrawBox(static_cast<int>((_collision.min.x + _collision.max.x) / 2.0 + window_pos.x - camera_pos.x),
 		static_cast<int>((_collision.min.y + _collision.max.y) / 2.0 + window_pos.y - camera_pos.y),
 		static_cast<int>((_collision.min.x + _collision.max.x) / 2.0 + window_pos.x - camera_pos.x + 1),

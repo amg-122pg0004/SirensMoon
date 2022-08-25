@@ -13,7 +13,7 @@ FloorLamp::FloorLamp(Game& game, ModeGame& mode, int ID, SquareLight::SquareLigh
 	mode.GetActorServer().Add(std::move(light));
 }
 
-void FloorLamp::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
+void FloorLamp::Debug(Vector2 window_pos, Vector2 camera_pos){
 	DrawBox(static_cast<int>(_pos.x + _size.x / 2 - 5 + window_pos.x - camera_pos.x),
 		static_cast<int>(_pos.y+_size.y/2 - 5 +window_pos.y-camera_pos.y),
 		static_cast<int>(_pos.x+_size.x/2 + 5 + window_pos.x - camera_pos.x),

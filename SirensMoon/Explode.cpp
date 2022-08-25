@@ -41,6 +41,6 @@ void Explode::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 
 }
 
-void Explode::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
-	_collision.Draw2(stageNum, window_pos, camera_pos);
+void Explode::Debug(Vector2 window_pos, Vector2 camera_pos){
+	_collision.Draw2(window_pos, camera_pos);
 }

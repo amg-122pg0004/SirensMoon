@@ -58,7 +58,7 @@ void Switch::LinkGimmickActivate(bool flag) {
 	}
 }
 
-void Switch::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
-	_collision.Draw2(stageNum, window_pos, camera_pos);
-	_accessArea.Draw2(stageNum, window_pos, camera_pos);
+void Switch::Debug(Vector2 window_pos, Vector2 camera_pos){
+	_collision.Draw2(window_pos, camera_pos);
+	_accessArea.Draw2(window_pos, camera_pos);
 }

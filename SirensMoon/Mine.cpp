@@ -70,6 +70,6 @@ void Mine::StandardRender(Vector2 window_pos, Vector2 camera_pos){
 	
 }
 
-void Mine::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
-	_detectionArea.Draw2(stageNum, window_pos, camera_pos);
+void Mine::Debug(Vector2 window_pos, Vector2 camera_pos) {
+	_detectionArea.Draw2(window_pos, camera_pos);
 }

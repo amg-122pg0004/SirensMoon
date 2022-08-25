@@ -10,6 +10,7 @@ public:
 	void Update()override;
 	void StandardRender(Vector2 window_pos, Vector2 camera_pos);
 	bool GetSignalActive() { return _active; };
+	void Debug(Vector2 window_pos, Vector2 camera_pos)override;
 
 private:
 	bool _active;//<発光するタイミング

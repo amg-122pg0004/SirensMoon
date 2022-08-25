@@ -8,7 +8,7 @@ public:
 	Type GetType()override { return Type::Gimmick; }
 	GimmickType GetGimmickType() override { return GimmickType::FloorLamp; }
 
-	void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;
+	void Debug(Vector2 window_pos, Vector2 camera_pos)override;
 
 
 };

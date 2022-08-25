@@ -101,6 +101,6 @@ void EnemyA::GetNextPoints() {
 	}
 }
 
-void EnemyA::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
-	Enemy::Debug(stageNum,window_pos,camera_pos);
+void EnemyA::Debug(Vector2 window_pos, Vector2 camera_pos){
+	Enemy::Debug(window_pos,camera_pos);
 }

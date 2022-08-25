@@ -24,7 +24,7 @@ public:
 	 * \param blueÅ@RGBÇÃB
 	 */
 	void Draw(int red, int green, int blue) const;
-	void Draw2(int stageNum, Vector2 window_pos, Vector2 camera_pos) const;
+	void Draw2(Vector2 window_pos, Vector2 camera_pos) const;
 };
 
 /**

@@ -4,7 +4,8 @@
 SignalLight::SignalLight(Game& game, ModeGame& mode, Actor& owner)
 	:LightBase(game,mode,owner)
 {
-
+	_cg = ImageServer::LoadGraph("resource/Light/Light_5.png");
+	_pos = _owner.GetPosition();
 }
 
 void SignalLight::Update(){

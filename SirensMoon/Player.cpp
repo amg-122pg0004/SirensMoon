@@ -401,10 +401,10 @@ void Player::Checkteleport() {
 	}
 }
 
-void Player::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
+void Player::Debug(Vector2 window_pos, Vector2 camera_pos){
 	//デバッグ用座標表示
 
-	_collision.Draw2(stageNum, window_pos, camera_pos);
+	_collision.Draw2(window_pos, camera_pos);
 	std::stringstream ss;
 	ss << "HP" << _hp << "\n";
 	if (_playerNum == 0) {

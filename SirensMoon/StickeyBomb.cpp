@@ -92,12 +92,12 @@ void StickyBomb::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 	}
 }
 
-void StickyBomb::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
+void StickyBomb::Debug(Vector2 window_pos, Vector2 camera_pos){
 	if (!_activate) {
-		_detectionArea.Draw2(stageNum, window_pos, camera_pos);
+		_detectionArea.Draw2(window_pos, camera_pos);
 	}
 	else {
-		_accessArea.Draw2(stageNum, window_pos, camera_pos);
+		_accessArea.Draw2(window_pos, camera_pos);
 	}
 
 }

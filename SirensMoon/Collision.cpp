@@ -36,7 +36,7 @@ void AABB::Draw(int red, int green, int blue) const {
         GetColor(red, green, blue), FALSE);
 }
 
-void AABB::Draw2(int stageNum, Vector2 window_pos, Vector2 camera_pos) const {
+void AABB::Draw2(Vector2 window_pos, Vector2 camera_pos) const {
     DrawBox(static_cast<int>(min.x+ window_pos.x - camera_pos.x),
         static_cast<int>(min.y + window_pos.y - camera_pos.y),
         static_cast<int>(max.x + window_pos.x - camera_pos.x),

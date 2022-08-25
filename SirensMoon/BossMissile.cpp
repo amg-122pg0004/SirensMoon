@@ -111,7 +111,7 @@ void BossMissile::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 		_cg,1,0);
 }
 
-void BossMissile::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
+void BossMissile::Debug(Vector2 window_pos, Vector2 camera_pos){
 	DrawLine(static_cast<int>(_pos.x), static_cast<int>(_pos.y),
 		static_cast<int>(_pos.x + GetForward().x * 100), static_cast<int>(_pos.y + GetForward().y * 100), GetColor(255, 0, 0), 1);
 	//_collision.Draw2(stageNum, window_pos, camera_pos);

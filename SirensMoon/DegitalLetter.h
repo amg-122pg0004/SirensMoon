@@ -10,7 +10,7 @@ public:
 	GimmickType GetGimmickType() override { return GimmickType::DegitalLetter; }
 	void Update()override;
 	void StandardRender(Vector2,Vector2)override;
-	void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos);
+	void Debug(Vector2 window_pos, Vector2 camera_pos);
 	bool GetAccessible1() { return _accessible1; }
 	bool GetAccessible2() { return _accessible2; }
 private:

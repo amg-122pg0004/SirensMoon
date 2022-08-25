@@ -6,7 +6,7 @@ public:
 	BossMissile(Game& game, ModeGame& mode, Vector2 pos);
 	void Update()override;
 	void StandardRender(Vector2 window_pos, Vector2 camera_pos)override;
-	void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos)override;
+	void Debug(Vector2 window_pos, Vector2 camera_pos)override;
 	Type GetType()override { return Type::BossMissile; }
 	bool CheckOverlapActor(Actor& actor);
 

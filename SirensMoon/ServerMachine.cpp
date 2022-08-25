@@ -156,9 +156,9 @@ void ServerMachine::DeadEnemyVIP() {
 	mode.StageClearCheck();
 }
 
-void ServerMachine::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
-	_collision.Draw2(stageNum, window_pos, camera_pos);
-	_accessArea.Draw2(stageNum,window_pos,camera_pos);
+void ServerMachine::Debug(Vector2 window_pos, Vector2 camera_pos){
+	_collision.Draw2(window_pos, camera_pos);
+	_accessArea.Draw2(window_pos,camera_pos);
 	
 	std::stringstream ss;
 	ss << "ƒGƒlƒ‹ƒM[" << _energy;

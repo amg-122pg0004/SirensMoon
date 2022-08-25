@@ -67,7 +67,7 @@ public:
 	void MoveToPlayer();
 	/*プレイヤーにダメージを与える*/
 	void ApplyDamage();
-	virtual void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos) override;
+	virtual void Debug(Vector2 window_pos, Vector2 camera_pos) override;
 
 	void UpdateCollision();
 	void AnimationUpdate();

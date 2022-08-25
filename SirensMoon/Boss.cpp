@@ -215,7 +215,7 @@ void Boss::HeadButt(){
 	}
 }
 
-void Boss::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
+void Boss::Debug(Vector2 window_pos, Vector2 camera_pos){
 
 	AABB col = _player1->GetCollision();
 	auto dir = (col.min + col.max) / 2 - _pos;
@@ -223,7 +223,7 @@ void Boss::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
 	DrawFormatString(static_cast<int>(_pos.x - camera_pos.x + window_pos.y),
 		static_cast<int>(_pos.y - camera_pos.y + window_pos.y),
 		GetColor(255, 0, 0), "%d", dir.Length());
-	_hitbox.Draw2(stageNum, window_pos, camera_pos);
+	_hitbox.Draw2(window_pos, camera_pos);
 
 }
 

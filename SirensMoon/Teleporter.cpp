@@ -24,8 +24,8 @@ void teleporterIn::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 	);
 }
 
-void teleporterIn::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos) {
-	_collision.Draw2(stageNum, window_pos, camera_pos);
+void teleporterIn::Debug(Vector2 window_pos, Vector2 camera_pos) {
+	_collision.Draw2(window_pos, camera_pos);
 }
 
 

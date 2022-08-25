@@ -9,7 +9,7 @@ public:
 
 	Type GetType()override { return Type::Enemy; }
 
-	void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos);
+	void Debug(Vector2 window_pos, Vector2 camera_pos);
 private:
 	
 	/*Œü‚¢‚Ä‚¢‚é•ûŒü‚ğ¦‚·”z—ñ”Ô†*/

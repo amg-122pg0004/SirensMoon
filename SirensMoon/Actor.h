@@ -47,7 +47,7 @@ class Actor{
 		virtual void Update();
 		virtual void StandardRender(Vector2 window_pos, Vector2 camera_pos);
 		virtual void BackRender(Vector2 window_pos, Vector2 camera_pos);
-		virtual void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos);
+		virtual void Debug(Vector2 window_pos, Vector2 camera_pos);
 		virtual void CheckDeadOwner();
 		virtual Vector2 CheckRoomPosition();
 
