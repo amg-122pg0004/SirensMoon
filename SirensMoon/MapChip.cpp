@@ -311,6 +311,10 @@ void MapChips::LoadTilesets(picojson::object jsRoot,std::string folderpath) {
 					auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
 					_gidDegitalLetter.push_back(id);
 				}
+				if ((*i).get<picojson::object>()["class"].get<std::string>() == "BigServer") {
+					auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
+					_gidBigServer.push_back(id);
+				}
 			}
 			// チップコリジョンデータ読み込み
 			if ((*i).get<picojson::object>()["class"].get<std::string>() == "BackGround") {
@@ -796,6 +800,15 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 						}
 					}
 					_stickyBombDataList.push_back(data);
+				}
+			}
+			for (auto gid : _gidBigServer) {
+				if (gid == static_cast<int>(aObjects[i].get<picojson::object>()["gid"].get<double>())) {
+					St::BigServerData data{ -1,{0,0} };
+					auto id = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
+					data.pos.x = static_cast<int>(aObjects[i].get<picojson::object>()["x"].get<double>());
+					data.pos.y = static_cast<int>(aObjects[i].get<picojson::object>()["y"].get<double>()) - _chipSize_H;
+					_bigServerDataList.push_back(data);
 				}
 			}
 			for (auto gid : _gidMine) {

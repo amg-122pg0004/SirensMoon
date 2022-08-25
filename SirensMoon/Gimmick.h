@@ -16,7 +16,9 @@ public:
 		TNT,
 		StickyBomb,
 		BreakableObject,
-		DegitalLetter
+		DegitalLetter,
+		BigServer,
+		BigGenerator
 	};
 	virtual GimmickType GetGimmickType() = 0;
 

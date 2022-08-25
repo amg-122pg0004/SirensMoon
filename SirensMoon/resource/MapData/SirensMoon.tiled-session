@@ -168,14 +168,14 @@
         },
         "Stage3.tmx": {
             "expandedObjectLayers": [
-                4,
-                12
+                12,
+                4
             ],
-            "scale": 0.125,
+            "scale": 0.75,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 2276,
-                "y": 2020
+                "x": 2908,
+                "y": 3739.333333333333
             }
         },
         "Stage3.tmx#tile_icon": {

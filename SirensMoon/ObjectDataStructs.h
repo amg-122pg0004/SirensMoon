@@ -93,4 +93,9 @@ public:
 		Vector2 pos;
 		std::string message;
 	};
+
+	struct BigServerData {
+		int ID;
+		Vector2 pos;
+	};
 };

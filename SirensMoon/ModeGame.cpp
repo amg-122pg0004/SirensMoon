@@ -26,6 +26,9 @@
 #include "BreakableObject.h"
 #include "Boss.h"
 #include "DegitalLetter.h"
+#include "BigServer.h"
+#include "BigGenerator.h"
+#include "SignalGenerator.h"
 
 ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blindFlag{false},_makedNextMode{false}
 {
@@ -137,6 +140,16 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blind
 	for (auto adedital : degitaldata) {
 		auto degital = std::make_unique<DegitalLetter>(_game, *this, adedital);
 		_actorServer.Add(std::move(degital));
+	}
+
+	auto bigservers = _mapChips->GetBigServerData();
+	auto signal = std::make_unique<SignalGenerator>();
+
+	for (auto abigserver : bigservers) {
+		int i = 0;
+		auto bigserver = std::make_unique<BigGenerator>(_game, *this, abigserver, SignalGenerator::GetSignal(i));
+		_actorServer.Add(std::move(bigserver));
+		++i;
 	}
 
 	/*É{ÉXê∂ê¨*/

@@ -31,7 +31,8 @@ public:
 		FoundUI,
 		ButtonIcon,
 		ObjectiveUI,
-		MessageWindow
+		MessageWindow,
+		BigServerUI
 	};
 	virtual Type GetType() = 0;
 	virtual void DamageEvent();

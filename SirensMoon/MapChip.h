@@ -50,6 +50,7 @@ public:
 	std::vector<St::StickyBombData> GetStikyBombData() { return _stickyBombDataList; }
 	std::vector<St::BreakableObjectData> GetBreakableObjectData() { return _breakableObjectData; }
 	std::vector<St::DegitalLetterData> GetDegitalLetterData() { return _deditalLetterData; }
+	std::vector<St::BigServerData> GetBigServerData() { return _bigServerDataList; }
 	St::EnemyPatrol FindPatrol(int id);
 	std::vector<int> CheckHitChipNo(int x, int y, bool backlayer);
 
@@ -63,7 +64,6 @@ public:
 	bool IsHit(AABB col,bool backlayer);
 	bool IsHitBarrier(AABB col, int playerno);
 	bool IsHit(std::set<std::pair<int, int>>);
-
 
 private:
 	bool LoadMap(std::string folderpath, std::string filename);
@@ -140,6 +140,8 @@ private:
 	std::vector<St::BreakableObjectData> _breakableObjectData;
 	/*DegitalLetterデータ*/
 	std::vector<St::DegitalLetterData> _deditalLetterData;
+	/*BigServerDataデータ*/
+	std::vector<St::BigServerData> _bigServerDataList;
 	
 	/*マップチップのグラフィックハンドル用コンテナ*/
 	/*[タイル用画像の枚数分][画像を分割した際のチップ画像の数]*/
@@ -172,4 +174,5 @@ private:
 	std::vector<int> _gidStickyBomb;
 	std::vector<int> _gidBreakableObject;
 	std::vector<int> _gidDegitalLetter;
+	std::vector<int> _gidBigServer;
 };

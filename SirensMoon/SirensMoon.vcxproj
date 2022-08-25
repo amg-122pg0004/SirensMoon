@@ -151,6 +151,7 @@
     <ClCompile Include="BigGenerator.cpp" />
     <ClCompile Include="BigGun.cpp" />
     <ClCompile Include="BigServer.cpp" />
+    <ClCompile Include="BigServerUI.cpp" />
     <ClCompile Include="BlinkLight.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="BossCanon.cpp" />
@@ -212,6 +213,8 @@
     <ClCompile Include="RedBullet.cpp" />
     <ClCompile Include="ServerMachine.cpp" />
     <ClCompile Include="ServerMachineUI.cpp" />
+    <ClCompile Include="SignalGenerator.cpp" />
+    <ClCompile Include="SignalLight.cpp" />
     <ClCompile Include="SoundServer.cpp" />
     <ClCompile Include="SplitWindow.cpp" />
     <ClCompile Include="SquareLight.cpp" />
@@ -229,6 +232,7 @@
     <ClInclude Include="BigGenerator.h" />
     <ClInclude Include="BigGun.h" />
     <ClInclude Include="BigServer.h" />
+    <ClInclude Include="BigServerUI.h" />
     <ClInclude Include="ButtonIcon.h" />
     <ClInclude Include="Actor.h" />
     <ClInclude Include="ActorServer.h" />
@@ -294,6 +298,8 @@
     <ClInclude Include="RedBullet.h" />
     <ClInclude Include="ServerMachine.h" />
     <ClInclude Include="ServerMachineUI.h" />
+    <ClInclude Include="SignalGenerator.h" />
+    <ClInclude Include="SignalLight.h" />
     <ClInclude Include="SoundServer.h" />
     <ClInclude Include="SplitWindow.h" />
     <ClInclude Include="StickeyBomb.h" />

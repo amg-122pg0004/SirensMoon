@@ -247,6 +247,15 @@
     <Filter Include="Actor\Gimmick\BigServer">
       <UniqueIdentifier>{3717f5cd-b034-4e2a-af43-70b1675035bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Light\SignalLight">
+      <UniqueIdentifier>{69eddd48-1d71-45c0-b1d8-f2f177efbc23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utillity\SignalGenerator">
+      <UniqueIdentifier>{3289acb1-9728-4af8-bf10-835b56e55eea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\BigServerUI">
+      <UniqueIdentifier>{1219c36b-1b9a-4fad-9e3e-6b2114b2877c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -486,6 +495,15 @@
     <ClCompile Include="BigServer.cpp">
       <Filter>Actor\Gimmick\BigServer</Filter>
     </ClCompile>
+    <ClCompile Include="SignalLight.cpp">
+      <Filter>Actor\Light\SignalLight</Filter>
+    </ClCompile>
+    <ClCompile Include="SignalGenerator.cpp">
+      <Filter>Utillity\SignalGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="BigServerUI.cpp">
+      <Filter>UI\BigServerUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -724,6 +742,15 @@
     </ClInclude>
     <ClInclude Include="BigServer.h">
       <Filter>Actor\Gimmick\BigServer</Filter>
+    </ClInclude>
+    <ClInclude Include="SignalLight.h">
+      <Filter>Actor\Light\SignalLight</Filter>
+    </ClInclude>
+    <ClInclude Include="SignalGenerator.h">
+      <Filter>Utillity\SignalGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="BigServerUI.h">
+      <Filter>UI\BigServerUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
