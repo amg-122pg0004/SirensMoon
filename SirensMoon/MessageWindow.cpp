@@ -59,7 +59,7 @@ void MessageWindow::Render()
 {
 	if (!_message.empty()) {
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, _alpha);
-		DrawGraph(_pos.x,_pos.y,_cg,0);
+		DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), _cg, 0);
 
 		std::stringstream ss;
 		ss << _message;

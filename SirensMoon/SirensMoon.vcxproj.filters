@@ -250,11 +250,11 @@
     <Filter Include="Actor\Light\SignalLight">
       <UniqueIdentifier>{69eddd48-1d71-45c0-b1d8-f2f177efbc23}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Utillity\SignalGenerator">
-      <UniqueIdentifier>{3289acb1-9728-4af8-bf10-835b56e55eea}</UniqueIdentifier>
-    </Filter>
     <Filter Include="UI\BigServerUI">
       <UniqueIdentifier>{1219c36b-1b9a-4fad-9e3e-6b2114b2877c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utillity\BossGimmickController">
+      <UniqueIdentifier>{3289acb1-9728-4af8-bf10-835b56e55eea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -498,8 +498,8 @@
     <ClCompile Include="SignalLight.cpp">
       <Filter>Actor\Light\SignalLight</Filter>
     </ClCompile>
-    <ClCompile Include="SignalGenerator.cpp">
-      <Filter>Utillity\SignalGenerator</Filter>
+    <ClCompile Include="BossGimmickController.cpp">
+      <Filter>Utillity\BossGimmickController</Filter>
     </ClCompile>
     <ClCompile Include="BigServerUI.cpp">
       <Filter>UI\BigServerUI</Filter>
@@ -746,8 +746,8 @@
     <ClInclude Include="SignalLight.h">
       <Filter>Actor\Light\SignalLight</Filter>
     </ClInclude>
-    <ClInclude Include="SignalGenerator.h">
-      <Filter>Utillity\SignalGenerator</Filter>
+    <ClInclude Include="BossGimmickController.h">
+      <Filter>Utillity\BossGimmickController</Filter>
     </ClInclude>
     <ClInclude Include="BigServerUI.h">
       <Filter>UI\BigServerUI</Filter>

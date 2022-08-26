@@ -97,5 +97,6 @@ public:
 	struct BigServerData {
 		int ID;
 		Vector2 pos;
+		std::string Direction;
 	};
 };

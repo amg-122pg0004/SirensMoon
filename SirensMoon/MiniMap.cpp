@@ -110,19 +110,19 @@ void MiniMap::Render() {
 				SetDrawBlendMode(DX_BLENDMODE_ALPHA,100);
 
 
-				DrawTriangleAA(static_cast<int>(eyepos.pos1.x * scale + pos.x),
-					static_cast<int>(eyepos.pos1.y * scaley + pos.y),
-					static_cast<int>(eyepos.pos2.x * scale + pos.x),
-					static_cast<int>(eyepos.pos2.y * scaley + pos.y),
-					static_cast<int>(eyepos.pos3.x * scale + pos.x),
-					static_cast<int>(eyepos.pos3.y * scaley + pos.y),
+				DrawTriangleAA(static_cast<float>(eyepos.pos1.x * scale + pos.x),
+					static_cast<float>(eyepos.pos1.y * scaley + pos.y),
+					static_cast<float>(eyepos.pos2.x * scale + pos.x),
+					static_cast<float>(eyepos.pos2.y * scaley + pos.y),
+					static_cast<float>(eyepos.pos3.x * scale + pos.x),
+					static_cast<float>(eyepos.pos3.y * scaley + pos.y),
 					GetColor(255, 0, 255), 1);
-				DrawTriangleAA(static_cast<int>(eyepos.pos2.x * scale + pos.x),
-					static_cast<int>(eyepos.pos2.y * scaley + pos.y),
-					static_cast<int>(eyepos.pos3.x * scale + pos.x),
-					static_cast<int>(eyepos.pos3.y * scaley + pos.y),
-					static_cast<int>(eyepos.pos4.x * scale + pos.x),
-					static_cast<int>(eyepos.pos4.y * scaley + pos.y),
+				DrawTriangleAA(static_cast<float>(eyepos.pos2.x * scale + pos.x),
+					static_cast<float>(eyepos.pos2.y * scaley + pos.y),
+					static_cast<float>(eyepos.pos3.x * scale + pos.x),
+					static_cast<float>(eyepos.pos3.y * scaley + pos.y),
+					static_cast<float>(eyepos.pos4.x * scale + pos.x),
+					static_cast<float>(eyepos.pos4.y * scaley + pos.y),
 					GetColor(255, 0, 255), 1);
 				
 				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);

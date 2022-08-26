@@ -9,7 +9,7 @@ FX_Chargenow::FX_Chargenow(Game& game, ModeGame& mode, const Vector2& pos, int s
 	ImageServer::LoadDivGraph("resource/Effect/chargenow.png", 60, 8, 8, 512, 512, _cg.data());
 
 	_zoom = 0.3;
-	_lifeTime = 60 * 2.0;
+	_lifeTime = static_cast<int>(60 * 2.0);
 	_blendMode = DX_BLENDMODE_ALPHA;
 	_loop = true;
 
@@ -47,7 +47,7 @@ void FX_Chargenow::Update() {
 		break;
 	}
 	Effect::Update();
-	_renderPriority = _pos.y + 60;
+	_renderPriority = static_cast<int>(_pos.y + 60);
 	if (_owner.GetCharge() == 0) {
 		_dead = true;
 	}

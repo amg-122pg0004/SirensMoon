@@ -28,7 +28,6 @@
 #include "DegitalLetter.h"
 #include "BigServer.h"
 #include "BigGenerator.h"
-#include "SignalGenerator.h"
 
 ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blindFlag{false},_makedNextMode{false}
 {
@@ -143,14 +142,14 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blind
 	}
 
 	auto bigservers = _mapChips->GetBigServerData();
-	auto signal = std::make_unique<SignalGenerator>();
+	//auto signal = std::make_unique<SignalGenerator>();
 	int i = 0;
-	for (auto abigserver : bigservers) {
+	/*for (auto abigserver : bigservers) {
 
 		auto bigserver = std::make_unique<BigGenerator>(_game, *this, abigserver, SignalGenerator::GetSignal(i));
 		_actorServer.Add(std::move(bigserver));
 		++i;
-	}
+	}*/
 
 	/*É{ÉXê∂ê¨*/
 	_actorServer.Add(std::make_unique<Boss>(_game, *this));

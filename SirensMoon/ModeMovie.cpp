@@ -24,7 +24,8 @@ void ModeMovie::Update() {
 void ModeMovie::Render() {
 	auto scale = static_cast<double>(_sizeY) / static_cast<double>(_sizeX);
 	DrawExtendGraph(0, static_cast<int>((screen_H-(_sizeY * scale))/2), screen_W / 2, static_cast<int>((screen_H - (_sizeY * scale)) / 2+(_sizeY*scale)), _movieHandle, 0);
-	DrawExtendGraph(screen_W/2, (screen_H - (_sizeY * scale)) / 2,screen_W, (screen_H - (_sizeY * scale)) / 2 + (_sizeY * scale), _movieHandle, 0);
+	DrawExtendGraph(screen_W/2,static_cast<int>( (screen_H - (_sizeY * scale)) / 2),
+		screen_W,static_cast<int>( (screen_H - (_sizeY * scale)) / 2 + (_sizeY * scale)), _movieHandle, 0);
 }
 
 void ModeMovie::Debug() {

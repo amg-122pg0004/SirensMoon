@@ -27,7 +27,7 @@ Effect::Effect(Game& game, ModeGame& mode, const Vector2& pos, int startTime)
 }
 // çXêV
 void Effect::Update() {
-    _renderPriority = _pos.y;
+    _renderPriority = static_cast<int>(_pos.y);
     if (!_active) {
         _dead = true;
         return;

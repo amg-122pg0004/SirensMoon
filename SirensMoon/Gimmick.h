@@ -18,7 +18,8 @@ public:
 		BreakableObject,
 		DegitalLetter,
 		BigServer,
-		BigGenerator
+		BigGenerator,
+		BigGun
 	};
 	virtual GimmickType GetGimmickType() = 0;
 

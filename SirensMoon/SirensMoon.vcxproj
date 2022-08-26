@@ -213,7 +213,7 @@
     <ClCompile Include="RedBullet.cpp" />
     <ClCompile Include="ServerMachine.cpp" />
     <ClCompile Include="ServerMachineUI.cpp" />
-    <ClCompile Include="SignalGenerator.cpp" />
+    <ClCompile Include="BossGimmickController.cpp" />
     <ClCompile Include="SignalLight.cpp" />
     <ClCompile Include="SoundServer.cpp" />
     <ClCompile Include="SplitWindow.cpp" />
@@ -298,7 +298,7 @@
     <ClInclude Include="RedBullet.h" />
     <ClInclude Include="ServerMachine.h" />
     <ClInclude Include="ServerMachineUI.h" />
-    <ClInclude Include="SignalGenerator.h" />
+    <ClInclude Include="BossGimmickController.h" />
     <ClInclude Include="SignalLight.h" />
     <ClInclude Include="SoundServer.h" />
     <ClInclude Include="SplitWindow.h" />

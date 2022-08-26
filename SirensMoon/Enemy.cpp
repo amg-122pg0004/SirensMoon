@@ -52,7 +52,7 @@ void Enemy::Update() {
 	}
 	AnimationUpdate();
 	UpdateCollision();
-	_renderPriority = _collision.max.y;
+	_renderPriority = static_cast<int>(_collision.max.y);
 }
 
 void Enemy::AnimationUpdate() {

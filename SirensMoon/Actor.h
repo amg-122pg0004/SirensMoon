@@ -60,6 +60,8 @@ class Actor{
 
 		int GetRenderPriority() { return _renderPriority; }
 
+
+
 	protected:
 		/*関数アクセス用の参照*/
 		Game& _game;
