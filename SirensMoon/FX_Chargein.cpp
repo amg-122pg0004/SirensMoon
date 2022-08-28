@@ -34,7 +34,7 @@ void FX_Chargein::Update() {
 
 	}
 	Effect::Update();
-	_renderPriority = _pos.y+60;
+	_renderPriority = static_cast<int>(_pos.y + 60);
 	if (_owner.GetCharge() == 0 ) {
 		_dead = true;
 	}
@@ -43,5 +43,4 @@ void FX_Chargein::Update() {
 void FX_Chargein::Easing(int elapsed) {
 	auto linear = Easing::GetMode("Linear");
 	_animNo = linear(elapsed, 0, static_cast<int>(_cg.size()), _lifeTime);
-
 }

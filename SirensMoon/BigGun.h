@@ -7,7 +7,7 @@ class ModeGame;
 
 class BigGun :public Gimmick{
 public:
-	BigGun(Game& game, ModeGame& mode, ObjectDataStructs::BigServerData data, std::vector<bool> signal);
+	BigGun(Game& game, ModeGame& mode, ObjectDataStructs::BigGunData data);
 	Type GetType() { return Type::Gimmick; }
 	GimmickType GetGimmickType() { return GimmickType::BigGun; }
 

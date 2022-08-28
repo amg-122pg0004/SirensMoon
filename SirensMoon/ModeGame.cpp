@@ -25,6 +25,10 @@
 #include "StickeyBomb.h"
 #include "BreakableObject.h"
 #include "DegitalLetter.h"
+#include "BossGimmickController.h"
+#include "BigGun.h"
+#include "BigGenerator.h"
+#include "BigServer.h"
 
 ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blindFlag{false},_makedNextMode{false}
 {
@@ -138,6 +142,27 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blind
 		_actorServer.Add(std::move(degital));
 	}
 
+	auto v_BigGen = _mapChips->GetBigGeneratorData();
+	for (auto BigGen : v_BigGen) {
+		auto biggen = std::make_unique<BigGenerator>(_game, *this, BigGen);
+		_actorServer.Add(std::move(biggen));
+	}
+	auto v_BigServer = _mapChips->GetBigServerData();
+	for (auto a_BigServer : v_BigServer) {
+		auto bigserver = std::make_unique<BigServer>(_game, *this, a_BigServer);
+		_actorServer.Add(std::move(bigserver));
+	}
+	auto v_BigGun= _mapChips->GetBigGunDataList();
+	for (auto a_BigGun : v_BigGun) {
+		auto biggun= std::make_unique<BigGun>(_game, *this, a_BigGun);
+		_actorServer.Add(std::move(biggun));
+	}
+
+	auto bossspawndata = _mapChips->GetBossGimmickControllerDataList();
+	for (auto aspawn : bossspawndata) {
+		auto bosscon = std::make_unique<BossGimmickController>(_game, *this, aspawn);
+		_actorServer.Add(std::move(bosscon));
+	}
 
 
 

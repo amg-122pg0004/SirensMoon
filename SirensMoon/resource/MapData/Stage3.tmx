@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="128" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="21" nextobjectid="954">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="128" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="21" nextobjectid="961">
  <editorsettings>
   <export target="Stage1.json" format="json"/>
  </editorsettings>
@@ -2024,6 +2024,8 @@
   <tile id="6" class="TNT"/>
   <tile id="8" class="BreakableObject"/>
   <tile id="10" class="BigServer"/>
+  <tile id="11" class="BossTrigger"/>
+  <tile id="12" class="BigGenerator"/>
  </tileset>
  <layer id="1" name="tile_Layer1" width="128" height="144">
   <data encoding="csv">
@@ -2324,10 +2326,13 @@
  <objectgroup id="3" name="Enemy" locked="1"/>
  <objectgroup id="10" name="Server" locked="1"/>
  <objectgroup id="13" name="Gimmick">
-  <object id="949" gid="495" x="3600" y="3600" width="30" height="30"/>
-  <object id="950" gid="495" x="3600" y="3990" width="30" height="30"/>
-  <object id="951" gid="495" x="2910" y="3990" width="30" height="30"/>
-  <object id="952" gid="495" x="2910" y="3540" width="30" height="30"/>
+  <object id="954" gid="496" x="390" y="690" width="30" height="30"/>
+  <object id="955" gid="495" x="750" y="780" width="30" height="30"/>
+  <object id="956" gid="495" x="120" y="870" width="30" height="30"/>
+  <object id="957" gid="497" x="2940" y="3570" width="30" height="30"/>
+  <object id="958" gid="497" x="2940" y="4020" width="30" height="30"/>
+  <object id="959" gid="497" x="3660" y="4020" width="30" height="30"/>
+  <object id="960" gid="497" x="3660" y="3570" width="30" height="30"/>
  </objectgroup>
  <objectgroup id="4" name="Player">
   <object id="332" gid="5" x="700" y="1434" width="30" height="30">

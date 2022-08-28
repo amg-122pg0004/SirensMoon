@@ -3,7 +3,7 @@
 #include "ModeGame.h"
 #include <sstream>
 
-BigGenerator::BigGenerator(Game& game, ModeGame& mode, ObjectDataStructs::BigServerData data)
+BigGenerator::BigGenerator(Game& game, ModeGame& mode, ObjectDataStructs::BigGeneratorData data)
 	:Gimmick(game,mode,data.ID),_span{20},_elapsed{0},_active{false},_index{0},_pattern{-1},_signal{false}
 {
 	_pos = data.pos;

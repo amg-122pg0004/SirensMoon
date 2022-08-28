@@ -37,7 +37,8 @@ class Actor{
 			Boss,
 			BossCanon,
 			BossMissile,
-			DisplayArea
+			DisplayArea,
+			BossGimmickController
 		};
 		virtual Type GetType() = 0;
 

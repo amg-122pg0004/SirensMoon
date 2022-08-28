@@ -4,7 +4,7 @@
 
 class BigGenerator :public Gimmick {
 public:
-	BigGenerator(Game& game, ModeGame& mode, ObjectDataStructs::BigServerData data);
+	BigGenerator(Game& game, ModeGame& mode, ObjectDataStructs::BigGeneratorData data);
 	Type GetType()override { return Type::Gimmick; }
 	GimmickType GetGimmickType()override { return GimmickType::BigGenerator; }
 	void Update()override;

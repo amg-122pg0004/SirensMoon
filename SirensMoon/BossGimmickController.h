@@ -5,9 +5,10 @@
 
 class BossGimmickController:public Actor{
 public:
-	BossGimmickController(Game& game,ModeGame& mode, ObjectDataStructs::BossGimmickController data);
+	BossGimmickController(Game& game,ModeGame& mode, ObjectDataStructs::BossGimmickControllerData data);
 	std::vector<int> GetPattern() { return _pattern; }
 
+	Type GetType()override { return Type::BossGimmickController; }
 
 	void Update() override;
 

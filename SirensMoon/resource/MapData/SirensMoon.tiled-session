@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Stage1.tmx",
+    "activeFile": "Stage3.tmx",
     "expandedProjectPaths": [
         "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource"
     ],
@@ -164,14 +164,14 @@
         },
         "Stage1.tmx": {
             "expandedObjectLayers": [
-                2,
-                13
+                13,
+                2
             ],
             "scale": 1.5,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 352.3333333333333,
-                "y": 387.99999999999994
+                "x": 1919.6666666666665,
+                "y": 2159.6666666666665
             }
         },
         "Stage1.tmx#tile_icon": {
@@ -187,11 +187,11 @@
                 4,
                 12
             ],
-            "scale": 0.5,
+            "scale": 0.75,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 353,
-                "y": -866
+                "x": 500.6666666666666,
+                "y": 1044.6666666666665
             }
         },
         "Stage3.tmx#tile_icon": {
@@ -291,13 +291,13 @@
     "map.tileWidth": 30,
     "map.width": 96,
     "openFiles": [
-        "Stage1.tmx"
+        "Stage3.tmx"
     ],
     "project": "SirensMoon.tiled-project",
     "property.type": "int",
     "recentFiles": [
-        "Stage1.tmx",
         "Stage3.tmx",
+        "Stage1.tmx",
         "D:/doi/2022summer/x64/Debug/resource/MapData/Stage1.tmx",
         "D:/Users/syotaro/Documents/AMG/2022summer/x64/0.3.5/Debug/resource/TestMap_02.json",
         "D:/Users/syotaro/Documents/AMG/2022summer/x64/0.3.5/Debug/resource/TestMap_01.tmx",

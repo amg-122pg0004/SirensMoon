@@ -70,11 +70,7 @@ public:
 
 		void Debug(Vector2 window_pos, Vector2 camera_pos)override;
 
-
-
 	protected:
-
-
 
 		std::shared_ptr<InputManager> _inputManager;
 
@@ -109,5 +105,4 @@ public:
 
 		PlayerState _state;
 		PlayerDirection _direction;
-
 };

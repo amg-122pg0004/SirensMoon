@@ -22,6 +22,7 @@ Player::Player(Game& game,ModeGame& mode,int playernum)
 	:Actor{ game,mode }, _speed{ 0,0 }, _playerNum{playernum}
 	, _dir{0,0}, _lastDir{ 1,0 }, _hp{ 3 },_hpMAX{3}, _bullet{5}, _movable{1}, _charge{0}, _cooldown{0}
 	,_init{false},_state{PlayerState::Wait},_direction{PlayerDirection::Right},_animNo{0}, _invincibleTime{0}
+	,_stageMovable{true}
 {
 	_inputManager = _game.GetInputManager();
 	auto data = _mode.GetMapChips()->GetPlayerData(_playerNum);
@@ -33,7 +34,6 @@ Player::Player(Game& game,ModeGame& mode,int playernum)
 	_size = { 30,60 };
 	auto light = std::make_unique<LightBase>(_game, _mode, *this);
 	_mode.GetActorServer().Add(std::move(light));
-
 	auto gunlight = std::make_unique<ProjectionLight>(_game, _mode, *this);
 	_mode.GetActorServer().Add(std::move(gunlight));
 }
@@ -44,16 +44,13 @@ void Player::Init() {
 }
 
 void Player::Update() {
-
 	if (_init == false) {
 		Init();
 		_init = true;
 	}
-
 	/*アナログ入力取得*/
 	_dir = _inputManager->CheckAnalogInput(_playerNum);
 	_dir = _dir/1000;
-
 	if (_dir.Length() != 0) {
 		_lastDir = _dir;
 		//_lastDir.Normalize();
@@ -72,7 +69,6 @@ void Player::Update() {
 }
 
 void Player::PlayerOverlap() {
-
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::PlayerA && GetType() == Type::PlayerB || actor->GetType() == Type::PlayerB && GetType() == Type::PlayerA) {
 			if (Intersect(_collision, actor->GetCollision())) {
@@ -99,6 +95,7 @@ void Player::PlayerOverlap() {
 					dy = 0;
 				}
 				_pos.x += dx;
+				UpdateCollision();
 				/*衝突するなら動かない（元の位置に戻す）*/
 				if (_mode.GetMapChips()->IsHit(_collision,true) ||
 					_mode.GetMapChips()->IsHitBarrier(_collision, _playerNum) ||
@@ -124,7 +121,6 @@ void Player::Move() {
 	if (_dir.Length() > 1) {
 		_dir.Normalize();
 	}
-
 	if (_movable){
 		/*入力値によって加速*/
 		_speed += _dir * _accelerationRatio;
@@ -133,11 +129,7 @@ void Player::Move() {
 			_speed -= _dir * _accelerationRatio;
 		}
 	}
-
 	_speed *= _friction;
-
-
-	
 	/*障害物衝突処理*/
 	/*X方向*/
 	_pos.x += _speed.x;
@@ -261,18 +253,18 @@ void Player::ChangePosition(Vector2 pos) {
 void Player::UpdateCamera() {
 	/*フレームアウトした際にカメラを動かす処理*/
 	auto&& rendercamera = _mode.GetSplitWindow()[_playerNum]->GetCamera();
-	Vector2 renderposition = _pos - rendercamera->GetPosition();
+	Vector2 renderposition = (_collision.min + _collision.max)/2 - rendercamera->GetPosition();
 
-	if (renderposition.x < 0 && _dir.x < 0) {
+	if (renderposition.x < 0 && _speed.x < 0) {
 		rendercamera->ChangePosition(Camera::ChangeDir::LEFT);
 	}
-	else if (renderposition.x > static_cast<double>(screen_W) / 2 && _dir.x > 0) {
+	else if (renderposition.x > static_cast<double>(screen_W) / 2 && _speed.x > 0) {
 		rendercamera->ChangePosition(Camera::ChangeDir::RIGHT);
 	}
-	if (renderposition.y < 0 && _dir.y < 0) {
+	if (renderposition.y < 0 && _speed.y < 0) {
 		rendercamera->ChangePosition(Camera::ChangeDir::UP);
 	}
-	else if (renderposition.y > screen_H && _dir.y > 0) {
+	else if (renderposition.y > screen_H && _speed.y > 0) {
 		rendercamera->ChangePosition(Camera::ChangeDir::DOWN);
 	}
 }
@@ -294,9 +286,6 @@ void Player::PlayFootSteps() {
 }
 
 bool Player::IsHitActor() {
-
-
-
 	for (auto&& actor : _mode.GetActorServer().GetObjects()) {
 		//actor->GetType() == Type::Enemy || エネミーへの当たり判定削除
 		if ( actor->GetType() == Type::Server) {
@@ -317,7 +306,6 @@ bool Player::IsHitActor() {
 
 void Player::CheckDamage() {
 	--_invincibleTime;
-
 	if (_invincibleTime < 0) {
 		_invincibleTime = 0;
 	}
@@ -344,7 +332,6 @@ void Player::Action() {
 }
 
 void Player::StandardRender(Vector2 window_pos,Vector2 camera_pos){
-
 	std::vector<int> cg = _cg[{_state, _direction}];
 	if (_state == PlayerState::Set|| _state == PlayerState::Shoot) {
 		DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x - (_size.y/2)),
@@ -363,7 +350,6 @@ void Player::StandardRender(Vector2 window_pos,Vector2 camera_pos){
 				static_cast<int>(_pos.y + window_pos.y - camera_pos.y - (_size.y / 2)*0.6 + _size.y*1.5),
 				cg[_game.GetFrameCount() % cg.size()], 1);
 	}
-	
 }
 
 void Player::UpdateCollision() {
@@ -437,6 +423,7 @@ void Player::Debug(Vector2 window_pos, Vector2 camera_pos){
 
 	ss << "_collision.max.x" << _collision.max.x << "\n";
 	ss << "_collision.max.y" << _collision.max.y << "\n";
+
 	ss << "チャージ" << _charge << "\n";
 	ss << "方向" << _dir.x <<"  "<<_dir.y << "\n";
 	ss << "スピード" << _speed.Length() << "\n";

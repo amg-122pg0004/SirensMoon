@@ -9,8 +9,8 @@
 #include <random>
 #include <numeric>
 
-BossGimmickController::BossGimmickController(Game& game, ModeGame& mode, ObjectDataStructs::BossGimmickController data)
-	:Actor(game,mode), _gun { nullptr }, _index{0}
+BossGimmickController::BossGimmickController(Game& game, ModeGame& mode, ObjectDataStructs::BossGimmickControllerData data)
+	:Actor(game,mode), _gun { nullptr }, _index{0},_phase1{false}, _phase2{false}
 {
 	_pos = data.pos;
 	_size = { 100,100 };

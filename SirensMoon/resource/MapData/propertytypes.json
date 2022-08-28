@@ -42,10 +42,46 @@
     },
     {
         "color": "#ffa0a0a4",
+        "id": 30,
+        "members": [
+        ],
+        "name": "BigGenerator",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset"
+        ]
+    },
+    {
+        "color": "#ffa0a0a4",
         "id": 27,
         "members": [
         ],
         "name": "BigServer",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset"
+        ]
+    },
+    {
+        "color": "#ffa0a0a4",
+        "id": 29,
+        "members": [
+        ],
+        "name": "BossTrigger",
         "type": "class",
         "useAs": [
             "property",

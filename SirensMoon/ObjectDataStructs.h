@@ -92,7 +92,6 @@ public:
 		int ID;
 		Vector2 pos;
 		std::string message;
-		//std::wstring message;
 	};
 
 	struct BigServerData {
@@ -101,7 +100,17 @@ public:
 		std::string Direction;
 	};
 
-	struct BossGimmickController {
+	struct BigGeneratorData {
+		int ID;
+		Vector2 pos;
+	};
+
+	struct BigGunData {
+		int ID;
+		Vector2 pos;
+	};
+
+	struct BossGimmickControllerData {
 		int ID;
 		Vector2 pos;
 	};

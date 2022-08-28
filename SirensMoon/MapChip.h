@@ -51,6 +51,9 @@ public:
 	std::vector<St::BreakableObjectData> GetBreakableObjectData() { return _breakableObjectData; }
 	std::vector<St::DegitalLetterData> GetDegitalLetterData() { return _deditalLetterData; }
 	std::vector<St::BigServerData> GetBigServerData() { return _bigServerDataList; }
+	std::vector<St::BigGeneratorData> GetBigGeneratorData() { return _bigGeneratorDataList; }
+	std::vector<St::BossGimmickControllerData>GetBossGimmickControllerDataList() { return _bossGimmickControllerDataList; }
+	std::vector<St::BigGunData>GetBigGunDataList() { return _bigGunDataList; }
 	St::EnemyPatrol FindPatrol(int id);
 	std::vector<int> CheckHitChipNo(int x, int y, bool backlayer);
 
@@ -142,6 +145,13 @@ private:
 	std::vector<St::DegitalLetterData> _deditalLetterData;
 	/*BigServerDataデータ*/
 	std::vector<St::BigServerData> _bigServerDataList;
+	/*BigGeneratorDataデータ*/
+	std::vector<St::BigGeneratorData> _bigGeneratorDataList;
+	/*BossGimmickControllerDataデータ*/
+	std::vector<St::BossGimmickControllerData> _bossGimmickControllerDataList;
+	/*BossGimmickControllerDataデータ*/
+	std::vector<St::BigGunData> _bigGunDataList;
+
 	
 	/*マップチップのグラフィックハンドル用コンテナ*/
 	/*[タイル用画像の枚数分][画像を分割した際のチップ画像の数]*/
@@ -175,4 +185,7 @@ private:
 	std::vector<int> _gidBreakableObject;
 	std::vector<int> _gidDegitalLetter;
 	std::vector<int> _gidBigServer;
+	std::vector<int> _gidBigGenerator;
+	std::vector<int> _gidBigGun;
+	std::vector<int> _gidBossGimmickController;
 };
