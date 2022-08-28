@@ -24,6 +24,7 @@
 #include "ModeGameOver.h"
 #include "StickeyBomb.h"
 #include "BreakableObject.h"
+#include "DegitalLetter.h"
 
 ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blindFlag{false},_makedNextMode{false}
 {
@@ -136,16 +137,6 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blind
 		auto degital = std::make_unique<DegitalLetter>(_game, *this, adedital);
 		_actorServer.Add(std::move(degital));
 	}
-
-	auto bigservers = _mapChips->GetBigServerData();
-	//auto signal = std::make_unique<SignalGenerator>();
-	int i = 0;
-	/*for (auto abigserver : bigservers) {
-
-		auto bigserver = std::make_unique<BigGenerator>(_game, *this, abigserver, SignalGenerator::GetSignal(i));
-		_actorServer.Add(std::move(bigserver));
-		++i;
-	}*/
 
 
 

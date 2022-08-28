@@ -16,6 +16,7 @@ public:
 	void Debug(Vector2 window_pos, Vector2 camera_pos);
 
 private:
+	int _cg2,_cg3;
 	AABB _accessArea;
 	bool _accessible1;
 	bool _accessible2;

@@ -17,7 +17,7 @@ ModeStart::ModeStart(Game& game) :ModeBase(game),_select{0},_alpha{255}, _pos{ 4
 	_cg_credit.first = ImageServer::LoadGraph("resource/UI/Start/credit_passive.png");
 	_cg_credit.second = ImageServer::LoadGraph("resource/UI/Start/credit_active.png");
 	PlayMovieToGraph(_movieHandle);
-	SeekMovieToGraph(_movieHandle,120000);//<爆破シーンまでスキップ
+	//SeekMovieToGraph(_movieHandle,120000);//<爆破シーンまでスキップ
 }
 
 void ModeStart::Update() {

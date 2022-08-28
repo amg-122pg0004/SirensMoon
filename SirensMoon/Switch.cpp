@@ -2,7 +2,7 @@
 #include "ModeGame.h"
 
 Switch::Switch(Game& game, ModeGame& mode, ObjectDataStructs::SwitchData data)
-	:Gimmick(game, mode, data.ID), _linkGimmiks{ data.links }, _accessible1{0}, _accessible2{ 0 }
+	:Gimmick(game, mode, data.ID), _linkGimmiks{ data.links }, _accessible1{0}, _accessible2{ 0 },_cg3{-1}
 {
 	_pos = data.pos;
 	_size = { 60,60 };
@@ -11,7 +11,9 @@ Switch::Switch(Game& game, ModeGame& mode, ObjectDataStructs::SwitchData data)
 	Vector2 fix = { 10,10 };
 	_accessArea.min = _collision.min - fix;
 	_accessArea.max = _collision.max + fix;
-	_cg = ImageServer::LoadGraph("resource/Gimmick/switch.png");
+	_cg2 = ImageServer::LoadGraph("resource/Gimmick/switch.png");
+	_cg3 = ImageServer::LoadGraph("resource/Gimmick/switch2.png");
+	_cg = _cg3;
 }
 
 void Switch::Update() {
@@ -23,7 +25,6 @@ void Switch::Update() {
 			else {
 				_accessible1 = false;
 			}
-
 		}
 		if (actor->GetType() == Type::PlayerB) {
 			if (Intersect(_accessArea, dynamic_cast<Player&>(*actor).GetCollision())) {
@@ -37,16 +38,19 @@ void Switch::Update() {
 	if (_accessible1) {
 		if (_game.GetInputManager()->CheckInput("ACCESS", 'h', 0)) {
 			LinkGimmickActivate(true);
+			_cg = _cg2;
 			return;
 		}
 	}
 	if (_accessible2) {
 		if (_game.GetInputManager()->CheckInput("ACCESS", 'h', 1)) {
 			LinkGimmickActivate(true);
+			_cg = _cg2;
 			return;
 		}
 	}
 	LinkGimmickActivate(false);
+	_cg = _cg3;
 	return;
 }
 

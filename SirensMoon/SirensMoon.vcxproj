@@ -304,6 +304,7 @@
     <ClInclude Include="SplitWindow.h" />
     <ClInclude Include="StickeyBomb.h" />
     <ClInclude Include="StickyUI.h" />
+    <ClInclude Include="strconv\strconv.h" />
     <ClInclude Include="Switch.h" />
     <ClInclude Include="Teleporter.h" />
     <ClInclude Include="TileSetLoad.h" />

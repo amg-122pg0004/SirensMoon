@@ -1,5 +1,6 @@
 #pragma once
 #include "Actor.h"
+#include "ObjectDataStructs.h"
 #include <vector>
 
 class BossGimmickController:public Actor{

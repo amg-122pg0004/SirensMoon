@@ -6,6 +6,7 @@
 #include <memory>
 #include <fstream>
 #include <unordered_map>
+#include "strconv/strconv.h"
 
 MapChips::MapChips(Game& game, ModeBase& mode) :_game{ game }, _mode{mode}{
 	_mapTileData.clear();
@@ -775,7 +776,9 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 						auto properties = aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
 						for (int i = 0; i < properties.size(); ++i) {
 							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Message") {
-								data.message = properties[i].get<picojson::object>()["value"].get<std::string>();
+								std::string ss = properties[i].get<picojson::object>()["value"].get<std::string>();
+								std::wstring w_ss = utf8_to_wide(ss);
+								data.message = wide_to_sjis(w_ss);
 							}
 						}
 					}

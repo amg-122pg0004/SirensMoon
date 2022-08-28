@@ -35,7 +35,7 @@ BossGimmickController::BossGimmickController(Game& game, ModeGame& mode, ObjectD
 void BossGimmickController::Update() {
 	for (auto&& actor:_mode.GetObjects()) {
 		if (actor->GetType() == Type::PlayerA || actor->GetType() == Type::PlayerA) {
-			if(intersect)
+			//if(intersect)
 			BossSpawn();
 		}
 	}

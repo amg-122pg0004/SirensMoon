@@ -752,5 +752,8 @@
     <ClInclude Include="BigServerUI.h">
       <Filter>UI\BigServerUI</Filter>
     </ClInclude>
+    <ClInclude Include="strconv\strconv.h">
+      <Filter>picojson</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
