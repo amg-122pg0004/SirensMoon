@@ -30,10 +30,9 @@ class Camera {
 
 		void ChangePosition(ChangeDir direction);
 		void SetPosition(Vector2 playerpos);
-
 		
 #ifdef _DEBUG
-		void Render(int x,int y);//カメラの位置座標表示
+		//void Render(int x,int y);//カメラの位置座標表示
 #endif
 	private:
 		Game& _game;//<Game参照

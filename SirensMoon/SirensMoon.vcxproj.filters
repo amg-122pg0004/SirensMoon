@@ -253,7 +253,7 @@
     <Filter Include="UI\BigServerUI">
       <UniqueIdentifier>{1219c36b-1b9a-4fad-9e3e-6b2114b2877c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Utillity\BossGimmickController">
+    <Filter Include="Actor\BossGimmickController">
       <UniqueIdentifier>{3289acb1-9728-4af8-bf10-835b56e55eea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -499,7 +499,7 @@
       <Filter>Actor\Light\SignalLight</Filter>
     </ClCompile>
     <ClCompile Include="BossGimmickController.cpp">
-      <Filter>Utillity\BossGimmickController</Filter>
+      <Filter>Actor\BossGimmickController</Filter>
     </ClCompile>
     <ClCompile Include="BigServerUI.cpp">
       <Filter>UI\BigServerUI</Filter>
@@ -747,7 +747,7 @@
       <Filter>Actor\Light\SignalLight</Filter>
     </ClInclude>
     <ClInclude Include="BossGimmickController.h">
-      <Filter>Utillity\BossGimmickController</Filter>
+      <Filter>Actor\BossGimmickController</Filter>
     </ClInclude>
     <ClInclude Include="BigServerUI.h">
       <Filter>UI\BigServerUI</Filter>

@@ -99,4 +99,9 @@ public:
 		Vector2 pos;
 		std::string Direction;
 	};
+
+	struct BossGimmickController {
+		int ID;
+		Vector2 pos;
+	};
 };

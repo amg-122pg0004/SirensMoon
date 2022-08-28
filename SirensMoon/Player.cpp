@@ -176,23 +176,47 @@ void Player::Move() {
 	}
 	
 	/*ステージ外に出ないようにする処理*/
-	if (_pos.x < 0) {
-		_pos.x = 0;
-		_speed.x = 0;
+	/*画面遷移許可中*/
+	if (_stageMovable) {
+		if (_pos.x < 0) {
+			_pos.x = 0;
+			_speed.x = 0;
+		}
+		else if (static_cast<int>(_pos.x) + _size.x > splitscreen_W * 4) {
+			_pos.x = splitscreen_W * 4 - _size.x;
+			_speed.x = 0;
+		}
+
+		if (_pos.y < 0) {
+			_pos.y = 0;
+			_speed.y = 0;
+		}
+		else if (static_cast<int>(_pos.y) + _size.y > screen_H * 4) {
+			_pos.y = screen_H * 4 - _size.y;
+			_speed.y = 0;
+		}
 	}
-	else if (static_cast<int>(_pos.x)+_size.x > splitscreen_W * 4) {
-		_pos.x = splitscreen_W * 4-_size.x;
-		_speed.x = 0;
+	/*画面遷移禁止中*/
+	else {
+		if (_roomPosition.x*splitscreen_W < 0) {
+			_pos.x = 0;
+			_speed.x = 0;
+		}
+		else if (static_cast<int>(_pos.x) + _size.x > (_roomPosition.x + 1) *splitscreen_W) {
+			_pos.x = splitscreen_W * 4 - _size.x;
+			_speed.x = 0;
+		}
+
+		if (_roomPosition.y * screen_H < 0) {
+			_pos.y = 0;
+			_speed.y = 0;
+		}
+		else if (static_cast<int>(_pos.y) + _size.y > (_roomPosition.y + 1) * screen_H) {
+			_pos.y = screen_H * 4 - _size.y;
+			_speed.y = 0;
+		}
 	}
 
-	if (_pos.y < 0) {
-		_pos.y = 0;
-		_speed.y = 0;
-	}
-	else if (static_cast<int>(_pos.y)+_size.y> screen_H * 4) {
-		_pos.y = screen_H * 4-_size.y;
-		_speed.y = 0;
-	}
 
 	UpdateCollision();
 

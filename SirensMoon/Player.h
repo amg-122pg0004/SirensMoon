@@ -84,12 +84,13 @@ public:
 		double _speedMax;//最大速度
 		double _accelerationRatio;//入力値をノーマライズした値の乗算値を加速する
 		double _friction;//速度減衰に使用する値
-		bool _movable;
+		bool _movable;//<True時のみ移動可能
+		bool _stageMovable;//<True時画面外への移動を制限する
 
 		int _playerNum;//<プレイヤーの番号(0なら左プレイヤー、1なら右プレイヤー）
 		int _hp,_hpMAX;//<体力
 
-		int _invincibleTime;
+		int _invincibleTime;//<無敵時間
 
 		/*射撃関係*/
 		int _bullet;//残りの弾数

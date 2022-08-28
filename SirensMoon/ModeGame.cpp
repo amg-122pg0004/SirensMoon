@@ -24,10 +24,6 @@
 #include "ModeGameOver.h"
 #include "StickeyBomb.h"
 #include "BreakableObject.h"
-#include "Boss.h"
-#include "DegitalLetter.h"
-#include "BigServer.h"
-#include "BigGenerator.h"
 
 ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blindFlag{false},_makedNextMode{false}
 {
@@ -151,8 +147,7 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blind
 		++i;
 	}*/
 
-	/*É{ÉXê∂ê¨*/
-	_actorServer.Add(std::make_unique<Boss>(_game, *this));
+
 
 
 	LoadResources::LoadSE();

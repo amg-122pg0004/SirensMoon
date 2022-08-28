@@ -1,14 +1,17 @@
 #pragma once
+#include "Actor.h"
 #include <vector>
-class ModeGame;
-class Actor;
 
-class BossGimmickController{
+class BossGimmickController:public Actor{
 public:
-	BossGimmickController(ModeGame& mode);
+	BossGimmickController(Game& game,ModeGame& mode, ObjectDataStructs::BossGimmickController data);
 	std::vector<int> GetPattern() { return _pattern; }
 
 
+	void Update() override;
+
+	/*ボスの生成*/
+	void BossSpawn();
 	/*パターンの生成*/
 	void GeneratePattern();
 	/*パターン情報の配布*/
@@ -22,7 +25,8 @@ private:
 	int _index;//<発電機進行状況
 	std::vector<int> _pattern;//<パターン
 
-	ModeGame& _mode;
+	bool _phase1;
+	bool _phase2;
 
 	/*各ギミックのポインタ*/
 	Actor* _gun;
