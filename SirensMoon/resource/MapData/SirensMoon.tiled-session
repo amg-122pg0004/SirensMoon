@@ -188,10 +188,10 @@
                 12
             ],
             "scale": 0.75,
-            "selectedLayer": 4,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 500.6666666666666,
-                "y": 1044.6666666666665
+                "x": 3298,
+                "y": 4014.6666666666665
             }
         },
         "Stage3.tmx#tile_icon": {
@@ -294,7 +294,7 @@
         "Stage3.tmx"
     ],
     "project": "SirensMoon.tiled-project",
-    "property.type": "int",
+    "property.type": "Direction",
     "recentFiles": [
         "Stage3.tmx",
         "Stage1.tmx",

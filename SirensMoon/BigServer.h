@@ -11,6 +11,8 @@ public:
 	void StandardRender(Vector2 window_pos,Vector2 camera_pos);
 	bool GetAccessible() { return _accessible; }
 	void SetPattern(std::vector<int> pattern);
+	std::vector<int> GetPattern() { return _pattern; }
+	void Debug(Vector2 window_pos, Vector2 camera_pos)override;
 
 private:
 	std::vector<int> _pattern;

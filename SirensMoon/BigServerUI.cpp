@@ -24,12 +24,16 @@ void BigServerUI::Update(){
 void BigServerUI::Render(){
 
 	if (_visible) {
+		auto pattern=_owner.GetPattern();
 		DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), _cg, 0);
 
 		std::stringstream ss;
-		ss << "モールス信号";
+		ss <<"１　　" << _text[pattern[0]] << "\n";
+		ss <<"２　　" << _text[pattern[1]] << "\n";
+		ss <<"３　　" << _text[pattern[2]] << "\n";
+		ss <<"４　　" << _text[pattern[3]] << "\n";
 
-		DrawStringToHandle(static_cast<int>(_pos.x), static_cast<int>(_pos.y),
+		DrawStringToHandle(static_cast<int>(_pos.x+300), static_cast<int>(_pos.y+220),
 			ss.str().c_str(), GetColor(255, 255, 255), _font);
 	}
 }

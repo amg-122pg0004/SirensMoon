@@ -78,6 +78,9 @@ bool MapChips::LoadMap(std::string folderpath, std::string filename)
 		else if (jsLayer["name"].get<std::string>() == "Gimmick") {
 			LoadGimmickLayer(aObjects);
 		}
+		else if (jsLayer["name"].get<std::string>() == "Boss") {
+			LoadBossLayer(aObjects);
+		}
 	}
 	return true;
 }
@@ -312,9 +315,21 @@ void MapChips::LoadTilesets(picojson::object jsRoot,std::string folderpath) {
 					auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
 					_gidDegitalLetter.push_back(id);
 				}
-				if ((*i).get<picojson::object>()["class"].get<std::string>() == "BigServer") {
+				if ((*i).get<picojson::object>()["class"].get<std::string>() == "BossGenerator") {
+					auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
+					_gidBigGenerator.push_back(id);
+				}
+				if ((*i).get<picojson::object>()["class"].get<std::string>() == "BossRailGun") {
+					auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
+					_gidBigGun.push_back(id);
+				}
+				if ((*i).get<picojson::object>()["class"].get<std::string>() == "BossServer") {
 					auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
 					_gidBigServer.push_back(id);
+				}
+				if ((*i).get<picojson::object>()["class"].get<std::string>() == "BossTrigger") {
+					auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
+					_gidBossGimmickController.push_back(id);
 				}
 			}
 			// チップコリジョンデータ読み込み
@@ -678,7 +693,7 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 			if (_gidteleportIn.find(gid) != _gidteleportIn.end()) {
 				ObjectDataStructs::teleporterData stat;
 				stat.random = _gidteleportIn[gid];
-				stat.tereortID = -1;
+				stat.ID = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());;
 				stat.pos.x = aObjects[i].get<picojson::object>()["x"].get<double>();
 				stat.pos.y = aObjects[i].get<picojson::object>()["y"].get<double>()-_chipSize_H;
 				if (aObjects[i].get<picojson::object>()["properties"].is<picojson::array>()) {
@@ -693,7 +708,6 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 					}
 				}
 				if (stat.random == true || stat.tereortID != -1) {
-
 					_teleporterInDataList.push_back(stat);
 				}
 			}
@@ -805,15 +819,6 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 					_stickyBombDataList.push_back(data);
 				}
 			}
-			for (auto gid : _gidBigServer) {
-				if (gid == static_cast<int>(aObjects[i].get<picojson::object>()["gid"].get<double>())) {
-					St::BigServerData data{ -1,{0,0} };
-					auto id = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
-					data.pos.x = static_cast<int>(aObjects[i].get<picojson::object>()["x"].get<double>());
-					data.pos.y = static_cast<int>(aObjects[i].get<picojson::object>()["y"].get<double>()) - _chipSize_H;
-					_bigServerDataList.push_back(data);
-				}
-			}
 			for (auto gid : _gidMine) {
 				if (gid == static_cast<int>(aObjects[i].get<picojson::object>()["gid"].get<double>())) {
 					St::MineData data;
@@ -855,6 +860,81 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 				}
 			}
 
+		}
+	}
+}
+
+void MapChips::LoadBossLayer(picojson::array aObjects) {
+	for (int i = 0; i < aObjects.size(); ++i) {
+		if (aObjects[i].get<picojson::object>()["gid"].is<double>()) {
+			auto gid = static_cast<int>(aObjects[i].get<picojson::object>()["gid"].get<double>());
+			for (auto gid : _gidBossGimmickController) {
+				if (gid == static_cast<int>(aObjects[i].get<picojson::object>()["gid"].get<double>())) {
+					std::vector<int> v;
+					St::BossGimmickControllerData data{ -1,{0,0},-1,-1,v,v };
+					auto id = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
+					data.pos.x = static_cast<int>(aObjects[i].get<picojson::object>()["x"].get<double>());
+					data.pos.y = static_cast<int>(aObjects[i].get<picojson::object>()["y"].get<double>()) - _chipSize_H;
+					if (aObjects[i].get<picojson::object>()["properties"].is<picojson::array>()) {
+						auto properties = aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
+						for (int i = 0; i < properties.size(); ++i) {
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Generator1"||
+								properties[i].get<picojson::object>()["name"].get<std::string>() == "Generator2"||
+								properties[i].get<picojson::object>()["name"].get<std::string>() == "Generator3"||
+								properties[i].get<picojson::object>()["name"].get<std::string>() == "Generator4") {
+								data.generatorsID.push_back(static_cast<int>(properties[i].get<picojson::object>()["value"].get<double>()));
+							}
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Server1" ||
+								properties[i].get<picojson::object>()["name"].get<std::string>() == "Server2" ||
+								properties[i].get<picojson::object>()["name"].get<std::string>() == "Server3") {
+								data.serversID.push_back(static_cast<int>(properties[i].get<picojson::object>()["value"].get<double>()));
+							}
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "RaiGun") {
+								data.gunID=(static_cast<int>(properties[i].get<picojson::object>()["value"].get<double>()));
+							}
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Teleporter") {
+								data.teleporterID=(static_cast<int>(properties[i].get<picojson::object>()["value"].get<double>()));
+							}
+						}
+					}
+					_bossGimmickControllerDataList.push_back(data);
+				}
+			}
+			for (auto gid : _gidBigGenerator) {
+				if (gid == static_cast<int>(aObjects[i].get<picojson::object>()["gid"].get<double>())) {
+					St::BigGeneratorData data{ -1,{0,0} };
+					auto id = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
+					data.pos.x = static_cast<int>(aObjects[i].get<picojson::object>()["x"].get<double>());
+					data.pos.y = static_cast<int>(aObjects[i].get<picojson::object>()["y"].get<double>()) - _chipSize_H;
+					_bigGeneratorDataList.push_back(data);
+				}
+			}
+			for (auto gid : _gidBigServer) {
+				if (gid == static_cast<int>(aObjects[i].get<picojson::object>()["gid"].get<double>())) {
+					St::BigServerData data{ -1,{0,0} };
+					auto id = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
+					data.pos.x = static_cast<int>(aObjects[i].get<picojson::object>()["x"].get<double>());
+					data.pos.y = static_cast<int>(aObjects[i].get<picojson::object>()["y"].get<double>()) - _chipSize_H;
+					if (aObjects[i].get<picojson::object>()["properties"].is<picojson::array>()) {
+						auto properties = aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
+						for (int i = 0; i < properties.size(); ++i) {
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Direction") {
+								data.Direction = properties[i].get<picojson::object>()["value"].get<std::string>();
+							}
+						}
+					}
+				_bigServerDataList.push_back(data);
+				}
+			}
+			for (auto gid : _gidBigGun) {
+				if (gid == static_cast<int>(aObjects[i].get<picojson::object>()["gid"].get<double>())) {
+					St::BigGunData data{ -1,{0,0} };
+					auto id = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
+					data.pos.x = static_cast<int>(aObjects[i].get<picojson::object>()["x"].get<double>());
+					data.pos.y = static_cast<int>(aObjects[i].get<picojson::object>()["y"].get<double>()) - _chipSize_H;
+					_bigGunDataList.push_back(data);
+				}
+			}
 		}
 	}
 }

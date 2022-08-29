@@ -14,6 +14,8 @@ public:
 
 	/*ボスの生成*/
 	void BossSpawn();
+	/*フェイズ2移行時*/
+	void Phase2();
 	/*パターンの生成*/
 	void GeneratePattern();
 	/*パターン情報の配布*/
@@ -30,10 +32,11 @@ private:
 	bool _phase1;
 	bool _phase2;
 
-	/*各ギミックのポインタ*/
-	Actor* _gun;
-	std::vector<Actor*> _servers;
-	std::vector<Actor*> _generators;
+	/*各ギミックのID*/
+	int _gun;
+	int _teleport;
+	std::vector<int> _servers;
+	std::vector<int> _generators;
 
 	static const std::vector<bool> GetSignal(int index) {
 		static const std::vector<std::vector<bool>> signal = {

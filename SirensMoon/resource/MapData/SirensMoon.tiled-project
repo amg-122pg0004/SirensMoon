@@ -51,10 +51,52 @@
         },
         {
             "color": "#ffa0a0a4",
-            "id": 27,
+            "id": 30,
             "members": [
             ],
-            "name": "BigServer",
+            "name": "BossGenerator",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "id": 32,
+            "members": [
+            ],
+            "name": "BossRailGun",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "id": 27,
+            "members": [
+                {
+                    "name": "Direction",
+                    "propertyType": "Direction",
+                    "type": "string",
+                    "value": "none"
+                }
+            ],
+            "name": "BossServer",
             "type": "class",
             "useAs": [
                 "property",
@@ -71,6 +113,11 @@
             "color": "#ffa0a0a4",
             "id": 29,
             "members": [
+                {
+                    "name": "Teleporter",
+                    "type": "object",
+                    "value": 0
+                }
             ],
             "name": "BossTrigger",
             "type": "class",
@@ -537,24 +584,6 @@
             "members": [
             ],
             "name": "Wall",
-            "type": "class",
-            "useAs": [
-                "property",
-                "map",
-                "layer",
-                "object",
-                "tile",
-                "tileset",
-                "wangcolor",
-                "wangset"
-            ]
-        },
-        {
-            "color": "#ffa0a0a4",
-            "id": 30,
-            "members": [
-            ],
-            "name": "BigGenerator",
             "type": "class",
             "useAs": [
                 "property",

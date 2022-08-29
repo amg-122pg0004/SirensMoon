@@ -67,6 +67,7 @@ public:
 		void TakeAmmo();
 		void ChangePosition(Vector2 pos);
 		void Checkteleport();
+		void ChangeMovable(bool flag) { _movable = flag; }
 
 		void Debug(Vector2 window_pos, Vector2 camera_pos)override;
 

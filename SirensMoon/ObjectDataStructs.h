@@ -52,6 +52,7 @@ public:
 
 	/*テレポーター(in)データ構造*/
 	struct teleporterData {
+		int ID;
 		Vector2 pos;
 		bool random;
 		int tereortID;
@@ -113,5 +114,9 @@ public:
 	struct BossGimmickControllerData {
 		int ID;
 		Vector2 pos;
+		int gunID;
+		int teleporterID;
+		std::vector<int> serversID;
+		std::vector<int> generatorsID;
 	};
 };

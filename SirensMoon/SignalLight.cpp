@@ -9,7 +9,7 @@ SignalLight::SignalLight(Game& game, ModeGame& mode, Actor& owner)
 }
 
 void SignalLight::Update(){
-	_activate=dynamic_cast<BigGenerator&>(_owner).GetActivate();
+	_activate=dynamic_cast<BigGenerator&>(_owner).GetSignalActive();
 }
 
 void SignalLight::MaskRender(Vector2 window_pos, Vector2 camera_pos){

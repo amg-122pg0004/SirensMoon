@@ -14,4 +14,10 @@ private:
 	std::vector<int> _pattern;
 	int _font;
 	BigServer& _owner;
+	const std::vector<std::string> _text = {
+		{"・・ーー・"},
+		{"ーー・ーー"},
+		{"ーー・・・"},
+		{"・・・・・"}
+	};
 };

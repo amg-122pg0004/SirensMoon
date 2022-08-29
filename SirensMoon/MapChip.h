@@ -79,6 +79,7 @@ private:
 	void LoadItemLayer(picojson::array aObjects);
 	void LoadLightLayer(picojson::array aObjects);
 	void LoadGimmickLayer(picojson::array aObjects);
+	void LoadBossLayer(picojson::array aObjects);
 
 	void LoadEnemyClass(picojson::object object,St::EnemyData data);
 	void LoadEnemyBClass(picojson::object object, St::EnemyBData data);

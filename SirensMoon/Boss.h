@@ -4,10 +4,11 @@
 #include <random>
 
 class Player;
+class BossGimmickController;
 
 class Boss :public Actor {
 public:
-	Boss(Game& game, ModeGame& mode);
+	Boss(Game& game, ModeGame& mode,BossGimmickController& controller);
 	void Update()override;
 	void BackRender(Vector2 window_pos, Vector2 camera_pos)override;
 	void StandardRender(Vector2 window_pos, Vector2 camera_pos)override;
@@ -33,10 +34,13 @@ private:
 	void ShootMissile();
 	void HeadButt();
 	void UpdateCollision();
+	/*グラフィックハンドル*/
 	std::map < State, std::vector<int>> _cg;
+	/*アニメーション番号*/
 	int _animNo;
 	double _scale;
 	double _angle;
+	/*プレイヤー参照*/
 	Actor* _player1;
 	Actor* _player2;
 	State _state;
@@ -60,6 +64,8 @@ private:
 	std::uniform_int_distribution<> rand2{ 1,2 };
 	std::uniform_int_distribution<> rand100{ 1,100 };
 
-	/*開発中の一時的な変数*/
+	/*各stateを終えるまでの残りフレームカウント*/
 	int _time;
+
+	BossGimmickController& _controller;
 };

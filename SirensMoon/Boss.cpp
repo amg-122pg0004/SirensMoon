@@ -4,12 +4,14 @@
 #include "BossCanon.h"
 #include "BossMissile.h"
 #include "DisplayArea.h"
+#include "BossGimmickController.h"
 
-Boss::Boss(Game& game, ModeGame& mode) 
+Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 	:Actor(game,mode),_scale{1.0},_angle{0},_animNo{0}
 	,_backlayer{true},_time{60},_visible{true},_speed{2.5}
-	,_headbuttSize{150,420},_headSize{90,90},_hp{3}
+	,_headbuttSize{150,420},_headSize{90,90},_hp{4},_controller{controller}
 {
+
 	_pos = { 500,500 };
 	_size = { 100,200 };
 
@@ -87,6 +89,12 @@ void Boss::CheckOverlapActor() {
 void Boss::TakeDamage() {
 	--_hp;
 	_backlayer = true;
+	if (_hp <= 3) {
+		if (!_phase2) {
+			_phase2 = true;
+			_controller.Phase2();
+		}
+	}
 	if (_hp <= 0) {
 		_dead = true;
 	}
@@ -120,39 +128,48 @@ void Boss::StandardRender( Vector2 window_pos, Vector2 camera_pos) {
 }
 
 void Boss::Wait() {
-	switch (rand3(engine)) {
-	case 1:
+	if (!_phase2) {
+		switch (rand3(engine)) {
+		case 1:
+			if (rand2(engine) == 1) {
+				_time = 150;
+				GunAttack1();
+				break;
+			}
+			else {
+				_time = 150;
+				GunAttack2();
+				break;
+			}
+		case 2:
+			_time = 300;
+			ShootMissile();
+			break;
 
-		_time = 750;
-		HeadButt();
-		break;
-		if (rand2(engine) == 1) {
-			_time = 150;
-			GunAttack1();
-
+		case 3:
+			_time = 750;
+			HeadButt();
 			break;
 		}
-		else {
-			_time = 150;
-			GunAttack2();
-
+	} else
+		{
+		switch (rand2(engine)) {
+		case 1:
+			if (rand2(engine) == 1) {
+				_time = 150;
+				GunAttack1();
+				break;
+			}
+			else {
+				_time = 150;
+				GunAttack2();
+				break;
+			}
+		case 2:
+			_time = 300;
+			ShootMissile();
 			break;
 		}
-	case 2:
-
-		_time = 750;
-		HeadButt();
-		break;
-		_time = 300;
-		ShootMissile();
-
-		break;
-
-	case 3:
-		
-		_time = 750;
-		HeadButt();
-		break;
 	}
 }
 
@@ -220,9 +237,10 @@ void Boss::Debug(Vector2 window_pos, Vector2 camera_pos){
 	AABB col = _player1->GetCollision();
 	auto dir = (col.min + col.max) / 2 - _pos;
 	auto test = dir.Length();
+
 	DrawFormatString(static_cast<int>(_pos.x - camera_pos.x + window_pos.y),
 		static_cast<int>(_pos.y - camera_pos.y + window_pos.y),
-		GetColor(255, 0, 0), "%d", dir.Length());
+		GetColor(255, 0, 0), "%d", _hp);
 	_hitbox.Draw2(window_pos, camera_pos);
 
 }
