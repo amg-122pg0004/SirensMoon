@@ -32,7 +32,8 @@ public:
 		ButtonIcon,
 		ObjectiveUI,
 		MessageWindow,
-		BigServerUI
+		BigServerUI,
+		AimUI
 	};
 	virtual Type GetType() = 0;
 	virtual void DamageEvent();

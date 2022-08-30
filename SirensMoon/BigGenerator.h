@@ -38,4 +38,6 @@ private:
 	BossGimmickController& _controller;
 
 	int _cg_active, _cg_passive;
+
+	AABB _accessArea;
 };

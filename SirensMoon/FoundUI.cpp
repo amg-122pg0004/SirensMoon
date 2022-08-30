@@ -19,7 +19,7 @@ void FoundUI::Update() {
 				_visible = true;
 				++_animNo;
 				if (_animNo >= _cg.size() - 1) {
-					_animNo = _cg.size() - 1;
+					_animNo = static_cast<int>(_cg.size()) - 1;
 				}
 			}
 		}

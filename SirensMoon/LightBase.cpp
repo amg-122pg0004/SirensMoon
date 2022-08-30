@@ -15,9 +15,9 @@ LightBase::LightBase(Game& game, ModeGame& mode, Actor& owner)
 {
 	int x, y;
 	GetGraphSize(_cg, &x, &y);
-	x *= _scale;
-	y *= _scale;
-	_pos = { _owner.GetPosition().x+_owner.GetSize().x - x / 2,_owner.GetPosition().y + _owner.GetSize().y - y / 2};
+	auto d_x =static_cast<double>( x * _scale);
+	auto d_y =static_cast<double>( y * _scale);
+	_pos = { _owner.GetPosition().x+_owner.GetSize().x - d_x / 2,_owner.GetPosition().y + _owner.GetSize().y - d_y / 2};
 	_cg = ImageServer::LoadGraph("resource/Light/Light_3.png");
 	_renderPriority = 100000;
 }

@@ -20,6 +20,7 @@ class Camera {
 		Camera(Game&game,ModeBase& mode,SplitWindow&sw);
 		void Update(int playernum);//<カメラの移動
 		Vector2 GetPosition() { return _pos; }//<カメラ座標の取得
+		void SetMovable(bool flag) { _movable = flag; }
 		//void Render(int x, int y);
 		enum class ChangeDir {
 			UP,
@@ -42,4 +43,5 @@ class Camera {
 		int _speed;//<カメラの移動速度
 		Vector2 _pos;//<カメラの位置座標
 		Vector2 _stageSize;//<ステージの大きさ
+		bool _movable;//<カメラ移動できるか
 };

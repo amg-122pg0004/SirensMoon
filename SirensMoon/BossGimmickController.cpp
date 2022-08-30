@@ -18,6 +18,7 @@ BossGimmickController::BossGimmickController(Game& game, ModeGame& mode, ObjectD
 	_servers = data.serversID;
 	_teleport = data.teleporterID;
 	_pos = data.pos;
+	CheckRoomPosition();
 	_size = { 100,100 };
 	_collision.min = _pos - _size/2;
 	_collision.max = _pos + _size/2;
@@ -25,7 +26,7 @@ BossGimmickController::BossGimmickController(Game& game, ModeGame& mode, ObjectD
 	std::vector<int> v_teleport = { _teleport };
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::Gimmick) {
-			dynamic_cast<Gimmick&>(*actor).RecieveCall(v_teleport, true);
+			dynamic_cast<Gimmick&>(*actor).RecieveCall(v_teleport, false);
 		}
 	}
 
@@ -43,7 +44,7 @@ BossGimmickController::BossGimmickController(Game& game, ModeGame& mode, ObjectD
 
 	auto v_BigGun = _mode.GetMapChips()->GetBigGunDataList();
 	for (auto a_BigGun : v_BigGun) {
-		auto biggun = std::make_unique<BigGun>(_game, _mode, a_BigGun);
+		auto biggun = std::make_unique<BigGun>(_game, _mode, a_BigGun, *this);
 		_mode.GetActorServer().Add(std::move(biggun));
 	}
 
@@ -120,8 +121,8 @@ void BossGimmickController::RecieveStartGenerator(int no) {
 		if (_index >= 4) {
 			for (auto&& actor : _mode.GetObjects()) {
 				if (actor->GetType() == Type::Gimmick) {
-					if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::BigServer) {
-						dynamic_cast<Gimmick&>(*actor).SetActivate();
+					if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::BigGun) {
+						dynamic_cast<BigGun&>(*actor).SetAccesible();
 					}
 				}
 			}

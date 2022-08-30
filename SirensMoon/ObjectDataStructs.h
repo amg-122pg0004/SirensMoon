@@ -5,7 +5,7 @@
 #include "Math.h"
 
 
-class ObjectDataStructs{
+class ObjectDataStructs {
 public:
 
 	struct PlayerData {

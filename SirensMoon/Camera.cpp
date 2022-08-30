@@ -7,12 +7,16 @@ Camera::Camera(Game& game,ModeBase& mode,SplitWindow& sw) :
 	_splitWindow{sw},
 	_pos{0,0},
 	_speed{10},
-	_stageSize{4,4}
+	_stageSize{4,4},
+	_movable{true}
  {
 
 }
 
 void Camera::ChangePosition(Camera::ChangeDir dir) {
+	if (!_movable) {
+		return;
+	}
 	switch (dir) {
 
 		case Camera::ChangeDir::UP :
@@ -42,6 +46,9 @@ void Camera::ChangePosition(Camera::ChangeDir dir) {
 	}
 }
 void Camera::SetPosition(Vector2 playerpos) {
+	if (!_movable) {
+		return;
+	}
 	int x= static_cast<int>(ceil(playerpos.x / (static_cast<double>(splitscreen_W)))-1);
 	int y =static_cast<int>(ceil(playerpos.y / screen_H)-1);
 	_pos.x = x * static_cast<double>(screen_W)/2;

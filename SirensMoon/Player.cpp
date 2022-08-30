@@ -20,7 +20,7 @@
 
 Player::Player(Game& game,ModeGame& mode,int playernum)
 	:Actor{ game,mode }, _speed{ 0,0 }, _playerNum{playernum}
-	, _dir{0,0}, _lastDir{ 1,0 }, _hp{ 3 },_hpMAX{3}, _bullet{5}, _movable{1}, _charge{0}, _cooldown{0}
+	, _dir{0,0}, _lastDir{ 1,0 }, _hp{ 33 },_hpMAX{3}, _bullet{5}, _movable{1}, _charge{0}, _cooldown{0}
 	,_init{false},_state{PlayerState::Wait},_direction{PlayerDirection::Right},_animNo{0}, _invincibleTime{0}
 	,_stageMovable{true}
 {
@@ -340,7 +340,7 @@ void Player::StandardRender(Vector2 window_pos,Vector2 camera_pos){
 			static_cast<int>(_pos.y + window_pos.y - camera_pos.y - (_size.y / 2)*0.6+_size.y*1.5), cg[_animNo], 1);
 		++_animNo;
 		if (_animNo >= cg.size()) {
-			_animNo = cg.size() - 1;
+			_animNo = static_cast<int>(cg.size()) - 1;
 		}
 	}
 	else {

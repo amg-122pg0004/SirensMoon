@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="ActorServer.cpp" />
+    <ClCompile Include="AimUI.cpp" />
     <ClCompile Include="AmmoUI.cpp" />
     <ClCompile Include="BigGenerator.cpp" />
     <ClCompile Include="BigGun.cpp" />
@@ -229,6 +230,7 @@
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AimUI.h" />
     <ClInclude Include="BigGenerator.h" />
     <ClInclude Include="BigGun.h" />
     <ClInclude Include="BigServer.h" />

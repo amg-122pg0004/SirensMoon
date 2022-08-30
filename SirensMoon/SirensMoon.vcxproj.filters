@@ -256,6 +256,9 @@
     <Filter Include="Actor\BossGimmickController">
       <UniqueIdentifier>{3289acb1-9728-4af8-bf10-835b56e55eea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI\AimUI">
+      <UniqueIdentifier>{061f6fcf-ef83-4f43-949b-0d2ec3c45f82}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -503,6 +506,9 @@
     </ClCompile>
     <ClCompile Include="BigServerUI.cpp">
       <Filter>UI\BigServerUI</Filter>
+    </ClCompile>
+    <ClCompile Include="AimUI.cpp">
+      <Filter>UI\AimUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -754,6 +760,9 @@
     </ClInclude>
     <ClInclude Include="strconv\strconv.h">
       <Filter>picojson</Filter>
+    </ClInclude>
+    <ClInclude Include="AimUI.h">
+      <Filter>UI\AimUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
