@@ -14,7 +14,7 @@ void SignalLight::Update(){
 
 void SignalLight::MaskRender(Vector2 window_pos, Vector2 camera_pos){
 	if (_activate) {
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, _alpha);
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
 		DrawRotaGraph2(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
 			static_cast<int>(_pos.y + window_pos.y - camera_pos.y),
 			static_cast<int>(_centerPos.x),

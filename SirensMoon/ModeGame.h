@@ -31,6 +31,7 @@ public:
 
 	void SetPauseGame(bool flag);
 	void StageClearCheck();
+	void GameClear();
 	void GameOver();
 	void DamageEvent();
 	

@@ -9,11 +9,13 @@
 Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 	:Actor(game,mode),_scale{1.0},_angle{0},_animNo{0}
 	,_backlayer{true},_time{60},_visible{true},_speed{2.5}
-	,_headbuttSize{150,420},_headSize{90,90},_hp{4},_controller{controller}
+	,_headbuttSize{150,420},_headSize{90,90},_hp{6},_controller{controller}
 {
-
-	_pos = { 500,500 };
+	Vector2 pos = { _controller.GetRoomPosition().x-1.0,_controller.GetRoomPosition().y-1.0 };
+	_startPos = { splitscreen_W * pos.x + 500 , screen_H * pos.y + 500 };
+	_pos = _startPos;
 	_size = { 100,200 };
+	_size2 = { 400,500 };
 
 	std::vector<int> handle;
 	handle.resize(1);
@@ -100,7 +102,7 @@ void Boss::TakeDamage() {
 	}
 	_time = 1;
 	_scale = 1;
-	_pos = { 500,500 };
+	_pos = _startPos;
 	_backlayer = true;
 	_visible = true;
 }
@@ -181,6 +183,7 @@ void Boss::GunAttack1() {
 		_mode.GetActorServer().Add(std::make_unique<BossCanon>(_game, _mode, _pos + fix));
 	}
 }
+
 void Boss::GunAttack2() {
 	_state = State::GunAttack2;
 	_mode.GetActorServer().Add(std::make_unique<DisplayArea>(_game, _mode, *this,false));
@@ -191,7 +194,6 @@ void Boss::GunAttack2() {
 }
 
 void Boss::ShootMissile() {
-
 	_state = State::ShootMissile;
 	if (_time == 300|| _time == 280|| _time == 260) {
 		Vector2 rand = { static_cast<double>(rand100(engine)) / 100 * splitscreen_W,0 };
@@ -200,7 +202,9 @@ void Boss::ShootMissile() {
 }
 
 void Boss::HeadButt(){
+
 	_state = State::HeadButt;
+
 	if (700 == _time) {
 		_scale = 0.25;
 		_pos.y += 100;
@@ -212,10 +216,11 @@ void Boss::HeadButt(){
 
 	if (_time == 1) {
 		_scale = 1;
-		_pos={500,500};
+		_pos=_startPos;
 		_backlayer = true;
 		_visible = true;
 	}
+
 	if (_time < 590 && _time>410&&_visible==false) {
 		AABB col=_player1->GetCollision();
 		auto dir = (col.min + col.max) / 2 - _pos;
@@ -240,15 +245,22 @@ void Boss::Debug(Vector2 window_pos, Vector2 camera_pos){
 
 	DrawFormatString(static_cast<int>(_pos.x - camera_pos.x + window_pos.y),
 		static_cast<int>(_pos.y - camera_pos.y + window_pos.y),
-		GetColor(255, 0, 0), "%d", _hp);
+		GetColor(255, 0, 0), "%lf", _collision.min.x);
 	_hitbox.Draw2(window_pos, camera_pos);
 
 }
 
 void Boss::UpdateCollision(){
-	_collision.min = _pos-_size/2;
-	_collision.max = _pos + _size/2;
-
-	_hitbox.min = _pos-_size/2;
-	_hitbox.max = _pos+_size/2;
+	if (_backlayer) {
+		_collision.min = { _pos.x - _size2.x / 2,_pos.y - _size2.y * 0.8 };
+		_collision.max = { _pos.x + _size2.x / 2,_pos.y + _size2.y * 0.2 };
+		_hitbox.min = { _pos.x - _size2.x / 2,_pos.y - _size2.y * 0.8 };
+		_hitbox.max = { _pos.x + _size2.x / 2,_pos.y + _size2.y * 0.2 };
+	}
+	else {
+		_collision.min = _pos - _size / 2;
+		_collision.max = _pos + _size / 2;
+		_hitbox.min = _pos - _size / 2;
+		_hitbox.max = _pos + _size / 2;
+	}
 }

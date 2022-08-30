@@ -1,5 +1,7 @@
 #pragma once
 #include "UIBase.h"
+#include "InputManager.h"
+#include <memory>
 
 class AimUI :public UIBase {
 public:
@@ -12,5 +14,5 @@ private:
 	int _cg_cursor;
 	Vector2 _pos_cursor;
 	double _speed;
-
+	std::shared_ptr<InputManager> _inputManager;
 };

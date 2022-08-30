@@ -31,6 +31,7 @@ private:
 
 	bool _phase1;
 	bool _phase2;
+	bool _readyRailgun;
 
 	/*各ギミックのID*/
 	int _gun;

@@ -5,6 +5,7 @@
 HPUI::HPUI(Game& game, ModeBase& mode, Vector2 pos, Vector2 size, int windowno)
 	:UIBase(game,mode,pos,size),_playerNo{windowno}
 {
+	_visible = true;
 	_pos = pos;
 	_size = size;
 	_player_HP.resize(2);
@@ -33,7 +34,9 @@ void HPUI::Update(){
 }
 
 void HPUI::Render() {
-	DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), _cg[_player_HP], 1);
+	if (_visible) {
+		DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), _cg[_player_HP], 1);
+	}
 }
 
 void HPUI::SetHPstring(int hp) {

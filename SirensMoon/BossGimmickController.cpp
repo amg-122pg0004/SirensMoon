@@ -11,7 +11,7 @@
 #include <numeric>
 
 BossGimmickController::BossGimmickController(Game& game, ModeGame& mode, ObjectDataStructs::BossGimmickControllerData data)
-	:Actor(game,mode), _index{0},_phase1{false}, _phase2{false}
+	:Actor(game,mode), _index{0},_phase1{false}, _phase2{false}, _readyRailgun{false}
 {
 	_gun = data.gunID;
 	_generators = data.generatorsID;
@@ -116,6 +116,11 @@ void BossGimmickController::DistributePattern() {
 }
 
 void BossGimmickController::RecieveStartGenerator(int no) {
+
+	if (_readyRailgun) {
+		return;
+	}
+
 	if (_pattern[_index] == no) {
 		++_index;
 		if (_index >= 4) {
@@ -123,6 +128,7 @@ void BossGimmickController::RecieveStartGenerator(int no) {
 				if (actor->GetType() == Type::Gimmick) {
 					if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::BigGun) {
 						dynamic_cast<BigGun&>(*actor).SetAccesible();
+						_readyRailgun = true;
 					}
 				}
 			}

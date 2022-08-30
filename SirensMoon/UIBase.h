@@ -37,6 +37,7 @@ public:
 	};
 	virtual Type GetType() = 0;
 	virtual void DamageEvent();
+	void SetVisibillity(bool flag) { _visible = flag; }
 protected:
 	Vector2 _pos;
 	Vector2 _size;

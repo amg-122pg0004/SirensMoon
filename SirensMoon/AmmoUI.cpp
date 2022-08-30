@@ -7,6 +7,7 @@
 AmmoUI::AmmoUI(Game& game , ModeBase& mode, Vector2 pos, Vector2 size)
 	:UIBase(game,mode,pos,size),_bullet1{0},_bullet2{9},_charge{0}
 {
+	_visible = true;
 	_cg = ImageServer::LoadGraph("resource/UI/Ammo/base.png");
 	_cg_mark = ImageServer::LoadGraph("resource/UI/Ammo/mark.png");
 	_cg_gun = ImageServer::LoadGraph("resource/UI/Ammo/gun.png");
@@ -32,6 +33,9 @@ void AmmoUI::Update() {
 }
 
 void AmmoUI::Render(){
+	if (!_visible) {
+		return;
+	}
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
 	DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), _cg, 1);
 	DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), _cg_gun, 1);

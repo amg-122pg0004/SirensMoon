@@ -31,3 +31,10 @@ void BulletItem::Update() {
 		}
 	}
 }
+
+void BulletItem::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
+	DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x)
+		, static_cast<int>(_pos.y + window_pos.y - camera_pos.y)
+		, _cg
+		, 1);
+}

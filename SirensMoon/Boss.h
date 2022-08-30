@@ -17,6 +17,7 @@ public:
 	Type GetType()override{ return Type::Boss; }
 	void CheckOverlapActor();
 	void TakeDamage();
+	AABB GetHitBox() { return _hitbox; }
 private:
 	enum class State {
 		Wait,
@@ -49,8 +50,10 @@ private:
 
 	bool _phase2;//<trueでボスフェイズ2
 
+	Vector2 _startPos;
 	int _hp;
 	double _speed;
+	Vector2 _size2;//<巨大な状態のサイズ
 
 	bool  _invincible;//<trueの間は無敵
 	Vector2 _headbuttSize;//<ヘッドバットの攻撃範囲

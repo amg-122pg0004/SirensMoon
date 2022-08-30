@@ -2349,16 +2349,16 @@
     <property name="Direction" propertytype="Direction" value="up"/>
    </properties>
   </object>
-  <object id="967" gid="497" x="2928" y="3778.67" width="30" height="30"/>
-  <object id="968" gid="497" x="2929" y="4035.67" width="30" height="30"/>
-  <object id="969" gid="497" x="3603.67" y="4038.33" width="30" height="30"/>
-  <object id="970" gid="497" x="3604" y="3781.33" width="30" height="30"/>
+  <object id="967" gid="497" x="2929.33" y="3748" width="30" height="30"/>
+  <object id="968" gid="497" x="2926.33" y="4077" width="30" height="30"/>
+  <object id="969" gid="497" x="3601.01" y="4079.66" width="30" height="30"/>
+  <object id="970" gid="497" x="3606.67" y="3749.33" width="30" height="30"/>
   <object id="973" gid="495" x="532.333" y="898.333" width="30" height="30">
    <properties>
     <property name="Direction" propertytype="Direction" value="down"/>
    </properties>
   </object>
-  <object id="976" gid="130" x="3064" y="3330.67" width="30" height="30"/>
+  <object id="976" gid="130" x="3060" y="3297.34" width="30" height="30"/>
  </objectgroup>
  <objectgroup id="4" name="Player">
   <object id="332" gid="5" x="690" y="1440" width="30" height="30">

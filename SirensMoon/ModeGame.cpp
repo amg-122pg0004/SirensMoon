@@ -145,7 +145,6 @@ ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blind
 		_actorServer.Add(std::move(bosscon));
 	}
 
-
 	LoadResources::LoadSE();
 	LoadResources::LoadEffects();
 	LoadResources::LoadMovie("resource/Movie/gameover.mp4");
@@ -211,4 +210,11 @@ void ModeGame::SetPauseGame(bool flag){
 	if (!_makedNextMode) {
 		_stopActorUpdate = flag;
 	}
+}
+
+void ModeGame::GameClear(){
+	_makedNextMode = true;
+	_stopActorUpdate = true;
+	auto mode = std::make_unique<ModeMovie>(_game, "resource/Movie/rocket.mp4");
+	_game.GetModeServer()->Add(std::move(mode));
 }
