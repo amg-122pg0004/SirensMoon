@@ -353,7 +353,7 @@ void Player::StandardRender(Vector2 window_pos,Vector2 camera_pos){
 }
 
 void Player::UpdateCollision() {
-	_collision.min = _pos;
+	_collision.min = { _pos.x,_pos.y + 20 };
 	_collision.max = _pos + _size;
 }
 

@@ -35,6 +35,7 @@ public:
 	Type GetType()override { return Type::Enemy; }
 	bool GetChaseFlag() { return _chase; }
 	Actor* GetLastDetection() { return _lastDetection; }
+	int GetDetectionFrame(){return _detectionFrame; }
 	BoxSight GetSightPosition() { return _sightPos; }
 
 
