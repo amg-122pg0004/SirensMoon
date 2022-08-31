@@ -511,6 +511,49 @@
         },
         {
             "color": "#ffa0a0a4",
+            "id": 33,
+            "members": [
+                {
+                    "name": "LinkGimmick1",
+                    "type": "object",
+                    "value": 0
+                },
+                {
+                    "name": "LinkGimmick2",
+                    "type": "object",
+                    "value": 0
+                },
+                {
+                    "name": "LinkGimmick3",
+                    "type": "object",
+                    "value": 0
+                },
+                {
+                    "name": "LinkGimmick4",
+                    "type": "object",
+                    "value": 0
+                },
+                {
+                    "name": "LinkGimmick5",
+                    "type": "object",
+                    "value": 0
+                }
+            ],
+            "name": "SwitchArea",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
             "id": 17,
             "members": [
                 {

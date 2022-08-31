@@ -212,6 +212,7 @@
     <ClCompile Include="PlayerB.cpp" />
     <ClCompile Include="ProjectionLight.cpp" />
     <ClCompile Include="RedBullet.cpp" />
+    <ClCompile Include="ScreenPump.cpp" />
     <ClCompile Include="ServerMachine.cpp" />
     <ClCompile Include="ServerMachineUI.cpp" />
     <ClCompile Include="BossGimmickController.cpp" />
@@ -222,6 +223,7 @@
     <ClCompile Include="StickeyBomb.cpp" />
     <ClCompile Include="StickyUI.cpp" />
     <ClCompile Include="Switch.cpp" />
+    <ClCompile Include="SwitchArea.cpp" />
     <ClCompile Include="Teleporter.cpp" />
     <ClCompile Include="TileSetLoad.cpp" />
     <ClCompile Include="TNT.cpp" />
@@ -298,6 +300,7 @@
     <ClInclude Include="PlayerB.h" />
     <ClInclude Include="ProjectionLight.h" />
     <ClInclude Include="RedBullet.h" />
+    <ClInclude Include="ScreenPump.h" />
     <ClInclude Include="ServerMachine.h" />
     <ClInclude Include="ServerMachineUI.h" />
     <ClInclude Include="BossGimmickController.h" />
@@ -308,6 +311,7 @@
     <ClInclude Include="StickyUI.h" />
     <ClInclude Include="strconv\strconv.h" />
     <ClInclude Include="Switch.h" />
+    <ClInclude Include="SwitchArea.h" />
     <ClInclude Include="Teleporter.h" />
     <ClInclude Include="TileSetLoad.h" />
     <ClInclude Include="TNT.h" />

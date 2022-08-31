@@ -10,6 +10,7 @@ public:
 	enum class GimmickType {
 		FloorLamp,
 		Switch,
+		SwitchArea,
 		Teleporter,
 		Door,
 		Mine,

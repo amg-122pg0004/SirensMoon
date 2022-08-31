@@ -307,7 +307,187 @@
          "draworder":"topdown",
          "id":13,
          "name":"Gimmick",
-         "objects":[],
+         "objects":[
+                {
+                 "class":"",
+                 "gid":498,
+                 "height":30,
+                 "id":988,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"LinkGimmick1",
+                         "type":"object",
+                         "value":989
+                        }, 
+                        {
+                         "name":"LinkGimmick2",
+                         "type":"object",
+                         "value":990
+                        }, 
+                        {
+                         "name":"LinkGimmick3",
+                         "type":"object",
+                         "value":991
+                        }, 
+                        {
+                         "name":"LinkGimmick4",
+                         "type":"object",
+                         "value":992
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":541,
+                 "y":182
+                }, 
+                {
+                 "class":"",
+                 "gid":490,
+                 "height":30,
+                 "id":989,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":629,
+                 "y":109
+                }, 
+                {
+                 "class":"",
+                 "gid":490,
+                 "height":30,
+                 "id":990,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":629,
+                 "y":138
+                }, 
+                {
+                 "class":"",
+                 "gid":490,
+                 "height":30,
+                 "id":991,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":629,
+                 "y":168
+                }, 
+                {
+                 "class":"",
+                 "gid":490,
+                 "height":30,
+                 "id":992,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":627,
+                 "y":196
+                }, 
+                {
+                 "class":"",
+                 "gid":498,
+                 "height":30,
+                 "id":993,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"LinkGimmick1",
+                         "type":"object",
+                         "value":989
+                        }, 
+                        {
+                         "name":"LinkGimmick2",
+                         "type":"object",
+                         "value":990
+                        }, 
+                        {
+                         "name":"LinkGimmick3",
+                         "type":"object",
+                         "value":991
+                        }, 
+                        {
+                         "name":"LinkGimmick4",
+                         "type":"object",
+                         "value":992
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":541,
+                 "y":152.333333333333
+                }, 
+                {
+                 "class":"",
+                 "gid":498,
+                 "height":30,
+                 "id":994,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"LinkGimmick1",
+                         "type":"object",
+                         "value":989
+                        }, 
+                        {
+                         "name":"LinkGimmick2",
+                         "type":"object",
+                         "value":990
+                        }, 
+                        {
+                         "name":"LinkGimmick3",
+                         "type":"object",
+                         "value":991
+                        }, 
+                        {
+                         "name":"LinkGimmick4",
+                         "type":"object",
+                         "value":992
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":542.333333333333,
+                 "y":122.333333333333
+                }, 
+                {
+                 "class":"",
+                 "gid":498,
+                 "height":30,
+                 "id":995,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"LinkGimmick1",
+                         "type":"object",
+                         "value":989
+                        }, 
+                        {
+                         "name":"LinkGimmick2",
+                         "type":"object",
+                         "value":990
+                        }, 
+                        {
+                         "name":"LinkGimmick3",
+                         "type":"object",
+                         "value":991
+                        }, 
+                        {
+                         "name":"LinkGimmick4",
+                         "type":"object",
+                         "value":992
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":542.333333333333,
+                 "y":91.6666666666667
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -407,7 +587,7 @@
          "y":0
         }],
  "nextlayerid":22,
- "nextobjectid":988,
+ "nextobjectid":996,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.0",
@@ -4957,6 +5137,10 @@
                 {
                  "class":"BossGenerator",
                  "id":12
+                }, 
+                {
+                 "class":"SwitchArea",
+                 "id":13
                 }],
          "tilewidth":30
         }],

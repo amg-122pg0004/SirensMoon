@@ -26,6 +26,7 @@
 #include "BreakableObject.h"
 #include "DegitalLetter.h"
 #include "BossGimmickController.h"
+#include "SwitchArea.h"
 
 ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPattern pattern) 
 	:ModeBase{ game }, _stopActorUpdate{false},_blindFlag{false}
@@ -98,6 +99,12 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 	for (auto aswitch  : switchdata) {
 		auto switch_obj = std::make_unique<Switch>(_game, *this,aswitch);
 		_actorServer.Add(std::move(switch_obj));
+	}
+
+	auto switchareadata = _mapChips->GetSwitchAreaData();
+	for (auto aswitcharea : switchareadata) {
+		auto switcharea_obj = std::make_unique<SwitchArea>(_game, *this, aswitcharea);
+		_actorServer.Add(std::move(switcharea_obj));
 	}
 
 	auto doordata = _mapChips->GetDoorData();

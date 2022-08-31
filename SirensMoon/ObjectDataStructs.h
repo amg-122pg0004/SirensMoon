@@ -65,8 +65,23 @@ public:
 		std::vector<int> links;
 	};
 
+	/*スイッチエリアデータ構造*/
+	struct SwitchAreaData {
+		int ID;
+		Vector2 pos;
+		std::vector<int> links;
+	};
+
 	/*Mineデータ構造*/
 	struct MineData {
+		int ID;
+		Vector2 pos;
+		int range;
+		int dir;
+	};
+
+	/*ScreenPumpデータ構造*/
+	struct ScreenPumpData {
 		int ID;
 		Vector2 pos;
 		int range;

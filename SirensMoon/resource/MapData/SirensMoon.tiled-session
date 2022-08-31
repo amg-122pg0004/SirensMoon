@@ -198,8 +198,8 @@
             "scale": 0.125,
             "selectedLayer": 8,
             "viewCenter": {
-                "x": 1980,
-                "y": 2488
+                "x": 1700,
+                "y": 2296
             }
         },
         "Stage1.tmx#tile_icon": {
@@ -319,18 +319,19 @@
         },
         "test.tmx": {
             "expandedObjectLayers": [
-                4,
-                12
+                12,
+                4
             ],
-            "scale": 0.25,
-            "selectedLayer": 2,
+            "scale": 1.5,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 1342,
-                "y": 1320
+                "x": 679.6666666666667,
+                "y": 281.3333333333333
             }
         },
         "test.tmx#tile_icon": {
-            "scaleInDock": 1
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "test.tmx#tile_test": {
             "scaleInDock": 1
@@ -351,14 +352,13 @@
     "map.tileWidth": 30,
     "map.width": 96,
     "openFiles": [
-        "test.tmx",
-        "Stage1.tmx"
+        "test.tmx"
     ],
     "project": "SirensMoon.tiled-project",
-    "property.type": "Direction",
+    "property.type": "object",
     "recentFiles": [
-        "Stage1.tmx",
         "test.tmx",
+        "Stage1.tmx",
         "Stage3.tmx",
         "F:/ステージ/main_2.tmx",
         "F:/ステージ/main_stage_1.json",

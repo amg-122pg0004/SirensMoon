@@ -259,6 +259,12 @@
     <Filter Include="UI\AimUI">
       <UniqueIdentifier>{061f6fcf-ef83-4f43-949b-0d2ec3c45f82}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Gimmick\SwitchArea">
+      <UniqueIdentifier>{6f59102c-9a07-421c-89a5-c50f2af09b84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Gimmick\ScreenPump">
+      <UniqueIdentifier>{5228110c-bed4-46f9-bcb9-114e5eca5eb9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -509,6 +515,12 @@
     </ClCompile>
     <ClCompile Include="AimUI.cpp">
       <Filter>UI\AimUI</Filter>
+    </ClCompile>
+    <ClCompile Include="SwitchArea.cpp">
+      <Filter>Actor\Gimmick\SwitchArea</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenPump.cpp">
+      <Filter>Actor\Gimmick\ScreenPump</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -763,6 +775,12 @@
     </ClInclude>
     <ClInclude Include="AimUI.h">
       <Filter>UI\AimUI</Filter>
+    </ClInclude>
+    <ClInclude Include="SwitchArea.h">
+      <Filter>Actor\Gimmick\SwitchArea</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenPump.h">
+      <Filter>Actor\Gimmick\ScreenPump</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
