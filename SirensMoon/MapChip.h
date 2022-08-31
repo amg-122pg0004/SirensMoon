@@ -14,7 +14,7 @@ class Actor;
 
 class MapChips {
 public:
-	MapChips(Game& game,ModeBase& mode);
+	MapChips(Game& game,ModeBase& mode,std::string filename);
 	~MapChips();
 
 	typedef ObjectDataStructs St;

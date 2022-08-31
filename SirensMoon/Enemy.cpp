@@ -360,32 +360,127 @@ Resize(_cg_bot);
 		_cg_top[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/head2(1)/head2_downright.png");
 
 		_cg_top2[EnemyDirection::Down] = ImageServer::LoadGraph("resource/Enemy/blank.png");
-		_cg_top2[EnemyDirection::DownLeft] = ImageServer::LoadGraph("resource/Enemy/head2(2)/head2_downleft.png");
-		_cg_top2[EnemyDirection::Left] = ImageServer::LoadGraph("resource/Enemy/head2(2)/head2_left.png");
-		_cg_top2[EnemyDirection::UpLeft] = ImageServer::LoadGraph("resource/Enemy/head2(2)/head2_upleft.png");
+		_cg_top2[EnemyDirection::DownLeft] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::Left] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::UpLeft] = ImageServer::LoadGraph("resource/Enemy/blank.png");
 		_cg_top2[EnemyDirection::Up] = ImageServer::LoadGraph("resource/Enemy/blank.png");
-		_cg_top2[EnemyDirection::UpRight] = ImageServer::LoadGraph("resource/Enemy/head2(2)/head2_upright.png");
-		_cg_top2[EnemyDirection::Right] = ImageServer::LoadGraph("resource/Enemy/head2(2)/head2_right.png");
-		_cg_top2[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/head2(2)/head2_downright.png");
+		_cg_top2[EnemyDirection::UpRight] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::Right] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/blank.png");
 		break;
 	case 3:
-		_cg_top[EnemyDirection::Down] = ImageServer::LoadGraph("resource/Enemy/head2(1)/head2_down.png");
-		_cg_top[EnemyDirection::DownLeft] = ImageServer::LoadGraph("resource/Enemy/head2(1)/head2_downleft.png");
-		_cg_top[EnemyDirection::Left] = ImageServer::LoadGraph("resource/Enemy/head2(1)/head2_left.png");
-		_cg_top[EnemyDirection::UpLeft] = ImageServer::LoadGraph("resource/Enemy/head2(1)/head2_upleft.png");
-		_cg_top[EnemyDirection::Up] = ImageServer::LoadGraph("resource/Enemy/head2(1)/head2_up.png");
-		_cg_top[EnemyDirection::UpRight] = ImageServer::LoadGraph("resource/Enemy/head2(1)/head2_upright.png");
-		_cg_top[EnemyDirection::Right] = ImageServer::LoadGraph("resource/Enemy/head2(1)/head2_right.png");
-		_cg_top[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/head2(1)/head2_downright.png");
+		_cg_top[EnemyDirection::Down] = ImageServer::LoadGraph("resource/Enemy/head3/1.png");
+		_cg_top[EnemyDirection::DownLeft] = ImageServer::LoadGraph("resource/Enemy/head3/2.png");
+		_cg_top[EnemyDirection::Left] = ImageServer::LoadGraph("resource/Enemy/head3/3.png");
+		_cg_top[EnemyDirection::UpLeft] = ImageServer::LoadGraph("resource/Enemy/head3/4.png");
+		_cg_top[EnemyDirection::Up] = ImageServer::LoadGraph("resource/Enemy/head3/5.png");
+		_cg_top[EnemyDirection::UpRight] = ImageServer::LoadGraph("resource/Enemy/head3/6.png");
+		_cg_top[EnemyDirection::Right] = ImageServer::LoadGraph("resource/Enemy/head3/7.png");
+		_cg_top[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/head3/8.png");
 
 		_cg_top2[EnemyDirection::Down] = ImageServer::LoadGraph("resource/Enemy/blank.png");
-		_cg_top2[EnemyDirection::DownLeft] = ImageServer::LoadGraph("resource/Enemy/head2(2)/head2_downleft.png");
-		_cg_top2[EnemyDirection::Left] = ImageServer::LoadGraph("resource/Enemy/head2(2)/head2_left.png");
-		_cg_top2[EnemyDirection::UpLeft] = ImageServer::LoadGraph("resource/Enemy/head2(2)/head2_upleft.png");
+		_cg_top2[EnemyDirection::DownLeft] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::Left] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::UpLeft] = ImageServer::LoadGraph("resource/Enemy/blank.png");
 		_cg_top2[EnemyDirection::Up] = ImageServer::LoadGraph("resource/Enemy/blank.png");
-		_cg_top2[EnemyDirection::UpRight] = ImageServer::LoadGraph("resource/Enemy/head2(2)/head2_upright.png");
-		_cg_top2[EnemyDirection::Right] = ImageServer::LoadGraph("resource/Enemy/head2(2)/head2_right.png");
-		_cg_top2[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/head2(2)/head2_downright.png");
+		_cg_top2[EnemyDirection::UpRight] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::Right] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		break;
+	case 4:
+		_cg_top[EnemyDirection::Down] = ImageServer::LoadGraph("resource/Enemy/head4/1.png");
+		_cg_top[EnemyDirection::DownLeft] = ImageServer::LoadGraph("resource/Enemy/head4/2.png");
+		_cg_top[EnemyDirection::Left] = ImageServer::LoadGraph("resource/Enemy/head4/3.png");
+		_cg_top[EnemyDirection::UpLeft] = ImageServer::LoadGraph("resource/Enemy/head4/4.png");
+		_cg_top[EnemyDirection::Up] = ImageServer::LoadGraph("resource/Enemy/head4/5.png");
+		_cg_top[EnemyDirection::UpRight] = ImageServer::LoadGraph("resource/Enemy/head4/6.png");
+		_cg_top[EnemyDirection::Right] = ImageServer::LoadGraph("resource/Enemy/head4/7.png");
+		_cg_top[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/head4/8.png");
+
+		_cg_top2[EnemyDirection::Down] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::DownLeft] = ImageServer::LoadGraph("resource/Enemy/head4(2)/2.png");
+		_cg_top2[EnemyDirection::Left] = ImageServer::LoadGraph("resource/Enemy/head4(2)/3.png");
+		_cg_top2[EnemyDirection::UpLeft] = ImageServer::LoadGraph("resource/Enemy/head4(2)/4.png");
+		_cg_top2[EnemyDirection::Up] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::UpRight] = ImageServer::LoadGraph("resource/Enemy/head4(2)/6.png");
+		_cg_top2[EnemyDirection::Right] = ImageServer::LoadGraph("resource/Enemy/head4(2)/7.png");
+		_cg_top2[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/head4(2)/8.png");
+		break;
+	case 5:
+		_cg_top[EnemyDirection::Down] = ImageServer::LoadGraph("resource/Enemy/head5/1.png");
+		_cg_top[EnemyDirection::DownLeft] = ImageServer::LoadGraph("resource/Enemy/head5/2.png");
+		_cg_top[EnemyDirection::Left] = ImageServer::LoadGraph("resource/Enemy/head5/3.png");
+		_cg_top[EnemyDirection::UpLeft] = ImageServer::LoadGraph("resource/Enemy/head5/4.png");
+		_cg_top[EnemyDirection::Up] = ImageServer::LoadGraph("resource/Enemy/head5/5.png");
+		_cg_top[EnemyDirection::UpRight] = ImageServer::LoadGraph("resource/Enemy/head5/6.png");
+		_cg_top[EnemyDirection::Right] = ImageServer::LoadGraph("resource/Enemy/head5/7.png");
+		_cg_top[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/head5/8.png");
+
+		_cg_top2[EnemyDirection::Down] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::DownLeft] = ImageServer::LoadGraph("resource/Enemy/head5(2)/head2_downleft.png");
+		_cg_top2[EnemyDirection::Left] = ImageServer::LoadGraph("resource/Enemy/head5(2)/head2_left.png");
+		_cg_top2[EnemyDirection::UpLeft] = ImageServer::LoadGraph("resource/Enemy/head5(2)/head2_upleft.png");
+		_cg_top2[EnemyDirection::Up] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::UpRight] = ImageServer::LoadGraph("resource/Enemy/head5(2)/head2_upright.png");
+		_cg_top2[EnemyDirection::Right] = ImageServer::LoadGraph("resource/Enemy/head5(2)/head2_right.png");
+		_cg_top2[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/head5(2)/head2_downright.png");
+		break;
+	case 6:
+		_cg_top[EnemyDirection::Down] = ImageServer::LoadGraph("resource/Enemy/head6/1.png");
+		_cg_top[EnemyDirection::DownLeft] = ImageServer::LoadGraph("resource/Enemy/head6/2.png");
+		_cg_top[EnemyDirection::Left] = ImageServer::LoadGraph("resource/Enemy/head6/3.png");
+		_cg_top[EnemyDirection::UpLeft] = ImageServer::LoadGraph("resource/Enemy/head6/4.png");
+		_cg_top[EnemyDirection::Up] = ImageServer::LoadGraph("resource/Enemy/head6/5.png");
+		_cg_top[EnemyDirection::UpRight] = ImageServer::LoadGraph("resource/Enemy/head6/6.png");
+		_cg_top[EnemyDirection::Right] = ImageServer::LoadGraph("resource/Enemy/head6/7.png");
+		_cg_top[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/head6/8.png");
+
+		_cg_top2[EnemyDirection::Down] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::DownLeft] = ImageServer::LoadGraph("resource/Enemy/head6(2)/2.png");
+		_cg_top2[EnemyDirection::Left] = ImageServer::LoadGraph("resource/Enemy/head6(2)/3.png");
+		_cg_top2[EnemyDirection::UpLeft] = ImageServer::LoadGraph("resource/Enemy/head6(2)/4.png");
+		_cg_top2[EnemyDirection::Up] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::UpRight] = ImageServer::LoadGraph("resource/Enemy/head6(2)/6.png");
+		_cg_top2[EnemyDirection::Right] = ImageServer::LoadGraph("resource/Enemy/head6(2)/7.png");
+		_cg_top2[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/head6(2)/8.png");
+		break;
+	case 7:
+		_cg_top[EnemyDirection::Down] = ImageServer::LoadGraph("resource/Enemy/head7/1.png");
+		_cg_top[EnemyDirection::DownLeft] = ImageServer::LoadGraph("resource/Enemy/head7/2.png");
+		_cg_top[EnemyDirection::Left] = ImageServer::LoadGraph("resource/Enemy/head7/3.png");
+		_cg_top[EnemyDirection::UpLeft] = ImageServer::LoadGraph("resource/Enemy/head7/4.png");
+		_cg_top[EnemyDirection::Up] = ImageServer::LoadGraph("resource/Enemy/head7/5.png");
+		_cg_top[EnemyDirection::UpRight] = ImageServer::LoadGraph("resource/Enemy/head7/6.png");
+		_cg_top[EnemyDirection::Right] = ImageServer::LoadGraph("resource/Enemy/head7/7.png");
+		_cg_top[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/head7/8.png");
+
+		_cg_top2[EnemyDirection::Down] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::DownLeft] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::Left] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::UpLeft] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::Up] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::UpRight] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::Right] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		break;
+	case 8:
+		_cg_top[EnemyDirection::Down] = ImageServer::LoadGraph("resource/Enemy/head8/1.png");
+		_cg_top[EnemyDirection::DownLeft] = ImageServer::LoadGraph("resource/Enemy/head8/2.png");
+		_cg_top[EnemyDirection::Left] = ImageServer::LoadGraph("resource/Enemy/head8/3.png");
+		_cg_top[EnemyDirection::UpLeft] = ImageServer::LoadGraph("resource/Enemy/head8/4.png");
+		_cg_top[EnemyDirection::Up] = ImageServer::LoadGraph("resource/Enemy/head8/5.png");
+		_cg_top[EnemyDirection::UpRight] = ImageServer::LoadGraph("resource/Enemy/head8/6.png");
+		_cg_top[EnemyDirection::Right] = ImageServer::LoadGraph("resource/Enemy/head8/7.png");
+		_cg_top[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/head8/8.png");
+
+		_cg_top2[EnemyDirection::Down] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::DownLeft] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::Left] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::UpLeft] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::Up] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::UpRight] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::Right] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/blank.png");
 		break;
 	}
 	switch (pattern.body) {
@@ -410,14 +505,34 @@ Resize(_cg_bot);
 		_cg_mid[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/body2/body2_downright.png");
 		break;
 	case 3:
-		_cg_mid[EnemyDirection::Down] = ImageServer::LoadGraph("resource/Enemy/body2/body2_down.png");
-		_cg_mid[EnemyDirection::DownLeft] = ImageServer::LoadGraph("resource/Enemy/body2/body2_downleft.png");
-		_cg_mid[EnemyDirection::Left] = ImageServer::LoadGraph("resource/Enemy/body2/body2_left.png");
-		_cg_mid[EnemyDirection::UpLeft] = ImageServer::LoadGraph("resource/Enemy/body2/body2_upleft.png");
-		_cg_mid[EnemyDirection::Up] = ImageServer::LoadGraph("resource/Enemy/body2/body2_up.png");
-		_cg_mid[EnemyDirection::UpRight] = ImageServer::LoadGraph("resource/Enemy/body2/body2_upright.png");
-		_cg_mid[EnemyDirection::Right] = ImageServer::LoadGraph("resource/Enemy/body2/body2_right.png");
-		_cg_mid[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/body2/body2_downright.png");
+		_cg_mid[EnemyDirection::Down] = ImageServer::LoadGraph("resource/Enemy/body3/body3_down.png");
+		_cg_mid[EnemyDirection::DownLeft] = ImageServer::LoadGraph("resource/Enemy/body3/body3_downleft.png");
+		_cg_mid[EnemyDirection::Left] = ImageServer::LoadGraph("resource/Enemy/body3/body3_left.png");
+		_cg_mid[EnemyDirection::UpLeft] = ImageServer::LoadGraph("resource/Enemy/body3/body3_upleft.png");
+		_cg_mid[EnemyDirection::Up] = ImageServer::LoadGraph("resource/Enemy/body3/body3_up.png");
+		_cg_mid[EnemyDirection::UpRight] = ImageServer::LoadGraph("resource/Enemy/body3/body3_upright.png");
+		_cg_mid[EnemyDirection::Right] = ImageServer::LoadGraph("resource/Enemy/body3/body3_right.png");
+		_cg_mid[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/body3/body3_downright.png");
+		break;
+	case 4:
+		_cg_mid[EnemyDirection::Down] = ImageServer::LoadGraph("resource/Enemy/body4/body4_down.png");
+		_cg_mid[EnemyDirection::DownLeft] = ImageServer::LoadGraph("resource/Enemy/body4/body4_downleft.png");
+		_cg_mid[EnemyDirection::Left] = ImageServer::LoadGraph("resource/Enemy/body4/body4_left.png");
+		_cg_mid[EnemyDirection::UpLeft] = ImageServer::LoadGraph("resource/Enemy/body4/body4_upleft.png");
+		_cg_mid[EnemyDirection::Up] = ImageServer::LoadGraph("resource/Enemy/body4/body4_up.png");
+		_cg_mid[EnemyDirection::UpRight] = ImageServer::LoadGraph("resource/Enemy/body4/body4_upright.png");
+		_cg_mid[EnemyDirection::Right] = ImageServer::LoadGraph("resource/Enemy/body4/body4_right.png");
+		_cg_mid[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/body4/body4_downright.png");
+		break;
+	case 5:
+		_cg_mid[EnemyDirection::Down] = ImageServer::LoadGraph("resource/Enemy/body5/body5_down.png");
+		_cg_mid[EnemyDirection::DownLeft] = ImageServer::LoadGraph("resource/Enemy/body5/body5_downleft.png");
+		_cg_mid[EnemyDirection::Left] = ImageServer::LoadGraph("resource/Enemy/body5/body5_left.png");
+		_cg_mid[EnemyDirection::UpLeft] = ImageServer::LoadGraph("resource/Enemy/body5/body5_upleft.png");
+		_cg_mid[EnemyDirection::Up] = ImageServer::LoadGraph("resource/Enemy/body5/body5_up.png");
+		_cg_mid[EnemyDirection::UpRight] = ImageServer::LoadGraph("resource/Enemy/body5/body5_upright.png");
+		_cg_mid[EnemyDirection::Right] = ImageServer::LoadGraph("resource/Enemy/body5/body5_right.png");
+		_cg_mid[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/body5/body5_downright.png");
 		break;
 	}
 	switch (pattern.foot) {
@@ -442,14 +557,34 @@ Resize(_cg_bot);
 		_cg_bot[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/foot2/foot2_downright.png");
 		break;
 	case 3:
-		_cg_bot[EnemyDirection::Down] = ImageServer::LoadGraph("resource/Enemy/foot2/foot2_down.png");
-		_cg_bot[EnemyDirection::DownLeft] = ImageServer::LoadGraph("resource/Enemy/foot2/foot2_downleft.png");
-		_cg_bot[EnemyDirection::Left] = ImageServer::LoadGraph("resource/Enemy/foot2/foot2_left.png");
-		_cg_bot[EnemyDirection::UpLeft] = ImageServer::LoadGraph("resource/Enemy/foot2/foot2_upleft.png");
-		_cg_bot[EnemyDirection::Up] = ImageServer::LoadGraph("resource/Enemy/foot2/foot2_up.png");
-		_cg_bot[EnemyDirection::UpRight] = ImageServer::LoadGraph("resource/Enemy/foot2/foot2_upright.png");
-		_cg_bot[EnemyDirection::Right] = ImageServer::LoadGraph("resource/Enemy/foot2/foot2_right.png");
-		_cg_bot[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/foot2/foot2_downright.png");
+		_cg_bot[EnemyDirection::Down] = ImageServer::LoadGraph("resource/Enemy/foot3/foot3_down.png");
+		_cg_bot[EnemyDirection::DownLeft] = ImageServer::LoadGraph("resource/Enemy/foot3/foot3_downleft.png");
+		_cg_bot[EnemyDirection::Left] = ImageServer::LoadGraph("resource/Enemy/foot3/foot3_left.png");
+		_cg_bot[EnemyDirection::UpLeft] = ImageServer::LoadGraph("resource/Enemy/foot3/foot3_upleft.png");
+		_cg_bot[EnemyDirection::Up] = ImageServer::LoadGraph("resource/Enemy/foot3/foot3_up.png");
+		_cg_bot[EnemyDirection::UpRight] = ImageServer::LoadGraph("resource/Enemy/foot3/foot3_upright.png");
+		_cg_bot[EnemyDirection::Right] = ImageServer::LoadGraph("resource/Enemy/foot3/foot3_right.png");
+		_cg_bot[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/foot3/foot3_downright.png");
+		break;
+	case 4:
+		_cg_bot[EnemyDirection::Down] = ImageServer::LoadGraph("resource/Enemy/foot4/foot4_down.png");
+		_cg_bot[EnemyDirection::DownLeft] = ImageServer::LoadGraph("resource/Enemy/foot4/foot4_downleft.png");
+		_cg_bot[EnemyDirection::Left] = ImageServer::LoadGraph("resource/Enemy/foot4/foot4_left.png");
+		_cg_bot[EnemyDirection::UpLeft] = ImageServer::LoadGraph("resource/Enemy/foot4/foot4_upleft.png");
+		_cg_bot[EnemyDirection::Up] = ImageServer::LoadGraph("resource/Enemy/foot4/foot4_up.png");
+		_cg_bot[EnemyDirection::UpRight] = ImageServer::LoadGraph("resource/Enemy/foot4/foot4_upright.png");
+		_cg_bot[EnemyDirection::Right] = ImageServer::LoadGraph("resource/Enemy/foot4/foot4_right.png");
+		_cg_bot[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/foot4/foot4_downright.png");
+		break;
+	case 5:
+		_cg_bot[EnemyDirection::Down] = ImageServer::LoadGraph("resource/Enemy/foot5/foot5_down.png");
+		_cg_bot[EnemyDirection::DownLeft] = ImageServer::LoadGraph("resource/Enemy/foot5/foot5_downleft.png");
+		_cg_bot[EnemyDirection::Left] = ImageServer::LoadGraph("resource/Enemy/foot5/foot5_left.png");
+		_cg_bot[EnemyDirection::UpLeft] = ImageServer::LoadGraph("resource/Enemy/foot5/foot5_upleft.png");
+		_cg_bot[EnemyDirection::Up] = ImageServer::LoadGraph("resource/Enemy/foot5/foot5_up.png");
+		_cg_bot[EnemyDirection::UpRight] = ImageServer::LoadGraph("resource/Enemy/foot5/foot5_upright.png");
+		_cg_bot[EnemyDirection::Right] = ImageServer::LoadGraph("resource/Enemy/foot5/foot5_right.png");
+		_cg_bot[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/foot5/foot5_downright.png");
 		break;
 	}
 }

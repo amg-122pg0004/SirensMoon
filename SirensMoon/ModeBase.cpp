@@ -7,12 +7,13 @@
  *********************************************************************/
 
 #include "ModeBase.h"
-class Game;
+#include "Game.h"
 
 ModeBase::ModeBase(Game& game)
 	: _game(game)
 	, _dead(false)
 	,_actorServer{*this}
+	,_makedNextMode{false}
 {
 }
 
@@ -32,3 +33,9 @@ void ModeBase::Debug() {
 
 }
 
+void ModeBase::NextMode() {
+	if (!_makedNextMode) {
+		_makedNextMode = true;
+		_game.NextMode();
+	}
+}

@@ -20,12 +20,25 @@ constexpr int splitscreen_W{ screen_W / 2 -30};
 class Game {
 
 	public:
+		const enum class Progress {
+			Intro,
+			StartMenu,
+			Stage1,
+			Stage1Clear,
+			Stage2,
+			Stage2Clear,
+			Stage3,
+			Stage3Clear,
+		};
+
 		Game();//<Gameコンストラクタ
 		void Input();//<入力の取得
 		void Update();//<計算、更新
 		void Render();//<描画更新
 		void Debug();//<デバッグ用表示
-
+		void RestartMode();
+		void NextMode();
+		void GameOver();
 		/**
 		 * @brief インプットマネージャーの取得
 		 * @return インプットマネージャーの参照を返す
@@ -38,10 +51,20 @@ class Game {
 
 
 	private:
+		void PlayStartMenu();
+		void PlayStage1();
+		void PlayStage1Clear();
+		void PlayStage2();
+		void PlayStage2Clear();
+		void PlayStage3();
+		void PlayStage3Clear();
 		std::shared_ptr<InputManager> _inputManager;
 		std::unique_ptr<ModeServer> _modeServer;
 		int _frameCount;
 		
 		bool _debug;
+
+		Progress _progress;
+
 
 };

@@ -13,17 +13,18 @@
 #include "MapChip.h"
 #include "Camera.h"
 #include "LoadResources.h"
+#include "EnemyGenerator.h"
+
 class Game;
 
 class ModeGame :public ModeBase {
 
 public:
-	ModeGame(Game& game);
+	ModeGame(Game& game,std::string filename, EnemyGenerator::EnemyPattern pattern);
 
 	void Update()override;
 	void Render()override;
 	void Debug()override;
-
 
 	inline  auto& GetMapChips() { return _mapChips; }
 	inline auto& GetSplitWindow() { return _splitWindow; }
@@ -48,5 +49,4 @@ private:
 	/*お互いのプレイヤーを視認できなくなるフラグ*/
 	bool _blindFlag;
 
-	bool _makedNextMode;
 };

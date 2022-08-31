@@ -27,22 +27,19 @@
 #include "DegitalLetter.h"
 #include "BossGimmickController.h"
 
-ModeGame::ModeGame(Game& game) :ModeBase{ game }, _stopActorUpdate{false},_blindFlag{false},_makedNextMode{false}
+ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPattern pattern) 
+	:ModeBase{ game }, _stopActorUpdate{false},_blindFlag{false}
 {
 	_inputManager=_game.GetInputManager();
 
 	SetUseASyncLoadFlag(true);
 	_renderPriority = 0;
 
-	_mapChips = std::make_unique<MapChips>(_game,*this);
+	_mapChips = std::make_unique<MapChips>(_game,*this,filename);
 
 	_splitWindow.emplace_back(std::make_unique<SplitWindow>(_game,*this, 0, 0, 0));
 	_splitWindow.emplace_back(std::make_unique<SplitWindow>(_game,*this, screen_W-splitscreen_W, 0, 1));
 
-	EnemyGenerator::EnemyPattern pattern;
-	pattern.body = 2;
-	pattern.head = 2;
-	pattern.foot = 2;
 	/*äeïî2éÌÇ≈ìGÉâÉìÉ_ÉÄê∂ê¨*/
 	auto enemygen = std::make_unique<EnemyGenerator>(pattern);
 
@@ -181,13 +178,9 @@ void ModeGame::Debug() {
 
 void ModeGame::StageClearCheck(){
 	++_enemyVIPDeadCount;
-	if (_makedNextMode == false) {
-		_makedNextMode = true;
-		if (_enemyVIPDeadCount >= _mapChips->GetServerData().size()) {
-			_stopActorUpdate = true;
-			auto mode = std::make_unique<ModeMovie>(_game, "resource/Movie/rocket.mp4");
-			_game.GetModeServer()->Add(std::move(mode));
-		}
+	if (_enemyVIPDeadCount >= _mapChips->GetServerData().size()) {
+		_stopActorUpdate = true;
+		NextMode();
 	}
 }
 

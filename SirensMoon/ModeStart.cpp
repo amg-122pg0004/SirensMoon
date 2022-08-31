@@ -67,7 +67,8 @@ void ModeStart::Render() {
 	if (GetMovieStateToGraph(_movieHandle) == 1&&TellMovieToGraph(_movieHandle) > 128000) {
 		PauseMovieToGraph(_movieHandle);
 	}
-	if (GetMovieStateToGraph(_movieHandle) == 1 && _inputManager->CheckInput("PAUSE", 't', 0)) {
+	if (GetMovieStateToGraph(_movieHandle) == 1 && _inputManager->CheckInput("PAUSE", 't', 0)||
+		GetMovieStateToGraph(_movieHandle) == 1 && _inputManager->CheckInput("PAUSE", 't', 1)) {
 		if (!_bgm) {
 			PlaySoundFile("resource/BGM/title.wav", DX_PLAYTYPE_LOOP);
 			_bgm = true;
@@ -123,6 +124,7 @@ void ModeStart::Render() {
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 		_alpha -= 5;
 	}
+
 	if (GetMovieStateToGraph(_movieHandle) != 1) {
 
 		Vector2 size{ 1280,720 };
@@ -140,10 +142,7 @@ void ModeStart::Debug(){
 }
 
 void ModeStart::Play() {
-	StopSoundFile();
-	_game.GetModeServer()->Clear();
-	auto mode = std::make_unique<ModeGame>(_game);
-	_game.GetModeServer()->Add(std::move(mode));
+	NextMode();
 }
 
 void ModeStart::Credit() {

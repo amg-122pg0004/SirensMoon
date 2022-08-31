@@ -39,12 +39,5 @@ void ModeGameOver::Render() {
 void ModeGameOver::RestartGame(){
 	PauseMovieToGraph(_movieHandle);
 	SeekMovieToGraph(_movieHandle, 0);
-	_game.GetModeServer()->Clear();
-
-	auto mode = std::make_unique<ModeGame>(_game);
-
-	_game.GetModeServer()->Add(std::move(mode));
-
-
-
+	_game.RestartMode();
 }

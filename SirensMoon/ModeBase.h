@@ -8,7 +8,6 @@
 
 #pragma once
 #include "ActorServer.h"
-
 class Game;
 
 class ModeBase {
@@ -27,6 +26,8 @@ public:
 	virtual void	Dead() { _dead = true; }
 	int GetRenderPriority() { return _renderPriority; }
 
+	virtual void NextMode();
+
 protected:
 	Game& _game;
 	bool	_dead;
@@ -35,4 +36,5 @@ protected:
 
 	int _renderPriority;
 
+	bool _makedNextMode;
 };

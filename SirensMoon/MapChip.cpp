@@ -8,10 +8,10 @@
 #include <unordered_map>
 #include "strconv/strconv.h"
 
-MapChips::MapChips(Game& game, ModeBase& mode) :_game{ game }, _mode{mode}{
+MapChips::MapChips(Game& game, ModeBase& mode, std::string filename) :_game{ game }, _mode{mode}{
 	_mapTileData.clear();
 	_minimapData.clear();
-	LoadMap("resource/MapData/", "Stage1.json");
+	LoadMap("resource/MapData/", filename);
 }
 
 MapChips::~MapChips() {
