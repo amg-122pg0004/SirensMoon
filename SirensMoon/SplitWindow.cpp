@@ -58,11 +58,6 @@ SplitWindow::SplitWindow(Game& game, ModeGame& mode, int pos_x, int pos_y, int w
 	Vector2 button_size = { 60,60 };
 	_ui.emplace_back(std::make_unique<ButtonIcon>(_game, _mode, button_pos, button_size, _windowNo));
 
-	double damage_scale = 840 / 320;
-	Vector2 damage_pos = { _windowPos.x, _windowPos.y + screen_H / 2 - 320 * damage_scale / 2 };
-	Vector2 damage_size = { 640 * damage_scale,320 * damage_scale };
-	_ui.emplace_back(std::make_unique<DamageCut>(_game, _mode, damage_pos, damage_size));
-
 	Vector2 hp_pos = { _windowPos.x ,screen_H - 270 };
 	Vector2 hp_size = { 90,270 };
 	_ui.emplace_back(std::make_unique<HPUI>(_game, _mode, hp_pos, hp_size, _windowNo));
@@ -90,6 +85,12 @@ SplitWindow::SplitWindow(Game& game, ModeGame& mode, int pos_x, int pos_y, int w
 	Vector2 message_size = { 870,180 };
 	Vector2 message_pos = { _windowPos.x+(splitscreen_W-message_size.x)/2 ,_windowPos.y + screen_H - message_size.y };
 	_ui.emplace_back(std::make_unique<MessageWindow>(_game, _mode, message_pos, message_size,window_no));
+
+
+	double damage_scale = 840.0 / 320.0;
+	Vector2 damage_pos = { _windowPos.x,(screen_H - 840) / 2 };
+	Vector2 damage_size = { 640 * damage_scale,840 };
+	_ui.emplace_back(std::make_unique<DamageCut>(_game, _mode, damage_pos, damage_size));
 
 	Vector2 pause_pos = { _windowPos.x + splitscreen_W / 2, _windowPos.y };
 	Vector2 pause_size = { 360,90 };

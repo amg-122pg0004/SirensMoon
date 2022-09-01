@@ -72,6 +72,13 @@ public:
 		std::vector<int> links;
 	};
 
+	/*Doorデータ構造*/
+	struct DoorData {
+		int ID;
+		Vector2 pos;
+		int PartNo;
+	};
+
 	/*Mineデータ構造*/
 	struct MineData {
 		int ID;

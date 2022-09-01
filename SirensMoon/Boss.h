@@ -21,12 +21,15 @@ public:
 private:
 	enum class State {
 		Wait,
+		jump,
 		GunAttack1,
 		GunAttack2,
 		ShootMissile,
 		Jump,
 		HeadButt,
-		TakeDamage
+		TakeDamage,
+		Damage,
+		Thunder
 	};
 
 	void Wait();
@@ -34,13 +37,14 @@ private:
 	void GunAttack2();
 	void ShootMissile();
 	void HeadButt();
+	void Jump();
+	void Thunder();
 	void UpdateCollision();
 	/*グラフィックハンドル*/
 	std::map < State, std::vector<int>> _cg;
 	/*アニメーション番号*/
 	int _animNo;
 	double _scale;
-	double _angle;
 	/*プレイヤー参照*/
 	Actor* _player1;
 	Actor* _player2;

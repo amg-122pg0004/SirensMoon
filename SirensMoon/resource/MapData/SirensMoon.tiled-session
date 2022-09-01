@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "test.tmx",
+    "activeFile": "",
     "expandedProjectPaths": [
         "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource"
     ],
@@ -192,14 +192,14 @@
         },
         "Stage1.tmx": {
             "expandedObjectLayers": [
-                2,
-                13
+                13,
+                2
             ],
-            "scale": 0.125,
-            "selectedLayer": 8,
+            "scale": 1.5,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 1700,
-                "y": 2296
+                "x": 1919.9999999999998,
+                "y": 2159.6666666666665
             }
         },
         "Stage1.tmx#tile_icon": {
@@ -215,11 +215,11 @@
                 4,
                 12
             ],
-            "scale": 0.75,
+            "scale": 0.125,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 1919.3333333333333,
-                "y": 2158.6666666666665
+                "x": 2084,
+                "y": 2108
             }
         },
         "Stage3.tmx#tile_icon": {
@@ -319,14 +319,15 @@
         },
         "test.tmx": {
             "expandedObjectLayers": [
+                4,
                 12,
-                4
+                13
             ],
             "scale": 1.5,
-            "selectedLayer": 3,
+            "selectedLayer": 6,
             "viewCenter": {
-                "x": 679.6666666666667,
-                "y": 281.3333333333333
+                "x": 1919.9999999999998,
+                "y": 2159.6666666666665
             }
         },
         "test.tmx#tile_icon": {
@@ -334,7 +335,8 @@
             "scaleInEditor": 1
         },
         "test.tmx#tile_test": {
-            "scaleInDock": 1
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "tmp.tsx": {
             "scaleInDock": 1
@@ -352,7 +354,8 @@
     "map.tileWidth": 30,
     "map.width": 96,
     "openFiles": [
-        "test.tmx"
+        "test.tmx",
+        "Stage1.tmx"
     ],
     "project": "SirensMoon.tiled-project",
     "property.type": "object",

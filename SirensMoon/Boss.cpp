@@ -7,27 +7,41 @@
 #include "BossGimmickController.h"
 
 Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
-	:Actor(game,mode),_scale{1.0},_angle{0},_animNo{0}
+	:Actor(game,mode),_scale{1.0},_animNo{0}
 	,_backlayer{true},_time{60},_visible{true},_speed{2.5}
 	,_headbuttSize{150,420},_headSize{90,90},_hp{6},_controller{controller}
 {
 	Vector2 pos = { _controller.GetRoomPosition().x-1.0,_controller.GetRoomPosition().y-1.0 };
-	_startPos = { splitscreen_W * pos.x + 500 , screen_H * pos.y + 500 };
+	_startPos = { splitscreen_W * pos.x + 500 , screen_H * pos.y + 450 };
 	_pos = _startPos;
 	_size = { 100,200 };
 	_size2 = { 400,500 };
 
 	std::vector<int> handle;
-	handle.resize(1);
-	ImageServer::LoadDivGraph("resource/Boss/wait.png",1,1,1,420,840,handle.data());
+	handle.resize(65);
+	ImageServer::LoadDivGraph("resource/Boss/wait.png",65,10,7,1024,1024,handle.data());
 	_cg[State::Wait] = handle;
-	ImageServer::LoadDivGraph("resource/Boss/gunattack1.png", 1, 1, 1, 420, 840, handle.data());
+	handle.resize(90);
+	ImageServer::LoadDivGraph("resource/Boss/gunfire.png", 90, 10, 9, 1024, 1024, handle.data());
 	_cg[State::GunAttack1] = handle;
+	handle.resize(90);
+	ImageServer::LoadDivGraph("resource/Boss/faint.png", 90, 10, 9, 1024, 1024, handle.data());
 	_cg[State::GunAttack2] = handle;
-	ImageServer::LoadDivGraph("resource/Boss/missileattack.png", 1, 1, 1, 420, 840, handle.data());
+	handle.resize(80);
+	ImageServer::LoadDivGraph("resource/Boss/missileboss.png", 80, 10, 8, 1024, 1024, handle.data());
 	_cg[State::ShootMissile] = handle;
-	ImageServer::LoadDivGraph("resource/Boss/headbutt.png", 1, 1, 1, 420, 840, handle.data());
+	handle.resize(70);
+	ImageServer::LoadDivGraph("resource/Boss/headbutt.png", 70, 10, 7, 1024, 1024, handle.data());
 	_cg[State::HeadButt] = handle;
+	handle.resize(70);
+	ImageServer::LoadDivGraph("resource/Boss/jump.png", 70, 10, 7, 1024, 1024, handle.data());
+	_cg[State::Jump] = handle;
+	handle.resize(26);
+	ImageServer::LoadDivGraph("resource/Boss/jump.png", 26, 10, 3, 1024, 1024, handle.data());
+	_cg[State::Damage] = handle;
+	handle.resize(180);
+	ImageServer::LoadDivGraph("resource/Boss/thunder.png", 180, 10, 18, 1024, 1024, handle.data());
+	_cg[State::Damage] = handle;
 
 	_state = State::Wait;
 
@@ -45,7 +59,9 @@ void Boss::Update(){
 	UpdateCollision();
 	CheckOverlapActor();
 	--_time;
-
+	if (_game.GetFrameCount() % 3 == 0) {
+		++_animNo;
+	}
 	switch (_state)
 	{
 	case Boss::State::Wait:
@@ -68,11 +84,9 @@ void Boss::Update(){
 	case Boss::State::TakeDamage:
 		break;
 	}
-
 	if (_time < 0&&_state!=State::Wait) {
 		_time = 60;
 		_state = State::Wait;
-		_angle = 0;
 	}
 }
 
@@ -111,9 +125,12 @@ void Boss::BackRender(Vector2 window_pos, Vector2 camera_pos){
 	if (_visible) {
 		if (_backlayer) {
 			auto cg = _cg[_state];
+			if (_animNo >= cg.size() - 1) {
+				_animNo = 0;
+			}
 			DrawRotaGraph(static_cast<int>(_pos.x - camera_pos.x + window_pos.x),
 				static_cast<int>(_pos.y - camera_pos.y + window_pos.y),
-				_scale, _angle, cg[_animNo], 0, 0);
+				_scale, 0.0, cg[_animNo], 1);
 		}
 	}
 }
@@ -122,14 +139,19 @@ void Boss::StandardRender( Vector2 window_pos, Vector2 camera_pos) {
 	if (_visible) {
 		if (!_backlayer) {
 			auto cg = _cg[_state];
+			if (_animNo>=cg.size()-1) {
+				_animNo = 0;
+			}
 			DrawRotaGraph(static_cast<int>(_pos.x - camera_pos.x + window_pos.x),
 				static_cast<int>(_pos.y - camera_pos.y + window_pos.y),
-				_scale, _angle, cg[_animNo], 0, 0);
+				_scale, 0.0, cg[_animNo], 1);
 		}
 	}
 }
 
 void Boss::Wait() {
+
+	_animNo=0;
 	if (!_phase2) {
 		switch (rand3(engine)) {
 		case 1:
@@ -227,7 +249,6 @@ void Boss::HeadButt(){
 
 		if (dir.Length() < 150&& dir.Length() > 100) {
 			_visible = true;
-			_angle = atan2(dir.x,dir.y)-Math::ToRadians(90);
 		}
 		else {
 			dir.Normalize();
@@ -263,4 +284,12 @@ void Boss::UpdateCollision(){
 		_hitbox.min = _pos - _size / 2;
 		_hitbox.max = _pos + _size / 2;
 	}
+}
+
+void Boss::Jump(){
+
+}
+
+void Boss::Thunder(){
+
 }

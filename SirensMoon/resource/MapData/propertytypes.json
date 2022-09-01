@@ -179,6 +179,29 @@
         "valuesAsFlags": false
     },
     {
+        "color": "#ffa0a0a4",
+        "id": 34,
+        "members": [
+            {
+                "name": "PartNo",
+                "type": "int",
+                "value": 0
+            }
+        ],
+        "name": "Door",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset"
+        ]
+    },
+    {
         "color": "#ffff0000",
         "id": 2,
         "members": [
@@ -471,6 +494,21 @@
                 "value": 0
             },
             {
+                "name": "LinkGimmick10",
+                "type": "object",
+                "value": 0
+            },
+            {
+                "name": "LinkGimmick11",
+                "type": "object",
+                "value": 0
+            },
+            {
+                "name": "LinkGimmick12",
+                "type": "object",
+                "value": 0
+            },
+            {
                 "name": "LinkGimmick2",
                 "type": "object",
                 "value": 0
@@ -487,6 +525,26 @@
             },
             {
                 "name": "LinkGimmick5",
+                "type": "object",
+                "value": 0
+            },
+            {
+                "name": "LinkGimmick6",
+                "type": "object",
+                "value": 0
+            },
+            {
+                "name": "LinkGimmick7",
+                "type": "object",
+                "value": 0
+            },
+            {
+                "name": "LinkGimmick8",
+                "type": "object",
+                "value": 0
+            },
+            {
+                "name": "LinkGimmick9",
                 "type": "object",
                 "value": 0
             }
@@ -510,6 +568,21 @@
                 "value": 0
             },
             {
+                "name": "LinkGimmick10",
+                "type": "object",
+                "value": 0
+            },
+            {
+                "name": "LinkGimmick11",
+                "type": "object",
+                "value": 0
+            },
+            {
+                "name": "LinkGimmick12",
+                "type": "object",
+                "value": 0
+            },
+            {
                 "name": "LinkGimmick2",
                 "type": "object",
                 "value": 0
@@ -526,6 +599,26 @@
             },
             {
                 "name": "LinkGimmick5",
+                "type": "object",
+                "value": 0
+            },
+            {
+                "name": "LinkGimmick6",
+                "type": "object",
+                "value": 0
+            },
+            {
+                "name": "LinkGimmick7",
+                "type": "object",
+                "value": 0
+            },
+            {
+                "name": "LinkGimmick8",
+                "type": "object",
+                "value": 0
+            },
+            {
+                "name": "LinkGimmick9",
                 "type": "object",
                 "value": 0
             }
@@ -600,24 +693,6 @@
         "members": [
         ],
         "name": "TNT",
-        "type": "class",
-        "useAs": [
-            "property",
-            "map",
-            "layer",
-            "object",
-            "tile",
-            "tileset",
-            "wangcolor",
-            "wangset"
-        ]
-    },
-    {
-        "color": "#ffa0a0a4",
-        "id": 21,
-        "members": [
-        ],
-        "name": "Wall",
         "type": "class",
         "useAs": [
             "property",

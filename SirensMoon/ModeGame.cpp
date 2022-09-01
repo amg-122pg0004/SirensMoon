@@ -109,7 +109,7 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 
 	auto doordata = _mapChips->GetDoorData();
 	for (auto adoor : doordata) {
-		auto door = std::make_unique<Door>(_game, *this, adoor.first,adoor.second);
+		auto door = std::make_unique<Door>(_game, *this, adoor);
 		_actorServer.Add(std::move(door));
 	}
 

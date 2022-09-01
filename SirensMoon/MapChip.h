@@ -45,7 +45,7 @@ public:
 	std::unordered_map<int, std::pair<Vector2, bool>> GetteleporterOutData() { return _teleporterOutDataList; }
 	std::vector<St::SwitchData> GetSwitchData() { return _switchDataList; }
 	std::vector<St::SwitchAreaData> GetSwitchAreaData() { return _switchAreaDataList; }
-	std::vector<std::pair<int, Vector2>>GetDoorData() { return _doorDataList; }
+	std::vector<St::DoorData>GetDoorData() { return _doorDataList; }
 	std::vector<std::pair<int, Vector2>>GetTNTData() { return _tNTDataList; }
 	std::vector<St::MineData> GetMineData() { return _mineDataList; }
 	std::vector<St::ScreenPumpData> GetScreenPumpData() { return _screenPumpDataList; }
@@ -137,7 +137,7 @@ private:
 	/*スイッチエリアデータ*/
 	std::vector<St::SwitchAreaData> _switchAreaDataList;
 	/*ドアデータ*/
-	std::vector<std::pair<int,Vector2>> _doorDataList;
+	std::vector<St::DoorData> _doorDataList;
 	/*TNTデータ*/
 	std::vector<std::pair<int, Vector2>> _tNTDataList;
 	/*Mineデータ*/
@@ -186,7 +186,7 @@ private:
 	std::unordered_map<int, bool> _gidteleportIn;//<boolはランダム抽選に参加するフラグ
 	std::vector<int> _gidSwitch;
 	std::vector<int> _gidSwitchArea;
-	std::vector<int> _gidDoor;
+	std::vector<St::DoorData> _gidDoor;
 	std::vector<int> _gidTNT;
 	std::vector<int> _gidMine;
 	std::vector<int> _gidScreenPump;
