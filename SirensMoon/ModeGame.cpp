@@ -95,12 +95,6 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 		_actorServer.Add(std::move(teleportout));
 	}
 
-	auto switchdata = _mapChips->GetSwitchData();
-	for (auto aswitch  : switchdata) {
-		auto switch_obj = std::make_unique<Switch>(_game, *this,aswitch);
-		_actorServer.Add(std::move(switch_obj));
-	}
-
 	auto switchareadata = _mapChips->GetSwitchAreaData();
 	for (auto aswitcharea : switchareadata) {
 		auto switcharea_obj = std::make_unique<SwitchArea>(_game, *this, aswitcharea);
@@ -135,6 +129,13 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 	for (auto abreakable : breakabledata) {
 		auto breakable = std::make_unique<BreakableObject>(_game, *this, abreakable);
 		_actorServer.Add(std::move(breakable));
+	}
+
+
+	auto switchdata = _mapChips->GetSwitchData();
+	for (auto aswitch : switchdata) {
+		auto switch_obj = std::make_unique<Switch>(_game, *this, aswitch);
+		_actorServer.Add(std::move(switch_obj));
 	}
 
 	auto degitaldata = _mapChips->GetDegitalLetterData();

@@ -1,5 +1,6 @@
 #include "Switch.h"
 #include "ModeGame.h"
+#include "LinkLight.h"
 
 Switch::Switch(Game& game, ModeGame& mode, ObjectDataStructs::SwitchData data)
 	:Gimmick(game, mode, data.ID), _linkGimmiks{ data.links }, _accessible1{0}, _accessible2{ 0 },_cg3{-1}
@@ -14,9 +15,24 @@ Switch::Switch(Game& game, ModeGame& mode, ObjectDataStructs::SwitchData data)
 	_cg2 = ImageServer::LoadGraph("resource/Gimmick/switch.png");
 	_cg3 = ImageServer::LoadGraph("resource/Gimmick/switch2.png");
 	_cg = _cg3;
+
+	for (auto&& actor : _mode.GetObjects()) {
+		if (actor->GetType() == Type::Gimmick) {
+			if (dynamic_cast<Gimmick&>(*actor).RecieveCall(_linkGimmiks, false)) {
+				_linkGimmickPositions.emplace_back(actor->GetPosition());
+			}
+		}
+	}
 }
 
 void Switch::Update() {
+
+	if (_game.GetFrameCount() % 180 == 0) {
+		for (auto&& linkpos : _linkGimmickPositions) {
+			_mode.GetActorServer().Add(std::make_unique<LinkLight>(_game, _mode, *this, linkpos));
+		}
+	}
+
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::PlayerA) {
 			if (Intersect(_accessArea, dynamic_cast<Player&>(*actor).GetCollision())) {
@@ -58,6 +74,7 @@ void Switch::LinkGimmickActivate(bool flag) {
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::Gimmick) {
 			dynamic_cast<Gimmick&>(*actor).RecieveCall(_linkGimmiks, flag);
+
 		}
 	}
 }

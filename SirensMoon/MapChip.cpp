@@ -757,9 +757,6 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 							}
 						}
 					}
-					if (data.links.size() != 0) {
-						data.links.push_back(-1);
-					}
 					data.pos.x = aObjects[i].get<picojson::object>()["x"].get<double>();
 					data.pos.y = aObjects[i].get<picojson::object>()["y"].get<double>()-_chipSize_H;
 					data.ID = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
@@ -777,9 +774,6 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 								data.links.push_back(static_cast<int>(properties[i].get<picojson::object>()["value"].get<double>()));
 							}
 						}
-					}
-					if (data.links.size() != 0) {
-						data.links.push_back(-1);
 					}
 					data.pos.x = aObjects[i].get<picojson::object>()["x"].get<double>();
 					data.pos.y = aObjects[i].get<picojson::object>()["y"].get<double>() - _chipSize_H;
@@ -877,10 +871,8 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 					}
 					else if (direction == "down") {
 						data.dir = 2;
-
 					}
 					else if (direction == "right") {
-
 						data.dir = 1;
 					}
 					else if (direction == "left") {
@@ -889,7 +881,6 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 					else {
 						data.dir = -1;
 					}
-
 					_mineDataList.push_back(data);
 				}
 			}

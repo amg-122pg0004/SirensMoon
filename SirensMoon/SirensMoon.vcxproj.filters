@@ -265,6 +265,9 @@
     <Filter Include="Actor\Gimmick\ScreenPump">
       <UniqueIdentifier>{5228110c-bed4-46f9-bcb9-114e5eca5eb9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Light\LinkLight">
+      <UniqueIdentifier>{fe61cb88-1fc1-45f0-aa0f-467efad53183}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -525,6 +528,9 @@
     <ClCompile Include="ソース.cpp">
       <Filter>WinMain</Filter>
     </ClCompile>
+    <ClCompile Include="LinkLight.cpp">
+      <Filter>Actor\Light\LinkLight</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -784,6 +790,9 @@
     </ClInclude>
     <ClInclude Include="ScreenPump.h">
       <Filter>Actor\Gimmick\ScreenPump</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkLight.h">
+      <Filter>Actor\Light\LinkLight</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
