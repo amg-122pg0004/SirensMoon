@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "Stage3.tmx",
     "expandedProjectPaths": [
         "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource"
     ],
@@ -215,11 +215,11 @@
                 4,
                 12
             ],
-            "scale": 0.125,
-            "selectedLayer": 5,
+            "scale": 0.5,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 2084,
-                "y": 2108
+                "x": 472,
+                "y": 809
             }
         },
         "Stage3.tmx#tile_icon": {
@@ -355,7 +355,8 @@
     "map.width": 96,
     "openFiles": [
         "test.tmx",
-        "Stage1.tmx"
+        "Stage1.tmx",
+        "Stage3.tmx"
     ],
     "project": "SirensMoon.tiled-project",
     "property.type": "object",
