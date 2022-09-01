@@ -24,6 +24,9 @@ class SplitWindow {
 		void Render();
 		void Debug();
 		void DamageEvent();
+
+		void ScreenPumpEvent(int playerno);
+
 		std::unique_ptr<Camera>& GetCamera() { return _camera; }
 
 		int GetRenderStage() { return _renderStage; }
@@ -35,6 +38,9 @@ class SplitWindow {
 		int GetLightUp() { return _lightup; }
 
 		int GetWindowNo() { return _windowNo; }
+
+		bool GetInvisiblePlayer() { return _invisiblePlayer; }
+		bool GetInvisibleEnemy() { return _invisibleEnemy; }
 
 	private:
 		/*明るいかどうか*/
@@ -57,4 +63,11 @@ class SplitWindow {
 
 		int _windowNo;
 		int _renderStage;
+
+		/*プレイヤーをレンダリングしない*/
+		bool _invisiblePlayer;
+		/*敵をレンダリングしない*/
+		bool _invisibleEnemy;
+		
+		int _blindTimer;
 }; 

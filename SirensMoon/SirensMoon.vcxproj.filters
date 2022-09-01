@@ -522,6 +522,9 @@
     <ClCompile Include="ScreenPump.cpp">
       <Filter>Actor\Gimmick\ScreenPump</Filter>
     </ClCompile>
+    <ClCompile Include="ソース.cpp">
+      <Filter>WinMain</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">

@@ -18,6 +18,14 @@ public:
 	 */
 	bool GetBulletType() { return _setGreenBullet; }
 
+	int GetAmmo() { return _bullet; }
+	int GetCharge() { return _charge; }
+	void TakeAmmo();
 private:
 	bool _setGreenBullet;
+
+	/*射撃関係*/
+	int _bullet;//残りの弾数
+	int _charge;//チャージ
+	int _cooldown;//クールダウン
 };

@@ -45,31 +45,29 @@ public:
 	int GetPlayerNum() { return _playerNum; }
 	Vector2 GetDirection() { return _lastDir; }
 	PlayerDirection GetGrDirection() { return _direction; }
-		int GetCharge() { return _charge; }
-		int GetHP() { return _hp; }
-		int GetAmmo() { return _bullet; }
+	int GetHP() { return _hp; }
 
-		virtual void Move();
-		bool IsHitActor();
-		/*プレイヤー固有のアクション*/
-		virtual void Action();
-		/*足音の再生*/
-		void PlayFootSteps();
-		/*プレイヤー同士が重なっている場合の処理*/
-		void PlayerOverlap();
-		/*コリジョンボックスの位置更新*/
-		void UpdateCollision();
-		/*ダメージを判定に触れているかの確認*/
-		void CheckDamage();
-		/*被ダメージ時の処理*/
-		void TakeDamage(Actor::Type);
-		void Heal();
-		void TakeAmmo();
-		void ChangePosition(Vector2 pos);
-		void Checkteleport();
-		void ChangeMovable(bool flag) { _movable = flag; }
+	virtual void Move();
+	bool IsHitActor();
+	/*プレイヤー固有のアクション*/
+	virtual void Action();
+	/*足音の再生*/
+	void PlayFootSteps();
+	/*プレイヤー同士が重なっている場合の処理*/
+	void PlayerOverlap();
+	/*コリジョンボックスの位置更新*/
+	void UpdateCollision();
+	/*ダメージを判定に触れているかの確認*/
+	void CheckDamage();
+	/*被ダメージ時の処理*/
+	void TakeDamage(Actor::Type);
+	void Heal();
+	void ChangePosition(Vector2 pos);
+	void Checkteleport();
+	void ChangeMovable(bool flag) { _movable = flag; }
+	
 
-		void Debug(Vector2 window_pos, Vector2 camera_pos)override;
+	void Debug(Vector2 window_pos, Vector2 camera_pos)override;
 
 	protected:
 
@@ -88,11 +86,6 @@ public:
 		int _hp,_hpMAX;//<体力
 
 		int _invincibleTime;//<無敵時間
-
-		/*射撃関係*/
-		int _bullet;//残りの弾数
-		int _charge;//チャージ
-		int _cooldown;//クールダウン
 
 		/*キャラクターの画像ハンドル*/
 		std::map <std::pair<PlayerState, PlayerDirection>, std::vector<int >> _cg;

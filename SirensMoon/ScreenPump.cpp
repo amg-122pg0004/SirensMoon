@@ -3,7 +3,7 @@
 #include "Player.h"
 #include "Enemy.h"
 
-ScreenPump::ScreenPump(Game& game, ModeGame& mode, ObjectDataStructs::MineData data)
+ScreenPump::ScreenPump(Game& game, ModeGame& mode, ObjectDataStructs::ScreenPumpData data)
 	:Gimmick(game, mode, data.ID), _dir{ data.dir }
 {
 	_range = data.range;
@@ -34,19 +34,26 @@ ScreenPump::ScreenPump(Game& game, ModeGame& mode, ObjectDataStructs::MineData d
 		_detectionArea.max = _pos + _size;
 		break;
 	}
-
 	_cg = ImageServer::LoadGraph("resource/Gimmick/mine.png");
 }
 
 void ScreenPump::Update() {
 	for (auto&& actor : _mode.GetObjects()) {
-		if (actor->GetType() == Type::PlayerA || actor->GetType() == Type::PlayerB) {
+		if (actor->GetType() == Type::PlayerA ) {
 			if (Intersect(_detectionArea, actor->GetCollision())) {
-				dynamic_cast<Player&>(*actor).TakeDamage(GetType());
-				_dead = true;
-				PlaySoundMem(SoundServer::Find("Explosion"), DX_PLAYTYPE_BACK);
+				for (auto&& split : _mode.GetSplitWindow()) {
+					split->ScreenPumpEvent(0);
+				}
 			}
 		}
+		if (actor->GetType() == Type::PlayerB) {
+			if (Intersect(_detectionArea, actor->GetCollision())) {
+				for (auto&& split : _mode.GetSplitWindow()) {
+					split->ScreenPumpEvent(1);
+				}
+			}
+		}
+		/*
 		if (actor->GetType() == Type::Enemy) {
 			if (Intersect(_detectionArea, actor->GetCollision())) {
 				dynamic_cast<Enemy&>(*actor).TakeDamage(GetType());
@@ -54,12 +61,12 @@ void ScreenPump::Update() {
 				PlaySoundMem(SoundServer::Find("Explosion"), DX_PLAYTYPE_BACK);
 			}
 		}
+		*/
 	}
 }
 
 void ScreenPump::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 	double angle{ (_dir - 1) * 3.1415 / 2 };
-
 
 	DrawRotaGraph(static_cast<int>(_pos.x + (_size.x / 2) + window_pos.x - camera_pos.x)
 		, static_cast<int>(_pos.y + (_size.y / 2) + window_pos.y - camera_pos.y)
@@ -67,7 +74,6 @@ void ScreenPump::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 		, angle
 		, _cg
 		, 0, 0);
-
 }
 
 void ScreenPump::Debug(Vector2 window_pos, Vector2 camera_pos) {

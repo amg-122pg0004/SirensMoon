@@ -13,7 +13,7 @@
 #include "Actor.h"
 
 class ModeBase;
-//class Actor;
+class SplitWindow;
 
 
 class ActorServer {
@@ -33,7 +33,7 @@ class ActorServer {
 		
 		void Update(); //<各アクターのUpdateを呼び出す
 		void BackRender( Vector2 windowPos, Vector2 cameraPos); //<各アクターのRenderを呼び出す
-		void StandardRender(Vector2 windowPos, Vector2 cameraPos); //<各アクターのRenderを呼び出す
+		void StandardRender(Vector2 windowPos, Vector2 cameraPos,SplitWindow& split); //<各アクターのRenderを呼び出す
 
 		void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos);
 
@@ -47,9 +47,7 @@ class ActorServer {
 
 		/*ペンディングのActorをゲーム内に追加*/
 		void AddPendingActors();
-
 		void DeleteObjects();
-
 		ModeBase& _mode;
 
 };

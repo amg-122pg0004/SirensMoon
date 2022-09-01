@@ -1,5 +1,5 @@
 #include "LaserLight.h"
-#include "Player.h"
+#include "PlayerA.h"
 #include <math.h>
 
 LaserLight::LaserLight(Game& game, ModeGame& mode, Actor& owner)
@@ -34,7 +34,7 @@ void LaserLight::Update() {
 		break;
 	}
 
-	if (player.GetCharge() == 0) {
+	if (dynamic_cast<PlayerA&>(player).GetCharge() == 0) {
 		_dead = true;
 	}
 }

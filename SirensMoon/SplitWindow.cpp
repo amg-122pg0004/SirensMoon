@@ -98,7 +98,14 @@ SplitWindow::SplitWindow(Game& game, ModeGame& mode, int pos_x, int pos_y, int w
 }
 
 void SplitWindow::Update() {
-
+	/*透明ポンプギミック用の処理*/
+	--_blindTimer;
+	if (_blindTimer < 0) {
+		_blindTimer = 0;
+		_invisiblePlayer = false;
+		_invisibleEnemy = false;
+	}
+	/*サーバーアクセス時にマップ全体が明るくなる処理*/
 	_lightup = 255;
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Actor::Type::Server) {
@@ -159,7 +166,7 @@ void SplitWindow::Render() {
 	/*通常背景描画*/
 	static_cast<ModeGame&>(_mode).GetMapChips()->Render(_windowPos, _camera->GetPosition(),"middle");
 	/*アクター描画*/
-	_mode.GetActorServer().StandardRender(_windowPos, _camera->GetPosition());
+	_mode.GetActorServer().StandardRender(_windowPos, _camera->GetPosition(),*this);
 	/*手前背景描画*/
 	static_cast<ModeGame&>(_mode).GetMapChips()->Render(_windowPos, _camera->GetPosition(),"front");
 
@@ -202,5 +209,15 @@ void SplitWindow::Debug() {
 void SplitWindow::DamageEvent() {
 	for (auto&& u : _ui) {
 		u->DamageEvent();
+	}
+}
+
+void SplitWindow::ScreenPumpEvent(int playerno){
+	if (!_invisibleEnemy) {
+		_blindTimer = 30 * 60;
+		_invisiblePlayer = true;
+		if (_windowNo == playerno) {
+			_invisibleEnemy = true;
+		}
 	}
 }

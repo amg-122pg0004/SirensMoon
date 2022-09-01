@@ -29,7 +29,7 @@
 #include "SwitchArea.h"
 
 ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPattern pattern) 
-	:ModeBase{ game }, _stopActorUpdate{false},_blindFlag{false}
+	:ModeBase{ game }, _stopActorUpdate{false}
 {
 	_inputManager=_game.GetInputManager();
 
@@ -155,9 +155,6 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 }
 
 void ModeGame::Update() {
-	if (_inputManager->CheckInput("BLIND", 't', 0) || _inputManager->CheckInput("BLIND", 't', 1)) {
-		_blindFlag = !_blindFlag;
-	}
 	/*UI‚ÌXV*/
 	for (auto&& splitwindows : _splitWindow) {
 		splitwindows->Update();

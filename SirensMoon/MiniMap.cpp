@@ -13,7 +13,7 @@
 #include "Boss.h"
 
 MiniMap::MiniMap(Game& game, ModeBase& mode, Vector2 pos, Vector2 size)
-	:UIBase{ game,mode,pos,size },_blind2Flag{false}
+	:UIBase{ game,mode,pos,size }
 {
 	_cg_map = ImageServer::LoadGraph("resource/UI/map_frame.png");
 	_cg_grid = ImageServer::LoadGraph("resource/UI/Minimap/grid.png");
@@ -37,10 +37,6 @@ void MiniMap::Update() {
 		_visible = false;
 	}
 
-	if (_inputManager->CheckInput("BLIND2", 't', 0) || _inputManager->CheckInput("BLIND2", 't', 1)) {
-		_blind2Flag = !_blind2Flag;
-	}
-
 	if (dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetLightUp() != 255) {
 		if (_prelightUp == 255 ) {
 			_noiseFlag = true;
@@ -53,8 +49,6 @@ void MiniMap::Update() {
 			_noiseFlag = false;
 		}
 	}
-
-
 	_prelightUp = dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetLightUp();
 }
 
@@ -76,29 +70,20 @@ void MiniMap::Render() {
 		float scale = 410.0f / 4320.0f * 0.97f;
 		float scaley = 410.0f / 4320.0f;
 		for (auto&& actor : _mode.GetObjects()) {
-			if (!_blind2Flag) {
-				if (actor->GetType() == Actor::Type::PlayerA) {
-					Player& player = dynamic_cast<Player&>(*actor);
-					if (player.GetPlayerNum() == 0) {
-						DrawBox(static_cast<int>(actor->GetPosition().x * scale + pos.x),
-							static_cast<int>(actor->GetPosition().y * scaley + pos.y),
-							static_cast<int>(actor->GetPosition().x * scale + pos.x) + 5,
-							static_cast<int>(actor->GetPosition().y * scaley + pos.y) + 5,
-							GetColor(255, 0, 0), 1);
-					}
-				}
-				if (actor->GetType() == Actor::Type::PlayerB) {
-					Player& player = dynamic_cast<Player&>(*actor);
-					if (player.GetPlayerNum() == 1) {
-						DrawBox(static_cast<int>(actor->GetPosition().x * scale + pos.x),
-							static_cast<int>(actor->GetPosition().y * scaley + pos.y),
-							static_cast<int>(actor->GetPosition().x * scale + pos.x) + 5,
-							static_cast<int>(actor->GetPosition().y * scaley + pos.y) + 5,
-							GetColor(0, 0, 255), 1);
-					}
-				}
+			if (actor->GetType() == Actor::Type::PlayerA) {
+				DrawBox(static_cast<int>(actor->GetPosition().x * scale + pos.x),
+					static_cast<int>(actor->GetPosition().y * scaley + pos.y),
+					static_cast<int>(actor->GetPosition().x * scale + pos.x) + 5,
+					static_cast<int>(actor->GetPosition().y * scaley + pos.y) + 5,
+					GetColor(255, 0, 0), 1);
 			}
-			
+			if (actor->GetType() == Actor::Type::PlayerB) {
+				DrawBox(static_cast<int>(actor->GetPosition().x * scale + pos.x),
+					static_cast<int>(actor->GetPosition().y * scaley + pos.y),
+					static_cast<int>(actor->GetPosition().x * scale + pos.x) + 5,
+					static_cast<int>(actor->GetPosition().y * scaley + pos.y) + 5,
+					GetColor(0, 0, 255), 1);
+			}
 			if (actor->GetType() == Actor::Type::Enemy) {
 				auto eyepos = dynamic_cast<Enemy&>(*actor).GetSightPosition();
 				auto col_pos = (actor->GetCollision().min+ actor->GetCollision().max)/2;
