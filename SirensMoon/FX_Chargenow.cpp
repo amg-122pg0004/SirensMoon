@@ -1,6 +1,6 @@
 #include "FX_Chargenow.h"
 #include "Easing.h"
-#include "Player.h"
+#include "PlayerA.h"
 
 FX_Chargenow::FX_Chargenow(Game& game, ModeGame& mode, const Vector2& pos, int startTime, Player& owner)
 	:Effect(game, mode, pos, startTime), _owner{ owner }
@@ -48,7 +48,7 @@ void FX_Chargenow::Update() {
 	}
 	Effect::Update();
 	_renderPriority = static_cast<int>(_pos.y + 60);
-	if (_owner.GetCharge() == 0) {
+	if (dynamic_cast<PlayerA&>(_owner).GetCharge() == 0) {
 		_dead = true;
 	}
 }

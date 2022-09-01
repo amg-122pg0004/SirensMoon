@@ -6,7 +6,8 @@
 #include "FX_Chargenow.h"
 #include "LaserLight.h"
 
-PlayerA::PlayerA(Game& game, ModeGame& base, int playernum) :Player(game, base, playernum),_setGreenBullet{false}
+PlayerA::PlayerA(Game& game, ModeGame& base, int playernum) 
+	:Player(game, base, playernum),_setGreenBullet{false},_bullet{ 5 }, _charge{ 0 }, _cooldown{ 0 }
 {
 	Load();
 }
@@ -143,4 +144,8 @@ void PlayerA::Action(){
 		_charge = 0;
 		StopSoundMem(SoundServer::Find("PlayerCharge"));
 	}
+}
+
+void PlayerA::TakeAmmo() {
+	++_bullet;
 }

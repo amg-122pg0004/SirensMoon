@@ -34,8 +34,7 @@ void Darkness::Update(Vector2 window_pos, Vector2 camera_pos) {
 	for (auto&& actor : _mode.GetActorServer().GetObjects()) {
 		if (actor->GetType()==Actor::Type::Light) {		
 			LightBase& light = dynamic_cast<LightBase&>(*actor);
-
-			if (_mode.GetBlindFlag()) {
+			if (_splitWindow.GetInvisiblePlayer()) {
 				if (_splitWindow.GetWindowNo()==0) {
 					if (light.GetOwner().GetType() == Actor::Type::PlayerB) {
 						continue;

@@ -27,8 +27,6 @@ private:
 	int _cg_map;//<ミニマップ仮画像
 	int _cg_grid;
 
-	bool _blind2Flag;
-
 	bool _noiseFlag;
 	int _prelightUp;
 	int _movieHandle;

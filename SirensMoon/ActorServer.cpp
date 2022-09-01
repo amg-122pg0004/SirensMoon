@@ -7,6 +7,7 @@
  *********************************************************************/
 
 #include "ActorServer.h"
+#include "SplitWindow.h"
 #include <algorithm>
 
 ActorServer::ActorServer(ModeBase& mode) :
@@ -67,11 +68,11 @@ void	ActorServer::Update() {
 
 
 
-		for (auto&& object : _typeActors) {
-			object->Update();
+		for (auto&& actor : _typeActors) {
+			actor->Update();
 		}
-		for (auto&& object : _typeActors) {
-			object->CheckDeadOwner();
+		for (auto&& actor : _typeActors) {
+			actor->CheckDeadOwner();
 		}
 		_updating = false;
 		AddPendingActors();
@@ -80,20 +81,39 @@ void	ActorServer::Update() {
 		std::sort(_typeActors.begin(), _typeActors.end(), CompRenderPriority);
 	}
 
-	void ActorServer::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
-		for (auto&& object : _typeActors) {
-			object->StandardRender(window_pos,camera_pos);
+	void ActorServer::StandardRender(Vector2 window_pos, Vector2 camera_pos, SplitWindow& split) {
+		for (auto&& actor : _typeActors) {
+			/*各フラグを参照して特定のタイプの描画をスキップ*/
+			if (split.GetInvisiblePlayer()) {
+				if (split.GetWindowNo() == 0) {
+					if (actor->GetType() == Actor::Type::PlayerB) {
+						continue;
+					}
+				}
+				else {
+					if (actor->GetType() == Actor::Type::PlayerA) {
+						continue;
+					}
+				}
+			}
+			if (split.GetInvisibleEnemy()) {
+				if (actor->GetType() == Actor::Type::Enemy) {
+					continue;
+				}
+			}
+
+			actor->StandardRender(window_pos,camera_pos);
 		}
 	}
-	void	ActorServer::BackRender(Vector2 window_pos, Vector2 camera_pos) {
-		for (auto&& object : _typeActors) {
-			object->BackRender(window_pos, camera_pos);
+	void ActorServer::BackRender(Vector2 window_pos, Vector2 camera_pos) {
+		for (auto&& actor : _typeActors) {
+			actor->BackRender(window_pos, camera_pos);
 		}
 	}
 
 
 void ActorServer::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
-	for (auto&& object : _typeActors) {
-		object->Debug(window_pos, camera_pos);
+	for (auto&& actor : _typeActors) {
+		actor->Debug(window_pos, camera_pos);
 	}
 }

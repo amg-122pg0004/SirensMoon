@@ -1,7 +1,7 @@
 #include "AmmoUI.h"
 //#include "ModeBase.h"
 #include "ModeGame.h"
-#include  "Player.h"
+#include  "PlayerA.h"
 #include "Game.h"
 
 AmmoUI::AmmoUI(Game& game , ModeBase& mode, Vector2 pos, Vector2 size)
@@ -23,8 +23,8 @@ AmmoUI::AmmoUI(Game& game , ModeBase& mode, Vector2 pos, Vector2 size)
 void AmmoUI::Update() {
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Actor::Type::PlayerA) {
-			_bullet1=dynamic_cast<Player&>(*actor).GetAmmo();
-			_charge = dynamic_cast<Player&>(*actor).GetCharge();
+			_bullet1=dynamic_cast<PlayerA&>(*actor).GetAmmo();
+			_charge = dynamic_cast<PlayerA&>(*actor).GetCharge();
 			if (_charge > 100) { 
 				_charge = 100;
 			}

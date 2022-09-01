@@ -1,6 +1,6 @@
 #include "FX_Chargein.h"
 #include "Easing.h"
-#include "Player.h"
+#include "PlayerA.h"
 
 
 FX_Chargein::FX_Chargein(Game& game, ModeGame& mode, const Vector2& pos, int startTime, Player& owner)
@@ -35,7 +35,7 @@ void FX_Chargein::Update() {
 	}
 	Effect::Update();
 	_renderPriority = static_cast<int>(_pos.y + 60);
-	if (_owner.GetCharge() == 0 ) {
+	if (dynamic_cast<PlayerA&>(_owner).GetCharge() == 0) {
 		_dead = true;
 	}
 }

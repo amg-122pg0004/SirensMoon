@@ -20,7 +20,8 @@ public:
 		DegitalLetter,
 		BigServer,
 		BigGenerator,
-		BigGun
+		BigGun,
+		ScreenPump
 	};
 	virtual GimmickType GetGimmickType() = 0;
 
@@ -31,13 +32,10 @@ public:
 	bool GetActivate() { return _activate; }
 	int GetID() { return _id; }
 
-
-
 protected:
 	/*‹N“®‚µ‚Ä‚¢‚é‚©*/
 	bool _activate;
 
 	/*Tiledã‚ÅŠ„‚èU‚ç‚ê‚éID‚ğæ“¾*/
 	int _id;
-
 };

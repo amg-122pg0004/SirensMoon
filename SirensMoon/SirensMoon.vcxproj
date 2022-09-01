@@ -230,6 +230,7 @@
     <ClCompile Include="UIBase.cpp" />
     <ClCompile Include="UnstableLight.cpp" />
     <ClCompile Include="WinMain.cpp" />
+    <ClCompile Include="ソース.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AimUI.h" />

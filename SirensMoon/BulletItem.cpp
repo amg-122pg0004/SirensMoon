@@ -8,7 +8,7 @@
 
 #include "BulletItem.h"
 #include "ModeGame.h"
-#include "Player.h"
+#include "PlayerA.h"
 
 BulletItem::BulletItem(Game& game, ModeGame& mode,Vector2 pos)
 	:Actor(game,mode)
@@ -23,9 +23,9 @@ BulletItem::BulletItem(Game& game, ModeGame& mode,Vector2 pos)
 
 void BulletItem::Update() {
 	for (auto&& actor : _mode.GetActorServer().GetObjects()) {
-		if (actor->GetType() == Type::PlayerA|| actor->GetType() == Type::PlayerB) {
+		if (actor->GetType() == Type::PlayerA) {
 			if(Intersect(_collision, actor->GetCollision())) {
-				dynamic_cast<Player&>(*actor).TakeAmmo();
+				dynamic_cast<PlayerA&>(*actor).TakeAmmo();
 				_dead = true;
 			}
 		}
