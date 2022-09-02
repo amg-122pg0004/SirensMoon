@@ -4,6 +4,11 @@
         "id": 1,
         "members": [
             {
+                "name": "BackRender",
+                "type": "bool",
+                "value": false
+            },
+            {
                 "name": "Collision",
                 "type": "bool",
                 "value": false

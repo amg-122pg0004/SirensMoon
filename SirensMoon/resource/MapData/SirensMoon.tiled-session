@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Stage3.tmx",
+    "activeFile": "Stage1.tmx",
     "expandedProjectPaths": [
         "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource"
     ],
@@ -192,14 +192,15 @@
         },
         "Stage1.tmx": {
             "expandedObjectLayers": [
-                2,
+                4,
+                12,
                 13
             ],
-            "scale": 1,
-            "selectedLayer": 5,
+            "scale": 0.25,
+            "selectedLayer": 6,
             "viewCenter": {
-                "x": 167.5,
-                "y": 359.5
+                "x": 1430,
+                "y": 1130
             }
         },
         "Stage1.tmx#tile_icon": {
@@ -210,6 +211,24 @@
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "Stage2.tmx": {
+            "expandedObjectLayers": [
+                2,
+                13
+            ],
+            "scale": 1,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 167.5,
+                "y": 359.5
+            }
+        },
+        "Stage2.tmx#tile_icon": {
+            "scaleInDock": 1
+        },
+        "Stage2.tmx#tile_test": {
+            "scaleInDock": 1
+        },
         "Stage3.tmx": {
             "expandedObjectLayers": [
                 4,
@@ -219,7 +238,7 @@
             "selectedLayer": 9,
             "viewCenter": {
                 "x": 413.5,
-                "y": 655.5
+                "y": 654.5
             }
         },
         "Stage3.tmx#tile_icon": {
@@ -354,16 +373,15 @@
     "map.tileWidth": 30,
     "map.width": 96,
     "openFiles": [
-        "test.tmx",
-        "Stage1.tmx",
-        "Stage3.tmx"
+        "Stage1.tmx"
     ],
     "project": "SirensMoon.tiled-project",
-    "property.type": "string",
+    "property.type": "bool",
     "recentFiles": [
-        "test.tmx",
         "Stage1.tmx",
         "Stage3.tmx",
+        "test.tmx",
+        "Stage2.tmx",
         "F:/ステージ/main_2.tmx",
         "F:/ステージ/main_stage_1.json",
         "Test.tmx",
@@ -371,8 +389,7 @@
         "D:/Users/syotaro/Documents/AMG/2022summer/x64/0.3.5/Debug/resource/TestMap_02.json",
         "D:/Users/syotaro/Documents/AMG/2022summer/x64/0.3.5/Debug/resource/TestMap_01.tmx",
         "D:/Users/syotaro/Documents/AMG/2022summer/x64/Debug/resource/TestMap_02.json",
-        "TestMap_02.json",
-        "D:/Users/syotaro/Documents/AMG/2022summer/x64/Debug/resource/TestMap_01.tmx"
+        "TestMap_02.json"
     ],
     "tileset.embedInMap": true,
     "tileset.lastUsedFilter": "Tiledタイルセットファイル (*.tsx)",
