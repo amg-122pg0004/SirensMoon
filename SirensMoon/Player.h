@@ -65,7 +65,11 @@ public:
 	void ChangePosition(Vector2 pos);
 	void Checkteleport();
 	void ChangeMovable(bool flag) { _movable = flag; }
-	
+
+	/*ハイドフラグの確認*/
+	void UpdateHide();
+	bool GetHideFlag() { return _hide; }
+	void SetHideFlag();
 
 	void Debug(Vector2 window_pos, Vector2 camera_pos)override;
 
@@ -81,6 +85,9 @@ public:
 		double _friction;//速度減衰に使用する値
 		bool _movable;//<True時のみ移動可能
 		bool _stageMovable;//<True時画面外への移動を制限する
+
+		bool _hide;//<true時敵から見つからない
+		int _hideTime;
 
 		int _playerNum;//<プレイヤーの番号(0なら左プレイヤー、1なら右プレイヤー）
 		int _hp,_hpMAX;//<体力

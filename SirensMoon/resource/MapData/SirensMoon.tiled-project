@@ -317,6 +317,11 @@
                     "value": "resource/Light/Light_square.png"
                 },
                 {
+                    "name": "ObjectImage",
+                    "type": "string",
+                    "value": "NULL"
+                },
+                {
                     "name": "Size_X",
                     "type": "float",
                     "value": 100
@@ -440,6 +445,30 @@
                 "2"
             ],
             "valuesAsFlags": false
+        },
+        {
+            "color": "#ffa0a0a4",
+            "id": 36,
+            "members": [
+                {
+                    "name": "Direction",
+                    "propertyType": "Direction",
+                    "type": "string",
+                    "value": "none"
+                }
+            ],
+            "name": "ScreenPump",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset"
+            ]
         },
         {
             "color": "#ffa0a0a4",
@@ -700,6 +729,11 @@
             "color": "#ffa0a0a4",
             "id": 22,
             "members": [
+                {
+                    "name": "CGNo",
+                    "type": "int",
+                    "value": -1
+                }
             ],
             "name": "TNT",
             "type": "class",

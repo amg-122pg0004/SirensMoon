@@ -268,6 +268,9 @@
     <Filter Include="Actor\Light\LinkLight">
       <UniqueIdentifier>{fe61cb88-1fc1-45f0-aa0f-467efad53183}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Gimmick\Mini">
+      <UniqueIdentifier>{82435eba-0f17-4cd1-8c65-e38e7321277d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">

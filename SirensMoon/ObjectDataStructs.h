@@ -79,6 +79,13 @@ public:
 		int PartNo;
 	};
 
+	/*TNTデータ構造*/
+	struct TNTData {
+		int ID;
+		Vector2 pos;
+		int CG;
+	};
+
 	/*Mineデータ構造*/
 	struct MineData {
 		int ID;

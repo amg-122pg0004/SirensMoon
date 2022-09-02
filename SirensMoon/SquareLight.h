@@ -9,6 +9,7 @@ class Actor;
 class SquareLight :public LightBase {
 public:
 	struct SquareLightStats {
+		std::string object;
 		std::string image;
 		bool activate;
 		Vector2 pos;

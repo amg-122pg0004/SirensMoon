@@ -27,6 +27,7 @@
 #include "DegitalLetter.h"
 #include "BossGimmickController.h"
 #include "SwitchArea.h"
+#include "ScreenPump.h"
 
 ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPattern pattern) 
 	:ModeBase{ game }, _stopActorUpdate{false}
@@ -109,7 +110,7 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 
 	auto tntdata = _mapChips->GetTNTData();
 	for (auto atnt : tntdata) {
-		auto tnt = std::make_unique<TNT>(_game, *this, atnt.first, atnt.second);
+		auto tnt = std::make_unique<TNT>(_game, *this, atnt);
 		_actorServer.Add(std::move(tnt));
 	}
 
@@ -118,6 +119,12 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 		auto mine = std::make_unique<Mine>(_game, *this, amine);
 		_actorServer.Add(std::move(mine));
 	}
+	auto v_screen = _mapChips->GetScreenPumpData();
+	for (auto a_screen : v_screen) {
+		auto screen = std::make_unique<ScreenPump>(_game, *this, a_screen);
+		_actorServer.Add(std::move(screen));
+	}
+
 
 	auto stickydata = _mapChips->GetStikyBombData();
 	for (auto astick : stickydata) {

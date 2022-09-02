@@ -21,26 +21,28 @@ public:
 private:
 	enum class State {
 		Wait,
-		jump,
 		GunAttack1,
 		GunAttack2,
 		ShootMissile,
 		Jump,
 		HeadButt,
-		TakeDamage,
 		Damage,
 		Thunder
 	};
 
+	void ChoiceAttack();
 	void Wait();
 	void GunAttack1();
 	void GunAttack2();
 	void ShootMissile();
 	void HeadButt();
 	void Jump();
+	void DamageSequence();
 	void Thunder();
 	void UpdateCollision();
 	/*グラフィックハンドル*/
+	/*firstがback用secondはstandard用*/
+	//std::map < State, std::pair<std::vector<int>, std::vector<int>>> _cg;
 	std::map < State, std::vector<int>> _cg;
 	/*アニメーション番号*/
 	int _animNo;
@@ -64,6 +66,7 @@ private:
 	Vector2 _headSize;//<頭のくらい判定のサイズ
 	AABB _hitbox;//くらい判定
 	AABB _collision;
+	Vector2 _shootPos;
 
 	std::random_device seed_gen;
 	std::mt19937 engine{ seed_gen() };

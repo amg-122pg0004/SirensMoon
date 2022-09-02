@@ -2,16 +2,19 @@
 #include "ModeGame.h"
 #include "Explode.h"
 
-TNT::TNT(Game& game, ModeGame& mode, int ID, Vector2 pos)
-	:Gimmick{ game,mode,ID }
+TNT::TNT(Game& game, ModeGame& mode, ObjectDataStructs::TNTData data):Gimmick(game,mode,data.ID)
 {
 	_activate = false;
-	_pos = pos;
-	_size = { 30,30 };
+	_pos = data.pos;
+	_size = { 60,60 };
 	_collision.min = _pos;
 	_collision.max = _pos+_size;
-
-	_cg = ImageServer::LoadGraph("resource/Gimmick/TNT.png");
+	std::string No = std::to_string(data.CG);
+	std::string path1{"resource/Gimmick/TNT/Off/"};
+	std::string path2{ "resource/Gimmick/TNT/On/" };
+	std::string ext{ ".png" };
+	_cg.first = ImageServer::LoadGraph(path1 + No + ext);
+	_cg.second = ImageServer::LoadGraph(path2 + No + ext);
 }
 
 void TNT::Update() {
@@ -24,9 +27,16 @@ void TNT::Update() {
 
 void TNT::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 	if (!_activate) {
+		int cg{ -1 };
+		if(_game.GetFrameCount() % 60 < 30) {
+			cg = _cg.first;
+		}
+		else {
+			cg = _cg.second;
+		}
 		DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x)
 			, static_cast<int>(_pos.y + window_pos.y - camera_pos.y)
-			, _cg
-			, 0);
+			, cg
+			, 1);
 	}
 }

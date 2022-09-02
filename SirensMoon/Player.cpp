@@ -20,7 +20,7 @@
 
 Player::Player(Game& game,ModeGame& mode,int playernum)
 	:Actor{ game,mode }, _speed{ 0,0 }, _playerNum{playernum}
-	, _dir{0,0}, _lastDir{ 1,0 }, _hp{ 33 },_hpMAX{3},  _movable{1}
+	, _dir{0,0}, _lastDir{ 1,0 }, _hp{ 3 },_hpMAX{3},  _movable{1}
 	,_init{false},_state{PlayerState::Wait},_direction{PlayerDirection::Right},_animNo{0}, _invincibleTime{0}
 	,_stageMovable{true}
 {
@@ -66,6 +66,8 @@ void Player::Update() {
 	CheckDamage();
 	/*自分の位置を確認*/
 	_roomPosition=CheckRoomPosition();
+	/*ハイドタイムを確認*/
+	UpdateHide();
 }
 
 void Player::PlayerOverlap() {
@@ -422,8 +424,23 @@ void Player::Debug(Vector2 window_pos, Vector2 camera_pos){
 
 	ss << "_collision.max.x" << _collision.max.x << "\n";
 	ss << "_collision.max.y" << _collision.max.y << "\n";
-
+	ss << "ハイドタイム" << _hideTime << "\n";
 	ss << "方向" << _dir.x <<"  "<<_dir.y << "\n";
 	ss << "スピード" << _speed.Length() << "\n";
 	DrawString(50 + _playerNum * 960, 100, ss.str().c_str(), GetColor(255, 0, 255));
+}
+
+void Player::UpdateHide(){
+	--_hideTime;
+	if (_hideTime < 0) {
+		_hideTime = 0;
+		_hide = false;
+	}
+}
+
+void Player::SetHideFlag(){
+	if (!_hide) {
+		_hide = true;
+		_hideTime = 30*60;
+	}
 }

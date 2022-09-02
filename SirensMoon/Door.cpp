@@ -3,6 +3,7 @@
 Door::Door(Game& game, ModeGame& mode, ObjectDataStructs::DoorData data)
 	:Gimmick{game,mode,data.ID},_partNo{data.PartNo}
 {
+	_activate = false;
 	_pos = data.pos;
 	_size = { 30,30 };
 	_collision.min = _pos;
@@ -31,6 +32,16 @@ void Door::Update() {
 			return;
 		}
 		if (_partNo >= 19 && _partNo <= 24) {
+			_collision.min = _pos;
+			_collision.max = _pos + _size;
+			return;
+		}
+		if (_partNo >= 31 && _partNo <= 36) {
+			_collision.min = _pos;
+			_collision.max = _pos + _size;
+			return;
+		}
+		if (_partNo >= 43 && _partNo <= 48) {
 			_collision.min = _pos;
 			_collision.max = _pos + _size;
 			return;

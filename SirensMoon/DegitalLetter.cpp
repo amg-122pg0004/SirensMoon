@@ -3,7 +3,7 @@
 #include "MessageWindow.h"
 
 DegitalLetter::DegitalLetter(Game& game, ModeGame& mode, ObjectDataStructs::DegitalLetterData data)
-	:Gimmick(game,mode,data.ID)
+	:Gimmick(game,mode,data.ID),_animNo{0}
 {
 	_pos = data.pos;
 	_size = { 60,60 };
@@ -13,10 +13,18 @@ DegitalLetter::DegitalLetter(Game& game, ModeGame& mode, ObjectDataStructs::Degi
 	_collision.max = data.pos+_size;
 	_accessArea.min = data.pos- access;
 	_accessArea.max = data.pos+_size+ access;
-	_cg = ImageServer::LoadGraph("resource/Gimmick/degitalletter.png");
+	_cg.resize(39);
+	ImageServer::LoadDivGraph("resource/Gimmick/digitaletter.png",39,3,13,60,60,_cg.data());
 }
 
 void DegitalLetter::Update(){
+	if (_game.GetFrameCount() % 2 == 0) {
+		++_animNo;
+	}
+	
+	if (_animNo >= _cg.size()) {
+		_animNo = 0;
+	}
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::PlayerA) {
 			if (Intersect(_accessArea, dynamic_cast<Player&>(*actor).GetCollision())) {
@@ -49,7 +57,7 @@ void DegitalLetter::Update(){
 void DegitalLetter::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 	DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x),
 		static_cast<int>(_pos.y + window_pos.y - camera_pos.y),
-		_cg, 0);
+		_cg[_animNo], 1);
 }
 
 void DegitalLetter::Debug(Vector2 window_pos, Vector2 camera_pos){

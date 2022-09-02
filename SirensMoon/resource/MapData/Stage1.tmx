@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="128" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="25" nextobjectid="993">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="128" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="25" nextobjectid="1049">
  <editorsettings>
-  <export target="Stage1.json" format="json"/>
+  <export target="Stage2.json" format="json"/>
  </editorsettings>
  <tileset firstgid="1" name="tile_test" tilewidth="30" tileheight="30" tilecount="660" columns="30">
   <image source="tile_test.png" width="900" height="660"/>
@@ -78,6 +78,7 @@
     <property name="Color : B" type="int" value="0"/>
     <property name="Color : G" type="int" value="0"/>
     <property name="Image" value="resource/Light/Light_3.png"/>
+    <property name="ObjectImage" value="resource/Gimmick/lamp.png"/>
     <property name="Size_X" type="float" value="600"/>
     <property name="Size_Y" type="float" value="600"/>
    </properties>
@@ -1337,10 +1338,36 @@
   <tile id="318" class="BackGround"/>
   <tile id="319" class="BackGround"/>
   <tile id="320" class="BackGround"/>
-  <tile id="321" class="BackGround"/>
-  <tile id="324" class="BackGround"/>
-  <tile id="325" class="BackGround"/>
-  <tile id="326" class="BackGround"/>
+  <tile id="321" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="49"/>
+   </properties>
+  </tile>
+  <tile id="322" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="50"/>
+   </properties>
+  </tile>
+  <tile id="323" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="51"/>
+   </properties>
+  </tile>
+  <tile id="324" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="52"/>
+   </properties>
+  </tile>
+  <tile id="325" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="53"/>
+   </properties>
+  </tile>
+  <tile id="326" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="54"/>
+   </properties>
+  </tile>
   <tile id="327" class="BackGround"/>
   <tile id="328" class="BackGround"/>
   <tile id="329" class="BackGround"/>
@@ -1437,10 +1464,36 @@
   <tile id="348" class="BackGround"/>
   <tile id="349" class="BackGround"/>
   <tile id="350" class="BackGround"/>
-  <tile id="351" class="BackGround"/>
-  <tile id="354" class="BackGround"/>
-  <tile id="355" class="BackGround"/>
-  <tile id="356" class="BackGround"/>
+  <tile id="351" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="55"/>
+   </properties>
+  </tile>
+  <tile id="352" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="56"/>
+   </properties>
+  </tile>
+  <tile id="353" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="57"/>
+   </properties>
+  </tile>
+  <tile id="354" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="58"/>
+   </properties>
+  </tile>
+  <tile id="355" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="59"/>
+   </properties>
+  </tile>
+  <tile id="356" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="60"/>
+   </properties>
+  </tile>
   <tile id="357" class="BackGround"/>
   <tile id="358" class="BackGround"/>
   <tile id="359" class="BackGround"/>
@@ -1537,10 +1590,36 @@
   <tile id="378" class="BackGround"/>
   <tile id="379" class="BackGround"/>
   <tile id="380" class="BackGround"/>
-  <tile id="381" class="BackGround"/>
-  <tile id="384" class="BackGround"/>
-  <tile id="385" class="BackGround"/>
-  <tile id="386" class="BackGround"/>
+  <tile id="381" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="84"/>
+   </properties>
+  </tile>
+  <tile id="382" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="83"/>
+   </properties>
+  </tile>
+  <tile id="383" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="82"/>
+   </properties>
+  </tile>
+  <tile id="384" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="81"/>
+   </properties>
+  </tile>
+  <tile id="385" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="80"/>
+   </properties>
+  </tile>
+  <tile id="386" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="79"/>
+   </properties>
+  </tile>
   <tile id="387" class="BackGround"/>
   <tile id="388" class="BackGround"/>
   <tile id="389" class="BackGround"/>
@@ -1637,10 +1716,36 @@
   <tile id="408" class="BackGround"/>
   <tile id="409" class="BackGround"/>
   <tile id="410" class="BackGround"/>
-  <tile id="411" class="BackGround"/>
-  <tile id="414" class="BackGround"/>
-  <tile id="415" class="BackGround"/>
-  <tile id="416" class="BackGround"/>
+  <tile id="411" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="78"/>
+   </properties>
+  </tile>
+  <tile id="412" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="77"/>
+   </properties>
+  </tile>
+  <tile id="413" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="76"/>
+   </properties>
+  </tile>
+  <tile id="414" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="75"/>
+   </properties>
+  </tile>
+  <tile id="415" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="74"/>
+   </properties>
+  </tile>
+  <tile id="416" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="73"/>
+   </properties>
+  </tile>
   <tile id="417" class="BackGround"/>
   <tile id="418" class="BackGround"/>
   <tile id="419" class="BackGround"/>
@@ -1744,8 +1849,26 @@
   <tile id="439" class="BackGround"/>
   <tile id="440" class="BackGround"/>
   <tile id="441" class="BackGround"/>
-  <tile id="444" class="BackGround"/>
-  <tile id="445" class="BackGround"/>
+  <tile id="442" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="66"/>
+   </properties>
+  </tile>
+  <tile id="443" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="72"/>
+   </properties>
+  </tile>
+  <tile id="444" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="91"/>
+   </properties>
+  </tile>
+  <tile id="445" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="85"/>
+   </properties>
+  </tile>
   <tile id="446" class="BackGround"/>
   <tile id="447" class="BackGround"/>
   <tile id="448" class="BackGround"/>
@@ -1804,8 +1927,26 @@
   <tile id="469" class="BackGround"/>
   <tile id="470" class="BackGround"/>
   <tile id="471" class="BackGround"/>
-  <tile id="474" class="BackGround"/>
-  <tile id="475" class="BackGround"/>
+  <tile id="472" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="65"/>
+   </properties>
+  </tile>
+  <tile id="473" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="71"/>
+   </properties>
+  </tile>
+  <tile id="474" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="92"/>
+   </properties>
+  </tile>
+  <tile id="475" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="86"/>
+   </properties>
+  </tile>
   <tile id="476" class="BackGround"/>
   <tile id="477" class="BackGround"/>
   <tile id="478" class="BackGround"/>
@@ -1888,9 +2029,26 @@
   <tile id="499" class="BackGround"/>
   <tile id="500" class="BackGround"/>
   <tile id="501" class="BackGround"/>
-  <tile id="502" class="BackGround"/>
-  <tile id="504" class="BackGround"/>
-  <tile id="505" class="BackGround"/>
+  <tile id="502" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="64"/>
+   </properties>
+  </tile>
+  <tile id="503" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="70"/>
+   </properties>
+  </tile>
+  <tile id="504" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="93"/>
+   </properties>
+  </tile>
+  <tile id="505" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="87"/>
+   </properties>
+  </tile>
   <tile id="506" class="BackGround"/>
   <tile id="507" class="BackGround"/>
   <tile id="508" class="BackGround"/>
@@ -1965,9 +2123,26 @@
   <tile id="529" class="BackGround"/>
   <tile id="530" class="BackGround"/>
   <tile id="531" class="BackGround"/>
-  <tile id="532" class="BackGround"/>
-  <tile id="534" class="BackGround"/>
-  <tile id="535" class="BackGround"/>
+  <tile id="532" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="63"/>
+   </properties>
+  </tile>
+  <tile id="533" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="69"/>
+   </properties>
+  </tile>
+  <tile id="534" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="94"/>
+   </properties>
+  </tile>
+  <tile id="535" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="88"/>
+   </properties>
+  </tile>
   <tile id="536" class="BackGround"/>
   <tile id="537" class="BackGround"/>
   <tile id="538" class="BackGround"/>
@@ -2042,9 +2217,26 @@
   <tile id="559" class="BackGround"/>
   <tile id="560" class="BackGround"/>
   <tile id="561" class="BackGround"/>
-  <tile id="562" class="BackGround"/>
-  <tile id="564" class="BackGround"/>
-  <tile id="565" class="BackGround"/>
+  <tile id="562" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="62"/>
+   </properties>
+  </tile>
+  <tile id="563" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="68"/>
+   </properties>
+  </tile>
+  <tile id="564" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="95"/>
+   </properties>
+  </tile>
+  <tile id="565" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="89"/>
+   </properties>
+  </tile>
   <tile id="566" class="BackGround"/>
   <tile id="567" class="BackGround"/>
   <tile id="568" class="BackGround"/>
@@ -2139,8 +2331,26 @@
    </properties>
   </tile>
   <tile id="590" class="BackGround"/>
-  <tile id="594" class="BackGround"/>
-  <tile id="595" class="BackGround"/>
+  <tile id="592" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="61"/>
+   </properties>
+  </tile>
+  <tile id="593" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="67"/>
+   </properties>
+  </tile>
+  <tile id="594" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="96"/>
+   </properties>
+  </tile>
+  <tile id="595" class="Door">
+   <properties>
+    <property name="PartNo" type="int" value="90"/>
+   </properties>
+  </tile>
   <tile id="596" class="BackGround"/>
   <tile id="597" class="BackGround"/>
   <tile id="598" class="BackGround"/>
@@ -2364,13 +2574,33 @@
   <tile id="2" class="Teleport_OUT"/>
   <tile id="3" class="Mine"/>
   <tile id="4" class="Switch"/>
-  <tile id="5" class="Door"/>
-  <tile id="6" class="TNT"/>
+  <tile id="5" class="TNT">
+   <properties>
+    <property name="CGNo" type="int" value="1"/>
+   </properties>
+  </tile>
+  <tile id="6" class="TNT">
+   <properties>
+    <property name="CGNo" type="int" value="2"/>
+   </properties>
+  </tile>
   <tile id="7" class="StickyBomb"/>
   <tile id="8" class="BreakableObject"/>
   <tile id="9" class="DegitalLetter"/>
+  <tile id="13" class="SwitchArea"/>
+  <tile id="14" class="ScreenPump"/>
+  <tile id="15" class="TNT">
+   <properties>
+    <property name="CGNo" type="int" value="3"/>
+   </properties>
+  </tile>
+  <tile id="16" class="TNT">
+   <properties>
+    <property name="CGNo" type="int" value="4"/>
+   </properties>
+  </tile>
  </tileset>
- <layer id="1" name="tile_Layer1" width="128" height="144">
+ <layer id="1" name="tile_Layer1" width="128" height="144" locked="1">
   <data encoding="csv">
 515,515,515,515,515,515,511,512,512,512,512,513,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,
 515,515,515,515,515,515,511,512,512,512,512,513,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,
@@ -2518,7 +2748,7 @@
 515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515,515
 </data>
  </layer>
- <layer id="11" name="tile_layer2" width="128" height="144">
+ <layer id="11" name="tile_layer2" width="128" height="144" locked="1">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -2666,7 +2896,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="19" name="tile_layer3" width="128" height="144">
+ <layer id="19" name="tile_layer3" width="128" height="144" locked="1">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -2814,7 +3044,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="3" name="Enemy">
+ <objectgroup id="3" name="Enemy" locked="1">
   <object id="659" class="EnemyB" gid="3" x="1680" y="180" width="30" height="30">
    <properties>
     <property name="Direction1" type="int" value="0"/>
@@ -2919,7 +3149,7 @@
    <polygon points="0,0 -210,0 -210,180 -330,180 -330,30 -270,30 -270,-90 0,-90"/>
   </object>
  </objectgroup>
- <objectgroup id="10" name="Server">
+ <objectgroup id="10" name="Server" locked="1">
   <object id="623" gid="61" x="3570" y="1560" width="30" height="30"/>
   <object id="624" gid="91" x="3570" y="1590" width="30" height="30"/>
   <object id="625" gid="121" x="3570" y="1620" width="30" height="30"/>
@@ -2974,18 +3204,6 @@
   </object>
  </objectgroup>
  <objectgroup id="13" name="Gimmick">
-  <object id="546" gid="666" x="210" y="150" width="30" height="30"/>
-  <object id="547" gid="666" x="240" y="150" width="30" height="30"/>
-  <object id="548" gid="666" x="270" y="150" width="30" height="30"/>
-  <object id="549" gid="666" x="300" y="150" width="30" height="30"/>
-  <object id="550" gid="665" x="300" y="90" width="30" height="30">
-   <properties>
-    <property name="LinkGimmick1" type="object" value="549"/>
-    <property name="LinkGimmick2" type="object" value="548"/>
-    <property name="LinkGimmick3" type="object" value="547"/>
-    <property name="LinkGimmick4" type="object" value="546"/>
-   </properties>
-  </object>
   <object id="591" gid="611" x="3570" y="720" width="30" height="30"/>
   <object id="615" gid="663" x="630" y="1410" width="30" height="30">
    <properties>
@@ -3118,9 +3336,21 @@
     <property name="LinkGimmick3" type="object" value="754"/>
    </properties>
   </object>
-  <object id="902" gid="667" x="1800" y="2370" width="30" height="30"/>
-  <object id="903" gid="667" x="1800" y="2400" width="30" height="30"/>
-  <object id="904" gid="667" x="1800" y="2430" width="30" height="30"/>
+  <object id="902" gid="667" x="1800" y="2370" width="30" height="30">
+   <properties>
+    <property name="CGNo" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="903" gid="667" x="1800" y="2400" width="30" height="30">
+   <properties>
+    <property name="CGNo" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="904" gid="667" x="1800" y="2430" width="30" height="30">
+   <properties>
+    <property name="CGNo" type="int" value="3"/>
+   </properties>
+  </object>
   <object id="905" gid="667" x="1800" y="2490" width="30" height="30"/>
   <object id="906" gid="667" x="1800" y="2520" width="30" height="30"/>
   <object id="907" gid="667" x="1800" y="2550" width="30" height="30"/>
@@ -3131,42 +3361,129 @@
     <property name="LinkGimmick3" type="object" value="907"/>
    </properties>
   </object>
-  <object id="962" gid="670" x="233.333" y="474" width="30" height="30">
+  <object id="962" gid="670" x="247.333" y="486.333" width="30" height="30">
    <properties>
     <property name="Message" value="はんえいされるはず"/>
    </properties>
   </object>
-  <object id="965" gid="665" x="360" y="420" width="30" height="30">
+  <object id="993" gid="667" x="376.667" y="410" width="30" height="30"/>
+  <object id="999" gid="145" x="510" y="300" width="30" height="30"/>
+  <object id="1000" gid="175" x="510" y="330" width="30" height="30"/>
+  <object id="1001" gid="205" x="510" y="360" width="30" height="30"/>
+  <object id="1002" gid="235" x="510" y="390" width="30" height="30"/>
+  <object id="1003" gid="265" x="510" y="420" width="30" height="30"/>
+  <object id="1004" gid="295" x="510" y="450" width="30" height="30"/>
+  <object id="1005" gid="146" x="540" y="300" width="30" height="30"/>
+  <object id="1006" gid="176" x="540" y="330" width="30" height="30"/>
+  <object id="1007" gid="206" x="540" y="360" width="30" height="30"/>
+  <object id="1008" gid="236" x="540" y="390" width="30" height="30"/>
+  <object id="1009" gid="266" x="540" y="420" width="30" height="30"/>
+  <object id="1010" gid="296" x="540" y="450" width="30" height="30"/>
+  <object id="1011" gid="674" x="600" y="300" width="30" height="30">
    <properties>
-    <property name="LinkGimmick1" type="object" value="966"/>
-    <property name="LinkGimmick10" type="object" value="967"/>
-    <property name="LinkGimmick11" type="object" value="968"/>
-    <property name="LinkGimmick12" type="object" value="969"/>
-    <property name="LinkGimmick2" type="object" value="970"/>
-    <property name="LinkGimmick3" type="object" value="971"/>
-    <property name="LinkGimmick4" type="object" value="972"/>
-    <property name="LinkGimmick5" type="object" value="973"/>
-    <property name="LinkGimmick6" type="object" value="974"/>
-    <property name="LinkGimmick7" type="object" value="975"/>
-    <property name="LinkGimmick8" type="object" value="976"/>
-    <property name="LinkGimmick9" type="object" value="977"/>
+    <property name="LinkGimmick1" type="object" value="1005"/>
+    <property name="LinkGimmick10" type="object" value="1006"/>
+    <property name="LinkGimmick11" type="object" value="1007"/>
+    <property name="LinkGimmick12" type="object" value="1008"/>
+    <property name="LinkGimmick2" type="object" value="1009"/>
+    <property name="LinkGimmick3" type="object" value="1010"/>
+    <property name="LinkGimmick4" type="object" value="999"/>
+    <property name="LinkGimmick5" type="object" value="1000"/>
+    <property name="LinkGimmick6" type="object" value="1001"/>
+    <property name="LinkGimmick7" type="object" value="1002"/>
+    <property name="LinkGimmick8" type="object" value="1003"/>
+    <property name="LinkGimmick9" type="object" value="1004"/>
    </properties>
   </object>
-  <object id="980" gid="145" x="480" y="270" width="30" height="30"/>
-  <object id="981" gid="175" x="480" y="300" width="30" height="30"/>
-  <object id="982" gid="205" x="480" y="330" width="30" height="30"/>
-  <object id="983" gid="235" x="480" y="360" width="30" height="30"/>
-  <object id="984" gid="265" x="480" y="390" width="30" height="30"/>
-  <object id="985" gid="295" x="480" y="420" width="30" height="30"/>
-  <object id="986" gid="296" x="510" y="420" width="30" height="30"/>
-  <object id="987" gid="266" x="510" y="390" width="30" height="30"/>
-  <object id="988" gid="236" x="510" y="360" width="30" height="30"/>
-  <object id="989" gid="206" x="510" y="330" width="30" height="30"/>
-  <object id="990" gid="176" x="510" y="300" width="30" height="30"/>
-  <object id="991" gid="146" x="510" y="270" width="30" height="30"/>
-  <object id="992" gid="146" x="510" y="270" width="30" height="30"/>
+  <object id="1017" gid="674" x="600" y="330" width="30" height="30">
+   <properties>
+    <property name="LinkGimmick1" type="object" value="1005"/>
+    <property name="LinkGimmick10" type="object" value="1006"/>
+    <property name="LinkGimmick11" type="object" value="1007"/>
+    <property name="LinkGimmick12" type="object" value="1008"/>
+    <property name="LinkGimmick2" type="object" value="1009"/>
+    <property name="LinkGimmick3" type="object" value="1010"/>
+    <property name="LinkGimmick4" type="object" value="999"/>
+    <property name="LinkGimmick5" type="object" value="1000"/>
+    <property name="LinkGimmick6" type="object" value="1001"/>
+    <property name="LinkGimmick7" type="object" value="1002"/>
+    <property name="LinkGimmick8" type="object" value="1003"/>
+    <property name="LinkGimmick9" type="object" value="1004"/>
+   </properties>
+  </object>
+  <object id="1018" gid="674" x="600" y="360" width="30" height="30">
+   <properties>
+    <property name="LinkGimmick1" type="object" value="1005"/>
+    <property name="LinkGimmick10" type="object" value="1006"/>
+    <property name="LinkGimmick11" type="object" value="1007"/>
+    <property name="LinkGimmick12" type="object" value="1008"/>
+    <property name="LinkGimmick2" type="object" value="1009"/>
+    <property name="LinkGimmick3" type="object" value="1010"/>
+    <property name="LinkGimmick4" type="object" value="999"/>
+    <property name="LinkGimmick5" type="object" value="1000"/>
+    <property name="LinkGimmick6" type="object" value="1001"/>
+    <property name="LinkGimmick7" type="object" value="1002"/>
+    <property name="LinkGimmick8" type="object" value="1003"/>
+    <property name="LinkGimmick9" type="object" value="1004"/>
+   </properties>
+  </object>
+  <object id="1019" gid="674" x="600" y="390" width="30" height="30">
+   <properties>
+    <property name="LinkGimmick1" type="object" value="1005"/>
+    <property name="LinkGimmick10" type="object" value="1006"/>
+    <property name="LinkGimmick11" type="object" value="1007"/>
+    <property name="LinkGimmick12" type="object" value="1008"/>
+    <property name="LinkGimmick2" type="object" value="1009"/>
+    <property name="LinkGimmick3" type="object" value="1010"/>
+    <property name="LinkGimmick4" type="object" value="999"/>
+    <property name="LinkGimmick5" type="object" value="1000"/>
+    <property name="LinkGimmick6" type="object" value="1001"/>
+    <property name="LinkGimmick7" type="object" value="1002"/>
+    <property name="LinkGimmick8" type="object" value="1003"/>
+    <property name="LinkGimmick9" type="object" value="1004"/>
+   </properties>
+  </object>
+  <object id="1020" gid="674" x="600" y="420" width="30" height="30">
+   <properties>
+    <property name="LinkGimmick1" type="object" value="1005"/>
+    <property name="LinkGimmick10" type="object" value="1006"/>
+    <property name="LinkGimmick11" type="object" value="1007"/>
+    <property name="LinkGimmick12" type="object" value="1008"/>
+    <property name="LinkGimmick2" type="object" value="1009"/>
+    <property name="LinkGimmick3" type="object" value="1010"/>
+    <property name="LinkGimmick4" type="object" value="999"/>
+    <property name="LinkGimmick5" type="object" value="1000"/>
+    <property name="LinkGimmick6" type="object" value="1001"/>
+    <property name="LinkGimmick7" type="object" value="1002"/>
+    <property name="LinkGimmick8" type="object" value="1003"/>
+    <property name="LinkGimmick9" type="object" value="1004"/>
+   </properties>
+  </object>
+  <object id="1021" gid="674" x="600" y="450" width="30" height="30">
+   <properties>
+    <property name="LinkGimmick1" type="object" value="1005"/>
+    <property name="LinkGimmick10" type="object" value="1006"/>
+    <property name="LinkGimmick11" type="object" value="1007"/>
+    <property name="LinkGimmick12" type="object" value="1008"/>
+    <property name="LinkGimmick2" type="object" value="1009"/>
+    <property name="LinkGimmick3" type="object" value="1010"/>
+    <property name="LinkGimmick4" type="object" value="999"/>
+    <property name="LinkGimmick5" type="object" value="1000"/>
+    <property name="LinkGimmick6" type="object" value="1001"/>
+    <property name="LinkGimmick7" type="object" value="1002"/>
+    <property name="LinkGimmick8" type="object" value="1003"/>
+    <property name="LinkGimmick9" type="object" value="1004"/>
+   </properties>
+  </object>
+  <object id="1022" gid="665" x="270" y="330" width="30" height="30">
+   <properties>
+    <property name="LinkGimmick1" type="object" value="993"/>
+   </properties>
+  </object>
+  <object id="1047" gid="18" x="235" y="407" width="30" height="30"/>
+  <object id="1048" gid="18" x="225" y="214" width="30" height="30"/>
  </objectgroup>
- <objectgroup id="4" name="Player">
+ <objectgroup id="4" name="Player" locked="1">
   <object id="332" gid="5" x="390" y="300" width="30" height="30">
    <properties>
     <property name="Friction" type="float" value="0.98"/>
@@ -3180,7 +3497,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="12" name="Light">
+ <objectgroup id="12" name="Light" locked="1">
   <object id="784" gid="18" x="420" y="240" width="30" height="30"/>
   <object id="786" gid="50" x="630" y="450" width="30" height="30"/>
   <object id="787" gid="48" x="120" y="420" width="30" height="30"/>
@@ -3288,51 +3605,51 @@
   <object id="941" gid="18" x="2190" y="2850" width="30" height="30"/>
   <object id="942" gid="18" x="2790" y="2430" width="30" height="30"/>
  </objectgroup>
- <objectgroup id="5" name="Item">
+ <objectgroup id="5" name="Item" locked="1">
   <object id="662" gid="31" x="660" y="2070" width="30" height="30"/>
   <object id="713" gid="31" x="2370" y="990" width="30" height="30"/>
   <object id="718" gid="31" x="2190" y="3030" width="30" height="30"/>
   <object id="719" gid="8" x="3600" y="3090" width="30" height="30"/>
   <object id="720" gid="611" x="3226" y="3051" width="30" height="30"/>
  </objectgroup>
- <objectgroup id="2" name="MiniMap" tintcolor="#ffffff">
-  <object id="763" x="360" y="0">
+ <objectgroup id="2" name="MiniMap" locked="1" tintcolor="#ffffff">
+  <object id="763" x="356" y="2">
    <polyline points="150,3930 -180,3930 -180,3450 90,3450 90,3300 150,3300 150,3030 -270,3030 -270,2820 60,2820 60,2490 -150,2490 -150,2190 30,2190 30,2100 -150,2100 -150,1560 -180,1560 -180,450 -300,450 -300,150 -180,150 -180,0 0,0 0,150 180,150 180,240 720,240 720,90 1440,90 1440,180 1800,180 1800,150 3030,150 3030,90 3420,90 3420,510 3030,510 3030,360 2160,360 2160,570 3030,570 3030,540 3420,540 3420,930 3030,930 3030,780 2160,780 2160,1170 2160,1200 2370,1200 2370,1440 3300,1440 3300,1710 2880,1710 2880,1830 3360,1830 3360,2610 3060,2610 3060,2880 3060,2910 3300,2910 3300,3150 2430,3150 2430,3300 3300,3300 3300,3450 3210,3450 3210,4050 2730,4050 2730,3840 2280,3840 2280,3990 1740,3990 1740,3750 1230,3750 1230,3660 1170,3660 1170,4080 750,4080 750,3750 540,3750 540,4080 150,4080 150,3930"/>
   </object>
-  <object id="765" x="480" y="480">
+  <object id="765" x="478" y="478">
    <polygon points="0,0 450,0 450,-60 600,-60 600,510 660,510 660,810 570,810 570,1320 390,1320 390,810 300,810 300,870 270,870 270,780 60,780 60,870 30,870 30,720 0,720"/>
   </object>
-  <object id="766" x="1470" y="240">
+  <object id="766" x="1472" y="238">
    <polyline points="0,0 150,0 150,270 0,270 0,0"/>
   </object>
-  <object id="767" x="1800" y="420">
+  <object id="767" x="1802" y="418">
    <polyline points="0,0 240,0 240,-60 390,-60 390,0 510,0 510,930 240,930 240,1710 690,1710 690,1860 240,1860 240,1890 0,1890 0,1800 -120,1800 -120,1680 0,1680 0,930 -90,930 -90,840 -420,840 -420,570 0,570 0,0"/>
   </object>
-  <object id="768" x="2730" y="1650">
+  <object id="768" x="2732" y="1648">
    <polygon points="0,0 300,0 300,360 330,360 330,690 0,690"/>
   </object>
-  <object id="769" x="3240" y="2010">
+  <object id="769" x="3242" y="2008">
    <polygon points="0,0 270,0 270,420 180,420 180,360 0,360"/>
   </object>
-  <object id="770" x="3180" y="2610">
+  <object id="770" x="3182" y="2608">
    <polygon points="0,0 30,0 30,300 -660,300 -660,0 -840,0 -840,-30 -630,-30 -630,270 0,270"/>
   </object>
-  <object id="771" x="1740" y="2580">
+  <object id="771" x="1742" y="2578">
    <polygon points="0,0 450,0 450,180 630,180 630,270 540,270 540,210 330,210 330,510 540,510 540,420 630,420 630,480 840,480 840,510 810,510 810,690 300,690 300,840 -300,840 -300,300 -30,300 -30,150 0,150"/>
   </object>
-  <object id="772" x="780" y="2070">
+  <object id="772" x="782" y="2068">
    <polyline points="0,0 330,0 330,30 750,30 750,150 330,150 330,180 -180,180 -180,60 0,60 0,0"/>
   </object>
-  <object id="773" x="690" y="2490">
+  <object id="773" x="692" y="2488">
    <polygon points="0,0 630,0 630,210 0,210"/>
   </object>
-  <object id="774" x="750" y="2910">
+  <object id="774" x="752" y="2908">
    <polygon points="0,0 480,0 480,360 0,360"/>
   </object>
-  <object id="775" x="660" y="3600">
+  <object id="775" x="662" y="3598">
    <polygon points="0,0 0,-120 450,-120 450,-30 120,-30 120,30 60,30 60,150 -300,150 -300,30 0,30"/>
   </object>
-  <object id="960" class="MiniMapColorLine" x="640" y="45.3333">
+  <object id="960" class="MiniMapColorLine" x="642" y="43.3333">
    <polygon points="0,0 294.667,58.6667 30.6667,122.667"/>
   </object>
  </objectgroup>

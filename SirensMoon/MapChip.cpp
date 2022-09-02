@@ -219,6 +219,7 @@ void MapChips::LoadTilesets(picojson::object jsRoot,std::string folderpath) {
 				}
 				if ((*i).get<picojson::object>()["class"].get<std::string>() == "Light") {
 					SquareLight::SquareLightStats stats;
+					stats.object = "NULL";
 					stats.image = "resource/Light/Light_square.png";
 					stats.activate = 1;
 					stats.alpha = 100;
@@ -233,6 +234,7 @@ void MapChips::LoadTilesets(picojson::object jsRoot,std::string folderpath) {
 					if ((*i).get<picojson::object>()["properties"].is<picojson::array>()) {
 						auto properties = (*i).get<picojson::object>()["properties"].get<picojson::array>();
 						for (int i = 0; i < properties.size(); ++i) {
+
 							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Activate") {
 								stats.activate = properties[i].get<picojson::object>()["value"].get<bool>();
 							}
@@ -247,6 +249,9 @@ void MapChips::LoadTilesets(picojson::object jsRoot,std::string folderpath) {
 							}
 							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Color : R") {
 								stats.r = static_cast<int>(properties[i].get<picojson::object>()["value"].get<double>());
+							}
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "ObjectImage") {
+								stats.object = properties[i].get<picojson::object>()["value"].get<std::string>();
 							}
 							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Image") {
 								stats.image = properties[i].get<picojson::object>()["value"].get<std::string>();
@@ -309,8 +314,17 @@ void MapChips::LoadTilesets(picojson::object jsRoot,std::string folderpath) {
 					_gidDoor.push_back(data);
 				}
 				if ((*i).get<picojson::object>()["class"].get<std::string>() == "TNT") {
-					auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
-					_gidTNT.push_back(id);
+					St::TNTData data{ -1,{0,0},-1 };
+					data.ID = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
+					if ((*i).get<picojson::object>()["properties"].is<picojson::array>()) {
+						auto properties = (*i).get<picojson::object>()["properties"].get<picojson::array>();
+						for (int i = 0; i < properties.size(); ++i) {
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "CGNo") {
+								data.CG = static_cast<int>(properties[i].get<picojson::object>()["value"].get<double>());
+							}
+						}
+					}
+					_gidTNT.push_back(data);
 				}
 				if ((*i).get<picojson::object>()["class"].get<std::string>() == "Mine") {
 					auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
@@ -318,7 +332,7 @@ void MapChips::LoadTilesets(picojson::object jsRoot,std::string folderpath) {
 				}
 				if ((*i).get<picojson::object>()["class"].get<std::string>() == "ScreenPump") {
 					auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
-					_gidMine.push_back(id);
+					_gidScreenPump.push_back(id);
 				}
 				if ((*i).get<picojson::object>()["class"].get<std::string>() == "StickyBomb") {
 					auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
@@ -612,6 +626,9 @@ void MapChips::LoadLightLayer(picojson::array aObjects) {
 							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Color : R") {
 								stats.r = static_cast<int>(properties[i].get<picojson::object>()["value"].get<double>());
 							}
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "ObjectImage") {
+								stats.object = properties[i].get<picojson::object>()["value"].get<std::string>();
+							}
 							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Image") {
 								stats.image = properties[i].get<picojson::object>()["value"].get<std::string>();
 							}
@@ -791,12 +808,12 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 				}
 			}
 			for (auto gid : _gidTNT) {
-				if (gid == static_cast<int>(aObjects[i].get<picojson::object>()["gid"].get<double>())) {
-					Vector2 pos;
-					pos.x = static_cast<int>(aObjects[i].get<picojson::object>()["x"].get<double>());
-					pos.y = static_cast<int>(aObjects[i].get<picojson::object>()["y"].get<double>()) - _chipSize_H;
-					auto id = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
-					_tNTDataList.push_back({ id, pos });
+				if (gid.ID == static_cast<int>(aObjects[i].get<picojson::object>()["gid"].get<double>())) {
+					auto data = gid;
+					data.pos.x = static_cast<int>(aObjects[i].get<picojson::object>()["x"].get<double>());
+					data.pos.y = static_cast<int>(aObjects[i].get<picojson::object>()["y"].get<double>()) - _chipSize_H;
+					data.ID = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
+					_tNTDataList.push_back(data);
 				}
 			}
 			for (auto gid : _gidBreakableObject) {

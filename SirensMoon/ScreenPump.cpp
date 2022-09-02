@@ -34,7 +34,7 @@ ScreenPump::ScreenPump(Game& game, ModeGame& mode, ObjectDataStructs::ScreenPump
 		_detectionArea.max = _pos + _size;
 		break;
 	}
-	_cg = ImageServer::LoadGraph("resource/Gimmick/mine.png");
+	_cg = ImageServer::LoadGraph("resource/Gimmick/pomp.png");
 }
 
 void ScreenPump::Update() {
@@ -43,6 +43,7 @@ void ScreenPump::Update() {
 			if (Intersect(_detectionArea, actor->GetCollision())) {
 				for (auto&& split : _mode.GetSplitWindow()) {
 					split->ScreenPumpEvent(0);
+					dynamic_cast<Player&>(*actor).SetHideFlag();
 				}
 			}
 		}
@@ -50,6 +51,7 @@ void ScreenPump::Update() {
 			if (Intersect(_detectionArea, actor->GetCollision())) {
 				for (auto&& split : _mode.GetSplitWindow()) {
 					split->ScreenPumpEvent(1);
+					dynamic_cast<Player&>(*actor).SetHideFlag();
 				}
 			}
 		}
@@ -73,7 +75,7 @@ void ScreenPump::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 		, 1.0
 		, angle
 		, _cg
-		, 0, 0);
+		, 1);
 }
 
 void ScreenPump::Debug(Vector2 window_pos, Vector2 camera_pos) {

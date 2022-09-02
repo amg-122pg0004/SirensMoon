@@ -34,7 +34,7 @@ void LaserLight::Update() {
 		break;
 	}
 
-	if (dynamic_cast<PlayerA&>(player).GetCharge() == 0) {
+	if (dynamic_cast<PlayerA&>(_owner).GetCharge() == 0) {
 		_dead = true;
 	}
 }

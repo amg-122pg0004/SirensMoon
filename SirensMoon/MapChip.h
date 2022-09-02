@@ -46,7 +46,7 @@ public:
 	std::vector<St::SwitchData> GetSwitchData() { return _switchDataList; }
 	std::vector<St::SwitchAreaData> GetSwitchAreaData() { return _switchAreaDataList; }
 	std::vector<St::DoorData>GetDoorData() { return _doorDataList; }
-	std::vector<std::pair<int, Vector2>>GetTNTData() { return _tNTDataList; }
+	std::vector<St::TNTData>GetTNTData() { return _tNTDataList; }
 	std::vector<St::MineData> GetMineData() { return _mineDataList; }
 	std::vector<St::ScreenPumpData> GetScreenPumpData() { return _screenPumpDataList; }
 	std::vector<St::StickyBombData> GetStikyBombData() { return _stickyBombDataList; }
@@ -139,7 +139,7 @@ private:
 	/*ドアデータ*/
 	std::vector<St::DoorData> _doorDataList;
 	/*TNTデータ*/
-	std::vector<std::pair<int, Vector2>> _tNTDataList;
+	std::vector<St::TNTData> _tNTDataList;
 	/*Mineデータ*/
 	std::vector<St::MineData> _mineDataList;
 	/*ScreenPumpデータ*/
@@ -187,7 +187,7 @@ private:
 	std::vector<int> _gidSwitch;
 	std::vector<int> _gidSwitchArea;
 	std::vector<St::DoorData> _gidDoor;
-	std::vector<int> _gidTNT;
+	std::vector<St::TNTData> _gidTNT;
 	std::vector<int> _gidMine;
 	std::vector<int> _gidScreenPump;
 	std::vector<int> _gidStickyBomb;

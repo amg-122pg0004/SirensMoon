@@ -1,10 +1,12 @@
 #include "Switch.h"
 #include "ModeGame.h"
 #include "LinkLight.h"
+#include "SquareLight.h"
 
 Switch::Switch(Game& game, ModeGame& mode, ObjectDataStructs::SwitchData data)
 	:Gimmick(game, mode, data.ID), _linkGimmiks{ data.links }, _accessible1{0}, _accessible2{ 0 },_cg3{-1}
 {
+	_activate = false;
 	_pos = data.pos;
 	_size = { 60,60 };
 	_collision.min = _pos;
@@ -15,6 +17,8 @@ Switch::Switch(Game& game, ModeGame& mode, ObjectDataStructs::SwitchData data)
 	_cg2 = ImageServer::LoadGraph("resource/Gimmick/switch.png");
 	_cg3 = ImageServer::LoadGraph("resource/Gimmick/switch2.png");
 	_cg = _cg3;
+	SquareLight::SquareLightStats lightdata{"NULL","resource/Light/Light_3.png",false,{_pos.x - 75,_pos.y - 100},{200,200},200,150,100,255};
+	_mode.GetActorServer().Add(std::make_unique<SquareLight>(_game,_mode,*this,lightdata));
 
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::Gimmick) {
@@ -27,7 +31,7 @@ Switch::Switch(Game& game, ModeGame& mode, ObjectDataStructs::SwitchData data)
 
 void Switch::Update() {
 
-	if (_game.GetFrameCount() % 180 == 0) {
+	if (_game.GetFrameCount() % 10 == 0) {
 		for (auto&& linkpos : _linkGimmickPositions) {
 			_mode.GetActorServer().Add(std::make_unique<LinkLight>(_game, _mode, *this, linkpos));
 		}
@@ -54,6 +58,7 @@ void Switch::Update() {
 	if (_accessible1) {
 		if (_game.GetInputManager()->CheckInput("ACCESS", 'h', 0)) {
 			LinkGimmickActivate(true);
+			_activate = true;
 			_cg = _cg2;
 			return;
 		}
@@ -61,11 +66,13 @@ void Switch::Update() {
 	if (_accessible2) {
 		if (_game.GetInputManager()->CheckInput("ACCESS", 'h', 1)) {
 			LinkGimmickActivate(true);
+			_activate = true;
 			_cg = _cg2;
 			return;
 		}
 	}
 	LinkGimmickActivate(false);
+	_activate = false;
 	_cg = _cg3;
 	return;
 }

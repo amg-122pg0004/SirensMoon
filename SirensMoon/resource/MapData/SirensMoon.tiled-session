@@ -192,14 +192,14 @@
         },
         "Stage1.tmx": {
             "expandedObjectLayers": [
-                13,
-                2
+                2,
+                13
             ],
-            "scale": 1.5,
+            "scale": 1,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 1919.9999999999998,
-                "y": 2159.6666666666665
+                "x": 167.5,
+                "y": 359.5
             }
         },
         "Stage1.tmx#tile_icon": {
@@ -215,11 +215,11 @@
                 4,
                 12
             ],
-            "scale": 0.5,
-            "selectedLayer": 0,
+            "scale": 1,
+            "selectedLayer": 9,
             "viewCenter": {
-                "x": 472,
-                "y": 809
+                "x": 413.5,
+                "y": 655.5
             }
         },
         "Stage3.tmx#tile_icon": {
@@ -320,14 +320,14 @@
         "test.tmx": {
             "expandedObjectLayers": [
                 4,
-                12,
-                13
+                13,
+                12
             ],
             "scale": 1.5,
             "selectedLayer": 6,
             "viewCenter": {
-                "x": 1919.9999999999998,
-                "y": 2159.6666666666665
+                "x": 1968.3333333333333,
+                "y": 2156.333333333333
             }
         },
         "test.tmx#tile_icon": {
@@ -359,7 +359,7 @@
         "Stage3.tmx"
     ],
     "project": "SirensMoon.tiled-project",
-    "property.type": "object",
+    "property.type": "string",
     "recentFiles": [
         "test.tmx",
         "Stage1.tmx",

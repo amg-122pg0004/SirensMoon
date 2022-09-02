@@ -21,9 +21,7 @@ SquareLight::SquareLight(Game& game, ModeGame& mode, Actor& owner, SquareLightSt
 }
 
 void SquareLight::Update() {
-	//ightBase::Update();
-	auto lamp = dynamic_cast<FloorLamp&>(_owner);
-	_activate = lamp.GetActivate();
+	_activate = dynamic_cast<Gimmick&>(_owner).GetActivate();
 }
 
 void SquareLight::MaskRender(Vector2 window_pos, Vector2 camera_pos) {

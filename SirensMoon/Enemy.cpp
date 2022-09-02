@@ -102,6 +102,9 @@ bool Enemy::CheckDetection() {
 	for (auto&& actor : _mode.GetActorServer().GetObjects()) {
 		if (actor->GetType() == Type::PlayerA || actor->GetType() == Type::PlayerB) {
 			CheckRoomPosition();
+			if (dynamic_cast<Player&>(*actor).GetHideFlag()) {
+				return false;
+			}
 			if (_roomPosition.x == actor->GetRoomPosition().x && _roomPosition.y == actor->GetRoomPosition().y) {
 				//if(1){
 				auto col = actor->GetCollision();

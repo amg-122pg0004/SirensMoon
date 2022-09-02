@@ -16,7 +16,8 @@ public:
 private:
 	std::string _message;
 	AABB _accessArea;
-
+	std::vector<int> _cg;
+	int _animNo;
 	/*アクセス可能か*/
 	bool _accessible1, _accessible2;
 };

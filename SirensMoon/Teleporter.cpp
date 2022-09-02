@@ -6,7 +6,7 @@ teleporterIn::teleporterIn(Game& game, ModeGame& mode, int ID, ObjectDataStructs
 {
 	_cg = ImageServer::LoadGraph("resource/Gimmick/teleporter.png");
 	_pos = data.pos;
-	_size={ 40,40 };
+	_size={ 90,120 };
 	_teleportID = data.tereortID;
 	_randomFlag = data.random;
 	_collision.min = _pos-_size/2;
@@ -33,9 +33,10 @@ void teleporterIn::Debug(Vector2 window_pos, Vector2 camera_pos) {
 teleporterOut::teleporterOut(Game& game, ModeGame& mode, int ID, Vector2 pos):  Gimmick(game, mode,ID)
 {
 	_pos = pos;
+	_size = { 90,120 };
 	_collision.min = { 0,0 };
 	_collision.max = { 0,0 };
-	_cg = ImageServer::LoadGraph("resource/Gimmick/teleporter.png");
+	_cg = ImageServer::LoadGraph("resource/Gimmick/outporter.png");
 }
 
 void teleporterOut::StandardRender(Vector2 window_pos, Vector2 camera_pos){

@@ -14,7 +14,7 @@ HPItem::HPItem(Game& game, ModeGame& mode,Vector2 pos)
 {
 	_cg = ImageServer::LoadGraph("resource/Item/HP.png");
 	_pos = pos;
-	_size = { 40,40 };
+	_size = { 60,60 };
 	_collision.min = _pos;
 	_collision.max = _pos + _size;
 	_renderPriority = -1;

@@ -13,6 +13,7 @@ Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 {
 	Vector2 pos = { _controller.GetRoomPosition().x-1.0,_controller.GetRoomPosition().y-1.0 };
 	_startPos = { splitscreen_W * pos.x + 500 , screen_H * pos.y + 450 };
+	_shootPos = { _startPos.x,_startPos.y - 230 };
 	_pos = _startPos;
 	_size = { 100,200 };
 	_size2 = { 400,500 };
@@ -24,7 +25,7 @@ Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 	handle.resize(90);
 	ImageServer::LoadDivGraph("resource/Boss/gunfire.png", 90, 10, 9, 1024, 1024, handle.data());
 	_cg[State::GunAttack1] = handle;
-	handle.resize(90);
+
 	ImageServer::LoadDivGraph("resource/Boss/faint.png", 90, 10, 9, 1024, 1024, handle.data());
 	_cg[State::GunAttack2] = handle;
 	handle.resize(80);
@@ -37,12 +38,13 @@ Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 	ImageServer::LoadDivGraph("resource/Boss/jump.png", 70, 10, 7, 1024, 1024, handle.data());
 	_cg[State::Jump] = handle;
 	handle.resize(26);
-	ImageServer::LoadDivGraph("resource/Boss/jump.png", 26, 10, 3, 1024, 1024, handle.data());
+	ImageServer::LoadDivGraph("resource/Boss/damage.png", 26, 10, 3, 1024, 1024, handle.data());
 	_cg[State::Damage] = handle;
 	handle.resize(180);
 	ImageServer::LoadDivGraph("resource/Boss/thunder.png", 180, 10, 18, 1024, 1024, handle.data());
 	_cg[State::Damage] = handle;
-
+	//‚¤‚Â‚Æ‚«220
+	_time = 3 * 60;
 	_state = State::Wait;
 
 	for (auto&& actor : _mode.GetObjects()) {
@@ -56,9 +58,22 @@ Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 }
 
 void Boss::Update(){
+	if (_game.GetInputManager()->CheckInput("BLIND2", 't', 1) ||
+		_game.GetInputManager()->CheckInput("BLIND2", 't', 0)) {
+		TakeDamage();
+	}
 	UpdateCollision();
 	CheckOverlapActor();
 	--_time;
+	if (_time < 0) {
+		if (_state != Boss::State::Wait) {
+			_time = 90;
+			_state = State::Wait;
+		}
+		else {
+			ChoiceAttack();
+		}
+	}
 	if (_game.GetFrameCount() % 3 == 0) {
 		++_animNo;
 	}
@@ -77,17 +92,16 @@ void Boss::Update(){
 		ShootMissile();
 		break;
 	case Boss::State::Jump:
+		Jump();
 		break;
 	case Boss::State::HeadButt:
 		HeadButt();
 		break;
-	case Boss::State::TakeDamage:
+	case Boss::State::Damage:
+		DamageSequence();
 		break;
 	}
-	if (_time < 0&&_state!=State::Wait) {
-		_time = 60;
-		_state = State::Wait;
-	}
+
 }
 
 void Boss::CheckOverlapActor() {
@@ -103,29 +117,37 @@ void Boss::CheckOverlapActor() {
 }
 
 void Boss::TakeDamage() {
-	--_hp;
-	_backlayer = true;
-	if (_hp <= 3) {
-		if (!_phase2) {
-			_phase2 = true;
-			_controller.Phase2();
+	if (_state != State::Damage) {
+		--_hp;
+		if (_hp <= 3) {
+			if (!_phase2) {
+				_phase2 = true;
+				_controller.Phase2();
+			}
 		}
+		if (_hp <= 0) {
+			_dead = true;
+		}
+		_time = 26 * 3;
 	}
-	if (_hp <= 0) {
-		_dead = true;
+	_state = State::Damage;
+}
+void Boss::DamageSequence() {
+	if (_time == 0) {
+		_state = State::Wait;
+		_time = 1;
+		_scale = 1;
+		_pos = _startPos;
+		_backlayer = true;
+		_visible = true;
 	}
-	_time = 1;
-	_scale = 1;
-	_pos = _startPos;
-	_backlayer = true;
-	_visible = true;
 }
 
 void Boss::BackRender(Vector2 window_pos, Vector2 camera_pos){
 	if (_visible) {
 		if (_backlayer) {
 			auto cg = _cg[_state];
-			if (_animNo >= cg.size() - 1) {
+			if (_animNo >= cg.size()) {
 				_animNo = 0;
 			}
 			DrawRotaGraph(static_cast<int>(_pos.x - camera_pos.x + window_pos.x),
@@ -139,44 +161,46 @@ void Boss::StandardRender( Vector2 window_pos, Vector2 camera_pos) {
 	if (_visible) {
 		if (!_backlayer) {
 			auto cg = _cg[_state];
-			if (_animNo>=cg.size()-1) {
+			if (_animNo >= cg.size()) {
 				_animNo = 0;
 			}
+
 			DrawRotaGraph(static_cast<int>(_pos.x - camera_pos.x + window_pos.x),
 				static_cast<int>(_pos.y - camera_pos.y + window_pos.y),
 				_scale, 0.0, cg[_animNo], 1);
+
 		}
 	}
 }
 
-void Boss::Wait() {
-
-	_animNo=0;
+void Boss::ChoiceAttack() {
+	_animNo = 0;
 	if (!_phase2) {
 		switch (rand3(engine)) {
 		case 1:
 			if (rand2(engine) == 1) {
-				_time = 150;
+				_time = 270;
 				GunAttack1();
 				break;
 			}
 			else {
-				_time = 150;
+				_time = 270;
 				GunAttack2();
 				break;
 			}
 		case 2:
-			_time = 300;
+			_time = 240;
 			ShootMissile();
 			break;
 
 		case 3:
-			_time = 750;
-			HeadButt();
+			_time = 2*60;
+			Jump();
 			break;
 		}
-	} else
-		{
+	}
+	else
+	{
 		switch (rand2(engine)) {
 		case 1:
 			if (rand2(engine) == 1) {
@@ -197,10 +221,26 @@ void Boss::Wait() {
 	}
 }
 
+void Boss::Wait() {
+	_pos.y += 5; 
+	if(_pos.y>_startPos.y) {
+		_pos.y =_startPos.y;
+	}
+
+}
+
 void Boss::GunAttack1() {
 	_state = State::GunAttack1;
-	_mode.GetActorServer().Add(std::make_unique<DisplayArea>(_game, _mode, *this,true));
-	if (_time == 30) {
+	if (_time == 270) {
+		_mode.GetActorServer().Add(std::make_unique<DisplayArea>(_game, _mode, *this, false));
+	}
+	if (_time < 270 && _time>220) {
+		_pos.y -= 5;
+		if (_pos.y < _startPos.y-230) {
+			_pos.y = _startPos.y - 230;
+		}
+	}
+	if (_time == 170) {
 		Vector2 fix{ -600,0 };
 		_mode.GetActorServer().Add(std::make_unique<BossCanon>(_game, _mode, _pos + fix));
 	}
@@ -208,8 +248,16 @@ void Boss::GunAttack1() {
 
 void Boss::GunAttack2() {
 	_state = State::GunAttack2;
-	_mode.GetActorServer().Add(std::make_unique<DisplayArea>(_game, _mode, *this,false));
-	if (_time == 30) {
+	if (_time == 270) {
+		_mode.GetActorServer().Add(std::make_unique<DisplayArea>(_game, _mode, *this, false));
+	}
+	if (_time < 270 && _time>220) {
+		_pos.y -= 5;
+		if (_pos.y < _startPos.y - 230) {
+			_pos.y = _startPos.y - 230;
+		}
+	}
+	if (_time == 110) {
 		Vector2 fix{ 0,0 };
 		_mode.GetActorServer().Add(std::make_unique<BossCanon>(_game, _mode, _pos + fix));
 	}
@@ -217,22 +265,21 @@ void Boss::GunAttack2() {
 
 void Boss::ShootMissile() {
 	_state = State::ShootMissile;
-	if (_time == 300|| _time == 280|| _time == 260) {
+	if (_time == 40|| _time == 20|| _time == 0) {
 		Vector2 rand = { static_cast<double>(rand100(engine)) / 100 * splitscreen_W,0 };
 		_mode.GetActorServer().Add(std::make_unique<BossMissile>(_game, _mode, rand));
 	}
 }
 
 void Boss::HeadButt(){
-
+	
 	_state = State::HeadButt;
 
 	if (700 == _time) {
 		_scale = 0.25;
+		_pos = _startPos;
 		_pos.y += 100;
 		_backlayer = false;
-	}
-	if (590 == _time) {
 		_visible = false;
 	}
 
@@ -249,12 +296,16 @@ void Boss::HeadButt(){
 
 		if (dir.Length() < 150&& dir.Length() > 100) {
 			_visible = true;
+			_animNo = 0;
 		}
 		else {
 			dir.Normalize();
 			_pos = _pos + dir * _speed;
 		}
 		UpdateCollision();
+	}
+	if (_animNo >= 70) {
+		_animNo = 69;
 	}
 }
 
@@ -266,9 +317,8 @@ void Boss::Debug(Vector2 window_pos, Vector2 camera_pos){
 
 	DrawFormatString(static_cast<int>(_pos.x - camera_pos.x + window_pos.y),
 		static_cast<int>(_pos.y - camera_pos.y + window_pos.y),
-		GetColor(255, 0, 0), "%lf", _collision.min.x);
+		GetColor(255, 0, 0), "%d", _time);
 	_hitbox.Draw2(window_pos, camera_pos);
-
 }
 
 void Boss::UpdateCollision(){
@@ -285,9 +335,16 @@ void Boss::UpdateCollision(){
 		_hitbox.max = _pos + _size / 2;
 	}
 }
-
+/*‘S‘Ì120F*/
 void Boss::Jump(){
-
+	_state = State::Jump;
+	if (_time < 45) {
+		_pos.y -= 40;
+	}
+	if (_time == 0) {
+	_time = 800;
+	_state = State::HeadButt;
+	}
 }
 
 void Boss::Thunder(){

@@ -66,7 +66,7 @@ void Mine::StandardRender(Vector2 window_pos, Vector2 camera_pos){
 		,1.0
 		,angle
 		,_cg
-		, 0,0);
+		, 1,0);
 	
 }
 

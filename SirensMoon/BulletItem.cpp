@@ -13,9 +13,9 @@
 BulletItem::BulletItem(Game& game, ModeGame& mode,Vector2 pos)
 	:Actor(game,mode)
 {
-	_cg = ImageServer::LoadGraph("resource/Item/Ammo.png");
+	_cg = ImageServer::LoadGraph("resource/Item/ammo.png");
 	_pos = pos;
-	_size = { 40,40 };
+	_size = { 60,60 };
 	_collision.min = _pos;
 	_collision.max = _pos + _size;
 	_renderPriority = -1;
