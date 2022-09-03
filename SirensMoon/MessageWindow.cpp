@@ -12,45 +12,50 @@ MessageWindow::MessageWindow(Game& game, ModeBase& mode, Vector2 pos, Vector2 si
 	_playerno = playerno;
 }
 
-void MessageWindow::Update()
-{
+void MessageWindow::Update() {
+	int flag{ 0 };
 	for (auto&& actor : dynamic_cast<ModeGame&>(_mode).GetObjects()) {
 		if (actor->GetType() == Actor::Type::Gimmick) {
-			if(dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::DegitalLetter) {
-				if (_playerno==0) {
+			if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::DegitalLetter) {
+				if (_playerno == 0) {
 					if (dynamic_cast<DegitalLetter&>(*actor).GetAccessible1()) {
 						if (_game.GetInputManager()->CheckInput("ACCESS", 't', _playerno)) {
-							_visible = !_visible;
+							++flag;
 						}
-					}
-					else {
-						_visible = false;
+						++flag;
 					}
 				}
 				else {
 					if (dynamic_cast<DegitalLetter&>(*actor).GetAccessible2()) {
 						if (_game.GetInputManager()->CheckInput("ACCESS", 't', _playerno)) {
-							_visible = !_visible;
+							++flag;
 						}
-					}
-					else {
-						_visible = false;
+						++flag;
 					}
 				}
 			}
 		}
 	}
-
-	if (_visible) {
-		_alpha += 30;
-		if (_alpha > 255) {
-			_alpha = 255;
-		}
+	if (flag == 0) {
+		_visible = false;
 	}
+	else if (flag == 2) {
+		_visible = !_visible;
+	}
+
 	else {
-		_alpha -= 30;
-		if (_alpha < 0) {
-			_alpha = 0;
+
+		if (_visible) {
+			_alpha += 30;
+			if (_alpha > 255) {
+				_alpha = 255;
+			}
+		}
+		else {
+			_alpha -= 30;
+			if (_alpha < 0) {
+				_alpha = 0;
+			}
 		}
 	}
 }
