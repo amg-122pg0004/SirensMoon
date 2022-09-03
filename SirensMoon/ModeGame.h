@@ -20,7 +20,7 @@ class Game;
 class ModeGame :public ModeBase {
 
 public:
-	ModeGame(Game& game,std::string filename, EnemyGenerator::EnemyPattern pattern);
+	ModeGame(Game& game,std::string filename, EnemyGenerator::EnemyPattern pattern,std::string bgm);
 
 	void Update()override;
 	void Render()override;
@@ -34,6 +34,7 @@ public:
 	void GameClear();
 	void GameOver();
 	void DamageEvent();
+	void PlayBGM();
 	
 private:
 	bool _stopActorUpdate;
@@ -42,7 +43,6 @@ private:
 	std::vector<std::unique_ptr<SplitWindow>>_splitWindow;
 
 	std::shared_ptr<InputManager> _inputManager;
-
+	std::string _bgm;
 	int _enemyVIPDeadCount;
-
 };

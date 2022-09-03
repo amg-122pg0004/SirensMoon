@@ -29,14 +29,15 @@
 #include "SwitchArea.h"
 #include "ScreenPump.h"
 
-ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPattern pattern) 
-	:ModeBase{ game }, _stopActorUpdate{false}
+ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPattern pattern,std::string bgm) 
+	:ModeBase{ game }, _stopActorUpdate{false} ,_bgm{bgm}
 {
 	_inputManager=_game.GetInputManager();
 
 	SetUseASyncLoadFlag(true);
 	_renderPriority = 0;
 
+	PlaySoundFile(bgm.c_str(), DX_PLAYTYPE_LOOP);
 	_mapChips = std::make_unique<MapChips>(_game,*this,filename);
 
 	_splitWindow.emplace_back(std::make_unique<SplitWindow>(_game,*this, 0, 0, 0));
@@ -96,11 +97,7 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 		_actorServer.Add(std::move(teleportout));
 	}
 
-	auto switchareadata = _mapChips->GetSwitchAreaData();
-	for (auto aswitcharea : switchareadata) {
-		auto switcharea_obj = std::make_unique<SwitchArea>(_game, *this, aswitcharea);
-		_actorServer.Add(std::move(switcharea_obj));
-	}
+
 
 	auto doordata = _mapChips->GetDoorData();
 	for (auto adoor : doordata) {
@@ -138,6 +135,11 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 		_actorServer.Add(std::move(breakable));
 	}
 
+	auto switchareadata = _mapChips->GetSwitchAreaData();
+	for (auto aswitcharea : switchareadata) {
+		auto switcharea_obj = std::make_unique<SwitchArea>(_game, *this, aswitcharea);
+		_actorServer.Add(std::move(switcharea_obj));
+	}
 
 	auto switchdata = _mapChips->GetSwitchData();
 	for (auto aswitch : switchdata) {
@@ -189,6 +191,7 @@ void ModeGame::Debug() {
 }
 
 void ModeGame::StageClearCheck(){
+	StopSoundFile();
 	++_enemyVIPDeadCount;
 	if (_enemyVIPDeadCount >= _mapChips->GetServerData().size()) {
 		_stopActorUpdate = true;
@@ -218,8 +221,14 @@ void ModeGame::SetPauseGame(bool flag){
 }
 
 void ModeGame::GameClear(){
+	StopSoundFile();
 	_makedNextMode = true;
 	_stopActorUpdate = true;
 	auto mode = std::make_unique<ModeMovie>(_game, "resource/Movie/rocket.mp4");
 	_game.GetModeServer()->Add(std::move(mode));
+}
+
+void ModeGame::PlayBGM(){
+	StopSoundFile();
+	PlaySoundFile(_bgm.c_str(), DX_PLAYTYPE_LOOP);
 }

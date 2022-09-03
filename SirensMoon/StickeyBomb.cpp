@@ -27,6 +27,7 @@ void StickyBomb::Update() {
 			if (actor->GetType() == Type::PlayerA || actor->GetType() == Type::PlayerB) {
 				if (Intersect(_detectionArea, actor->GetCollision())) {
 					_activate = true;
+					PlaySoundMem(SoundServer::Find("MicroBomAlarm"), DX_PLAYTYPE_LOOP);
 					_player = actor.get();
 				}
 			}
@@ -36,8 +37,12 @@ void StickyBomb::Update() {
 		--_timer;
 		if (_timer <= 0) {
 			_mode.GetActorServer().Add(std::make_unique<Explode>(_game, _mode, _pos));
+			StopSoundMem(SoundServer::Find("MicroBomAlarm"));
+			PlaySoundMem(SoundServer::Find("ActiveTrapBom"), DX_PLAYTYPE_BACK);
 			_dead = true;
 		}
+
+
 
 		auto col_pos=_player->GetCollision();
 		_pos = (col_pos.min + col_pos.max) / 2;
@@ -50,6 +55,7 @@ void StickyBomb::Update() {
 					if (Intersect(_accessArea, actor->GetCollision())) {
 						_accessible2 = true;
 						if (_game.GetInputManager()->CheckInput("ACCESS", 't', 1)) {
+							PlaySoundMem(SoundServer::Find("MicroBomRelease"), DX_PLAYTYPE_LOOP);
 							_dead = true;
 						}
 					}
@@ -65,6 +71,7 @@ void StickyBomb::Update() {
 					if (Intersect(_accessArea, actor->GetCollision())) {
 						_accessible1 = true;
 						if (_game.GetInputManager()->CheckInput("ACCESS", 't', 0)) {
+							PlaySoundMem(SoundServer::Find("MicroBomRelease"), DX_PLAYTYPE_LOOP);
 							_dead = true;
 						}
 					}

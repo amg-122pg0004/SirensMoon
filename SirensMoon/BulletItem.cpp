@@ -26,6 +26,7 @@ void BulletItem::Update() {
 		if (actor->GetType() == Type::PlayerA) {
 			if(Intersect(_collision, actor->GetCollision())) {
 				dynamic_cast<PlayerA&>(*actor).TakeAmmo();
+				PlaySoundMem(SoundServer::Find("TakeAmmo"), DX_PLAYTYPE_BACK);
 				_dead = true;
 			}
 		}

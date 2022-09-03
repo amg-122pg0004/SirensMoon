@@ -56,6 +56,9 @@ void Switch::Update() {
 		}
 	}
 	if (_accessible1) {
+		if (_game.GetInputManager()->CheckInput("ACCESS", 't', 0)) {
+			PlaySoundMem(SoundServer::Find("AccessSwitch"), DX_PLAYTYPE_BACK);
+		}
 		if (_game.GetInputManager()->CheckInput("ACCESS", 'h', 0)) {
 			LinkGimmickActivate(true);
 			_activate = true;
@@ -64,6 +67,9 @@ void Switch::Update() {
 		}
 	}
 	if (_accessible2) {
+		if (_game.GetInputManager()->CheckInput("ACCESS", 't', 1)) {
+			PlaySoundMem(SoundServer::Find("AccessSwitch"), DX_PLAYTYPE_BACK);
+		}
 		if (_game.GetInputManager()->CheckInput("ACCESS", 'h', 1)) {
 			LinkGimmickActivate(true);
 			_activate = true;
@@ -72,6 +78,9 @@ void Switch::Update() {
 		}
 	}
 	LinkGimmickActivate(false);
+	if (_activate) {
+		PlaySoundMem(SoundServer::Find("AccessSwitchEnd"), DX_PLAYTYPE_BACK);
+	}
 	_activate = false;
 	_cg = _cg3;
 	return;

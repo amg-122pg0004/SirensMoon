@@ -33,6 +33,7 @@ public:
 	 */
 	static int LoadSound(std::string key, std::string filename);
 	
+	static void StopALLSound();
 
 private:
 	static std::unordered_map<std::string, int> _mapSounds;

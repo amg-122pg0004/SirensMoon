@@ -4,7 +4,7 @@
 
 EnemyVIP::EnemyVIP(Game& game, ModeGame& mode, ObjectDataStructs::EnemyData enemydata,
 	ServerMachine& owner, ObjectDataStructs::EnemyPatrol patrol, EnemyGenerator::EnemyPattern pattern)
-	:EnemyA(game, mode, enemydata,pattern), _owner{ owner }
+	:EnemyA(game, mode, enemydata,pattern), _owner{ owner }, _hitGreenBullet{false}
 {
 	Init();
 	_patrolPoints = patrol.PatrolPoints;
@@ -15,7 +15,7 @@ EnemyVIP::EnemyVIP(Game& game, ModeGame& mode, ObjectDataStructs::EnemyData enem
 
 void EnemyVIP::Update() {
 	EnemyA::Update();
-	if (_dead == true) {
+	if (_dead == true&&_hitGreenBullet) {
 		_owner.DeadEnemyVIP();
 	}
 	if (!_owner.GetValidFlag()) {
@@ -28,7 +28,7 @@ void EnemyVIP::CheckDamage(){
 		if (actor->GetType() == Type::GreenBullet) {
 			if (Intersect(_collision, actor->GetCollision())) {
 				actor->Dead();
-				_dead = true;
+				TakeDamage(actor->GetType());
 				PlaySoundMem(SoundServer::Find("BulletToEnemy"), DX_PLAYTYPE_BACK);
 			}
 		}
@@ -42,8 +42,18 @@ void EnemyVIP::CheckDamage(){
 		if (actor->GetType() == Type::PlayerA || actor->GetType() == Type::PlayerB) {
 			if (Intersect(_collision, actor->GetCollision())) {
 				dynamic_cast<Player&>(*actor).TakeDamage(GetType());
-				_dead = true;
+				TakeDamage(actor->GetType());
 			}
 		}
 	}
+}
+
+void EnemyVIP::TakeDamage(Type influence){
+	if (influence == Type::GreenBullet) {
+		_hitGreenBullet = true;
+	}
+	else {
+		_owner.SetValidFlag(false);
+	}
+	_dead = true;
 }

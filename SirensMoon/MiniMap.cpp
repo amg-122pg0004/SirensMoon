@@ -31,10 +31,18 @@ MiniMap::~MiniMap() {
 void MiniMap::Update() {
 
 	if (_inputManager->CheckInput("ACTION", 'h', 1)) {
-		_visible =true;
+		if (!_visible) {
+			PlaySoundMem(SoundServer::Find("MiniMapOpen"), DX_PLAYTYPE_BACK);
+			PlaySoundMem(SoundServer::Find("MiniMapClose"), DX_PLAYTYPE_LOOP);
+			_visible = true;
+		}
 	}
 	else {
-		_visible = false;
+		if (_visible) {
+			StopSoundMem(SoundServer::Find("MiniMapClose"));
+			PlaySoundMem(SoundServer::Find("MiniMapClose"), DX_PLAYTYPE_BACK);
+			_visible = false;
+		}
 	}
 
 	if (dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetLightUp() != 255) {

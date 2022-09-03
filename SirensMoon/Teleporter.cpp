@@ -20,7 +20,7 @@ void teleporterIn::Update(){
 void teleporterIn::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 	DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x - 20),
 		static_cast<int>(_pos.y + window_pos.y - camera_pos.y-20),
-		_cg,0
+		_cg,1
 	);
 }
 
@@ -30,18 +30,39 @@ void teleporterIn::Debug(Vector2 window_pos, Vector2 camera_pos) {
 
 
 
-teleporterOut::teleporterOut(Game& game, ModeGame& mode, int ID, Vector2 pos):  Gimmick(game, mode,ID)
+teleporterOut::teleporterOut(Game& game, ModeGame& mode, int ID, Vector2 pos)
+	:  Gimmick(game, mode,ID),_open{false}
 {
 	_pos = pos;
 	_size = { 90,120 };
 	_collision.min = { 0,0 };
 	_collision.max = { 0,0 };
+	_openCollision.min = _pos;
+	_openCollision.min = _pos+_size;
 	_cg = ImageServer::LoadGraph("resource/Gimmick/outporter.png");
+	_cg2 = ImageServer::LoadGraph("resource/Gimmick/outporter1.png");
 }
 
+void teleporterOut::Update() {
+	if (_open) {
+		return;
+	}
+	for (auto&& actor : _mode.GetObjects()) {
+		if (actor->GetType() == Actor::Type::PlayerA || actor->GetType() == Actor::Type::PlayerB) {
+			_open = true;
+		}
+	}
+}
 void teleporterOut::StandardRender(Vector2 window_pos, Vector2 camera_pos){
+	int cg{ -1 };
+	if (_open) {
+		cg = _cg2;
+	}
+	else {
+		cg = _cg;
+	}
 	DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x - 20),
 		static_cast<int>(_pos.y + window_pos.y - camera_pos.y - 20),
-		_cg, 0
+		cg, 1
 	);
 }

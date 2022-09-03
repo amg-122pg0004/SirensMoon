@@ -8,6 +8,8 @@ class ModeGame;
 class Gimmick: public Actor{
 public:
 	enum class GimmickType {
+		BarrierA,
+		BarrierB,
 		FloorLamp,
 		Switch,
 		SwitchArea,
@@ -27,7 +29,7 @@ public:
 
 	Gimmick(Game& game, ModeGame& mode,int ID);
 
-	bool RecieveCall(std::vector<int> IDs,bool flag);
+	virtual bool RecieveCall(std::vector<int> IDs,bool flag);
 	void  SetActivate() { _activate = true; }
 	bool GetActivate() { return _activate; }
 	int GetID() { return _id; }

@@ -86,13 +86,17 @@ void ServerMachine::Update() {
 			_energy = 0;
 		}
 		if (_energy > 0) {
-			if (_valid == false) {
+			if (!_valid) {
 				_valid = true;
+				PlaySoundFile("resource/BGM/ActiveServer.wav",DX_PLAYTYPE_LOOP);
 				SpawnEnemyVIP();
 			}
 		}
 		if (_energy == 0) {
-			_valid = false;
+			if (_valid) {
+				_valid = false;
+				_mode.PlayBGM();
+			}
 		}
 	}
 }

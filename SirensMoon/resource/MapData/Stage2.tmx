@@ -3483,14 +3483,14 @@
   <object id="1047" gid="18" x="235" y="407" width="30" height="30"/>
   <object id="1048" gid="18" x="225" y="214" width="30" height="30"/>
  </objectgroup>
- <objectgroup id="4" name="Player" locked="1">
-  <object id="332" gid="5" x="390" y="300" width="30" height="30">
+ <objectgroup id="4" name="Player">
+  <object id="332" gid="5" x="3486.97" y="1578.79" width="30" height="30">
    <properties>
     <property name="Friction" type="float" value="0.98"/>
     <property name="Player" type="int" value="2"/>
    </properties>
   </object>
-  <object id="333" gid="5" x="180" y="300" width="30" height="30">
+  <object id="333" gid="5" x="218.727" y="271.03" width="30" height="30">
    <properties>
     <property name="Friction" type="float" value="0.975"/>
     <property name="Player" type="int" value="1"/>

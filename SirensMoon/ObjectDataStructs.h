@@ -59,6 +59,13 @@ public:
 	};
 
 	/*スイッチデータ構造*/
+	struct BarrierData {
+		int ID;
+		Vector2 pos;
+		int blockPlayerNo;
+	};
+
+	/*スイッチデータ構造*/
 	struct SwitchData {
 		int ID;
 		Vector2 pos;

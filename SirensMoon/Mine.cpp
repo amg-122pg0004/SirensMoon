@@ -44,14 +44,14 @@ void Mine::Update(){
 			if(Intersect(_detectionArea, actor->GetCollision())) {
 				dynamic_cast<Player&>(*actor).TakeDamage(GetType());
 				_dead = true;
-				PlaySoundMem(SoundServer::Find("Explosion"), DX_PLAYTYPE_BACK);
+				PlaySoundMem(SoundServer::Find("ScreenBomActive"), DX_PLAYTYPE_BACK);
 			}
 		}
 		if (actor->GetType() == Type::Enemy) {
 			if (Intersect(_detectionArea, actor->GetCollision())) {
 				dynamic_cast<Enemy&>(*actor).TakeDamage(GetType());
 				_dead = true;
-				PlaySoundMem(SoundServer::Find("Explosion"), DX_PLAYTYPE_BACK);
+				PlaySoundMem(SoundServer::Find("ScreenBomActive"), DX_PLAYTYPE_BACK);
 			}
 		}
 	}

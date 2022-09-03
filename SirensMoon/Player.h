@@ -51,8 +51,6 @@ public:
 	bool IsHitActor();
 	/*プレイヤー固有のアクション*/
 	virtual void Action();
-	/*足音の再生*/
-	void PlayFootSteps();
 	/*プレイヤー同士が重なっている場合の処理*/
 	void PlayerOverlap();
 	/*コリジョンボックスの位置更新*/
@@ -69,7 +67,7 @@ public:
 	/*ハイドフラグの確認*/
 	void UpdateHide();
 	bool GetHideFlag() { return _hide; }
-	void SetHideFlag();
+	bool SetHideFlag();
 
 	void Debug(Vector2 window_pos, Vector2 camera_pos)override;
 

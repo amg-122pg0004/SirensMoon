@@ -4,30 +4,46 @@
 
 LoadResources::LoadResources() {
 }
+void LoadResources::LoadSE1() {
+	SoundServer::LoadSound("DeceideMenu", "resource/SE/UI/DeceideMenu.wav");
+	SoundServer::LoadSound("InputDown", "resource/SE/UI/InputDown.wav");
+	SoundServer::LoadSound("InputUp", "resource/SE/UI/InputUp.wav");
+}
 
 void LoadResources::LoadSE() {
-	SoundServer::LoadSound("PlayerWalk", "resource/Sounds/Player/se_sk2206.wav");
-	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("PlayerWalk"));
-	SoundServer::LoadSound("PlayerRun", "resource/Sounds/Player/se_sk2207.wav");
-	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("PlayerRun"));
-	SoundServer::LoadSound("PlayerAim", "resource/Sounds/Player/se_sk2054.wav");
-	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("PlayerAim"));
-	SoundServer::LoadSound("PlayerCharge", "resource/Sounds/Player/se_sk2153.wav");
-	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("PlayerCharge"));
-	SoundServer::LoadSound("PlayerShoot", "resource/Sounds/Player/se_sk2177.wav");
-	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("PlayerShoot"));
-	SoundServer::LoadSound("PlayerChargeMAX", "resource/Sounds/Player/se_sk2224.wav");
-	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("PlayerChargeMAX"));
-	SoundServer::LoadSound("BulletToWall", "resource/Sounds/Player/se_sk2026.wav");
-	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("BulletToWall"));
-	SoundServer::LoadSound("BulletToEnemy", "resource/Sounds/Player/se_sk2020.wav");
-	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("BulletToEnemy"));
-	SoundServer::LoadSound("PlayerOpenMap", "resource/Sounds/Player/se_sk2050.wav");
-	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("PlayerOpenMap"));
-	SoundServer::LoadSound("Explosion", "resource/Sounds/Gimmick/se_sk2063.wav");
-	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("PlayerOpenMap"));
-	SoundServer::LoadSound("DamageToPlayer", "resource/Sounds/Enemy/se_sk2077.wav");
-	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("DamageToPlayer"));
+
+	SoundServer::LoadSound("TakeAmmo", "resource/SE/Gimmick/TakeAmmo.wav");
+	SoundServer::LoadSound("EnterBarrier", "resource/SE/Gimmick/EnterBarrier.wav");
+	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("EnterBarrier"));
+	SoundServer::LoadSound("EnterBarrierFail", "resource/SE/Gimmick/EnterBarrierFail.wav");
+	SoundServer::LoadSound("Teleport", "resource/SE/Gimmick/Teleport.wav");
+	SoundServer::LoadSound("ActiveTrapBom", "resource/SE/Gimmick/ActiveTrapBom.wav");
+	SoundServer::LoadSound("AccessSwitch", "resource/SE/Gimmick/AccessSwitch.wav");
+	SoundServer::LoadSound("AccessSwitchEnd", "resource/SE/Gimmick/AccessSwitchEnd.wav");
+	SoundServer::LoadSound("DoorClose", "resource/SE/Gimmick/DoorClose.wav");
+	SoundServer::LoadSound("DoorOpen", "resource/SE/Gimmick/DoorOpen.wav");
+	SoundServer::LoadSound("MicroBomAlarm", "resource/SE/Gimmick/MicroBomAlarm.wav");
+	SoundServer::LoadSound("MicroBomFire", "resource/SE/Gimmick/MicroBomFire.wav");
+	SoundServer::LoadSound("MicroBomRelease", "resource/SE/Gimmick/MicroBomRelease.wav");
+	SoundServer::LoadSound("ScreenBomActive", "resource/SE/Gimmick/ScreenBomActive.wav");
+	SoundServer::LoadSound("ScreenBomRelease", "resource/SE/Gimmick/ScreenBomRelease.wav");
+
+	SoundServer::LoadSound("PlayerDamage", "resource/SE/Player/Damage.wav");
+	SoundServer::LoadSound("Walking", "resource/SE/Player/Walking.wav");
+	SoundServer::LoadSound("MiniMapClose", "resource/SE/Player/MiniMapClose.wav");
+	SoundServer::LoadSound("MiniMapLooking", "resource/SE/Player/MiniMapLooking.wav");
+	SoundServer::LoadSound("MiniMapOpen", "resource/SE/Player/MiniMapOpen.wav");
+	SoundServer::LoadSound("ServerAccess", "resource/SE/Player/ServerAccess.wav");
+	SoundServer::LoadSound("ServerAccessNow", "resource/SE/Player/ServerAccessNow.wav");
+	SoundServer::LoadSound("ChangeAmmo", "resource/SE/Player/ChangeAmmo.wav");
+	SoundServer::LoadSound("Charging", "resource/SE/Player/Charging.wav");
+	SoundServer::LoadSound("Chargekeep", "resource/SE/Player/Chargekeep.wav");
+	SoundServer::LoadSound("Fire", "resource/SE/Player/Fire.wav");
+
+	SoundServer::LoadSound("Fire", "resource/SE/Bullet/HitBullet.wav");
+
+	SoundServer::LoadSound("Detection", "resource/SE/Enemy/Detection.wav");
+	ChangeVolumeSoundMem(255 * 100 / 100, SoundServer::Find("Detection"));
 }
 
 void LoadResources::LoadEffects() {

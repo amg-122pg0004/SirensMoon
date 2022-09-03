@@ -268,8 +268,8 @@
     <Filter Include="Actor\Light\LinkLight">
       <UniqueIdentifier>{fe61cb88-1fc1-45f0-aa0f-467efad53183}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Gimmick\Mini">
-      <UniqueIdentifier>{82435eba-0f17-4cd1-8c65-e38e7321277d}</UniqueIdentifier>
+    <Filter Include="Actor\Gimmick\Barrirer">
+      <UniqueIdentifier>{d35b2165-198e-463a-9fcc-0a4db9ea633e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -534,6 +534,9 @@
     <ClCompile Include="LinkLight.cpp">
       <Filter>Actor\Light\LinkLight</Filter>
     </ClCompile>
+    <ClCompile Include="Barrier.cpp">
+      <Filter>Actor\Gimmick\Barrirer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -796,6 +799,9 @@
     </ClInclude>
     <ClInclude Include="LinkLight.h">
       <Filter>Actor\Light\LinkLight</Filter>
+    </ClInclude>
+    <ClInclude Include="Barrier.h">
+      <Filter>Actor\Gimmick\Barrirer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

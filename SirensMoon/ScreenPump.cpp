@@ -43,7 +43,9 @@ void ScreenPump::Update() {
 			if (Intersect(_detectionArea, actor->GetCollision())) {
 				for (auto&& split : _mode.GetSplitWindow()) {
 					split->ScreenPumpEvent(0);
-					dynamic_cast<Player&>(*actor).SetHideFlag();
+					if (dynamic_cast<Player&>(*actor).SetHideFlag()) {
+						PlaySoundMem(SoundServer::Find("MicroBomRelease"), DX_PLAYTYPE_BACK);
+					}
 				}
 			}
 		}
@@ -51,7 +53,9 @@ void ScreenPump::Update() {
 			if (Intersect(_detectionArea, actor->GetCollision())) {
 				for (auto&& split : _mode.GetSplitWindow()) {
 					split->ScreenPumpEvent(1);
-					dynamic_cast<Player&>(*actor).SetHideFlag();
+					if (dynamic_cast<Player&>(*actor).SetHideFlag()) {
+						PlaySoundMem(SoundServer::Find("MicroBomRelease"), DX_PLAYTYPE_BACK);
+					}
 				}
 			}
 		}

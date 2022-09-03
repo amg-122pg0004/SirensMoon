@@ -20,7 +20,7 @@ void SoundServer::Release() {
 
 void SoundServer::ClearSounds() {
     for (auto&& graph : _mapSounds) {
-        DeleteGraph(graph.second);
+        DeleteSoundMem(graph.second);
     }
     _mapSounds.clear();
 }
@@ -43,4 +43,10 @@ int SoundServer::LoadSound(std::string key, std::string filename)
         _mapSounds[key] = sound;
     }
     return sound;
+}
+
+void SoundServer::StopALLSound(){
+    for (auto&& graph : _mapSounds) {
+        StopSoundMem(graph.second);
+    }
 }

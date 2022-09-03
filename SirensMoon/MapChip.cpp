@@ -1197,6 +1197,16 @@ bool MapChips::IsHitBarrier(AABB col,int playerno)
 							return 1;
 						}
 					}
+					for (auto gid : _gidBarrier2) {
+						if (chip_no == gid)
+						{	// このチップと当たった。
+							// 当たったので戻る
+							if (CheckSoundMem(SoundServer::Find("EnterBarrier")==0)) {
+								PlaySoundMem(SoundServer::Find("EnterBarrier"), DX_PLAYTYPE_BACK);
+							}
+							continue;
+						}
+					}
 				}
 				if (playerno == 1) {
 					for (auto gid : _gidBarrier2) {
@@ -1204,6 +1214,16 @@ bool MapChips::IsHitBarrier(AABB col,int playerno)
 						{	// このチップと当たった。
 							// 当たったので戻る
 							return 1;
+						}
+					}
+					for (auto gid : _gidBarrier1) {
+						if (chip_no == gid)
+						{	// このチップと当たった。
+							// 当たったので戻る
+							if (CheckSoundMem(SoundServer::Find("EnterBarrier") == 0)) {
+								PlaySoundMem(SoundServer::Find("EnterBarrier"), DX_PLAYTYPE_BACK);
+							}
+							continue;
 						}
 					}
 				}

@@ -39,7 +39,7 @@ void Bullet::Update() {
 	}
 	if (dynamic_cast<ModeGame&>(_mode).GetMapChips()->IsHit(_collision,false)) {
 		Dead();
-		PlaySoundMem(SoundServer::Find("BulletToWall"), DX_PLAYTYPE_BACK);
+		
 	}
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::Gimmick) {
@@ -64,4 +64,9 @@ void Bullet::StandardRender(Vector2 window_pos, Vector2 camera_pos){
 		, static_cast<int>(_pos.y + window_pos.y - camera_pos.y)
 		, _cg
 		, 1);
+}
+
+void Bullet::Dead(){
+	PlaySoundMem(SoundServer::Find("HitBullet"), DX_PLAYTYPE_BACK);
+	_dead = true;
 }

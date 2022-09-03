@@ -66,3 +66,21 @@ else {
 		, 1);
 	}
 }
+
+bool Door::RecieveCall(std::vector<int> IDs, bool flag) {
+	for (int id : IDs) {
+		if (id == _id) {
+			if (_activate != flag) {
+				_activate = flag;
+				if (_activate) {
+					PlaySoundMem(SoundServer::Find("DoorOpen"), DX_PLAYTYPE_BACK);
+				}
+				else {
+					PlaySoundMem(SoundServer::Find("DoorClose"), DX_PLAYTYPE_BACK);
+				}
+			}
+			return true;
+		}
+	}
+	return false;
+}

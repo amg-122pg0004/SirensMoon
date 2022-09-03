@@ -142,6 +142,9 @@ void Player::Move() {
 	}
 	UpdateCollision();
 	if (_mode.GetMapChips()->IsHitBarrier(_collision, _playerNum)) {
+		if (CheckSoundMem(SoundServer::Find("EnterBarrierFail")) == 0) {
+			PlaySoundMem(SoundServer::Find("EnterBarrierFail"), DX_PLAYTYPE_BACK);
+		}
 		_pos.x += -1 * _speed.x;
 		_speed.x = 0;
 	}
@@ -154,11 +157,15 @@ void Player::Move() {
 	_pos.y += _speed.y;
 	UpdateCollision();
 	if (_mode.GetMapChips() ->IsHit(_collision,true)) {
+		if (CheckSoundMem(SoundServer::Find("EnterBarrierFail")) == 0) {
+			PlaySoundMem(SoundServer::Find("EnterBarrierFail"), DX_PLAYTYPE_BACK);
+		}
 		_pos.y += -1 * _speed.y;
 		_speed.y = 0;
 	}
 	UpdateCollision();
 	if (_mode.GetMapChips()->IsHitBarrier(_collision, _playerNum)) {
+		PlaySoundMem(SoundServer::Find("EnterBarrireFail"), DX_PLAYTYPE_BACK);
 		_pos.y += -1 * _speed.y;
 		_speed.y = 0;
 	}
@@ -211,17 +218,17 @@ void Player::Move() {
 		}
 	}
 
-
 	UpdateCollision();
 
 	UpdateCamera();
-	
-	PlayFootSteps();
 
 	if (_speed.Length()<0.1) {
 		_state=PlayerState::Wait;
 	}
 	else if (_speed.Length() < 2.8) {
+		if (_state == PlayerState::Wait) {
+			PlaySoundMem(SoundServer::Find("Walking"), DX_PLAYTYPE_BACK);
+		}
 		_state = PlayerState::Walk;
 	}
 	else {
@@ -268,22 +275,6 @@ void Player::UpdateCamera() {
 	}
 	else if (renderposition.y > screen_H && _speed.y > 0) {
 		rendercamera->ChangePosition(Camera::ChangeDir::DOWN);
-	}
-}
-
-void Player::PlayFootSteps() {
-	if (_movable) {
-		double speed = _speed.Length();
-		if (speed > 0.1 && speed <= 2.5) {
-			if (_game.GetFrameCount() % 25 == 0) {
-				PlaySoundMem(SoundServer::Find("PlayerWalk"), DX_PLAYTYPE_BACK);
-			}
-		}
-		else if (speed > 2.5) {
-			if (_game.GetFrameCount() % 15 == 0) {
-				PlaySoundMem(SoundServer::Find("PlayerRun"), DX_PLAYTYPE_BACK);
-			}
-		}
 	}
 }
 
@@ -361,6 +352,7 @@ void Player::UpdateCollision() {
 
 void Player::TakeDamage(Actor::Type type) {
 	--_hp;
+	PlaySoundMem(SoundServer::Find("PlayerDamage"), DX_PLAYTYPE_BACK);
 	StartJoypadVibration(DX_INPUT_PAD1,1000,600,-1);
 	if (type == Type::Enemy) {
 		_mode.SetPauseGame(true);
@@ -401,11 +393,13 @@ void Player::Checkteleport() {
 							if (positions.size() != 0) {
 								_pos = positions[_game.GetFrameCount() % positions.size()];
 								UpdateCollision();
+								PlaySoundMem(SoundServer::Find("Teleport"), DX_PLAYTYPE_BACK);
 							}
 						}
 						else {
 							_pos = _mode.GetMapChips()->GetteleporterOutData()[id].first;
 							UpdateCollision();
+							PlaySoundMem(SoundServer::Find("Teleport"), DX_PLAYTYPE_BACK);
 						}
 						Init();
 					}
@@ -434,13 +428,16 @@ void Player::UpdateHide(){
 	--_hideTime;
 	if (_hideTime < 0) {
 		_hideTime = 0;
+		PlaySoundMem(SoundServer::Find("ScreenBomRelease"), DX_PLAYTYPE_BACK);
 		_hide = false;
 	}
 }
 
-void Player::SetHideFlag(){
+bool Player::SetHideFlag(){
 	if (!_hide) {
 		_hide = true;
 		_hideTime = 30*60;
+		return true;
 	}
+	return false;
 }

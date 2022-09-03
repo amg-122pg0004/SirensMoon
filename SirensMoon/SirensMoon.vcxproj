@@ -149,6 +149,7 @@
     <ClCompile Include="ActorServer.cpp" />
     <ClCompile Include="AimUI.cpp" />
     <ClCompile Include="AmmoUI.cpp" />
+    <ClCompile Include="Barrier.cpp" />
     <ClCompile Include="BigGenerator.cpp" />
     <ClCompile Include="BigGun.cpp" />
     <ClCompile Include="BigServer.cpp" />
@@ -235,6 +236,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AimUI.h" />
+    <ClInclude Include="Barrier.h" />
     <ClInclude Include="BigGenerator.h" />
     <ClInclude Include="BigGun.h" />
     <ClInclude Include="BigServer.h" />

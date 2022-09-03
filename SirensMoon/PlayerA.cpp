@@ -67,11 +67,11 @@ void PlayerA::Load(){
 void PlayerA::Action(){
 	if (_inputManager->CheckInput("BULLET1", 't', _playerNum)&&_charge==0 ) {
 		_setGreenBullet = true;
-		PlaySoundMem(SoundServer::Find("PlayerOpenMap"), DX_PLAYTYPE_BACK);
+		PlaySoundMem(SoundServer::Find("ChangeAmmo"), DX_PLAYTYPE_BACK);
 	}
 	if (_inputManager->CheckInput("BULLET2", 't', _playerNum) && _charge == 0) {
 		_setGreenBullet = false;
-		PlaySoundMem(SoundServer::Find("PlayerOpenMap"), DX_PLAYTYPE_BACK);
+		PlaySoundMem(SoundServer::Find("ChangeAmmo"), DX_PLAYTYPE_BACK);
 	}
 
 	--_cooldown;
@@ -99,7 +99,7 @@ void PlayerA::Action(){
 			}
 
 
-			PlaySoundMem(SoundServer::Find("PlayerShoot"), DX_PLAYTYPE_BACK);
+			PlaySoundMem(SoundServer::Find("Fire"), DX_PLAYTYPE_BACK);
 			_cooldown = 180;
 			_movable = false;
 			_state = PlayerState::Shoot;
@@ -125,14 +125,11 @@ void PlayerA::Action(){
 
 		++_charge;
 		if (_charge == 1) {
-			PlaySoundMem(SoundServer::Find("PlayerAim"), DX_PLAYTYPE_BACK);
+			PlaySoundMem(SoundServer::Find("Charging"), DX_PLAYTYPE_BACK);
 			_mode.GetActorServer().Add(std::make_unique<FX_Chargein>(_game, _mode, _pos, _game.GetFrameCount(),*this));
 		}
-		if (_charge == 12) {
-			PlaySoundMem(SoundServer::Find("PlayerCharge"), DX_PLAYTYPE_BACK);
-		}
 		if (_charge == 105) {
-			PlaySoundMem(SoundServer::Find("PlayerChargeMAX"), DX_PLAYTYPE_BACK);
+			PlaySoundMem(SoundServer::Find("Chargekeep"), DX_PLAYTYPE_LOOP);
 			_mode.GetActorServer().Add(std::make_unique<FX_Chargenow>(_game, _mode, _pos, _game.GetFrameCount(), *this));
 		}
 
@@ -142,7 +139,8 @@ void PlayerA::Action(){
 			_movable = true;
 		}
 		_charge = 0;
-		StopSoundMem(SoundServer::Find("PlayerCharge"));
+		StopSoundMem(SoundServer::Find("Chargekeep"));
+		StopSoundMem(SoundServer::Find("Charging"));
 	}
 }
 

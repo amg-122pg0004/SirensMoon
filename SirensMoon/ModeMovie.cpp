@@ -33,6 +33,7 @@ void ModeMovie::Render() {
 	SetDrawArea(0, 0, screen_W, screen_H);
 	DrawBox(0, 0, screen_W, screen_H, GetColor(0, 0, 0), 1);
 	auto scale = static_cast<double>(_sizeY) / static_cast<double>(_sizeX);
+	/*
 	DrawExtendGraph(0,
 		static_cast<int>((screen_H-(_sizeY * scale))/2),
 		screen_W / 2,
@@ -40,6 +41,9 @@ void ModeMovie::Render() {
 		_movieHandle, 0);
 	DrawExtendGraph(screen_W-splitscreen_W,static_cast<int>( (screen_H - (_sizeY * scale)) / 2),
 		screen_W,static_cast<int>( (screen_H - (_sizeY * scale)) / 2 + (_sizeY * scale)), _movieHandle, 0);
+	*/
+	DrawGraph(0,0,_movieHandle, 0);
+	DrawGraph(screen_W - splitscreen_W,0, _movieHandle, 0);
 }
 
 void ModeMovie::Debug() {

@@ -6,6 +6,7 @@ ModeStart::ModeStart(Game& game) :ModeBase(game),_select{0},_alpha{255}, _pos{ 4
 {
 	_inputManager = _game.GetInputManager();
 
+	LoadResources::LoadSE1();
 	_movieHandle = ImageServer::LoadGraph("resource/Movie/start.mp4");
 	_cg_bg=ImageServer::LoadGraph("resource/UI/Start/background.jpg");
 	_cg_logo = ImageServer::LoadGraph("resource/UI/Start/logo.png");
@@ -28,11 +29,13 @@ void ModeStart::Update() {
 				_analogFlag1 = true;
 				if (analog1.y > 0) {
 					++_select;
+					PlaySoundMem(SoundServer::Find("InputDown"), DX_PLAYTYPE_BACK);
 					if (_select > 2) {
 						_select = 0;
 					}
 				}
 				else {
+					PlaySoundMem(SoundServer::Find("InputUp"), DX_PLAYTYPE_BACK);
 					--_select;
 					if (_select < 0) {
 						_select = 2;
@@ -44,6 +47,7 @@ void ModeStart::Update() {
 			_analogFlag1 = false;
 		}
 		if (_inputManager->CheckInput("ACCESS", 't', 0)) {
+			PlaySoundMem(SoundServer::Find("DeceideMenu"), DX_PLAYTYPE_BACK);
 			switch (_select)
 			{
 			case 0:
@@ -64,7 +68,7 @@ void ModeStart::Update() {
 
 void ModeStart::Render() {
 	ClearDrawScreen();
-	if (GetMovieStateToGraph(_movieHandle) == 1&&TellMovieToGraph(_movieHandle) > 128000) {
+	if (GetMovieStateToGraph(_movieHandle) == 1&&TellMovieToGraph(_movieHandle) > 125000) {
 		PauseMovieToGraph(_movieHandle);
 	}
 	if (GetMovieStateToGraph(_movieHandle) == 1 && _inputManager->CheckInput("PAUSE", 't', 0)||
@@ -75,7 +79,7 @@ void ModeStart::Render() {
 		}
 		PauseMovieToGraph(_movieHandle);
 	}
-	if (GetMovieStateToGraph(_movieHandle) == 1 && TellMovieToGraph(_movieHandle) > 126500) {
+	if (GetMovieStateToGraph(_movieHandle) == 1 && TellMovieToGraph(_movieHandle) > 124000) {
 		if (!_bgm) {
 			PlaySoundFile("resource/BGM/title.wav", DX_PLAYTYPE_LOOP);
 			_bgm = true;
