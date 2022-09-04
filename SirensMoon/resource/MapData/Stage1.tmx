@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="128" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="23" nextobjectid="1033">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="128" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="23" nextobjectid="1042">
  <editorsettings>
   <export target="Stage1.json" format="json"/>
  </editorsettings>
@@ -2215,18 +2215,82 @@
  </tileset>
  <tileset firstgid="661" name="tile_icon" tilewidth="30" tileheight="30" tilecount="50" columns="10">
   <image source="tile_icon.png" width="300" height="150"/>
+  <tile id="0" class="BackGround"/>
   <tile id="1" class="Teleport_IN"/>
   <tile id="2" class="Teleport_OUT"/>
   <tile id="3" class="Mine"/>
-  <tile id="4" class="Switch"/>
-  <tile id="5" class="Door"/>
-  <tile id="6" class="TNT"/>
+  <tile id="4" class="Switch">
+   <properties>
+    <property name="Red?" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="5" class="TNT">
+   <properties>
+    <property name="CGNo" type="int" value="1"/>
+   </properties>
+  </tile>
+  <tile id="6" class="TNT">
+   <properties>
+    <property name="CGNo" type="int" value="2"/>
+   </properties>
+  </tile>
+  <tile id="7" class="StickyBomb"/>
   <tile id="8" class="BreakableObject"/>
   <tile id="9" class="DegitalLetter"/>
   <tile id="10" class="BossServer"/>
   <tile id="11" class="BossTrigger"/>
   <tile id="12" class="BossGenerator"/>
   <tile id="13" class="SwitchArea"/>
+  <tile id="14" class="Switch"/>
+  <tile id="15" class="TNT">
+   <properties>
+    <property name="CGNo" type="int" value="3"/>
+   </properties>
+  </tile>
+  <tile id="16" class="TNT">
+   <properties>
+    <property name="CGNo" type="int" value="4"/>
+   </properties>
+  </tile>
+  <tile id="17" class="BackGround"/>
+  <tile id="18" class="BackGround"/>
+  <tile id="19" class="BackGround"/>
+  <tile id="20" class="BackGround"/>
+  <tile id="21" class="BackGround"/>
+  <tile id="22" class="BackGround"/>
+  <tile id="23" class="BackGround"/>
+  <tile id="24" class="BackGround"/>
+  <tile id="25" class="ScreenPump">
+   <properties>
+    <property name="Direction" propertytype="Direction" value="none"/>
+   </properties>
+  </tile>
+  <tile id="26" class="ScreenPump">
+   <properties>
+    <property name="Direction" propertytype="Direction" value="up"/>
+   </properties>
+  </tile>
+  <tile id="27" class="BackGround"/>
+  <tile id="28" class="BackGround"/>
+  <tile id="29" class="BackGround"/>
+  <tile id="30" class="BackGround"/>
+  <tile id="31" class="BackGround"/>
+  <tile id="32" class="BackGround"/>
+  <tile id="33" class="BackGround"/>
+  <tile id="34" class="BackGround"/>
+  <tile id="35" class="ScreenPump">
+   <properties>
+    <property name="Direction" propertytype="Direction" value="none"/>
+   </properties>
+  </tile>
+  <tile id="36" class="ScreenPump">
+   <properties>
+    <property name="Direction" propertytype="Direction" value="none"/>
+   </properties>
+  </tile>
+  <tile id="37" class="BackGround"/>
+  <tile id="38" class="BackGround"/>
+  <tile id="39" class="BackGround"/>
  </tileset>
  <layer id="1" name="tile_Layer1" width="128" height="144">
   <data encoding="csv">
@@ -2378,7 +2442,7 @@
  </layer>
  <objectgroup id="3" name="Enemy" locked="1"/>
  <objectgroup id="10" name="Server">
-  <object id="979" gid="35" x="219" y="297" width="30" height="30"/>
+  <object id="979" gid="35" x="333" y="399.667" width="30" height="30"/>
   <object id="980" x="180" y="1148">
    <polygon points="0,0 20,216 228,160 204,-12"/>
   </object>
@@ -2449,27 +2513,13 @@
     <property name="LinkGimmick9" type="object" value="1021"/>
    </properties>
   </object>
-  <object id="1024" gid="670" x="120" y="390" width="30" height="30"/>
-  <object id="1029" gid="670" x="200" y="362" width="30" height="30">
+  <object id="1039" gid="668" x="295" y="529" width="30" height="30"/>
+  <object id="1040" gid="686" x="99.3333" y="260.333" width="30" height="30">
    <properties>
-    <property name="Message" value="asd"/>
+    <property name="Direction" propertytype="Direction" value="down"/>
    </properties>
   </object>
-  <object id="1030" gid="670" x="259" y="404" width="30" height="30">
-   <properties>
-    <property name="Message" value="12312323"/>
-   </properties>
-  </object>
-  <object id="1031" gid="670" x="349" y="333" width="30" height="30">
-   <properties>
-    <property name="Message" value="降伏"/>
-   </properties>
-  </object>
-  <object id="1032" gid="670" x="339" y="403" width="30" height="30">
-   <properties>
-    <property name="Message" value="幸福"/>
-   </properties>
-  </object>
+  <object id="1041" gid="675" x="360" y="210" width="30" height="30"/>
  </objectgroup>
  <objectgroup id="21" name="Boss"/>
  <objectgroup id="4" name="Player">

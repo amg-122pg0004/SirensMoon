@@ -34,6 +34,7 @@ public:
 	void GameClear();
 	void GameOver();
 	void DamageEvent();
+	void TargetKillEvent();
 	void PlayBGM();
 	
 private:

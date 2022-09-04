@@ -16,6 +16,7 @@
 
 class Camera;
 class Darkness;
+class ObjectiveUI;
 
 class SplitWindow {
 	public:
@@ -24,6 +25,7 @@ class SplitWindow {
 		void Render();
 		void Debug();
 		void DamageEvent();
+		void TargetKillEvent();
 
 		void ScreenPumpEvent(int playerno);
 
@@ -41,6 +43,8 @@ class SplitWindow {
 
 		bool GetInvisiblePlayer() { return _invisiblePlayer; }
 		bool GetInvisibleEnemy() { return _invisibleEnemy; }
+		
+		ObjectiveUI* GetObjectiveUI() { return _objectiveUI; }
 
 	private:
 		/*–¾‚é‚¢‚©‚Ç‚¤‚©*/
@@ -70,4 +74,6 @@ class SplitWindow {
 		bool _invisibleEnemy;
 		
 		int _blindTimer;
+
+		ObjectiveUI* _objectiveUI;
 }; 

@@ -16,6 +16,7 @@ Bullet::Bullet(Game& game, ModeGame& mode, Vector2 pos, Vector2 dir)
 {
 	_cg = ImageServer::LoadGraph("resource/Bullet/Bullet_1.png");
 	_pos = pos;
+	_prePos = pos;
 	_size = { 5,5 };
 
 	auto light = std::make_unique<LightBase>(_game,_mode,*this);
@@ -27,6 +28,7 @@ Bullet::~Bullet() {
 }
 
 void Bullet::Update() {
+	_prePos = _pos;
 	_pos = _pos + _dir * _speed;
 	_renderPriority = static_cast<int>(_collision.max.y);
 	UpdateCollision();

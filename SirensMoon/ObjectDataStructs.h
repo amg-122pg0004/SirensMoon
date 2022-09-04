@@ -58,7 +58,7 @@ public:
 		int tereortID;
 	};
 
-	/*スイッチデータ構造*/
+	/*バリアデータ構造*/
 	struct BarrierData {
 		int ID;
 		Vector2 pos;
@@ -69,6 +69,7 @@ public:
 	struct SwitchData {
 		int ID;
 		Vector2 pos;
+		bool RedFlag;
 		std::vector<int> links;
 	};
 

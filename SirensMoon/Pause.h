@@ -24,4 +24,5 @@ class Pause :public UIBase{
 	private:
 		std::shared_ptr<InputManager> _inputManager;
 		int _cg2;
+		int _delay;
 };

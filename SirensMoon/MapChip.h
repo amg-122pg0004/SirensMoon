@@ -184,7 +184,7 @@ private:
 	std::vector<std::pair<int,SquareLight::SquareLightStats>> _gidLight;
 	std::unordered_map<int, bool> _gidteleportOut;//<boolはランダムにワープするフラグ
 	std::unordered_map<int, bool> _gidteleportIn;//<boolはランダム抽選に参加するフラグ
-	std::vector<int> _gidSwitch;
+	std::vector<std::pair<int,bool>> _gidSwitch;
 	std::vector<int> _gidSwitchArea;
 	std::vector<St::DoorData> _gidDoor;
 	std::vector<St::TNTData> _gidTNT;

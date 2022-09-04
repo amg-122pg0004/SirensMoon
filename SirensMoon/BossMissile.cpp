@@ -1,13 +1,14 @@
 #include "BossMissile.h"
 #include "ModeGame.h"
 #include "Explode.h"
+#include "Bullet.h"
 
 BossMissile::BossMissile(Game& game, ModeGame& mode, Vector2 pos) 
 	:Actor(game,mode),_angle{Math::ToRadians(90)}, _player2{nullptr}, _speed{1.5}
 {
 	_room = { 0,0 };
 	_pos = pos;
-	_size = { 45,90 };
+	_size = { 75,225 };
 
 	UpdateCollision();
 
@@ -51,14 +52,14 @@ void BossMissile::HitActor() {
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::PlayerA || actor->GetType() == Type::PlayerB|| actor->GetType() == Type::Explode) {
 			if(CheckOverlapActor(*actor)) {
-				auto explode = std::make_unique<Explode>(_game, _mode, _pos + (_size / 2));
+				auto explode = std::make_unique<Explode2>(_game, _mode, _pos + (_size / 2));
 				_mode.GetActorServer().Add(std::move(explode));
 				_dead = true;
 			}
 		}
-		if (actor->GetType() == Type::RedBullet) {
-			if (CheckOverlapActor(*actor)) {
-				auto explode = std::make_unique<Explode>(_game, _mode, _pos + (_size / 2));
+		if (actor->GetType() == Type::RedBullet|| actor->GetType() == Type::GreenBullet) {
+			if (CheckOverlapActor(*actor)|| CheckCheckCrossBullet(*actor)) {
+				auto explode = std::make_unique<Explode2>(_game, _mode, _pos + (_size / 2));
 				_mode.GetActorServer().Add(std::move(explode));
 				_dead = true;
 				actor->Dead();
@@ -72,7 +73,13 @@ bool BossMissile::CheckOverlapActor(Actor& actor) {
 	Vector2 righttop = { col.max.x,col.min.y };
 	Vector2 leftbottom = { col.min.x,col.max.y };
 
-	/*pos1,pos2は周辺判定の範囲に含まれるため判定を行わない*/
+	/*pos2,pos4とプレイヤーコリジョン4辺*/
+	if (Vector2::IsCrossed(_hitbox.pos1, _hitbox.pos2, col.min, righttop) ||
+		Vector2::IsCrossed(_hitbox.pos1, _hitbox.pos2, righttop, col.max) ||
+		Vector2::IsCrossed(_hitbox.pos1, _hitbox.pos2, col.max, leftbottom) ||
+		Vector2::IsCrossed(_hitbox.pos1, _hitbox.pos2, leftbottom, col.min)) {
+		return 1;
+	}
 	/*pos2,pos4とプレイヤーコリジョン4辺*/
 	if (Vector2::IsCrossed(_hitbox.pos2, _hitbox.pos4, col.min, righttop) ||
 		Vector2::IsCrossed(_hitbox.pos2, _hitbox.pos4, righttop, col.max) ||
@@ -102,6 +109,17 @@ bool BossMissile::CheckOverlapActor(Actor& actor) {
 		return 1;
 	}
 return 0;
+}
+
+bool BossMissile::CheckCheckCrossBullet(Actor& actor) {
+	Vector2 pre_pos=dynamic_cast<Bullet&>(actor).GetPrePosition();
+	Vector2 pos = dynamic_cast<Bullet&>(actor).GetPosition();
+	if (Vector2::IsCrossed(_hitbox.pos1, _hitbox.pos2, pre_pos, pos) ||
+		Vector2::IsCrossed(_hitbox.pos2, _hitbox.pos4, pre_pos, pos) ||
+		Vector2::IsCrossed(_hitbox.pos1, _hitbox.pos3, pre_pos, pos) ||
+		Vector2::IsCrossed(_hitbox.pos3, _hitbox.pos4, pre_pos, pos)) {
+		return 1;
+	}
 }
 
 void BossMissile::StandardRender(Vector2 window_pos, Vector2 camera_pos) {

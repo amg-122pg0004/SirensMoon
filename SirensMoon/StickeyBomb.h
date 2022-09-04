@@ -31,7 +31,3 @@ private:
 	/*アクセス可能か*/
 	bool _accessible1, _accessible2;
 };
-
-
-
-

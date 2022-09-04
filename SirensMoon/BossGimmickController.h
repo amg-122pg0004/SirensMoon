@@ -14,6 +14,8 @@ public:
 
 	/*ボスの生成*/
 	void BossSpawn();
+	/*フェイズ2移行直前*/
+	void PrePhase2();
 	/*フェイズ2移行時*/
 	void Phase2();
 	/*パターンの生成*/

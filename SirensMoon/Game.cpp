@@ -19,8 +19,8 @@ Game::Game() :_frameCount{0},_progress{Progress::StartMenu}
 	_modeServer = std::make_unique<ModeServer>(*this);
 	_inputManager = std::make_unique<InputManager>();
 
-	PlayStartMenu();
-	//PlayStage1();
+	//PlayStartMenu();
+	PlayStage2Clear();
 }
 
 void Game::Input() {
@@ -127,6 +127,9 @@ void Game::PlayStage2() {
 }
 
 void Game::PlayStage3() {
+	SetUseASyncLoadFlag(false);
+	LoadResources::LoadBossCGs();
+	SetUseASyncLoadFlag(true);
 	_modeServer->Clear();
 	_progress = Progress::Stage3;
 	EnemyGenerator::EnemyPattern pattern;

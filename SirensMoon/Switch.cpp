@@ -14,8 +14,15 @@ Switch::Switch(Game& game, ModeGame& mode, ObjectDataStructs::SwitchData data)
 	Vector2 fix = { 10,10 };
 	_accessArea.min = _collision.min - fix;
 	_accessArea.max = _collision.max + fix;
-	_cg2 = ImageServer::LoadGraph("resource/Gimmick/switch.png");
-	_cg3 = ImageServer::LoadGraph("resource/Gimmick/switch2.png");
+	if (data.RedFlag) {
+		_cg3 = ImageServer::LoadGraph("resource/Gimmick/switch_r.png");
+		_cg2 = ImageServer::LoadGraph("resource/Gimmick/switch2_r.png");
+	}
+	else {
+		_cg3 = ImageServer::LoadGraph("resource/Gimmick/switch_b.png");
+		_cg2 = ImageServer::LoadGraph("resource/Gimmick/switch2_b.png");
+	}
+
 	_cg = _cg3;
 	SquareLight::SquareLightStats lightdata{"NULL","resource/Light/Light_3.png",false,{_pos.x - 75,_pos.y - 100},{200,200},200,150,100,255};
 	_mode.GetActorServer().Add(std::make_unique<SquareLight>(_game,_mode,*this,lightdata));

@@ -44,3 +44,39 @@ void Explode::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 void Explode::Debug(Vector2 window_pos, Vector2 camera_pos){
 	_collision.Draw2(window_pos, camera_pos);
 }
+
+
+Explode2::Explode2(Game& game, ModeGame& mode, Vector2 pos) :Actor(game, mode)
+, _lifetime{ 70 }, _delay{ 10 }
+{
+	_size = { 250,250 };
+	_pos = pos - _size / 2;
+	_collision.min = { -1,-1 };
+	_collision.max = { -1,-1 };
+
+}
+
+void Explode2::Update() {
+	--_delay;
+	if (_delay == 0) {
+		PlaySoundMem(SoundServer::Find("Explosion"), DX_PLAYTYPE_BACK);
+		auto fxboom = std::make_unique<FX_Boom2>(_game, _mode, _pos+_size/2, _game.GetFrameCount());
+		_mode.GetActorServer().Add(std::move(fxboom));
+		_collision.min = _pos;
+		_collision.max = _pos + _size;
+
+	}
+
+	--_lifetime;
+	if (_lifetime < 0) {
+		_dead = true;
+	}
+}
+
+void Explode2::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
+
+}
+
+void Explode2::Debug(Vector2 window_pos, Vector2 camera_pos) {
+	_collision.Draw2(window_pos, camera_pos);
+}

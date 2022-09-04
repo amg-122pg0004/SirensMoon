@@ -8,12 +8,14 @@ public:
 	Type GetType() { return Type::ObjectiveUI; }
 	virtual void Update()override;
 	void Render()override;
-	void ChangeMessage(std::string next);
+	void ChangeMessage(std::string next,int cg);
+	void ChangeWarning(int no);
 
 protected:
-	int _cg2, _cg3;
+	int _cgOrange, _cgGreen,_cgRed1,_cgRed2;
 	std::string _message;
 	std::string _nextMessage;
+	int _nextCG;
 	Vector2 _startPos;
 	int _font;
 };

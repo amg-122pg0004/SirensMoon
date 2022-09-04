@@ -191,9 +191,10 @@ void ModeGame::Debug() {
 }
 
 void ModeGame::StageClearCheck(){
-	StopSoundFile();
+	_stopActorUpdate = true;
 	++_enemyVIPDeadCount;
 	if (_enemyVIPDeadCount >= _mapChips->GetServerData().size()) {
+		StopSoundFile();
 		_stopActorUpdate = true;
 		NextMode();
 	}
@@ -211,6 +212,12 @@ void ModeGame::GameOver(){
 void ModeGame::DamageEvent(){
 	for (auto&& splitwindows : _splitWindow) {
 		splitwindows->DamageEvent();
+	}
+}
+
+void ModeGame::TargetKillEvent() {
+	for (auto&& splitwindows : _splitWindow) {
+		splitwindows->TargetKillEvent();
 	}
 }
 

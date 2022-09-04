@@ -2573,7 +2573,11 @@
   <tile id="1" class="Teleport_IN"/>
   <tile id="2" class="Teleport_OUT"/>
   <tile id="3" class="Mine"/>
-  <tile id="4" class="Switch"/>
+  <tile id="4" class="Switch">
+   <properties>
+    <property name="Red?" type="bool" value="true"/>
+   </properties>
+  </tile>
   <tile id="5" class="TNT">
    <properties>
     <property name="CGNo" type="int" value="1"/>
@@ -2588,7 +2592,7 @@
   <tile id="8" class="BreakableObject"/>
   <tile id="9" class="DegitalLetter"/>
   <tile id="13" class="SwitchArea"/>
-  <tile id="14" class="ScreenPump"/>
+  <tile id="14" class="Switch"/>
   <tile id="15" class="TNT">
    <properties>
     <property name="CGNo" type="int" value="3"/>

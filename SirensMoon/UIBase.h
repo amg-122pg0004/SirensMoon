@@ -33,10 +33,12 @@ public:
 		ObjectiveUI,
 		MessageWindow,
 		BigServerUI,
-		AimUI
+		AimUI,
+		FinishCut
 	};
 	virtual Type GetType() = 0;
 	virtual void DamageEvent();
+	virtual void TargetKillEvent();
 	void SetVisibillity(bool flag) { _visible = flag; }
 protected:
 	Vector2 _pos;

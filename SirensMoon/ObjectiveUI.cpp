@@ -7,10 +7,14 @@ ObjectiveUI::ObjectiveUI(Game& game,ModeBase& mode,Vector2 pos,Vector2 size)
 	_message{ "ミニマップ上のサーバーへ向かう" },
 	_nextMessage{ "NULL" }, _startPos{ pos }
 {
-	_font=CreateFontToHandle("ObjectiveFont",20,5,-1);
-	_cg = ImageServer::LoadGraph("resource/UI/Objective/orange.png");
-	_cg2 = ImageServer::LoadGraph("resource/UI/Objective/green.png");
-	_cg3 = _cg;
+	_font = CreateFontToHandle("ObjectiveFont", 20, 5, -1);
+	_cgOrange = ImageServer::LoadGraph("resource/UI/Objective/orange.png");
+	_cgGreen = ImageServer::LoadGraph("resource/UI/Objective/green.png");
+	_cgRed1 = ImageServer::LoadGraph("resource/UI/Objective/red1.png");
+	_cgRed2 = ImageServer::LoadGraph("resource/UI/Objective/red2.png");
+
+	_cg = _cgOrange;
+	_nextCG = _cgOrange;
 }
 
 void ObjectiveUI::Update(){
@@ -19,7 +23,7 @@ void ObjectiveUI::Update(){
 
 void ObjectiveUI::Render() {
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA,100);
-	DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y),_cg3,1);
+	DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y),_cg,1);
 	
 	std::stringstream ss;
 	ss << _message;
@@ -27,10 +31,28 @@ void ObjectiveUI::Render() {
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 }
 
-void ObjectiveUI::ChangeMessage(std::string next){
+void ObjectiveUI::ChangeMessage(std::string next, int nextCGColor) {
 	_nextMessage = next;
+	switch (nextCGColor) {
+	case(1):
+	default:
+		_nextCG = _cgOrange;
+		break;
+	case(2):
+		_nextCG = _cgGreen;
+		break;
+	}
 }
 
+void ObjectiveUI::ChangeWarning(int no) {
+	_nextMessage = " ";
+	if (no == 0) {
+		_nextCG = _cgRed1;
+	}
+	else {
+		_nextCG = _cgRed2;
+	}
+}
 
 /*1プレイヤー用UI*/
 ObjectiveUI1::ObjectiveUI1(Game& game, ModeBase& mode, Vector2 pos, Vector2 size)
@@ -46,12 +68,7 @@ void ObjectiveUI1::Update() {
 		if (_startPos.x - _pos.x >= _size.x) {
 			_message = _nextMessage;
 			_nextMessage = "NULL";
-			if (_cg3 == _cg) {
-				_cg3 = _cg2;
-			}
-			else {
-				_cg3 = _cg;
-			}
+			_cg = _nextCG;
 		}
 		return;
 	}
@@ -74,12 +91,7 @@ void ObjectiveUI2::Update() {
 		if (_pos.y >= _startPos.y + _size.y + 25) {
 			_message = _nextMessage;
 			_nextMessage = "NULL";
-			if (_cg3 == _cg) {
-				_cg3 = _cg2;
-			}
-			else {
-				_cg3 = _cg;
-			}
+			_cg = _nextCG;
 		}
 		return;
 	}

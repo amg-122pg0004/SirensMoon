@@ -182,8 +182,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":219,
-                 "y":297
+                 "x":333,
+                 "y":399.667
                 }, 
                 {
                  "class":"",
@@ -744,87 +744,46 @@
                 }, 
                 {
                  "class":"",
-                 "gid":670,
+                 "gid":668,
                  "height":30,
-                 "id":1024,
+                 "id":1039,
                  "name":"",
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":120,
-                 "y":390
+                 "x":295,
+                 "y":529
                 }, 
                 {
                  "class":"",
-                 "gid":670,
+                 "gid":686,
                  "height":30,
-                 "id":1029,
+                 "id":1040,
                  "name":"",
                  "properties":[
                         {
-                         "name":"Message",
+                         "name":"Direction",
+                         "propertytype":"Direction",
                          "type":"string",
-                         "value":"asd"
+                         "value":"down"
                         }],
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":200,
-                 "y":362
+                 "x":99.3333,
+                 "y":260.333
                 }, 
                 {
                  "class":"",
-                 "gid":670,
+                 "gid":675,
                  "height":30,
-                 "id":1030,
+                 "id":1041,
                  "name":"",
-                 "properties":[
-                        {
-                         "name":"Message",
-                         "type":"string",
-                         "value":"12312323"
-                        }],
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":259,
-                 "y":404
-                }, 
-                {
-                 "class":"",
-                 "gid":670,
-                 "height":30,
-                 "id":1031,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"Message",
-                         "type":"string",
-                         "value":"\u964d\u4f0f"
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":30,
-                 "x":349,
-                 "y":333
-                }, 
-                {
-                 "class":"",
-                 "gid":670,
-                 "height":30,
-                 "id":1032,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"Message",
-                         "type":"string",
-                         "value":"\u5e78\u798f"
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":30,
-                 "x":339,
-                 "y":403
+                 "x":360,
+                 "y":210
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -937,7 +896,7 @@
          "y":0
         }],
  "nextlayerid":23,
- "nextobjectid":1033,
+ "nextobjectid":1042,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.0",
@@ -6006,6 +5965,10 @@
          "tileheight":30,
          "tiles":[
                 {
+                 "class":"BackGround",
+                 "id":0
+                }, 
+                {
                  "class":"Teleport_IN",
                  "id":1
                 }, 
@@ -6019,15 +5982,37 @@
                 }, 
                 {
                  "class":"Switch",
-                 "id":4
-                }, 
-                {
-                 "class":"Door",
-                 "id":5
+                 "id":4,
+                 "properties":[
+                        {
+                         "name":"Red?",
+                         "type":"bool",
+                         "value":true
+                        }]
                 }, 
                 {
                  "class":"TNT",
-                 "id":6
+                 "id":5,
+                 "properties":[
+                        {
+                         "name":"CGNo",
+                         "type":"int",
+                         "value":1
+                        }]
+                }, 
+                {
+                 "class":"TNT",
+                 "id":6,
+                 "properties":[
+                        {
+                         "name":"CGNo",
+                         "type":"int",
+                         "value":2
+                        }]
+                }, 
+                {
+                 "class":"StickyBomb",
+                 "id":7
                 }, 
                 {
                  "class":"BreakableObject",
@@ -6052,6 +6037,150 @@
                 {
                  "class":"SwitchArea",
                  "id":13
+                }, 
+                {
+                 "class":"Switch",
+                 "id":14
+                }, 
+                {
+                 "class":"TNT",
+                 "id":15,
+                 "properties":[
+                        {
+                         "name":"CGNo",
+                         "type":"int",
+                         "value":3
+                        }]
+                }, 
+                {
+                 "class":"TNT",
+                 "id":16,
+                 "properties":[
+                        {
+                         "name":"CGNo",
+                         "type":"int",
+                         "value":4
+                        }]
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":17
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":18
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":19
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":20
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":21
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":22
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":23
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":24
+                }, 
+                {
+                 "class":"ScreenPump",
+                 "id":25,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "propertytype":"Direction",
+                         "type":"string",
+                         "value":"none"
+                        }]
+                }, 
+                {
+                 "class":"ScreenPump",
+                 "id":26,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "propertytype":"Direction",
+                         "type":"string",
+                         "value":"up"
+                        }]
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":27
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":28
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":29
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":30
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":31
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":32
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":33
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":34
+                }, 
+                {
+                 "class":"ScreenPump",
+                 "id":35,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "propertytype":"Direction",
+                         "type":"string",
+                         "value":"none"
+                        }]
+                }, 
+                {
+                 "class":"ScreenPump",
+                 "id":36,
+                 "properties":[
+                        {
+                         "name":"Direction",
+                         "propertytype":"Direction",
+                         "type":"string",
+                         "value":"none"
+                        }]
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":37
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":38
+                }, 
+                {
+                 "class":"BackGround",
+                 "id":39
                 }],
          "tilewidth":30
         }],

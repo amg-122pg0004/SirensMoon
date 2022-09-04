@@ -271,6 +271,15 @@
     <Filter Include="Actor\Gimmick\Barrirer">
       <UniqueIdentifier>{d35b2165-198e-463a-9fcc-0a4db9ea633e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ScreenEffect">
+      <UniqueIdentifier>{791e1569-c851-4cb5-8d89-6b12decf9f19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\FinishCut">
+      <UniqueIdentifier>{a74989c6-b4ba-4ccf-ac3e-b9484560d7b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Effect\FX_Thunder">
+      <UniqueIdentifier>{330e31e4-7794-48a3-a471-cdea964a998e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -537,6 +546,12 @@
     <ClCompile Include="Barrier.cpp">
       <Filter>Actor\Gimmick\Barrirer</Filter>
     </ClCompile>
+    <ClCompile Include="FinishCut.cpp">
+      <Filter>UI\FinishCut</Filter>
+    </ClCompile>
+    <ClCompile Include="FX_Thunder.cpp">
+      <Filter>Actor\Effect\FX_Thunder</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -802,6 +817,12 @@
     </ClInclude>
     <ClInclude Include="Barrier.h">
       <Filter>Actor\Gimmick\Barrirer</Filter>
+    </ClInclude>
+    <ClInclude Include="FinishCut.h">
+      <Filter>UI\FinishCut</Filter>
+    </ClInclude>
+    <ClInclude Include="FX_Thunder.h">
+      <Filter>Actor\Effect\FX_Thunder</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

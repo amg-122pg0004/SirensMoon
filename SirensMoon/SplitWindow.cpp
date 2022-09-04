@@ -20,6 +20,7 @@
 #include "ButtonIcon.h"
 #include "ObjectiveUI.h"
 #include "MessageWindow.h"
+#include "FinishCut.h"
 
 SplitWindow::SplitWindow(Game& game, ModeGame& mode, int pos_x, int pos_y, int window_no) :
 	_game{ game }, _mode{ mode }, _windowPos{ pos_x ,pos_y }, _windowNo{ window_no }, _renderStage{ 1 }, _lightup{ 255 }
@@ -63,17 +64,10 @@ SplitWindow::SplitWindow(Game& game, ModeGame& mode, int pos_x, int pos_y, int w
 	_ui.emplace_back(std::make_unique<HPUI>(_game, _mode, hp_pos, hp_size, _windowNo));
 
 	Vector2 obj_size = { 360 + 30,90 };
-	/*
-	if (_windowNo == 0) {
-		Vector2 obj_pos = { _windowPos.x+5, screen_H*0.19 };
-		_ui.emplace_back(std::make_unique<ObjectiveUI1>(_game, _mode, obj_pos, obj_size));
-	}
-	*/
-
-	//if (_windowNo == 1) {
-		Vector2 obj_pos = { _windowPos.x + splitscreen_W * 0.6, screen_H * 0.9 };
-		_ui.emplace_back(std::make_unique<ObjectiveUI2>(_game, _mode, obj_pos, obj_size));
-	//}
+	Vector2 obj_pos = { _windowPos.x + splitscreen_W * 0.6, screen_H * 0.9 };
+	auto obj_ui=std::make_unique<ObjectiveUI2>(_game, _mode, obj_pos, obj_size);
+	_objectiveUI = obj_ui.get();
+	_ui.emplace_back(std::move(obj_ui));
 
 	if (_windowNo == 1) {
 		Vector2 map_pos = { _windowPos.x + splitscreen_W / 2 - 780 / 2, _windowPos.y };
@@ -91,6 +85,12 @@ SplitWindow::SplitWindow(Game& game, ModeGame& mode, int pos_x, int pos_y, int w
 	Vector2 damage_pos = { _windowPos.x,(screen_H - 840) / 2 };
 	Vector2 damage_size = { 640 * damage_scale,840 };
 	_ui.emplace_back(std::make_unique<DamageCut>(_game, _mode, damage_pos, damage_size));
+
+	
+	Vector2 special_pos = { _windowPos.x,(screen_H - 840) / 2 };
+	Vector2 special_size = { 640,840 };
+	_ui.emplace_back(std::make_unique<FinishCut>(_game, _mode, special_pos, special_size));
+	
 
 	Vector2 pause_pos = { _windowPos.x + splitscreen_W / 2, _windowPos.y };
 	Vector2 pause_size = { 360,90 };
@@ -137,14 +137,6 @@ void SplitWindow::Update() {
 	}
 	for (auto&& u : _ui) {
 		u->Update();
-		if (u->GetType() == UIBase::Type::ObjectiveUI ) {
-			if (_lightup != 255) {
-				dynamic_cast<ObjectiveUI&>(*u).ChangeMessage("重要宇宙人特定し、捕獲せよ");
-			}
-			else {
-				dynamic_cast<ObjectiveUI&>(*u).ChangeMessage("ミニマップ上のサーバーへ向かう");
-			}
-		}
 	}
 }
 
@@ -210,6 +202,12 @@ void SplitWindow::Debug() {
 void SplitWindow::DamageEvent() {
 	for (auto&& u : _ui) {
 		u->DamageEvent();
+	}
+}
+
+void SplitWindow::TargetKillEvent() {
+	for (auto&& u : _ui) {
+		u->TargetKillEvent();
 	}
 }
 

@@ -15,6 +15,7 @@ public:
 	void Debug(Vector2 window_pos, Vector2 camera_pos)override;
 
 private:
+	std::pair<int, int> _cg;
 	std::vector<int> _pattern;
 	AABB _accessArea;
 	bool _accessible;

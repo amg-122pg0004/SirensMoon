@@ -5,11 +5,12 @@
 #include "BossMissile.h"
 #include "DisplayArea.h"
 #include "BossGimmickController.h"
+#include "ObjectiveUI.h"
 
 Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 	:Actor(game,mode),_scale{1.0},_animNo{0}
 	,_backlayer{true},_time{60},_visible{true},_speed{2.5}
-	,_headbuttSize{150,420},_headSize{90,90},_hp{6},_controller{controller}
+	,_headbuttSize{150,420},_headSize{90,90},_hp{1},_controller{controller}
 {
 	Vector2 pos = { _controller.GetRoomPosition().x-1.0,_controller.GetRoomPosition().y-1.0 };
 	_startPos = { splitscreen_W * pos.x + 500 , screen_H * pos.y + 450 };
@@ -17,7 +18,6 @@ Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 	_pos = _startPos;
 	_size = { 100,200 };
 	_size2 = { 400,500 };
-
 	std::vector<int> handle;
 	handle.resize(65);
 	ImageServer::LoadDivGraph("resource/Boss/wait.png",65,10,7,1024,1024,handle.data());
@@ -42,8 +42,7 @@ Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 	_cg[State::Damage] = handle;
 	handle.resize(180);
 	ImageServer::LoadDivGraph("resource/Boss/thunder.png", 180, 10, 18, 1024, 1024, handle.data());
-	_cg[State::Damage] = handle;
-	//うつとき220
+	_cg[State::Thunder] = handle;
 	_time = 3 * 60;
 	_state = State::Wait;
 
@@ -64,6 +63,9 @@ void Boss::Update(){
 	}
 	UpdateCollision();
 	CheckOverlapActor();
+	if (_game.GetFrameCount() % 3 == 0) {
+		++_animNo;
+	}
 	--_time;
 	if (_time < 0) {
 		if (_state != Boss::State::Wait) {
@@ -74,9 +76,7 @@ void Boss::Update(){
 			ChoiceAttack();
 		}
 	}
-	if (_game.GetFrameCount() % 3 == 0) {
-		++_animNo;
-	}
+
 	switch (_state)
 	{
 	case Boss::State::Wait:
@@ -100,6 +100,9 @@ void Boss::Update(){
 	case Boss::State::Damage:
 		DamageSequence();
 		break;
+	case Boss::State::Thunder:
+		Thunder();
+		break;
 	}
 
 }
@@ -110,6 +113,7 @@ void Boss::CheckOverlapActor() {
 			if (actor->GetType() == Type::RedBullet) {
 				if (Intersect(_collision,actor->GetCollision())) {
 					TakeDamage();
+					actor->Dead();
 				}
 			}
 		}
@@ -119,18 +123,9 @@ void Boss::CheckOverlapActor() {
 void Boss::TakeDamage() {
 	if (_state != State::Damage) {
 		--_hp;
-		if (_hp <= 3) {
-			if (!_phase2) {
-				_phase2 = true;
-				_controller.Phase2();
-			}
-		}
-		if (_hp <= 0) {
-			_dead = true;
-		}
 		_time = 26 * 3;
+		_state = State::Damage;
 	}
-	_state = State::Damage;
 }
 void Boss::DamageSequence() {
 	if (_time == 0) {
@@ -140,6 +135,13 @@ void Boss::DamageSequence() {
 		_pos = _startPos;
 		_backlayer = true;
 		_visible = true;
+		if (_hp <= 0) {
+			if (!_phase2) {
+				_state = State::Thunder;
+				_time = 500;
+				return;
+			}
+		}
 	}
 }
 
@@ -244,6 +246,10 @@ void Boss::GunAttack1() {
 		Vector2 fix{ -600,0 };
 		_mode.GetActorServer().Add(std::make_unique<BossCanon>(_game, _mode, _pos + fix));
 	}
+	dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
+		->ChangeMessage("マップから射線を読みとり、回避せよ", 1);
+	dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
+		->ChangeMessage("マップから射線を読みとり、回避せよ", 1);
 }
 
 void Boss::GunAttack2() {
@@ -261,6 +267,10 @@ void Boss::GunAttack2() {
 		Vector2 fix{ 0,0 };
 		_mode.GetActorServer().Add(std::make_unique<BossCanon>(_game, _mode, _pos + fix));
 	}
+	dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
+		->ChangeMessage("マップから射線を読みとり、回避せよ", 2);
+	dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
+		->ChangeMessage("マップから射線を読みとり、回避せよ", 1);
 }
 
 void Boss::ShootMissile() {
@@ -269,6 +279,10 @@ void Boss::ShootMissile() {
 		Vector2 rand = { static_cast<double>(rand100(engine)) / 100 * splitscreen_W,0 };
 		_mode.GetActorServer().Add(std::make_unique<BossMissile>(_game, _mode, rand));
 	}
+	dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
+		->ChangeMessage("ミサイルを撃ち落とせ", 1);
+	dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
+		->ChangeMessage("ミサイルを回避せよ", 2);
 }
 
 void Boss::HeadButt(){
@@ -307,6 +321,7 @@ void Boss::HeadButt(){
 	if (_animNo >= 70) {
 		_animNo = 69;
 	}
+
 }
 
 void Boss::Debug(Vector2 window_pos, Vector2 camera_pos){
@@ -345,8 +360,18 @@ void Boss::Jump(){
 	_time = 800;
 	_state = State::HeadButt;
 	}
+	dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
+		->ChangeMessage("消えた敵の攻撃を避け、\n隙をついて攻撃せよ", 2);
+	dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
+		->ChangeMessage("消えた敵の位置をマップから探れ", 1);
 }
 
 void Boss::Thunder(){
-
+	if (_time==185) {
+		_controller.PrePhase2();
+	}
+	if (_time == 130) {
+		_phase2 = true;
+		_controller.Phase2();
+	}
 }

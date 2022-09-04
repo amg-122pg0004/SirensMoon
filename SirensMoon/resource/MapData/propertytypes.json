@@ -211,14 +211,13 @@
         "id": 2,
         "members": [
             {
-                "name": "EnemyType",
-                "propertyType": "EnemyTypeList",
-                "type": "int",
+                "name": "PatrolLine",
+                "type": "object",
                 "value": 0
             },
             {
-                "name": "PatrolLine",
-                "type": "object",
+                "name": "WaitFrame",
+                "type": "int",
                 "value": 0
             }
         ],
@@ -231,16 +230,62 @@
         ]
     },
     {
-        "id": 3,
-        "name": "EnemyTypeList",
-        "storageType": "int",
-        "type": "enum",
-        "values": [
-            "-1",
-            "0",
-            "1"
+        "color": "#ffa0a0a4",
+        "id": 37,
+        "members": [
+            {
+                "name": "Direction1",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "Direction2",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "Direction3",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "Direction4",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "LookTime1",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "LookTime2",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "LookTime3",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "LookTime4",
+                "type": "int",
+                "value": 0
+            }
         ],
-        "valuesAsFlags": false
+        "name": "EnemyB",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset"
+        ]
     },
     {
         "color": "#ff00aa00",
@@ -260,18 +305,6 @@
         "members": [
         ],
         "name": "ItemHP",
-        "type": "class",
-        "useAs": [
-            "property",
-            "tile"
-        ]
-    },
-    {
-        "color": "#ffa0a0a4",
-        "id": 5,
-        "members": [
-        ],
-        "name": "ItemRailgun",
         "type": "class",
         "useAs": [
             "property",
@@ -350,6 +383,11 @@
                 "propertyType": "Direction",
                 "type": "string",
                 "value": "none"
+            },
+            {
+                "name": "Range",
+                "type": "int",
+                "value": 180
             }
         ],
         "name": "Mine",
@@ -451,6 +489,11 @@
                 "propertyType": "Direction",
                 "type": "string",
                 "value": "none"
+            },
+            {
+                "name": "Range",
+                "type": "int",
+                "value": 180
             }
         ],
         "name": "ScreenPump",
@@ -497,7 +540,7 @@
             {
                 "name": "Range",
                 "type": "int",
-                "value": 75
+                "value": 180
             },
             {
                 "name": "Timer",
@@ -581,6 +624,11 @@
                 "name": "LinkGimmick9",
                 "type": "object",
                 "value": 0
+            },
+            {
+                "name": "Red?",
+                "type": "bool",
+                "value": false
             }
         ],
         "name": "Switch",

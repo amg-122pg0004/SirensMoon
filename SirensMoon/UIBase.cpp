@@ -30,3 +30,8 @@ void UIBase::Render(){
 void UIBase::DamageEvent() {
 
 }
+
+void UIBase::TargetKillEvent() {
+
+}
+

@@ -11,7 +11,7 @@
 
 
 Pause::Pause(Game& game, ModeBase& mode, Vector2 pos, Vector2 size)
-	:UIBase{ game,mode,pos,size }
+	:UIBase{ game,mode,pos,size },_delay{30}
 {
 	_inputManager = _game.GetInputManager();
 	_cg = ImageServer::LoadGraph("resource/UI/Pause/left.png");
@@ -20,13 +20,10 @@ Pause::Pause(Game& game, ModeBase& mode, Vector2 pos, Vector2 size)
 }
 
 void Pause::Update() {
-	/*
-	if (_inputManager->CheckInput("PAUSE", 'h', 0) ||
-		_inputManager->CheckInput("PAUSE", 'h', 1)) {
-		dynamic_cast<ModeGame&>(_mode).SetPauseGame(1);
-		_visible = true;
+	--_delay;
+	if (_delay > 0) {
+		return;
 	}
-	*/
 	if (_inputManager->CheckInput("PAUSE", 't', 0) ||
 		_inputManager->CheckInput("PAUSE", 't', 1)) {
 		_visible = !_visible;

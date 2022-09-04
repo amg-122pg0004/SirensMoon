@@ -143,13 +143,13 @@ void MapChips::LoadTilesets(picojson::object jsRoot,std::string folderpath) {
 							if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "LookTime1") {
 								data.Direction[0] = static_cast<int>(properties[i2].get<picojson::object>()["value"].get<double>());
 							}
-							if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "LookTime12") {
+							if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "LookTime2") {
 								data.Direction[1] = static_cast<int>(properties[i2].get<picojson::object>()["value"].get<double>());
 							}
-							if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "LookTime13") {
+							if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "LookTime3") {
 								data.Direction[2] = static_cast<int>(properties[i2].get<picojson::object>()["value"].get<double>());
 							}
-							if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "LookTime14") {
+							if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "LookTime4") {
 								data.Direction[3] = static_cast<int>(properties[i2].get<picojson::object>()["value"].get<double>());
 							}
 						}
@@ -294,7 +294,16 @@ void MapChips::LoadTilesets(picojson::object jsRoot,std::string folderpath) {
 				}
 				if ((*i).get<picojson::object>()["class"].get<std::string>() == "Switch") {
 					auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
-					_gidSwitch.push_back(id);
+					bool redflag{ false };
+					if ((*i).get<picojson::object>()["properties"].is<picojson::array>()) {
+						auto properties = (*i).get<picojson::object>()["properties"].get<picojson::array>();
+						for (int i = 0; i < properties.size(); ++i) {
+							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Red?") {
+								redflag = properties[i].get<picojson::object>()["value"].get<bool>();
+							}
+						}
+					}
+					_gidSwitch.push_back({ id,redflag });
 				}
 				if ((*i).get<picojson::object>()["class"].get<std::string>() == "SwitchArea") {
 					auto id = static_cast<int>((*i).get<picojson::object>()["id"].get<double>() + _tilesetsFirstgid.back());
@@ -764,7 +773,7 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 			}
 			/*スイッチ読み込み*/
 			for (auto gid : _gidSwitch) {
-				if (gid == static_cast<int>(aObjects[i].get<picojson::object>()["gid"].get<double>())) {
+				if (gid.first == static_cast<int>(aObjects[i].get<picojson::object>()["gid"].get<double>())) {
 					St::SwitchData data;
 					if (aObjects[i].get<picojson::object>()["properties"].is<picojson::array>()) {
 						auto properties = aObjects[i].get<picojson::object>()["properties"].get<picojson::array>();
@@ -777,6 +786,7 @@ void MapChips::LoadGimmickLayer(picojson::array aObjects) {
 					data.pos.x = aObjects[i].get<picojson::object>()["x"].get<double>();
 					data.pos.y = aObjects[i].get<picojson::object>()["y"].get<double>()-_chipSize_H;
 					data.ID = static_cast<int>(aObjects[i].get<picojson::object>()["id"].get<double>());
+					data.RedFlag = gid.second;
 					_switchDataList.push_back(data);
 				}
 			}

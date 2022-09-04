@@ -16,25 +16,33 @@ ScreenPump::ScreenPump(Game& game, ModeGame& mode, ObjectDataStructs::ScreenPump
 	case 1:
 		_detectionArea.min = _pos;
 		_detectionArea.max = { _pos.x + _size.x + _range ,_pos.y + _size.y };
+		_cg.first = ImageServer::LoadGraph("resource/Gimmick/Screen/right_a.png");
+		_cg.second= ImageServer::LoadGraph("resource/Gimmick/Screen/right_p.png");
 		break;
 	case 2:
 		_detectionArea.min = _pos;
 		_detectionArea.max = { _pos.x + _size.x,_pos.y + _size.y + _range };
+		_cg.first = ImageServer::LoadGraph("resource/Gimmick/Screen/down_a.png");
+		_cg.second = ImageServer::LoadGraph("resource/Gimmick/Screen/down_p.png");
 		break;
 	case 3:
 		_detectionArea.min = { _pos.x - _range,_pos.y };
 		_detectionArea.max = { _pos.x + _size.x , _pos.y + _size.y };
+		_cg.first = ImageServer::LoadGraph("resource/Gimmick/Screen/left_a.png");
+		_cg.second = ImageServer::LoadGraph("resource/Gimmick/Screen/left_p.png");
 		break;
 	case 4:
 		_detectionArea.min = { _pos.x , _pos.y - _range };
 		_detectionArea.max = { _pos.x + _size.x , _pos.y + _size.y };
+		_cg.first = ImageServer::LoadGraph("resource/Gimmick/Screen/up_a.png");
+		_cg.second = ImageServer::LoadGraph("resource/Gimmick/Screen/up_p.png");
 		break;
 	default:
 		_detectionArea.min = _pos;
 		_detectionArea.max = _pos + _size;
 		break;
 	}
-	_cg = ImageServer::LoadGraph("resource/Gimmick/pomp.png");
+
 }
 
 void ScreenPump::Update() {
@@ -72,6 +80,7 @@ void ScreenPump::Update() {
 }
 
 void ScreenPump::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
+	/*
 	double angle{ (_dir - 1) * 3.1415 / 2 };
 
 	DrawRotaGraph(static_cast<int>(_pos.x + (_size.x / 2) + window_pos.x - camera_pos.x)
@@ -79,6 +88,18 @@ void ScreenPump::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 		, 1.0
 		, angle
 		, _cg
+		, 1);
+		*/
+	int cg{ -1 };
+	if (_game.GetFrameCount() % 60 < 30) {
+		cg = _cg.first;
+	}
+	else {
+		cg = _cg.second;
+	}
+	DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x)
+		, static_cast<int>(_pos.y + window_pos.y - camera_pos.y)
+		, cg
 		, 1);
 }
 

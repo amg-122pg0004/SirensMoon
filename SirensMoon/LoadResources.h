@@ -9,5 +9,6 @@ public:
 	static void LoadSE1();
 	static void LoadSE();
 	static void LoadEffects();
+	static void LoadBossCGs();
 	static void LoadMovie(std::string path);
 };

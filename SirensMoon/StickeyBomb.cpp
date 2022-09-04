@@ -4,10 +4,12 @@
 #include "Game.h"
 #include <string>
 #include <sstream>
+#include "ObjectiveUI.h"
 
 StickyBomb::StickyBomb(Game& game, ModeGame& mode, ObjectDataStructs::StickyBombData data)
-	:Gimmick(game,mode,data.ID)
+	:Gimmick(game,mode,data.ID),_accessible1{false},_accessible2{false},_player{nullptr}
 {
+	_renderPriority = 5000;
 	_activate=false;
 	_pos = data.pos;
 	_size = { 30,30 };
@@ -18,7 +20,9 @@ StickyBomb::StickyBomb(Game& game, ModeGame& mode, ObjectDataStructs::StickyBomb
 	_detectionArea.max = _pos + _size / 2 + range;
 	_timer = data.timer;
 
-	_cg = ImageServer::LoadGraph("resource/Gimmick/sticky.png");
+	_accessArea.min = { 0,0 };
+	_accessArea.max = { 0,0 };
+	_cg = ImageServer::LoadGraph("resource/Gimmick/Sticky/down.png");
 }
 
 void StickyBomb::Update() {
@@ -29,7 +33,16 @@ void StickyBomb::Update() {
 					_activate = true;
 					PlaySoundMem(SoundServer::Find("MicroBomAlarm"), DX_PLAYTYPE_LOOP);
 					_player = actor.get();
+					if (actor->GetType() == Type::PlayerA) {
+						dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()->ChangeWarning(0);
+						dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()->ChangeWarning(1);
+					}
+					if (actor->GetType() == Type::PlayerB) {
+						dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()->ChangeWarning(1);
+						dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()->ChangeWarning(0);
+					}
 				}
+
 			}
 		}
 	}
@@ -39,6 +52,10 @@ void StickyBomb::Update() {
 			_mode.GetActorServer().Add(std::make_unique<Explode>(_game, _mode, _pos));
 			StopSoundMem(SoundServer::Find("MicroBomAlarm"));
 			PlaySoundMem(SoundServer::Find("ActiveTrapBom"), DX_PLAYTYPE_BACK);
+			dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
+				->ChangeMessage("重要宇宙人特定し、捕獲せよ", 2);
+			dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
+				->ChangeMessage("重要宇宙人特定し、捕獲せよ", 2);
 			_dead = true;
 		}
 
@@ -55,7 +72,12 @@ void StickyBomb::Update() {
 					if (Intersect(_accessArea, actor->GetCollision())) {
 						_accessible2 = true;
 						if (_game.GetInputManager()->CheckInput("ACCESS", 't', 1)) {
+							StopSoundMem(SoundServer::Find("MicroBomAlarm"));
 							PlaySoundMem(SoundServer::Find("MicroBomRelease"), DX_PLAYTYPE_LOOP);
+							dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
+								->ChangeMessage("重要宇宙人特定し、捕獲せよ", 2);
+							dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
+								->ChangeMessage("重要宇宙人特定し、捕獲せよ", 2);
 							_dead = true;
 						}
 					}
@@ -71,7 +93,12 @@ void StickyBomb::Update() {
 					if (Intersect(_accessArea, actor->GetCollision())) {
 						_accessible1 = true;
 						if (_game.GetInputManager()->CheckInput("ACCESS", 't', 0)) {
+							StopSoundMem(SoundServer::Find("MicroBomAlarm"));
 							PlaySoundMem(SoundServer::Find("MicroBomRelease"), DX_PLAYTYPE_LOOP);
+							dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
+								->ChangeMessage("重要宇宙人特定し、捕獲せよ", 2);
+							dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
+								->ChangeMessage("重要宇宙人特定し、捕獲せよ", 2);
 							_dead = true;
 						}
 					}
@@ -88,7 +115,7 @@ void StickyBomb::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 	DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x-_size.x/2)
 		, static_cast<int>(_pos.y + window_pos.y - camera_pos.y - _size.y / 2)
 		, _cg
-		, 0);
+		, 1);
 	if (_activate) {
 		std::stringstream ss;
 		ss << "爆発まで" << _timer / 60 << "\n";

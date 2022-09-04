@@ -19,9 +19,11 @@ class Bullet:public Actor {
 		void UpdateCollision();
 		void Dead()override;
 		virtual Type GetType() override { return Type::Bullet; }
+		Vector2 GetPrePosition() { return _prePos; }
 
 	private:
 		int _speed;
 		Vector2 _dir;//<e’e‚Ì”òãÄ•ûŒü
 		int _lifetime;
+		Vector2 _prePos;
 };

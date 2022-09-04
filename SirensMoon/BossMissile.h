@@ -9,6 +9,7 @@ public:
 	void Debug(Vector2 window_pos, Vector2 camera_pos)override;
 	Type GetType()override { return Type::BossMissile; }
 	bool CheckOverlapActor(Actor& actor);
+	bool CheckCheckCrossBullet(Actor& actor);
 
 private:
 	class HitBox {

@@ -18,13 +18,15 @@ class ServerMachineUI :public UIBase{
 		bool GetVisibility() { return _visible; }
 	private:
 		void SetCGHandle(EnemyGenerator::EnemyPattern pattern);
+		void LoadMessage(EnemyGenerator::EnemyPattern pattern);
 		/*•\¦ó‘Ô‚©‚ğ¦‚·ƒtƒ‰ƒO*/
 		bool _visible;
 		ServerMachine& _owner;
 		std::shared_ptr<InputManager> _inputManager;
 
 		int _animNo;
-
+		int _font;
+		std::vector<std::string> _message;
 		std::vector<int> _cg_top, _cg_top2;
 		std::vector<int> _cg_mid;
 		std::vector<int> _cg_bot;

@@ -1,7 +1,6 @@
 #pragma once
 #include "UIBase.h"
 #include "Easing.h"
-#include <random>
 
 class Game;
 class ModeBase;
@@ -22,6 +21,4 @@ private:
 	EasingMode _easing;
 	int _startTime;
 	double _moveX;
-
-
 };

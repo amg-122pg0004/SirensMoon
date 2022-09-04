@@ -6,6 +6,7 @@
 #include "ModeGame.h"
 #include "Boss.h"
 #include "MapChip.h"
+#include "FX_Thunder.h"
 #include <algorithm>
 #include <random>
 #include <numeric>
@@ -62,12 +63,27 @@ void BossGimmickController::Update() {
 			}
 		}
 	}
+	if (_game.GetFrameCount()%120==0) {
+	}
 }
 
 void BossGimmickController::BossSpawn() {
 	/*É{ÉXê∂ê¨*/
 	_mode.GetActorServer().Add(std::make_unique<Boss>(_game, _mode,*this));
 
+}
+
+void BossGimmickController::PrePhase2() {
+	for (auto&& actor : _mode.GetObjects()) {
+		if (actor->GetType() == Type::Gimmick) {
+			if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::BigServer) {
+				Vector2 fix{50,-90};
+				Vector2 pos=actor->GetPosition();
+				_mode.GetActorServer().Add(std::make_unique<FX_Thunder>(_game, _mode, pos+fix,_game.GetFrameCount()));
+				_mode.GetActorServer().Add(std::make_unique<FX_ThunderRing>(_game, _mode, pos + fix, _game.GetFrameCount()));
+			}
+		}
+	}
 }
 
 void  BossGimmickController::Phase2() {

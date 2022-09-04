@@ -52,7 +52,7 @@ void HPUI::SetHPstring(int hp) {
 		_player_HP = "high";
 		break;
 	default:
-		_player_HP = "null";
+		_player_HP = "high";
 		break;
 	}
 }
