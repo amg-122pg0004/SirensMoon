@@ -6,6 +6,7 @@
 #include "DisplayArea.h"
 #include "BossGimmickController.h"
 #include "ObjectiveUI.h"
+#include "Explode.h"
 
 Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 	:Actor(game,mode),_scale{1.0},_animNo{0}
@@ -25,20 +26,19 @@ Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 	handle.resize(90);
 	ImageServer::LoadDivGraph("resource/Boss/gunfire.png", 90, 10, 9, 1024, 1024, handle.data());
 	_cg[State::GunAttack1] = handle;
-
 	ImageServer::LoadDivGraph("resource/Boss/faint.png", 90, 10, 9, 1024, 1024, handle.data());
 	_cg[State::GunAttack2] = handle;
 	handle.resize(80);
 	ImageServer::LoadDivGraph("resource/Boss/missileboss.png", 80, 10, 8, 1024, 1024, handle.data());
 	_cg[State::ShootMissile] = handle;
 	handle.resize(70);
-	ImageServer::LoadDivGraph("resource/Boss/headbutt.png", 70, 10, 7, 1024, 1024, handle.data());
+	ImageServer::LoadDivGraph("resource/Boss/headbutt.png", 70, 10, 7, 256, 256, handle.data());
 	_cg[State::HeadButt] = handle;
 	handle.resize(70);
 	ImageServer::LoadDivGraph("resource/Boss/jump.png", 70, 10, 7, 1024, 1024, handle.data());
 	_cg[State::Jump] = handle;
 	handle.resize(26);
-	ImageServer::LoadDivGraph("resource/Boss/damage.png", 26, 10, 3, 1024, 1024, handle.data());
+	ImageServer::LoadDivGraph("resource/Boss/damage.png", 26, 10, 3, 256, 256, handle.data());
 	_cg[State::Damage] = handle;
 	handle.resize(180);
 	ImageServer::LoadDivGraph("resource/Boss/thunder.png", 180, 10, 18, 1024, 1024, handle.data());
@@ -242,8 +242,9 @@ void Boss::GunAttack1() {
 			_pos.y = _startPos.y - 230;
 		}
 	}
-	if (_time == 170) {
+	if (_time == 175) {
 		Vector2 fix{ -600,0 };
+		
 		_mode.GetActorServer().Add(std::make_unique<BossCanon>(_game, _mode, _pos + fix));
 	}
 	if (!_phase2) {
@@ -268,6 +269,7 @@ void Boss::GunAttack2() {
 	if (_time == 110) {
 		Vector2 fix{ 0,0 };
 		_mode.GetActorServer().Add(std::make_unique<BossCanon>(_game, _mode, _pos + fix));
+		
 	}
 	if (!_phase2) {
 		dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
@@ -297,9 +299,21 @@ void Boss::HeadButt(){
 	_state = State::HeadButt;
 
 	if (700 == _time) {
-		_scale = 0.25;
+		_scale = 1;
 		_pos = _startPos;
-		_pos.y += 100;
+		switch (rand3(engine)) {
+		case 1:
+			_pos.y += 100;
+			break;
+		case 2:
+			_pos.x -= 400;
+			_pos.y += 200;
+			break;
+		case 3:
+			_pos.x += 400;
+			_pos.y += 200;
+			break;
+		}
 		_backlayer = false;
 		_visible = false;
 	}
@@ -325,6 +339,28 @@ void Boss::HeadButt(){
 		}
 		UpdateCollision();
 	}
+
+	if (_visible == true) {
+		if (_animNo < 20) {
+			_pos.y -= 3;
+			/*
+			AABB col = _player1->GetCollision();
+			auto dir = (col.min + col.max) / 2 - _pos;
+			dir.Normalize();
+			
+			_pos = _pos + dir * _speed;
+			UpdateCollision();
+			*/
+		}
+		if (_animNo>=20&& _animNo < 30) {
+			_pos.y += 6;
+		}
+		if (_animNo == 30) {
+			Vector2 pos = { _pos.x,_pos.y + _size.y / 2 };
+			_mode.GetActorServer().Add(std::make_unique<Explode3>(_game, _mode, pos));
+		}
+	}
+
 	if (_animNo >= 70) {
 		_animNo = 69;
 	}

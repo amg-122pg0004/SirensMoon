@@ -19,8 +19,8 @@ Game::Game() :_frameCount{0},_progress{Progress::StartMenu}
 	_modeServer = std::make_unique<ModeServer>(*this);
 	_inputManager = std::make_unique<InputManager>();
 
-	PlayStartMenu();
-	//PlayStage2();
+	//PlayStartMenu();
+	PlayStage3();
 }
 
 void Game::Input() {
@@ -44,9 +44,8 @@ void Game::Render() {
 void Game::Debug(){
 	if (_debug) {
 		_modeServer->Debug();
+		DrawFormatString(0, 0, GetColor(255, 255, 255), "%f", GetFPS());
 	}
-	//_inputManager->Render();
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "%f", GetFPS());
 }
 
 
@@ -91,7 +90,7 @@ void Game::NextMode(){
 	case Game::Progress::Stage2Clear:
 		PlayStage3();
 		break;
-	case Game::Progress::Stage3 :
+	case Game::Progress::Stage3:
 		PlayStage3Clear();
 		break;
 	case Game::Progress::Stage3Clear:
@@ -161,6 +160,8 @@ void Game::PlayStage2Clear() {
 	_modeServer->Clear();
 	_progress = Progress::Stage2Clear;
 	_modeServer->Add(std::move(std::make_unique<ModeMovie>(*this, "resource/Movie/stage2end.mp4")));
+	SetUseASyncLoadFlag(true);
+	LoadResources::LoadBossCGs();
 }
 
 void Game::PlayStage3Clear() {

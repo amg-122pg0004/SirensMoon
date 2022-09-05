@@ -91,7 +91,6 @@ SplitWindow::SplitWindow(Game& game, ModeGame& mode, int pos_x, int pos_y, int w
 	Vector2 special_size = { 640,840 };
 	_ui.emplace_back(std::make_unique<FinishCut>(_game, _mode, special_pos, special_size));
 	
-
 	Vector2 pause_pos = { _windowPos.x + splitscreen_W / 2, _windowPos.y };
 	Vector2 pause_size = { 360,90 };
 	_ui.emplace_back(std::make_unique<Pause>(_game, _mode, pause_pos, pause_size));

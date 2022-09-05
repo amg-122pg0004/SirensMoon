@@ -30,7 +30,7 @@
 #include "ScreenPump.h"
 
 ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPattern pattern,std::string bgm) 
-	:ModeBase{ game }, _stopActorUpdate{false} ,_bgm{bgm}
+	:ModeBase{ game }, _stopActorUpdate{false} ,_bgm{bgm},_clearDelay{240},_clear{false}
 {
 	_inputManager=_game.GetInputManager();
 
@@ -181,6 +181,12 @@ void ModeGame::Update() {
 	if (_stopActorUpdate==false) {
 		_actorServer.Update();
 	}
+	if (_clear) {
+		--_clearDelay;
+		if (_clearDelay < 0) {
+			ModeBase::NextMode();
+		}
+	}
 }
 
 void ModeGame::Render() {
@@ -204,7 +210,8 @@ void ModeGame::StageClearCheck(){
 	if (_enemyVIPDeadCount >= _mapChips->GetServerData().size()) {
 		StopSoundFile();
 		_stopActorUpdate = true;
-		ModeBase::NextMode();
+		TargetKillEvent();
+		_clear = true;
 	}
 }
 
@@ -234,15 +241,6 @@ void ModeGame::SetPauseGame(bool flag){
 		_stopActorUpdate = flag;
 	}
 }
-
-void ModeGame::GameClear(){
-	StopSoundFile();
-	_makedNextMode = true;
-	_stopActorUpdate = true;
-	auto mode = std::make_unique<ModeMovie>(_game, "resource/Movie/rocket.mp4");
-	_game.GetModeServer()->Add(std::move(mode));
-}
-
 void ModeGame::PlayBGM(){
 	StopSoundFile();
 	PlaySoundFile(_bgm.c_str(), DX_PLAYTYPE_LOOP);

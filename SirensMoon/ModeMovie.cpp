@@ -9,7 +9,8 @@
 #include "ImageServer.h"
 #include "Game.h"
 
-ModeMovie::ModeMovie(Game& game,std::string path) :ModeBase{game} ,_sizeX{0},_sizeY{0}
+ModeMovie::ModeMovie(Game& game,std::string path) 
+	:ModeBase{game} ,_sizeX{0},_sizeY{0}
 {
 	_renderPriority = 10;
 	_movieHandle=ImageServer::LoadGraph(path);

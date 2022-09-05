@@ -83,4 +83,7 @@ void LoadResources::LoadBossCGs(){
 	ImageServer::LoadDivGraph("resource/Boss/thunder.png", 180, 10, 18, 1024, 1024, handle.data());
 	handle.resize(120);
 	ImageServer::LoadDivGraph("resource/Effect/thunder.png", 120, 8, 15, 800, 800, handle.data());
+
+	handle.resize(131);
+	ImageServer::LoadDivGraph("resource/Effect/fireattack.png", 131, 5, 27, 540, 480, handle.data());
 }

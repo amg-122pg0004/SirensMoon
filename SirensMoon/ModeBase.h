@@ -28,6 +28,10 @@ public:
 
 	virtual void NextMode();
 
+	void CallPlayStage1();
+	void CallPlayStage2();
+	void CallPlayStage3();
+
 protected:
 	Game& _game;
 	bool	_dead;

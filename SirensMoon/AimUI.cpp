@@ -40,7 +40,7 @@ void AimUI::Update() {
 				Vector2 world_pos = _pos + _pos_cursor;
 				if (col.min.x < world_pos.x && world_pos.x < col.max.x &&
 					col.min.y < world_pos.y && world_pos.y < col.max.y) {
-					dynamic_cast<ModeGame&>(_mode).GameClear();
+					_game.NextMode();
 				}
 			}
 		}

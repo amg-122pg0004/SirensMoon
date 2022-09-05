@@ -1,13 +1,16 @@
 #include "bossCanon.h"
 #include "ModeGame.h"
 #include "Player.h"
+#include "FX_BossFire.h"
 
 BossCanon::BossCanon(Game& game, ModeGame& mode, Vector2 pos)
 	:Actor{ game,mode }, _speed{ 40 }, _lifetime{ 120 }
 {
-	_cg = ImageServer::LoadGraph("resource/Boss/canon.png");
+	//_cg = ImageServer::LoadGraph("resource/Boss/canon.png");
 	_pos = pos;
 	_size = { 630,630 };
+	Vector2 posfix = { _pos.x+_size.x/2,_pos.y+500 };
+	_mode.GetActorServer().Add(std::make_unique<FX_BossFire>(_game, _mode, posfix, _game.GetFrameCount()));
 }
 
 BossCanon::~BossCanon() {

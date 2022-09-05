@@ -280,6 +280,12 @@
     <Filter Include="Actor\Effect\FX_Thunder">
       <UniqueIdentifier>{330e31e4-7794-48a3-a471-cdea964a998e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Effect\FX_HeadButt">
+      <UniqueIdentifier>{b010cc6f-807d-42ff-a55f-17418b82079f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Effect\FX_BossFire">
+      <UniqueIdentifier>{47d3aad6-4abd-4d12-a6ea-fda1e7bb3a4a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -552,6 +558,12 @@
     <ClCompile Include="FX_Thunder.cpp">
       <Filter>Actor\Effect\FX_Thunder</Filter>
     </ClCompile>
+    <ClCompile Include="FX_BossFire.cpp">
+      <Filter>Actor\Effect\FX_BossFire</Filter>
+    </ClCompile>
+    <ClCompile Include="FX_HeadButt.cpp">
+      <Filter>Actor\Effect\FX_HeadButt</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -823,6 +835,12 @@
     </ClInclude>
     <ClInclude Include="FX_Thunder.h">
       <Filter>Actor\Effect\FX_Thunder</Filter>
+    </ClInclude>
+    <ClInclude Include="FX_BossFire.h">
+      <Filter>Actor\Effect\FX_BossFire</Filter>
+    </ClInclude>
+    <ClInclude Include="FX_HeadButt.h">
+      <Filter>Actor\Effect\FX_HeadButt</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

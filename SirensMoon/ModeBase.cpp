@@ -43,3 +43,24 @@ void ModeBase::NextMode() {
 		_game.NextMode();
 	}
 }
+
+void ModeBase::CallPlayStage1() {
+	if (!_makedNextMode && _delayNextMode < 0) {
+		_makedNextMode = true;
+		_game.PlayStage1();
+	}
+}
+
+void ModeBase::CallPlayStage2() {
+	if (!_makedNextMode && _delayNextMode < 0) {
+		_makedNextMode = true;
+		_game.PlayStage2();
+	}
+}
+
+void ModeBase::CallPlayStage3() {
+	if (!_makedNextMode && _delayNextMode < 0) {
+		_makedNextMode = true;
+		_game.PlayStage3();
+	}
+}

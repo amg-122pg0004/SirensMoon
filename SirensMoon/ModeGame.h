@@ -32,7 +32,6 @@ public:
 
 	void SetPauseGame(bool flag);
 	void StageClearCheck();
-	void GameClear();
 	void GameOver();
 	void DamageEvent();
 	void TargetKillEvent();
@@ -46,4 +45,6 @@ private:
 	std::shared_ptr<InputManager> _inputManager;
 	std::string _bgm;
 	int _enemyVIPDeadCount;
+	bool _clear;
+	int _clearDelay;
 };

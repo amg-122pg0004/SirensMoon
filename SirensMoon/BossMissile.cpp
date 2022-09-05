@@ -118,8 +118,9 @@ bool BossMissile::CheckCheckCrossBullet(Actor& actor) {
 		Vector2::IsCrossed(_hitbox.pos2, _hitbox.pos4, pre_pos, pos) ||
 		Vector2::IsCrossed(_hitbox.pos1, _hitbox.pos3, pre_pos, pos) ||
 		Vector2::IsCrossed(_hitbox.pos3, _hitbox.pos4, pre_pos, pos)) {
-		return 1;
+		return true;
 	}
+	return false;
 }
 
 void BossMissile::StandardRender(Vector2 window_pos, Vector2 camera_pos) {

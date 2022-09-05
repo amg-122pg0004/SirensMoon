@@ -17,6 +17,7 @@ private:
 	EasingMode _easing;
 	int _startTime;
 	std::vector<int> _cgBlood;
+	int _cg_screen;
 	int _alpha;
 	int _elapsed;
 };
