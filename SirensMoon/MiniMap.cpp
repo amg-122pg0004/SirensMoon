@@ -11,9 +11,10 @@
 #include "DisplayArea.h"
 #include "Enemy.h"
 #include "Boss.h"
+#include "Gimmick.h"
 
 MiniMap::MiniMap(Game& game, ModeBase& mode, Vector2 pos, Vector2 size)
-	:UIBase{ game,mode,pos,size }
+	:UIBase{ game,mode,pos,size },_boss{true}
 {
 	_cg_map = ImageServer::LoadGraph("resource/UI/map_frame.png");
 	_cg_grid = ImageServer::LoadGraph("resource/UI/Minimap/grid.png");
@@ -61,92 +62,115 @@ void MiniMap::Update() {
 }
 
 void MiniMap::Render() {
+	if (!_visible) {
+		return;
+	}
 
-	if (_visible) {
-		DrawExtendGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y),
-			static_cast<int>(_pos.x + _size.x),static_cast<int>(_pos.y + _size.y), _cg_map, 0);
+	DrawExtendGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y),
+		static_cast<int>(_pos.x + _size.x), static_cast<int>(_pos.y + _size.y), _cg_map, 0);
 
-		Vector2 pos = { 1280,95 };
-		Vector2 pos2 = { 0,0 };
+	Vector2 pos = { 1280,95 };
+	Vector2 pos2 = { 0,0 };
 
-		DrawExtendGraph(static_cast<int>(pos.x), static_cast<int>(pos.y),
-			static_cast<int>(pos.x + 350), static_cast<int>(pos.y + 410), _cg_grid, 1);
+	DrawExtendGraph(static_cast<int>(pos.x), static_cast<int>(pos.y),
+		static_cast<int>(pos.x + 350), static_cast<int>(pos.y + 410), _cg_grid, 1);
+	SetDrawArea(static_cast<int>(pos.x), static_cast<int>(pos.y),
+		static_cast<int>(pos.x + 350), static_cast<int>(pos.y + 410));
 
-		dynamic_cast<ModeGame&>(_mode).GetMapChips()->ReconRender(0, pos, pos2);
-		
-		//float scale = 410.0f / 3240.0f * 0.97f;
-		float scale = 410.0f / 4320.0f * 0.97f;
-		float scaley = 410.0f / 4320.0f;
-		for (auto&& actor : _mode.GetObjects()) {
-			if (actor->GetType() == Actor::Type::PlayerA) {
+	dynamic_cast<ModeGame&>(_mode).GetMapChips()->ReconRender(0, pos, pos2, _boss);
+	float scale{ 1 }, scaley{ 1 };
+	if (!_boss) {
+		scale = 410.0f / 4320.0f * 0.97f;
+		scaley = 410.0f / 4320.0f;
+	}
+	else {
+		scale = 410.0f * 4.0f / 4320.0f * 0.97f;
+		scaley = 410.0f * 4.0f / 4320.0f;
+	}
+
+	for (auto&& actor : _mode.GetObjects()) {
+		if (actor->GetType() == Actor::Type::Enemy) {
+			auto eyepos = dynamic_cast<Enemy&>(*actor).GetSightPosition();
+			auto col_pos = (actor->GetCollision().min + actor->GetCollision().max) / 2;
+			DrawBox(static_cast<int>(col_pos.x * scale + pos.x) - 2,
+				static_cast<int>(col_pos.y * scaley + pos.y) - 2,
+				static_cast<int>(col_pos.x * scale + pos.x) + 3,
+				static_cast<int>(col_pos.y * scaley + pos.y) + 3,
+				GetColor(255, 0, 255), 1);
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
+
+
+			DrawTriangleAA(static_cast<float>(eyepos.pos1.x * scale + pos.x),
+				static_cast<float>(eyepos.pos1.y * scaley + pos.y),
+				static_cast<float>(eyepos.pos2.x * scale + pos.x),
+				static_cast<float>(eyepos.pos2.y * scaley + pos.y),
+				static_cast<float>(eyepos.pos3.x * scale + pos.x),
+				static_cast<float>(eyepos.pos3.y * scaley + pos.y),
+				GetColor(255, 0, 255), 1);
+			DrawTriangleAA(static_cast<float>(eyepos.pos2.x * scale + pos.x),
+				static_cast<float>(eyepos.pos2.y * scaley + pos.y),
+				static_cast<float>(eyepos.pos3.x * scale + pos.x),
+				static_cast<float>(eyepos.pos3.y * scaley + pos.y),
+				static_cast<float>(eyepos.pos4.x * scale + pos.x),
+				static_cast<float>(eyepos.pos4.y * scaley + pos.y),
+				GetColor(255, 0, 255), 1);
+
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
+		}
+		if (actor->GetType() == Actor::Type::Boss) {
+			auto size = actor->GetSize();
+			auto bossscale = dynamic_cast<Boss&>(*actor).GetScale();
+			DrawBox(static_cast<int>((actor->GetPosition().x - size.x * bossscale ) * scale + pos.x),
+				static_cast<int>((actor->GetPosition().y - size.y * bossscale ) * scaley + pos.y),
+				static_cast<int>((actor->GetPosition().x + size.x * bossscale ) * scale + pos.x),
+				static_cast<int>((actor->GetPosition().y + size.y * bossscale ) * scaley + pos.y),
+				GetColor(255, 0, 255), 1);
+		}
+		if (actor->GetType() == Actor::Type::Server) {
+			DrawBox(static_cast<int>(actor->GetPosition().x * scale + pos.x),
+				static_cast<int>(actor->GetPosition().y * scaley + pos.y),
+				static_cast<int>(actor->GetPosition().x * scale + pos.x) + 5,
+				static_cast<int>(actor->GetPosition().y * scaley + pos.y) + 5,
+				GetColor(255, 255, 0), 1);
+		}
+		if (actor->GetType() == Actor::Type::DisplayArea) {
+			auto area = dynamic_cast<DisplayArea&>(*actor).GetDisplayArea();
+			DrawBox(static_cast<int>(area.min.x * scale + pos.x),
+				static_cast<int>(area.min.y * scaley + pos.y),
+				static_cast<int>(area.max.x * scale + pos.x),
+				static_cast<int>(area.max.y * scaley + pos.y),
+				GetColor(150, 30, 30), 1);
+		}
+		if (actor->GetType() == Actor::Type::Gimmick) {
+			if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::BigServer) {
 				DrawBox(static_cast<int>(actor->GetPosition().x * scale + pos.x),
 					static_cast<int>(actor->GetPosition().y * scaley + pos.y),
-					static_cast<int>(actor->GetPosition().x * scale + pos.x) + 5,
-					static_cast<int>(actor->GetPosition().y * scaley + pos.y) + 5,
-					GetColor(255, 0, 0), 1);
-			}
-			if (actor->GetType() == Actor::Type::PlayerB) {
-				DrawBox(static_cast<int>(actor->GetPosition().x * scale + pos.x),
-					static_cast<int>(actor->GetPosition().y * scaley + pos.y),
-					static_cast<int>(actor->GetPosition().x * scale + pos.x) + 5,
-					static_cast<int>(actor->GetPosition().y * scaley + pos.y) + 5,
-					GetColor(0, 0, 255), 1);
-			}
-			if (actor->GetType() == Actor::Type::Enemy) {
-				auto eyepos = dynamic_cast<Enemy&>(*actor).GetSightPosition();
-				auto col_pos = (actor->GetCollision().min+ actor->GetCollision().max)/2;
-				DrawBox(static_cast<int>(col_pos.x * scale + pos.x) - 2,
-					static_cast<int>(col_pos.y * scaley + pos.y) - 2,
-					static_cast<int>(col_pos.x * scale + pos.x) + 3,
-					static_cast<int>(col_pos.y * scaley + pos.y) + 3,
-					GetColor(255, 0, 255), 1);
-				SetDrawBlendMode(DX_BLENDMODE_ALPHA,100);
-
-
-				DrawTriangleAA(static_cast<float>(eyepos.pos1.x * scale + pos.x),
-					static_cast<float>(eyepos.pos1.y * scaley + pos.y),
-					static_cast<float>(eyepos.pos2.x * scale + pos.x),
-					static_cast<float>(eyepos.pos2.y * scaley + pos.y),
-					static_cast<float>(eyepos.pos3.x * scale + pos.x),
-					static_cast<float>(eyepos.pos3.y * scaley + pos.y),
-					GetColor(255, 0, 255), 1);
-				DrawTriangleAA(static_cast<float>(eyepos.pos2.x * scale + pos.x),
-					static_cast<float>(eyepos.pos2.y * scaley + pos.y),
-					static_cast<float>(eyepos.pos3.x * scale + pos.x),
-					static_cast<float>(eyepos.pos3.y * scaley + pos.y),
-					static_cast<float>(eyepos.pos4.x * scale + pos.x),
-					static_cast<float>(eyepos.pos4.y * scaley + pos.y),
-					GetColor(255, 0, 255), 1);
-				
-				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
-			}
-			if (actor->GetType() == Actor::Type::Boss) {
-				auto size = actor->GetSize();
-				auto bossscale = dynamic_cast<Boss&>(*actor).GetScale();
-				DrawBox(static_cast<int>((actor->GetPosition().x - size.x * bossscale/2)  * scale + pos.x),
-					static_cast<int>((actor->GetPosition().y - size.y * bossscale / 2) * scaley + pos.y),
-					static_cast<int>((actor->GetPosition().x + size.x * bossscale / 2) * scale + pos.x),
-					static_cast<int>((actor->GetPosition().y + size.y * bossscale / 2)  * scaley + pos.y),
-					GetColor(255, 0, 255), 1);
-			}
-			if (actor->GetType() == Actor::Type::Server) {
-				DrawBox(static_cast<int>(actor->GetPosition().x * scale + pos.x),
-					static_cast<int>(actor->GetPosition().y * scaley + pos.y),
-					static_cast<int>(actor->GetPosition().x * scale + pos.x) + 5,
-					static_cast<int>(actor->GetPosition().y * scaley + pos.y) + 5,
+					static_cast<int>(actor->GetPosition().x * scale + pos.x) + 10,
+					static_cast<int>(actor->GetPosition().y * scaley + pos.y) + 10,
 					GetColor(255, 255, 0), 1);
 			}
-			if (actor->GetType() == Actor::Type::DisplayArea) {
-				auto area=dynamic_cast<DisplayArea&>(*actor).GetDisplayArea();
-				DrawBox(static_cast<int>(area.min.x * scale + pos.x),
-					static_cast<int>(area.min.y * scaley + pos.y),
-					static_cast<int>(area.max.x * scale + pos.x),
-					static_cast<int>(area.max.y * scaley + pos.y),
-					GetColor(150, 30, 30), 1);
-			}
 		}
-		if (_noiseFlag) {
-			DrawExtendGraph(1280, 103,1280+350,103+400, _movieHandle, 0);
+		if (actor->GetType() == Actor::Type::PlayerA) {
+			DrawBox(static_cast<int>(actor->GetPosition().x * scale + pos.x),
+				static_cast<int>(actor->GetPosition().y * scaley + pos.y),
+				static_cast<int>(actor->GetPosition().x * scale + pos.x) + 5,
+				static_cast<int>(actor->GetPosition().y * scaley + pos.y) + 5,
+				GetColor(255, 0, 0), 1);
+		}
+		if (actor->GetType() == Actor::Type::PlayerB) {
+			DrawBox(static_cast<int>(actor->GetPosition().x * scale + pos.x),
+				static_cast<int>(actor->GetPosition().y * scaley + pos.y),
+				static_cast<int>(actor->GetPosition().x * scale + pos.x) + 5,
+				static_cast<int>(actor->GetPosition().y * scaley + pos.y) + 5,
+				GetColor(0, 0, 255), 1);
 		}
 	}
+	if (_noiseFlag) {
+		DrawExtendGraph(1280, 103, 1280 + 350, 103 + 400, _movieHandle, 0);
+	}
+	auto&& window = dynamic_cast<ModeGame&>(_mode).GetSplitWindow();
+	SetDrawArea(static_cast<int>(window[0]->GetWindowPos().x),
+		static_cast<int>(window[0]->GetWindowPos().y),
+		static_cast<int>(window[0]->GetWindowPos().x + splitscreen_W),
+		static_cast<int>(window[0]->GetWindowPos().y + screen_H));
 }

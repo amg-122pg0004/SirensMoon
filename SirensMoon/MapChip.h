@@ -27,7 +27,7 @@ public:
 	 */
 	void Render(Vector2 windowPos, Vector2 cameraPos,std::string layer);
 
-	void ReconRender(int stageNum, Vector2 windowPos, Vector2 cameraPos);
+	void ReconRender(int stageNum, Vector2 windowPos, Vector2 cameraPos,bool bossflag);
 
 	int GetChipSize_H() { return _chipSize_H; }
 	int GetChipSize_W() { return _chipSize_W; }

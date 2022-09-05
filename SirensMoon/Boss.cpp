@@ -206,17 +206,17 @@ void Boss::ChoiceAttack() {
 		switch (rand2(engine)) {
 		case 1:
 			if (rand2(engine) == 1) {
-				_time = 150;
+				_time = 270;
 				GunAttack1();
 				break;
 			}
 			else {
-				_time = 150;
+				_time = 270;
 				GunAttack2();
 				break;
 			}
 		case 2:
-			_time = 300;
+			_time = 240;
 			ShootMissile();
 			break;
 		}
@@ -246,10 +246,12 @@ void Boss::GunAttack1() {
 		Vector2 fix{ -600,0 };
 		_mode.GetActorServer().Add(std::make_unique<BossCanon>(_game, _mode, _pos + fix));
 	}
-	dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
-		->ChangeMessage("マップから射線を読みとり、回避せよ", 1);
-	dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
-		->ChangeMessage("マップから射線を読みとり、回避せよ", 1);
+	if (!_phase2) {
+		dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
+			->ChangeMessage("マップから射線を読みとり、回避せよ", 1);
+		dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
+			->ChangeMessage("マップから射線を読みとり、回避せよ", 1);
+	}
 }
 
 void Boss::GunAttack2() {
@@ -267,10 +269,12 @@ void Boss::GunAttack2() {
 		Vector2 fix{ 0,0 };
 		_mode.GetActorServer().Add(std::make_unique<BossCanon>(_game, _mode, _pos + fix));
 	}
-	dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
-		->ChangeMessage("マップから射線を読みとり、回避せよ", 2);
-	dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
-		->ChangeMessage("マップから射線を読みとり、回避せよ", 1);
+	if (!_phase2) {
+		dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
+			->ChangeMessage("マップから射線を読みとり、回避せよ", 2);
+		dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
+			->ChangeMessage("マップから射線を読みとり、回避せよ", 1);
+	}
 }
 
 void Boss::ShootMissile() {
@@ -279,10 +283,13 @@ void Boss::ShootMissile() {
 		Vector2 rand = { static_cast<double>(rand100(engine)) / 100 * splitscreen_W,0 };
 		_mode.GetActorServer().Add(std::make_unique<BossMissile>(_game, _mode, rand));
 	}
-	dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
-		->ChangeMessage("ミサイルを撃ち落とせ", 1);
-	dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
-		->ChangeMessage("ミサイルを回避せよ", 2);
+	if (!_phase2) {
+		dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
+			->ChangeMessage("ミサイルを撃ち落とせ", 1);
+		dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
+			->ChangeMessage("ミサイルを回避せよ", 2);
+	}
+
 }
 
 void Boss::HeadButt(){

@@ -21,12 +21,14 @@ public:
 	Type GetType() { return Type::MiniMap; }
 	void Update() override;
 	void Render() override;
+	void SetBossFlag();
 
 private:
 	std::shared_ptr<InputManager> _inputManager;
 	int _cg_map;//<ミニマップ仮画像
 	int _cg_grid;
 
+	bool _boss;
 	bool _noiseFlag;
 	int _prelightUp;
 	int _movieHandle;

@@ -1,6 +1,7 @@
 #include "ServerMachineUI.h"
 #include <sstream>
 #include <fstream>
+#include <random>
 #include "picojson/picojson.h"
 #include "strconv/strconv.h"
 #include "Game.h"
@@ -178,4 +179,9 @@ void ServerMachineUI::LoadMessage(EnemyGenerator::EnemyPattern pattern){
 	std::string message3 = jsRoot["foot" + std::to_string(pattern.foot)].get<std::string>();
 	std::wstring w_ss3 = utf8_to_wide(message3);
 	_message.push_back(wide_to_sjis(w_ss3));
+
+	std::random_device seed_gen;
+	std::mt19937 engine(seed_gen());
+	std::shuffle(_message.begin(), _message.end(), engine);
+
 }

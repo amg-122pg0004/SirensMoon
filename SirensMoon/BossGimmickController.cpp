@@ -7,6 +7,7 @@
 #include "Boss.h"
 #include "MapChip.h"
 #include "FX_Thunder.h"
+#include "ObjectiveUI.h"
 #include <algorithm>
 #include <random>
 #include <numeric>
@@ -103,6 +104,10 @@ void  BossGimmickController::Phase2() {
 			}
 		}
 	}
+	dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
+		->ChangeMessage("正しい順番で発電機を起動せよ", 1);
+	dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
+		->ChangeMessage("発電機を起動する順番を\nサーバーから読み取れ", 1);
 }
 
 void BossGimmickController::GeneratePattern(){
@@ -116,10 +121,16 @@ void BossGimmickController::GeneratePattern(){
 
 void BossGimmickController::DistributePattern() {
 	int i = 0;
+	std::vector<int> randombox{0,1,2,3};
+	std::random_device seed_gen;
+	std::mt19937 engine(seed_gen());
+	std::shuffle(randombox.begin(), randombox.end(), engine);
+
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::Gimmick) {
 			if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::BigGenerator) {
-				dynamic_cast<BigGenerator&>(*actor).SetPattern(_pattern[i], GetSignal(_pattern[i]));
+				int random_index = randombox[i];
+				dynamic_cast<BigGenerator&>(*actor).SetPattern(_pattern[random_index], GetSignal(_pattern[random_index]));
 				++i;
 			}
 			if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::BigServer) {
@@ -145,6 +156,8 @@ void BossGimmickController::RecieveStartGenerator(int no) {
 					if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::BigGun) {
 						dynamic_cast<BigGun&>(*actor).SetAccesible();
 						_readyRailgun = true;
+						dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
+							->ChangeMessage("巨大レールガンに乗り込み\nミッションを完遂せよ", 1);
 					}
 				}
 			}

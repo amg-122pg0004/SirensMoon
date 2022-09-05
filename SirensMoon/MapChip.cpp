@@ -1067,8 +1067,16 @@ void MapChips::Render(Vector2 windowPos, Vector2 cameraPos,std::string layer) {
 	}
 }
 
-void MapChips::ReconRender(int stageNum, Vector2 windowPos, Vector2 cameraPos) 
+void MapChips::ReconRender(int stageNum, Vector2 windowPos, Vector2 cameraPos, bool bossflag)
 {
+	float scale{ 1 };
+	if (bossflag) {
+		scale = static_cast<float>(410.0*4.0 / 4320.0 * 0.97);
+	}
+	else {
+		 scale = static_cast<float>(410.0*4.0 / 4320.0 * 0.97);
+	}
+
 	for (int i = 0; i < _minimapData.size(); ++i)
 	{
 		int plotsize = static_cast<int>(_minimapData[i].second.size());
@@ -1076,7 +1084,7 @@ void MapChips::ReconRender(int stageNum, Vector2 windowPos, Vector2 cameraPos)
 		for (int plot = 0; plot < plotsize; ++plot) 
 		{
 			//float scale =static_cast<float>( 410.0/3240.0*0.97);
-			float scale = static_cast<float>(410.0 / 4320.0 * 0.97);
+			
 			DrawLineAA(static_cast<float>(_minimapData[i].second[plot].x*scale + windowPos.x),
 				static_cast<float>(_minimapData[i].second[plot].y*scale + windowPos.y ),
 				static_cast<float>(_minimapData[i].second[(plot + 1) % plotsize].x *scale+ windowPos.x),
