@@ -22,8 +22,8 @@ public:
 	virtual ActorServer& GetActorServer() { return _actorServer; }
 	 virtual ActorServer::TypeActors& GetObjects() { return _actorServer.GetObjects(); }
 
-	virtual bool	IsDead() { return _dead; }
-	virtual void	Dead() { _dead = true; }
+	virtual bool IsDead() { return _dead; }
+	virtual void Dead() { _dead = true; }
 	int GetRenderPriority() { return _renderPriority; }
 
 	virtual void NextMode();
@@ -37,4 +37,5 @@ protected:
 	int _renderPriority;
 
 	bool _makedNextMode;
+	int _delayNextMode;
 };

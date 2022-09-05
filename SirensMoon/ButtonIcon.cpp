@@ -6,6 +6,8 @@
 #include "StickeyBomb.h"
 #include "ServerMachine.h"
 #include "DegitalLetter.h"
+#include "BigServer.h"
+#include "BigGenerator.h"
 
 ButtonIcon::ButtonIcon(Game& game, ModeBase& mode, Vector2 pos, Vector2 size, int playerno)
 	:UIBase(game, mode, pos, size), _playerno{ playerno },_owner{nullptr}
@@ -51,6 +53,12 @@ void ButtonIcon::Update() {
 						return;
 					}
 				}
+				if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::BigGenerator) {
+					if (dynamic_cast<BigGenerator&>(*actor).GetAccessible()) {
+						_visible = true;
+						return;
+					}
+				}
 			}
 		}
 	}
@@ -71,6 +79,12 @@ void ButtonIcon::Update() {
 				}
 				if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::DegitalLetter) {
 					if (dynamic_cast<DegitalLetter&>(*actor).GetAccessible2()) {
+						_visible = true;
+						return;
+					}
+				}
+				if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::BigServer) {
+					if (dynamic_cast<BigServer&>(*actor).GetAccessible()) {
 						_visible = true;
 						return;
 					}

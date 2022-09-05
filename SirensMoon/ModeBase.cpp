@@ -14,6 +14,7 @@ ModeBase::ModeBase(Game& game)
 	, _dead(false)
 	,_actorServer{*this}
 	,_makedNextMode{false}
+	, _delayNextMode{20}
 {
 }
 
@@ -24,10 +25,12 @@ ModeBase::~ModeBase()
 
 // çXêV
 void ModeBase::Update() {
+	--_delayNextMode;
 }
 
 // ï`âÊ
 void ModeBase::Render() {
+
 }
 
 void ModeBase::Debug() {
@@ -35,7 +38,7 @@ void ModeBase::Debug() {
 }
 
 void ModeBase::NextMode() {
-	if (!_makedNextMode) {
+	if (!_makedNextMode&&_delayNextMode<0) {
 		_makedNextMode = true;
 		_game.NextMode();
 	}

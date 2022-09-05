@@ -22,6 +22,7 @@ ModeStart::ModeStart(Game& game) :ModeBase(game),_select{0},_alpha{255}, _pos{ 4
 }
 
 void ModeStart::Update() {
+	ModeBase::Update();
 	auto analog1 = _inputManager->CheckAnalogInput(0);
 	if (_pos.y <= 540) {
 		if (abs(analog1.y) > 800) {
@@ -146,7 +147,7 @@ void ModeStart::Debug(){
 }
 
 void ModeStart::Play() {
-	NextMode();
+	ModeBase::NextMode();
 }
 
 void ModeStart::Credit() {

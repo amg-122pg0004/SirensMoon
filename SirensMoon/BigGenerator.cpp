@@ -5,7 +5,8 @@
 #include <sstream>
 
 BigGenerator::BigGenerator(Game& game, ModeGame& mode, ObjectDataStructs::BigGeneratorData data, BossGimmickController& controller)
-	:Gimmick(game,mode,data.ID),_span{20},_elapsed{0},_flash{false},_index{0},_pattern{-1},_signal{false},_controller{controller}
+	:Gimmick(game,mode,data.ID),_span{20},_elapsed{0},_flash{false}
+	,_index{0},_pattern{-1},_signal{false},_controller{controller},_accessible{false}
 {
 	_pos = data.pos;
 	auto light=std::make_unique<SignalLight>(game,mode,*this);
@@ -42,24 +43,20 @@ void BigGenerator::Update() {
 }
 
 bool BigGenerator::CheckHitBullet() {
+	_accessible = false;
 	for (auto&& actor : _mode.GetObjects()) {
 		auto type = actor->GetType();
 		if (type == Actor::Type::PlayerA) {
 			if (Intersect(_accessArea, actor->GetCollision())) {
-				if (_game.GetInputManager()->CheckInput("ACCESS", 't', 0)) {
-					return true;
-				}
+				_accessible = true;
 			}
 		}
-		/*
-		if (type == Actor::Type::RedBullet || type == Actor::Type::GreenBullet) {
-			if(Intersect(_collision, actor->GetCollision()) ){
-
-				actor->Dead();
-				return true;
-			}
-		}
-		*/
+	}
+	if (!_accessible) {
+		return false;
+	}
+	if (_game.GetInputManager()->CheckInput("ACCESS", 't', 0)) {
+		return true;
 	}
 	return false;
 }

@@ -15,7 +15,7 @@ public:
 	void Debug(Vector2 window_pos, Vector2 camera_pos)override;
 	void UpdateCollsiion();
 	void SetPattern(int pattern,std::vector<bool> signal);
-
+	bool GetAccessible() { return _accessible; }
 private:
 
 	bool CheckHitBullet();
@@ -40,4 +40,5 @@ private:
 	int _cg_active, _cg_passive;
 
 	AABB _accessArea;
+	bool _accessible;
 };

@@ -172,6 +172,7 @@ ModeGame::~ModeGame() {
 }
 
 void ModeGame::Update() {
+	ModeBase::Update();
 	/*UI‚ÌXV*/
 	for (auto&& splitwindows : _splitWindow) {
 		splitwindows->Update();
@@ -203,7 +204,7 @@ void ModeGame::StageClearCheck(){
 	if (_enemyVIPDeadCount >= _mapChips->GetServerData().size()) {
 		StopSoundFile();
 		_stopActorUpdate = true;
-		NextMode();
+		ModeBase::NextMode();
 	}
 }
 

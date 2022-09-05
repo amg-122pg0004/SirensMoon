@@ -1171,7 +1171,7 @@ void MapChips::ReconRender(int stageNum, Vector2 windowPos, Vector2 cameraPos, b
 		scale = static_cast<float>(410.0*4.0 / 4320.0 * 0.97);
 	}
 	else {
-		 scale = static_cast<float>(410.0*4.0 / 4320.0 * 0.97);
+		 scale = static_cast<float>(410.0 / 4320.0 * 0.97);
 	}
 
 	for (int i = 0; i < _minimapData.size(); ++i)

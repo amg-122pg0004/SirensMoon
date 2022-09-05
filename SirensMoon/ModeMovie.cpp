@@ -20,16 +20,17 @@ ModeMovie::ModeMovie(Game& game,std::string path) :ModeBase{game} ,_sizeX{0},_si
 }
 
 void ModeMovie::Update() {
+	ModeBase::Update();
 	/*PAUSEボタンでスキップ*/
 	if (_game.GetInputManager()->CheckInput("PAUSE", 't', 0) || _game.GetInputManager()->CheckInput("PAUSE", 't', 1)) {
 		PauseMovieToGraph(_movieHandle);
-		NextMode();
+		ModeBase::NextMode();
 
 	}
 	/*再生が終わったらスキップ*/
 	if (GetMovieStateToGraph(_movieHandle)==0) {
 		PauseMovieToGraph(_movieHandle);
-		NextMode();
+		ModeBase::NextMode();
 	}
 }
 

@@ -11,7 +11,7 @@
 
 
 Pause::Pause(Game& game, ModeBase& mode, Vector2 pos, Vector2 size)
-	:UIBase{ game,mode,pos,size },_delay{30}
+	:UIBase{ game,mode,pos,size },_delay{30},_changemode{false}
 {
 	_inputManager = _game.GetInputManager();
 	_cg = ImageServer::LoadGraph("resource/UI/Pause/left.png");
@@ -34,21 +34,24 @@ void Pause::Update() {
 			dynamic_cast<ModeGame&>(_mode).SetPauseGame(false);
 		}
 	}
+	if(dynamic_cast<ModeGame&>(_mode).)
 	if (_visible){
-		if (_inputManager->CheckInput("BULLET1", 't', 0) ||
-			_inputManager->CheckInput("BULLET1", 't', 1)) {
-			_game.PlayStartMenu();
-			
-		}
-		if (_inputManager->CheckInput("BULLET2", 't', 0) ||
-			_inputManager->CheckInput("BULLET2", 't', 1)) {
-			_game.PlayStage1Clear();
-			
-		}
-		if (_inputManager->CheckInput("DEBUG", 't', 0) ||
-			_inputManager->CheckInput("DEBUG", 't', 1)) {
-			_game.PlayStage2Clear();
-			
+		if (!_changemode) {
+			if (_inputManager->CheckInput("BULLET1", 't', 0) ||
+				_inputManager->CheckInput("BULLET1", 't', 1)) {
+				_game.PlayStartMenu();
+				_changemode = true;
+			}
+			if (_inputManager->CheckInput("BULLET2", 't', 0) ||
+				_inputManager->CheckInput("BULLET2", 't', 1)) {
+				_game.PlayStage1Clear();
+				_changemode = true;
+			}
+			if (_inputManager->CheckInput("DEBUG", 't', 0) ||
+				_inputManager->CheckInput("DEBUG", 't', 1)) {
+				_game.PlayStage2Clear();
+				_changemode = true;
+			}
 		}
 	}
 

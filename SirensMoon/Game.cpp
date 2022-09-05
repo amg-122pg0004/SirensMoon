@@ -20,7 +20,7 @@ Game::Game() :_frameCount{0},_progress{Progress::StartMenu}
 	_inputManager = std::make_unique<InputManager>();
 
 	PlayStartMenu();
-	//PlayStage1();
+	//PlayStage2();
 }
 
 void Game::Input() {
@@ -51,6 +51,7 @@ void Game::Debug(){
 
 
 void Game::RestartMode() {
+	SetDrawArea(0,0,screen_W,screen_H);
 	switch (_progress)
 	{
 	case Game::Progress::StartMenu:
@@ -72,6 +73,7 @@ void Game::RestartMode() {
 }
 
 void Game::NextMode(){
+	SetDrawArea(0, 0, screen_W, screen_H);
 	switch (_progress)
 	{
 	case Game::Progress::StartMenu:
@@ -100,6 +102,7 @@ void Game::NextMode(){
 
 void Game::PlayStartMenu() {
 	SoundServer::StopALLSound();
+	_progress = Progress::StartMenu;
 	StopSoundFile();
 	_modeServer->Clear();
 	_modeServer->Add(std::move(std::make_unique<ModeStart>(*this)));
