@@ -19,8 +19,8 @@ Game::Game() :_frameCount{0},_progress{Progress::StartMenu}
 	_modeServer = std::make_unique<ModeServer>(*this);
 	_inputManager = std::make_unique<InputManager>();
 
-	//PlayStartMenu();
-	PlayStage2();
+	PlayStartMenu();
+	//PlayStage1();
 }
 
 void Game::Input() {
@@ -46,12 +46,11 @@ void Game::Debug(){
 		_modeServer->Debug();
 	}
 	//_inputManager->Render();
+	DrawFormatString(0, 0, GetColor(255, 255, 255), "%f", GetFPS());
 }
 
 
 void Game::RestartMode() {
-	SoundServer::StopALLSound();
-	StopSoundFile();
 	switch (_progress)
 	{
 	case Game::Progress::StartMenu:
@@ -73,8 +72,6 @@ void Game::RestartMode() {
 }
 
 void Game::NextMode(){
-	SoundServer::StopALLSound();
-	StopSoundFile();
 	switch (_progress)
 	{
 	case Game::Progress::StartMenu:
@@ -102,11 +99,15 @@ void Game::NextMode(){
 }
 
 void Game::PlayStartMenu() {
+	SoundServer::StopALLSound();
+	StopSoundFile();
 	_modeServer->Clear();
 	_modeServer->Add(std::move(std::make_unique<ModeStart>(*this)));
 }
 
 void Game::PlayStage1() {
+	SoundServer::StopALLSound();
+	StopSoundFile();
 	_modeServer->Clear();
 	_progress = Progress::Stage1;
 	EnemyGenerator::EnemyPattern pattern;
@@ -117,6 +118,8 @@ void Game::PlayStage1() {
 }
 
 void Game::PlayStage2() {
+	SoundServer::StopALLSound();
+	StopSoundFile();
 	_modeServer->Clear();
 	_progress = Progress::Stage2;
 	EnemyGenerator::EnemyPattern pattern;
@@ -127,10 +130,12 @@ void Game::PlayStage2() {
 }
 
 void Game::PlayStage3() {
+	SoundServer::StopALLSound();
+	StopSoundFile();
+	_modeServer->Clear();
 	SetUseASyncLoadFlag(false);
 	LoadResources::LoadBossCGs();
 	SetUseASyncLoadFlag(true);
-	_modeServer->Clear();
 	_progress = Progress::Stage3;
 	EnemyGenerator::EnemyPattern pattern;
 	pattern.head = 9;
@@ -140,21 +145,32 @@ void Game::PlayStage3() {
 }
 
 void Game::PlayStage1Clear() {
+	SoundServer::StopALLSound();
+	StopSoundFile();
+	_modeServer->Clear();
 	_progress = Progress::Stage1Clear;
 	_modeServer->Add(std::move(std::make_unique<ModeMovie>(*this, "resource/Movie/stage1end.mp4")));
 }
 
 void Game::PlayStage2Clear() {
+	SoundServer::StopALLSound();
+	StopSoundFile();
+	_modeServer->Clear();
 	_progress = Progress::Stage2Clear;
 	_modeServer->Add(std::move(std::make_unique<ModeMovie>(*this, "resource/Movie/stage2end.mp4")));
 }
 
 void Game::PlayStage3Clear() {
+	SoundServer::StopALLSound();
+	StopSoundFile();
+	_modeServer->Clear();
 	_progress = Progress::Stage3Clear;
 	_modeServer->Add(std::move(std::make_unique<ModeMovie>(*this, "resource/Movie/stage2end.mp4")));
 }
 
 void Game::GameOver(){
+	SoundServer::StopALLSound();
+	StopSoundFile();
 	_modeServer->Clear();
 
 	auto mode = std::make_unique<ModeGameOver>(*this);

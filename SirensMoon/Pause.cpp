@@ -37,15 +37,18 @@ void Pause::Update() {
 	if (_visible){
 		if (_inputManager->CheckInput("BULLET1", 't', 0) ||
 			_inputManager->CheckInput("BULLET1", 't', 1)) {
-			_game.PlayStage1();
+			_game.PlayStartMenu();
+			
 		}
 		if (_inputManager->CheckInput("BULLET2", 't', 0) ||
 			_inputManager->CheckInput("BULLET2", 't', 1)) {
-			_game.PlayStage2();
+			_game.PlayStage1Clear();
+			
 		}
 		if (_inputManager->CheckInput("DEBUG", 't', 0) ||
 			_inputManager->CheckInput("DEBUG", 't', 1)) {
-			_game.PlayStage3();
+			_game.PlayStage2Clear();
+			
 		}
 	}
 

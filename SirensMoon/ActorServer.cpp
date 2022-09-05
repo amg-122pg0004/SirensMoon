@@ -96,12 +96,6 @@ void	ActorServer::Update() {
 					}
 				}
 			}
-			if (split.GetInvisibleEnemy()) {
-				if (actor->GetType() == Actor::Type::Enemy) {
-					continue;
-				}
-			}
-
 			actor->StandardRender(window_pos,camera_pos);
 		}
 	}

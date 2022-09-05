@@ -19,6 +19,7 @@ ModeBase::ModeBase(Game& game)
 
 ModeBase::~ModeBase()
 {
+	_actorServer.Clear();
 }
 
 // XV

@@ -7,7 +7,8 @@ LinkLight::LinkLight(Game& game, ModeGame& mode, Actor& owner, Vector2 goal)
 {
 	_alpha = 255;
 	_cg = ImageServer::LoadGraph("resource/Light/LinkLight.png");
-	_pos = owner.GetPosition();
+	Vector2 pos = owner.GetPosition();
+	_pos = { pos.x + 25,pos.y + 10 };
 	_size = { 50,10 };
 	_centerPos = {0,5};
 	_angle = atan2( _goal.y - _pos.y , _goal.x - _pos.x );
@@ -18,7 +19,6 @@ void LinkLight::Update() {
 		_pos.x += cos(_angle) * _speed;
 		_pos.y += sin(_angle) * _speed;
 	//}
-
 
 	Vector2 distance=_goal - _pos;
 

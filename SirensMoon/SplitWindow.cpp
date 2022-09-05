@@ -98,13 +98,17 @@ SplitWindow::SplitWindow(Game& game, ModeGame& mode, int pos_x, int pos_y, int w
 
 }
 
+SplitWindow::~SplitWindow() {
+	DeleteGraph(_darknessScreen);
+	DeleteGraph(_normalScreen);
+}
+
 void SplitWindow::Update() {
 	/*透明ポンプギミック用の処理*/
 	--_blindTimer;
 	if (_blindTimer < 0) {
 		_blindTimer = 0;
 		_invisiblePlayer = false;
-		_invisibleEnemy = false;
 	}
 	/*サーバーアクセス時にマップ全体が明るくなる処理*/
 	_lightup = 255;
@@ -211,12 +215,9 @@ void SplitWindow::TargetKillEvent() {
 	}
 }
 
-void SplitWindow::ScreenPumpEvent(int playerno){
-	if (!_invisibleEnemy) {
+void SplitWindow::ScreenPumpEvent(){
+	if (!_invisiblePlayer) {
 		_blindTimer = 30 * 60;
 		_invisiblePlayer = true;
-		if (_windowNo == playerno) {
-			_invisibleEnemy = true;
-		}
 	}
 }

@@ -17,6 +17,103 @@ MapChips::MapChips(Game& game, ModeBase& mode, std::string filename) :_game{ gam
 MapChips::~MapChips() {
 	_mapTileData.clear();
 	_minimapData.clear();
+	_gidEnemy.clear();
+	_gidEnemyB.clear();
+	_gidBarrier1.clear();
+	_gidBarrier2.clear();
+	_gidItemAmmo.clear();
+	_gidItemHP.clear();
+	_gidPlayer.clear();
+	_gidServer.clear();
+	_gidLight.clear();
+	_gidteleportOut.clear();//<boolはランダムにワープするフラグ
+	_gidteleportIn.clear();//<boolはランダム抽選に参加するフラグ
+	_gidSwitch.clear();
+	_gidSwitchArea.clear();
+	_gidDoor.clear();
+	_gidTNT.clear();
+	_gidMine.clear();
+	_gidScreenPump.clear();
+	_gidStickyBomb.clear();
+	_gidBreakableObject.clear();
+	_gidDegitalLetter.clear();
+	_gidBigServer.clear();
+	_gidBigGenerator.clear();
+	_gidBigGun.clear();
+	_gidBossGimmickController.clear();
+
+	_tilesetsFirstgid.clear();
+	/*奥マップデータ [layer][y][x]*/
+	_mapBackTileData.clear();
+	/*中間マップデータ [layer][y][x]*/
+	_mapTileData.clear();
+	/*手前マップデータ[layer][y][x]*/
+	_mapFrontTileData.clear();
+	/*ミニマップデータ [line][色,plot]*/
+	_minimapData.clear();
+	/*プレイヤー初期位置データ[player1か2] */
+	_playerData.clear();
+	/*HPアイテムデータ [配置個数分]*/
+	_hpItems.clear();
+	/*弾薬アイテムデータ[配置個数分]*/
+	_bulletItems.clear();
+	/*通常エネミーデータ[配置個数分]*/
+	_enemyDataList.clear();
+	/*通常エネミーBデータ[配置個数分]*/
+	_enemyBDataList.clear();
+
+	/*エネミーの巡回ルート*/
+	_patrolPoints.clear();
+	/*マップごとの重要エネミー巡回ルート*/
+	_patrolPointsVIP.clear();
+	/*サーバーデータ[配置個数分]*/
+	_serverMachineDataList.clear();
+	/*配置ライトデータ<ID,stats>*/
+	_lightDataList.clear();
+	/*テレポーター入口データ*/
+	_teleporterInDataList.clear();
+	/*テレポーター出口データ<ID,<座標,ランダムフラグ>>*/
+	_teleporterOutDataList.clear();
+	/*スイッチデータ*/
+	_switchDataList.clear();
+	/*スイッチエリアデータ*/
+	_switchAreaDataList.clear();
+	/*ドアデータ*/
+	_doorDataList.clear();
+	/*TNTデータ*/
+	_tNTDataList.clear();
+	/*Mineデータ*/
+	_mineDataList.clear();
+	/*ScreenPumpデータ*/
+	_screenPumpDataList.clear();
+	/*StickyBombデータ*/
+	_stickyBombDataList.clear();
+	/*BrakableObjectデータ*/
+	_breakableObjectData.clear();
+	/*DegitalLetterデータ*/
+	_deditalLetterData.clear();
+	/*BigServerDataデータ*/
+	_bigServerDataList.clear();
+	/*BigGeneratorDataデータ*/
+	_bigGeneratorDataList.clear();
+	/*BossGimmickControllerDataデータ*/
+	_bossGimmickControllerDataList.clear();
+	/*BossGimmickControllerDataデータ*/
+	_bigGunDataList.clear();
+
+
+	/*マップチップのグラフィックハンドル用コンテナ*/
+	/*[タイル用画像の枚数分][画像を分割した際のチップ画像の数]*/
+	_cgChip.clear();
+
+	/*あたり判定が設定されているタイルのGIDを保存するコンテナ*/
+	_chipCollision.clear();
+
+	/*手前描画するタイルのgidを保存*/
+	_gidFront.clear();
+	/*奥描画するタイルのgidを保存*/
+	_gidBack.clear();
+
 }
 
 bool MapChips::LoadMap(std::string folderpath, std::string filename)

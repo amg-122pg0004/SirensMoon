@@ -21,13 +21,14 @@ class ObjectiveUI;
 class SplitWindow {
 	public:
 		SplitWindow(Game& _game,ModeGame& mode, int pos_x, int pos_y,int window_no);
+		~SplitWindow();
 		void Update();
 		void Render();
 		void Debug();
 		void DamageEvent();
 		void TargetKillEvent();
 
-		void ScreenPumpEvent(int playerno);
+		void ScreenPumpEvent();
 
 		std::unique_ptr<Camera>& GetCamera() { return _camera; }
 
@@ -42,7 +43,6 @@ class SplitWindow {
 		int GetWindowNo() { return _windowNo; }
 
 		bool GetInvisiblePlayer() { return _invisiblePlayer; }
-		bool GetInvisibleEnemy() { return _invisibleEnemy; }
 		
 		ObjectiveUI* GetObjectiveUI() { return _objectiveUI; }
 
@@ -70,8 +70,6 @@ class SplitWindow {
 
 		/*プレイヤーをレンダリングしない*/
 		bool _invisiblePlayer;
-		/*敵をレンダリングしない*/
-		bool _invisibleEnemy;
 		
 		int _blindTimer;
 

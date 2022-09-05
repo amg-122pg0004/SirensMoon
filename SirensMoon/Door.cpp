@@ -16,10 +16,15 @@ Door::Door(Game& game, ModeGame& mode, ObjectDataStructs::DoorData data)
 	_cg2 = ImageServer::LoadGraph(path1 + No + extension);
 	_cg3 = ImageServer::LoadGraph(path2 + No + extension);
 	_renderPriority = _pos.y + _size.y;
-	if (_partNo >= 1 && _partNo <= 6) {
-		_renderPriority = 200000;
-	}
-	if (_partNo >= 13 && _partNo <= 18) {
+	if (_partNo >= 1 && _partNo <= 6||
+		_partNo >= 13 && _partNo <= 18||
+		_partNo >= 25 && _partNo <= 30||
+		_partNo >= 37 && _partNo <= 42||
+		_partNo >= 49 && _partNo <= 54||
+		_partNo >= 61 && _partNo <= 66||
+		_partNo >= 73 && _partNo <= 78||
+		_partNo >= 85 && _partNo <= 90
+		) {
 		_renderPriority = 200000;
 	}
 }
@@ -46,22 +51,22 @@ void Door::Update() {
 			_collision.max = _pos + _size;
 			return;
 		}
-		if (_partNo >= 7 && _partNo <= 12) {
+		if (_partNo >= 55 && _partNo <= 60) {
 			_collision.min = _pos;
 			_collision.max = _pos + _size;
 			return;
 		}
-		if (_partNo >= 19 && _partNo <= 24) {
+		if (_partNo >= 67 && _partNo <= 72) {
 			_collision.min = _pos;
 			_collision.max = _pos + _size;
 			return;
 		}
-		if (_partNo >= 31 && _partNo <= 36) {
+		if (_partNo >= 79 && _partNo <= 84) {
 			_collision.min = _pos;
 			_collision.max = _pos + _size;
 			return;
 		}
-		if (_partNo >= 43 && _partNo <= 48) {
+		if (_partNo >= 91 && _partNo <= 96) {
 			_collision.min = _pos;
 			_collision.max = _pos + _size;
 			return;

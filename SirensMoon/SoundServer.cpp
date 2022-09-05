@@ -31,7 +31,6 @@ int SoundServer::Find(std::string filename)
     if (itr != _mapSounds.end()) {
         return itr->second;
     }
-
     return -1;
 }
 

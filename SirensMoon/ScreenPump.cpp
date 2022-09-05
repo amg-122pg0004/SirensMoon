@@ -49,33 +49,20 @@ void ScreenPump::Update() {
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::PlayerA ) {
 			if (Intersect(_detectionArea, actor->GetCollision())) {
-				for (auto&& split : _mode.GetSplitWindow()) {
-					split->ScreenPumpEvent(0);
-					if (dynamic_cast<Player&>(*actor).SetHideFlag()) {
-						PlaySoundMem(SoundServer::Find("MicroBomRelease"), DX_PLAYTYPE_BACK);
-					}
+				if (dynamic_cast<Player&>(*actor).SetHideFlag()) {
+					_mode.GetSplitWindow()[1]->ScreenPumpEvent();
+					PlaySoundMem(SoundServer::Find("MicroBomRelease"), DX_PLAYTYPE_BACK);
 				}
 			}
 		}
 		if (actor->GetType() == Type::PlayerB) {
 			if (Intersect(_detectionArea, actor->GetCollision())) {
-				for (auto&& split : _mode.GetSplitWindow()) {
-					split->ScreenPumpEvent(1);
-					if (dynamic_cast<Player&>(*actor).SetHideFlag()) {
-						PlaySoundMem(SoundServer::Find("MicroBomRelease"), DX_PLAYTYPE_BACK);
-					}
+				if (dynamic_cast<Player&>(*actor).SetHideFlag()) {
+					_mode.GetSplitWindow()[0]->ScreenPumpEvent();
+					PlaySoundMem(SoundServer::Find("MicroBomRelease"), DX_PLAYTYPE_BACK);
 				}
 			}
 		}
-		/*
-		if (actor->GetType() == Type::Enemy) {
-			if (Intersect(_detectionArea, actor->GetCollision())) {
-				dynamic_cast<Enemy&>(*actor).TakeDamage(GetType());
-				_dead = true;
-				PlaySoundMem(SoundServer::Find("Explosion"), DX_PLAYTYPE_BACK);
-			}
-		}
-		*/
 	}
 }
 

@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Stage1.tmx",
+    "activeFile": "Stage2.tmx",
     "expandedProjectPaths": [
         "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource"
     ],
@@ -213,13 +213,13 @@
         },
         "Stage2.tmx": {
             "expandedObjectLayers": [
-                2,
-                13
+                13,
+                2
             ],
             "scale": 1,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 167.5,
+                "x": 95.5,
                 "y": 359.5
             }
         },
@@ -373,15 +373,15 @@
     "map.tileWidth": 30,
     "map.width": 96,
     "openFiles": [
-        "Stage1.tmx"
+        "Stage2.tmx"
     ],
     "project": "SirensMoon.tiled-project",
     "property.type": "bool",
     "recentFiles": [
+        "Stage2.tmx",
         "Stage1.tmx",
         "Stage3.tmx",
         "test.tmx",
-        "Stage2.tmx",
         "F:/ステージ/main_2.tmx",
         "F:/ステージ/main_stage_1.json",
         "Test.tmx",

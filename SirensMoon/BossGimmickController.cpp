@@ -8,12 +8,14 @@
 #include "MapChip.h"
 #include "FX_Thunder.h"
 #include "ObjectiveUI.h"
+#include "SplitWindow.h"
+#include "MiniMap.h"
 #include <algorithm>
 #include <random>
 #include <numeric>
 
 BossGimmickController::BossGimmickController(Game& game, ModeGame& mode, ObjectDataStructs::BossGimmickControllerData data)
-	:Actor(game,mode), _index{0},_phase1{false}, _phase2{false}, _readyRailgun{false}
+	:Actor(game, mode), _index{ 0 }, _phase1{ false }, _phase2{ false }, _readyRailgun{ false }
 {
 	_gun = data.gunID;
 	_generators = data.generatorsID;
@@ -22,8 +24,8 @@ BossGimmickController::BossGimmickController(Game& game, ModeGame& mode, ObjectD
 	_pos = data.pos;
 	CheckRoomPosition();
 	_size = { 100,100 };
-	_collision.min = _pos - _size/2;
-	_collision.max = _pos + _size/2;
+	_collision.min = _pos - _size / 2;
+	_collision.max = _pos + _size / 2;
 
 	std::vector<int> v_teleport = { _teleport };
 	for (auto&& actor : _mode.GetObjects()) {
@@ -34,7 +36,7 @@ BossGimmickController::BossGimmickController(Game& game, ModeGame& mode, ObjectD
 
 	auto v_BigGen = _mode.GetMapChips()->GetBigGeneratorData();
 	for (auto BigGen : v_BigGen) {
-		auto biggen = std::make_unique<BigGenerator>(_game, _mode, BigGen,*this);
+		auto biggen = std::make_unique<BigGenerator>(_game, _mode, BigGen, *this);
 		_mode.GetActorServer().Add(std::move(biggen));
 	}
 
@@ -51,6 +53,13 @@ BossGimmickController::BossGimmickController(Game& game, ModeGame& mode, ObjectD
 	}
 	/*É{ÉXê∂ê¨*/
 	_mode.GetActorServer().Add(std::make_unique<Boss>(_game, _mode, *this));
+
+	auto&& uiserver = _mode.GetSplitWindow()[1]->GetUIServer();
+	for (auto&& ui : uiserver) {
+		if (ui->GetType() == UIBase::Type::MiniMap) {
+			dynamic_cast<MiniMap&>(*ui).SetBossFlag();
+		}
+	}
 }
 
 void BossGimmickController::Update() {

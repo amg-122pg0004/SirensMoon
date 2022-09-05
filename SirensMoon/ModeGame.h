@@ -21,6 +21,7 @@ class ModeGame :public ModeBase {
 
 public:
 	ModeGame(Game& game,std::string filename, EnemyGenerator::EnemyPattern pattern,std::string bgm);
+	~ModeGame();
 
 	void Update()override;
 	void Render()override;
@@ -42,7 +43,6 @@ private:
 
 	std::unique_ptr<MapChips>_mapChips;
 	std::vector<std::unique_ptr<SplitWindow>>_splitWindow;
-
 	std::shared_ptr<InputManager> _inputManager;
 	std::string _bgm;
 	int _enemyVIPDeadCount;
