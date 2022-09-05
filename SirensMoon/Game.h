@@ -49,8 +49,6 @@ class Game {
 
 		std::unique_ptr<ModeServer>& GetModeServer() { return _modeServer; }
 
-
-	private:
 		void PlayStartMenu();
 		void PlayStage1();
 		void PlayStage1Clear();
@@ -58,6 +56,7 @@ class Game {
 		void PlayStage2Clear();
 		void PlayStage3();
 		void PlayStage3Clear();
+private:
 		std::shared_ptr<InputManager> _inputManager;
 		std::unique_ptr<ModeServer> _modeServer;
 		int _frameCount;

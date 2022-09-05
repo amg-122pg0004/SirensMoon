@@ -192,9 +192,9 @@
         },
         "Stage1.tmx": {
             "expandedObjectLayers": [
+                13,
                 4,
-                12,
-                13
+                12
             ],
             "scale": 0.25,
             "selectedLayer": 6,

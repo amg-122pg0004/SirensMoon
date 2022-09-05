@@ -46,6 +46,26 @@ void Door::Update() {
 			_collision.max = _pos + _size;
 			return;
 		}
+		if (_partNo >= 7 && _partNo <= 12) {
+			_collision.min = _pos;
+			_collision.max = _pos + _size;
+			return;
+		}
+		if (_partNo >= 19 && _partNo <= 24) {
+			_collision.min = _pos;
+			_collision.max = _pos + _size;
+			return;
+		}
+		if (_partNo >= 31 && _partNo <= 36) {
+			_collision.min = _pos;
+			_collision.max = _pos + _size;
+			return;
+		}
+		if (_partNo >= 43 && _partNo <= 48) {
+			_collision.min = _pos;
+			_collision.max = _pos + _size;
+			return;
+		}
 	}
 	_collision.min = { 0,0 };
 	_collision.max = { 0,0 };

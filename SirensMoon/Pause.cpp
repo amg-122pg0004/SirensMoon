@@ -33,8 +33,20 @@ void Pause::Update() {
 		else {
 			dynamic_cast<ModeGame&>(_mode).SetPauseGame(false);
 		}
-
-
+	}
+	if (_visible){
+		if (_inputManager->CheckInput("BULLET1", 't', 0) ||
+			_inputManager->CheckInput("BULLET1", 't', 1)) {
+			_game.PlayStage1();
+		}
+		if (_inputManager->CheckInput("BULLET2", 't', 0) ||
+			_inputManager->CheckInput("BULLET2", 't', 1)) {
+			_game.PlayStage2();
+		}
+		if (_inputManager->CheckInput("DEBUG", 't', 0) ||
+			_inputManager->CheckInput("DEBUG", 't', 1)) {
+			_game.PlayStage3();
+		}
 	}
 
 }

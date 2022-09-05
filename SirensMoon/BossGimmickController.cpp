@@ -49,13 +49,15 @@ BossGimmickController::BossGimmickController(Game& game, ModeGame& mode, ObjectD
 		auto biggun = std::make_unique<BigGun>(_game, _mode, a_BigGun, *this);
 		_mode.GetActorServer().Add(std::move(biggun));
 	}
-
+	/*ボス生成*/
+	_mode.GetActorServer().Add(std::make_unique<Boss>(_game, _mode, *this));
 }
 
 void BossGimmickController::Update() {
 	if (_phase1) {
 		return;
 	}
+	/*
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::PlayerA || actor->GetType() == Type::PlayerB) {
 			if (Intersect(_collision, actor->GetCollision())) {
@@ -64,13 +66,11 @@ void BossGimmickController::Update() {
 			}
 		}
 	}
-	if (_game.GetFrameCount()%120==0) {
-	}
+	*/
 }
 
 void BossGimmickController::BossSpawn() {
-	/*ボス生成*/
-	_mode.GetActorServer().Add(std::make_unique<Boss>(_game, _mode,*this));
+
 
 }
 

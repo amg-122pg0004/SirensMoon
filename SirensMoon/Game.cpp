@@ -20,7 +20,7 @@ Game::Game() :_frameCount{0},_progress{Progress::StartMenu}
 	_inputManager = std::make_unique<InputManager>();
 
 	//PlayStartMenu();
-	PlayStage2Clear();
+	PlayStage2();
 }
 
 void Game::Input() {

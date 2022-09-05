@@ -9,8 +9,8 @@ DegitalLetter::DegitalLetter(Game& game, ModeGame& mode, ObjectDataStructs::Degi
 	_size = { 60,60 };
 	_message = data.message;
 	Vector2 access= { 10,10 };
-	_collision.min = data.pos;
-	_collision.max = data.pos+_size;
+	_collision.min = {-1,-1};
+	_collision.max = {-1,-1};
 	_accessArea.min = data.pos- access;
 	_accessArea.max = data.pos+_size+ access;
 	_cg.resize(39);
