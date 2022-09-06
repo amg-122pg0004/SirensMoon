@@ -14,7 +14,8 @@
 #include "MapChip.h"
 
 Enemy::Enemy(Game& game, ModeGame& mode, EnemyGenerator::EnemyPattern pattern)
-	:Actor{ game,mode }, _speed{ 1 }, _sight_H{ 210 }, _sight_W{ 330 }, _detectionFrame{ 0 }, _chase{ false }, _pattern{ pattern }
+	:Actor{ game,mode }, _speed{ 1 }, _sight_H{ 210 }
+	, _sight_W{ 330 }, _detectionFrame{ 0 }, _chase{ false }, _pattern{ pattern }
 {
 	_size = { 200,200 };
 
@@ -185,8 +186,7 @@ bool Enemy::CheckVisualLine() {
 
 void Enemy::SetDirection() {
 	double dir_rad = atan2(_dir.y, _dir.x);
-	double pi = 3.141519;
-	double dir_deg = (dir_rad) * 180 / 3.14;
+	double dir_deg = Math::ToDegrees(dir_rad);
 
 	if (-180 < dir_deg && dir_deg <= -140) {
 		_cg_direction = EnemyDirection::Left;

@@ -13,7 +13,7 @@ void EnemyB::Update(){
 		MoveToPlayer();
 	}
 	else {
-		auto radian = _data.Direction[_index] * 3.141519 / 180;
+		auto radian = Math::ToRadians(_data.Direction[_index]);
 		_dir.x = sin(radian);
 		_dir.y = cos(radian);
 
@@ -31,7 +31,6 @@ void EnemyB::Update(){
 				else {
 					break;
 				}
-
 			}
 		}
 		if (_index >= _data.Direction.size()) {
