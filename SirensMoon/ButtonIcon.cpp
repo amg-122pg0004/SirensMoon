@@ -59,6 +59,14 @@ void ButtonIcon::Update() {
 						return;
 					}
 				}
+				/*
+				if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::BigGun) {
+					if (dynamic_cast<BigGenerator&>(*actor).GetAccessible()) {
+						_visible = true;
+						return;
+					}
+				}
+				*/
 			}
 		}
 	}

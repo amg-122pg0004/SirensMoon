@@ -26,6 +26,9 @@ void teleporterIn::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 
 void teleporterIn::Debug(Vector2 window_pos, Vector2 camera_pos) {
 	_collision.Draw2(window_pos, camera_pos);
+	DrawFormatString(static_cast<int>(_pos.x - camera_pos.x + window_pos.y),
+		static_cast<int>(_pos.y - camera_pos.y + window_pos.y),
+		GetColor(255, 0, 0), "%d", _activate);
 }
 
 

@@ -169,10 +169,13 @@ void MiniMap::Render() {
 		DrawExtendGraph(1280, 103, 1280 + 350, 103 + 400, _movieHandle, 0);
 	}
 	auto&& window = dynamic_cast<ModeGame&>(_mode).GetSplitWindow();
+	/*
 	SetDrawArea(static_cast<int>(window[0]->GetWindowPos().x),
 		static_cast<int>(window[0]->GetWindowPos().y),
 		static_cast<int>(window[0]->GetWindowPos().x + splitscreen_W),
 		static_cast<int>(window[0]->GetWindowPos().y + screen_H));
+		*/
+	SetDrawArea(0, 0, screen_W, screen_H);
 }
 
 void MiniMap::SetBossFlag(){

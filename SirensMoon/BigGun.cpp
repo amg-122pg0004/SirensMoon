@@ -9,8 +9,8 @@ BigGun::BigGun(Game& game, ModeGame& mode, ObjectDataStructs::BigGunData data, B
 	_cg = ImageServer::LoadGraph("resource/Gimmick/biggun.png");
 	_pos = data.pos;
 	_size = { 600, 600 };
-	_collision.min = _pos;
-	_collision.max = _pos + _size;
+	_collision.min = { _pos.x+100,_pos.y };
+	_collision.max = { _pos.x+_size.x - 100,_pos.y+_size.y };
 	_accessArea.min = { _pos.x,_pos.y + _size.y };
 	_accessArea.max = { _pos.x+_size.x,_pos.y + _size.y + 10 };
 

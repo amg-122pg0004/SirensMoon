@@ -13,6 +13,7 @@ public:
 
 	void TargetKillEvent() override;
 private:
+	bool _visible2;
 	int _lifetime;
 	EasingMode _easing;
 	int _startTime;

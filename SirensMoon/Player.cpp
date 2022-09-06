@@ -380,30 +380,36 @@ void Player::Checkteleport() {
 				/*重なっているか*/
 				if (Intersect(_collision, actor->GetCollision())) {
 					/*有効で無ければ動かない*/
-					if (dynamic_cast<Gimmick&>(*actor).GetActivate()) {
-						auto teleport = dynamic_cast<teleporterIn&>(*actor);
-						auto id = teleport.GetteleportID();
-						if (teleport.GetRandomFlag()) {
-							auto data = _mode.GetMapChips()->GetteleporterOutData();
-							std::vector<Vector2> positions;
-							for (auto&& pair : data) {
-								if (pair.second.second) {
-									positions.push_back(pair.second.first);
-								}
-							}
-							if (positions.size() != 0) {
-								_pos = positions[_game.GetFrameCount() % positions.size()];
-								UpdateCollision();
-								PlaySoundMem(SoundServer::Find("Teleport"), DX_PLAYTYPE_BACK);
+					if (!dynamic_cast<Gimmick&>(*actor).GetActivate()) {
+						continue;
+					}
+					/*ステージ3かつ自分が2Pなら動かない*/
+					if (_game.GetProgress()==Game::Progress::Stage3&&_playerNum==1) {
+						continue;
+					}
+					auto teleport = dynamic_cast<teleporterIn&>(*actor);
+					auto id = teleport.GetteleportID();
+					if (teleport.GetRandomFlag()) {
+						auto data = _mode.GetMapChips()->GetteleporterOutData();
+						std::vector<Vector2> positions;
+						for (auto&& pair : data) {
+							if (pair.second.second) {
+								positions.push_back(pair.second.first);
 							}
 						}
-						else {
-							_pos = _mode.GetMapChips()->GetteleporterOutData()[id].first;
+						if (positions.size() != 0) {
+							_pos = positions[_game.GetFrameCount() % positions.size()];
 							UpdateCollision();
 							PlaySoundMem(SoundServer::Find("Teleport"), DX_PLAYTYPE_BACK);
 						}
-						Init();
 					}
+					else {
+						_pos = _mode.GetMapChips()->GetteleporterOutData()[id].first;
+						UpdateCollision();
+						PlaySoundMem(SoundServer::Find("Teleport"), DX_PLAYTYPE_BACK);
+					}
+					Init();
+
 				}
 			}
 		}

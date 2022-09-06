@@ -74,16 +74,17 @@ void LoadResources::LoadBossCGs(){
 	handle.resize(80);
 	ImageServer::LoadDivGraph("resource/Boss/missileboss.png", 80, 10, 8, 1024, 1024, handle.data());
 	handle.resize(70);
-	ImageServer::LoadDivGraph("resource/Boss/headbutt.png", 70, 10, 7, 1024, 1024, handle.data());
+	ImageServer::LoadDivGraph("resource/Boss/headbutt.png", 70, 10, 7, 256, 256, handle.data());
 	handle.resize(70);
 	ImageServer::LoadDivGraph("resource/Boss/jump.png", 70, 10, 7, 1024, 1024, handle.data());
 	handle.resize(26);
-	ImageServer::LoadDivGraph("resource/Boss/damage.png", 26, 10, 3, 1024, 1024, handle.data());
+	ImageServer::LoadDivGraph("resource/Boss/damage.png", 26, 10, 3, 256, 256, handle.data());
 	handle.resize(180);
 	ImageServer::LoadDivGraph("resource/Boss/thunder.png", 180, 10, 18, 1024, 1024, handle.data());
 	handle.resize(120);
-	ImageServer::LoadDivGraph("resource/Effect/thunder.png", 120, 8, 15, 800, 800, handle.data());
-
+	ImageServer::LoadDivGraph("resource/Effect/thunder.png", 120, 8, 15, 200, 150, handle.data());
+	handle.resize(16);
+	ImageServer::LoadDivGraph("resource/Effect/thunder2.png", 16, 8, 2, 480, 270, handle.data());
 	handle.resize(131);
 	ImageServer::LoadDivGraph("resource/Effect/fireattack.png", 131, 5, 27, 540, 480, handle.data());
 }

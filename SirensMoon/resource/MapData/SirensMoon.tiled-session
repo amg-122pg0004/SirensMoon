@@ -7,6 +7,10 @@
     "expandedProjectPaths": [
         "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource"
     ],
+    "exportAsImage.drawTileGrid": true,
+    "exportAsImage.includeBackgroundColor": false,
+    "exportAsImage.useCurrentScale": true,
+    "exportAsImage.visibleLayersOnly": true,
     "file.lastUsedOpenFilter": "すべてのファイル (*)",
     "fileStates": {
         "": {
@@ -191,16 +195,11 @@
             "scaleInDock": 1
         },
         "Stage1.tmx": {
-            "expandedObjectLayers": [
-                13,
-                4,
-                12
-            ],
-            "scale": 0.25,
-            "selectedLayer": 6,
+            "scale": 1,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 1430,
-                "y": 1130
+                "x": 1920,
+                "y": 2159
             }
         },
         "Stage1.tmx#tile_icon": {
@@ -211,15 +210,29 @@
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "Stage2.json": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2056,
+                "y": 2338
+            }
+        },
+        "Stage2.json#tile_icon": {
+            "scaleInDock": 1
+        },
+        "Stage2.json#tile_test": {
+            "scaleInDock": 1
+        },
         "Stage2.tmx": {
             "expandedObjectLayers": [
-                13,
-                2
+                2,
+                13
             ],
             "scale": 1,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 95.5,
+                "x": 96,
                 "y": 359.5
             }
         },
@@ -230,16 +243,16 @@
             "scaleInDock": 1
         },
         "Stage3.tmx": {
-            "expandedObjectLayers": [
-                4,
-                12
-            ],
             "scale": 1,
-            "selectedLayer": 9,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 413.5,
-                "y": 654.5
+                "x": 3325.5,
+                "y": 4048.5
             }
+        },
+        "Stage3.tmx#boss_tile": {
+            "scaleInDock": 1,
+            "scaleInEditor": 0.75
         },
         "Stage3.tmx#tile_icon": {
             "scaleInDock": 1,
@@ -362,12 +375,12 @@
         }
     },
     "last.exportedFilePath": "D:/doi/2022summer/SirensMoon/resource/MapData",
-    "last.imagePath": "D:/doi/2022summer/SirensMoon/resource",
+    "last.imagePath": "D:/doi/2022summer/SirensMoon/resource/MapData",
     "last.objectTypesPath": "D:/doi/2022summer/SirensMoon/resource/MapData/propertytypes.json",
     "lastUsedTilesetExportFilter": "JSON tileset files (*.tsj *.json)",
     "map.height": 108,
     "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
-    "map.lastUsedFormat": "tmx",
+    "map.lastUsedFormat": "json",
     "map.orientation": 1,
     "map.tileHeight": 30,
     "map.tileWidth": 30,
@@ -378,9 +391,10 @@
     "project": "SirensMoon.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "Stage2.tmx",
+        "Stage2.json",
         "Stage1.tmx",
         "Stage3.tmx",
+        "Stage2.tmx",
         "test.tmx",
         "F:/ステージ/main_2.tmx",
         "F:/ステージ/main_stage_1.json",
@@ -388,8 +402,7 @@
         "D:/doi/2022summer/x64/Debug/resource/MapData/Stage1.tmx",
         "D:/Users/syotaro/Documents/AMG/2022summer/x64/0.3.5/Debug/resource/TestMap_02.json",
         "D:/Users/syotaro/Documents/AMG/2022summer/x64/0.3.5/Debug/resource/TestMap_01.tmx",
-        "D:/Users/syotaro/Documents/AMG/2022summer/x64/Debug/resource/TestMap_02.json",
-        "TestMap_02.json"
+        "D:/Users/syotaro/Documents/AMG/2022summer/x64/Debug/resource/TestMap_02.json"
     ],
     "tileset.embedInMap": true,
     "tileset.lastUsedFilter": "Tiledタイルセットファイル (*.tsx)",

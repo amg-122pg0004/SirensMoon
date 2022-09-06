@@ -11,7 +11,7 @@
 Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 	:Actor(game,mode),_scale{1.0},_animNo{0}
 	,_backlayer{true},_time{60},_visible{true},_speed{2.5}
-	,_headbuttSize{150,420},_headSize{90,90},_hp{1},_controller{controller}
+	,_headbuttSize{150,420},_headSize{90,90},_hp{3},_controller{controller}
 {
 	Vector2 pos = { _controller.GetRoomPosition().x-1.0,_controller.GetRoomPosition().y-1.0 };
 	_startPos = { splitscreen_W * pos.x + 500 , screen_H * pos.y + 450 };
@@ -169,7 +169,7 @@ void Boss::StandardRender( Vector2 window_pos, Vector2 camera_pos) {
 
 			DrawRotaGraph(static_cast<int>(_pos.x - camera_pos.x + window_pos.x),
 				static_cast<int>(_pos.y - camera_pos.y + window_pos.y),
-				_scale, 0.0, cg[_animNo], 1);
+				1.0, 0.0, cg[_animNo], 1);
 
 		}
 	}
@@ -179,6 +179,7 @@ void Boss::ChoiceAttack() {
 	_animNo = 0;
 	if (!_phase2) {
 		switch (rand3(engine)) {
+		//switch (3) {
 		case 1:
 			if (rand2(engine) == 1) {
 				_time = 270;
@@ -299,7 +300,7 @@ void Boss::HeadButt(){
 	_state = State::HeadButt;
 
 	if (700 == _time) {
-		_scale = 1;
+		_scale = 0.25;
 		_pos = _startPos;
 		switch (rand3(engine)) {
 		case 1:
@@ -338,6 +339,11 @@ void Boss::HeadButt(){
 			_pos = _pos + dir * _speed;
 		}
 		UpdateCollision();
+	}
+
+	if (_time <= 410 && _visible == false) {
+		_visible = true;
+		_animNo = 0;
 	}
 
 	if (_visible == true) {
@@ -410,7 +416,7 @@ void Boss::Jump(){
 }
 
 void Boss::Thunder(){
-	if (_time==185) {
+	if (_time==180) {
 		_controller.PrePhase2();
 	}
 	if (_time == 130) {

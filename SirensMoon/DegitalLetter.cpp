@@ -63,4 +63,10 @@ void DegitalLetter::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 void DegitalLetter::Debug(Vector2 window_pos, Vector2 camera_pos){
 	_collision.Draw2 (window_pos, camera_pos);
 	_accessArea.Draw2(window_pos, camera_pos);
+	DrawFormatString(static_cast<int>(_pos.x - camera_pos.x + window_pos.y),
+		static_cast<int>(_pos.y - camera_pos.y + window_pos.y),
+		GetColor(255, 0, 0), "%d", _accessible1);
+	DrawFormatString(static_cast<int>(_pos.x - camera_pos.x + window_pos.y),
+		static_cast<int>(_pos.y+10 - camera_pos.y + window_pos.y),
+		GetColor(255, 0, 0), "%d", _accessible2);
 }

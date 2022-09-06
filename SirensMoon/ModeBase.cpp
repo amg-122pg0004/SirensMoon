@@ -61,6 +61,6 @@ void ModeBase::CallPlayStage2() {
 void ModeBase::CallPlayStage3() {
 	if (!_makedNextMode && _delayNextMode < 0) {
 		_makedNextMode = true;
-		_game.PlayStage3();
+		_game.PlayStage2Clear();
 	}
 }

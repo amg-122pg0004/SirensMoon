@@ -48,7 +48,7 @@ class Game {
 		inline int GetFrameCount() { return _frameCount; }
 
 		std::unique_ptr<ModeServer>& GetModeServer() { return _modeServer; }
-
+		Progress GetProgress() { return _progress; }
 		void PlayStartMenu();
 		void PlayStage1();
 		void PlayStage1Clear();

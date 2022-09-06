@@ -742,7 +742,7 @@ void MapChips::LoadLightLayer(picojson::array aObjects) {
 								stats.size.x = properties[i].get<picojson::object>()["value"].get<double>();
 							}
 							if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Size_Y") {
-								stats.size.y = properties[i].get<picojson::object>()["value"].get<double>();
+								stats.size.y = properties[i].get<picojson::object>()["value"].get<double>() - _chipSize_H;
 							}
 						}
 					}

@@ -13,33 +13,34 @@ MessageWindow::MessageWindow(Game& game, ModeBase& mode, Vector2 pos, Vector2 si
 }
 
 void MessageWindow::Update() {
-	int flag{ 0 };
+	bool triggerflag{ 0 };
+	bool overlapflag{ 0 };
 	for (auto&& actor : dynamic_cast<ModeGame&>(_mode).GetObjects()) {
 		if (actor->GetType() == Actor::Type::Gimmick) {
 			if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::DegitalLetter) {
 				if (_playerno == 0) {
 					if (dynamic_cast<DegitalLetter&>(*actor).GetAccessible1()) {
+						overlapflag = true;
 						if (_game.GetInputManager()->CheckInput("ACCESS", 't', _playerno)) {
-							++flag;
+							triggerflag=true;
 						}
-						++flag;
 					}
 				}
 				else {
 					if (dynamic_cast<DegitalLetter&>(*actor).GetAccessible2()) {
+						overlapflag = true;
 						if (_game.GetInputManager()->CheckInput("ACCESS", 't', _playerno)) {
-							++flag;
+							triggerflag = true;;
 						}
-						++flag;
 					}
 				}
 			}
 		}
 	}
-	if (flag == 0) {
+	if (!overlapflag) {
 		_visible = false;
 	}
-	else if (flag == 2) {
+	if (triggerflag) {
 		_visible = !_visible;
 	}
 
