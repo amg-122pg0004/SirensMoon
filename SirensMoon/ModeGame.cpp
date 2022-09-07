@@ -38,7 +38,7 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 	_renderPriority = 0;
 
 	PlaySoundFile(bgm.c_str(), DX_PLAYTYPE_LOOP);
-	_mapChips = std::make_unique<MapChips>(_game,*this,filename);
+	_mapChips = std::make_unique<MapChip>(_game,*this,filename);
 
 	_splitWindow.emplace_back(std::make_unique<SplitWindow>(_game,*this, 0, 0, 0));
 	_splitWindow.emplace_back(std::make_unique<SplitWindow>(_game,*this, screen_W-splitscreen_W, 0, 1));

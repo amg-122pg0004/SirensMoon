@@ -12,10 +12,10 @@ class ModeBase;
 class SplitWindow;
 class Actor;
 
-class MapChips {
+class MapChip {
 public:
-	MapChips(Game& game,ModeBase& mode,std::string filename);
-	~MapChips();
+	MapChip(Game& game,ModeBase& mode,std::string filename);
+	~MapChip();
 
 	typedef ObjectDataStructs St;
 
@@ -71,6 +71,11 @@ public:
 	bool IsHit(std::set<std::pair<int, int>>);
 
 private:
+	void SetBasicObjectData(picojson::object object, int id, Vector2 pos);
+	void FindPropertieData(int& data,picojson::array properties,std::string name);
+	void FindPropertieData(double& data, picojson::array properties, std::string name);
+	void FindPropertieData(bool& data, picojson::array properties, std::string name);
+	void FindPropertieData(std::string& data, picojson::array properties, std::string name);
 	bool LoadMap(std::string folderpath, std::string filename);
 	void LoadTilesets(picojson::object jsRoot, std::string folderpath);
 	void LoadTileLayer(picojson::object);

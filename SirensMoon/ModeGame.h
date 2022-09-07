@@ -40,7 +40,7 @@ public:
 private:
 	bool _stopActorUpdate;
 
-	std::unique_ptr<MapChips>_mapChips;
+	std::unique_ptr<MapChip>_mapChips;
 	std::vector<std::unique_ptr<SplitWindow>>_splitWindow;
 	std::shared_ptr<InputManager> _inputManager;
 	std::string _bgm;
