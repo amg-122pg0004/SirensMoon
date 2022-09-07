@@ -2,10 +2,10 @@
 #include "ModeGame.h"
 
 
-EnemyB::EnemyB(Game& game, ModeGame& mode, ObjectDataStructs::EnemyBData data, EnemyGenerator::EnemyPattern pattern)
+EnemyB::EnemyB(Game& game, ModeGame& mode, EnemyBData data, EnemyGenerator::EnemyPattern pattern)
 	:Enemy{game,mode,pattern},_data{data},_index{0},_elapsed{0}
 {
-	_pos = { data.StartPosition.x,data.StartPosition.y };
+	_pos = { data.pos.x,data.pos.y };
 }
 
 void EnemyB::Update(){

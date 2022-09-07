@@ -9,7 +9,7 @@
 #include "ServerMachineUI.h"
 #include "SoundServer.h"
 
-ServerMachine::ServerMachine(Game& game, ModeGame& mode, ObjectDataStructs::ServerMachineData data, EnemyGenerator::EnemyPattern pattern)
+ServerMachine::ServerMachine(Game& game, ModeGame& mode, ServerMachineData data, EnemyGenerator::EnemyPattern pattern)
 	:Actor(game, mode),_valid{false},_serverData{data},_energy{0}, _pattern{pattern},_deadVIP{false}, _accessible{0}
 {
 	_inputManager = _game.GetInputManager();
@@ -19,7 +19,7 @@ ServerMachine::ServerMachine(Game& game, ModeGame& mode, ObjectDataStructs::Serv
 	_cg_right = ImageServer::LoadGraph("resource/Server/right.png");
 	_cg_down = ImageServer::LoadGraph("resource/Server/down.png");
 	_cg_left = ImageServer::LoadGraph("resource/Server/left.png");
-	_pos = _serverData.Position;
+	_pos = _serverData.pos;
 	
 	if (_serverData.Direction == "up") {
 		_cg = _cg_up;
@@ -147,7 +147,7 @@ void ServerMachine::SpawnEnemyVIP() {
 	auto loot = vipdata[i];
 	Vector2 pos=loot.PatrolPoints[0];
 	auto id = loot.ID;
-	ObjectDataStructs::EnemyData data = { id,pos,0,0 };
+	EnemyData data;
 	auto enemy = std::make_unique<EnemyVIP>(_game, _mode, data, *this,loot, _pattern);
 	mode.GetActorServer().Add(std::move(enemy));
 

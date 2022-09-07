@@ -2,7 +2,7 @@
 #include "ModeGame.h"
 #include "MessageWindow.h"
 
-DegitalLetter::DegitalLetter(Game& game, ModeGame& mode, ObjectDataStructs::DegitalLetterData data)
+DegitalLetter::DegitalLetter(Game& game, ModeGame& mode, DegitalLetterData data)
 	:Gimmick(game,mode,data.ID),_animNo{0}
 {
 	_pos = data.pos;

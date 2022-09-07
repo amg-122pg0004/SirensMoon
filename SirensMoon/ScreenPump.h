@@ -7,7 +7,7 @@ class ModeGame;
 
 class ScreenPump :public Gimmick {
 public:
-	ScreenPump(Game& game, ModeGame& mode, ObjectDataStructs::ScreenPumpData data);
+	ScreenPump(Game& game, ModeGame& mode, ScreenPumpData data);
 	Type GetType()override { return Type::Gimmick; }
 	GimmickType GetGimmickType()override { return GimmickType::ScreenPump; }
 	void Update()override;

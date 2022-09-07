@@ -5,7 +5,7 @@
 class Switch :public Gimmick{
 public:
 
-	Switch(Game& game, ModeGame& mode, ObjectDataStructs::SwitchData data);
+	Switch(Game& game, ModeGame& mode, SwitchData data);
 
 	Type GetType()override { return Type::Gimmick; }
 	GimmickType GetGimmickType() override { return GimmickType::Switch; }

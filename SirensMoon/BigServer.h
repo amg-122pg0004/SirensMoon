@@ -4,7 +4,7 @@
 
 class BigServer:public Gimmick{
 public:
-	BigServer(Game& game, ModeGame& mode, ObjectDataStructs::BigServerData data);
+	BigServer(Game& game, ModeGame& mode, BigServerData data);
 	Type GetType()override { return Type::Gimmick; }
 	GimmickType GetGimmickType()override { return GimmickType::BigServer; }
 	void Update()override;

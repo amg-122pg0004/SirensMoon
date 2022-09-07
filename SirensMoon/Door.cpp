@@ -1,6 +1,6 @@
 #include "Door.h"
 
-Door::Door(Game& game, ModeGame& mode, ObjectDataStructs::DoorData data)
+Door::Door(Game& game, ModeGame& mode, DoorData data)
 	:Gimmick{game,mode,data.ID},_partNo{data.PartNo}
 {
 	_activate = false;

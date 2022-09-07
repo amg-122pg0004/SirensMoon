@@ -7,7 +7,7 @@ class ModeGame;
 
 class EnemyA :public Enemy {
 public:
-	EnemyA(Game& game, ModeGame& mode, ObjectDataStructs::EnemyData data, EnemyGenerator::EnemyPattern pattern);
+	EnemyA(Game& game, ModeGame& mode, EnemyData data, EnemyGenerator::EnemyPattern pattern);
 	/**
 	 * @brief 行動の決定、更新
 	 *

@@ -2,8 +2,8 @@
 #include "ServerMachine.h"
 #include "ModeGame.h"
 
-EnemyVIP::EnemyVIP(Game& game, ModeGame& mode, ObjectDataStructs::EnemyData enemydata,
-	ServerMachine& owner, ObjectDataStructs::EnemyPatrol patrol, EnemyGenerator::EnemyPattern pattern)
+EnemyVIP::EnemyVIP(Game& game, ModeGame& mode, EnemyData enemydata,
+	ServerMachine& owner, EnemyPatrol patrol, EnemyGenerator::EnemyPattern pattern)
 	:EnemyA(game, mode, enemydata,pattern), _owner{ owner }, _hitGreenBullet{false}
 {
 	Init();

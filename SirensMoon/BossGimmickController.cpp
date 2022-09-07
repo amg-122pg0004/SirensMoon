@@ -14,7 +14,7 @@
 #include <random>
 #include <numeric>
 
-BossGimmickController::BossGimmickController(Game& game, ModeGame& mode, ObjectDataStructs::BossGimmickControllerData data)
+BossGimmickController::BossGimmickController(Game& game, ModeGame& mode, BossGimmickControllerData data)
 	:Actor(game, mode), _index{ 0 }, _phase1{ false }, _phase2{ false }, _readyRailgun{ false }
 {
 	_gun = data.gunID;

@@ -8,7 +8,7 @@ class BossGimmickController;
 
 class BigGun :public Gimmick{
 public:
-	BigGun(Game& game, ModeGame& mode, ObjectDataStructs::BigGunData data, BossGimmickController& controller);
+	BigGun(Game& game, ModeGame& mode, BigGunData data, BossGimmickController& controller);
 	Type GetType() { return Type::Gimmick; }
 	GimmickType GetGimmickType() { return GimmickType::BigGun; }
 

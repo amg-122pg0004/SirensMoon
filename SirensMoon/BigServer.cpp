@@ -4,7 +4,7 @@
 #include "ModeGame.h"
 #include "BigServerUI.h"
 
-BigServer::BigServer(Game& game, ModeGame& mode, ObjectDataStructs::BigServerData data)
+BigServer::BigServer(Game& game, ModeGame& mode, BigServerData data)
 	:Gimmick(game,mode,data.ID),_accessible{false},_pattern{}
 {
 	_accessArea.min = { 0,0 };

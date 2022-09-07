@@ -77,7 +77,7 @@ void MiniMap::Render() {
 	SetDrawArea(static_cast<int>(pos.x), static_cast<int>(pos.y),
 		static_cast<int>(pos.x + 350), static_cast<int>(pos.y + 410));
 
-	dynamic_cast<ModeGame&>(_mode).GetMapChips()->ReconRender(0, pos, pos2, _boss);
+	dynamic_cast<ModeGame&>(_mode).GetMapChips()->MiniMapRender(0, pos, pos2, _boss);
 	float scale{ 1 }, scaley{ 1 };
 	if (!_boss) {
 		scale = 410.0f / 4320.0f * 0.97f;

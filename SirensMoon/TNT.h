@@ -4,7 +4,7 @@
 
 class TNT :public Gimmick {
 public:
-	TNT(Game& game, ModeGame& mode,ObjectDataStructs::TNTData data);
+	TNT(Game& game, ModeGame& mode,TNTData data);
 	void Update() override;
 	void StandardRender(Vector2 window_pos, Vector2 camera_pos)override;
 

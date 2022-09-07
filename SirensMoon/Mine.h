@@ -7,7 +7,7 @@ class ModeGame;
 
 class Mine :public Gimmick{
 public:
-	Mine(Game& game, ModeGame& mode,ObjectDataStructs::MineData data);
+	Mine(Game& game, ModeGame& mode,MineData data);
 
 	Type GetType()override { return Type::Gimmick; }
 	GimmickType GetGimmickType()override { return GimmickType::Mine; }

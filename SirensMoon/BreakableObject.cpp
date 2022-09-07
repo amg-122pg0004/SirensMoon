@@ -1,7 +1,7 @@
 #include "BreakableObject.h"
 #include "ModeGame.h"
 
-BreakableObject::BreakableObject(Game& game, ModeGame& mode, ObjectDataStructs::BreakableObjectData data)
+BreakableObject::BreakableObject(Game& game, ModeGame& mode, BreakableObjectData data)
 	:Gimmick(game,mode,data.ID)
 {
 	_pos = data.pos;

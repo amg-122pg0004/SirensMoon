@@ -5,155 +5,140 @@
 #include "Math.h"
 
 
-class ObjectDataStructs {
+class ObjectDataBase {
 public:
+	int ID{ -1 };
+	Vector2 pos={0,0};
+};
 
-	struct PlayerData {
-		Vector2 StarPosition;
-		double SpeedMax;
-		double Accelerate;
-		double Friction;
-	};
+class PlayerData :public ObjectDataBase {
+public:
+	double SpeedMax{ 6.0 };
+	double Accelerate { 1.0};
+	double Friction{ 0.9 };
+};
 
-	/*エネミーデータ構造*/
-	struct EnemyData {
-		int ID;
-		Vector2 StartPosition;
-		int patrolID;
-		int waitFrame;
-	};
+/*エネミーデータ構造*/
+class EnemyData :public ObjectDataBase {
+public:
+	int patrolID{ -1 };
+	int waitFrame{ -0 };
+};
 
-	/*エネミーBデータ構造*/
-	struct EnemyBData {
-		int ID;
-		Vector2 StartPosition;
-		std::vector<int> Direction;//<見る角度
-		std::vector<int> LookTime;//<各角度を見る時間
-	};
+/*エネミーBデータ構造*/
+class EnemyBData :public ObjectDataBase {
+public:
+	std::vector<int> Direction;//<見る角度
+	std::vector<int> LookTime;//<各角度を見る時間
+};
 
-	/*エネミー巡回経路データ構造*/
-	struct EnemyPatrol {
-		int ID;
-		std::vector<Vector2> PatrolPoints;
-		bool TruckingMode{ false };
-	};
+/*エネミー巡回経路データ構造*/
+class EnemyPatrol :public ObjectDataBase {
+public:
+	std::vector<Vector2> PatrolPoints;
+	bool TruckingMode{ false };
+};
 
-	/*サーバーデータ構造*/
-	struct ServerMachineData {
-		Vector2 Position;
-		std::string Direction;
-	};
+/*サーバーデータ構造*/
+class ServerMachineData : public ObjectDataBase {
+public:
+	std::string Direction{};
+	bool upperleft{false};
+};
 
-	/*サーバータイルセットデータ構造*/
-	struct ServerTileData {
-		int gid;
-		std::string Direction;
-	};
+/*サーバータイルセットデータ構造*/
+class ServerTileData : public ObjectDataBase {
+public:
+	std::string Direction{"up"};
+	bool upperleft{ false };
+};
 
-	/*テレポーター(in)データ構造*/
-	struct teleporterData {
-		int ID;
-		Vector2 pos;
-		bool random;
-		int tereortID;
-	};
+/*テレポーター(in)データ構造*/
+class teleporterData : public ObjectDataBase {
+public:
+	bool random{false};
+	int tereortID{-1};
+};
 
-	/*バリアデータ構造*/
-	struct BarrierData {
-		int ID;
-		Vector2 pos;
-		int blockPlayerNo;
-	};
+/*バリアデータ構造*/
+class BarrierData : public ObjectDataBase {
+public:
+	int blockPlayerNo{-1};
+};
 
-	/*スイッチデータ構造*/
-	struct SwitchData {
-		int ID;
-		Vector2 pos;
-		bool RedFlag;
-		std::vector<int> links;
-	};
+/*スイッチデータ構造*/
+class SwitchData : public ObjectDataBase {
+public:
+	bool RedFlag{false};
+	std::vector<int> links;
+};
 
-	/*スイッチエリアデータ構造*/
-	struct SwitchAreaData {
-		int ID;
-		Vector2 pos;
-		std::vector<int> links;
-	};
+/*スイッチエリアデータ構造*/
+class SwitchAreaData : public ObjectDataBase {
+public:
+	std::vector<int> links;
+};
 
-	/*Doorデータ構造*/
-	struct DoorData {
-		int ID;
-		Vector2 pos;
-		int PartNo;
-	};
+/*Doorデータ構造*/
+class DoorData : public ObjectDataBase {
+public:
+	int PartNo{-1};
+};
 
-	/*TNTデータ構造*/
-	struct TNTData {
-		int ID;
-		Vector2 pos;
-		int CG;
-	};
+/*TNTデータ構造*/
+class TNTData : public ObjectDataBase {
+public:
+	int CG{-1};
+};
 
-	/*Mineデータ構造*/
-	struct MineData {
-		int ID;
-		Vector2 pos;
-		int range;
-		int dir;
-	};
+/*Mineデータ構造*/
+class MineData : public ObjectDataBase {
+public:
+	int range{-1};
+	int dir{-1};
+};
 
-	/*ScreenPumpデータ構造*/
-	struct ScreenPumpData {
-		int ID;
-		Vector2 pos;
-		int range;
-		int dir;
-	};
+/*ScreenPumpデータ構造*/
+class ScreenPumpData : public ObjectDataBase {
+public:
+	int range{180};
+	int dir{-1};
+};
 
-	/*StickyBomb*/
-	struct StickyBombData {
-		int ID;
-		Vector2 pos;
-		int range;
-		int timer;
-	};
+/*StickyBomb*/
+class StickyBombData : public ObjectDataBase {
+public:
+	int range{180};
+	int timer{-1};
+};
 
 
-	struct BreakableObjectData
-	{
-		int ID;
-		Vector2 pos;
-	};
+class BreakableObjectData : public ObjectDataBase{
+public:
+};
 
-	struct DegitalLetterData
-	{
-		int ID;
-		Vector2 pos;
-		std::string message;
-	};
+class DegitalLetterData : public ObjectDataBase {
+public:
+	std::string message{};
+};
 
-	struct BigServerData {
-		int ID;
-		Vector2 pos;
-		std::string Direction;
-	};
+class BigServerData : public ObjectDataBase {
+public:
+	std::string Direction{};
+};
 
-	struct BigGeneratorData {
-		int ID;
-		Vector2 pos;
-	};
+class BigGeneratorData : public ObjectDataBase {
+public:
+};
 
-	struct BigGunData {
-		int ID;
-		Vector2 pos;
-	};
+class BigGunData :public ObjectDataBase {
+public:
+};
 
-	struct BossGimmickControllerData {
-		int ID;
-		Vector2 pos;
-		int gunID;
-		int teleporterID;
-		std::vector<int> serversID;
-		std::vector<int> generatorsID;
-	};
+class BossGimmickControllerData:public ObjectDataBase {
+public:
+	int gunID{-1};
+	int teleporterID{-1};
+	std::vector<int> serversID;
+	std::vector<int> generatorsID;
 };

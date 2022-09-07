@@ -3,7 +3,7 @@
 
 class EnemyB:public Enemy{
 public:
-	EnemyB(Game& game, ModeGame& mode, ObjectDataStructs::EnemyBData enemydata, EnemyGenerator::EnemyPattern pattern);
+	EnemyB(Game& game, ModeGame& mode, EnemyBData enemydata, EnemyGenerator::EnemyPattern pattern);
 
 	void Update() override;
 
@@ -17,5 +17,5 @@ private:
 	/*Œo‰ßƒtƒŒ[ƒ€*/
 	int _elapsed;
 
-	ObjectDataStructs::EnemyBData _data;
+	EnemyBData _data;
 };

@@ -4,7 +4,7 @@
 
 class Door:public Gimmick{
 public:
-	Door(Game& game, ModeGame& mode, ObjectDataStructs::DoorData data);
+	Door(Game& game, ModeGame& mode, DoorData data);
 	void Update() override;
 	void StandardRender(Vector2 window_pos, Vector2 camera_pos)override;
 

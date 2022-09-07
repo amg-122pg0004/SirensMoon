@@ -4,7 +4,7 @@
 #include "BossGimmickController.h"
 #include <sstream>
 
-BigGenerator::BigGenerator(Game& game, ModeGame& mode, ObjectDataStructs::BigGeneratorData data, BossGimmickController& controller)
+BigGenerator::BigGenerator(Game& game, ModeGame& mode, BigGeneratorData data, BossGimmickController& controller)
 	:Gimmick(game,mode,data.ID),_span{20},_elapsed{0},_flash{false}
 	,_index{0},_pattern{-1},_signal{false},_controller{controller},_accessible{false}
 {

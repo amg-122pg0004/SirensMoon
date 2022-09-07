@@ -1,7 +1,7 @@
 #include "teleporter.h"
 #include "ModeGame.h"
 
-teleporterIn::teleporterIn(Game& game, ModeGame& mode, int ID, ObjectDataStructs::teleporterData data)
+teleporterIn::teleporterIn(Game& game, ModeGame& mode, int ID, teleporterData data)
 	:Gimmick(game,mode,data.ID)
 {
 	_cg = ImageServer::LoadGraph("resource/Gimmick/teleporter.png");

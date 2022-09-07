@@ -4,7 +4,7 @@
 
 class SwitchArea :public Gimmick {
 public:
-	SwitchArea(Game& game, ModeGame& mode, ObjectDataStructs::SwitchAreaData data);
+	SwitchArea(Game& game, ModeGame& mode, SwitchAreaData data);
 	Type GetType()override { return Type::Gimmick; }
 	GimmickType GetGimmickType() override { return GimmickType::SwitchArea; }
 	void Update()override;

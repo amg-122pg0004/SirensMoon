@@ -2,7 +2,7 @@
 #include "ModeGame.h"
 #include "Explode.h"
 
-TNT::TNT(Game& game, ModeGame& mode, ObjectDataStructs::TNTData data):Gimmick(game,mode,data.ID)
+TNT::TNT(Game& game, ModeGame& mode, TNTData data):Gimmick(game,mode,data.ID)
 {
 	_activate = false;
 	_pos = data.pos;

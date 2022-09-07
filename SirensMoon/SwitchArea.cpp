@@ -1,7 +1,7 @@
 #include "SwitchArea.h"
 #include "ModeGame.h"
 
-SwitchArea::SwitchArea(Game& game, ModeGame& mode, ObjectDataStructs::SwitchAreaData data)
+SwitchArea::SwitchArea(Game& game, ModeGame& mode, SwitchAreaData data)
 	:Gimmick(game, mode, data.ID), _linkGimmiks{ data.links }
 {
 	_pos = data.pos;

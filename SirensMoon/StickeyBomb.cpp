@@ -6,7 +6,7 @@
 #include <sstream>
 #include "ObjectiveUI.h"
 
-StickyBomb::StickyBomb(Game& game, ModeGame& mode, ObjectDataStructs::StickyBombData data)
+StickyBomb::StickyBomb(Game& game, ModeGame& mode, StickyBombData data)
 	:Gimmick(game,mode,data.ID),_accessible1{false},_accessible2{false},_player{nullptr}
 {
 	_renderPriority = 5000;

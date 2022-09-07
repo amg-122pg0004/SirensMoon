@@ -3,7 +3,7 @@
 #include "LinkLight.h"
 #include "SquareLight.h"
 
-Switch::Switch(Game& game, ModeGame& mode, ObjectDataStructs::SwitchData data)
+Switch::Switch(Game& game, ModeGame& mode, SwitchData data)
 	:Gimmick(game, mode, data.ID), _linkGimmiks{ data.links }, _accessible1{0}, _accessible2{ 0 },_cg3{-1}
 {
 	_activate = false;

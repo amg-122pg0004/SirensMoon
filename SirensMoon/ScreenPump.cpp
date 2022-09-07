@@ -3,7 +3,7 @@
 #include "Player.h"
 #include "Enemy.h"
 
-ScreenPump::ScreenPump(Game& game, ModeGame& mode, ObjectDataStructs::ScreenPumpData data)
+ScreenPump::ScreenPump(Game& game, ModeGame& mode, ScreenPumpData data)
 	:Gimmick(game, mode, data.ID), _dir{ data.dir }
 {
 	_range = data.range;

@@ -3,10 +3,10 @@
 #include "map"
 #include <random>
 
-EnemyA::EnemyA(Game& game, ModeGame& mode, ObjectDataStructs::EnemyData data, EnemyGenerator::EnemyPattern grdata)
+EnemyA::EnemyA(Game& game, ModeGame& mode, EnemyData data, EnemyGenerator::EnemyPattern grdata)
 	:Enemy { game,mode,grdata }, _waitFrame{data.waitFrame}
 {
-	_pos = { data.StartPosition.x,data.StartPosition.y };
+	_pos = { data.pos.x,data.pos.y };
 	_eyePos = _pos;
 	_patrolID = data.patrolID;
 	_patrolFlag = 1;

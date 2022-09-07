@@ -3,7 +3,7 @@
 #include "AimUI.h"
 #include "BossGimmickController.h"
 
-BigGun::BigGun(Game& game, ModeGame& mode, ObjectDataStructs::BigGunData data, BossGimmickController& controller)
+BigGun::BigGun(Game& game, ModeGame& mode, BigGunData data, BossGimmickController& controller)
 	:Gimmick(game,mode,data.ID),_accessible{false},_controller{controller}
 {
 	_cg = ImageServer::LoadGraph("resource/Gimmick/biggun.png");

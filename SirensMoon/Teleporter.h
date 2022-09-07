@@ -7,7 +7,7 @@ class ModeGame;
 
 class teleporterIn :public Gimmick {
 public:
-	teleporterIn(Game& game, ModeGame& mode, int ID, ObjectDataStructs::teleporterData data);
+	teleporterIn(Game& game, ModeGame& mode, int ID, teleporterData data);
 	Type GetType()override { return Type::Gimmick; }
 	GimmickType GetGimmickType()override { return GimmickType::Teleporter; }
 

@@ -18,15 +18,15 @@
 #include "LightBase.h"
 #include "teleporter.h"
 
-Player::Player(Game& game,ModeGame& mode,int playernum)
-	:Actor{ game,mode }, _speed{ 0,0 }, _playerNum{playernum}
-	, _dir{0,0}, _lastDir{ 1,0 }, _hp{ 3 },_hpMAX{3},  _movable{1}
-	,_init{false},_state{PlayerState::Wait},_direction{PlayerDirection::Right},_animNo{0}, _invincibleTime{0}
-	,_stageMovable{true}
+Player::Player(Game& game, ModeGame& mode, int playernum)
+	:Actor{ game,mode }, _speed{ 0,0 }, _playerNum{ playernum }
+	, _dir{ 0,0 }, _lastDir{ 1,0 }, _hp{ 3 }, _hpMAX{ 3 }, _movable{ 1 }
+	, _init{ false }, _state{ PlayerState::Wait }, _direction{ PlayerDirection::Right }, _animNo{ 0 }, _invincibleTime{ 0 }
+	, _stageMovable{ true }
 {
 	_inputManager = _game.GetInputManager();
 	auto data = _mode.GetMapChips()->GetPlayerData(_playerNum);
-	Vector2 pos = data.StarPosition;
+	Vector2 pos = data.pos;
 	_speedMax = data.SpeedMax;
 	_accelerationRatio = data.Accelerate;
 	_friction = data.Friction;
@@ -50,7 +50,7 @@ void Player::Update() {
 	}
 	/*アナログ入力取得*/
 	_dir = _inputManager->CheckAnalogInput(_playerNum);
-	_dir = _dir/1000;
+	_dir = _dir / 1000;
 	if (_dir.Length() != 0) {
 		_lastDir = _dir;
 		//_lastDir.Normalize();
@@ -65,7 +65,7 @@ void Player::Update() {
 	/*敵かダメージギミックに触れていたらダメージ*/
 	CheckDamage();
 	/*自分の位置を確認*/
-	_roomPosition=CheckRoomPosition();
+	_roomPosition = CheckRoomPosition();
 	/*ハイドタイムを確認*/
 	UpdateHide();
 }
@@ -77,7 +77,7 @@ void Player::PlayerOverlap() {
 				Vector2 col1_centerpos = (_collision.min + _collision.max) / 2;
 				Vector2 col2_centerpos = (actor->GetCollision().max + actor->GetCollision().min) / 2;
 				Vector2 dir = col1_centerpos - col2_centerpos;
-				double dx{ 0 },dy{ 0 };
+				double dx{ 0 }, dy{ 0 };
 				if (dir.y > 0) {
 					dy = _size.y - dir.y;
 				}
@@ -99,7 +99,7 @@ void Player::PlayerOverlap() {
 				_pos.x += dx;
 				UpdateCollision();
 				/*衝突するなら動かない（元の位置に戻す）*/
-				if (_mode.GetMapChips()->IsHit(_collision,true) ||
+				if (_mode.GetMapChips()->IsHit(_collision, true) ||
 					_mode.GetMapChips()->IsHitBarrier(_collision, _playerNum) ||
 					IsHitActor()) {
 					_pos.x -= dx;
@@ -108,8 +108,8 @@ void Player::PlayerOverlap() {
 				_pos.y += dy;
 				/*衝突するなら動かない（元の位置に戻す）*/
 				UpdateCollision();
-				if (_mode.GetMapChips()->IsHit(_collision,true)||
-					_mode.GetMapChips()->IsHitBarrier(_collision, _playerNum)||
+				if (_mode.GetMapChips()->IsHit(_collision, true) ||
+					_mode.GetMapChips()->IsHitBarrier(_collision, _playerNum) ||
 					IsHitActor()) {
 					_pos.y -= dy;
 					UpdateCollision();
@@ -123,7 +123,7 @@ void Player::Move() {
 	if (_dir.Length() > 1) {
 		_dir.Normalize();
 	}
-	if (_movable){
+	if (_movable) {
 		/*入力値によって加速*/
 		_speed += _dir * _accelerationRatio;
 
@@ -136,8 +136,8 @@ void Player::Move() {
 	/*X方向*/
 	_pos.x += _speed.x;
 	UpdateCollision();
-	if (_mode.GetMapChips() ->IsHit(_collision,true)) {
-		_pos.x += -1*_speed.x;
+	if (_mode.GetMapChips()->IsHit(_collision, true)) {
+		_pos.x += -1 * _speed.x;
 		_speed.x = 0;
 	}
 	UpdateCollision();
@@ -156,7 +156,7 @@ void Player::Move() {
 
 	_pos.y += _speed.y;
 	UpdateCollision();
-	if (_mode.GetMapChips() ->IsHit(_collision,true)) {
+	if (_mode.GetMapChips()->IsHit(_collision, true)) {
 		if (CheckSoundMem(SoundServer::Find("EnterBarrierFail")) == 0) {
 			PlaySoundMem(SoundServer::Find("EnterBarrierFail"), DX_PLAYTYPE_BACK);
 		}
@@ -175,7 +175,7 @@ void Player::Move() {
 		_pos.y += -1 * _speed.y;
 		_speed.y = 0;
 	}
-	
+
 	/*ステージ外に出ないようにする処理*/
 	/*画面遷移許可中*/
 	if (_stageMovable) {
@@ -199,11 +199,11 @@ void Player::Move() {
 	}
 	/*画面遷移禁止中*/
 	else {
-		if (_roomPosition.x*splitscreen_W < 0) {
+		if (_roomPosition.x * splitscreen_W < 0) {
 			_pos.x = 0;
 			_speed.x = 0;
 		}
-		else if (static_cast<int>(_pos.x) + _size.x > (_roomPosition.x + 1) *splitscreen_W) {
+		else if (static_cast<int>(_pos.x) + _size.x > (_roomPosition.x + 1) * splitscreen_W) {
 			_pos.x = splitscreen_W * 4 - _size.x;
 			_speed.x = 0;
 		}
@@ -222,8 +222,8 @@ void Player::Move() {
 
 	UpdateCamera();
 
-	if (_speed.Length()<0.1) {
-		_state=PlayerState::Wait;
+	if (_speed.Length() < 0.1) {
+		_state = PlayerState::Wait;
 	}
 	else if (_speed.Length() < 2.8) {
 		if (_state == PlayerState::Wait) {
@@ -235,7 +235,7 @@ void Player::Move() {
 		_state = PlayerState::Run;
 	}
 
-	if (abs(_lastDir.x)>abs(_lastDir.y)) {
+	if (abs(_lastDir.x) > abs(_lastDir.y)) {
 		if (_lastDir.x >= 0) {
 			_direction = PlayerDirection::Right;
 		}
@@ -262,7 +262,7 @@ void Player::ChangePosition(Vector2 pos) {
 void Player::UpdateCamera() {
 	/*フレームアウトした際にカメラを動かす処理*/
 	auto&& rendercamera = _mode.GetSplitWindow()[_playerNum]->GetCamera();
-	Vector2 renderposition = (_collision.min + _collision.max)/2 - rendercamera->GetPosition();
+	Vector2 renderposition = (_collision.min + _collision.max) / 2 - rendercamera->GetPosition();
 
 	if (renderposition.x < 0 && _speed.x < 0) {
 		rendercamera->ChangePosition(Camera::ChangeDir::LEFT);
@@ -281,9 +281,9 @@ void Player::UpdateCamera() {
 bool Player::IsHitActor() {
 	for (auto&& actor : _mode.GetActorServer().GetObjects()) {
 		//actor->GetType() == Type::Enemy || エネミーへの当たり判定削除
-		if ( actor->GetType() == Type::Server) {
+		if (actor->GetType() == Type::Server) {
 			if (Intersect(_collision, actor->GetCollision())) {
-			return true;
+				return true;
 			}
 		}
 		if (actor->GetType() == Type::Gimmick) {
@@ -324,24 +324,24 @@ void Player::Action() {
 	/*子クラスにてプレイヤーごとの固有アクション設定*/
 }
 
-void Player::StandardRender(Vector2 window_pos,Vector2 camera_pos){
+void Player::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 	std::vector<int> cg = _cg[{_state, _direction}];
-	if (_state == PlayerState::Set|| _state == PlayerState::Shoot) {
-		DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x - (_size.y/2)),
-			static_cast<int>(_pos.y + window_pos.y - camera_pos.y - (_size.y / 2)*0.6),
-			static_cast<int>(_pos.x + window_pos.x - camera_pos.x - (_size.y / 2)+_size.y*1.5),
-			static_cast<int>(_pos.y + window_pos.y - camera_pos.y - (_size.y / 2)*0.6+_size.y*1.5), cg[_animNo], 1);
+	if (_state == PlayerState::Set || _state == PlayerState::Shoot) {
+		DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x - (_size.y / 2)),
+			static_cast<int>(_pos.y + window_pos.y - camera_pos.y - (_size.y / 2) * 0.6),
+			static_cast<int>(_pos.x + window_pos.x - camera_pos.x - (_size.y / 2) + _size.y * 1.5),
+			static_cast<int>(_pos.y + window_pos.y - camera_pos.y - (_size.y / 2) * 0.6 + _size.y * 1.5), cg[_animNo], 1);
 		++_animNo;
 		if (_animNo >= cg.size()) {
 			_animNo = static_cast<int>(cg.size()) - 1;
 		}
 	}
 	else {
-			DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x - (_size.y / 2)),
-				static_cast<int>(_pos.y + window_pos.y - camera_pos.y - (_size.y / 2)*0.6),
-				static_cast<int>(_pos.x + window_pos.x - camera_pos.x - (_size.y / 2) + _size.y*1.5),
-				static_cast<int>(_pos.y + window_pos.y - camera_pos.y - (_size.y / 2)*0.6 + _size.y*1.5),
-				cg[_game.GetFrameCount() % cg.size()], 1);
+		DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x - (_size.y / 2)),
+			static_cast<int>(_pos.y + window_pos.y - camera_pos.y - (_size.y / 2) * 0.6),
+			static_cast<int>(_pos.x + window_pos.x - camera_pos.x - (_size.y / 2) + _size.y * 1.5),
+			static_cast<int>(_pos.y + window_pos.y - camera_pos.y - (_size.y / 2) * 0.6 + _size.y * 1.5),
+			cg[_game.GetFrameCount() % cg.size()], 1);
 	}
 }
 
@@ -354,7 +354,7 @@ void Player::UpdateCollision() {
 void Player::TakeDamage(Actor::Type type) {
 	--_hp;
 	PlaySoundMem(SoundServer::Find("PlayerDamage"), DX_PLAYTYPE_BACK);
-	StartJoypadVibration(DX_INPUT_PAD1,1000,600,-1);
+	StartJoypadVibration(DX_INPUT_PAD1, 1000, 600, -1);
 	if (type == Type::Enemy) {
 		_mode.SetPauseGame(true);
 		_mode.DamageEvent();
@@ -371,8 +371,6 @@ void Player::Heal() {
 	}
 }
 
-
-
 void Player::Checkteleport() {
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::Gimmick) {
@@ -384,7 +382,7 @@ void Player::Checkteleport() {
 						continue;
 					}
 					/*ステージ3かつ自分が2Pなら動かない*/
-					if (_game.GetProgress()==Game::Progress::Stage3&&_playerNum==1) {
+					if (_game.GetProgress() == Game::Progress::Stage3 && _playerNum == 1) {
 						continue;
 					}
 					auto teleport = dynamic_cast<teleporterIn&>(*actor);
@@ -416,7 +414,7 @@ void Player::Checkteleport() {
 	}
 }
 
-void Player::Debug(Vector2 window_pos, Vector2 camera_pos){
+void Player::Debug(Vector2 window_pos, Vector2 camera_pos) {
 	//デバッグ用座標表示
 
 	_collision.Draw2(window_pos, camera_pos);
@@ -426,12 +424,12 @@ void Player::Debug(Vector2 window_pos, Vector2 camera_pos){
 	ss << "_collision.max.x" << _collision.max.x << "\n";
 	ss << "_collision.max.y" << _collision.max.y << "\n";
 	ss << "ハイドタイム" << _hideTime << "\n";
-	ss << "方向" << _dir.x <<"  "<<_dir.y << "\n";
+	ss << "方向" << _dir.x << "  " << _dir.y << "\n";
 	ss << "スピード" << _speed.Length() << "\n";
 	DrawString(50 + _playerNum * 960, 100, ss.str().c_str(), GetColor(255, 0, 255));
 }
 
-void Player::UpdateHide(){
+void Player::UpdateHide() {
 	--_hideTime;
 	if (_hideTime < 0) {
 		_hideTime = 0;
@@ -440,10 +438,10 @@ void Player::UpdateHide(){
 	}
 }
 
-bool Player::SetHideFlag(){
+bool Player::SetHideFlag() {
 	if (!_hide) {
 		_hide = true;
-		_hideTime = 30*60;
+		_hideTime = 30 * 60;
 		return true;
 	}
 	return false;

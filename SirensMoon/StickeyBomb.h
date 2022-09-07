@@ -7,7 +7,7 @@ class ModeGame;
 
 class StickyBomb :public Gimmick {
 public:
-	StickyBomb(Game& game, ModeGame& mode, ObjectDataStructs::StickyBombData data);
+	StickyBomb(Game& game, ModeGame& mode, StickyBombData data);
 
 	Type GetType()override { return Type::Gimmick; }
 	GimmickType GetGimmickType()override { return GimmickType::StickyBomb; }

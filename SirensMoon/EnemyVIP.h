@@ -5,7 +5,7 @@ class ServerMachine;
 
 class EnemyVIP : public EnemyA {
 public:
-	EnemyVIP(Game& game, ModeGame& mode, ObjectDataStructs::EnemyData enemydata,ServerMachine& owner, ObjectDataStructs::EnemyPatrol patrol, EnemyGenerator::EnemyPattern pattern);
+	EnemyVIP(Game& game, ModeGame& mode, EnemyData enemydata,ServerMachine& owner, EnemyPatrol patrol, EnemyGenerator::EnemyPattern pattern);
 	void Update() override;
 	void TakeDamage(Type)override;
 	void CheckDamage()override;

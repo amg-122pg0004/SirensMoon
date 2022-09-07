@@ -3,7 +3,7 @@
 #include "Player.h"
 #include "Enemy.h"
 
-Mine::Mine(Game& game, ModeGame& mode, ObjectDataStructs::MineData data)
+Mine::Mine(Game& game, ModeGame& mode, MineData data)
 	:Gimmick(game,mode,data.ID),_dir{data.dir}
 {
 	_range = data.range;

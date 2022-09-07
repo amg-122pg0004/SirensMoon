@@ -9,7 +9,7 @@ class InputManager;
 
 class ServerMachine :public Actor {
 public:
-	ServerMachine(Game& game, ModeGame& mode, ObjectDataStructs::ServerMachineData data, EnemyGenerator::EnemyPattern grData);
+	ServerMachine(Game& game, ModeGame& mode, ServerMachineData data, EnemyGenerator::EnemyPattern grData);
 	Type GetType() { return Type::Server; }
 	void Update()override;
 	void ChangeValidFlag(bool);
@@ -26,7 +26,7 @@ private:
 	int _energy;
 
 	/*1è„,2âE,3â∫,4ç∂*/
-	ObjectDataStructs::ServerMachineData _serverData;
+	ServerMachineData _serverData;
 
 	int _cg_up;
 	int _cg_right;
