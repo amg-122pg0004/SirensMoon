@@ -1,12 +1,6 @@
-#include <DxLib.h>
 #include"MapChip.h"
-#include "picojson/picojson.h"
 #include "Camera.h"
 #include "ImageServer.h"
-#include <memory>
-#include <fstream>
-#include <unordered_map>
-#include "strconv/strconv.h"
 
 MapChip::MapChip(Game& game, ModeBase& mode, std::string filename) :_game{ game }, _mode{ mode }{
 	_mapTileData.clear();
@@ -43,15 +37,24 @@ bool MapChip::LoadMap(std::string folderpath, std::string filename)
 
 		/*オブジェクトレイヤーに存在するオブジェクト配列*/
 		picojson::array aObjects;
-		if (jsLayer["objects"].is<picojson::array>()) {
+		if (jsLayer["type"].get<std::string>() == "objectgroup")) {
 			aObjects = jsLayer["objects"].get<picojson::array>();
+			picojson::object aObject = aObjects[i].get<picojson::object>();
+			int gid = static_cast<int>(aObject["gid"].get<double>());
+			if (_objectGIDs.count(gid) == 0) {
+				continue;
+			}
+			auto data = static_cast<BulletItemData&>(_objectGIDs[gid]);
+			SetBasicObjectData(aObject, data);
 		}
+
 		// レイヤー種類が「tilelayer」のもの
 		if (jsLayer["type"].get<std::string>() == "tilelayer")
 		{
 			LoadTileLayer(jsLayer);
 		}
 		/*レイヤーの名前がMiniMapの物を取得*/
+		/*
 		else if (jsLayer["name"].get<std::string>() == "MiniMap")
 		{
 			LoadMiniMapLayer(aObjects);
@@ -79,6 +82,7 @@ bool MapChip::LoadMap(std::string folderpath, std::string filename)
 		else if (jsLayer["name"].get<std::string>() == "Boss") {
 			LoadBossLayer(aObjects);
 		}
+		*/
 	}
 	return true;
 }
@@ -114,82 +118,67 @@ void MapChip::LoadTilesets(picojson::object jsRoot, std::string folderpath) {
 			/*各クラスgid読み込み*/
 			if (tileObject["class"].is<std::string>()) {
 				if (tileObject["class"].get<std::string>() == "Enemy") {
-					_gidEnemy.push_back(static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back()));
+					int gid = (static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back()));
+					EnemyData data;
+					_objectGIDs[gid] = data;
 				}
 				if (tileObject["class"].get<std::string>() == "EnemyB") {
 					std::vector<int> v_zero;
 					v_zero.resize(4);
 					std::fill(v_zero.begin(), v_zero.end(), 0);
 					EnemyBData data;
-					data.ID = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
+					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
 					data.pos = { 0,0 };
 					data.Direction.resize(4);
 					if (tileObject["properties"].is<picojson::array>()) {
 						auto properties = tileObject["properties"].get<picojson::array>();
-						for (int i2 = 0; i2 < properties.size(); ++i2) {
-							if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "Direction1") {
-								data.Direction[0] = static_cast<int>(properties[i2].get<picojson::object>()["value"].get<double>());
-							}
-							if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "Direction2") {
-								data.Direction[1] = static_cast<int>(properties[i2].get<picojson::object>()["value"].get<double>());
-							}
-							if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "Direction3") {
-								data.Direction[2] = static_cast<int>(properties[i2].get<picojson::object>()["value"].get<double>());
-							}
-							if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "Direction4") {
-								data.Direction[3] = static_cast<int>(properties[i2].get<picojson::object>()["value"].get<double>());
-							}
-							if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "LookTime1") {
-								data.Direction[0] = static_cast<int>(properties[i2].get<picojson::object>()["value"].get<double>());
-							}
-							if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "LookTime2") {
-								data.Direction[1] = static_cast<int>(properties[i2].get<picojson::object>()["value"].get<double>());
-							}
-							if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "LookTime3") {
-								data.Direction[2] = static_cast<int>(properties[i2].get<picojson::object>()["value"].get<double>());
-							}
-							if (properties[i2].get<picojson::object>()["name"].get<std::string>() == "LookTime4") {
-								data.Direction[3] = static_cast<int>(properties[i2].get<picojson::object>()["value"].get<double>());
-							}
-						}
+						FindPropertieData(data.Direction[0], properties, "Direction1");
+						FindPropertieData(data.Direction[1], properties, "Direction2");
+						FindPropertieData(data.Direction[2], properties, "Direction3");
+						FindPropertieData(data.Direction[3], properties, "Direction4");
+						FindPropertieData(data.LookTime[0], properties, "LookTime1");
+						FindPropertieData(data.LookTime[1], properties, "LookTime2");
+						FindPropertieData(data.LookTime[2], properties, "LookTime3");
+						FindPropertieData(data.LookTime[3], properties, "LookTime4");
 					}
-					_gidEnemyB.push_back(data);
+					_objectGIDs[gid] = data;
 				}
 				if (tileObject["class"].get<std::string>() == "Barrier") {
-					int player{ 1 };
+					BarrierData data;
 					if (tileObject["properties"].is<picojson::array>()) {
 						auto properties = tileObject["properties"].get<picojson::array>();
 						for (int i3 = 0; i3 < properties.size(); ++i3) {
 							picojson::object aPropetie = properties[i3].get<picojson::object>();
 							if (aPropetie["name"].get<std::string>() == "Player") {
-								player = static_cast<int>(aPropetie["value"].get<double>());
+								data.blockPlayerNo = static_cast<int>(aPropetie["value"].get<double>());
 							}
 						}
 					}
-					if (player == 1) {
-						_gidBarrier1.push_back(static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back()));
-					}
-					else {
-						_gidBarrier2.push_back(static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back()));
-					}
+					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
+					_objectGIDs[gid] = data;
 				}
 				if (tileObject["class"].get<std::string>() == "ItemAmmo") {
-					_gidItemAmmo.push_back(static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back()));
+					BulletItemData data;
+					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
+					_objectGIDs[gid] = data;
 				}
 				if (tileObject["class"].get<std::string>() == "ItemHP") {
-					_gidItemHP.push_back(static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back()));
+					HPItemData data;
+					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
+					_objectGIDs[gid] = data;
 				}
 				if (tileObject["class"].get<std::string>() == "Player") {
 					PlayerData data;
 					if (tileObject["properties"].is<picojson::array>()) {
 						auto properties = tileObject["properties"].get<picojson::array>();
+						FindPropertieData(data.Player, properties, "Player");
 						FindPropertieData(data.Accelerate, properties, "Accelerate");
 						FindPropertieData(data.Friction, properties, "Friction");
 						FindPropertieData(data.SpeedMax, properties, "SpeedMax");
 
 					}
-					auto gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-					_gidPlayer.push_back({ gid,data });
+					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
+					_objectGIDs[gid] = data;
 				}
 				if (tileObject["class"].get<std::string>() == "Server") {
 					ServerTileData data;
@@ -206,159 +195,137 @@ void MapChip::LoadTilesets(picojson::object jsRoot, std::string folderpath) {
 						}
 					}
 					if (data.upperleft) {
-						auto gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-						_gidServer.push_back(data);
+						int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
+						_objectGIDs[gid] = data;
 					}
 				}
 				if (tileObject["class"].get<std::string>() == "Light") {
-					SquareLight::SquareLightStats stats;
-					/*id*/
-					auto id = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
+					SquareLightStats data;
+					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
 
 					if (tileObject["properties"].is<picojson::array>()) {
 						auto properties = tileObject["properties"].get<picojson::array>();
-						for (int i3 = 0; i3 < properties.size(); ++i3) {
-							picojson::object aPropetie = properties[i3].get<picojson::object>();
-							if (aPropetie["name"].get<std::string>() == "Activate") {
-								stats.activate = aPropetie["value"].get<bool>();
-							}
-							if (aPropetie["name"].get<std::string>() == "Color : A") {
-								stats.alpha = static_cast<int>(aPropetie["value"].get<double>());
-							}
-							if (aPropetie["name"].get<std::string>() == "Color : B") {
-								stats.b = static_cast<int>(aPropetie["value"].get<double>());
-							}
-							if (aPropetie["name"].get<std::string>() == "Color : G") {
-								stats.g = static_cast<int>(aPropetie["value"].get<double>());
-							}
-							if (aPropetie["name"].get<std::string>() == "Color : R") {
-								stats.r = static_cast<int>(aPropetie["value"].get<double>());
-							}
-							if (aPropetie["name"].get<std::string>() == "ObjectImage") {
-								stats.object = aPropetie["value"].get<std::string>();
-							}
-							if (aPropetie["name"].get<std::string>() == "Image") {
-								stats.image = aPropetie["value"].get<std::string>();
-							}
-							if (aPropetie["name"].get<std::string>() == "Size_X") {
-								stats.size.x = aPropetie["value"].get<double>();
-							}
-							if (aPropetie["name"].get<std::string>() == "Size_Y") {
-								stats.size.y = aPropetie["value"].get<double>();
-							}
-						}
+						FindPropertieData(data.activate, properties,"Activate");
+						FindPropertieData(data.alpha, properties, "Color : A");
+						FindPropertieData(data.b, properties, "Color : B");
+						FindPropertieData(data.g, properties, "Color : G");
+						FindPropertieData(data.r, properties, "Color : R");
+						FindPropertieData(data.object, properties, "ObjectImage");
+						FindPropertieData(data.image, properties, "Image");
+						FindPropertieData(data.size.x, properties, "Size_X");
+						FindPropertieData(data.size.y, properties, "Size_Y");
 					}
-					_gidLight.push_back({ id,stats });
+					_objectGIDs[gid] = data;
 				}
 				if (tileObject["class"].get<std::string>() == "Teleport_IN") {
-					bool randamFlag{ 0 };
+					teleporterData data;
 					if (tileObject["properties"].is<picojson::array>()) {
 						auto properties = tileObject["properties"].get<picojson::array>();
-						for (int i3 = 0; i3 < properties.size(); ++i3) {
-							picojson::object aPropetie = properties[i3].get<picojson::object>();
-							if (aPropetie["name"].get<std::string>() == "Random") {
-								randamFlag = aPropetie["value"].get<bool>();
-							}
-						}
+						FindPropertieData(data.random, properties, "Random");
 					}
-					auto id = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-					_gidteleportIn[id] = randamFlag;
+					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
+					_objectGIDs[gid] = data;
 				}
 				if (tileObject["class"].get<std::string>() == "Teleport_OUT") {
-					bool randamFlag{ 0 };
+					TeleporterOutData data;
 					if (tileObject["properties"].is<picojson::array>()) {
 						auto properties = tileObject["properties"].get<picojson::array>();
-						for (int i3 = 0; i3 < properties.size(); ++i3) {
-							picojson::object aPropetie = properties[i3].get<picojson::object>();
-							if (aPropetie["name"].get<std::string>() == "RandomPort") {
-								randamFlag = aPropetie["value"].get<bool>();
-							}
-						}
+						FindPropertieData(data.random, properties, "RandomPort");
 					}
-					auto id = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-					_gidteleportOut[id] = randamFlag;
+					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
+					_objectGIDs[gid] = data;
 				}
 				if (tileObject["class"].get<std::string>() == "Switch") {
-					auto id = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-					bool redflag{ false };
+					SwitchData data;
+					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
 					if (tileObject["properties"].is<picojson::array>()) {
 						auto properties = tileObject["properties"].get<picojson::array>();
-						for (int i3 = 0; i3 < properties.size(); ++i3) {
-							picojson::object aPropetie = properties[i3].get<picojson::object>();
-							if (aPropetie["name"].get<std::string>() == "Red?") {
-								redflag = aPropetie["value"].get<bool>();
-							}
-						}
+						FindPropertieData(data.RedFlag, properties, "RandomPort");
 					}
-					_gidSwitch.push_back({ id,redflag });
+					_objectGIDs[gid] = data;
 				}
 				if (tileObject["class"].get<std::string>() == "SwitchArea") {
-					auto id = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-					_gidSwitchArea.push_back(id);
+					SwitchAreaData data;
+					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
+					_objectGIDs[gid] = data;
 				}
 				if (tileObject["class"].get<std::string>() == "Door") {
 					DoorData data;
-					data.ID = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
+					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
 					if (tileObject["properties"].is<picojson::array>()) {
 						auto properties = tileObject["properties"].get<picojson::array>();
-						for (int i3 = 0; i3 < properties.size(); ++i3) {
-							picojson::object aPropetie = properties[i3].get<picojson::object>();
-							if (aPropetie["name"].get<std::string>() == "PartNo") {
-								data.PartNo = static_cast<int>(aPropetie["value"].get<double>());
-							}
-						}
+						FindPropertieData(data.PartNo, properties, "PartNo");
 					}
-					_gidDoor.push_back(data);
+					_objectGIDs[gid] = data;
 				}
 				if (tileObject["class"].get<std::string>() == "TNT") {
 					TNTData data;
-					data.ID = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
+					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
 					if (tileObject["properties"].is<picojson::array>()) {
 						auto properties = tileObject["properties"].get<picojson::array>();
-						for (int i3 = 0; i3 < properties.size(); ++i3) {
-							picojson::object aPropetie = properties[i3].get<picojson::object>();
-							if (aPropetie["name"].get<std::string>() == "CGNo") {
-								data.CG = static_cast<int>(aPropetie["value"].get<double>());
-							}
-						}
+						FindPropertieData(data.CG, properties, "CGNo");
 					}
-					_gidTNT.push_back(data);
+					_objectGIDs[gid] = data;
 				}
 				if (tileObject["class"].get<std::string>() == "Mine") {
-					auto id = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-					_gidMine.push_back(id);
+					MineData data;
+					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
+					if (tileObject["properties"].is<picojson::array>()) {
+						auto properties = tileObject["properties"].get<picojson::array>();
+						FindPropertieData(data.range, properties, "Range");
+						FindPropertieData(data.dir, properties, "Direction");
+					}
+					_objectGIDs[gid] = data;
 				}
 				if (tileObject["class"].get<std::string>() == "ScreenPump") {
-					auto id = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-					_gidScreenPump.push_back(id);
+					ScreenPumpData data;
+					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
+					if (tileObject["properties"].is<picojson::array>()) {
+						auto properties = tileObject["properties"].get<picojson::array>();
+						FindPropertieData(data.range, properties, "Range");
+						FindPropertieData(data.dir, properties, "Direction");
+					}
+					_objectGIDs[gid] = data;
 				}
 				if (tileObject["class"].get<std::string>() == "StickyBomb") {
-					auto id = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-					_gidStickyBomb.push_back(id);
+					StickyBombData data;
+					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
+					if (tileObject["properties"].is<picojson::array>()) {
+						auto properties = tileObject["properties"].get<picojson::array>();
+						FindPropertieData(data.range, properties, "Range");
+						FindPropertieData(data.timer, properties, "Timer");
+					}
+					_objectGIDs[gid] = data;
 				}
 				if (tileObject["class"].get<std::string>() == "BreakableObject") {
-					auto id = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-					_gidBreakableObject.push_back(id);
+					BreakableObjectData data;
+					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
+					_objectGIDs[gid] = data;
 				}
 				if (tileObject["class"].get<std::string>() == "DegitalLetter") {
-					auto id = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-					_gidDegitalLetter.push_back(id);
+					DigitalLetterData data;
+					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
+					_objectGIDs[gid] = data;
 				}
 				if (tileObject["class"].get<std::string>() == "BossGenerator") {
-					auto id = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-					_gidBigGenerator.push_back(id);
+					BigGeneratorData data;
+					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
+					_objectGIDs[gid] = data;
 				}
 				if (tileObject["class"].get<std::string>() == "BossRailGun") {
-					auto id = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-					_gidBigGun.push_back(id);
+					BigGunData data;
+					auto gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
+					_objectGIDs[gid] = data;
 				}
 				if (tileObject["class"].get<std::string>() == "BossServer") {
-					auto id = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-					_gidBigServer.push_back(id);
+					BigServerData data;
+					auto gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
+					_objectGIDs[gid] = data;
 				}
 				if (tileObject["class"].get<std::string>() == "BossTrigger") {
-					auto id = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-					_gidBossGimmickController.push_back(id);
+					BossGimmickControllerData data;
+					auto gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
+					_objectGIDs[gid] = data;
 				}
 			}
 			// チップコリジョンデータ読み込み
@@ -478,29 +445,33 @@ void MapChip::LoadPlayerLayer(picojson::array aObjects) {
 	/*各オブジェクトの判定*/
 	for (int i = 0; i < aObjects.size(); ++i) {
 		picojson::object aObject = aObjects[i].get<picojson::object>();;
-
-		/*各オブジェクトのgidがタイルセット上でプレイヤークラスに設定されている物か*/
-		for (auto gid : _gidPlayer) {
-			if (aObject["gid"].get<double>() == gid.first) {
-				auto data = gid.second;
-				int playerno{ -1 };
-				data.pos.x = aObject["x"].get<double>();
-				data.pos.y = aObject["y"].get<double>() - _chipSize_H;
-				picojson::array properties = aObject["properties"].get<picojson::array>();
-
-				FindPropertieData(playerno, properties, "Player");
-				FindPropertieData(data.Accelerate, properties, "Accelerate");
-				FindPropertieData(data.Friction, properties, "Friction");
-				FindPropertieData(data.SpeedMax, properties, "SpeedMax");
-				_playerData[playerno] = data;
-			}
+		int gid=static_cast<int>(aObject["gid"].get<double>());
+		if (_objectGIDs.count(gid) == 0) {
+			continue;
 		}
+		auto data = static_cast<PlayerData&>(_objectGIDs[gid]);
+		SetBasicObjectData(aObject,data);
+		int playerno{ data.Player };
+		if (aObject["properties"].is<picojson::array>()) {
+			picojson::array properties = aObject["properties"].get<picojson::array>();
+			FindPropertieData(playerno, properties, "Player");
+			FindPropertieData(data.Accelerate, properties, "Accelerate");
+			FindPropertieData(data.Friction, properties, "Friction");
+			FindPropertieData(data.SpeedMax, properties, "SpeedMax");
+		}
+		_playerData[playerno] = data;
 	}
 }
 
 void MapChip::LoadItemLayer(picojson::array aObjects) {
 	for (int i = 0; i < aObjects.size(); ++i) {
 		picojson::object aObject = aObjects[i].get<picojson::object>();
+		int gid = static_cast<int>(aObject["gid"].get<double>());
+		if (_objectGIDs.count(gid) == 0) {
+			continue;
+		}
+		auto data = static_cast<BulletItemData&>(_objectGIDs[gid]);
+		SetBasicObjectData(aObject, data);
 		double posX, posY;
 		for (auto gid : _gidItemAmmo) {
 			if (aObject["gid"].get<double>() == gid) {
@@ -1186,10 +1157,10 @@ void MapChip::LoadEnemyBClass(picojson::object object, EnemyBData data) {
 }
 
 
-void MapChip::SetBasicObjectData(picojson::object object, int id, Vector2 pos) {
-	id = static_cast<int>(object["id"].get<double>());
-	pos.x = object["x"].get<double>();
-	pos.y = object["y"].get<double>() - _chipSize_H;
+void MapChip::SetBasicObjectData(picojson::object object, ObjectDataBase data) {
+	data.ID = static_cast<int>(object["id"].get<double>());
+	data.pos.x = object["x"].get<double>();
+	data.pos.y = object["y"].get<double>() - _chipSize_H;
 }
 
 void MapChip::FindPropertieData(int& data, picojson::array properties, std::string name) {

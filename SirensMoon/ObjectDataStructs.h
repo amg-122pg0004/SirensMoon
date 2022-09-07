@@ -8,11 +8,12 @@
 class ObjectDataBase {
 public:
 	int ID{ -1 };
-	Vector2 pos={0,0};
+	Vector2 pos{0,0};
 };
 
 class PlayerData :public ObjectDataBase {
 public:
+	int Player{ -1 };
 	double SpeedMax{ 6.0 };
 	double Accelerate { 1.0};
 	double Friction{ 0.9 };
@@ -53,11 +54,40 @@ public:
 	bool upperleft{ false };
 };
 
+/*回復アイテムデータ構造*/
+class HPItemData :public ObjectDataBase {
+public:
+};
+/*エネミーデータ構造*/
+class BulletItemData :public ObjectDataBase {
+public:
+};
+
+/*ライトデータ構造*/
+class SquareLightStats :public ObjectDataBase {
+public:
+	std::string object{ "NULL" };
+	std::string image{ "resource/Light/Light_square.png" };
+	bool activate{ true };
+	Vector2 pos{ 0,0 };
+	Vector2 size{ 100,100 };
+	int r{ 255 };
+	int g{ 255 };
+	int b{ 255 };
+	int alpha{ 100 };
+};
+
 /*テレポーター(in)データ構造*/
 class teleporterData : public ObjectDataBase {
 public:
 	bool random{false};
 	int tereortID{-1};
+};
+
+/*テレポーター(in)データ構造*/
+class TeleporterOutData : public ObjectDataBase {
+public:
+	bool random{ false };
 };
 
 /*バリアデータ構造*/
@@ -117,7 +147,7 @@ class BreakableObjectData : public ObjectDataBase{
 public:
 };
 
-class DegitalLetterData : public ObjectDataBase {
+class DigitalLetterData : public ObjectDataBase {
 public:
 	std::string message{};
 };

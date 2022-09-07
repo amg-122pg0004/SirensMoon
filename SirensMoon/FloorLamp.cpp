@@ -2,7 +2,7 @@
 #include <memory>
 #include "ModeGame.h"
 
-FloorLamp::FloorLamp(Game& game, ModeGame& mode, int ID, SquareLight::SquareLightStats stats)
+FloorLamp::FloorLamp(Game& game, ModeGame& mode, int ID, SquareLightStats stats)
 	:Gimmick(game,mode, ID)
 {
 	_cg = -1;

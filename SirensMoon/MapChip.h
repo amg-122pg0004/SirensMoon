@@ -1,11 +1,14 @@
 #pragma once
+#include <DxLib.h>
 #include <unordered_map>
-#include "picojson/picojson.h"
-#include "Math.h"
 #include <vector>
 #include <set>
-#include "SquareLight.h"
+#include <memory>
+#include <fstream>
+#include "picojson/picojson.h"
+#include "Math.h"
 #include "ObjectDataStructs.h"
+#include "strconv/strconv.h"
 
 class Game;
 class ModeBase;
@@ -38,7 +41,7 @@ public:
 	std::vector<Vector2> GetHPItemData() { return _hpItems; }
 	std::vector<Vector2> GetBulletData() { return _bulletItems; }
 	std::vector<ServerMachineData> GetServerData() { return _serverMachineDataList; }
-	std::vector<std::pair<int,SquareLight::SquareLightStats>> GetLightData() { return _lightDataList; }
+	std::vector<std::pair<int,SquareLightStats>> GetLightData() { return _lightDataList; }
 	std::vector<teleporterData> GetteleporterInData() { return _teleporterInDataList; }
 	std::unordered_map<int, std::pair<Vector2, bool>> GetteleporterOutData() { return _teleporterOutDataList; }
 	std::vector<SwitchData> GetSwitchData() { return _switchDataList; }
@@ -49,7 +52,7 @@ public:
 	std::vector<ScreenPumpData> GetScreenPumpData() { return _screenPumpDataList; }
 	std::vector<StickyBombData> GetStikyBombData() { return _stickyBombDataList; }
 	std::vector<BreakableObjectData> GetBreakableObjectData() { return _breakableObjectData; }
-	std::vector<DegitalLetterData> GetDegitalLetterData() { return _deditalLetterData; }
+	std::vector<DigitalLetterData> GetDegitalLetterData() { return _deditalLetterData; }
 	std::vector<BigServerData> GetBigServerData() { return _bigServerDataList; }
 	std::vector<BigGeneratorData> GetBigGeneratorData() { return _bigGeneratorDataList; }
 	std::vector<BossGimmickControllerData>GetBossGimmickControllerDataList() { return _bossGimmickControllerDataList; }
@@ -69,11 +72,14 @@ public:
 	bool IsHit(std::set<std::pair<int, int>>);
 
 private:
-	void SetBasicObjectData(picojson::object object, int id, Vector2 pos);
+	void SetBasicObjectData(picojson::object object, ObjectDataBase data);
 	void FindPropertieData(int& data,picojson::array properties,std::string name);
 	void FindPropertieData(double& data, picojson::array properties, std::string name);
 	void FindPropertieData(bool& data, picojson::array properties, std::string name);
 	void FindPropertieData(std::string& data, picojson::array properties, std::string name);
+	//template <type>
+	//void SetGidData(ObjectDataBase data,std::vector<std::string>& properties);
+
 	bool LoadMap(std::string folderpath, std::string filename);
 	void LoadTilesets(picojson::object jsRoot, std::string folderpath);
 	void LoadTileLayer(picojson::object);
@@ -130,7 +136,7 @@ private:
 	/*サーバーデータ[配置個数分]*/
 	std::vector<ServerMachineData> _serverMachineDataList;
 	/*配置ライトデータ<ID,stats>*/
-	std::vector<std::pair<int,SquareLight::SquareLightStats>> _lightDataList;
+	std::vector<std::pair<int,SquareLightStats>> _lightDataList;
 	/*テレポーター入口データ*/
 	std::vector<teleporterData> _teleporterInDataList;
 	/*テレポーター出口データ<ID,<座標,ランダムフラグ>>*/
@@ -152,7 +158,7 @@ private:
 	/*BrakableObjectデータ*/
 	std::vector<BreakableObjectData> _breakableObjectData;
 	/*DegitalLetterデータ*/
-	std::vector<DegitalLetterData> _deditalLetterData;
+	std::vector<DigitalLetterData> _deditalLetterData;
 	/*BigServerDataデータ*/
 	std::vector<BigServerData> _bigServerDataList;
 	/*BigGeneratorDataデータ*/
@@ -176,6 +182,7 @@ private:
 	std::vector<int> _gidBack;
 
 	/*各クラスが設定されているタイル(gid)を保存*/
+	/*
 	std::vector<int> _gidEnemy;
 	std::vector<EnemyBData> _gidEnemyB;
 	std::vector<int> _gidBarrier1;
@@ -200,6 +207,7 @@ private:
 	std::vector<int> _gidBigGenerator;
 	std::vector<int> _gidBigGun;
 	std::vector<int> _gidBossGimmickController;
+	*/
 
 	std::unordered_map<int,ObjectDataBase> _objectGIDs;
 };
