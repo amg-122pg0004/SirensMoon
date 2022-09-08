@@ -65,13 +65,12 @@ bool MapChip::LoadMap(std::string folderpath, std::string filename)
 					LoadPlayerClass(aObject, playerData);
 				}
 				else if (data.ClassName == "Enemy") {
-					if (aObject["class"].get<std::string>()=="Enemy") {
-						auto&& enemyData = static_cast<EnemyData&>(data);
-						LoadEnemyClass(aObject, enemyData);
-					}
-					else if (aObject["class"].get<std::string>() == "EnemyB") {
+					if (aObject["class"].get<std::string>() == "EnemyB") {
 						auto&& enemyBData = static_cast<EnemyBData&>(data);
 						LoadEnemyBClass(aObject, enemyBData);
+					}else {
+						auto&& enemyData = static_cast<EnemyData&>(data);
+						LoadEnemyClass(aObject, enemyData);
 					}
 				}
 				else if (data.ClassName == "EnemyB") {
@@ -104,7 +103,7 @@ bool MapChip::LoadMap(std::string folderpath, std::string filename)
 				}
 				else if (data.ClassName == "Server") {
 					auto&& serverData = static_cast<ServerMachineData&>(data);
-					LoadServerClass(aObject, serverData);
+					//LoadServerClass(aObject, serverData);
 				}
 				else if (data.ClassName == "StickyBomb") {
 					auto&& stickyData = static_cast<StickyBombData&>(data);
@@ -293,17 +292,14 @@ void MapChip::LoadTilesets(picojson::object jsRoot, std::string folderpath) {
 				if (tileObject["class"].get<std::string>() == "Server") {
 					ServerMachineData data;
 					data.ClassName = "Server";
+
 					if (tileObject["properties"].is<picojson::array>()) {
 						auto properties = tileObject["properties"].get<picojson::array>();
-						for (int i3 = 0; i3 < properties.size(); ++i3) {
-							picojson::object aPropetie = properties[i3].get<picojson::object>();
-							if (aPropetie["name"].get<std::string>() == "Direction") {
-								data.Direction = aPropetie["value"].get<std::string>();
-							}
-							if (aPropetie["name"].get<std::string>() == "upperleft") {
-								data.upperleft = aPropetie["value"].get<bool>();
-							}
-						}
+						FindPropertieData(data.Direction, properties, "Direction");
+						std::wstring w_ss = utf8_to_wide(data.Direction);
+						data.Direction = wide_to_sjis(w_ss);
+						FindPropertieData(data.upperleft, properties, "upperleft");
+
 					}
 					if (data.upperleft) {
 						int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
@@ -323,7 +319,11 @@ void MapChip::LoadTilesets(picojson::object jsRoot, std::string folderpath) {
 						FindPropertieData(data.g, properties, "Color : G");
 						FindPropertieData(data.r, properties, "Color : R");
 						FindPropertieData(data.object, properties, "ObjectImage");
+						std::wstring w_ss = utf8_to_wide(data.object);
+						data.object = wide_to_sjis(w_ss);
 						FindPropertieData(data.image, properties, "Image");
+						std::wstring w_ss2 = utf8_to_wide(data.image);
+						data.object = wide_to_sjis(w_ss2);
 						FindPropertieData(data.size.x, properties, "Size_X");
 						FindPropertieData(data.size.y, properties, "Size_Y");
 					}
