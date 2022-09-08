@@ -47,6 +47,10 @@ bool MapChip::LoadMap(std::string folderpath, std::string filename)
 			picojson::array aObjects = jsLayer["objects"].get<picojson::array>();
 			for (int i = 0; i < aObjects.size(); ++i) {
 				picojson::object aObject = aObjects[i].get<picojson::object>();
+				/*オブジェクトがgidを所有しているか確認*/
+				if (!aObject["gid"].is<double>()) {
+					continue;
+				}
 				int gid = static_cast<int>(aObject["gid"].get<double>());
 				/*タイルセット上でクラス設定されている物か確認*/
 				if (_objectGIDs.count(gid) == 0) {
@@ -287,7 +291,7 @@ void MapChip::LoadTilesets(picojson::object jsRoot, std::string folderpath) {
 					_objectGIDs[gid] = data;
 				}
 				if (tileObject["class"].get<std::string>() == "Server") {
-					ServerTileData data;
+					ServerMachineData data;
 					data.ClassName = "Server";
 					if (tileObject["properties"].is<picojson::array>()) {
 						auto properties = tileObject["properties"].get<picojson::array>();
@@ -734,10 +738,6 @@ void MapChip::LoadEnemyBClass(picojson::object object, EnemyBData data) {
 	}
 	_enemyBDataList.push_back(data);
 }
-
-
-
-
 
 void MapChip::LoadDoorClass(picojson::object object, DoorData data) {
 	_doorDataList.push_back(data);

@@ -44,15 +44,8 @@ public:
 /*サーバーデータ構造*/
 class ServerMachineData : public ObjectDataBase {
 public:
-	std::string Direction{};
+	std::string Direction{ "up" };
 	bool upperleft{false};
-};
-
-/*サーバータイルセットデータ構造*/
-class ServerTileData : public ObjectDataBase {
-public:
-	std::string Direction{"up"};
-	bool upperleft{ false };
 };
 
 /*回復アイテムデータ構造*/
