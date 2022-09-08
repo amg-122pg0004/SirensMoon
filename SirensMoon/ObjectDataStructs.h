@@ -7,6 +7,7 @@
 
 class ObjectDataBase {
 public:
+	std::string ClassName;
 	int ID{ -1 };
 	Vector2 pos{0,0};
 };
@@ -84,7 +85,7 @@ public:
 	int tereortID{-1};
 };
 
-/*テレポーター(in)データ構造*/
+/*テレポーター(out)データ構造*/
 class TeleporterOutData : public ObjectDataBase {
 public:
 	bool random{ false };

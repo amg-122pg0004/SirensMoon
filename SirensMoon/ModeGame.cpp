@@ -69,19 +69,19 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 
 	auto hp_pos = _mapChips->GetHPItemData();
 	for (int i=0; i < hp_pos.size();++i) {
-		auto hp = std::make_unique<HPItem>(_game, *this, hp_pos[i]);
+		auto hp = std::make_unique<HPItem>(_game, *this, hp_pos[i].pos);
 		_actorServer.Add(std::move(hp));
 	}
 
 	auto bullet_pos = _mapChips->GetBulletData();
 	for (int i=0; i < bullet_pos.size(); ++i) {
-		auto bullet = std::make_unique<BulletItem>(_game, *this, bullet_pos[i]);
+		auto bullet = std::make_unique<BulletItem>(_game, *this, bullet_pos[i].pos);
 		_actorServer.Add(std::move(bullet));
 	}
 	
 	auto light_pos = _mapChips->GetLightData();
 	for (int i = 0; i < light_pos.size(); ++i) {
-		auto lamp = std::make_unique<FloorLamp>(_game, *this, light_pos[i].first, light_pos[i].second);
+		auto lamp = std::make_unique<FloorLamp>(_game, *this, light_pos[i]);
 		_actorServer.Add(std::move(lamp));
 	}
 	
@@ -92,69 +92,69 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 	}
 	
 	auto data = _mapChips->GetteleporterOutData();
-	for (auto&& pair:data) {
-		auto teleportout = std::make_unique<teleporterOut>(_game, *this,-1, pair.second.first);
+	for (auto&& tele_out:data) {
+		auto teleportout = std::make_unique<teleporterOut>(_game, *this, tele_out);
 		_actorServer.Add(std::move(teleportout));
 	}
 
 
 
 	auto doordata = _mapChips->GetDoorData();
-	for (auto adoor : doordata) {
+	for (auto&& adoor : doordata) {
 		auto door = std::make_unique<Door>(_game, *this, adoor);
 		_actorServer.Add(std::move(door));
 	}
 
 	auto tntdata = _mapChips->GetTNTData();
-	for (auto atnt : tntdata) {
+	for (auto&& atnt : tntdata) {
 		auto tnt = std::make_unique<TNT>(_game, *this, atnt);
 		_actorServer.Add(std::move(tnt));
 	}
 
 	auto minedata = _mapChips->GetMineData();
-	for (auto amine : minedata) {
+	for (auto&& amine : minedata) {
 		auto mine = std::make_unique<Mine>(_game, *this, amine);
 		_actorServer.Add(std::move(mine));
 	}
 	auto v_screen = _mapChips->GetScreenPumpData();
-	for (auto a_screen : v_screen) {
+	for (auto&& a_screen : v_screen) {
 		auto screen = std::make_unique<ScreenPump>(_game, *this, a_screen);
 		_actorServer.Add(std::move(screen));
 	}
 
 
 	auto stickydata = _mapChips->GetStikyBombData();
-	for (auto astick : stickydata) {
+	for (auto&& astick : stickydata) {
 		auto stick = std::make_unique<StickyBomb>(_game, *this, astick);
 		_actorServer.Add(std::move(stick));
 	}
 	
 	auto breakabledata = _mapChips->GetBreakableObjectData();
-	for (auto abreakable : breakabledata) {
+	for (auto&& abreakable : breakabledata) {
 		auto breakable = std::make_unique<BreakableObject>(_game, *this, abreakable);
 		_actorServer.Add(std::move(breakable));
 	}
 
 	auto switchareadata = _mapChips->GetSwitchAreaData();
-	for (auto aswitcharea : switchareadata) {
+	for (auto&& aswitcharea : switchareadata) {
 		auto switcharea_obj = std::make_unique<SwitchArea>(_game, *this, aswitcharea);
 		_actorServer.Add(std::move(switcharea_obj));
 	}
 
 	auto switchdata = _mapChips->GetSwitchData();
-	for (auto aswitch : switchdata) {
+	for (auto&& aswitch : switchdata) {
 		auto switch_obj = std::make_unique<Switch>(_game, *this, aswitch);
 		_actorServer.Add(std::move(switch_obj));
 	}
 
 	auto degitaldata = _mapChips->GetDegitalLetterData();
-	for (auto adedital : degitaldata) {
+	for (auto&& adedital : degitaldata) {
 		auto degital = std::make_unique<DegitalLetter>(_game, *this, adedital);
 		_actorServer.Add(std::move(degital));
 	}
 
 	auto bossspawndata = _mapChips->GetBossGimmickControllerDataList();
-	for (auto aspawn : bossspawndata) {
+	for (auto&& aspawn : bossspawndata) {
 		auto bosscon = std::make_unique<BossGimmickController>(_game, *this, aspawn);
 		_actorServer.Add(std::move(bosscon));
 	}

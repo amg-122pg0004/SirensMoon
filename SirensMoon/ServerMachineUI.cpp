@@ -61,28 +61,28 @@ void ServerMachineUI::Render() {
 		DrawExtendGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y),
 			static_cast<int>(_pos.x + _size.x), static_cast<int>(_pos.y + _size.y), _cg, 1);
 
-		DrawExtendGraph(static_cast<int>(_pos.x)+ chara_posfix.x,
-			static_cast<int>(_pos.y) + chara_posfix.y,
-			static_cast<int>(_pos.x) + chara_posfix.x + chara_size.x,
-			static_cast<int>(_pos.y) + chara_posfix.y + chara_size.y,
+		DrawExtendGraph(static_cast<int>(_pos.x+ chara_posfix.x),
+			static_cast<int>(_pos.y + chara_posfix.y),
+			static_cast<int>(_pos.x + chara_posfix.x + chara_size.x),
+			static_cast<int>(_pos.y + chara_posfix.y + chara_size.y),
 			_cg_bot[_animNo]
 			, 1);
-		DrawExtendGraph(static_cast<int>(_pos.x) + chara_posfix.x,
-			static_cast<int>(_pos.y) + chara_posfix.y,
-			static_cast<int>(_pos.x) + chara_posfix.x + chara_size.x,
-			static_cast<int>(_pos.y) + chara_posfix.y + chara_size.y,
+		DrawExtendGraph(static_cast<int>(_pos.x + chara_posfix.x),
+			static_cast<int>(_pos.y + chara_posfix.y),
+			static_cast<int>(_pos.x + chara_posfix.x + chara_size.x),
+			static_cast<int>(_pos.y + chara_posfix.y + chara_size.y),
 			_cg_top2[_animNo]
 			, 1);
-		DrawExtendGraph(static_cast<int>(_pos.x) + chara_posfix.x,
-			static_cast<int>(_pos.y) + chara_posfix.y,
-			static_cast<int>(_pos.x) + chara_posfix.x + chara_size.x,
-			static_cast<int>(_pos.y) + 600,
+		DrawExtendGraph(static_cast<int>(_pos.x + chara_posfix.x),
+			static_cast<int>(_pos.y + chara_posfix.y),
+			static_cast<int>(_pos.x + chara_posfix.x + chara_size.x),
+			static_cast<int>(_pos.y + 600),
 			_cg_mid[_animNo]
 			, 1);
-		DrawExtendGraph(static_cast<int>(_pos.x) + chara_posfix.x,
-			static_cast<int>(_pos.y) + chara_posfix.y,
-			static_cast<int>(_pos.x) + chara_posfix.x + chara_size.x,
-			static_cast<int>(_pos.y) + chara_posfix.y + chara_size.y,
+		DrawExtendGraph(static_cast<int>(_pos.x + chara_posfix.x),
+			static_cast<int>(_pos.y + chara_posfix.y),
+			static_cast<int>(_pos.x + chara_posfix.x + chara_size.x),
+			static_cast<int>(_pos.y + chara_posfix.y + chara_size.y),
 			_cg_top[_animNo]
 			, 1);
 

@@ -5,7 +5,7 @@
 class DegitalLetter :public Gimmick {
 public:
 
-	DegitalLetter(Game& game, ModeGame& mode, DegitalLetterData data);
+	DegitalLetter(Game& game, ModeGame& mode, DigitalLetterData data);
 	Type GetType()override { return Type::Gimmick; }
 	GimmickType GetGimmickType() override { return GimmickType::DegitalLetter; }
 	void Update()override;

@@ -6,7 +6,7 @@
 #include <memory>
 #include <fstream>
 #include "picojson/picojson.h"
-#include "Math.h"
+#include "Collision.h"
 #include "ObjectDataStructs.h"
 #include "strconv/strconv.h"
 
@@ -38,12 +38,12 @@ public:
 	std::vector<EnemyData> GetEnemyData() { return _enemyDataList; }
 	std::vector<EnemyBData> GetEnemyBData() { return _enemyBDataList; }
 	std::vector<EnemyPatrol> GetPatrolPointsVIP() { return _patrolPointsVIP; }
-	std::vector<Vector2> GetHPItemData() { return _hpItems; }
-	std::vector<Vector2> GetBulletData() { return _bulletItems; }
+	std::vector<HPItemData> GetHPItemData() { return _hpItems; }
+	std::vector<BulletItemData> GetBulletData() { return _bulletItems; }
 	std::vector<ServerMachineData> GetServerData() { return _serverMachineDataList; }
-	std::vector<std::pair<int,SquareLightStats>> GetLightData() { return _lightDataList; }
+	std::vector<SquareLightStats> GetLightData() { return _lightDataList; }
 	std::vector<teleporterData> GetteleporterInData() { return _teleporterInDataList; }
-	std::unordered_map<int, std::pair<Vector2, bool>> GetteleporterOutData() { return _teleporterOutDataList; }
+	std::vector<TeleporterOutData> GetteleporterOutData() { return _teleporterOutDataList; }
 	std::vector<SwitchData> GetSwitchData() { return _switchDataList; }
 	std::vector<SwitchAreaData> GetSwitchAreaData() { return _switchAreaDataList; }
 	std::vector<DoorData>GetDoorData() { return _doorDataList; }
@@ -77,23 +77,38 @@ private:
 	void FindPropertieData(double& data, picojson::array properties, std::string name);
 	void FindPropertieData(bool& data, picojson::array properties, std::string name);
 	void FindPropertieData(std::string& data, picojson::array properties, std::string name);
-	//template <type>
-	//void SetGidData(ObjectDataBase data,std::vector<std::string>& properties);
 
 	bool LoadMap(std::string folderpath, std::string filename);
 	void LoadTilesets(picojson::object jsRoot, std::string folderpath);
 	void LoadTileLayer(picojson::object);
 	void LoadMiniMapLayer(picojson::array aObjects);
-	void LoadPlayerLayer(picojson::array aObjects);
 	void LoadEnemyLayer(picojson::array aObjects);
 	void LoadServerLayer(picojson::array aObjects);
-	void LoadItemLayer(picojson::array aObjects);
-	void LoadLightLayer(picojson::array aObjects);
-	void LoadGimmickLayer(picojson::array aObjects);
-	void LoadBossLayer(picojson::array aObjects);
 
+	/*配置オブジェクト読み込み用関数*/
+	void LoadBarrierClass(picojson::object object, BarrierData data);
+	void LoadBossGeneratorClass(picojson::object object, BigGeneratorData data);
+	void LoadBossRailGunClass(picojson::object object, BigGunData data);
+	void LoadBossServerClass(picojson::object object, BigServerData data);
+	void LoadBossTriggerClass(picojson::object object, BossGimmickControllerData data);
+	void LoadBreakableObjectClass(picojson::object object,BreakableObjectData data);
+	void LoadDigitalLetterClass(picojson::object object, DigitalLetterData data);
 	void LoadEnemyClass(picojson::object object,EnemyData data);
 	void LoadEnemyBClass(picojson::object object, EnemyBData data);
+	void LoadDoorClass(picojson::object object,DoorData data);
+	void LoadItemAmmoClass(picojson::object object, BulletItemData data);
+	void LoadItemHPClass(picojson::object object, HPItemData data);
+	void LoadLightClass(picojson::object object, SquareLightStats data);
+	void LoadMineClass(picojson::object object, MineData data);
+	void LoadPlayerClass(picojson::object object, PlayerData data);
+	void LoadScreenPumpClass(picojson::object object, ScreenPumpData data);
+	void LoadServerClass(picojson::object object, ServerMachineData data);
+	void LoadStickyBombClass(picojson::object object, StickyBombData data);
+	void LoadSwitchClass(picojson::object object, SwitchData data);
+	void LoadSwitchAreaClass(picojson::object object, SwitchAreaData data);
+	void LoadTeleport_INClass(picojson::object object, teleporterData data);
+	void LoadTeleport_OUTClass(picojson::object object, TeleporterOutData data);
+	void LoadTNTClass(picojson::object object, TNTData data);
 
 	Game& _game;
 	ModeBase& _mode;
@@ -108,7 +123,7 @@ private:
 
 	int _chipSize_W;
 	int _chipSize_H;
-
+	/*各タイルセットの最初のgid*/
 	std::vector<int> _tilesetsFirstgid;
 	/*奥マップデータ [layer][y][x]*/
 	std::vector<std::vector<std::vector<int>>> _mapBackTileData;
@@ -120,10 +135,10 @@ private:
 	std::vector<std::pair<unsigned int,std::vector<Vector2>>> _minimapData;
 	/*プレイヤー初期位置データ[player1か2] */
 	std::unordered_map<int,PlayerData> _playerData;
-	/*HPアイテムデータ [配置個数分]*/
-	std::vector<Vector2> _hpItems;
-	/*弾薬アイテムデータ[配置個数分]*/
-	std::vector<Vector2> _bulletItems;
+	/*HPアイテムデータ*/
+	std::vector<HPItemData> _hpItems;
+	/*弾薬アイテムデータ*/
+	std::vector<BulletItemData> _bulletItems;
 	/*通常エネミーデータ[配置個数分]*/
 	std::vector<EnemyData> _enemyDataList;
 	/*通常エネミーBデータ[配置個数分]*/
@@ -135,12 +150,12 @@ private:
 	std::vector<EnemyPatrol> _patrolPointsVIP;
 	/*サーバーデータ[配置個数分]*/
 	std::vector<ServerMachineData> _serverMachineDataList;
-	/*配置ライトデータ<ID,stats>*/
-	std::vector<std::pair<int,SquareLightStats>> _lightDataList;
+	/*配置ライトデータ*/
+	std::vector<SquareLightStats> _lightDataList;
 	/*テレポーター入口データ*/
 	std::vector<teleporterData> _teleporterInDataList;
-	/*テレポーター出口データ<ID,<座標,ランダムフラグ>>*/
-	std::unordered_map<int, std::pair<Vector2,bool>> _teleporterOutDataList;
+	/*テレポーター出口データ*/
+	std::vector<TeleporterOutData> _teleporterOutDataList;
 	/*スイッチデータ*/
 	std::vector<SwitchData> _switchDataList;
 	/*スイッチエリアデータ*/
@@ -172,42 +187,15 @@ private:
 	/*マップチップのグラフィックハンドル用コンテナ*/
 	/*[タイル用画像の枚数分][画像を分割した際のチップ画像の数]*/
 	std::vector<std::vector<int>> _cgChip;
-
-	/*あたり判定が設定されているタイルのGIDを保存するコンテナ*/
-	std::vector<int> _chipCollision;
-
 	/*手前描画するタイルのgidを保存*/
 	std::vector<int> _gidFront;
 	/*奥描画するタイルのgidを保存*/
 	std::vector<int> _gidBack;
+	/*あたり判定が設定されているタイルのGIDを保存するコンテナ*/
+	std::vector<int> _chipCollision;
+	std::vector<int> _gidBarrier1, _gidBarrier2;
 
-	/*各クラスが設定されているタイル(gid)を保存*/
-	/*
-	std::vector<int> _gidEnemy;
-	std::vector<EnemyBData> _gidEnemyB;
-	std::vector<int> _gidBarrier1;
-	std::vector<int> _gidBarrier2;
-	std::vector<int> _gidItemAmmo;
-	std::vector<int> _gidItemHP;
-	std::vector<std::pair<int,PlayerData>> _gidPlayer;
-	std::vector<ServerTileData> _gidServer;
-	std::vector<std::pair<int,SquareLight::SquareLightStats>> _gidLight;
-	std::unordered_map<int, bool> _gidteleportOut;//<boolはランダムにワープするフラグ
-	std::unordered_map<int, bool> _gidteleportIn;//<boolはランダム抽選に参加するフラグ
-	std::vector<std::pair<int,bool>> _gidSwitch;
-	std::vector<int> _gidSwitchArea;
-	std::vector<DoorData> _gidDoor;
-	std::vector<TNTData> _gidTNT;
-	std::vector<int> _gidMine;
-	std::vector<int> _gidScreenPump;
-	std::vector<int> _gidStickyBomb;
-	std::vector<int> _gidBreakableObject;
-	std::vector<int> _gidDegitalLetter;
-	std::vector<int> _gidBigServer;
-	std::vector<int> _gidBigGenerator;
-	std::vector<int> _gidBigGun;
-	std::vector<int> _gidBossGimmickController;
-	*/
 
+	/*オブジェクトのGIDを保存するコンテナ*/
 	std::unordered_map<int,ObjectDataBase> _objectGIDs;
 };

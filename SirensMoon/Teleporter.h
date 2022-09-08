@@ -26,7 +26,7 @@ private:
 
 class teleporterOut :public Gimmick {
 public:
-	teleporterOut(Game& game, ModeGame& mode,int ID, Vector2 data);
+	teleporterOut(Game& game, ModeGame& mode,TeleporterOutData data);
 	Type GetType()override { return Type::Gimmick; }
 	GimmickType GetGimmickType()override { return GimmickType::Teleporter; }
 	void Update()override;

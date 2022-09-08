@@ -43,9 +43,6 @@
     <Filter Include="ActorServer">
       <UniqueIdentifier>{be73c19e-e509-479b-81a9-8cef6fe37642}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Collision">
-      <UniqueIdentifier>{38b7f6dc-d876-4b8c-bc15-eb3cdf0e9576}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Actor\Enemy">
       <UniqueIdentifier>{dc3d0dff-60dd-49c1-b97d-149bb640193a}</UniqueIdentifier>
     </Filter>
@@ -286,6 +283,9 @@
     <Filter Include="Actor\Effect\FX_BossFire">
       <UniqueIdentifier>{47d3aad6-4abd-4d12-a6ea-fda1e7bb3a4a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utillity\Collision">
+      <UniqueIdentifier>{38b7f6dc-d876-4b8c-bc15-eb3cdf0e9576}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -322,7 +322,7 @@
       <Filter>ActorServer</Filter>
     </ClCompile>
     <ClCompile Include="Collision.cpp">
-      <Filter>Collision</Filter>
+      <Filter>Utillity\Collision</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Actor\Enemy</Filter>
@@ -600,7 +600,7 @@
       <Filter>ActorServer</Filter>
     </ClInclude>
     <ClInclude Include="Collision.h">
-      <Filter>Collision</Filter>
+      <Filter>Utillity\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Actor\Enemy</Filter>

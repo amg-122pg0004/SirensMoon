@@ -33,10 +33,10 @@ void teleporterIn::Debug(Vector2 window_pos, Vector2 camera_pos) {
 
 
 
-teleporterOut::teleporterOut(Game& game, ModeGame& mode, int ID, Vector2 pos)
-	:  Gimmick(game, mode,ID),_open{false}
+teleporterOut::teleporterOut(Game& game, ModeGame& mode,TeleporterOutData data)
+	:  Gimmick(game, mode,data.ID),_open{false}
 {
-	_pos = pos;
+	_pos = data.pos;
 	_size = { 90,120 };
 	_collision.min = { 0,0 };
 	_collision.max = { 0,0 };

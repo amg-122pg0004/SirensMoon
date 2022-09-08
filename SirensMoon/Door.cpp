@@ -15,7 +15,7 @@ Door::Door(Game& game, ModeGame& mode, DoorData data)
 	std::string extension{ ".png" };
 	_cg2 = ImageServer::LoadGraph(path1 + No + extension);
 	_cg3 = ImageServer::LoadGraph(path2 + No + extension);
-	_renderPriority = _pos.y + _size.y;
+	_renderPriority = static_cast<int>(_pos.y + _size.y);
 	if (_partNo >= 1 && _partNo <= 6||
 		_partNo >= 13 && _partNo <= 18||
 		_partNo >= 25 && _partNo <= 30||

@@ -186,7 +186,7 @@ bool Enemy::CheckVisualLine() {
 
 void Enemy::SetDirection() {
 	double dir_rad = atan2(_dir.y, _dir.x);
-	double dir_deg = Math::ToDegrees(dir_rad);
+	double dir_deg = Math::ToDegrees(static_cast<float>(dir_rad));
 
 	if (-180 < dir_deg && dir_deg <= -140) {
 		_cg_direction = EnemyDirection::Left;

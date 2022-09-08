@@ -2,8 +2,8 @@
 #include <memory>
 #include "ModeGame.h"
 
-FloorLamp::FloorLamp(Game& game, ModeGame& mode, int ID, SquareLightStats stats)
-	:Gimmick(game,mode, ID)
+FloorLamp::FloorLamp(Game& game, ModeGame& mode,SquareLightStats stats)
+	:Gimmick(game,mode, stats.ID)
 {
 	_cg = -1;
 	if (stats.object != "NULL") {

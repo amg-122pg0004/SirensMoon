@@ -391,8 +391,8 @@ void Player::Checkteleport() {
 						auto data = _mode.GetMapChips()->GetteleporterOutData();
 						std::vector<Vector2> positions;
 						for (auto&& pair : data) {
-							if (pair.second.second) {
-								positions.push_back(pair.second.first);
+							if (pair.random) {
+								positions.push_back(pair.pos);
 							}
 						}
 						if (positions.size() != 0) {
@@ -402,7 +402,7 @@ void Player::Checkteleport() {
 						}
 					}
 					else {
-						_pos = _mode.GetMapChips()->GetteleporterOutData()[id].first;
+						_pos = _mode.GetMapChips()->GetteleporterOutData()[id].pos;
 						UpdateCollision();
 						PlaySoundMem(SoundServer::Find("Teleport"), DX_PLAYTYPE_BACK);
 					}

@@ -45,8 +45,8 @@ void FinishCut::Render(){
 			SetDrawMode(DX_DRAWMODE_BILINEAR);
 			for (int i = 0; i < 42; ++i) {
 				auto pos = _pos;
-				double x = sin(Math::ToRadians(8.57142 * i));
-				double y = cos(Math::ToRadians(8.57142 * i)) * -1;
+				double x = sin(Math::ToRadians(8.57142f * i));
+				double y = cos(Math::ToRadians(8.57142f * i)) * -1;
 				Vector2 dir = { x * (_elapsed - 100) * 0.18,y * (_elapsed - 100) * 0.18 };
 				pos += dir;
 				DrawGraph(static_cast<int>(pos.x), static_cast<int>(pos.y), _cgBlood[i], 1);

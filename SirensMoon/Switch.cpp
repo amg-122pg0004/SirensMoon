@@ -24,7 +24,7 @@ Switch::Switch(Game& game, ModeGame& mode, SwitchData data)
 	}
 
 	_cg = _cg3;
-	SquareLight::SquareLightStats lightdata{"NULL","resource/Light/Light_3.png",false,{_pos.x - 75,_pos.y - 100},{200,200},200,150,100,255};
+	SquareLightStats lightdata;
 	_mode.GetActorServer().Add(std::make_unique<SquareLight>(_game,_mode,*this,lightdata));
 
 	for (auto&& actor : _mode.GetObjects()) {
