@@ -102,7 +102,7 @@ private:
 	void LoadMineClass(picojson::object object, MineData data);
 	void LoadPlayerClass(picojson::object object, PlayerData data);
 	void LoadScreenPumpClass(picojson::object object, ScreenPumpData data);
-	void LoadServerClass(picojson::object object, ServerMachineData& data);
+	void LoadServerClass(picojson::object object, ServerMachineData data);
 	void LoadStickyBombClass(picojson::object object, StickyBombData data);
 	void LoadSwitchClass(picojson::object object, SwitchData data);
 	void LoadSwitchAreaClass(picojson::object object, SwitchAreaData data);
@@ -195,5 +195,5 @@ private:
 	std::vector<int> _gidBarrier1, _gidBarrier2;
 
 	/*オブジェクトのGIDを保存するコンテナ*/
-	std::unordered_map<int,ObjectDataBase> _objectGIDs;
+	std::unordered_map<int,std::unique_ptr<ObjectDataBase>> _objectGIDs;
 };

@@ -57,104 +57,104 @@ bool MapChip::LoadMap(std::string folderpath, std::string filename)
 					continue;
 				}
 				/*基本データ読み込み*/
-				auto data(_objectGIDs[gid]);
-				SetBasicObjectData(aObject, data);
+				std::unique_ptr<ObjectDataBase>& data= _objectGIDs[gid];
+				SetBasicObjectData(aObject, *data);
 				/*クラス別データ読み込み*/
-				if (data.ClassName == "Player") {
-					auto&& playerData = static_cast<PlayerData&>(data);
+				if (data->ClassName == "Player") {
+					auto&& playerData = static_cast<PlayerData&>(*data);
 					LoadPlayerClass(aObject, playerData);
 				}
-				else if (data.ClassName == "Enemy") {
+				else if (data->ClassName == "Enemy") {
 					if (aObject["class"].get<std::string>() == "EnemyB") {
-						auto&& enemyBData = static_cast<EnemyBData&>(data);
+						auto&& enemyBData = static_cast<EnemyBData&>(*data);
 						LoadEnemyBClass(aObject, enemyBData);
 					}else {
-						auto&& enemyData = static_cast<EnemyData&>(data);
+						auto&& enemyData = static_cast<EnemyData&>(*data);
 						LoadEnemyClass(aObject, enemyData);
 					}
 				}
-				else if (data.ClassName == "EnemyB") {
-					auto&& enemyBData = static_cast<EnemyBData&>(data);
+				else if (data->ClassName == "EnemyB") {
+					auto&& enemyBData = static_cast<EnemyBData&>(*data);
 					LoadEnemyBClass(aObject, enemyBData);
 				}
-				else if (data.ClassName == "Door") {
-					auto&& doorData = static_cast<DoorData&>(data);
+				else if (data->ClassName == "Door") {
+					auto&& doorData = static_cast<DoorData&>(*data);
 					LoadDoorClass(aObject, doorData);
 				}
-				else if (data.ClassName == "ItemAmmo") {
-					auto&& ammoData = static_cast<BulletItemData&>(data);
+				else if (data->ClassName == "ItemAmmo") {
+					auto&& ammoData = dynamic_cast<BulletItemData&>(*data);
 					LoadItemAmmoClass(aObject, ammoData);
 				}
-				else if (data.ClassName == "ItemHP") {
-					auto&& hpData = static_cast<HPItemData&>(data);
+				else if (data->ClassName == "ItemHP") {
+					auto&& hpData = dynamic_cast<HPItemData&>(*data);
 					LoadItemHPClass(aObject, hpData);
 				}
-				else if (data.ClassName == "Light") {
-					auto&& lightData = static_cast<SquareLightStats&>(data);
+				else if (data->ClassName == "Light") {
+					auto&& lightData = dynamic_cast<SquareLightStats&>(*data);
 					LoadLightClass(aObject, lightData);
 				}
-				else if (data.ClassName == "Mine") {
-					auto&& mineData = static_cast<MineData&>(data);
+				else if (data->ClassName == "Mine") {
+					auto&& mineData = static_cast<MineData&>(*data);
 					LoadMineClass(aObject, mineData);
 				}
-				else if (data.ClassName == "ScreenPump") {
-					auto&& screenData = static_cast<ScreenPumpData&>(data);
+				else if (data->ClassName == "ScreenPump") {
+					auto&& screenData = dynamic_cast<ScreenPumpData&>(*data);
 					LoadScreenPumpClass(aObject, screenData);
 				}
-				else if (data.ClassName == "Server") {
-					auto&& serverData = static_cast<ServerMachineData&>(data);
-					//LoadServerClass(aObject, serverData);
+				else if (data->ClassName == "Server") {
+					auto&& serverData = dynamic_cast<ServerMachineData&>(*data);
+					LoadServerClass(aObject, serverData);
 				}
-				else if (data.ClassName == "StickyBomb") {
-					auto&& stickyData = static_cast<StickyBombData&>(data);
+				else if (data->ClassName == "StickyBomb") {
+					auto&& stickyData = dynamic_cast<StickyBombData&>(*data);
 					LoadStickyBombClass(aObject, stickyData);
 				}
-				else if (data.ClassName == "Switch") {
-					auto&& switchData = static_cast<SwitchData&>(data);
+				else if (data->ClassName == "Switch") {
+					auto&& switchData = dynamic_cast<SwitchData&>(*data);
 					LoadSwitchClass(aObject, switchData);
 				}
-				else if (data.ClassName == "SwitchArea") {
-					auto&& switchAreaData = static_cast<SwitchAreaData&>(data);
+				else if (data->ClassName == "SwitchArea") {
+					auto&& switchAreaData = static_cast<SwitchAreaData&>(*data);
 					LoadSwitchAreaClass(aObject, switchAreaData);
 				}
-				else if (data.ClassName == "Teleport_IN") {
-					auto&& teleprtInData = static_cast<teleporterData&>(data);
+				else if (data->ClassName == "Teleport_IN") {
+					auto&& teleprtInData = static_cast<teleporterData&>(*data);
 					LoadTeleport_INClass(aObject, teleprtInData);
 				}
-				else if (data.ClassName == "Teleport_OUT") {
-					auto&& teleprtOutData = static_cast<TeleporterOutData&>(data);
+				else if (data->ClassName == "Teleport_OUT") {
+					auto&& teleprtOutData = static_cast<TeleporterOutData&>(*data);
 					LoadTeleport_OUTClass(aObject, teleprtOutData);
 				}
-				else if (data.ClassName == "TNT") {
-					auto&& tntData = static_cast<TNTData&>(data);
+				else if (data->ClassName == "TNT") {
+					auto&& tntData = static_cast<TNTData&>(*data);
 					LoadTNTClass(aObject, tntData);
 				}
-				else if (data.ClassName == "Barrier") {
+				else if (data->ClassName == "Barrier") {
 					//	auto&& tntData = static_cast<BarrirerData&>(data);
 					//	LoadBarrierClass(aObject data);
 				}
-				else if (data.ClassName == "BossGenerator") {
-					auto&& bigGenData = static_cast<BigGeneratorData&>(data);
+				else if (data->ClassName == "BossGenerator") {
+					auto&& bigGenData = static_cast<BigGeneratorData&>(*data);
 					LoadBossGeneratorClass(aObject, bigGenData);
 				}
-				else if (data.ClassName == "BossRailGun") {
-					auto&& bigGunData = static_cast<BigGunData&>(data);
+				else if (data->ClassName == "BossRailGun") {
+					auto&& bigGunData = static_cast<BigGunData&>(*data);
 					LoadBossRailGunClass(aObject, bigGunData);
 				}
-				else if (data.ClassName == "BossServer") {
-					auto&& bigServerData = static_cast<BigServerData&>(data);
+				else if (data->ClassName == "BossServer") {
+					auto&& bigServerData = static_cast<BigServerData&>(*data);
 					LoadBossServerClass(aObject, bigServerData);
 				}
-				else if (data.ClassName == "BossTrigger") {
-					auto&& trrigerData = static_cast<BossGimmickControllerData&>(data);
+				else if (data->ClassName == "BossTrigger") {
+					auto&& trrigerData = static_cast<BossGimmickControllerData&>(*data);
 					LoadBossTriggerClass(aObject, trrigerData);
 				}
-				else if (data.ClassName == "BossTrigger") {
-					auto&& breakData = static_cast<BreakableObjectData&>(data);
+				else if (data->ClassName == "BossTrigger") {
+					auto&& breakData = static_cast<BreakableObjectData&>(*data);
 					LoadBreakableObjectClass(aObject, breakData);
 				}
-				else if (data.ClassName == "DigitalLetter") {
-					auto&& letterData = static_cast<DigitalLetterData&>(data);
+				else if (data->ClassName == "DigitalLetter") {
+					auto&& letterData = static_cast<DigitalLetterData&>(*data);
 					LoadDigitalLetterClass(aObject, letterData);
 				}
 			}
@@ -215,48 +215,49 @@ void MapChip::LoadTilesets(picojson::object jsRoot, std::string folderpath) {
 			if (tileObject["class"].is<std::string>()) {
 				if (tileObject["class"].get<std::string>() == "Enemy") {
 					int gid = (static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back()));
-					EnemyData data;
-					data.ClassName = "Enemy";
-					_objectGIDs[gid] = data;
+					std::unique_ptr<EnemyData> data;
+					//data->ClassName = "Enemy";
+					
+					_objectGIDs[gid] = std::move(data);
 				}
 				if (tileObject["class"].get<std::string>() == "EnemyB") {
 					std::vector<int> v_zero;
 					v_zero.resize(4);
 					std::fill(v_zero.begin(), v_zero.end(), 0);
-					EnemyBData data;
-					data.ClassName = "EnemyB";
+					std::unique_ptr < EnemyBData> data;
+					data->ClassName = "EnemyB";
 					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-					data.pos = { 0,0 };
-					data.Direction=v_zero;
-					data.LookTime= v_zero;
+					data->pos = { 0,0 };
+					data->Direction = v_zero;
+					data->LookTime= v_zero;
 					if (tileObject["properties"].is<picojson::array>()) {
 						picojson::array properties = tileObject["properties"].get<picojson::array>();
-						FindPropertieData(data.Direction[0], properties, "Direction1");
-						FindPropertieData(data.Direction[1], properties, "Direction2");
-						FindPropertieData(data.Direction[2], properties, "Direction3");
-						FindPropertieData(data.Direction[3], properties, "Direction4");
-						FindPropertieData(data.LookTime[0], properties, "LookTime1");
-						FindPropertieData(data.LookTime[1], properties, "LookTime2");
-						FindPropertieData(data.LookTime[2], properties, "LookTime3");
-						FindPropertieData(data.LookTime[3], properties, "LookTime4");
+						FindPropertieData(data->Direction[0], properties, "Direction1");
+						FindPropertieData(data->Direction[1], properties, "Direction2");
+						FindPropertieData(data->Direction[2], properties, "Direction3");
+						FindPropertieData(data->Direction[3], properties, "Direction4");
+						FindPropertieData(data->LookTime[0], properties, "LookTime1");
+						FindPropertieData(data->LookTime[1], properties, "LookTime2");
+						FindPropertieData(data->LookTime[2], properties, "LookTime3");
+						FindPropertieData(data->LookTime[3], properties, "LookTime4");
 					}
-					_objectGIDs[gid] = data;
+					_objectGIDs[gid] = std::move(data);
 				}
 				if (tileObject["class"].get<std::string>() == "Barrier") {
-					BarrierData data;
-					data.ClassName = "Barrier";
+					std::unique_ptr < BarrierData> data;
+					data->ClassName = "Barrier";
 					if (tileObject["properties"].is<picojson::array>()) {
 						picojson::array properties = tileObject["properties"].get<picojson::array>();
 						for (int i3 = 0; i3 < properties.size(); ++i3) {
 							picojson::object aPropetie = properties[i3].get<picojson::object>();
 							if (aPropetie["name"].get<std::string>() == "Player") {
-								data.blockPlayerNo = static_cast<int>(aPropetie["value"].get<double>());
+								data->blockPlayerNo = static_cast<int>(aPropetie["value"].get<double>());
 							}
 						}
 					}
 					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-					_objectGIDs[gid] = data;
-					if (data.blockPlayerNo == 1) {
+					_objectGIDs[gid] = std::move(data);
+					if (data->blockPlayerNo == 1) {
 						_gidBarrier1.push_back(gid);
 					}
 					else {
@@ -264,195 +265,195 @@ void MapChip::LoadTilesets(picojson::object jsRoot, std::string folderpath) {
 					}
 				}
 				if (tileObject["class"].get<std::string>() == "ItemAmmo") {
-					BulletItemData data;
-					data.ClassName = "ItemAmmo";
+					std::unique_ptr < BulletItemData> data;
+					data->ClassName = "ItemAmmo";
 					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-					_objectGIDs[gid] = data;
+					_objectGIDs[gid] = std::move(data);
 				}
 				if (tileObject["class"].get<std::string>() == "ItemHP") {
-					HPItemData data;
-					data.ClassName = "ItemHP";
+					std::unique_ptr < HPItemData >data;
+					data->ClassName = "ItemHP";
 					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-					_objectGIDs[gid] = data;
+					_objectGIDs[gid] = std::move(data);
 				}
 				if (tileObject["class"].get<std::string>() == "Player") {
-					PlayerData data;
-					data.ClassName = "Player";
+					std::unique_ptr < PlayerData >data;
+					data->ClassName = "Player";
 					if (tileObject["properties"].is<picojson::array>()) {
 						auto properties = tileObject["properties"].get<picojson::array>();
-						FindPropertieData(data.Player, properties, "Player");
-						FindPropertieData(data.Accelerate, properties, "Accelerate");
-						FindPropertieData(data.Friction, properties, "Friction");
-						FindPropertieData(data.SpeedMax, properties, "SpeedMax");
+						FindPropertieData(data->Player, properties, "Player");
+						FindPropertieData(data->Accelerate, properties, "Accelerate");
+						FindPropertieData(data->Friction, properties, "Friction");
+						FindPropertieData(data->SpeedMax, properties, "SpeedMax");
 
 					}
 					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-					_objectGIDs[gid] = data;
+					_objectGIDs[gid] = std::move(data);
 				}
 				if (tileObject["class"].get<std::string>() == "Server") {
-					ServerMachineData data;
-					data.ClassName = "Server";
+					std::unique_ptr < ServerMachineData >data;
+					data->ClassName = "Server";
 
 					if (tileObject["properties"].is<picojson::array>()) {
 						auto properties = tileObject["properties"].get<picojson::array>();
-						FindPropertieData(data.Direction, properties, "Direction");
-						std::wstring w_ss = utf8_to_wide(data.Direction);
-						data.Direction = wide_to_sjis(w_ss);
-						FindPropertieData(data.upperleft, properties, "upperleft");
+						FindPropertieData(data->Direction, properties, "Direction");
+						std::wstring w_ss = utf8_to_wide(data->Direction);
+						data->Direction = wide_to_sjis(w_ss);
+						FindPropertieData(data->upperleft, properties, "upperleft");
 
 					}
-					if (data.upperleft) {
+					if (data->upperleft) {
 						int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-						_objectGIDs[gid] = data;
+						_objectGIDs[gid] = std::move(data);
 					}
 				}
 				if (tileObject["class"].get<std::string>() == "Light") {
-					SquareLightStats data;
-					data.ClassName = "Light";
+					std::unique_ptr < SquareLightStats >data;
+					data->ClassName = "Light";
 					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
 
 					if (tileObject["properties"].is<picojson::array>()) {
 						auto properties = tileObject["properties"].get<picojson::array>();
-						FindPropertieData(data.activate, properties, "Activate");
-						FindPropertieData(data.alpha, properties, "Color : A");
-						FindPropertieData(data.b, properties, "Color : B");
-						FindPropertieData(data.g, properties, "Color : G");
-						FindPropertieData(data.r, properties, "Color : R");
-						FindPropertieData(data.object, properties, "ObjectImage");
-						std::wstring w_ss = utf8_to_wide(data.object);
-						data.object = wide_to_sjis(w_ss);
-						FindPropertieData(data.image, properties, "Image");
-						std::wstring w_ss2 = utf8_to_wide(data.image);
-						data.object = wide_to_sjis(w_ss2);
-						FindPropertieData(data.size.x, properties, "Size_X");
-						FindPropertieData(data.size.y, properties, "Size_Y");
+						FindPropertieData(data->activate, properties, "Activate");
+						FindPropertieData(data->alpha, properties, "Color : A");
+						FindPropertieData(data->b, properties, "Color : B");
+						FindPropertieData(data->g, properties, "Color : G");
+						FindPropertieData(data->r, properties, "Color : R");
+						FindPropertieData(data->object, properties, "ObjectImage");
+						std::wstring w_ss = utf8_to_wide(data->object);
+						data->object = wide_to_sjis(w_ss);
+						FindPropertieData(data->image, properties, "Image");
+						std::wstring w_ss2 = utf8_to_wide(data->image);
+						data->object = wide_to_sjis(w_ss2);
+						FindPropertieData(data->size.x, properties, "Size_X");
+						FindPropertieData(data->size.y, properties, "Size_Y");
 					}
-					_objectGIDs[gid] = data;
+					_objectGIDs[gid] = std::move(data);
 				}
 				if (tileObject["class"].get<std::string>() == "Teleport_IN") {
-					teleporterData data;
-					data.ClassName = "Teleport_IN";
+					std::unique_ptr < teleporterData >data;
+					data->ClassName = "Teleport_IN";
 					if (tileObject["properties"].is<picojson::array>()) {
 						picojson::array properties = tileObject["properties"].get<picojson::array>();
-						FindPropertieData(data.random, properties, "Random");
+						FindPropertieData(data->random, properties, "Random");
 					}
 					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-					_objectGIDs[gid] = data;
+					_objectGIDs[gid] = std::move(data);
 				}
 				if (tileObject["class"].get<std::string>() == "Teleport_OUT") {
-					TeleporterOutData data;
-					data.ClassName = "Teleport_OUT";
+					std::unique_ptr < TeleporterOutData >data;
+					data->ClassName = "Teleport_OUT";
 					if (tileObject["properties"].is<picojson::array>()) {
 						auto properties = tileObject["properties"].get<picojson::array>();
-						FindPropertieData(data.random, properties, "RandomPort");
+						FindPropertieData(data->random, properties, "RandomPort");
 					}
 					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-					_objectGIDs[gid] = data;
+					_objectGIDs[gid] = std::move(data);
 				}
 				if (tileObject["class"].get<std::string>() == "Switch") {
-					SwitchData data;
-					data.ClassName = "Switch";
+					std::unique_ptr < SwitchData >data;
+					data->ClassName = "Switch";
 					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
 					if (tileObject["properties"].is<picojson::array>()) {
 						picojson::array properties = tileObject["properties"].get<picojson::array>();
-						FindPropertieData(data.RedFlag, properties, "RandomPort");
+						FindPropertieData(data->RedFlag, properties, "RandomPort");
 					}
-					_objectGIDs[gid] = data;
+					_objectGIDs[gid] = std::move(data);
 				}
 				if (tileObject["class"].get<std::string>() == "SwitchArea") {
-					SwitchAreaData data;
-					data.ClassName = "SwitchArea";
+					std::unique_ptr < SwitchAreaData >data;
+					data->ClassName = "SwitchArea";
 					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-					_objectGIDs[gid] = data;
+					_objectGIDs[gid] = std::move(data);
 				}
 				if (tileObject["class"].get<std::string>() == "Door") {
-					DoorData data;
-					data.ClassName = "Door";
+					std::unique_ptr < DoorData >data;
+					data->ClassName = "Door";
 					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
 					if (tileObject["properties"].is<picojson::array>()) {
 						picojson::array properties = tileObject["properties"].get<picojson::array>();
-						FindPropertieData(data.PartNo, properties, "PartNo");
+						FindPropertieData(data->PartNo, properties, "PartNo");
 					}
-					_objectGIDs[gid] = data;
+					_objectGIDs[gid] = std::move(data);
 				}
 				if (tileObject["class"].get<std::string>() == "TNT") {
-					TNTData data;
-					data.ClassName = "TNT";
+					std::unique_ptr < TNTData >data;
+					data->ClassName = "TNT";
 					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
 					if (tileObject["properties"].is<picojson::array>()) {
 						auto properties = tileObject["properties"].get<picojson::array>();
-						FindPropertieData(data.CG, properties, "CGNo");
+						FindPropertieData(data->CG, properties, "CGNo");
 					}
-					_objectGIDs[gid] = data;
+					_objectGIDs[gid] = std::move(data);
 				}
 				if (tileObject["class"].get<std::string>() == "Mine") {
-					MineData data;
-					data.ClassName = "Mine";
+					std::unique_ptr < MineData >data;
+					data->ClassName = "Mine";
 					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
 					if (tileObject["properties"].is<picojson::array>()) {
 						picojson::array properties = tileObject["properties"].get<picojson::array>();
-						FindPropertieData(data.range, properties, "Range");
-						FindPropertieData(data.dir, properties, "Direction");
+						FindPropertieData(data->range, properties, "Range");
+						FindPropertieData(data->dir, properties, "Direction");
 					}
-					_objectGIDs[gid] = data;
+					_objectGIDs[gid] = std::move(data);
 				}
 				if (tileObject["class"].get<std::string>() == "ScreenPump") {
-					ScreenPumpData data;
-					data.ClassName = "ScreenPump";
+					std::unique_ptr < ScreenPumpData >data;
+					data->ClassName = "ScreenPump";
 					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
 					if (tileObject["properties"].is<picojson::array>()) {
 						auto properties = tileObject["properties"].get<picojson::array>();
-						FindPropertieData(data.range, properties, "Range");
-						FindPropertieData(data.dir, properties, "Direction");
+						FindPropertieData(data->range, properties, "Range");
+						FindPropertieData(data->dir, properties, "Direction");
 					}
-					_objectGIDs[gid] = data;
+					_objectGIDs[gid] = std::move(data);
 				}
 				if (tileObject["class"].get<std::string>() == "StickyBomb") {
-					StickyBombData data;
-					data.ClassName = "StickyBomb";
+					std::unique_ptr < StickyBombData >data;
+					data->ClassName = "StickyBomb";
 					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
 					if (tileObject["properties"].is<picojson::array>()) {
 						picojson::array properties = tileObject["properties"].get<picojson::array>();
-						FindPropertieData(data.range, properties, "Range");
-						FindPropertieData(data.timer, properties, "Timer");
+						FindPropertieData(data->range, properties, "Range");
+						FindPropertieData(data->timer, properties, "Timer");
 					}
-					_objectGIDs[gid] = data;
+					_objectGIDs[gid] = std::move(data);
 				}
 				if (tileObject["class"].get<std::string>() == "BreakableObject") {
-					BreakableObjectData data;
-					data.ClassName = "BreakableObject";
+					std::unique_ptr < BreakableObjectData >data;
+					data->ClassName = "BreakableObject";
 					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-					_objectGIDs[gid] = data;
+					_objectGIDs[gid] = std::move(data);
 				}
 				if (tileObject["class"].get<std::string>() == "DegitalLetter") {
-					DigitalLetterData data;
-					data.ClassName = "DegitalLetter";
+					std::unique_ptr < DigitalLetterData >data;
+					data->ClassName = "DegitalLetter";
 					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-					_objectGIDs[gid] = data;
+					_objectGIDs[gid] = std::move(data);
 				}
 				if (tileObject["class"].get<std::string>() == "BossGenerator") {
-					BigGeneratorData data;
-					data.ClassName = "BossGenerator";
+					std::unique_ptr < BigGeneratorData >data;
+					data->ClassName = "BossGenerator";
 					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-					_objectGIDs[gid] = data;
+					_objectGIDs[gid] = std::move(data);
 				}
 				if (tileObject["class"].get<std::string>() == "BossRailGun") {
-					BigGunData data;
-					data.ClassName = "BossRainGun";
+					std::unique_ptr < BigGunData >data;
+					data->ClassName = "BossRainGun";
 					auto gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-					_objectGIDs[gid] = data;
+					_objectGIDs[gid] = std::move(data);
 				}
 				if (tileObject["class"].get<std::string>() == "BossServer") {
-					BigServerData data;
-					data.ClassName = "BossServer";
+					std::unique_ptr < BigServerData >data;
+					data->ClassName = "BossServer";
 					auto gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-					_objectGIDs[gid] = data;
+					_objectGIDs[gid] = std::move(data);
 				}
 				if (tileObject["class"].get<std::string>() == "BossTrigger") {
-					BossGimmickControllerData data;
-					data.ClassName = "BossTrigger";
+					std::unique_ptr < BossGimmickControllerData >data;
+					data->ClassName = "BossTrigger";
 					auto gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
-					_objectGIDs[gid] = data;
+					_objectGIDs[gid] = std::move(data);
 				}
 			}
 			// チップコリジョンデータ読み込み

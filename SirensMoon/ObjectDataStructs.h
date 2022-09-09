@@ -7,6 +7,7 @@
 
 class ObjectDataBase {
 public:
+	virtual ~ObjectDataBase(){}
 	std::string ClassName;
 	int ID{ -1 };
 	Vector2 pos{0,0};
