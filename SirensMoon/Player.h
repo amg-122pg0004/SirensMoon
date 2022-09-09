@@ -48,6 +48,7 @@ public:
 	int GetHP() { return _hp; }
 
 	virtual void Move();
+	virtual void AnimUpdate();
 	bool IsHitActor();
 	/*プレイヤー固有のアクション*/
 	virtual void Action();

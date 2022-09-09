@@ -18,6 +18,8 @@ public:
 	 */
 	bool GetBulletType() { return _setGreenBullet; }
 
+	void AnimUpdate()override;
+
 	int GetAmmo() { return _bullet; }
 	int GetCharge() { return _charge; }
 	void TakeAmmo();

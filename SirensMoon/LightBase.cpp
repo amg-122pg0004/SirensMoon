@@ -26,9 +26,9 @@ void LightBase::Update() {
 	if (_dead == false) {
 		int x, y;
 		GetGraphSize(_cg, &x, &y);
-		x *= _scale;
-		y *= _scale;
-		_pos = { _owner.GetPosition().x + _owner.GetSize().x - x / 2 ,_owner.GetPosition().y + _owner.GetSize().y - y / 2 };
+		double d_x = static_cast<double>(x) * _scale;
+		double d_y = static_cast<double>(y) * _scale;
+		_pos = { _owner.GetPosition().x + _owner.GetSize().x - d_x / 2 ,_owner.GetPosition().y + _owner.GetSize().y - d_y / 2 };
 	}
 }
 

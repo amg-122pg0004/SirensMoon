@@ -10,9 +10,8 @@ public:
 
 	void StandardRender(Vector2 window_pos, Vector2 camera_pos) override;
 
-	/**/
-	void Move() override;
-
 	/*ミニマップを開く*/
 	void Action() override;
+	
+	void AnimUpdate()override;
 };

@@ -147,3 +147,36 @@ void PlayerA::Action(){
 void PlayerA::TakeAmmo() {
 	++_bullet;
 }
+
+void PlayerA::AnimUpdate(){
+
+	if (_speed.Length() < 0.1) {
+		_state = PlayerState::Wait;
+	}
+	else if (_speed.Length() < 2.8) {
+		if (_state == PlayerState::Wait) {
+			PlaySoundMem(SoundServer::Find("Walking"), DX_PLAYTYPE_BACK);
+		}
+		_state = PlayerState::Walk;
+	}
+	else {
+		_state = PlayerState::Run;
+	}
+
+	if (abs(_lastDir.x) > abs(_lastDir.y)) {
+		if (_lastDir.x >= 0) {
+			_direction = PlayerDirection::Right;
+		}
+		else {
+			_direction = PlayerDirection::Left;
+		}
+	}
+	else {
+		if (_lastDir.y >= 0) {
+			_direction = PlayerDirection::Down;
+		}
+		else {
+			_direction = PlayerDirection::Up;
+		}
+	}
+}

@@ -2,9 +2,9 @@
 #include "Game.h"
 #include "ModeGame.h"
 
-PlayerB::PlayerB(Game& game, ModeGame& base, int playernum) :Player(game,base,playernum)
+PlayerB::PlayerB(Game& game, ModeGame& base, int playernum) :Player(game, base, playernum)
 {
-		Load();
+	Load();
 }
 
 void PlayerB::Load() {
@@ -58,22 +58,55 @@ void PlayerB::Action() {
 	}
 }
 
-void PlayerB::Move() {
-	Player::Move();
+void PlayerB::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
+	Player::StandardRender(window_pos, camera_pos);
+}
+
+void PlayerB::AnimUpdate() {
+
+	if (abs(_lastDir.x) > abs(_lastDir.y)) {
+		if (_lastDir.x >= 0) {
+			_direction = PlayerDirection::Right;
+		}
+		else {
+			_direction = PlayerDirection::Left;
+		}
+	}
+	else {
+		if (_lastDir.y >= 0) {
+			_direction = PlayerDirection::Down;
+		}
+		else {
+			_direction = PlayerDirection::Up;
+		}
+	}
+
+
+
 	if (_speed.Length() < 0.1) {
-		if (_state != PlayerState::Set&&_state !=PlayerState::Wait) {
+		if (_state != PlayerState::Set && _state != PlayerState::Wait) {
 			_state = PlayerState::Set;
 			_animNo = 0;
 		}
-		if (_animNo > 99) {
+		else if (_state == PlayerState::Set) {
+			if (_animNo > 99) {
+				_state = PlayerState::Wait;
+			}
+		}
+		else {
 			_state = PlayerState::Wait;
 		}
-
+	}
+	else if (_speed.Length() < 2.8) {
+		if (_state == PlayerState::Wait) {
+			PlaySoundMem(SoundServer::Find("Walking"), DX_PLAYTYPE_BACK);
+		}
+		_state = PlayerState::Walk;
+	}
+	else {
+		_state = PlayerState::Run;
 	}
 
-}
 
-void PlayerB::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
-	Player::StandardRender(window_pos,camera_pos);
 
 }
