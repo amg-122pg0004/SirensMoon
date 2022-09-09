@@ -72,7 +72,7 @@ public:
 	bool IsHit(std::set<std::pair<int, int>>);
 
 private:
-	void SetBasicObjectData(picojson::object object, ObjectDataBase data);
+	void SetBasicObjectData(picojson::object object, std::unique_ptr<ObjectDataBase>& data);
 	void FindPropertieData(int& data,picojson::array properties,std::string name);
 	void FindPropertieData(double& data, picojson::array properties, std::string name);
 	void FindPropertieData(bool& data, picojson::array properties, std::string name);
@@ -82,8 +82,8 @@ private:
 	void LoadTilesets(picojson::object jsRoot, std::string folderpath);
 	void LoadTileLayer(picojson::object);
 	void LoadMiniMapLayer(picojson::array aObjects);
-	void LoadEnemyLayer(picojson::array aObjects);
-	void LoadServerLayer(picojson::array aObjects);
+	void LoadEnemyPatrolLine(picojson::array aObjects);
+	void LoadEnemyVIPPatrolLine(picojson::array aObjects);
 
 	/*配置オブジェクト読み込み用関数*/
 	void LoadBarrierClass(picojson::object object, BarrierData data);
