@@ -5,7 +5,7 @@
 #include "FX_Chargein.h"
 #include "FX_Chargenow.h"
 #include "LaserLight.h"
-
+#include "FX_Teleport.h"
 PlayerA::PlayerA(Game& game, ModeGame& base, int playernum) 
 	:Player(game, base, playernum),_setGreenBullet{false},_bullet{ 5 }, _charge{ 0 }, _cooldown{ 0 }
 {
@@ -135,7 +135,7 @@ void PlayerA::Action(){
 
 	}
 	else {
-		if (_cooldown < 132) {
+		if (_cooldown == 132) {
 			_movable = true;
 		}
 		_charge = 0;
@@ -178,5 +178,23 @@ void PlayerA::AnimUpdate(){
 		else {
 			_direction = PlayerDirection::Up;
 		}
+	}
+}
+
+void PlayerA::TeleportEvent() {
+	/*テレポート用のディレイ*/
+	--_teleportDelay;
+	if (_teleportDelay == 135) {
+		_mode.GetActorServer().Add(std::make_unique<FX_TeleportIN1>(_game, _mode, _pos, _game.GetFrameCount()));
+	}
+	else if (_teleportDelay == 68) {
+		_pos = _teleportPosition;
+		UpdateCollision();
+		Init();
+		_mode.GetActorServer().Add(std::make_unique<FX_TeleportOUT1>(_game, _mode, _pos, _game.GetFrameCount()));
+	}
+	else if (_teleportDelay == 30) {
+		_movable = true;
+		_visible = true;
 	}
 }

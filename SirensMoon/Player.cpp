@@ -17,12 +17,13 @@
 #include "ProjectionLight.h"
 #include "LightBase.h"
 #include "teleporter.h"
+#include "FX_Teleport.h"
 
 Player::Player(Game& game, ModeGame& mode, int playernum)
 	:Actor{ game,mode }, _speed{ 0,0 }, _playerNum{ playernum }
 	, _dir{ 0,0 }, _lastDir{ 1,0 }, _hp{ 3 }, _hpMAX{ 3 }, _movable{ 1 }
 	, _init{ false }, _state{ PlayerState::Wait }, _direction{ PlayerDirection::Right }, _animNo{ 0 }, _invincibleTime{ 0 }
-	, _stageMovable{ true }
+	, _stageMovable{ true }, _teleportDelay{-1}, _teleportPosition{0,0},_visible{true}
 {
 	_inputManager = _game.GetInputManager();
 	auto data = _mode.GetMapChips()->GetPlayerData(_playerNum);
@@ -300,6 +301,9 @@ void Player::Action() {
 }
 
 void Player::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
+	if (!_visible) {
+		return;
+	}
 	std::vector<int> cg = _cg[{_state, _direction}];
 	if (_state == PlayerState::Set || _state == PlayerState::Shoot) {
 		DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x - (_size.y / 2)),
@@ -346,7 +350,8 @@ void Player::Heal() {
 	}
 }
 
-void Player::Checkteleport() {
+bool Player::Checkteleport() {
+	TeleportEvent();
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::Gimmick) {
 			if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::Teleporter) {
@@ -362,31 +367,47 @@ void Player::Checkteleport() {
 					}
 					auto teleport = dynamic_cast<teleporterIn&>(*actor);
 					auto id = teleport.GetteleportID();
+					auto teleporters = _mode.GetMapChips()->GetteleporterOutData();
 					if (teleport.GetRandomFlag()) {
-						auto data = _mode.GetMapChips()->GetteleporterOutData();
 						std::vector<Vector2> positions;
-						for (auto&& pair : data) {
-							if (pair.random) {
-								positions.push_back(pair.pos);
+						for (auto&& data : teleporters) {
+							if (data.random) {
+								positions.push_back(data.pos);
 							}
 						}
 						if (positions.size() != 0) {
-							_pos = positions[_game.GetFrameCount() % positions.size()];
+							_teleportPosition = positions[_game.GetFrameCount() % positions.size()];
 							UpdateCollision();
 							PlaySoundMem(SoundServer::Find("Teleport"), DX_PLAYTYPE_BACK);
 						}
 					}
 					else {
-						_pos = _mode.GetMapChips()->GetteleporterOutData()[id].pos;
+						for (auto&& data : teleporters) {
+							if (data.ID == id) {
+								_teleportPosition = data.pos;
+								break;
+							}
+						}
 						UpdateCollision();
 						PlaySoundMem(SoundServer::Find("Teleport"), DX_PLAYTYPE_BACK);
 					}
-					Init();
+					
+					if (_movable == true) {
+						_teleportDelay = 68*2;
+						_movable = false;
+						_visible = false;
+					}
 
+					return true;
 				}
 			}
 		}
 	}
+	return false;
+}
+
+void Player::TeleportEvent() {
+
 }
 
 void Player::Debug(Vector2 window_pos, Vector2 camera_pos) {

@@ -14,4 +14,6 @@ public:
 	void Action() override;
 	
 	void AnimUpdate()override;
+
+	void TeleportEvent()override;
 };

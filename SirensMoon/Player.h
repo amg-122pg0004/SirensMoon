@@ -62,7 +62,8 @@ public:
 	void TakeDamage(Actor::Type);
 	void Heal();
 	void ChangePosition(Vector2 pos);
-	void Checkteleport();
+	bool Checkteleport();
+	virtual void TeleportEvent();
 	void ChangeMovable(bool flag) { _movable = flag; }
 
 	/*ハイドフラグの確認*/
@@ -97,7 +98,7 @@ public:
 		std::map <std::pair<PlayerState, PlayerDirection>, std::vector<int >> _cg;
 
 		int _animNo;
-
+		bool _visible;
 		/*ライトの光画像*/
 		int _cg_light;
 
@@ -105,4 +106,7 @@ public:
 
 		PlayerState _state;
 		PlayerDirection _direction;
+
+		Vector2 _teleportPosition;
+		int _teleportDelay;
 };

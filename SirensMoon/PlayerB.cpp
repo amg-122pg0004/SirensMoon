@@ -1,6 +1,7 @@
 #include "PlayerB.h"
 #include "Game.h"
 #include "ModeGame.h"
+#include "FX_Teleport.h"
 
 PlayerB::PlayerB(Game& game, ModeGame& base, int playernum) :Player(game, base, playernum)
 {
@@ -109,4 +110,23 @@ void PlayerB::AnimUpdate() {
 
 
 
+}
+
+void PlayerB::TeleportEvent(){
+	/*テレポート用のディレイ*/
+	--_teleportDelay;
+	if (_teleportDelay == 135) {
+		_mode.GetActorServer().Add(std::make_unique<FX_TeleportIN2>(_game, _mode, _pos, _game.GetFrameCount()));
+	}
+	else if (_teleportDelay == 68) {
+		_pos = _teleportPosition;
+		UpdateCollision();
+		Init();
+		_mode.GetActorServer().Add(std::make_unique<FX_TeleportOUT2>(_game, _mode, _pos, _game.GetFrameCount()));
+	}
+	else if (_teleportDelay == 30) {
+
+		_movable = true;
+		_visible = true;
+	}
 }

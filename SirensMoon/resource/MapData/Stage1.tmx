@@ -3215,7 +3215,7 @@
  </objectgroup>
  <objectgroup id="21" name="Boss"/>
  <objectgroup id="4" name="Player">
-  <object id="977" gid="5" x="270" y="4200" width="30" height="30">
+  <object id="977" gid="5" x="3438" y="3036" width="30" height="30">
    <properties>
     <property name="Accelerate" type="float" value="1"/>
     <property name="Friction" type="float" value="0.9"/>
@@ -3223,7 +3223,7 @@
     <property name="SpeedMax" type="float" value="6"/>
    </properties>
   </object>
-  <object id="978" gid="5" x="628" y="4200.67" width="30" height="30">
+  <object id="978" gid="5" x="3520" y="3004.67" width="30" height="30">
    <properties>
     <property name="Accelerate" type="float" value="1"/>
     <property name="Friction" type="float" value="0.9"/>

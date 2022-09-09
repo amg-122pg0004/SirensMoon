@@ -23,6 +23,8 @@ public:
 	int GetAmmo() { return _bullet; }
 	int GetCharge() { return _charge; }
 	void TakeAmmo();
+
+	void TeleportEvent() override;
 private:
 	bool _setGreenBullet;
 

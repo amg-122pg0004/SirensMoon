@@ -186,6 +186,7 @@
     <ClCompile Include="FX_Chargein.cpp" />
     <ClCompile Include="FX_Chargenow.cpp" />
     <ClCompile Include="FX_HeadButt.cpp" />
+    <ClCompile Include="FX_Teleport.cpp" />
     <ClCompile Include="FX_Thunder.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="EnemyGenerator.cpp" />
@@ -280,6 +281,7 @@
     <ClInclude Include="FX_Chargein.h" />
     <ClInclude Include="FX_Chargenow.h" />
     <ClInclude Include="FX_HeadButt.h" />
+    <ClInclude Include="FX_Teleport.h" />
     <ClInclude Include="FX_Thunder.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="EnemyGenerator.h" />

@@ -57,6 +57,15 @@ void LoadResources::LoadEffects() {
 	ImageServer::LoadDivGraph("resource/Effect/chargein.png", 119, 8, 15, 512, 512, cg.data());
 	cg.resize(60);
 	ImageServer::LoadDivGraph("resource/Effect/chargenow.png", 60, 8, 8, 512, 512, cg.data());
+
+	cg.resize(112);
+	ImageServer::LoadDivGraph("resource/Effect/teleport_inR.png", 68, 4, 17, 256, 256, cg.data());
+	cg.resize(112);
+	ImageServer::LoadDivGraph("resource/Effect/teleport_inB.png", 68, 4, 17, 256, 256, cg.data());
+	cg.resize(112);
+	ImageServer::LoadDivGraph("resource/Effect/teleport_outR.png", 68, 4, 17, 256, 256, cg.data());
+	cg.resize(112);
+	ImageServer::LoadDivGraph("resource/Effect/teleport_outB.png", 68, 4, 17, 256, 256, cg.data());
 }
 
 void LoadResources::LoadMovie(std::string path){

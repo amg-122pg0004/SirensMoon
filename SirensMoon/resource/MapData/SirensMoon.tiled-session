@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "Stage1.tmx",
     "expandedProjectPaths": [
         "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource"
     ],
@@ -243,10 +243,10 @@
         },
         "Stage1.tmx": {
             "scale": 0.25,
-            "selectedLayer": 5,
+            "selectedLayer": 7,
             "viewCenter": {
-                "x": 3298,
-                "y": 2632
+                "x": 1802,
+                "y": 3110
             }
         },
         "Stage1.tmx#tile_icon": {
