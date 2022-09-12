@@ -11,7 +11,7 @@
 
 
 
-Bullet::Bullet(Game& game, ModeGame& mode, Vector2 pos, Vector2 dir)
+Bullet::Bullet(Game& game, ModeGame& mode, Vector2 pos, double dir)
 	:Actor{ game,mode }, _dir{ dir }, _speed{ 25 }, _lifetime{ 180 }
 {
 	_cg = ImageServer::LoadGraph("resource/Bullet/Bullet_1.png");
@@ -29,7 +29,8 @@ Bullet::~Bullet() {
 
 void Bullet::Update() {
 	_prePos = _pos;
-	_pos = _pos + _dir * _speed;
+	_pos.x += cos(_dir) * _speed;
+	_pos.y += sin(_dir) * _speed;
 	_renderPriority = static_cast<int>(_collision.max.y);
 	UpdateCollision();
 

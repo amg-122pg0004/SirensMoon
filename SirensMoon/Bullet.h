@@ -12,7 +12,7 @@ class Game;
 
 class Bullet:public Actor {
 	public:
-		Bullet(Game& game, ModeGame& mode,Vector2 pos,Vector2 dir);
+		Bullet(Game& game, ModeGame& mode,Vector2 pos,double dir);
 		~Bullet();
 		void Update()override;
 		void StandardRender(Vector2 window_pos, Vector2 camera_pos)override;
@@ -23,7 +23,7 @@ class Bullet:public Actor {
 
 	private:
 		int _speed;
-		Vector2 _dir;//<e’e‚Ì”òãÄ•ûŒü
+		double _dir;//<e’e‚Ì”òãÄ•ûŒü
 		int _lifetime;
 		Vector2 _prePos;
 };

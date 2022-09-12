@@ -43,13 +43,13 @@ void PlayerA::Load(){
 	ImageServer::LoadDivGraph("resource/Player/PlayerA/Run/right.png", 60, 10, 6, 150, 150, handle.data());
 	_cg[{PlayerState::Run, PlayerDirection::Right}] = handle;
 
-	ImageServer::LoadDivGraph("resource/Player/PlayerA/Run/backleft.png", 60, 10, 7, 150, 150, handle.data());
+	ImageServer::LoadDivGraph("resource/Player/PlayerA/Run/backleft.png", 60, 10, 6, 150, 150, handle.data());
 	_cg[{PlayerState::Run, PlayerDirection::UpLeft}] = handle;
-	ImageServer::LoadDivGraph("resource/Player/PlayerA/Run/frontright.png", 60, 10, 7, 150, 150, handle.data());
+	ImageServer::LoadDivGraph("resource/Player/PlayerA/Run/backright.png", 60, 10, 6, 150, 150, handle.data());
 	_cg[{PlayerState::Run, PlayerDirection::UpRight}] = handle;
-	ImageServer::LoadDivGraph("resource/Player/PlayerA/Run/leftleft.png", 60, 10, 7, 150, 150, handle.data());
+	ImageServer::LoadDivGraph("resource/Player/PlayerA/Run/frontleft.png", 60, 10, 6, 150, 150, handle.data());
 	_cg[{PlayerState::Run, PlayerDirection::DownLeft}] = handle;
-	ImageServer::LoadDivGraph("resource/Player/PlayerA/Run/rightright.png", 60, 10, 7, 150, 150, handle.data());
+	ImageServer::LoadDivGraph("resource/Player/PlayerA/Run/frontright.png", 60, 10, 6, 150, 150, handle.data());
 	_cg[{PlayerState::Run, PlayerDirection::DownRight}] = handle;
 
 	handle.resize(16);
@@ -95,31 +95,31 @@ void PlayerA::Action(){
 		
 	}
 
-	if (_inputManager->CheckInput("ACTION", 'r', _playerNum) && _charge >= 120) {
-		_lastDir.Normalize();
-		if (_bullet > 0) {
-			if (_setGreenBullet) {
-				auto bullet = std::make_unique<GreenBullet>(_game, _mode, _pos, _lastDir);
-				_mode.GetActorServer().Add(std::move(bullet));
-			}
-			else {
-				auto bullet = std::make_unique<RedBullet>(_game, _mode, _pos, _lastDir);
-				_mode.GetActorServer().Add(std::move(bullet));
-			}
+	if (_inputManager->CheckInput("ACTION", 'r', _playerNum)) {
+		_movable = true;
+		if (_charge >= 120) {
+			if (_bullet > 0) {
+				if (_setGreenBullet) {
+					auto bullet = std::make_unique<GreenBullet>(_game, _mode, _pos, _inputAngle);
+					_mode.GetActorServer().Add(std::move(bullet));
+				}
+				else {
+					auto bullet = std::make_unique<RedBullet>(_game, _mode, _pos, _inputAngle);
+					_mode.GetActorServer().Add(std::move(bullet));
+				}
 
 
-			PlaySoundMem(SoundServer::Find("Fire"), DX_PLAYTYPE_BACK);
-			_cooldown = 180;
-			_movable = false;
-			_state = PlayerState::Shoot;
-			_animNo = 0;
-			--_bullet;
+				PlaySoundMem(SoundServer::Find("Fire"), DX_PLAYTYPE_BACK);
+				_cooldown = 180;
+				_state = PlayerState::Shoot;
+				_animNo = 0;
+				--_bullet;
 
-			if (_bullet == 0) {
-				_mode.GameOver();
+				if (_bullet == 0) {
+					_mode.GameOver();
+				}
 			}
 		}
-
 	}
 
 	if (_inputManager->CheckInput("ACTION", 'h', _playerNum) && _cooldown == 0) {
@@ -151,6 +151,7 @@ void PlayerA::Action(){
 		StopSoundMem(SoundServer::Find("Chargekeep"));
 		StopSoundMem(SoundServer::Find("Charging"));
 	}
+	Player::DirectionCGStateUpdate();
 }
 
 void PlayerA::TakeAmmo() {
@@ -172,22 +173,7 @@ void PlayerA::AnimUpdate(){
 		_state = PlayerState::Run;
 	}
 
-	if (abs(_lastDir.x) > abs(_lastDir.y)) {
-		if (_lastDir.x >= 0) {
-			_direction = PlayerDirection::Right;
-		}
-		else {
-			_direction = PlayerDirection::Left;
-		}
-	}
-	else {
-		if (_lastDir.y >= 0) {
-			_direction = PlayerDirection::Down;
-		}
-		else {
-			_direction = PlayerDirection::Up;
-		}
-	}
+	Player::DirectionCGStateUpdate();
 }
 
 void PlayerA::TeleportEvent() {

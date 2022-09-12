@@ -21,7 +21,7 @@
 
 Player::Player(Game& game, ModeGame& mode, int playernum)
 	:Actor{ game,mode }, _speed{ 0,0 }, _playerNum{ playernum }
-	, _dir{ 0,0 }, _lastDir{ 1,0 }, _hp{ 3 }, _hpMAX{ 3 }, _movable{ 1 }
+	, _dir{ 0,0 }, _inputAngle{ 0 }, _hp{ 3 }, _hpMAX{ 3 }, _movable{ 1 }
 	, _init{ false }, _state{ PlayerState::Wait }, _direction{ PlayerDirection::Right }, _animNo{ 0 }, _invincibleTime{ 0 }
 	, _stageMovable{ true }, _teleportDelay{-1}, _teleportPosition{0,0},_visible{true}
 {
@@ -52,9 +52,8 @@ void Player::Update() {
 	/*アナログ入力取得*/
 	_dir = _inputManager->CheckAnalogInput(_playerNum);
 	_dir = _dir / 1000;
-	if (_dir.Length() != 0) {
-		_lastDir = _dir;
-		//_lastDir.Normalize();
+	if (atan2(_dir.y, _dir.x)!=0) {
+		_inputAngle = atan2(_dir.y, _dir.x);
 	}
 	PlayerOverlap();
 	/*移動*/
@@ -254,6 +253,55 @@ void Player::UpdateCamera() {
 void Player::AnimUpdate() {
 }
 
+void Player::DirectionCGStateUpdate() {
+
+	if (_state != PlayerState::Run) {
+		double threshold = 90;
+		if (_inputAngle >= Math::ToRadians(-threshold*2) && _inputAngle < Math::ToRadians(-threshold * 3 / 2)||
+			_inputAngle >= Math::ToRadians(threshold * 3/2) && _inputAngle < Math::ToRadians(threshold*2)) {
+			_direction = PlayerDirection::Left;
+		}
+		else if (_inputAngle > Math::ToRadians(-threshold * 3 / 2) && _inputAngle < Math::ToRadians(-threshold * 1 / 2)) {
+			_direction = PlayerDirection::Up;
+		}
+		else if (_inputAngle >= Math::ToRadians(-threshold * 1 / 2) && _inputAngle < Math::ToRadians(threshold * 1 / 2)) {
+			_direction = PlayerDirection::Right;
+		}
+		else if (_inputAngle >= Math::ToRadians(threshold * 1 / 2) && _inputAngle < Math::ToRadians(threshold * 3 / 2)) {
+			_direction = PlayerDirection::Down;
+		}
+
+
+	}
+	else {
+		double threshold = 45;
+		if (_inputAngle >= Math::ToRadians(-threshold*4) && _inputAngle < Math::ToRadians(-threshold * 7/2)||
+			_inputAngle >= Math::ToRadians(threshold * 7 / 2) && _inputAngle < Math::ToRadians(threshold * 4)) {
+			_direction = PlayerDirection::Left;
+		}
+		if (_inputAngle >= Math::ToRadians(-threshold * 7 / 2) && _inputAngle < Math::ToRadians(-threshold * 5 / 2)) {
+			_direction = PlayerDirection::UpLeft;
+		}
+		else if (_inputAngle >= Math::ToRadians(-threshold * 5 / 2) && _inputAngle < Math::ToRadians(-threshold * 3 / 2)) {
+			_direction = PlayerDirection::Up;
+		}
+		else if (_inputAngle >= Math::ToRadians(-threshold * 3 / 2) && _inputAngle < Math::ToRadians(-threshold * 1 / 2)) {
+			_direction = PlayerDirection::UpRight;
+		}
+		else if (_inputAngle > Math::ToRadians(-threshold * 1 / 2) && _inputAngle < Math::ToRadians(threshold * 1 / 2)) {
+			_direction = PlayerDirection::Right;
+		}
+		else if (_inputAngle >= Math::ToRadians(threshold * 1 / 2) && _inputAngle < Math::ToRadians(threshold * 3 / 2)) {
+			_direction = PlayerDirection::DownRight;
+		}
+		else if (_inputAngle >= Math::ToRadians(threshold * 3 / 2) && _inputAngle < Math::ToRadians(threshold * 5 / 2)) {
+			_direction = PlayerDirection::Down;
+		}
+		else if (_inputAngle >= Math::ToRadians(threshold * 5 / 2) && _inputAngle < Math::ToRadians(threshold * 7 / 2)) {
+			_direction = PlayerDirection::DownLeft;
+		}
+	}
+}
 bool Player::IsHitActor() {
 	for (auto&& actor : _mode.GetActorServer().GetObjects()) {
 		//actor->GetType() == Type::Enemy || エネミーへの当たり判定削除
@@ -420,7 +468,7 @@ void Player::Debug(Vector2 window_pos, Vector2 camera_pos) {
 	ss << "_collision.max.x" << _collision.max.x << "\n";
 	ss << "_collision.max.y" << _collision.max.y << "\n";
 	ss << "ハイドタイム" << _hideTime << "\n";
-	ss << "方向" << _dir.x << "  " << _dir.y << "\n";
+	ss << "方向(angle)" << _inputAngle << "\n";
 	ss << "スピード" << _speed.Length() << "\n";
 	DrawString(50 + _playerNum * 960, 100, ss.str().c_str(), GetColor(255, 0, 255));
 }

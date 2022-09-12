@@ -2,7 +2,7 @@
 #include "ModeGame.h"
 #include "FX_BulletHit.h"
 
-RedBullet:: RedBullet(Game& game, ModeGame& mode, Vector2 pos, Vector2 dir)
+RedBullet:: RedBullet(Game& game, ModeGame& mode, Vector2 pos, double dir)
 	:Bullet(game,mode,pos,dir)
 {
 	_cg = ImageServer::LoadGraph("resource/Bullet/Bullet_1.png");

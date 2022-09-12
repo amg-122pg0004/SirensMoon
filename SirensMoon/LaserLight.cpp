@@ -10,14 +10,14 @@ GetGraphSize(_cg, &x, &y);
 _centerPos = { static_cast<double>(x / 2),static_cast<double>(y) };
 _pos = _owner.GetPosition() + _owner.GetSize() / 2;
 auto player = dynamic_cast<Player&>(_owner);
-_angle = atan2(player.GetDirection().y, player.GetDirection().x) + (3.14 / 2.0);
+_angle = player.GetInputAngle() + Math::ToRadians(90);
 
 }
 
 void LaserLight::Update() {
 	auto player = dynamic_cast<Player&>(_owner);
 	_pos = _owner.GetPosition() + _owner.GetSize() / 2;
-	_angle = atan2(player.GetDirection().y, player.GetDirection().x) + (3.14 / 2.0);
+	_angle = player.GetInputAngle() + Math::ToRadians(90);
 
 	switch (player.GetGrDirection()) {
 	case Player::PlayerDirection::Up:

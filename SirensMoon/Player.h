@@ -47,12 +47,13 @@ public:
 
 	virtual Actor::Type GetType() override { return Type::Player; }
 	int GetPlayerNum() { return _playerNum; }
-	Vector2 GetDirection() { return _lastDir; }
+	double GetInputAngle() { return _inputAngle; }
 	PlayerDirection GetGrDirection() { return _direction; }
 	int GetHP() { return _hp; }
 
 	virtual void Move();
 	virtual void AnimUpdate();
+	void DirectionCGStateUpdate();
 	bool IsHitActor();
 	/*プレイヤー固有のアクション*/
 	virtual void Action();
@@ -81,8 +82,8 @@ public:
 
 		std::shared_ptr<InputManager> _inputManager;
 
+		double _inputAngle;//<入力角
 		Vector2 _dir;//<キャラの向き
-		Vector2 _lastDir;//最後に向いたキャラの向き
 		Vector2 _speed;//移動の速さ
 
 		double _degree;//キャラの向き

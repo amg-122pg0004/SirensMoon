@@ -30,22 +30,22 @@ void PlayerB::Load() {
 	ImageServer::LoadDivGraph("resource/Player/PlayerB/Walk/right.png", 81, 10, 9, 150, 150, handle.data());
 	_cg[{PlayerState::Walk, PlayerDirection::Right}] = handle;
 	handle.resize(60);
-	ImageServer::LoadDivGraph("resource/Player/PlayerB/Run/back.png", 60, 10, 7, 150, 150, handle.data());
+	ImageServer::LoadDivGraph("resource/Player/PlayerB/Run/back.png", 60, 10, 6, 150, 150, handle.data());
 	_cg[{PlayerState::Run, PlayerDirection::Up}] = handle;
-	ImageServer::LoadDivGraph("resource/Player/PlayerB/Run/front.png", 60, 10, 7, 150, 150, handle.data());
+	ImageServer::LoadDivGraph("resource/Player/PlayerB/Run/front.png", 60, 10, 6, 150, 150, handle.data());
 	_cg[{PlayerState::Run, PlayerDirection::Down}] = handle;
-	ImageServer::LoadDivGraph("resource/Player/PlayerB/Run/left.png", 60, 10, 7, 150, 150, handle.data());
+	ImageServer::LoadDivGraph("resource/Player/PlayerB/Run/left.png", 60, 10, 6, 150, 150, handle.data());
 	_cg[{PlayerState::Run, PlayerDirection::Left}] = handle;
-	ImageServer::LoadDivGraph("resource/Player/PlayerB/Run/right.png", 60, 10, 7, 150, 150, handle.data());
+	ImageServer::LoadDivGraph("resource/Player/PlayerB/Run/right.png", 60, 10, 6, 150, 150, handle.data());
 	_cg[{PlayerState::Run, PlayerDirection::Right}] = handle;
 
-	ImageServer::LoadDivGraph("resource/Player/PlayerB/Run/backleft.png", 60, 10, 7, 150, 150, handle.data());
+	ImageServer::LoadDivGraph("resource/Player/PlayerB/Run/backleft.png", 60, 10, 6, 150, 150, handle.data());
 	_cg[{PlayerState::Run, PlayerDirection::UpLeft}] = handle;
-	ImageServer::LoadDivGraph("resource/Player/PlayerB/Run/frontright.png", 60, 10, 7, 150, 150, handle.data());
+	ImageServer::LoadDivGraph("resource/Player/PlayerB/Run/backright.png", 60, 10, 6, 150, 150, handle.data());
 	_cg[{PlayerState::Run, PlayerDirection::UpRight}] = handle;
-	ImageServer::LoadDivGraph("resource/Player/PlayerB/Run/leftleft.png", 60, 10, 7, 150, 150, handle.data());
+	ImageServer::LoadDivGraph("resource/Player/PlayerB/Run/frontleft.png", 60, 10, 6, 150, 150, handle.data());
 	_cg[{PlayerState::Run, PlayerDirection::DownLeft}] = handle;
-	ImageServer::LoadDivGraph("resource/Player/PlayerB/Run/rightright.png", 60, 10, 7, 150, 150, handle.data());
+	ImageServer::LoadDivGraph("resource/Player/PlayerB/Run/frontright.png", 60, 10, 6, 150, 150, handle.data());
 	_cg[{PlayerState::Run, PlayerDirection::DownRight}] = handle;
 
 	handle.resize(101);
@@ -74,25 +74,6 @@ void PlayerB::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 }
 
 void PlayerB::AnimUpdate() {
-	if (abs(_lastDir.x) > abs(_lastDir.y)) {
-		if (_lastDir.x >= 0) {
-			_direction = PlayerDirection::Right;
-		}
-		else {
-			_direction = PlayerDirection::Left;
-		}
-	}
-	else {
-		if (_lastDir.y >= 0) {
-			_direction = PlayerDirection::Down;
-		}
-		else {
-			_direction = PlayerDirection::Up;
-		}
-	}
-
-
-
 	if (_speed.Length() < 0.1) {
 		if (_state != PlayerState::Set && _state != PlayerState::Wait) {
 			_state = PlayerState::Set;
@@ -117,8 +98,7 @@ void PlayerB::AnimUpdate() {
 		_state = PlayerState::Run;
 	}
 
-
-
+	Player::DirectionCGStateUpdate();
 }
 
 void PlayerB::TeleportEvent(){

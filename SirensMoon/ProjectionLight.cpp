@@ -21,15 +21,15 @@ ProjectionLight::ProjectionLight(Game& game, ModeGame& mode, Actor& owner)
 	_scale = _scaleStart;
 	_alpha = _alphaStart;
 	_pos = _owner.GetPosition()+_owner.GetSize()/2;
-	auto player = dynamic_cast<Player&>(_owner);
-	_angle = atan2(player.GetDirection().y, player.GetDirection().x) + (3.14 / 2.0);
+	auto player = static_cast<Player&>(_owner);
+	_angle = player.GetInputAngle()+Math::ToRadians(90);
 
 }
 
 void ProjectionLight::Update(){
-	auto player =dynamic_cast<Player&>(_owner);
+	auto player = static_cast<Player&>(_owner);
 	_pos = _owner.GetPosition() + _owner.GetSize() / 2;
-	_angle = atan2(player.GetDirection().y,player.GetDirection().x)+(3.14/2.0);
+	_angle = player.GetInputAngle() + Math::ToRadians(90);
 
 	/*
 	_scale += 0.01;

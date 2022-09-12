@@ -3,7 +3,7 @@
 
 class GreenBullet :public Bullet {
 public:
-	GreenBullet(Game& game, ModeGame& mode, Vector2 pos, Vector2 dir);
+	GreenBullet(Game& game, ModeGame& mode, Vector2 pos, double dir);
 
 	Type GetType()override { return Actor::Type::GreenBullet; }
 
