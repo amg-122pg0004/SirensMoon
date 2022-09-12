@@ -11,7 +11,9 @@
 
 
 Actor::Actor(Game& game, ModeGame& mode) 
-	: _game{ game }, _mode{ mode }, _pos{ 0,0 }, _size{ 40,40 }, _dead{ false }, _stage{ -1 }, _cg{-1},_roomPosition{1,1},_renderPriority{0}
+	: _game{ game }, _mode{ mode }, _pos{ 0,0 },
+	_size{ 40,40 }, _dead{ false }, _stage{ -1 },
+	_cg{-1},_roomPosition{1,1},_renderPriority{0},_visible{true}
 {
 	_collision.min =  _pos ;
 	_collision.max =  _pos + _size ;

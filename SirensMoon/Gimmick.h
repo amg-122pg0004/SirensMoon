@@ -23,7 +23,8 @@ public:
 		BigServer,
 		BigGenerator,
 		BigGun,
-		ScreenPump
+		ScreenPump,
+		MiniShuttle
 	};
 	virtual GimmickType GetGimmickType() = 0;
 

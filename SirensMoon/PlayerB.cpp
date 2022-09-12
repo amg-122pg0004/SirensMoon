@@ -108,13 +108,9 @@ void PlayerB::TeleportEvent(){
 		_mode.GetActorServer().Add(std::make_unique<FX_TeleportIN2>(_game, _mode, _pos, _game.GetFrameCount()));
 	}
 	else if (_teleportDelay == 68) {
-		_pos = _teleportPosition;
-		UpdateCollision();
-		Init();
 		_mode.GetActorServer().Add(std::make_unique<FX_TeleportOUT2>(_game, _mode, _pos, _game.GetFrameCount()));
 	}
 	else if (_teleportDelay == 30) {
-
 		_movable = true;
 		_visible = true;
 	}

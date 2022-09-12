@@ -235,7 +235,7 @@ void Boss::Wait() {
 void Boss::GunAttack1() {
 	_state = State::GunAttack1;
 	if (_time == 270) {
-		_mode.GetActorServer().Add(std::make_unique<DisplayArea>(_game, _mode, *this, false));
+		_mode.GetActorServer().Add(std::make_unique<DisplayArea>(_game, _mode, *this, true));
 	}
 	if (_time < 270 && _time>220) {
 		_pos.y -= 5;

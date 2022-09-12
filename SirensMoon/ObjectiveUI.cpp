@@ -4,7 +4,7 @@
 
 ObjectiveUI::ObjectiveUI(Game& game,ModeBase& mode,Vector2 pos,Vector2 size)
 	:UIBase(game, mode, pos, size),
-	_message{ "ミニマップ上のサーバーへ向かう" },
+	_message{ "ミニマップ上に黄色い点で\n示されたサーバーへ向かう" },
 	_nextMessage{ "NULL" }, _startPos{ pos }
 {
 	_font = CreateFontToHandle("ObjectiveFont", 20, 5, -1);

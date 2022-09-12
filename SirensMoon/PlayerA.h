@@ -25,6 +25,7 @@ public:
 	void TakeAmmo();
 
 	void TeleportEvent() override;
+	void RideMiniShuttle();
 private:
 	bool _setGreenBullet;
 

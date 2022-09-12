@@ -67,6 +67,7 @@ public:
 	void TakeDamage(Actor::Type);
 	void Heal();
 	void ChangePosition(Vector2 pos);
+	void ChangePositionDelay();
 	bool Checkteleport();
 	virtual void TeleportEvent();
 	void ChangeMovable(bool flag) { _movable = flag; }

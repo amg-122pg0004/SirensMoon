@@ -6,6 +6,7 @@
 #include "FX_Chargenow.h"
 #include "LaserLight.h"
 #include "FX_Teleport.h"
+#include "MiniShuttle.h"
 PlayerA::PlayerA(Game& game, ModeGame& base, int playernum) 
 	:Player(game, base, playernum),_setGreenBullet{false},_bullet{ 5 }, _charge{ 0 }, _cooldown{ 0 }
 {
@@ -83,6 +84,10 @@ void PlayerA::Action(){
 		PlaySoundMem(SoundServer::Find("ChangeAmmo"), DX_PLAYTYPE_BACK);
 	}
 
+	if (_inputManager->CheckInput("ACCESS", 't', _playerNum)) {
+		RideMiniShuttle();
+	}
+
 	--_cooldown;
 	if (_cooldown > 180-30) {
 		_state = PlayerState::Shoot;
@@ -92,7 +97,6 @@ void PlayerA::Action(){
 	}
 	if (_cooldown < 0) {
 		_cooldown = 0;
-		
 	}
 
 	if (_inputManager->CheckInput("ACTION", 'r', _playerNum)) {
@@ -179,17 +183,34 @@ void PlayerA::AnimUpdate(){
 void PlayerA::TeleportEvent() {
 	/*テレポート用のディレイ*/
 	--_teleportDelay;
+	/*
 	if (_teleportDelay == 135) {
 		_mode.GetActorServer().Add(std::make_unique<FX_TeleportIN1>(_game, _mode, _pos, _game.GetFrameCount()));
 	}
 	else if (_teleportDelay == 68) {
-		_pos = _teleportPosition;
-		UpdateCollision();
-		Init();
 		_mode.GetActorServer().Add(std::make_unique<FX_TeleportOUT1>(_game, _mode, _pos, _game.GetFrameCount()));
 	}
 	else if (_teleportDelay == 30) {
 		_movable = true;
 		_visible = true;
+	}
+	*/
+}
+
+void PlayerA::RideMiniShuttle(){
+	for (auto&& actor : _mode.GetObjects()) {
+		if (actor->GetType() == Actor::Type::Gimmick) {
+			if (static_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::MiniShuttle) {
+				if (!static_cast<MiniShuttle&>(*actor).GetAccessible()) {
+					break;
+				}
+				_movable = false;
+				_visible = false;
+				_invincibleTime = 600;
+				static_cast<MiniShuttle&>(*actor).SetAnimation(true);
+				_teleportPosition = { 3333,4000 };
+				_teleportDelay = 400;
+			}
+		}
 	}
 }

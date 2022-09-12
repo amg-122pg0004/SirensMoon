@@ -68,6 +68,8 @@ void Player::Update() {
 	_roomPosition = CheckRoomPosition();
 	/*ハイドタイムを確認*/
 	UpdateHide();
+
+	ChangePositionDelay();
 }
 
 void Player::PlayerOverlap() {
@@ -229,6 +231,7 @@ void Player::ChangePosition(Vector2 pos) {
 	_pos = pos;
 	auto&& rendercamera = _mode.GetSplitWindow()[_playerNum]->GetCamera();
 	rendercamera->SetPosition(_pos);
+	UpdateCollision();
 }
 
 void Player::UpdateCamera() {
@@ -468,7 +471,7 @@ void Player::Debug(Vector2 window_pos, Vector2 camera_pos) {
 	ss << "_collision.max.x" << _collision.max.x << "\n";
 	ss << "_collision.max.y" << _collision.max.y << "\n";
 	ss << "ハイドタイム" << _hideTime << "\n";
-	ss << "方向(angle)" << _inputAngle << "\n";
+	ss << "テレポートディレイ" << _teleportDelay << "\n";
 	ss << "スピード" << _speed.Length() << "\n";
 	DrawString(50 + _playerNum * 960, 100, ss.str().c_str(), GetColor(255, 0, 255));
 }
@@ -489,4 +492,13 @@ bool Player::SetHideFlag() {
 		return true;
 	}
 	return false;
+}
+
+void Player::ChangePositionDelay() {
+	--_teleportDelay;
+	if (_teleportDelay == 0|| _teleportDelay == 1) {
+		ChangePosition(_teleportPosition);
+		_movable = true;
+		_visible = true;
+	}
 }

@@ -54,16 +54,20 @@ class Actor{
 
 		virtual bool IsDead() { return _dead; }
 		virtual void Dead() { _dead = true; }
+
+		/*ゲッター*/
 		virtual AABB GetCollision() { return _collision; }
 		virtual Vector2 GetPosition() { return _pos; }
 		virtual Vector2 GetSize() { return _size; }
 		virtual Vector2 GetRoomPosition() { return _roomPosition; }
-
+		virtual bool GetVisibility() { return _visible; }
 		int GetRenderPriority() { return _renderPriority; }
 
 
 
 	protected:
+		/*表示するか*/
+		bool _visible;
 		/*関数アクセス用の参照*/
 		Game& _game;
 		ModeGame& _mode;

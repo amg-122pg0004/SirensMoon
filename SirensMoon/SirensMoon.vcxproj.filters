@@ -289,6 +289,9 @@
     <Filter Include="Actor\Effect\FX_Teleport">
       <UniqueIdentifier>{7cb9638d-8eda-4702-9069-18ed88e5fc60}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Gimmick\MiniShuttle">
+      <UniqueIdentifier>{95ae9dde-46e3-4ab0-b410-83259c92164e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -570,6 +573,9 @@
     <ClCompile Include="FX_Teleport.cpp">
       <Filter>Actor\Effect\FX_Teleport</Filter>
     </ClCompile>
+    <ClCompile Include="MiniShuttle.cpp">
+      <Filter>Actor\Gimmick\MiniShuttle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -850,6 +856,9 @@
     </ClInclude>
     <ClInclude Include="FX_Teleport.h">
       <Filter>Actor\Effect\FX_Teleport</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniShuttle.h">
+      <Filter>Actor\Gimmick\MiniShuttle</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

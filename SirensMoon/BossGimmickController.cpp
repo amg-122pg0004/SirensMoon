@@ -10,6 +10,7 @@
 #include "ObjectiveUI.h"
 #include "SplitWindow.h"
 #include "MiniMap.h"
+#include "MiniShuttle.h"
 #include <algorithm>
 #include <random>
 #include <numeric>
@@ -60,22 +61,15 @@ BossGimmickController::BossGimmickController(Game& game, ModeGame& mode, BossGim
 			dynamic_cast<MiniMap&>(*ui).SetBossFlag();
 		}
 	}
+	Vector2 pos={ splitscreen_W / 2, screen_H / 2 };
+	_mode.GetActorServer().Add(std::make_unique<MiniShuttle>(_game,_mode,*this,pos));
 }
 
 void BossGimmickController::Update() {
 	if (_phase1) {
 		return;
 	}
-	/*
-	for (auto&& actor : _mode.GetObjects()) {
-		if (actor->GetType() == Type::PlayerA || actor->GetType() == Type::PlayerB) {
-			if (Intersect(_collision, actor->GetCollision())) {
-				BossSpawn();
-				_phase1 = true;
-			}
-		}
-	}
-	*/
+
 }
 
 void BossGimmickController::BossSpawn() {
@@ -146,7 +140,6 @@ void BossGimmickController::DistributePattern() {
 				dynamic_cast<BigServer&>(*actor).SetPattern(_pattern);
 				++i;
 			}
-			//dynamic_cast<Gimmick&>(*actor).RecieveCall(_gun, 1);
 		}
 	}
 }
@@ -177,4 +170,9 @@ void BossGimmickController::RecieveStartGenerator(int no) {
 		GeneratePattern();
 		DistributePattern();
 	}
+}
+
+void BossGimmickController::SpawnMiniShuttle(){
+	Vector2 pos = { splitscreen_W / 2+ splitscreen_W*3, screen_H / 2+ screen_H *3};
+	_mode.GetActorServer().Add(std::make_unique<MiniShuttle>(_game, _mode, *this, pos));
 }

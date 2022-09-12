@@ -25,9 +25,10 @@ public:
 
 	/*発電機が起動された際に呼ばれる関数*/
 	void RecieveStartGenerator(int no);
-	
+	void SpawnMiniShuttle();
 
 private:
+
 	int _index;//<発電機進行状況
 	std::vector<int> _pattern;//<パターン
 
