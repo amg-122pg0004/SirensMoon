@@ -43,6 +43,15 @@ void PlayerA::Load(){
 	ImageServer::LoadDivGraph("resource/Player/PlayerA/Run/right.png", 60, 10, 6, 150, 150, handle.data());
 	_cg[{PlayerState::Run, PlayerDirection::Right}] = handle;
 
+	ImageServer::LoadDivGraph("resource/Player/PlayerA/Run/backleft.png", 60, 10, 7, 150, 150, handle.data());
+	_cg[{PlayerState::Run, PlayerDirection::UpLeft}] = handle;
+	ImageServer::LoadDivGraph("resource/Player/PlayerA/Run/frontright.png", 60, 10, 7, 150, 150, handle.data());
+	_cg[{PlayerState::Run, PlayerDirection::UpRight}] = handle;
+	ImageServer::LoadDivGraph("resource/Player/PlayerA/Run/leftleft.png", 60, 10, 7, 150, 150, handle.data());
+	_cg[{PlayerState::Run, PlayerDirection::DownLeft}] = handle;
+	ImageServer::LoadDivGraph("resource/Player/PlayerA/Run/rightright.png", 60, 10, 7, 150, 150, handle.data());
+	_cg[{PlayerState::Run, PlayerDirection::DownRight}] = handle;
+
 	handle.resize(16);
 	ImageServer::LoadDivGraph("resource/Player/PlayerA/Set/back.png", 16, 8, 2, 150, 150, handle.data());
 	_cg[{PlayerState::Set, PlayerDirection::Up}] = handle;

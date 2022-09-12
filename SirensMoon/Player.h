@@ -33,6 +33,10 @@ public:
 		Down,
 		Left,
 		Right,
+		UpLeft,
+		UpRight,
+		DownLeft,
+		DownRight
 	};
 
 	Player(Game& game, ModeGame& base, int playernum);
@@ -80,6 +84,10 @@ public:
 		Vector2 _dir;//<キャラの向き
 		Vector2 _lastDir;//最後に向いたキャラの向き
 		Vector2 _speed;//移動の速さ
+
+		double _degree;//キャラの向き
+		double _speed2;//現在の移動速度
+
 		double _speedMax;//最大速度
 		double _accelerationRatio;//入力値をノーマライズした値の乗算値を加速する
 		double _friction;//速度減衰に使用する値
