@@ -2,19 +2,22 @@
 #include "ModeGame.h"
 #include "BossGimmickController.h"
 
-MiniShuttle::MiniShuttle(Game& game, ModeGame& mode,BossGimmickController& controller,Vector2 pos)
-	:Gimmick(game, mode, -1), _animNo{ 0 }, _inverse{ false }, _noCollision{ true },_controller{ controller }
+MiniShuttle::MiniShuttle(Game& game, ModeGame& mode, BossGimmickController& controller, Vector2 pos, bool landing)
+	:Gimmick(game, mode, -1), _animNo{ 0 }, _inverse{ false }, _cg2Flag{ false },
+	_noCollision{ true }, _controller{ controller }, _landing{ landing },
+	_accessible{ false }
 {
 	_visible = true;
 	_cg.resize(100);
 	ImageServer::LoadDivGraph("resource/Gimmick/Boss/MiniShuttle.png", 100, 5, 20, 570, 1080, _cg.data());
 	_cg2.resize(86);
 	ImageServer::LoadDivGraph("resource/Gimmick/Boss/MiniShuttle2.png", 86, 5, 18, 570, 540, _cg2.data());
-
 	_activate = true;
 	_pos = pos;
+	Vector2 roomPos = CheckRoomPosition();
+	_pos = { roomPos.x * splitscreen_W+splitscreen_W / 2, roomPos.y * screen_H +screen_H / 2 };
 	_size = { 100,100 };
-	Vector2 accessPos = { splitscreen_W / 2 - 8,screen_H * 0.85 };
+	Vector2 accessPos = { splitscreen_W / 2 - 8 + roomPos.x * splitscreen_W,screen_H * 0.85 + roomPos.y * screen_H };
 	_collisionPreset.min = { accessPos.x - 30,accessPos.y - 30 };
 	_collisionPreset.max = { accessPos.x + 30,accessPos.y + 30 };
 	_accessArea.min = { accessPos.x - 35,accessPos.y - 30 };
@@ -33,7 +36,7 @@ void MiniShuttle::Debug(Vector2 window_pos, Vector2 camera_pos) {
 }
 
 void MiniShuttle::Update() {
-	if (!_noCollision) {
+	if (!_noCollision&&!_landing) {
 		if (CheckOverlapAccessArea()) {
 			_accessible = true;
 		}
@@ -62,7 +65,7 @@ void MiniShuttle::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 		, 1, 0);
 }
 
-bool MiniShuttle::CheckOverlapAccessArea(){
+bool MiniShuttle::CheckOverlapAccessArea() {
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::PlayerA) {
 			if (Intersect(_accessArea, actor->GetCollision())) {
@@ -73,7 +76,7 @@ bool MiniShuttle::CheckOverlapAccessArea(){
 	return false;
 }
 
-void MiniShuttle::CollisionUpdate(){
+void MiniShuttle::CollisionUpdate() {
 	if (_noCollision) {
 		_collision.min = { -1,-1 };
 		_collision.max = { -1,-1 };
@@ -99,12 +102,17 @@ void MiniShuttle::UpdateAnimation() {
 	else {
 		if (_animNo >= _cg2.size()) {
 			_animNo = _cg2.size() - 1;
-
+			if (_landing) {
+				_controller.WarpEvent();
+			}
 		}
 	}
 }
 
-void MiniShuttle::UpdateInverseAnimation(){
+void MiniShuttle::UpdateInverseAnimation() {
+	if (_landing) {
+		return;
+	}
 	if (_game.GetFrameCount() % 2 == 0) {
 		--_animNo;
 	}

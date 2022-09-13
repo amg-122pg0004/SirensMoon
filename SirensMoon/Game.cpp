@@ -44,7 +44,8 @@ void Game::Render() {
 void Game::Debug(){
 	if (_debug) {
 		_modeServer->Debug();
-		DrawFormatString(0, 0, GetColor(255, 255, 255), "%f", GetFPS());
+		DrawFormatString(0, 0, GetColor(255, 255, 255), "%f", GetFPS()); 
+		DrawFormatString(0, 12, GetColor(255, 255, 255), "%d", GetASyncLoadNum());
 	}
 }
 
@@ -160,7 +161,6 @@ void Game::PlayStage2Clear() {
 	_modeServer->Clear();
 	_progress = Progress::Stage2Clear;
 	_modeServer->Add(std::move(std::make_unique<ModeMovie>(*this, "resource/Movie/stage2end.mp4")));
-	SetUseASyncLoadFlag(true);
 	LoadResources::LoadBossCGs();
 }
 

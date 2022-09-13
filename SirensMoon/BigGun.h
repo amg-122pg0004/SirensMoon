@@ -16,6 +16,7 @@ public:
 	void StandardRender(Vector2 window_pos, Vector2 camera_pos);
 	void Debug(Vector2 window_pos, Vector2 camera_pos)override;
 	void SetAccesible() { _accessible = true; }
+	bool GetAccesible() { return _accessible; }
 	void RidePlayer();
 private:
 

@@ -68,7 +68,6 @@ public:
 	void TakeDamage(Actor::Type);
 	void Heal();
 	void ChangePosition(Vector2 pos);
-	void ChangePositionDelay();
 	bool Checkteleport();
 	virtual void TeleportEvent();
 	void ChangeMovable(bool flag) { _movable = flag; }
@@ -76,12 +75,10 @@ public:
 	/*ハイドフラグの確認*/
 	void UpdateHide();
 	bool GetHideFlag() { return _hide; }
-	bool SetHideFlag();
+	bool SetHideTimer(int timer);
 
 	void Debug(Vector2 window_pos, Vector2 camera_pos)override;
 
-	void SetDelayFunction(int delayFrame, std::function<void()> function);
-	bool CheckDelayFunctions();
 	protected:
 
 		std::shared_ptr<InputManager> _inputManager;
@@ -96,11 +93,13 @@ public:
 		double _speedMax;//最大速度
 		double _accelerationRatio;//入力値をノーマライズした値の乗算値を加速する
 		double _friction;//速度減衰に使用する値
-		bool _movable;//<True時のみ移動可能
 		bool _stageMovable;//<True時画面外への移動を制限する
 
+
+		bool _movable;//<True時のみ移動可能
+
 		bool _hide;//<true時敵から見つからない
-		int _hideTime;
+		int _hideTimer;
 
 		int _playerNum;//<プレイヤーの番号(0なら左プレイヤー、1なら右プレイヤー）
 		int _hp,_hpMAX;//<体力
@@ -111,7 +110,6 @@ public:
 		std::map <std::pair<PlayerState, PlayerDirection>, std::vector<int >> _cg;
 
 		int _animNo;
-		bool _visible;
 		/*ライトの光画像*/
 		int _cg_light;
 
@@ -122,6 +120,4 @@ public:
 
 		Vector2 _teleportPosition;
 		int _teleportDelay;
-
-		std::vector<std::pair<int,std::function<void()>>> _delayFunctions;
 };

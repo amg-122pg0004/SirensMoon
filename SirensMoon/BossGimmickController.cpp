@@ -11,6 +11,7 @@
 #include "SplitWindow.h"
 #include "MiniMap.h"
 #include "MiniShuttle.h"
+#include "PlayerA.h"
 #include <algorithm>
 #include <random>
 #include <numeric>
@@ -21,19 +22,11 @@ BossGimmickController::BossGimmickController(Game& game, ModeGame& mode, BossGim
 	_gun = data.gunID;
 	_generators = data.generatorsID;
 	_servers = data.serversID;
-	_teleport = data.teleporterID;
 	_pos = data.pos;
 	CheckRoomPosition();
 	_size = { 100,100 };
 	_collision.min = _pos - _size / 2;
 	_collision.max = _pos + _size / 2;
-
-	std::vector<int> v_teleport = { _teleport };
-	for (auto&& actor : _mode.GetObjects()) {
-		if (actor->GetType() == Type::Gimmick) {
-			dynamic_cast<Gimmick&>(*actor).RecieveCall(v_teleport, false);
-		}
-	}
 
 	auto v_BigGen = _mode.GetMapChips()->GetBigGeneratorData();
 	for (auto BigGen : v_BigGen) {
@@ -61,8 +54,6 @@ BossGimmickController::BossGimmickController(Game& game, ModeGame& mode, BossGim
 			dynamic_cast<MiniMap&>(*ui).SetBossFlag();
 		}
 	}
-	Vector2 pos={ splitscreen_W / 2, screen_H / 2 };
-	_mode.GetActorServer().Add(std::make_unique<MiniShuttle>(_game,_mode,*this,pos));
 }
 
 void BossGimmickController::Update() {
@@ -78,6 +69,9 @@ void BossGimmickController::BossSpawn() {
 }
 
 void BossGimmickController::PrePhase2() {
+	Vector2 pos = { splitscreen_W / 2, screen_H / 2 };
+	_mode.GetActorServer().Add(std::make_unique<MiniShuttle>(_game, _mode, *this, pos, false));
+
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::Gimmick) {
 			if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::BigServer) {
@@ -94,12 +88,6 @@ void  BossGimmickController::Phase2() {
 	GeneratePattern();
 	DistributePattern();
 
-	std::vector<int> v_teleport = { _teleport };
-	for (auto&& actor : _mode.GetObjects()) {
-		if (actor->GetType() == Type::Gimmick) {
-			dynamic_cast<Gimmick&>(*actor).RecieveCall(v_teleport, true);
-		}
-	}
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::Gimmick) {
 			if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::BigServer) {
@@ -156,7 +144,7 @@ void BossGimmickController::RecieveStartGenerator(int no) {
 			for (auto&& actor : _mode.GetObjects()) {
 				if (actor->GetType() == Type::Gimmick) {
 					if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::BigGun) {
-						dynamic_cast<BigGun&>(*actor).SetAccesible();
+						dynamic_cast<BigGun&>(*actor).SetActivate();
 						_readyRailgun = true;
 						dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
 							->ChangeMessage("巨大レールガンに乗り込み\nミッションを完遂せよ", 1);
@@ -173,6 +161,19 @@ void BossGimmickController::RecieveStartGenerator(int no) {
 }
 
 void BossGimmickController::SpawnMiniShuttle(){
-	Vector2 pos = { splitscreen_W / 2+ splitscreen_W*3, screen_H / 2+ screen_H *3};
-	_mode.GetActorServer().Add(std::make_unique<MiniShuttle>(_game, _mode, *this, pos));
+	Vector2 pos = { splitscreen_W / 2+ splitscreen_W*3+100, screen_H / 2+ screen_H *3};
+	_mode.GetActorServer().Add(std::make_unique<MiniShuttle>(_game, _mode, *this, pos,true));
+	for (auto&& actor : _mode.GetObjects()) {
+		if (actor->GetType() == Type::PlayerA) {
+			static_cast<PlayerA&>(*actor).ChangePosition({ 3240, 4180 });
+		}
+	}
+}
+
+void BossGimmickController::WarpEvent(){
+	for (auto&& actor : _mode.GetObjects()) {
+		if (actor->GetType() == Type::PlayerA) {
+			static_cast<PlayerA&>(*actor).OffMiniShuttle();
+		}
+	}
 }

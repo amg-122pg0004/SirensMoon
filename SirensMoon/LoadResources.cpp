@@ -66,6 +66,8 @@ void LoadResources::LoadEffects() {
 	ImageServer::LoadDivGraph("resource/Effect/teleport_outR.png", 68, 4, 17, 256, 256, cg.data());
 	cg.resize(112);
 	ImageServer::LoadDivGraph("resource/Effect/teleport_outB.png", 68, 4, 17, 256, 256, cg.data());
+	cg.resize(117);
+	ImageServer::LoadDivGraph("resource/Effect/ScreenSmoke.png", 117, 5, 24, 256, 256, cg.data());
 }
 
 void LoadResources::LoadMovie(std::string path) {
@@ -99,5 +101,5 @@ void LoadResources::LoadBossCGs() {
 	handle.resize(100);
 	ImageServer::LoadDivGraph("resource/Gimmick/Boss/MiniShuttle.png", 100, 5, 20, 570, 1080, handle.data());
 	handle.resize(86);
-	ImageServer::LoadDivGraph("resource/Gimmick/Boss/MiniShuttle.png", 86, 5, 18, 570 / 2, 1080 / 2, handle.data());
+	ImageServer::LoadDivGraph("resource/Gimmick/Boss/MiniShuttle2.png", 86, 5, 18, 570, 540, handle.data());
 }

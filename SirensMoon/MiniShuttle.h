@@ -6,7 +6,7 @@ class BossGimmickController;
 
 class MiniShuttle :public Gimmick {
 public:
-	MiniShuttle(Game& game, ModeGame& mode, BossGimmickController& controller, Vector2 pos);
+	MiniShuttle(Game& game, ModeGame& mode, BossGimmickController& controller,Vector2 pos, bool landing);
 	Type GetType()override { return Type::Gimmick; }
 	GimmickType GetGimmickType() override { return GimmickType::MiniShuttle; }
 	void Update();
@@ -24,6 +24,7 @@ private:
 	void UpdateInverseAnimation();
 
 	BossGimmickController& _controller;
+	bool _landing;
 	bool _noCollision;
 	bool _visible;
 	bool _inverse;

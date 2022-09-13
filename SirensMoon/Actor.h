@@ -55,6 +55,8 @@ class Actor{
 		virtual bool IsDead() { return _dead; }
 		virtual void Dead() { _dead = true; }
 
+		virtual void SetVisibility(bool flag) { _visible = flag; };
+
 		/*ÉQÉbÉ^Å[*/
 		virtual AABB GetCollision() { return _collision; }
 		virtual Vector2 GetPosition() { return _pos; }

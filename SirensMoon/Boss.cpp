@@ -7,11 +7,12 @@
 #include "BossGimmickController.h"
 #include "ObjectiveUI.h"
 #include "Explode.h"
+#include "FX_BossDead.h"
 
 Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
-	:Actor(game,mode),_scale{1.0},_animNo{0}
-	,_backlayer{true},_time{60},_visible{true},_speed{2.5}
-	,_headbuttSize{150,420},_headSize{90,90},_hp{3},_controller{controller}
+	:Actor(game,mode),_scale{1.0},_mapscale{1.0}, _animNo{0}
+	,_backlayer{true},_time{60},_visible{true},_speed{2.5},_alpha{255}
+	,_headbuttSize{150,420},_headSize{90,90},_hp{1},_controller{controller}
 {
 	Vector2 pos = { _controller.GetRoomPosition().x-1.0,_controller.GetRoomPosition().y-1.0 };
 	_startPos = { splitscreen_W * pos.x + 500 , screen_H * pos.y + 450 };
@@ -37,6 +38,7 @@ Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 	handle.resize(70);
 	ImageServer::LoadDivGraph("resource/Boss/jump.png", 70, 10, 7, 1024, 1024, handle.data());
 	_cg[State::Jump] = handle;
+	_cg[State::Return] = handle;
 	handle.resize(26);
 	ImageServer::LoadDivGraph("resource/Boss/damage.png", 26, 10, 3, 256, 256, handle.data());
 	_cg[State::Damage] = handle;
@@ -103,6 +105,9 @@ void Boss::Update(){
 	case Boss::State::Thunder:
 		Thunder();
 		break;
+	case Boss::State::Return:
+		Return();
+		break;
 	}
 
 }
@@ -129,19 +134,10 @@ void Boss::TakeDamage() {
 }
 void Boss::DamageSequence() {
 	if (_time == 0) {
-		_state = State::Wait;
-		_time = 1;
-		_scale = 1;
-		_pos = _startPos;
-		_backlayer = true;
-		_visible = true;
-		if (_hp <= 0) {
-			if (!_phase2) {
-				_state = State::Thunder;
-				_time = 500;
-				return;
-			}
-		}
+		_time = 4 * 60;
+		_animNo = 0;
+		_scale = 0.25;
+		_state = State::Return;
 	}
 }
 
@@ -152,9 +148,11 @@ void Boss::BackRender(Vector2 window_pos, Vector2 camera_pos){
 			if (_animNo >= cg.size()) {
 				_animNo = 0;
 			}
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA,_alpha);
 			DrawRotaGraph(static_cast<int>(_pos.x - camera_pos.x + window_pos.x),
 				static_cast<int>(_pos.y - camera_pos.y + window_pos.y),
 				_scale, 0.0, cg[_animNo], 1);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 		}
 	}
 }
@@ -169,7 +167,7 @@ void Boss::StandardRender( Vector2 window_pos, Vector2 camera_pos) {
 
 			DrawRotaGraph(static_cast<int>(_pos.x - camera_pos.x + window_pos.x),
 				static_cast<int>(_pos.y - camera_pos.y + window_pos.y),
-				1.0, 0.0, cg[_animNo], 1);
+				_scale, 0.0, cg[_animNo], 1);
 
 		}
 	}
@@ -178,8 +176,8 @@ void Boss::StandardRender( Vector2 window_pos, Vector2 camera_pos) {
 void Boss::ChoiceAttack() {
 	_animNo = 0;
 	if (!_phase2) {
-		switch (rand3(engine)) {
-		//switch (3) {
+		//switch (rand3(engine)) {
+		switch (3) {
 		case 1:
 			if (rand2(engine) == 1) {
 				_time = 270;
@@ -197,7 +195,7 @@ void Boss::ChoiceAttack() {
 			break;
 
 		case 3:
-			_time = 2*60;
+			_time = 2.5*60;
 			Jump();
 			break;
 		}
@@ -292,7 +290,6 @@ void Boss::ShootMissile() {
 		dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
 			->ChangeMessage("ミサイルを回避せよ", 2);
 	}
-
 }
 
 void Boss::HeadButt(){
@@ -300,7 +297,7 @@ void Boss::HeadButt(){
 	_state = State::HeadButt;
 
 	if (700 == _time) {
-		_scale = 0.25;
+		_scale = 1;
 		_pos = _startPos;
 		switch (rand3(engine)) {
 		case 1:
@@ -320,10 +317,10 @@ void Boss::HeadButt(){
 	}
 
 	if (_time == 1) {
-		_scale = 1;
-		_pos=_startPos;
-		_backlayer = true;
-		_visible = true;
+		_time = 4 * 60;
+		_scale = 0.25;
+		_animNo = 0;
+		_state = State::Return;
 	}
 
 	if (_time < 590 && _time>410&&_visible==false) {
@@ -349,14 +346,6 @@ void Boss::HeadButt(){
 	if (_visible == true) {
 		if (_animNo < 20) {
 			_pos.y -= 3;
-			/*
-			AABB col = _player1->GetCollision();
-			auto dir = (col.min + col.max) / 2 - _pos;
-			dir.Normalize();
-			
-			_pos = _pos + dir * _speed;
-			UpdateCollision();
-			*/
 		}
 		if (_animNo>=20&& _animNo < 30) {
 			_pos.y += 6;
@@ -399,20 +388,69 @@ void Boss::UpdateCollision(){
 		_hitbox.max = _pos + _size / 2;
 	}
 }
-/*全体120F*/
+
+/*全体150F*/
 void Boss::Jump(){
 	_state = State::Jump;
+	if (_time < 150&& _time > 90) {
+		_scale -= 0.01;
+		_mapscale -= 0.01;
+		if (_scale < 0.25) {
+			_scale = 0.25;
+		}
+	}
+	if (_time < 120 && _time > 0) {
+		_alpha -= 2;
+	}
 	if (_time < 45) {
 		_pos.y -= 40;
 	}
 	if (_time == 0) {
 	_time = 800;
+	_alpha = 255;
 	_state = State::HeadButt;
 	}
 	dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
 		->ChangeMessage("消えた敵の攻撃を避け、\n隙をついて攻撃せよ", 2);
 	dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
 		->ChangeMessage("消えた敵の位置をマップから探れ", 1);
+}
+
+/*全体150F*/
+void Boss::Return() {
+	_state = State::Return;
+	if (_time < 165&&_time>80) {
+		_pos.y -= 40;
+	}
+	if (_time == 80) {
+		_scale = 1;
+		_mapscale =1;
+		_backlayer = true;
+		_visible = true;
+		_pos.x = _startPos.x;
+	}
+	if (_time < 80) {
+		Vector2 dir=_startPos - _pos;
+		dir.Normalize();
+		if (_pos.y < _startPos.y) {
+			_pos.y = _startPos.y;
+		}
+	}
+	if (_time == 1) {
+		_pos = _startPos;
+		if (_hp <= 0) {
+			if (!_phase2) {
+				_state = State::Thunder;
+				_time = 500;
+				_scale = 1;
+				_mapscale = 1;
+				_pos = _startPos;
+				_backlayer = true;
+				_visible = true;
+				return;
+			}
+		}
+	}
 }
 
 void Boss::Thunder(){
@@ -423,4 +461,8 @@ void Boss::Thunder(){
 		_phase2 = true;
 		_controller.Phase2();
 	}
+}
+
+void Boss::Dead(){
+	_mode.GetActorServer().Add(std::make_unique<FX_BossDead>(_game,_mode,_pos,_game.GetFrameCount()));
 }

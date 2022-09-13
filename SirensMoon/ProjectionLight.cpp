@@ -31,6 +31,7 @@ void ProjectionLight::Update(){
 	_pos = _owner.GetPosition() + _owner.GetSize() / 2;
 	_angle = player.GetInputAngle() + Math::ToRadians(90);
 
+	_activate = _owner.GetVisibility();
 	/*
 	_scale += 0.01;
 	_alpha += 10;

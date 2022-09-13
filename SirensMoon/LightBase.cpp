@@ -30,6 +30,8 @@ void LightBase::Update() {
 		double d_y = static_cast<double>(y) * _scale;
 		_pos = { _owner.GetPosition().x + _owner.GetSize().x - d_x / 2 ,_owner.GetPosition().y + _owner.GetSize().y - d_y / 2 };
 	}
+
+	_activate = _owner.GetVisibility();
 }
 
 void LightBase::CheckDeadOwner() {

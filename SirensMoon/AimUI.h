@@ -14,4 +14,6 @@ private:
 	Vector2 _pos_cursor;
 	double _speed;
 	std::shared_ptr<InputManager> _inputManager;
+	bool _gameClear;
+	int _gameClearTimer;
 };

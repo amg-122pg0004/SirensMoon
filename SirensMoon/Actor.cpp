@@ -44,7 +44,7 @@ void Actor::CheckDeadOwner() {
 
 }
 
-
+/*Ø‚èÌ‚Äi¶ã‚Ì•”‰®‚ª0,0j*/
 Vector2 Actor::CheckRoomPosition() {
 	double x = floor((_pos.x + _size.x / 2.0) / (static_cast<double>(splitscreen_W)));
 	double y = floor((_pos.y + _size.y / 2.0) / (static_cast<double>(screen_H)));

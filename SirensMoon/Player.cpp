@@ -21,9 +21,9 @@
 
 Player::Player(Game& game, ModeGame& mode, int playernum)
 	:Actor{ game,mode }, _speed{ 0,0 }, _playerNum{ playernum }
-	, _dir{ 0,0 }, _inputAngle{ 0 }, _hp{ 3 }, _hpMAX{ 3 }, _movable{ 1 }
+	, _dir{ 0,0 }, _inputAngle{ 0 }, _hp{ 33 }, _hpMAX{ 3 }, _movable{ true }
 	, _init{ false }, _state{ PlayerState::Wait }, _direction{ PlayerDirection::Right }, _animNo{ 0 }, _invincibleTime{ 0 }
-	, _stageMovable{ true }, _teleportDelay{-1}, _teleportPosition{0,0},_visible{true}
+	, _stageMovable{ true }, _teleportDelay{ -1 }, _teleportPosition{ 0,0 }
 {
 	_inputManager = _game.GetInputManager();
 	auto data = _mode.GetMapChips()->GetPlayerData(_playerNum);
@@ -32,7 +32,7 @@ Player::Player(Game& game, ModeGame& mode, int playernum)
 	_accelerationRatio = data.Accelerate;
 	_friction = data.Friction;
 	_pos = { pos.x,pos.y };
-	_size = { 30,60 };
+	_size = { 30,40 };
 	auto light = std::make_unique<LightBase>(_game, _mode, *this);
 	_mode.GetActorServer().Add(std::move(light));
 	auto gunlight = std::make_unique<ProjectionLight>(_game, _mode, *this);
@@ -52,7 +52,7 @@ void Player::Update() {
 	/*アナログ入力取得*/
 	_dir = _inputManager->CheckAnalogInput(_playerNum);
 	_dir = _dir / 1000;
-	if (atan2(_dir.y, _dir.x)!=0) {
+	if (_dir.x != 0 || _dir.y != 0) {
 		_inputAngle = atan2(_dir.y, _dir.x);
 	}
 	PlayerOverlap();
@@ -69,9 +69,6 @@ void Player::Update() {
 	/*ハイドタイムを確認*/
 	UpdateHide();
 
-	ChangePositionDelay();
-
-	CheckDelayFunctions();
 }
 
 void Player::PlayerOverlap() {
@@ -262,8 +259,8 @@ void Player::DirectionCGStateUpdate() {
 
 	if (_state != PlayerState::Run) {
 		float threshold = 90.0f;
-		if (_inputAngle >= Math::ToRadians(-threshold*2) && _inputAngle < Math::ToRadians(-threshold * 3 / 2)||
-			_inputAngle >= Math::ToRadians(threshold * 3/2) && _inputAngle < Math::ToRadians(threshold*2)) {
+		if (_inputAngle >= Math::ToRadians(-threshold * 2) && _inputAngle < Math::ToRadians(-threshold * 3 / 2) ||
+			_inputAngle >= Math::ToRadians(threshold * 3 / 2) && _inputAngle < Math::ToRadians(threshold * 2)) {
 			_direction = PlayerDirection::Left;
 		}
 		else if (_inputAngle > Math::ToRadians(-threshold * 3 / 2) && _inputAngle < Math::ToRadians(-threshold * 1 / 2)) {
@@ -280,7 +277,7 @@ void Player::DirectionCGStateUpdate() {
 	}
 	else {
 		float threshold = 45.0f;
-		if (_inputAngle >= Math::ToRadians(-threshold*4) && _inputAngle < Math::ToRadians(-threshold * 7/2)||
+		if (_inputAngle >= Math::ToRadians(-threshold * 4) && _inputAngle < Math::ToRadians(-threshold * 7 / 2) ||
 			_inputAngle >= Math::ToRadians(threshold * 7 / 2) && _inputAngle < Math::ToRadians(threshold * 4)) {
 			_direction = PlayerDirection::Left;
 		}
@@ -331,22 +328,25 @@ void Player::CheckDamage() {
 	if (_invincibleTime < 0) {
 		_invincibleTime = 0;
 	}
-	if (_invincibleTime == 0) {
-		for (auto&& actor : _mode.GetActorServer().GetObjects()) {
-			if (actor->GetType() == Type::Explode) {
-				if (Intersect(_collision, actor->GetCollision())) {
-					TakeDamage(actor->GetType());
-					_invincibleTime = 90;
-				}
+
+	for (auto&& actor : _mode.GetActorServer().GetObjects()) {
+		if (_invincibleTime != 0) {
+			break;
+		}
+		if (actor->GetType() == Type::Explode) {
+			if (Intersect(_collision, actor->GetCollision())) {
+				TakeDamage(actor->GetType());
+				_invincibleTime = 90;
 			}
-			if (actor->GetType() == Type::BossCanon) {
-				if (Intersect(_collision, actor->GetCollision())) {
-					TakeDamage(actor->GetType());
-					_invincibleTime = 90;
-				}
+		}
+		if (actor->GetType() == Type::BossCanon) {
+			if (Intersect(_collision, actor->GetCollision())) {
+				TakeDamage(actor->GetType());
+				_invincibleTime = 90;
 			}
 		}
 	}
+
 }
 
 void Player::Action() {
@@ -359,27 +359,27 @@ void Player::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 	}
 	std::vector<int> cg = _cg[{_state, _direction}];
 	if (_state == PlayerState::Set || _state == PlayerState::Shoot) {
-		DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x - (_size.y / 2)),
-			static_cast<int>(_pos.y + window_pos.y - camera_pos.y - (_size.y / 2) * 0.6),
-			static_cast<int>(_pos.x + window_pos.x - camera_pos.x - (_size.y / 2) + _size.y * 1.5),
-			static_cast<int>(_pos.y + window_pos.y - camera_pos.y - (_size.y / 2) * 0.6 + _size.y * 1.5), cg[_animNo], 1);
+		DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x - 30),
+			static_cast<int>(_pos.y + window_pos.y - camera_pos.y - 30* 0.6),
+			static_cast<int>(_pos.x + window_pos.x - camera_pos.x - 30+ 60 * 1.5),
+			static_cast<int>(_pos.y + window_pos.y - camera_pos.y - 30* 0.6 + 60 * 1.5), cg[_animNo], 1);
 		++_animNo;
 		if (_animNo >= cg.size()) {
 			_animNo = static_cast<int>(cg.size()) - 1;
 		}
 	}
 	else {
-		DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x - (_size.y / 2)),
-			static_cast<int>(_pos.y + window_pos.y - camera_pos.y - (_size.y / 2) * 0.6),
-			static_cast<int>(_pos.x + window_pos.x - camera_pos.x - (_size.y / 2) + _size.y * 1.5),
-			static_cast<int>(_pos.y + window_pos.y - camera_pos.y - (_size.y / 2) * 0.6 + _size.y * 1.5),
+		DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x - 30),
+			static_cast<int>(_pos.y + window_pos.y - camera_pos.y - 30 * 0.6),
+			static_cast<int>(_pos.x + window_pos.x - camera_pos.x - 30 + 60 * 1.5),
+			static_cast<int>(_pos.y + window_pos.y - camera_pos.y - 30 * 0.6 + 60 * 1.5),
 			cg[_game.GetFrameCount() % cg.size()], 1);
 	}
 }
 
 void Player::UpdateCollision() {
 	_collision.min = { _pos.x,_pos.y + 20 };
-	_collision.max = _pos + _size;
+	_collision.max = { _pos.x + _size.x, _pos.y + _size.y+20 };
 	_renderPriority = static_cast<int>(_pos.y + _size.y);
 }
 
@@ -444,9 +444,9 @@ bool Player::Checkteleport() {
 						UpdateCollision();
 						PlaySoundMem(SoundServer::Find("Teleport"), DX_PLAYTYPE_BACK);
 					}
-					
+
 					if (_movable == true) {
-						_teleportDelay = 68*2;
+						_teleportDelay = 68 * 2;
 						_movable = false;
 						_visible = false;
 					}
@@ -472,55 +472,25 @@ void Player::Debug(Vector2 window_pos, Vector2 camera_pos) {
 
 	ss << "_collision.max.x" << _collision.max.x << "\n";
 	ss << "_collision.max.y" << _collision.max.y << "\n";
-	ss << "ハイドタイム" << _hideTime << "\n";
+	ss << "ハイドタイム" << _hideTimer << "\n";
 	ss << "テレポートディレイ" << _teleportDelay << "\n";
 	ss << "スピード" << _speed.Length() << "\n";
 	DrawString(50 + _playerNum * 960, 100, ss.str().c_str(), GetColor(255, 0, 255));
 }
 
 void Player::UpdateHide() {
-	--_hideTime;
-	if (_hideTime < 0) {
-		_hideTime = 0;
+	--_hideTimer;
+	if (_hideTimer < 0) {
+		_hideTimer = 0;
 		PlaySoundMem(SoundServer::Find("ScreenBomRelease"), DX_PLAYTYPE_BACK);
 		_hide = false;
 	}
 }
 
-bool Player::SetHideFlag() {
+bool Player::SetHideTimer(int timer) {
 	if (!_hide) {
 		_hide = true;
-		_hideTime = 30 * 60;
-		return true;
-	}
-	return false;
-}
-
-void Player::ChangePositionDelay() {
-	--_teleportDelay;
-	if (_teleportDelay == 0|| _teleportDelay == 1) {
-		ChangePosition(_teleportPosition);
-		_movable = true;
-		_visible = true;
-	}
-}
-
-void Player::SetDelayFunction(int delayFrame, std::function<void()> function){
-	int callFrame = _game.GetFrameCount() + delayFrame;
-	_delayFunctions.push_back({ callFrame,function});
-	std::sort(_delayFunctions.begin(), _delayFunctions.end(),
-		[](const auto& lhs, const auto& rhs) {return lhs.first < rhs.first;}
-	);
-}
-
-bool Player::CheckDelayFunctions(){
-	if (_delayFunctions.empty()) {
-		return false;
-	}
-
-	if (_delayFunctions[0].first <= _game.GetFrameCount()) {
-		_delayFunctions[0].second();
-		_delayFunctions.erase(_delayFunctions.begin());
+		_hideTimer = timer;
 		return true;
 	}
 	return false;

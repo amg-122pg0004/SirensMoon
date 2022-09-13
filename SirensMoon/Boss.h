@@ -14,10 +14,12 @@ public:
 	void StandardRender(Vector2 window_pos, Vector2 camera_pos)override;
 	void Debug(Vector2 window_pos, Vector2 camera_pos)override;
 	double GetScale() { return _scale; };
+	double GetMapScale() { return _mapscale; }
 	Type GetType()override{ return Type::Boss; }
 	void CheckOverlapActor();
 	void TakeDamage();
 	AABB GetHitBox() { return _hitbox; }
+	void Dead()override;
 private:
 	enum class State {
 		Wait,
@@ -25,6 +27,7 @@ private:
 		GunAttack2,
 		ShootMissile,
 		Jump,
+		Return,
 		HeadButt,
 		Damage,
 		Thunder
@@ -39,6 +42,7 @@ private:
 	void Jump();
 	void DamageSequence();
 	void Thunder();
+	void Return();
 	void UpdateCollision();
 	/*グラフィックハンドル*/
 	/*firstがback用secondはstandard用*/
@@ -46,7 +50,7 @@ private:
 	std::map < State, std::vector<int>> _cg;
 	/*アニメーション番号*/
 	int _animNo;
-	double _scale;
+	double _scale, _mapscale;
 	/*プレイヤー参照*/
 	Actor* _player1;
 	Actor* _player2;
@@ -78,4 +82,6 @@ private:
 	int _time;
 
 	BossGimmickController& _controller;
+
+	int _alpha;
 };

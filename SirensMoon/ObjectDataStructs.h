@@ -160,7 +160,7 @@ public:
 class MineData : public ObjectDataBase {
 public:
 	Type GetType()override { return ObjectDataBase::Type::Mine; }
-	int range{-1};
+	int range{180};
 	int dir{-1};
 };
 

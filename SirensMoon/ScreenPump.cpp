@@ -2,6 +2,7 @@
 #include "ModeGame.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "FX_ScreenSmoke.h"
 
 ScreenPump::ScreenPump(Game& game, ModeGame& mode, ScreenPumpData data)
 	:Gimmick(game, mode, data.ID), _dir{ data.dir }
@@ -49,16 +50,18 @@ void ScreenPump::Update() {
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::PlayerA ) {
 			if (Intersect(_detectionArea, actor->GetCollision())) {
-				if (dynamic_cast<Player&>(*actor).SetHideFlag()) {
+				if (dynamic_cast<Player&>(*actor).SetHideTimer(120)) {
 					_mode.GetSplitWindow()[1]->ScreenPumpEvent();
+					_mode.GetActorServer().Add(std::make_unique<FX_ScreenSmoke>(_game, _mode, _pos+ _size, _game.GetFrameCount()));
 					PlaySoundMem(SoundServer::Find("MicroBomRelease"), DX_PLAYTYPE_BACK);
 				}
 			}
 		}
 		if (actor->GetType() == Type::PlayerB) {
 			if (Intersect(_detectionArea, actor->GetCollision())) {
-				if (dynamic_cast<Player&>(*actor).SetHideFlag()) {
+				if (dynamic_cast<Player&>(*actor).SetHideTimer(60*30)) {
 					_mode.GetSplitWindow()[0]->ScreenPumpEvent();
+					_mode.GetActorServer().Add(std::make_unique<FX_ScreenSmoke>(_game, _mode, _pos+ _size,_game.GetFrameCount()));
 					PlaySoundMem(SoundServer::Find("MicroBomRelease"), DX_PLAYTYPE_BACK);
 				}
 			}

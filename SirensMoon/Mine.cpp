@@ -2,6 +2,7 @@
 #include "ModeGame.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Explode.h"
 
 Mine::Mine(Game& game, ModeGame& mode, MineData data)
 	:Gimmick(game,mode,data.ID),_dir{data.dir}
@@ -42,16 +43,20 @@ void Mine::Update(){
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::PlayerA|| actor->GetType() == Type::PlayerB) {
 			if(Intersect(_detectionArea, actor->GetCollision())) {
-				dynamic_cast<Player&>(*actor).TakeDamage(GetType());
+				//dynamic_cast<Player&>(*actor).TakeDamage(GetType());
+				for (int i = 0; i < 4; ++i) {
+					Vector2 pos=(_detectionArea.max - _detectionArea.min)*i/4+ _detectionArea.min;
+					_mode.GetActorServer().Add(std::make_unique<Explode>(_game, _mode, pos));
+				}
+
 				_dead = true;
-				PlaySoundMem(SoundServer::Find("ScreenBomActive"), DX_PLAYTYPE_BACK);
+				PlaySoundMem(SoundServer::Find("ActiveTrapBom"), DX_PLAYTYPE_BACK);
 			}
 		}
 		if (actor->GetType() == Type::Enemy) {
 			if (Intersect(_detectionArea, actor->GetCollision())) {
-				dynamic_cast<Enemy&>(*actor).TakeDamage(GetType());
 				_dead = true;
-				PlaySoundMem(SoundServer::Find("ScreenBomActive"), DX_PLAYTYPE_BACK);
+				PlaySoundMem(SoundServer::Find("ActiveTrapBom"), DX_PLAYTYPE_BACK);
 			}
 		}
 	}

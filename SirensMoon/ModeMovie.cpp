@@ -8,25 +8,33 @@
 #include "ModeMovie.h"
 #include "ImageServer.h"
 #include "Game.h"
+#include "LoadResources.h"
 
 ModeMovie::ModeMovie(Game& game,std::string path) 
 	:ModeBase{game} ,_sizeX{0},_sizeY{0}
 {
 	_renderPriority = 10;
 	_movieHandle=ImageServer::LoadGraph(path);
+	SeekMovieToGraph(_movieHandle,0);
 	PlayMovieToGraph(_movieHandle);
 
 	GetGraphSize(_movieHandle, &_sizeX, &_sizeY);
 	_makedNextMode = false;
+
+	SetUseASyncLoadFlag(true);
+	LoadResources::LoadSE();
+	LoadResources::LoadEffects();
 }
 
 void ModeMovie::Update() {
 	ModeBase::Update();
 	/*PAUSEボタンでスキップ*/
-	if (_game.GetInputManager()->CheckInput("PAUSE", 't', 0) || _game.GetInputManager()->CheckInput("PAUSE", 't', 1)) {
-		PauseMovieToGraph(_movieHandle);
-		ModeBase::NextMode();
 
+	if (_game.GetInputManager()->CheckInput("PAUSE", 't', 0) || _game.GetInputManager()->CheckInput("PAUSE", 't', 1)) {
+		if (GetASyncLoadNum() == 0) {
+			PauseMovieToGraph(_movieHandle);
+			ModeBase::NextMode();
+		}
 	}
 	/*再生が終わったらスキップ*/
 	if (GetMovieStateToGraph(_movieHandle)==0) {

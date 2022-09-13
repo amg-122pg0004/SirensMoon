@@ -8,6 +8,7 @@
 #include "DegitalLetter.h"
 #include "BigServer.h"
 #include "BigGenerator.h"
+#include "BigGun.h"
 
 ButtonIcon::ButtonIcon(Game& game, ModeBase& mode, Vector2 pos, Vector2 size, int playerno)
 	:UIBase(game, mode, pos, size), _playerno{ playerno },_owner{nullptr}
@@ -32,6 +33,25 @@ ButtonIcon::ButtonIcon(Game& game, ModeBase& mode, Vector2 pos, Vector2 size, in
 }
 
 void ButtonIcon::Update() {
+	if (_playerno == 0) {
+		for (auto&& actor : dynamic_cast<ModeGame&>(_mode).GetObjects()) {
+			if (actor->GetType() == Actor::Type::PlayerA) {
+				if (!actor->GetVisibility()) {
+					return;
+				}
+			}
+		}
+	}
+	else {
+		for (auto&& actor : dynamic_cast<ModeGame&>(_mode).GetObjects()) {
+			if (actor->GetType() == Actor::Type::PlayerB) {
+				if (!actor->GetVisibility()) {
+					return;
+				}
+			}
+		}
+	}
+
 	if (_playerno == 0) {
 		for (auto&& actor : dynamic_cast<ModeGame&>(_mode).GetObjects()) {
 			if (actor->GetType() == Actor::Type::Gimmick) {
@@ -59,14 +79,13 @@ void ButtonIcon::Update() {
 						return;
 					}
 				}
-				/*
+				
 				if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::BigGun) {
-					if (dynamic_cast<BigGenerator&>(*actor).GetAccessible()) {
+					if (dynamic_cast<BigGun&>(*actor).GetAccesible()) {
 						_visible = true;
 						return;
 					}
 				}
-				*/
 			}
 		}
 	}

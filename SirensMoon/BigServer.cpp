@@ -23,7 +23,7 @@ BigServer::BigServer(Game& game, ModeGame& mode, BigServerData data)
 	if (data.Direction == "up") {
 		_cg.first = ImageServer::LoadGraph("resource/BossServer/up_p.png");
 		_cg.second = ImageServer::LoadGraph("resource/BossServer/up.png");
-		Vector2 size = { 87,44 };
+		Vector2 size = { 120,60 };
 		_collision.max = _pos + size;
 		_accessArea.min = { _pos.x ,_pos.y - 10 };
 		_accessArea.max = { _pos.x + size.x , _pos.y + size.y };
@@ -31,7 +31,7 @@ BigServer::BigServer(Game& game, ModeGame& mode, BigServerData data)
 	else 	if (data.Direction == "right") {
 		_cg.first = ImageServer::LoadGraph("resource/BossServer/right_p.png");
 		_cg.second = ImageServer::LoadGraph("resource/BossServer/right.png");
-		Vector2 size = { 44,87 };
+		Vector2 size = { 60,120 };
 		_collision.max = _pos + size;
 		_accessArea.min = { _pos.x + size.x,_pos.y };
 		_accessArea.max = { _pos.x + size.x + 10,_pos.y + size.y };
@@ -39,7 +39,7 @@ BigServer::BigServer(Game& game, ModeGame& mode, BigServerData data)
 	else if (data.Direction == "down") {
 		_cg.first = ImageServer::LoadGraph("resource/BossServer/down_p.png");
 		_cg.second = ImageServer::LoadGraph("resource/BossServer/down.png");
-		Vector2 size = { 87,44 };
+		Vector2 size = { 120,60 };
 		_collision.max = _pos + size;
 		_accessArea.min = { _pos.x,_pos.y + size.y };
 		_accessArea.max = { _pos.x + size.x,_pos.y + size.y + 10 };
@@ -47,7 +47,7 @@ BigServer::BigServer(Game& game, ModeGame& mode, BigServerData data)
 	else if (data.Direction == "left") {
 		_cg.first = ImageServer::LoadGraph("resource/BossServer/left_p.png");
 		_cg.second = ImageServer::LoadGraph("resource/BossServer/left.png");
-		Vector2 size = { 44,87 };
+		Vector2 size = { 60,120 };
 		_collision.max = _pos + size;
 		_accessArea.min = { _pos.x - 10,_pos.y };
 		_accessArea.max = { _pos.x,_pos.y + size.y };

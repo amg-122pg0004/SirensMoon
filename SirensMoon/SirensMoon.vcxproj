@@ -164,6 +164,7 @@
     <ClCompile Include="DegitalLetter.cpp" />
     <ClCompile Include="DisplayArea.cpp" />
     <ClCompile Include="FinishCut.cpp" />
+    <ClCompile Include="FX_BossDead.cpp" />
     <ClCompile Include="FX_BossFire.cpp" />
     <ClCompile Include="FX_BulletHit.cpp" />
     <ClCompile Include="BulletItem.cpp" />
@@ -186,6 +187,7 @@
     <ClCompile Include="FX_Chargein.cpp" />
     <ClCompile Include="FX_Chargenow.cpp" />
     <ClCompile Include="FX_HeadButt.cpp" />
+    <ClCompile Include="FX_ScreenSmoke.cpp" />
     <ClCompile Include="FX_Teleport.cpp" />
     <ClCompile Include="FX_Thunder.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -260,6 +262,7 @@
     <ClInclude Include="DegitalLetter.h" />
     <ClInclude Include="DisplayArea.h" />
     <ClInclude Include="FinishCut.h" />
+    <ClInclude Include="FX_BossDead.h" />
     <ClInclude Include="FX_BossFire.h" />
     <ClInclude Include="FX_BulletHit.h" />
     <ClInclude Include="BulletItem.h" />
@@ -282,6 +285,7 @@
     <ClInclude Include="FX_Chargein.h" />
     <ClInclude Include="FX_Chargenow.h" />
     <ClInclude Include="FX_HeadButt.h" />
+    <ClInclude Include="FX_ScreenSmoke.h" />
     <ClInclude Include="FX_Teleport.h" />
     <ClInclude Include="FX_Thunder.h" />
     <ClInclude Include="Game.h" />

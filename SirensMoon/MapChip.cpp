@@ -376,7 +376,23 @@ void MapChip::LoadTilesets(picojson::object jsRoot, std::string folderpath) {
 					if (tileObject["properties"].is<picojson::array>()) {
 						picojson::array properties = tileObject["properties"].get<picojson::array>();
 						FindPropertieData(data->range, properties, "Range");
-						FindPropertieData(data->dir, properties, "Direction");
+						std::string direction;
+						FindPropertieData(direction, properties, "Direction");
+						if (direction == "up") {
+							data->dir = 4;
+						}
+						else if (direction == "down") {
+							data->dir = 2;
+						}
+						else if (direction == "right") {
+							data->dir = 1;
+						}
+						else if (direction == "left") {
+							data->dir = 3;
+						}
+						else {
+							data->dir = -1;
+						}
 					}
 					_objectGIDs[gid] = std::move(data);
 				}
@@ -386,7 +402,23 @@ void MapChip::LoadTilesets(picojson::object jsRoot, std::string folderpath) {
 					if (tileObject["properties"].is<picojson::array>()) {
 						auto properties = tileObject["properties"].get<picojson::array>();
 						FindPropertieData(data->range, properties, "Range");
-						FindPropertieData(data->dir, properties, "Direction");
+						std::string direction{"none"};
+						FindPropertieData(direction, properties, "Direction");
+						if (direction == "up") {
+							data->dir = 4;
+						}
+						else if (direction == "down") {
+							data->dir = 2;
+						}
+						else if (direction == "right") {
+							data->dir = 1;
+						}
+						else if (direction == "left") {
+							data->dir = 3;
+						}
+						else {
+							data->dir = -1;
+						}
 					}
 					_objectGIDs[gid] = std::move(data);
 				}
@@ -749,9 +781,6 @@ void MapChip::LoadMineClass(picojson::object object, MineData data) {
 	else if (direction == "left") {
 		data.dir = 3;
 	}
-	else {
-		data.dir = -1;
-	}
 	_mineDataList.push_back(data);
 }
 
@@ -785,9 +814,6 @@ void MapChip::LoadScreenPumpClass(picojson::object object, ScreenPumpData data) 
 	}
 	else if (direction == "left") {
 		data.dir = 3;
-	}
-	else {
-		data.dir = -1;
 	}
 	_screenPumpDataList.push_back(data);
 }

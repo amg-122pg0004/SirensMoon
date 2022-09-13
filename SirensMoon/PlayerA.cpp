@@ -75,6 +75,7 @@ void PlayerA::Load(){
 }
 
 void PlayerA::Action(){
+
 	if (_inputManager->CheckInput("BULLET1", 't', _playerNum)&&_charge==0 ) {
 		_setGreenBullet = true;
 		PlaySoundMem(SoundServer::Find("ChangeAmmo"), DX_PLAYTYPE_BACK);
@@ -84,8 +85,8 @@ void PlayerA::Action(){
 		PlaySoundMem(SoundServer::Find("ChangeAmmo"), DX_PLAYTYPE_BACK);
 	}
 
-	if (_inputManager->CheckInput("ACCESS", 't', _playerNum)) {
-		RideMiniShuttle();
+	if (_inputManager->CheckInput("ACCESS", 't', _playerNum)|| _movable) {
+		OnMiniShuttle();
 	}
 
 	--_cooldown;
@@ -126,7 +127,7 @@ void PlayerA::Action(){
 		}
 	}
 
-	if (_inputManager->CheckInput("ACTION", 'h', _playerNum) && _cooldown == 0) {
+	if (_inputManager->CheckInput("ACTION", 'h', _playerNum) && _cooldown == 0 && _visible) {
 		_movable = false;
 		_state = PlayerState::Set;
 		if (_charge == 0) {
@@ -197,7 +198,7 @@ void PlayerA::TeleportEvent() {
 	
 }
 
-void PlayerA::RideMiniShuttle(){
+void PlayerA::OnMiniShuttle(){
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Actor::Type::Gimmick) {
 			if (static_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::MiniShuttle) {
@@ -209,8 +210,12 @@ void PlayerA::RideMiniShuttle(){
 				_invincibleTime = 600;
 				static_cast<MiniShuttle&>(*actor).SetAnimation(true);
 				_teleportPosition = { 3333,4000 };
-				
 			}
 		}
 	}
+}
+
+void PlayerA::OffMiniShuttle() {
+	_movable = true;
+	_visible = true;
 }

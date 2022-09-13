@@ -22,6 +22,8 @@ public:
 	void GeneratePattern();
 	/*パターン情報の配布*/
 	void DistributePattern();
+	/*左プレイヤーがミニシャトルに乗った後のワープイベント*/
+	void WarpEvent();
 
 	/*発電機が起動された際に呼ばれる関数*/
 	void RecieveStartGenerator(int no);
@@ -38,7 +40,6 @@ private:
 
 	/*各ギミックのID*/
 	int _gun;
-	int _teleport;
 	std::vector<int> _servers;
 	std::vector<int> _generators;
 

@@ -17,14 +17,18 @@ BigGun::BigGun(Game& game, ModeGame& mode, BigGunData data, BossGimmickControlle
 }
 
 void BigGun::Update() {
-	if (_accessible) {
+	if (_activate) {
 		for (auto&& actor : _mode.GetObjects()) {
 			if (actor->GetType() == Type::PlayerA) {
 				if (Intersect(_accessArea, actor->GetCollision())) {
+					_accessible = true;
 					if (_game.GetInputManager()->CheckInput("ACCESS", 't', 0)) {
 						dynamic_cast<Player&>(*actor).ChangeMovable(false);
 						RidePlayer();
 					}
+				}
+				else {
+					_accessible = false;
 				}
 			}
 		}
