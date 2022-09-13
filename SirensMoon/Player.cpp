@@ -70,6 +70,8 @@ void Player::Update() {
 	UpdateHide();
 
 	ChangePositionDelay();
+
+	CheckDelayFunctions();
 }
 
 void Player::PlayerOverlap() {
@@ -259,7 +261,7 @@ void Player::AnimUpdate() {
 void Player::DirectionCGStateUpdate() {
 
 	if (_state != PlayerState::Run) {
-		double threshold = 90;
+		float threshold = 90.0f;
 		if (_inputAngle >= Math::ToRadians(-threshold*2) && _inputAngle < Math::ToRadians(-threshold * 3 / 2)||
 			_inputAngle >= Math::ToRadians(threshold * 3/2) && _inputAngle < Math::ToRadians(threshold*2)) {
 			_direction = PlayerDirection::Left;
@@ -277,7 +279,7 @@ void Player::DirectionCGStateUpdate() {
 
 	}
 	else {
-		double threshold = 45;
+		float threshold = 45.0f;
 		if (_inputAngle >= Math::ToRadians(-threshold*4) && _inputAngle < Math::ToRadians(-threshold * 7/2)||
 			_inputAngle >= Math::ToRadians(threshold * 7 / 2) && _inputAngle < Math::ToRadians(threshold * 4)) {
 			_direction = PlayerDirection::Left;
@@ -378,7 +380,7 @@ void Player::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 void Player::UpdateCollision() {
 	_collision.min = { _pos.x,_pos.y + 20 };
 	_collision.max = _pos + _size;
-	_renderPriority = _pos.y + _size.y;
+	_renderPriority = static_cast<int>(_pos.y + _size.y);
 }
 
 void Player::TakeDamage(Actor::Type type) {
@@ -501,4 +503,25 @@ void Player::ChangePositionDelay() {
 		_movable = true;
 		_visible = true;
 	}
+}
+
+void Player::SetDelayFunction(int delayFrame, std::function<void()> function){
+	int callFrame = _game.GetFrameCount() + delayFrame;
+	_delayFunctions.push_back({ callFrame,function});
+	std::sort(_delayFunctions.begin(), _delayFunctions.end(),
+		[](const auto& lhs, const auto& rhs) {return lhs.first < rhs.first;}
+	);
+}
+
+bool Player::CheckDelayFunctions(){
+	if (_delayFunctions.empty()) {
+		return false;
+	}
+
+	if (_delayFunctions[0].first <= _game.GetFrameCount()) {
+		_delayFunctions[0].second();
+		_delayFunctions.erase(_delayFunctions.begin());
+		return true;
+	}
+	return false;
 }

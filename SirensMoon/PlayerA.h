@@ -33,4 +33,5 @@ private:
 	int _bullet;//残りの弾数
 	int _charge;//チャージ
 	int _cooldown;//クールダウン
+
 };

@@ -12,6 +12,7 @@
 #include "Math.h"
 #include <map>
 #include <memory>
+#include <functional>
 
 
 class Game;
@@ -79,6 +80,8 @@ public:
 
 	void Debug(Vector2 window_pos, Vector2 camera_pos)override;
 
+	void SetDelayFunction(int delayFrame, std::function<void()> function);
+	bool CheckDelayFunctions();
 	protected:
 
 		std::shared_ptr<InputManager> _inputManager;
@@ -119,4 +122,6 @@ public:
 
 		Vector2 _teleportPosition;
 		int _teleportDelay;
+
+		std::vector<std::pair<int,std::function<void()>>> _delayFunctions;
 };

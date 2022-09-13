@@ -183,7 +183,7 @@ void PlayerA::AnimUpdate(){
 void PlayerA::TeleportEvent() {
 	/*テレポート用のディレイ*/
 	--_teleportDelay;
-	/*
+	
 	if (_teleportDelay == 135) {
 		_mode.GetActorServer().Add(std::make_unique<FX_TeleportIN1>(_game, _mode, _pos, _game.GetFrameCount()));
 	}
@@ -194,7 +194,7 @@ void PlayerA::TeleportEvent() {
 		_movable = true;
 		_visible = true;
 	}
-	*/
+	
 }
 
 void PlayerA::RideMiniShuttle(){
@@ -209,7 +209,7 @@ void PlayerA::RideMiniShuttle(){
 				_invincibleTime = 600;
 				static_cast<MiniShuttle&>(*actor).SetAnimation(true);
 				_teleportPosition = { 3333,4000 };
-				_teleportDelay = 400;
+				
 			}
 		}
 	}
