@@ -8,7 +8,7 @@ FX_Chargein::FX_Chargein(Game& game, ModeGame& mode, const Vector2& pos, int sta
 {
 
 	_cg.resize(119);
-	ImageServer::LoadDivGraph("resource/Effect/chargein.png", 119, 8, 15, 512, 512, _cg.data());
+	ImageServer::LoadDivGraph("resource/Effect/chargein.png", 119, 8, 15, 64, 64, _cg.data());
 
 	_zoom = 0.3;
 	_lifeTime = 105;

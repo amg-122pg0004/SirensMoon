@@ -19,12 +19,12 @@ void FX_BulletHit::Easing(int elapsed) {
 FX_BulletHitRed::FX_BulletHitRed(Game& game, ModeGame& mode, const Vector2& pos, int startTime)
 	:FX_BulletHit(game, mode, pos, startTime)
 {
-	ImageServer::LoadDivGraph("resource/Effect/bullethitred.png", 88, 8, 11, 512, 512, _cg.data());
+	ImageServer::LoadDivGraph("resource/Effect/bullethitred.png", 88, 8, 11, 128, 128, _cg.data());
 }
 
 FX_BulletHitGreen::FX_BulletHitGreen(Game& game, ModeGame& mode, const Vector2& pos, int startTime)
 	:FX_BulletHit(game, mode, pos, startTime)
 {
-	ImageServer::LoadDivGraph("resource/Effect/bullethitgreen.png", 88, 8, 11, 512, 512, _cg.data());
+	ImageServer::LoadDivGraph("resource/Effect/bullethitgreen.png", 88, 8, 11, 128, 128, _cg.data());
 
 }

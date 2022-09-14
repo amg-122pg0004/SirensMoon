@@ -64,7 +64,7 @@ void Player::Update() {
 	Action();
 	/*敵かダメージギミックに触れていたらダメージ*/
 	CheckDamage();
-	/*自分の位置を確認*/
+	/*自分の位置を確認、更新*/
 	_roomPosition = CheckRoomPosition();
 	/*ハイドタイムを確認*/
 	UpdateHide();

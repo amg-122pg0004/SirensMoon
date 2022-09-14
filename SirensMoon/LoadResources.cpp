@@ -51,21 +51,21 @@ void LoadResources::LoadEffects() {
 	cg.resize(112);
 	ImageServer::LoadDivGraph("resource/Effect/boom2.png", 112, 8, 14, 512, 512, cg.data());
 	cg.resize(88);
-	ImageServer::LoadDivGraph("resource/Effect/bullethitgreen.png", 88, 8, 11, 512, 512, cg.data());
-	ImageServer::LoadDivGraph("resource/Effect/bullethitred.png", 88, 8, 11, 512, 512, cg.data());
+	ImageServer::LoadDivGraph("resource/Effect/bullethitgreen.png", 88, 8, 11, 128, 128, cg.data());
+	ImageServer::LoadDivGraph("resource/Effect/bullethitred.png", 88, 8, 11, 128, 128, cg.data());
 	cg.resize(119);
-	ImageServer::LoadDivGraph("resource/Effect/chargein.png", 119, 8, 15, 512, 512, cg.data());
+	ImageServer::LoadDivGraph("resource/Effect/chargein.png", 119, 8, 15, 64, 64, cg.data());
 	cg.resize(60);
-	ImageServer::LoadDivGraph("resource/Effect/chargenow.png", 60, 8, 8, 512, 512, cg.data());
+	ImageServer::LoadDivGraph("resource/Effect/chargenow.png", 60, 8, 8, 64, 64, cg.data());
 
 	cg.resize(112);
-	ImageServer::LoadDivGraph("resource/Effect/teleport_inR.png", 68, 4, 17, 256, 256, cg.data());
+	ImageServer::LoadDivGraph("resource/Effect/teleport_inR.png", 68, 4, 17, 128, 128, cg.data());
 	cg.resize(112);
-	ImageServer::LoadDivGraph("resource/Effect/teleport_inB.png", 68, 4, 17, 256, 256, cg.data());
+	ImageServer::LoadDivGraph("resource/Effect/teleport_inB.png", 68, 4, 17, 128, 128, cg.data());
 	cg.resize(112);
-	ImageServer::LoadDivGraph("resource/Effect/teleport_outR.png", 68, 4, 17, 256, 256, cg.data());
+	ImageServer::LoadDivGraph("resource/Effect/teleport_outR.png", 68, 4, 17, 128, 128, cg.data());
 	cg.resize(112);
-	ImageServer::LoadDivGraph("resource/Effect/teleport_outB.png", 68, 4, 17, 256, 256, cg.data());
+	ImageServer::LoadDivGraph("resource/Effect/teleport_outB.png", 68, 4, 17, 128, 128, cg.data());
 	cg.resize(117);
 	ImageServer::LoadDivGraph("resource/Effect/ScreenSmoke.png", 117, 5, 24, 256, 256, cg.data());
 }

@@ -6,7 +6,7 @@ FX_Chargenow::FX_Chargenow(Game& game, ModeGame& mode, const Vector2& pos, int s
 	:Effect(game, mode, pos, startTime), _owner{ owner }
 {
 	_cg.resize(60);
-	ImageServer::LoadDivGraph("resource/Effect/chargenow.png", 60, 8, 8, 512, 512, _cg.data());
+	ImageServer::LoadDivGraph("resource/Effect/chargenow.png", 60, 8, 8, 64, 64, _cg.data());
 
 	_zoom = 0.3;
 	_lifeTime = static_cast<int>(60 * 2.0);
