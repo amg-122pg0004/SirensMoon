@@ -158,7 +158,7 @@ Vector2 InputManager::CheckAnalogInput(const int playernum) {
 	}
 	return { 0,0 };
 }
-
+#ifdef _DEBUG
 void InputManager::Render() {
 	
 	std::stringstream ss;
@@ -170,7 +170,7 @@ void InputManager::Render() {
 	}
 	DrawString(50, 100, ss.str().c_str(), GetColor(255, 255, 255));
 }
-
+#endif 
 void InputManager::ChangeControllerNo(){
 
 	if (_changeFlag) {

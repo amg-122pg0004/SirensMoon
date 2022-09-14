@@ -8,7 +8,7 @@ FX_TeleportIN1::FX_TeleportIN1(Game& game, ModeGame& mode, const Vector2& pos, i
 	_cg.resize(112);
 	ImageServer::LoadDivGraph("resource/Effect/teleport_inR.png", 68, 4, 17, 128, 128, _cg.data());
 
-	_zoom = 0.5;
+	_zoom = 1.0;
 	_lifeTime = 68 * 1;
 	_blendMode = DX_BLENDMODE_ALPHA;
 }
@@ -23,7 +23,7 @@ FX_TeleportIN2::FX_TeleportIN2(Game& game, ModeGame& mode, const Vector2& pos, i
 	_cg.resize(112);
 	ImageServer::LoadDivGraph("resource/Effect/teleport_inB.png", 68, 4, 17, 128, 128, _cg.data());
 
-	_zoom = 0.5;
+	_zoom = 1.0;
 	_lifeTime = 68 * 1;
 	_blendMode = DX_BLENDMODE_ALPHA;
 }
@@ -38,7 +38,7 @@ FX_TeleportOUT1::FX_TeleportOUT1(Game& game, ModeGame& mode, const Vector2& pos,
 	_cg.resize(112);
 	ImageServer::LoadDivGraph("resource/Effect/teleport_outR.png", 68, 4, 17, 128, 128, _cg.data());
 
-	_zoom = 0.5;
+	_zoom = 1.0;
 	_lifeTime = 68 * 1;
 	_blendMode = DX_BLENDMODE_ALPHA;
 }
@@ -53,7 +53,7 @@ FX_TeleportOUT2::FX_TeleportOUT2(Game& game, ModeGame& mode, const Vector2& pos,
 	_cg.resize(112);
 	ImageServer::LoadDivGraph("resource/Effect/teleport_outB.png", 68, 4, 17, 128, 128, _cg.data());
 
-	_zoom = 0.5;
+	_zoom = 1.0;
 	_lifeTime = 68 * 1;
 	_blendMode = DX_BLENDMODE_ALPHA;
 }

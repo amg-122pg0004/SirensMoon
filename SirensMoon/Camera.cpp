@@ -49,8 +49,8 @@ void Camera::SetPosition(Vector2 playerpos) {
 	if (!_movable) {
 		return;
 	}
-	int x= static_cast<int>(ceil(playerpos.x / (static_cast<double>(splitscreen_W)))-1);
-	int y =static_cast<int>(ceil(playerpos.y / screen_H)-1);
+	int x= static_cast<int>(ceil(playerpos.x / (static_cast<double>(splitscreen_W))))-1;
+	int y =static_cast<int>(ceil(playerpos.y / screen_H))-1;
 	_pos.x = x * static_cast<double>(splitscreen_W);
 	_pos.y = y * screen_H;
 }

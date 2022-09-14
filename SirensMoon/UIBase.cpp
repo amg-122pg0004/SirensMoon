@@ -34,4 +34,3 @@ void UIBase::DamageEvent() {
 void UIBase::TargetKillEvent() {
 
 }
-

@@ -45,6 +45,7 @@ public:
 	double SpeedMax{ 6.0 };
 	double Accelerate { 1.0};
 	double Friction{ 0.9 };
+	double SlowSpeedRate{ 0.1 };
 };
 
 /*エネミーデータ構造*/

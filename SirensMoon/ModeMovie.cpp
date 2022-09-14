@@ -10,8 +10,8 @@
 #include "Game.h"
 #include "LoadResources.h"
 
-ModeMovie::ModeMovie(Game& game,std::string path) 
-	:ModeBase{game} ,_sizeX{0},_sizeY{0}
+ModeMovie::ModeMovie(Game& game,std::string path, int skipFrame)
+	:ModeBase{game} ,_sizeX{0},_sizeY{0}, _movieSkipFrame{ skipFrame }
 {
 	_renderPriority = 10;
 	_movieHandle=ImageServer::LoadGraph(path);
@@ -31,9 +31,11 @@ void ModeMovie::Update() {
 	/*PAUSEボタンでスキップ*/
 
 	if (_game.GetInputManager()->CheckInput("PAUSE", 't', 0) || _game.GetInputManager()->CheckInput("PAUSE", 't', 1)) {
-		if (GetASyncLoadNum() == 0) {
-			PauseMovieToGraph(_movieHandle);
-			ModeBase::NextMode();
+		if (TellMovieToGraph(_movieHandle) < _movieSkipFrame) {
+			auto tesu =TellMovieToGraph(_movieHandle);
+			if (GetASyncLoadNum() == 0) {
+				SeekMovieToGraph(_movieHandle, _movieSkipFrame);
+			}
 		}
 	}
 	/*再生が終わったらスキップ*/

@@ -477,6 +477,11 @@
                     "value": 1
                 },
                 {
+                    "name": "ChargeWalkRate",
+                    "type": "float",
+                    "value": 0.1
+                },
+                {
                     "name": "Friction",
                     "type": "float",
                     "value": 0.9

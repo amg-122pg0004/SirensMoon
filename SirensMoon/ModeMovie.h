@@ -11,13 +11,14 @@
 
 class ModeMovie :public ModeBase {
 public:
-	ModeMovie(Game& game,std::string);
+	ModeMovie(Game& game,std::string,int skipFrame);
 
 	void Update() override;
 	void Render()override;
 	void Debug()override;
 private:
 	int _movieHandle;
+	int _movieSkipFrame;
 	int _sizeX;
 	int _sizeY;
 };

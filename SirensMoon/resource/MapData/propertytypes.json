@@ -288,6 +288,18 @@
         ]
     },
     {
+        "id": 3,
+        "name": "EnemyTypeList",
+        "storageType": "int",
+        "type": "enum",
+        "values": [
+            "-1",
+            "0",
+            "1"
+        ],
+        "valuesAsFlags": false
+    },
+    {
         "color": "#ff00aa00",
         "id": 6,
         "members": [
@@ -305,6 +317,18 @@
         "members": [
         ],
         "name": "ItemHP",
+        "type": "class",
+        "useAs": [
+            "property",
+            "tile"
+        ]
+    },
+    {
+        "color": "#ffa0a0a4",
+        "id": 5,
+        "members": [
+        ],
+        "name": "ItemRailgun",
         "type": "class",
         "useAs": [
             "property",
@@ -442,6 +466,11 @@
                 "name": "Accelerate",
                 "type": "float",
                 "value": 1
+            },
+            {
+                "name": "ChargeWalkRate",
+                "type": "float",
+                "value": 0.1
             },
             {
                 "name": "Friction",

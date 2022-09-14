@@ -10,7 +10,7 @@ FX_Chargein::FX_Chargein(Game& game, ModeGame& mode, const Vector2& pos, int sta
 	_cg.resize(119);
 	ImageServer::LoadDivGraph("resource/Effect/chargein.png", 119, 8, 15, 64, 64, _cg.data());
 
-	_zoom = 0.3;
+	_zoom = 2.0;
 	_lifeTime = 105;
 	_blendMode = DX_BLENDMODE_ALPHA;
 }
@@ -26,10 +26,10 @@ void FX_Chargein::Update() {
 		_pos += {5, 45};
 		break;
 	case Player::PlayerDirection::Right:
-		_pos += {60, 10};
+		_pos += {60, 13};
 		break;
 	case Player::PlayerDirection::Left:
-		_pos += {-30, 3};
+		_pos += {-30, 6};
 		break;
 
 	}

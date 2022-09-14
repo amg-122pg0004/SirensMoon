@@ -26,7 +26,8 @@ public:
 		Walk,
 		Run,
 		Set,
-		Shoot
+		Shoot,
+		Access
 	};
 	/*グラフィック用方向*/
 	enum class PlayerDirection {
@@ -44,7 +45,6 @@ public:
 	void Update() override;
 	virtual void StandardRender(Vector2 window_pos, Vector2 camera_pos) override;
 	void UpdateCamera();
-	void Init();
 
 	virtual Actor::Type GetType() override { return Type::Player; }
 	int GetPlayerNum() { return _playerNum; }
@@ -94,6 +94,9 @@ public:
 		double _accelerationRatio;//入力値をノーマライズした値の乗算値を加速する
 		double _friction;//速度減衰に使用する値
 		bool _stageMovable;//<True時画面外への移動を制限する
+		double _slowRate;//<射撃構え時の移動速度補正値
+
+		bool _slow;
 
 
 		bool _movable;//<True時のみ移動可能
@@ -112,8 +115,6 @@ public:
 		int _animNo;
 		/*ライトの光画像*/
 		int _cg_light;
-
-		bool _init;
 
 		PlayerState _state;
 		PlayerDirection _direction;

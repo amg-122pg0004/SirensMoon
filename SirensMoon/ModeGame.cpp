@@ -43,6 +43,12 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 	_splitWindow.emplace_back(std::make_unique<SplitWindow>(_game,*this, 0, 0, 0));
 	_splitWindow.emplace_back(std::make_unique<SplitWindow>(_game,*this, screen_W-splitscreen_W, 0, 1));
 
+
+	auto playerA = std::make_unique<PlayerA>(_game, *this, 0);
+	_actorServer.Add(std::move(playerA));
+	auto playerB = std::make_unique<PlayerB>(_game, *this, 1);
+	_actorServer.Add(std::move(playerB));
+
 	/*Še•”2í‚Å“Gƒ‰ƒ“ƒ_ƒ€¶¬*/
 	auto enemygen = std::make_unique<EnemyGenerator>(pattern);
 
@@ -140,6 +146,7 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 		auto switcharea_obj = std::make_unique<SwitchArea>(_game, *this, aswitcharea);
 		_actorServer.Add(std::move(switcharea_obj));
 	}
+
 
 	auto switchdata = _mapChips->GetSwitchData();
 	for (auto&& aswitch : switchdata) {

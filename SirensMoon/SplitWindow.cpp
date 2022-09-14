@@ -32,15 +32,6 @@ SplitWindow::SplitWindow(Game& game, ModeGame& mode, int pos_x, int pos_y, int w
 	_darknessScreen = _darkness->MakeDarkness();
 	_normalScreen = MakeScreen(screen_W, screen_H, 1);
 
-	if (window_no == 0) {
-		auto player = std::make_unique<PlayerA>(_game, _mode, window_no);
-		_mode.GetActorServer().Add(std::move(player));
-	}
-	else {
-		auto player = std::make_unique<PlayerB>(_game, _mode, window_no);
-		_mode.GetActorServer().Add(std::move(player));
-	}
-
 	if (_windowNo == 0) {
 		Vector2 map_pos = { _windowPos.x + 90,_windowPos.y - 5 };
 		Vector2 map_size = { 480,180 };

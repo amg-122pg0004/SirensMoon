@@ -278,6 +278,7 @@ void MapChip::LoadTilesets(picojson::object jsRoot, std::string folderpath) {
 						FindPropertieData(data->Accelerate, properties, "Accelerate");
 						FindPropertieData(data->Friction, properties, "Friction");
 						FindPropertieData(data->SpeedMax, properties, "SpeedMax");
+						FindPropertieData(data->SlowSpeedRate, properties, "ChargeWalkRate");
 
 					}
 					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
@@ -343,7 +344,7 @@ void MapChip::LoadTilesets(picojson::object jsRoot, std::string folderpath) {
 					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
 					if (tileObject["properties"].is<picojson::array>()) {
 						picojson::array properties = tileObject["properties"].get<picojson::array>();
-						FindPropertieData(data->RedFlag, properties, "RandomPort");
+						FindPropertieData(data->RedFlag, properties, "Red?");
 					}
 					_objectGIDs[gid] = std::move(data);
 				}
@@ -792,6 +793,7 @@ void MapChip::LoadPlayerClass(picojson::object object, PlayerData data) {
 		FindPropertieData(data.Accelerate, properties, "Accelerate");
 		FindPropertieData(data.Friction, properties, "Friction");
 		FindPropertieData(data.SpeedMax, properties, "SpeedMax");
+		FindPropertieData(data.SlowSpeedRate, properties, "ChargeWalkRate");
 	}
 	_playerData[playerno] = data;
 }

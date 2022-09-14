@@ -13,4 +13,6 @@ private:
 	int _cg_A, _cg_B, _cg_X,_cg_Y;
 	int _playerno;
 	Actor* _owner;
+	int _font;
+	std::string _message;
 };

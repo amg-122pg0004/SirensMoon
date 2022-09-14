@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Stage2.tmx",
+    "activeFile": "Stage1.tmx",
     "expandedProjectPaths": [
         "C:/Users/amg/Downloads/0.3.0_Can - コピー/0.3.0_Can - コピー/Debug/resource"
     ],
@@ -159,6 +159,20 @@
         "D:/doi/2022summer/x64/0.4.7/Debug/resource/MapData/Stage1.tmx#tile_test": {
             "scaleInDock": 1
         },
+        "D:/doi/2022summer/x64/0.4.7/Debug/resource/MapData/Stage2.tmx": {
+            "scale": 0.09722656249999999,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1928.4853354760949,
+                "y": 2170.1888308557654
+            }
+        },
+        "D:/doi/2022summer/x64/0.4.7/Debug/resource/MapData/Stage2.tmx#tile_icon": {
+            "scaleInDock": 1
+        },
+        "D:/doi/2022summer/x64/0.4.7/Debug/resource/MapData/Stage2.tmx#tile_test": {
+            "scaleInDock": 1
+        },
         "D:/doi/2022summer/x64/Debug/resource/MapData/Stage1.json": {
             "scale": 0.5,
             "selectedLayer": 0,
@@ -293,11 +307,14 @@
             "scaleInDock": 1
         },
         "Stage1.tmx": {
-            "scale": 1,
-            "selectedLayer": 5,
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.25,
+            "selectedLayer": 7,
             "viewCenter": {
-                "x": 1875,
-                "y": 2160
+                "x": 2,
+                "y": 2648
             }
         },
         "Stage1.tmx#tile_icon": {
@@ -312,8 +329,8 @@
             "scale": 0.25,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 2056,
-                "y": 2338
+                "x": 234,
+                "y": 1948
             }
         },
         "Stage2.json#tile_icon": {
@@ -323,15 +340,11 @@
             "scaleInDock": 1
         },
         "Stage2.tmx": {
-            "expandedObjectLayers": [
-                13,
-                2
-            ],
-            "scale": 1,
-            "selectedLayer": 5,
+            "scale": 0.25,
+            "selectedLayer": 6,
             "viewCenter": {
-                "x": 144.5,
-                "y": 272
+                "x": 1918,
+                "y": 2156
             }
         },
         "Stage2.tmx#tile_icon": {
@@ -343,14 +356,14 @@
         },
         "Stage3.tmx": {
             "expandedObjectLayers": [
-                12,
                 21,
-                4
+                4,
+                12
             ],
             "scale": 0.5,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 1874,
+                "x": 1875,
                 "y": 2158
             }
         },
@@ -490,23 +503,24 @@
     "map.tileWidth": 30,
     "map.width": 96,
     "openFiles": [
-        "Stage2.tmx"
+        "Stage3.tmx",
+        "Stage1.tmx"
     ],
     "project": "SirensMoon.tiled-project",
-    "property.type": "bool",
+    "property.type": "float",
     "recentFiles": [
-        "Stage2.tmx",
-        "Stage1.tmx",
         "Stage3.tmx",
+        "Stage1.tmx",
+        "Stage2.tmx",
+        "D:/doi/2022summer/x64/0.4.7/Debug/resource/MapData/Stage2.tmx",
+        "Stage2.json",
         "Stage1.json",
         "D:/doi/2022summer/x64/Debug/resource/MapData/Stage1.json",
         "D:/doi/2022summer/x64/Debug/resource/MapData/Stage1.tmx",
         "D:/doi/2022summer/x64/Debug/resource/MapData/Stage3.json",
         "D:/doi/2022summer/x64/Debug/resource/MapData/Stage3.tmx",
         "D:/doi/2022summer/x64/0.4.7/Debug/resource/MapData/Stage1.json",
-        "D:/doi/2022summer/x64/0.4.7/Debug/resource/MapData/Stage1.tmx",
-        "Stage2.json",
-        "test.tmx"
+        "D:/doi/2022summer/x64/0.4.7/Debug/resource/MapData/Stage1.tmx"
     ],
     "tileset.embedInMap": true,
     "tileset.lastUsedFilter": "Tiledタイルセットファイル (*.tsx)",

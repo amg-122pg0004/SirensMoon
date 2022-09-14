@@ -8,7 +8,7 @@ FX_Chargenow::FX_Chargenow(Game& game, ModeGame& mode, const Vector2& pos, int s
 	_cg.resize(60);
 	ImageServer::LoadDivGraph("resource/Effect/chargenow.png", 60, 8, 8, 64, 64, _cg.data());
 
-	_zoom = 0.3;
+	_zoom = 2.0;
 	_lifeTime = static_cast<int>(60 * 2.0);
 	_blendMode = DX_BLENDMODE_ALPHA;
 	_loop = true;
@@ -21,10 +21,10 @@ FX_Chargenow::FX_Chargenow(Game& game, ModeGame& mode, const Vector2& pos, int s
 		_pos += {5, 45};
 		break;
 	case Player::PlayerDirection::Right:
-		_pos += {60, 10};
+		_pos += {60, 13};
 		break;
 	case Player::PlayerDirection::Left:
-		_pos += {-30, 3};
+		_pos += {-30, 6};
 		break;
 	}
 }

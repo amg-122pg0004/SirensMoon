@@ -35,4 +35,5 @@ private:
 	int _charge;//チャージ
 	int _cooldown;//クールダウン
 
+
 };

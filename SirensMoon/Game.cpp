@@ -19,8 +19,7 @@ Game::Game() :_frameCount{0},_progress{Progress::StartMenu}
 	_modeServer = std::make_unique<ModeServer>(*this);
 	_inputManager = std::make_unique<InputManager>();
 
-	//PlayStartMenu();
-	PlayStage2Clear();
+	PlayStartMenu();
 }
 
 void Game::Input() {
@@ -152,7 +151,7 @@ void Game::PlayStage1Clear() {
 	StopSoundFile();
 	_modeServer->Clear();
 	_progress = Progress::Stage1Clear;
-	_modeServer->Add(std::move(std::make_unique<ModeMovie>(*this, "resource/Movie/stage1end.mp4")));
+	_modeServer->Add(std::move(std::make_unique<ModeMovie>(*this, "resource/Movie/stage1end.mp4", 137000)));
 }
 
 void Game::PlayStage2Clear() {
@@ -160,7 +159,7 @@ void Game::PlayStage2Clear() {
 	StopSoundFile();
 	_modeServer->Clear();
 	_progress = Progress::Stage2Clear;
-	_modeServer->Add(std::move(std::make_unique<ModeMovie>(*this, "resource/Movie/stage2end.mp4")));
+	_modeServer->Add(std::move(std::make_unique<ModeMovie>(*this, "resource/Movie/stage2end.mp4", 88000)));
 	LoadResources::LoadBossCGs();
 }
 
@@ -169,7 +168,7 @@ void Game::PlayStage3Clear() {
 	StopSoundFile();
 	_modeServer->Clear();
 	_progress = Progress::Stage3Clear;
-	_modeServer->Add(std::move(std::make_unique<ModeMovie>(*this, "resource/Movie/stage2end.mp4")));
+	_modeServer->Add(std::move(std::make_unique<ModeMovie>(*this, "resource/Movie/stage2end.mp4", 88000)));
 }
 
 void Game::GameOver(){

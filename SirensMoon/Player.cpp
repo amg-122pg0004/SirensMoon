@@ -21,9 +21,9 @@
 
 Player::Player(Game& game, ModeGame& mode, int playernum)
 	:Actor{ game,mode }, _speed{ 0,0 }, _playerNum{ playernum }
-	, _dir{ 0,0 }, _inputAngle{ 0 }, _hp{ 33 }, _hpMAX{ 3 }, _movable{ true }
-	, _init{ false }, _state{ PlayerState::Wait }, _direction{ PlayerDirection::Right }, _animNo{ 0 }, _invincibleTime{ 0 }
-	, _stageMovable{ true }, _teleportDelay{ -1 }, _teleportPosition{ 0,0 }
+	, _dir{ 0,0 }, _inputAngle{ 0 }, _hp{ 3 }, _hpMAX{ 3 }, _movable{ true }
+	, _state{ PlayerState::Wait }, _direction{ PlayerDirection::Right }, _animNo{ 0 }, _invincibleTime{ 0 }
+	, _stageMovable{ true }, _teleportDelay{ -1 }, _teleportPosition{ 0,0 },_slow{false}
 {
 	_inputManager = _game.GetInputManager();
 	auto data = _mode.GetMapChips()->GetPlayerData(_playerNum);
@@ -31,27 +31,26 @@ Player::Player(Game& game, ModeGame& mode, int playernum)
 	_speedMax = data.SpeedMax;
 	_accelerationRatio = data.Accelerate;
 	_friction = data.Friction;
+	_slowRate = data.SlowSpeedRate;
 	_pos = { pos.x,pos.y };
 	_size = { 30,40 };
 	auto light = std::make_unique<LightBase>(_game, _mode, *this);
 	_mode.GetActorServer().Add(std::move(light));
 	auto gunlight = std::make_unique<ProjectionLight>(_game, _mode, *this);
 	_mode.GetActorServer().Add(std::move(gunlight));
-}
 
-void Player::Init() {
 	auto&& rendercamera = _mode.GetSplitWindow()[_playerNum]->GetCamera();
 	rendercamera->SetPosition(_pos);
 }
 
 void Player::Update() {
-	if (_init == false) {
-		Init();
-		_init = true;
-	}
+
 	/*ƒAƒiƒƒO“ü—ÍŽæ“¾*/
 	_dir = _inputManager->CheckAnalogInput(_playerNum);
 	_dir = _dir / 1000;
+	if (_slow) {
+		_dir = _dir * _slowRate;
+	}
 	if (_dir.x != 0 || _dir.y != 0) {
 		_inputAngle = atan2(_dir.y, _dir.x);
 	}

@@ -4,7 +4,7 @@
 FX_BulletHit::FX_BulletHit(Game& game, ModeGame& mode, const Vector2& pos, int startTime)
 	:Effect(game, mode, pos, startTime)
 {
-	_zoom = 0.5;
+	_zoom = 2.0;
 	_lifeTime = 88;
 	_blendMode = DX_BLENDMODE_ALPHA;
 	_cg.resize(88);

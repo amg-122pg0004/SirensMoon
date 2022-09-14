@@ -72,6 +72,16 @@ void PlayerA::Load(){
 	_cg[{PlayerState::Shoot, PlayerDirection::Left}] = handle;
 	ImageServer::LoadDivGraph("resource/Player/PlayerA/Shoot/right.png", 41, 10, 5, 150, 150, handle.data());
 	_cg[{PlayerState::Shoot, PlayerDirection::Right}] = handle;
+
+	handle.resize(41);
+	ImageServer::LoadDivGraph("resource/Player/PlayerA/Action/back.png", 21, 7, 3, 150, 150, handle.data());
+	_cg[{PlayerState::Access, PlayerDirection::Up}] = handle;
+	ImageServer::LoadDivGraph("resource/Player/PlayerA/Action/front.png", 21, 7, 3, 150, 150, handle.data());
+	_cg[{PlayerState::Access, PlayerDirection::Down}] = handle;
+	ImageServer::LoadDivGraph("resource/Player/PlayerA/Action/left.png", 21, 7, 3, 150, 150, handle.data());
+	_cg[{PlayerState::Access, PlayerDirection::Left}] = handle;
+	ImageServer::LoadDivGraph("resource/Player/PlayerA/Action/right.png", 21, 7, 3, 150, 150, handle.data());
+	_cg[{PlayerState::Access, PlayerDirection::Right}] = handle;
 }
 
 void PlayerA::Action(){
@@ -101,7 +111,8 @@ void PlayerA::Action(){
 	}
 
 	if (_inputManager->CheckInput("ACTION", 'r', _playerNum)) {
-		_movable = true;
+		//_movable = true;
+		_slow = false;
 		if (_charge >= 120) {
 			if (_bullet > 0) {
 				if (_setGreenBullet) {
@@ -128,7 +139,8 @@ void PlayerA::Action(){
 	}
 
 	if (_inputManager->CheckInput("ACTION", 'h', _playerNum) && _cooldown == 0 && _visible) {
-		_movable = false;
+		//_movable = false;
+		_slow = true;
 		_state = PlayerState::Set;
 		if (_charge == 0) {
 
@@ -189,6 +201,7 @@ void PlayerA::TeleportEvent() {
 		_mode.GetActorServer().Add(std::make_unique<FX_TeleportIN1>(_game, _mode, _pos, _game.GetFrameCount()));
 	}
 	else if (_teleportDelay == 68) {
+		_pos=_teleportPosition;
 		_mode.GetActorServer().Add(std::make_unique<FX_TeleportOUT1>(_game, _mode, _pos, _game.GetFrameCount()));
 	}
 	else if (_teleportDelay == 30) {

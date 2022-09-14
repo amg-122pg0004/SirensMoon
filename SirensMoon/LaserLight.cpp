@@ -24,13 +24,13 @@ void LaserLight::Update() {
 		_pos += {5, -40};
 		break;
 	case Player::PlayerDirection::Down:
-		_pos += {-5, 25};
+		_pos += {-8, 25};
 		break;
 	case Player::PlayerDirection::Right:
-		_pos += {40, -10};
+		_pos += {40, -2};
 		break;
 	case Player::PlayerDirection::Left:
-		_pos += {-50, -20};
+		_pos += {-50, -12};
 		break;
 	}
 

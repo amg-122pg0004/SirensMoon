@@ -57,6 +57,16 @@ void PlayerB::Load() {
 	_cg[{PlayerState::Set, PlayerDirection::Left}] = handle;
 	ImageServer::LoadDivGraph("resource/Player/PlayerB/Wait/right.png", 101, 10, 11, 150, 150, handle.data());
 	_cg[{PlayerState::Set, PlayerDirection::Right}] = handle;
+
+	handle.resize(41);
+	ImageServer::LoadDivGraph("resource/Player/PlayerB/Action/back.png", 21, 7, 3, 150, 150, handle.data());
+	_cg[{PlayerState::Access, PlayerDirection::Up}] = handle;
+	ImageServer::LoadDivGraph("resource/Player/PlayerB/Action/front.png", 21, 7, 3, 150, 150, handle.data());
+	_cg[{PlayerState::Access, PlayerDirection::Down}] = handle;
+	ImageServer::LoadDivGraph("resource/Player/PlayerB/Action/left.png", 21, 7, 3, 150, 150, handle.data());
+	_cg[{PlayerState::Access, PlayerDirection::Left}] = handle;
+	ImageServer::LoadDivGraph("resource/Player/PlayerB/Action/right.png", 21, 7, 3, 150, 150, handle.data());
+	_cg[{PlayerState::Access, PlayerDirection::Right}] = handle;
 }
 
 void PlayerB::Action() {
@@ -108,6 +118,7 @@ void PlayerB::TeleportEvent(){
 		_mode.GetActorServer().Add(std::make_unique<FX_TeleportIN2>(_game, _mode, _pos, _game.GetFrameCount()));
 	}
 	else if (_teleportDelay == 68) {
+		_pos = _teleportPosition;
 		_mode.GetActorServer().Add(std::make_unique<FX_TeleportOUT2>(_game, _mode, _pos, _game.GetFrameCount()));
 	}
 	else if (_teleportDelay == 30) {
