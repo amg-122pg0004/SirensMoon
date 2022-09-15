@@ -15,6 +15,8 @@ class InputManager{
 	public:
 
 		InputManager();//<コンストラクタ
+		void Init();//<コントローラー設定の初期化
+
 
 		/**@brief 使用する各キーについてインプット状態を確認して保存 */
 		void InputUpdate();
@@ -68,4 +70,7 @@ private:
 
 	/*コントローラーを入れ替えるフラグ*/
 	bool _changeFlag;
+
+	/*接続中のコントローラーの数*/
+	int _connectNumber;
 };

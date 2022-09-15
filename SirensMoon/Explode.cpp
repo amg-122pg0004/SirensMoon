@@ -18,7 +18,8 @@ Explode::Explode(Game& game, ModeGame& mode, Vector2 pos) :Actor(game, mode)
 	_pos = pos-_size/2;
 	_collision.min =	{-1,-1};
 	_collision.max = { -1,-1 };
-
+	StartJoypadVibration(DX_INPUT_PAD1, 500, 150, -1);
+	StartJoypadVibration(DX_INPUT_PAD2, 500, 150, -1);
 }
 
 void Explode::Update(){
@@ -54,6 +55,8 @@ Explode2::Explode2(Game& game, ModeGame& mode, Vector2 pos) :Actor(game, mode)
 	_pos = pos - _size / 2;
 	_collision.min = { -1,-1 };
 	_collision.max = { -1,-1 };
+	StartJoypadVibration(DX_INPUT_PAD1, 500, 150, -1);
+	StartJoypadVibration(DX_INPUT_PAD2, 500, 150, -1);
 
 }
 
@@ -88,6 +91,8 @@ Explode3::Explode3(Game& game, ModeGame& mode, Vector2 pos) :Actor(game, mode)
 	_pos = pos - _size / 2;
 	_collision.min = { -1,-1 };
 	_collision.max = { -1,-1 };
+	StartJoypadVibration(DX_INPUT_PAD1, 500, 150, -1);
+	StartJoypadVibration(DX_INPUT_PAD2, 500, 150, -1);
 
 }
 

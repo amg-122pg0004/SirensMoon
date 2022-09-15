@@ -19,7 +19,7 @@ Game::Game() :_frameCount{0},_progress{Progress::StartMenu}
 	_modeServer = std::make_unique<ModeServer>(*this);
 	_inputManager = std::make_unique<InputManager>();
 
-	PlayStartMenu();
+	PlayStage1();
 }
 
 void Game::Input() {
@@ -42,6 +42,7 @@ void Game::Render() {
 
 void Game::Debug(){
 	if (_debug) {
+
 		_modeServer->Debug();
 		DrawFormatString(0, 0, GetColor(255, 255, 255), "%f", GetFPS()); 
 		DrawFormatString(0, 12, GetColor(255, 255, 255), "%d", GetASyncLoadNum());

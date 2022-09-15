@@ -1242,8 +1242,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":3566.82,
-                 "y":-927.424
+                 "x":3566.81818181818,
+                 "y":-927.424242424242
                 }, 
                 {
                  "class":"",
@@ -2681,8 +2681,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":2170,
-                 "y":2948
+                 "x":390,
+                 "y":300
                 }, 
                 {
                  "class":"",
@@ -5697,7 +5697,7 @@
         {
          "columns":30,
          "firstgid":1,
-         "image":"..\/..\/..\/x64\/0.4.7\/Debug\/resource\/MapData\/tile_test.png",
+         "image":"tile_test.png",
          "imageheight":660,
          "imagewidth":900,
          "margin":0,
@@ -11697,7 +11697,7 @@
         {
          "columns":10,
          "firstgid":661,
-         "image":"..\/..\/..\/x64\/0.4.7\/Debug\/resource\/MapData\/tile_icon.png",
+         "image":"tile_icon.png",
          "imageheight":150,
          "imagewidth":300,
          "margin":0,

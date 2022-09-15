@@ -11,6 +11,8 @@ BossCanon::BossCanon(Game& game, ModeGame& mode, Vector2 pos)
 	_size = { 630,630 };
 	Vector2 posfix = { _pos.x+_size.x/2,_pos.y+500 };
 	_mode.GetActorServer().Add(std::make_unique<FX_BossFire>(_game, _mode, posfix, _game.GetFrameCount()));
+	StartJoypadVibration(DX_INPUT_PAD1, 500, 150, -1);
+	StartJoypadVibration(DX_INPUT_PAD2, 500, 150, -1);
 }
 
 BossCanon::~BossCanon() {

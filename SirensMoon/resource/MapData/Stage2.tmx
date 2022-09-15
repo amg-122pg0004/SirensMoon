@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="128" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="26" nextobjectid="1337">
  <tileset firstgid="1" name="tile_test" tilewidth="30" tileheight="30" tilecount="660" columns="30">
-  <image source="../../../x64/0.4.7/Debug/resource/MapData/tile_test.png" width="900" height="660"/>
+  <image source="tile_test.png" width="900" height="660"/>
   <tile id="0" class="BackGround">
    <properties>
     <property name="Collision" type="bool" value="false"/>
@@ -2632,7 +2632,7 @@
   <tile id="659" class="BackGround"/>
  </tileset>
  <tileset firstgid="661" name="tile_icon" tilewidth="30" tileheight="30" tilecount="50" columns="10">
-  <image source="../../../x64/0.4.7/Debug/resource/MapData/tile_icon.png" width="300" height="150"/>
+  <image source="tile_icon.png" width="300" height="150"/>
   <tile id="1" class="Teleport_IN"/>
   <tile id="2" class="Teleport_OUT"/>
   <tile id="3" class="Mine"/>
@@ -3487,7 +3487,7 @@
   <object id="1335" gid="667" x="2700" y="3330" width="30" height="30"/>
  </objectgroup>
  <objectgroup id="4" name="Player">
-  <object id="332" gid="5" x="2170" y="2948" width="30" height="30">
+  <object id="332" gid="5" x="390" y="300" width="30" height="30">
    <properties>
     <property name="Accelerate" type="float" value="1"/>
     <property name="Friction" type="float" value="0.9"/>

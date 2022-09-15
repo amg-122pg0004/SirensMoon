@@ -50,10 +50,12 @@ void ScreenPump::Update() {
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::PlayerA ) {
 			if (Intersect(_detectionArea, actor->GetCollision())) {
-				if (dynamic_cast<Player&>(*actor).SetHideTimer(120)) {
+				if (dynamic_cast<Player&>(*actor).SetHideTimer(60 * 30)) {
 					_mode.GetSplitWindow()[1]->ScreenPumpEvent();
 					_mode.GetActorServer().Add(std::make_unique<FX_ScreenSmoke>(_game, _mode, _pos+ _size, _game.GetFrameCount()));
 					PlaySoundMem(SoundServer::Find("MicroBomRelease"), DX_PLAYTYPE_BACK);
+					StartJoypadVibration(DX_INPUT_PAD1, 30, 800, -1);
+
 				}
 			}
 		}
@@ -63,6 +65,7 @@ void ScreenPump::Update() {
 					_mode.GetSplitWindow()[0]->ScreenPumpEvent();
 					_mode.GetActorServer().Add(std::make_unique<FX_ScreenSmoke>(_game, _mode, _pos+ _size,_game.GetFrameCount()));
 					PlaySoundMem(SoundServer::Find("MicroBomRelease"), DX_PLAYTYPE_BACK);
+					StartJoypadVibration(DX_INPUT_PAD2, 30, 800, -1);
 				}
 			}
 		}

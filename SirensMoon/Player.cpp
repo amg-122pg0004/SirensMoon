@@ -385,7 +385,7 @@ void Player::UpdateCollision() {
 void Player::TakeDamage(Actor::Type type) {
 	--_hp;
 	PlaySoundMem(SoundServer::Find("PlayerDamage"), DX_PLAYTYPE_BACK);
-	StartJoypadVibration(DX_INPUT_PAD1, 1000, 600, -1);
+	StartJoypadVibration(_playerNum+1, 1000, 600, -1);
 	if (type == Type::Enemy) {
 		_mode.SetPauseGame(true);
 		_mode.DamageEvent();

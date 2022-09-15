@@ -1,7 +1,7 @@
 /*****************************************************************//**
  * \file   InputManager.cpp
  * \brief  入力状態を取得、保持する
- * 
+ *
  * \author 土居将太郎
  * \date   June 2022
  *********************************************************************/
@@ -11,35 +11,51 @@
 #include <string>
 #include <sstream>
 
-InputManager::InputManager() :_changeFlag{0} {
-	_keyState= {
-			{"UP",PAD_INPUT_UP,false,false,false,0},
-			{"DOWN",PAD_INPUT_DOWN,false,false,false,0},
-			{"LEFT",PAD_INPUT_LEFT,false,false,false,0},
-			{"RIGHT",PAD_INPUT_RIGHT,false,false,false,0},
-			{"ACTION",PAD_INPUT_1,false,false,false,0},
-			{"PAUSE",PAD_INPUT_12,false,false,false,0},
-			{"CHANGE",PAD_INPUT_13,false,false,false,0},
-			{"ACCESS",PAD_INPUT_3,false,false,false,0},
-			{"DEBUG",PAD_INPUT_11,false,false,false,0},
-			{"BLIND",PAD_INPUT_8,false,false,false,0},
-			{"BLIND2",PAD_INPUT_7,false,false,false,0},
-			{"BULLET1",PAD_INPUT_5,false,false,false,0},
-			{"BULLET2",PAD_INPUT_6,false,false,false,0},
-			{"UP",PAD_INPUT_UP,false,false,false,1},
-			{"DOWN",PAD_INPUT_DOWN,false,false,false,1},
-			{"LEFT",PAD_INPUT_LEFT,false,false,false,1},
-			{"RIGHT",PAD_INPUT_RIGHT,false,false,false,1},
-			{"ACTION",PAD_INPUT_1,false,false,false,1},
-			{"PAUSE",PAD_INPUT_12,false,false,false,1},
-			{"CHANGE",PAD_INPUT_13,false,false,false,1},
-			{"ACCESS",PAD_INPUT_3,false,false,false,1},
-			{"DEBUG",PAD_INPUT_11,false,false,false,1},
-			{"BLIND",PAD_INPUT_8,false,false,false,1},
-			{"BLIND2",PAD_INPUT_7,false,false,false,1},
-			{"BULLET1",PAD_INPUT_5,false,false,false,0},
-			{"BULLET2",PAD_INPUT_6,false,false,false,0},
-	};
+InputManager::InputManager() :_changeFlag{ 0 } {
+
+	Init();
+}
+
+void InputManager::Init() {
+	_keyState.clear();
+	_connectNumber = GetJoypadNum();
+	std::vector<KeyInfo> keys;
+	for (int i = 0; i < 2; ++i) {
+		/*InputState 1はDX_INPUT_PAD1,2はDX_INPUT_PAD2,*/
+		if (CheckJoypadXInput(i + 1)) {
+			/*XInput用のキーコンフィグ*/
+			keys = {
+			{ "UP",PAD_INPUT_UP,false,false,false,i },
+			{ "DOWN",PAD_INPUT_DOWN,false,false,false,i },
+			{ "LEFT",PAD_INPUT_LEFT,false,false,false,i },
+			{ "RIGHT",PAD_INPUT_RIGHT,false,false,false,i },
+			{ "ACTION",PAD_INPUT_3,false,false,false,i },
+			{ "PAUSE",PAD_INPUT_8,false,false,false,i },
+			{ "CHANGE",PAD_INPUT_10,false,false,false,i },
+			{ "ACCESS",PAD_INPUT_1,false,false,false,i },
+			{ "DEBUG",PAD_INPUT_7,false,false,false,i },
+			{ "BULLET1",PAD_INPUT_5,false,false,false,i },
+			{ "BULLET2",PAD_INPUT_6,false,false,false,i }
+			};
+		}
+		else {
+			/*DirectInput用のキーコンフィグ*/
+			keys = {
+			{"UP", PAD_INPUT_UP, false, false, false, i},
+			{ "DOWN",PAD_INPUT_DOWN,false,false,false,i },
+			{ "LEFT",PAD_INPUT_LEFT,false,false,false,i },
+			{ "RIGHT",PAD_INPUT_RIGHT,false,false,false,i },
+			{ "ACTION",PAD_INPUT_1,false,false,false,i },
+			{ "PAUSE",PAD_INPUT_12,false,false,false,i },
+			{ "CHANGE",PAD_INPUT_13,false,false,false,i },
+			{ "ACCESS",PAD_INPUT_3,false,false,false,i },
+			{ "DEBUG",PAD_INPUT_11,false,false,false,i },
+			{ "BULLET1",PAD_INPUT_5,false,false,false,i },
+			{ "BULLET2",PAD_INPUT_6,false,false,false,i }
+			};
+		}
+		_keyState.insert(_keyState.end(), keys.begin(), keys.end());
+	}
 	_analogState = {
 		{{0,0},0},
 		{{0,0},1}
@@ -48,7 +64,11 @@ InputManager::InputManager() :_changeFlag{0} {
 
 /**@brief 使用する各キーについてインプット状態を確認して保存 */
 void InputManager::InputUpdate() {
-	int padno0=-1,padno1=-1;
+	if (_connectNumber != GetJoypadNum()) {
+		Init();
+	}
+
+	int padno0 = -1, padno1 = -1;
 	if (_changeFlag) {
 		padno0 = DX_INPUT_PAD2;
 		padno1 = DX_INPUT_KEY_PAD1;
@@ -57,7 +77,7 @@ void InputManager::InputUpdate() {
 		padno0 = DX_INPUT_KEY_PAD1;
 		padno1 = DX_INPUT_PAD2;
 	}
-	for (auto&& key :_keyState) {
+	for (auto&& key : _keyState) {
 		switch (key.PadNo) {
 		case 0:
 			if (GetJoypadInputState(padno0) & key.KeyName) {
@@ -71,7 +91,7 @@ void InputManager::InputUpdate() {
 
 				continue;
 			}
-			else if(key.Hold==true){
+			else if (key.Hold == true) {
 				key.Release = true;
 				key.Hold = false;
 				continue;
@@ -87,7 +107,8 @@ void InputManager::InputUpdate() {
 				}
 				key.Hold = true;
 				continue;
-			}else if (key.Hold == true) {
+			}
+			else if (key.Hold == true) {
 				key.Release = true;
 				key.Hold = false;
 				continue;
@@ -120,12 +141,12 @@ void InputManager::InputUpdate() {
 
 /**
  * @brief 特定のキーの入力状態を確認する
- * 
+ *
  * \param actionname 確認したいキーアクションの名前
  * \param keystate 確認したいキーの状態 'h'で押し続けているか？'t'で押した瞬間か？'r'で離した瞬間か？
  * \return 入力があればtrue
  */
-bool InputManager::CheckInput(const std::string actionname, const char keystate,int playernum) {
+bool InputManager::CheckInput(const std::string actionname, const char keystate, int playernum) {
 	for (auto&& key : _keyState) {
 		if (key.ActionName == actionname && key.PadNo == playernum)
 		{
@@ -160,18 +181,22 @@ Vector2 InputManager::CheckAnalogInput(const int playernum) {
 }
 #ifdef _DEBUG
 void InputManager::Render() {
-	
+
 	std::stringstream ss;
 	for (auto&& key : _keyState) {
-		ss << key.ActionName <<" "<< key.KeyName <<" " << key.Hold <<" "<< key.Trigger<<" "<<key.Release << "\n";
+		ss << key.ActionName << " " << key.KeyName << " " << key.Hold << " " << key.Trigger << " " << key.Release << "\n";
 	}
 	for (auto&& analog : _analogState) {
-		ss  <<"アナログスティックプレイヤー"<<analog.PadNo<<" "<< analog.Value.x <<" "<<analog.Value.y << "\n";
+		ss << "アナログスティックプレイヤー" << analog.PadNo << " " << analog.Value.x << " " << analog.Value.y << "\n";
 	}
+	ss << "接続コントローラー数" <<_connectNumber << "\n";
+	GUID buff;
+	auto test = GetJoypadGUID(DX_INPUT_PAD1, &buff);
+	ss << "接続GUID" << GetJoypadGUID(DX_INPUT_PAD1,&buff) << "\n";
 	DrawString(50, 100, ss.str().c_str(), GetColor(255, 255, 255));
 }
 #endif 
-void InputManager::ChangeControllerNo(){
+void InputManager::ChangeControllerNo() {
 
 	if (_changeFlag) {
 		_changeFlag = 0;

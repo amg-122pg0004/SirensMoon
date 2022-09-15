@@ -139,6 +139,13 @@ void PlayerA::Action(){
 	}
 
 	if (_inputManager->CheckInput("ACTION", 'h', _playerNum) && _cooldown == 0 && _visible) {
+		if (_charge >= 120) {
+			StartJoypadVibration(DX_INPUT_PAD1, 200, 50, -1);
+		}
+		else {
+			StartJoypadVibration(DX_INPUT_PAD1, 50, 50, -1);
+		}
+
 		//_movable = false;
 		_slow = true;
 		_state = PlayerState::Set;

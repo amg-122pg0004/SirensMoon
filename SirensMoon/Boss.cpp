@@ -59,10 +59,6 @@ Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 }
 
 void Boss::Update(){
-	if (_game.GetInputManager()->CheckInput("BLIND2", 't', 1) ||
-		_game.GetInputManager()->CheckInput("BLIND2", 't', 0)) {
-		TakeDamage();
-	}
 	UpdateCollision();
 	CheckOverlapActor();
 	if (_game.GetFrameCount() % 3 == 0) {

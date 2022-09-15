@@ -25,8 +25,8 @@ void AmmoUI::Update() {
 		if (actor->GetType() == Actor::Type::PlayerA) {
 			_bullet1=dynamic_cast<PlayerA&>(*actor).GetAmmo();
 			_charge = dynamic_cast<PlayerA&>(*actor).GetCharge();
-			if (_charge > 100) { 
-				_charge = 100;
+			if (_charge > 120) { 
+				_charge = 120;
 			}
 		}
 	}
@@ -50,9 +50,9 @@ void AmmoUI::Render(){
 
 	int render_gage{ 3 };
 	SetDrawArea(static_cast<int>(_pos.x+140), static_cast<int>(_pos.y),
-		static_cast<int>(_pos.x + 140 + (_size.x - 140-92) * (static_cast<double>(_charge) / 100)), static_cast<int>(_pos.y + _size.y));
+		static_cast<int>(_pos.x + 140 + (_size.x - 140-92) * (static_cast<double>(_charge) / 120)), static_cast<int>(_pos.y + _size.y));
 	
-	if (_charge >= 100) {
+	if (_charge >= 120) {
 		alpha = (std::sin(_game.GetFrameCount() / 10) + 1) * 0.5 * 150 + 105;
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, static_cast<int>(alpha));
 	}
