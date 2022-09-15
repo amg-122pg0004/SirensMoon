@@ -26,7 +26,8 @@ private:
 	bool _accessible1;
 	bool _accessible2;
 	std::vector<int> _linkGimmiks;
-
+	/*リンクしている複数のギミックのうち、上から_projectionNumberの数までのギミックにエフェクトを飛ばす*/
+	int _projectionNumber;
 	std::vector<Vector2> _linkGimmickPositions;
 	int _timer;
 };

@@ -7,6 +7,10 @@ EnemyA::EnemyA(Game& game, ModeGame& mode, EnemyData data, EnemyGenerator::Enemy
 	:Enemy { game,mode,grdata }, _waitFrame{data.waitFrame}
 {
 	_pos = { data.pos.x,data.pos.y };
+	_sight_H = data.sightH;
+	_sight_W = data.sightW;
+	_detectionCompleteFrame = data.detectionComplete;
+
 	_eyePos = _pos;
 	_patrolID = data.patrolID;
 	_patrolFlag = 1;

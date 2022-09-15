@@ -119,6 +119,8 @@ void PlayerB::TeleportEvent(){
 	}
 	else if (_teleportDelay == 68) {
 		_pos = _teleportPosition;
+		auto&& rendercamera = _mode.GetSplitWindow()[_playerNum]->GetCamera();
+		rendercamera->SetPosition(_pos);
 		_mode.GetActorServer().Add(std::make_unique<FX_TeleportOUT2>(_game, _mode, _pos, _game.GetFrameCount()));
 	}
 	else if (_teleportDelay == 30) {

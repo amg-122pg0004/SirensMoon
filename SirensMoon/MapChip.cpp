@@ -114,7 +114,7 @@ bool MapChip::LoadMap(std::string folderpath, std::string filename)
 					auto&& serverData = static_cast<ServerMachineData&>(*data);
 					LoadServerClass(aObject, serverData);
 				}
-				else if (data->GetType() == ObjectDataBase::Type::ScreenPump) {
+				else if (data->GetType() == ObjectDataBase::Type::StickeyBomb) {
 					auto&& stickyData = static_cast<StickyBombData&>(*data);
 					LoadStickyBombClass(aObject, stickyData);
 				}
@@ -216,6 +216,13 @@ void MapChip::LoadTilesets(picojson::object jsRoot, std::string folderpath) {
 				if (tileObject["class"].get<std::string>() == "Enemy") {
 					int gid = (static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back()));
 					auto data = std::make_unique<EnemyData>();
+					if (tileObject["properties"].is<picojson::array>()) {
+						picojson::array properties = tileObject["properties"].get<picojson::array>();
+						FindPropertieData(data->waitFrame, properties, "WaitFrame");
+						FindPropertieData(data->detectionComplete, properties, "FindTime");
+						FindPropertieData(data->sightH, properties, "Sight_H");
+						FindPropertieData(data->sightW, properties, "Sight_W");
+					}
 					_objectGIDs[gid] = std::move(data);
 				}
 				if (tileObject["class"].get<std::string>() == "EnemyB") {
@@ -237,6 +244,9 @@ void MapChip::LoadTilesets(picojson::object jsRoot, std::string folderpath) {
 						FindPropertieData(data->LookTime[1], properties, "LookTime2");
 						FindPropertieData(data->LookTime[2], properties, "LookTime3");
 						FindPropertieData(data->LookTime[3], properties, "LookTime4");
+						FindPropertieData(data->detectionComplete, properties, "FindTime");
+						FindPropertieData(data->sightH, properties, "Sight_H");
+						FindPropertieData(data->sightW, properties, "Sight_W");
 					}
 					_objectGIDs[gid] = std::move(data);
 				}
@@ -345,6 +355,7 @@ void MapChip::LoadTilesets(picojson::object jsRoot, std::string folderpath) {
 					if (tileObject["properties"].is<picojson::array>()) {
 						picojson::array properties = tileObject["properties"].get<picojson::array>();
 						FindPropertieData(data->RedFlag, properties, "Red?");
+						FindPropertieData(data->projectionNumber, properties, "EffectNumber");
 					}
 					_objectGIDs[gid] = std::move(data);
 				}
@@ -733,6 +744,9 @@ void MapChip::LoadEnemyBClass(picojson::object object, EnemyBData data) {
 		FindPropertieData(data.LookTime[1], properties, "LookTime2");
 		FindPropertieData(data.LookTime[2], properties, "LookTime3");
 		FindPropertieData(data.LookTime[3], properties, "LookTime4");
+		FindPropertieData(data.detectionComplete, properties, "FindTime");
+		FindPropertieData(data.sightH, properties, "Sight_H");
+		FindPropertieData(data.sightW, properties, "Sight_W");
 	}
 	_enemyBDataList.push_back(data);
 }
@@ -844,6 +858,7 @@ void MapChip::LoadSwitchClass(picojson::object object, SwitchData data) {
 	if (object["properties"].is<picojson::array>()) {
 		picojson::array properties = object["properties"].get<picojson::array>();
 		FindPropertieData(data.RedFlag, properties, "RedFlag");
+		FindPropertieData(data.projectionNumber, properties, "EffectNumber");
 		for (int i = 0; i < properties.size(); ++i) {
 			if (properties[i].get<picojson::object>()["name"].get<std::string>().find("LinkGimmick*")) {
 				data.links.push_back(static_cast<int>(properties[i].get<picojson::object>()["value"].get<double>()));

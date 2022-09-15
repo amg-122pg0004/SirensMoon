@@ -37,6 +37,7 @@ public:
 	Actor* GetLastDetection() { return _lastDetection; }
 	int GetDetectionFrame(){return _detectionFrame; }
 	BoxSight GetSightPosition() { return _sightPos; }
+	int GetDetectionCompleteFrame() { return _detectionCompleteFrame; }
 
 
 	virtual void Update()override;
@@ -104,7 +105,9 @@ protected:
 	/*追跡フラグ*/
 	bool _chase;
 	/*視界範囲*/
-	const int _sight_H, _sight_W;
+	int _sight_H, _sight_W;
+	/*発見状態に移行するまでのフレーム数*/
+	int _detectionCompleteFrame;
 	/*視界範囲内にいたフレーム数*/
 	int _detectionFrame;
 	/*最後に発見した物体*/

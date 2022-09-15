@@ -2309,6 +2309,11 @@
                  "name":"",
                  "properties":[
                         {
+                         "name":"EffectNumber",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
                          "name":"LinkGimmick1",
                          "type":"object",
                          "value":1410
@@ -2787,8 +2792,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":270,
-                 "y":4200
+                 "x":1674,
+                 "y":1504
                 }, 
                 {
                  "class":"",
@@ -6086,7 +6091,23 @@
                 }, 
                 {
                  "class":"Enemy",
-                 "id":2
+                 "id":2,
+                 "properties":[
+                        {
+                         "name":"FindTime",
+                         "type":"int",
+                         "value":40
+                        }, 
+                        {
+                         "name":"Sight_H",
+                         "type":"int",
+                         "value":1000
+                        }, 
+                        {
+                         "name":"Sight_W",
+                         "type":"int",
+                         "value":1000
+                        }]
                 }, 
                 {
                  "class":"BackGround",

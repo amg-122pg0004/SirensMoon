@@ -10,7 +10,8 @@ FoundUI::FoundUI(Game& game, ModeBase& mode, Vector2 pos, Vector2 size, int play
 }
 
 void FoundUI::Update() {
-	int detectionframe{ 0 };
+	int detectionframe{ 0 }, detectionCompleteFrame{0};
+	double findPercent{ 0.0 };
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Actor::Type::Enemy) {
 			/*Œ©‚Â‚©‚Á‚½‚ç–Ú‚ð•\Ž¦‚·‚é‚â‚Â
@@ -24,6 +25,8 @@ void FoundUI::Update() {
 				}
 			}
 			*/
+			detectionframe = static_cast<Enemy&>(*actor).GetDetectionFrame();
+			detectionCompleteFrame = static_cast<Enemy&>(*actor).GetDetectionFrame();
 			if (detectionframe < dynamic_cast<Enemy&>(*actor).GetDetectionFrame()) {
 				detectionframe = dynamic_cast<Enemy&>(*actor).GetDetectionFrame();
 				auto pos_col = dynamic_cast<Enemy&>(*actor).GetLastDetection()->GetCollision();
@@ -32,13 +35,13 @@ void FoundUI::Update() {
 		}
 	}
 	if (detectionframe > 0) {
-		if (detectionframe < 30) {
+		if (detectionframe < 10) {
 			_animNo = 0;
 		}
-		else if (detectionframe < 60) {
+		else if (detectionframe < 20) {
 			_animNo = 1;
 		}
-		else if (detectionframe < 90) {
+		else if (detectionframe < 30) {
 			_animNo = 2;
 		}
 		else {

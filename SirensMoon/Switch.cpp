@@ -5,7 +5,7 @@
 
 Switch::Switch(Game& game, ModeGame& mode, SwitchData data)
 	:Gimmick(game, mode, data.ID), _linkGimmiks{ data.links }
-	, _accessible1{ 0 }, _accessible2{ 0 }, _cg3{ -1 }, _timer{ 120 }
+	, _accessible1{ 0 }, _accessible2{ 0 }, _cg3{ -1 }, _timer{ 120 }, _projectionNumber{ data.projectionNumber }
 {
 	_activate = false;
 	_pos = data.pos;
@@ -32,7 +32,9 @@ Switch::Switch(Game& game, ModeGame& mode, SwitchData data)
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::Gimmick) {
 			if (dynamic_cast<Gimmick&>(*actor).RecieveCall(_linkGimmiks, false)) {
-				_linkGimmickPositions.emplace_back(actor->GetPosition());
+				Vector2 pos=actor->GetPosition();
+				Vector2 size = actor->GetSize();
+				_linkGimmickPositions.emplace_back(pos+size/2);
 			}
 		}
 	}
@@ -45,14 +47,19 @@ void Switch::Update() {
 
 	/*スイッチから連携ギミックへエフェクト発生*/
 	if (_game.GetFrameCount() % 10 == 0) {
+		/*
 		for (auto&& linkpos : _linkGimmickPositions) {
 			_mode.GetActorServer().Add(std::make_unique<LinkLight>(_game, _mode, *this, linkpos));
+		*/
+		int loop = Math::Min(_projectionNumber, static_cast<int>(_linkGimmickPositions.size()));
+		for (int i = 0; i < loop; ++i) {
+			_mode.GetActorServer().Add(std::make_unique<LinkLight>(_game, _mode, *this, _linkGimmickPositions[i]));
 		}
 	}
 
-	if (_firstActivate!=0) {
+	if (_firstActivate != 0) {
 		--_timer;
-		if (_timer < 60&& _timer >= 40) {
+		if (_timer < 60 && _timer >= 40) {
 			LinkGimmickActivate(true);
 			_activate = true;
 			_cg = _cg2;
@@ -60,7 +67,7 @@ void Switch::Update() {
 		}
 		if (_timer == 0) {
 			_mode.GetSplitWindow()[_firstActivate - 1]->GetCamera()->SetMovable(true);
-			_mode.GetSplitWindow()[_firstActivate-1]->GetCamera()->SetPosition(_pos+_size/2);
+			_mode.GetSplitWindow()[_firstActivate - 1]->GetCamera()->SetPosition(_pos + _size / 2);
 			return;
 		}
 	}
@@ -90,7 +97,7 @@ void Switch::Update() {
 			PlaySoundMem(SoundServer::Find("AccessSwitch"), DX_PLAYTYPE_BACK);
 		}
 		if (_game.GetInputManager()->CheckInput("ACCESS", 'h', 0)) {
-			if (_firstActivate==0) {
+			if (_firstActivate == 0) {
 				FirstActivateEvent(1);
 			}
 			else if (_timer < 60) {
@@ -106,7 +113,7 @@ void Switch::Update() {
 			PlaySoundMem(SoundServer::Find("AccessSwitch"), DX_PLAYTYPE_BACK);
 		}
 		if (_game.GetInputManager()->CheckInput("ACCESS", 'h', 1)) {
-			if (_firstActivate==0) {
+			if (_firstActivate == 0) {
 				FirstActivateEvent(2);
 			}
 			else if (_timer < 60) {

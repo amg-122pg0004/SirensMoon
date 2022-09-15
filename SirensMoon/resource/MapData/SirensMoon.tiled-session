@@ -310,11 +310,11 @@
             "expandedObjectLayers": [
                 4
             ],
-            "scale": 0.25,
+            "scale": 0.19,
             "selectedLayer": 7,
             "viewCenter": {
-                "x": 2,
-                "y": 2648
+                "x": 228.9473684210526,
+                "y": 2055.263157894737
             }
         },
         "Stage1.tmx#tile_icon": {
@@ -356,15 +356,15 @@
         },
         "Stage3.tmx": {
             "expandedObjectLayers": [
+                12,
                 21,
-                4,
-                12
+                4
             ],
             "scale": 0.5,
             "selectedLayer": 4,
             "viewCenter": {
                 "x": 1875,
-                "y": 2158
+                "y": 2157
             }
         },
         "Stage3.tmx#boss_tile": {
@@ -503,14 +503,13 @@
     "map.tileWidth": 30,
     "map.width": 96,
     "openFiles": [
-        "Stage3.tmx",
         "Stage1.tmx"
     ],
     "project": "SirensMoon.tiled-project",
-    "property.type": "float",
+    "property.type": "int",
     "recentFiles": [
-        "Stage3.tmx",
         "Stage1.tmx",
+        "Stage3.tmx",
         "Stage2.tmx",
         "D:/doi/2022summer/x64/0.4.7/Debug/resource/MapData/Stage2.tmx",
         "Stage2.json",

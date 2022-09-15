@@ -54,6 +54,9 @@ public:
 	Type GetType()override { return ObjectDataBase::Type::Enemy; }
 	int patrolID{ -1 };
 	int waitFrame{ -0 };
+	int sightW{ 330 };
+	int sightH{ 210 };
+	int detectionComplete{ 120 };
 };
 
 /*エネミーBデータ構造*/
@@ -62,6 +65,9 @@ public:
 	Type GetType()override { return ObjectDataBase::Type::EnemyB; }
 	std::vector<int> Direction{0,0,0,0};//<見る角度
 	std::vector<int> LookTime{ 0,0,0,0 };//<各角度を見る時間
+	int sightW{ 330 };
+	int sightH{ 210 };
+	int detectionComplete{ 120 };
 };
 
 /*エネミー巡回経路データ構造*/
@@ -134,6 +140,7 @@ public:
 	Type GetType()override { return ObjectDataBase::Type::Switch; }
 	bool RedFlag{false};
 	std::vector<int> links;
+	int projectionNumber{12};
 };
 
 /*スイッチエリアデータ構造*/

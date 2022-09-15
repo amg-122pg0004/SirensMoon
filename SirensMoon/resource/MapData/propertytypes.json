@@ -211,9 +211,24 @@
         "id": 2,
         "members": [
             {
+                "name": "FindTime",
+                "type": "int",
+                "value": 120
+            },
+            {
                 "name": "PatrolLine",
                 "type": "object",
                 "value": 0
+            },
+            {
+                "name": "Sight_H",
+                "type": "int",
+                "value": 210
+            },
+            {
+                "name": "Sight_W",
+                "type": "int",
+                "value": 330
             },
             {
                 "name": "WaitFrame",
@@ -254,6 +269,11 @@
                 "value": 0
             },
             {
+                "name": "FindTime",
+                "type": "int",
+                "value": 120
+            },
+            {
                 "name": "LookTime1",
                 "type": "int",
                 "value": 0
@@ -272,6 +292,16 @@
                 "name": "LookTime4",
                 "type": "int",
                 "value": 0
+            },
+            {
+                "name": "Sight_H",
+                "type": "int",
+                "value": 210
+            },
+            {
+                "name": "Sight_W",
+                "type": "int",
+                "value": 330
             }
         ],
         "name": "EnemyB",
@@ -594,6 +624,11 @@
         "color": "#ffa0a0a4",
         "id": 19,
         "members": [
+            {
+                "name": "EffectNumber",
+                "type": "int",
+                "value": 12
+            },
             {
                 "name": "LinkGimmick1",
                 "type": "object",

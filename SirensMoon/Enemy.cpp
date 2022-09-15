@@ -14,8 +14,8 @@
 #include "MapChip.h"
 
 Enemy::Enemy(Game& game, ModeGame& mode, EnemyGenerator::EnemyPattern pattern)
-	:Actor{ game,mode }, _speed{ 1 }, _sight_H{ 210 }
-	, _sight_W{ 330 }, _detectionFrame{ 0 }, _chase{ false }, _pattern{ pattern }
+	:Actor{ game,mode }, _speed{ 1 }, _sight_H{ 210 }, _sight_W{ 330 }
+	,_detectionFrame{ 120 }, _chase{ false }, _pattern{ pattern }
 {
 	_size = { 200,200 };
 
@@ -42,7 +42,7 @@ void Enemy::Update() {
 			if (_detectionFrame == 1) {
 				PlaySoundMem(SoundServer::Find("Detection"), DX_PLAYTYPE_BACK);
 			}
-			if (_detectionFrame >= 120) {
+			if (_detectionFrame >= _detectionCompleteFrame){
 				_speed = 12;
 				_chase = true;
 			}
@@ -256,8 +256,8 @@ void Enemy::ApplyDamage() {
 }
 
 void Enemy::UpdateCollision() {
-	_collision.min = { _pos.x - _size.x / 2 + 70 , _pos.y - _size.y / 2 + 30 };
-	_collision.max = { _pos.x + _size.x / 2 - 70,_pos.y + _size.y / 2 - 30 };
+	_collision.min = { _pos.x - _size.x / 2 + 90 , _pos.y - _size.y / 2 + 70 };
+	_collision.max = { _pos.x + _size.x / 2 - 90,_pos.y + _size.y / 2-90 };
 }
 
 void Enemy::Debug(Vector2 window_pos, Vector2 camera_pos) {

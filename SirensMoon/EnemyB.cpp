@@ -6,6 +6,9 @@ EnemyB::EnemyB(Game& game, ModeGame& mode, EnemyBData data, EnemyGenerator::Enem
 	:Enemy{game,mode,pattern},_data{data},_index{0},_elapsed{0}
 {
 	_pos = { data.pos.x,data.pos.y };
+	_sight_H = data.sightH;
+	_sight_W = data.sightW;
+	_detectionCompleteFrame = data.detectionComplete;
 }
 
 void EnemyB::Update(){

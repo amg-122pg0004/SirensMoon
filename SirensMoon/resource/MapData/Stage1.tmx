@@ -15,7 +15,13 @@
     <property name="Collision" type="bool" value="false"/>
    </properties>
   </tile>
-  <tile id="2" class="Enemy"/>
+  <tile id="2" class="Enemy">
+   <properties>
+    <property name="FindTime" type="int" value="40"/>
+    <property name="Sight_H" type="int" value="1000"/>
+    <property name="Sight_W" type="int" value="1000"/>
+   </properties>
+  </tile>
   <tile id="3" class="BackGround">
    <properties>
     <property name="BackRender" type="bool" value="true"/>
@@ -3131,6 +3137,7 @@
   <object id="1415" gid="27" x="2700" y="3900" width="30" height="30"/>
   <object id="1476" gid="675" x="2490" y="3690" width="30" height="30">
    <properties>
+    <property name="EffectNumber" type="int" value="1"/>
     <property name="LinkGimmick1" type="object" value="1410"/>
     <property name="LinkGimmick10" type="object" value="1411"/>
     <property name="LinkGimmick11" type="object" value="1412"/>
@@ -3218,7 +3225,7 @@
  </objectgroup>
  <objectgroup id="21" name="Boss"/>
  <objectgroup id="4" name="Player">
-  <object id="977" gid="5" x="270" y="4200" width="30" height="30">
+  <object id="977" gid="5" x="1674" y="1504" width="30" height="30">
    <properties>
     <property name="Accelerate" type="float" value="1"/>
     <property name="Friction" type="float" value="0.9"/>

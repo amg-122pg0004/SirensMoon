@@ -23,7 +23,7 @@ Player::Player(Game& game, ModeGame& mode, int playernum)
 	:Actor{ game,mode }, _speed{ 0,0 }, _playerNum{ playernum }
 	, _dir{ 0,0 }, _inputAngle{ 0 }, _hp{ 3 }, _hpMAX{ 3 }, _movable{ true }
 	, _state{ PlayerState::Wait }, _direction{ PlayerDirection::Right }, _animNo{ 0 }, _invincibleTime{ 0 }
-	, _stageMovable{ true }, _teleportDelay{ -1 }, _teleportPosition{ 0,0 },_slow{false}
+	, _stageMovable{ true }, _teleportDelay{ -1 }, _teleportPosition{ 0,0 }, _slow{ false }
 {
 	_inputManager = _game.GetInputManager();
 	auto data = _mode.GetMapChips()->GetPlayerData(_playerNum);
@@ -359,9 +359,9 @@ void Player::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 	std::vector<int> cg = _cg[{_state, _direction}];
 	if (_state == PlayerState::Set || _state == PlayerState::Shoot) {
 		DrawExtendGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x - 30),
-			static_cast<int>(_pos.y + window_pos.y - camera_pos.y - 30* 0.6),
-			static_cast<int>(_pos.x + window_pos.x - camera_pos.x - 30+ 60 * 1.5),
-			static_cast<int>(_pos.y + window_pos.y - camera_pos.y - 30* 0.6 + 60 * 1.5), cg[_animNo], 1);
+			static_cast<int>(_pos.y + window_pos.y - camera_pos.y - 30 * 0.6),
+			static_cast<int>(_pos.x + window_pos.x - camera_pos.x - 30 + 60 * 1.5),
+			static_cast<int>(_pos.y + window_pos.y - camera_pos.y - 30 * 0.6 + 60 * 1.5), cg[_animNo], 1);
 		++_animNo;
 		if (_animNo >= cg.size()) {
 			_animNo = static_cast<int>(cg.size()) - 1;
@@ -378,14 +378,14 @@ void Player::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 
 void Player::UpdateCollision() {
 	_collision.min = { _pos.x,_pos.y + 20 };
-	_collision.max = { _pos.x + _size.x, _pos.y + _size.y+20 };
+	_collision.max = { _pos.x + _size.x, _pos.y + _size.y + 20 };
 	_renderPriority = static_cast<int>(_pos.y + _size.y);
 }
 
 void Player::TakeDamage(Actor::Type type) {
 	--_hp;
 	PlaySoundMem(SoundServer::Find("PlayerDamage"), DX_PLAYTYPE_BACK);
-	StartJoypadVibration(_playerNum+1, 1000, 600, -1);
+	StartJoypadVibration(_playerNum + 1, 1000, 600, -1);
 	if (type == Type::Enemy) {
 		_mode.SetPauseGame(true);
 		_mode.DamageEvent();
@@ -472,7 +472,7 @@ void Player::Debug(Vector2 window_pos, Vector2 camera_pos) {
 	ss << "_collision.max.x" << _collision.max.x << "\n";
 	ss << "_collision.max.y" << _collision.max.y << "\n";
 	ss << "ハイドタイム" << _hideTimer << "\n";
-	ss << "テレポートディレイ" << _teleportDelay << "\n";
+	ss << "テレポート位置x:" << _teleportPosition.x << "y:" << _teleportPosition.y << "\n";
 	ss << "スピード" << _speed.Length() << "\n";
 	DrawString(50 + _playerNum * 960, 100, ss.str().c_str(), GetColor(255, 0, 255));
 }
