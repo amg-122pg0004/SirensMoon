@@ -68,10 +68,14 @@ bool MapChip::LoadMap(std::string folderpath, std::string filename)
 						EnemyBData enemyBData;
 						enemyBData.pos = data->pos;
 						enemyBData.ID = data->ID;
+						enemyBData.sightH = static_cast<EnemyData&>(*data).sightH;
+						enemyBData.sightW = static_cast<EnemyData&>(*data).sightW;
+						enemyBData.detectionComplete = static_cast<EnemyData&>(*data).detectionComplete;
 						LoadEnemyBClass(aObject, enemyBData);
 					}else if (aObject["class"].get<std::string>() == "Enemy") {
 						auto&& enemyData = static_cast<EnemyData&>(*data);
 						LoadEnemyClass(aObject, enemyData);
+
 					}
 				}
 				else if (data->GetType() == ObjectDataBase::Type::EnemyB) {
@@ -83,6 +87,9 @@ bool MapChip::LoadMap(std::string folderpath, std::string filename)
 						EnemyData enemyData;
 						enemyData.pos = data->pos;
 						enemyData.ID = data->ID;
+						enemyData.sightH = static_cast<EnemyBData&>(*data).sightH;
+						enemyData.sightW = static_cast<EnemyBData&>(*data).sightW;
+						enemyData.detectionComplete = static_cast<EnemyBData&>(*data).detectionComplete;
 						LoadEnemyClass(aObject, enemyData);
 					}
 				}
