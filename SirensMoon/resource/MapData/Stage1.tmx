@@ -2822,7 +2822,7 @@
   <object id="1333" gid="31" x="1290" y="1350" width="30" height="30"/>
   <object id="1334" gid="8" x="1770" y="270" width="30" height="30"/>
  </objectgroup>
- <objectgroup id="10" name="Server">
+ <objectgroup id="10" name="Server" locked="1">
   <object id="1325" gid="63" x="90" y="240" width="30" height="30"/>
   <object id="1335" x="1200" y="630">
    <polygon points="0,0 270,0 270,330 0,330"/>
@@ -3225,7 +3225,7 @@
  </objectgroup>
  <objectgroup id="21" name="Boss"/>
  <objectgroup id="4" name="Player">
-  <object id="977" gid="5" x="1674" y="1504" width="30" height="30">
+  <object id="977" gid="5" x="306" y="4200" width="30" height="30">
    <properties>
     <property name="Accelerate" type="float" value="1"/>
     <property name="Friction" type="float" value="0.9"/>
