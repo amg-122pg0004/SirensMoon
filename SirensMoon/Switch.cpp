@@ -46,7 +46,7 @@ void Switch::Update() {
 	}
 
 	/*スイッチから連携ギミックへエフェクト発生*/
-	if (_game.GetFrameCount() % 10 == 0) {
+	if (_game.GetFrameCount() % 60*0.8 == 0) {
 		/*
 		for (auto&& linkpos : _linkGimmickPositions) {
 			_mode.GetActorServer().Add(std::make_unique<LinkLight>(_game, _mode, *this, linkpos));

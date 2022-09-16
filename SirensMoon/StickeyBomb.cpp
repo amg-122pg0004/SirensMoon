@@ -19,7 +19,7 @@ StickyBomb::StickyBomb(Game& game, ModeGame& mode, StickyBombData data)
 	_detectionArea.min = _pos + _size / 2 - range;
 	_detectionArea.max = _pos + _size / 2 + range;
 	_timer = data.timer;
-
+	_font = LoadFontDataToHandle("resource/Font/nikkyou-sans-font.ttf", 1);
 	_accessArea.min = { 0,0 };
 	_accessArea.max = { 0,0 };
 	_cg = ImageServer::LoadGraph("resource/Gimmick/Sticky/down.png");
@@ -119,10 +119,10 @@ void StickyBomb::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 	if (_activate) {
 		std::stringstream ss;
 		ss << "”š”­‚Ü‚Å" << _timer / 60 << "\n";
-		DrawString(static_cast<int>(_pos.x + window_pos.x - camera_pos.x - _size.x / 2),
+		DrawStringToHandle(static_cast<int>(_pos.x + window_pos.x - camera_pos.x - _size.x / 2),
 			static_cast<int>(_pos.y + window_pos.y - camera_pos.y - _size.y / 2) - 60,
 			ss.str().c_str(),
-			GetColor(255, 255, 255));
+			GetColor(255, 255, 255), _font);
 	}
 }
 

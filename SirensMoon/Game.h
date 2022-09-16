@@ -21,6 +21,9 @@ class Game {
 
 public:
 	enum class Progress {
+		StartUp1,
+		StartUp2,
+		StartUp3,
 		Intro,
 		StartMenu,
 		Stage1,
@@ -29,6 +32,7 @@ public:
 		Stage2Clear,
 		Stage3,
 		Stage3Clear,
+		Credit
 	};
 
 	Game();//<Gameコンストラクタ
@@ -49,6 +53,10 @@ public:
 
 	std::unique_ptr<ModeServer>& GetModeServer() { return _modeServer; }
 	Progress GetProgress() { return _progress; }
+	void PlayStartUp1();
+	void PlayStartUp2();
+	void PlayStartUp3();
+	void PlayIntro();
 	void PlayStartMenu();
 	void PlayStage1();
 	void PlayStage1Clear();
@@ -56,6 +64,7 @@ public:
 	void PlayStage2Clear();
 	void PlayStage3();
 	void PlayStage3Clear();
+	void PlayCredit();
 
 private:
 	std::shared_ptr<InputManager> _inputManager;

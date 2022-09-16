@@ -30,4 +30,6 @@ private:
 	int _timer;
 	/*アクセス可能か*/
 	bool _accessible1, _accessible2;
+
+	int _font;
 };

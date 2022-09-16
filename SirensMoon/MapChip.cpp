@@ -662,7 +662,7 @@ void MapChip::LoadEnemyVIPPatrolLine(picojson::array aObjects) {
 					double x = pointsArray[p].get <picojson::object>()["x"].get<double>();
 					double y = pointsArray[p].get <picojson::object>()["y"].get<double>();
 					x += aObject["x"].get<double>();
-					y += aObject["y"].get<double>();
+					y += aObject["y"].get<double>() - _chipSize_H;
 					Vector2 pos = { x,y };
 					aPatrolData.PatrolPoints.push_back(pos);
 				}
@@ -761,12 +761,15 @@ void MapChip::LoadEnemyBClass(picojson::object object, EnemyBData data) {
 void MapChip::LoadDoorClass(picojson::object object, DoorData data) {
 	_doorDataList.push_back(data);
 }
+
 void MapChip::LoadItemAmmoClass(picojson::object object, BulletItemData data) {
 	_bulletItems.push_back(data);
 }
+
 void MapChip::LoadItemHPClass(picojson::object object, HPItemData data) {
 	_hpItems.push_back(data);
 }
+
 void MapChip::LoadLightClass(picojson::object object, SquareLightStats data) {
 	if (object["properties"].is<picojson::array>()) {
 		auto properties = object["properties"].get<picojson::array>();
@@ -784,6 +787,7 @@ void MapChip::LoadLightClass(picojson::object object, SquareLightStats data) {
 	object["y"].get<double>() - (data.size.y / 2) };
 	_lightDataList.push_back(data);
 }
+
 void MapChip::LoadMineClass(picojson::object object, MineData data) {
 	std::string direction{ "none" };
 	if (object["properties"].is<picojson::array>()) {
@@ -861,6 +865,7 @@ void MapChip::LoadStickyBombClass(picojson::object object, StickyBombData data) 
 	}
 	_stickyBombDataList.push_back(data);
 }
+
 void MapChip::LoadSwitchClass(picojson::object object, SwitchData data) {
 	if (object["properties"].is<picojson::array>()) {
 		picojson::array properties = object["properties"].get<picojson::array>();
@@ -875,6 +880,7 @@ void MapChip::LoadSwitchClass(picojson::object object, SwitchData data) {
 	}
 	_switchDataList.push_back(data);
 }
+
 void MapChip::LoadSwitchAreaClass(picojson::object object, SwitchAreaData data) {
 	if (object["properties"].is<picojson::array>()) {
 		auto properties = object["properties"].get<picojson::array>();
@@ -949,8 +955,6 @@ void MapChip::LoadBossTriggerClass(picojson::object object, BossGimmickControlle
 void MapChip::LoadBreakableObjectClass(picojson::object object, BreakableObjectData data) {
 	_breakableObjectData.push_back(data);
 }
-
-
 
 void MapChip::Render(Vector2 windowPos, Vector2 cameraPos, std::string layer) {
 	std::vector<std::vector<std::vector<int>>> tiledata;

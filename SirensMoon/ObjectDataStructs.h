@@ -185,7 +185,7 @@ class StickyBombData : public ObjectDataBase {
 public:
 	Type GetType()override { return ObjectDataBase::Type::StickeyBomb; }
 	int range{180};
-	int timer{-1};
+	int timer{1800};
 };
 
 

@@ -34,8 +34,8 @@ void MiniMap::Update() {
 	if (_inputManager->CheckInput("ACTION", 'h', 1)) {
 		if (!_visible) {
 			PlaySoundMem(SoundServer::Find("MiniMapOpen"), DX_PLAYTYPE_BACK);
-			PlaySoundMem(SoundServer::Find("MiniMapClose"), DX_PLAYTYPE_LOOP);
 			_visible = true;
+			StartJoypadVibration(DX_INPUT_PAD2, 50, 50, -1);
 		}
 	}
 	else {
@@ -119,7 +119,7 @@ void MiniMap::Render() {
 		}
 		if (actor->GetType() == Actor::Type::Boss) {
 			auto size = actor->GetSize();
-			auto bossscale = dynamic_cast<Boss&>(*actor).GetScale();
+			auto bossscale = dynamic_cast<Boss&>(*actor).GetMapScale();
 			DrawBox(static_cast<int>((actor->GetPosition().x - size.x * bossscale ) * scale + pos.x),
 				static_cast<int>((actor->GetPosition().y - size.y * bossscale ) * scaley + pos.y),
 				static_cast<int>((actor->GetPosition().x + size.x * bossscale ) * scale + pos.x),

@@ -106,6 +106,9 @@ void PlayerA::Action(){
 		std::vector<int> cg = _cg[{_state, _direction}];
 
 	}
+	if (_cooldown == 160) {
+		_movable = true;
+	}
 	if (_cooldown < 0) {
 		_cooldown = 0;
 	}
@@ -127,6 +130,9 @@ void PlayerA::Action(){
 
 				PlaySoundMem(SoundServer::Find("Fire"), DX_PLAYTYPE_BACK);
 				_cooldown = 180;
+				_speed = { 0,0 };
+				_speed2 = 0;
+				_movable = false;
 				_state = PlayerState::Shoot;
 				_animNo = 0;
 				--_bullet;

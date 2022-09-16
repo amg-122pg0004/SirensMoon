@@ -15,17 +15,6 @@ void FoundUI::Update() {
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Actor::Type::Enemy) {
 
-			/*Œ©‚Â‚©‚Á‚½‚ç–Ú‚ð•\Ž¦‚·‚é‚â‚Â
-			if (dynamic_cast<Enemy&>(*actor).GetChaseFlag()) {
-				auto pos_col = dynamic_cast<Enemy&>(*actor).GetLastDetection()->GetCollision();
-				_pos = (pos_col.min + pos_col.max) / 2;
-				_visible = true;
-				++_animNo;
-				if (_animNo >= _cg.size() - 1) {
-					_animNo = static_cast<int>(_cg.size()) - 1;
-				}
-			}
-			*/
 			detectionframe = static_cast<Enemy&>(*actor).GetDetectionFrame();
 			detectionCompleteFrame = static_cast<Enemy&>(*actor).GetDetectionCompleteFrame();
 			

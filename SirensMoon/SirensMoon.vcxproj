@@ -214,6 +214,7 @@
     <ClCompile Include="ModeMovie.cpp" />
     <ClCompile Include="ModeServer.cpp" />
     <ClCompile Include="ModeStart.cpp" />
+    <ClCompile Include="ModeStartUp2.cpp" />
     <ClCompile Include="ObjectDataStructs.cpp" />
     <ClCompile Include="ObjectiveUI.cpp" />
     <ClCompile Include="Pause.cpp" />
@@ -222,6 +223,7 @@
     <ClCompile Include="PlayerB.cpp" />
     <ClCompile Include="ProjectionLight.cpp" />
     <ClCompile Include="RedBullet.cpp" />
+    <ClCompile Include="ScreenEffect.cpp" />
     <ClCompile Include="ScreenPump.cpp" />
     <ClCompile Include="ServerMachine.cpp" />
     <ClCompile Include="ServerMachineUI.cpp" />
@@ -311,6 +313,7 @@
     <ClInclude Include="ModeMovie.h" />
     <ClInclude Include="ModeServer.h" />
     <ClInclude Include="ModeStart.h" />
+    <ClInclude Include="ModeStartUp2.h" />
     <ClInclude Include="ObjectDataStructs.h" />
     <ClInclude Include="ObjectiveUI.h" />
     <ClInclude Include="Pause.h" />
@@ -320,6 +323,7 @@
     <ClInclude Include="PlayerB.h" />
     <ClInclude Include="ProjectionLight.h" />
     <ClInclude Include="RedBullet.h" />
+    <ClInclude Include="ScreenEffect.h" />
     <ClInclude Include="ScreenPump.h" />
     <ClInclude Include="ServerMachine.h" />
     <ClInclude Include="ServerMachineUI.h" />

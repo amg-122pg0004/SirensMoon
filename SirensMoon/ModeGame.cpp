@@ -7,7 +7,6 @@
  *********************************************************************/
 
 #include "ModeGame.h"
-
 #include "EnemyA.h"
 #include "EnemyB.h"
 #include "HPItem.h"
@@ -36,8 +35,10 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 
 	SetUseASyncLoadFlag(true);
 	_renderPriority = 0;
+	if (!bgm.empty()) {
+		PlaySoundFile(bgm.c_str(), DX_PLAYTYPE_LOOP);
+	}
 
-	PlaySoundFile(bgm.c_str(), DX_PLAYTYPE_LOOP);
 	_mapChips = std::make_unique<MapChip>(_game,*this,filename);
 
 	_splitWindow.emplace_back(std::make_unique<SplitWindow>(_game,*this, 0, 0, 0));
@@ -197,8 +198,6 @@ void ModeGame::Update() {
 }
 
 void ModeGame::Render() {
-	ClearDrawScreen();
-
 	for (auto&& splitwindows : _splitWindow) {
 		splitwindows->Render();
 	}

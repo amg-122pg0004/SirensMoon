@@ -291,6 +291,12 @@
     <Filter Include="Actor\Effect\FX_BossDead">
       <UniqueIdentifier>{8ae1ec94-40b1-4d47-bf3c-8ac31105efe6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI\ScreenEffect">
+      <UniqueIdentifier>{a0e24c01-a164-46ea-9251-13fe129f91b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mode\ModeStartUp2">
+      <UniqueIdentifier>{327305fe-e555-4c1b-b546-8b9ad0e10998}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -577,6 +583,12 @@
     </ClCompile>
     <ClCompile Include="FX_BossDead.cpp">
       <Filter>Actor\Effect\FX_BossDead</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenEffect.cpp">
+      <Filter>UI\ScreenEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="ModeStartUp2.cpp">
+      <Filter>Mode\ModeStartUp2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -867,6 +879,12 @@
     </ClInclude>
     <ClInclude Include="FX_BossDead.h">
       <Filter>Actor\Effect\FX_BossDead</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenEffect.h">
+      <Filter>UI\ScreenEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="ModeStartUp2.h">
+      <Filter>Mode\ModeStartUp2</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

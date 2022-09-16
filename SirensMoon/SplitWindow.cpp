@@ -174,7 +174,7 @@ void SplitWindow::Render() {
 
 	//_camera->Render(static_cast<int>(_windowPos.x + 50),static_cast<int>(_windowPos.y + 50));
 	/*描画範囲をウィンドウサイズ全体に戻す*/
-	SetDrawArea(static_cast<int>(_windowPos.x), 0, splitscreen_W, screen_H);
+	SetDrawArea(0, 0, screen_W, screen_H);
 }
 
 void SplitWindow::Debug() {

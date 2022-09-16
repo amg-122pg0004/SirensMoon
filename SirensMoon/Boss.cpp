@@ -132,7 +132,6 @@ void Boss::DamageSequence() {
 	if (_time == 0) {
 		_time = 4 * 60;
 		_animNo = 0;
-		_scale = 0.25;
 		_state = State::Return;
 	}
 }
@@ -172,8 +171,8 @@ void Boss::StandardRender( Vector2 window_pos, Vector2 camera_pos) {
 void Boss::ChoiceAttack() {
 	_animNo = 0;
 	if (!_phase2) {
-		//switch (rand3(engine)) {
-		switch (3) {
+		switch (rand3(engine)) {
+		//switch (3) {
 		case 1:
 			if (rand2(engine) == 1) {
 				_time = 270;
@@ -314,7 +313,6 @@ void Boss::HeadButt(){
 
 	if (_time == 1) {
 		_time = 4 * 60;
-		_scale = 0.25;
 		_animNo = 0;
 		_state = State::Return;
 	}
@@ -393,6 +391,7 @@ void Boss::Jump(){
 		_mapscale -= 0.01;
 		if (_scale < 0.25) {
 			_scale = 0.25;
+			_mapscale = 0.25;
 		}
 	}
 	if (_time < 120 && _time > 0) {
@@ -415,6 +414,9 @@ void Boss::Jump(){
 /*‘S‘Ì150F*/
 void Boss::Return() {
 	_state = State::Return;
+	if (_time ==239) {
+		_scale = 0.25;
+	}
 	if (_time < 165&&_time>80) {
 		_pos.y -= 40;
 	}

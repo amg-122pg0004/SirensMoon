@@ -151,7 +151,7 @@ void ModeStart::Play() {
 }
 
 void ModeStart::Credit() {
-
+	_game.PlayCredit();
 }
 
 void ModeStart::Quit(){
