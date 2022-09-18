@@ -19,7 +19,9 @@ TNT::TNT(Game& game, ModeGame& mode, TNTData data):Gimmick(game,mode,data.ID)
 
 void TNT::Update() {
 	if (_activate) {
-		PlaySoundMem(SoundServer::Find("ActiveTrapBom"), DX_PLAYTYPE_BACK);
+		if (CheckSoundMem(SoundServer::Find("ActiveTrapBom")) == 0) {
+			PlaySoundMem(SoundServer::Find("ActiveTrapBom"), DX_PLAYTYPE_BACK);
+		}
 		auto explode = std::make_unique<Explode>(_game,_mode,_pos+(_size/2));
 		_mode.GetActorServer().Add(std::move(explode));
 		_dead = true;

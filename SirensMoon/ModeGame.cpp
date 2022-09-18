@@ -27,6 +27,7 @@
 #include "BossGimmickController.h"
 #include "SwitchArea.h"
 #include "ScreenPump.h"
+#include "Barrier.h"
 
 ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPattern pattern,std::string bgm) 
 	:ModeBase{ game }, _stopActorUpdate{false} ,_bgm{bgm},_clearDelay{240},_clear{false}
@@ -36,7 +37,9 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 	SetUseASyncLoadFlag(true);
 	_renderPriority = 0;
 	if (!bgm.empty()) {
-		PlaySoundFile(bgm.c_str(), DX_PLAYTYPE_LOOP);
+		if (!CheckSoundFile()) {
+			PlaySoundFile(bgm.c_str(), DX_PLAYTYPE_LOOP);
+		}
 	}
 
 	_mapChips = std::make_unique<MapChip>(_game,*this,filename);
@@ -104,7 +107,17 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 		_actorServer.Add(std::move(teleportout));
 	}
 
-
+	auto barrierdata = _mapChips->GetBarrierDataList();
+	for (auto&& abarrier : barrierdata) {
+		if (abarrier.blockPlayerNo == 2) {
+			auto barriera = std::make_unique<BarrirA>(_game, *this, abarrier);
+			_actorServer.Add(std::move(barriera));
+		}
+		else if (abarrier.blockPlayerNo == 1) {
+			auto barrierb = std::make_unique<BarrirB>(_game, *this, abarrier);
+			_actorServer.Add(std::move(barrierb));
+		}
+	}
 
 	auto doordata = _mapChips->GetDoorData();
 	for (auto&& adoor : doordata) {

@@ -146,8 +146,8 @@ bool MapChip::LoadMap(std::string folderpath, std::string filename)
 					LoadTNTClass(aObject, tntData);
 				}
 				else if (data->GetType() == ObjectDataBase::Type::Barrirer) {
-					//	auto&& tntData = static_cast<BarrirerData&>(data);
-					//	LoadBarrierClass(aObject data);
+						auto&& barrierData = static_cast<BarrierData&>(*data);
+						LoadBarrierClass(aObject, barrierData);
 				}
 				else if (data->GetType() == ObjectDataBase::Type::BossGenerator) {
 					auto&& bigGenData = static_cast<BigGeneratorData&>(*data);
@@ -272,7 +272,7 @@ void MapChip::LoadTilesets(picojson::object jsRoot, std::string folderpath) {
 					if (data->blockPlayerNo == 1) {
 						_gidBarrier1.push_back(gid);
 					}
-					else {
+					else if (data->blockPlayerNo == 2) {
 						_gidBarrier2.push_back(gid);
 					}
 					_objectGIDs[gid] = std::move(data);
@@ -784,7 +784,7 @@ void MapChip::LoadLightClass(picojson::object object, SquareLightStats data) {
 		FindPropertieData(data.size.y, properties, "Size_Y");
 	}
 	data.pos = { object["x"].get<double>() - (data.size.x / 2),
-	object["y"].get<double>() - (data.size.y / 2) };
+	object["y"].get<double>() - (data.size.y / 2)-_chipSize_H };
 	_lightDataList.push_back(data);
 }
 
@@ -930,7 +930,7 @@ void MapChip::LoadDigitalLetterClass(picojson::object object, DigitalLetterData 
 }
 
 void MapChip::LoadBarrierClass(picojson::object object, BarrierData data) {
-
+	_barrierDataList.push_back(data);
 }
 void MapChip::LoadBossGeneratorClass(picojson::object object, BigGeneratorData data) {
 	_bigGeneratorDataList.push_back(data);
@@ -1000,12 +1000,14 @@ void MapChip::Render(Vector2 windowPos, Vector2 cameraPos, std::string layer) {
 
 void MapChip::MiniMapRender(int stageNum, Vector2 windowPos, Vector2 cameraPos, bool bossflag)
 {
-	float scale{ 1 };
+	float scalex{ 1 },scaley{ 1 };;
 	if (bossflag) {
-		scale = static_cast<float>(410.0 * 4.0 / 4320.0 * 0.97);
+		scalex = static_cast<float>(345.0 * 4.0 / (_mapSize_W * _chipSize_W));
+		scaley = static_cast<float>(400.0 * 4.0 / (_mapSize_H * _chipSize_H));
 	}
 	else {
-		scale = static_cast<float>(410.0 / 4320.0 * 0.97);
+		scalex = static_cast<float>(345.0 / (_mapSize_W * _chipSize_W));
+		scaley = static_cast<float>(400.0 / (_mapSize_H * _chipSize_H));
 	}
 
 	for (int i = 0; i < _minimapData.size(); ++i)
@@ -1015,10 +1017,10 @@ void MapChip::MiniMapRender(int stageNum, Vector2 windowPos, Vector2 cameraPos, 
 		for (int plot = 0; plot < plotsize; ++plot)
 		{
 
-			DrawLineAA(static_cast<float>(_minimapData[i].second[plot].x * scale + windowPos.x),
-				static_cast<float>(_minimapData[i].second[plot].y * scale + windowPos.y),
-				static_cast<float>(_minimapData[i].second[(plot + 1) % plotsize].x * scale + windowPos.x),
-				static_cast<float>(_minimapData[i].second[(plot + 1) % plotsize].y * scale + windowPos.y),
+			DrawLineAA(static_cast<float>(_minimapData[i].second[plot].x * scalex + windowPos.x),
+				static_cast<float>(_minimapData[i].second[plot].y * scaley + windowPos.y),
+				static_cast<float>(_minimapData[i].second[(plot + 1) % plotsize].x * scalex + windowPos.x),
+				static_cast<float>(_minimapData[i].second[(plot + 1) % plotsize].y * scaley + windowPos.y),
 				color);
 		}
 	}
@@ -1127,6 +1129,7 @@ bool MapChip::IsHit(std::set<std::pair<int, int>> grids) {
 //   1 : 当たった
 bool MapChip::IsHitBarrier(AABB col, int playerno)
 {
+	/*
 	// キャラの左上座標～右下座標にあたるマップチップと、当たり判定を行う
 	for (int y = static_cast<int>(col.min.y) / _chipSize_H; y <= static_cast<int>(col.max.y) / _chipSize_H; y++)
 	{
@@ -1148,7 +1151,7 @@ bool MapChip::IsHitBarrier(AABB col, int playerno)
 						if (chip_no == gid)
 						{	// このチップと当たった。
 							// 当たったので戻る
-							if (CheckSoundMem(SoundServer::Find("EnterBarrier") == 0)) {
+							if (CheckSoundMem(SoundServer::Find("EnterBarrier")) == 0) {
 								PlaySoundMem(SoundServer::Find("EnterBarrier"), DX_PLAYTYPE_BACK);
 							}
 							continue;
@@ -1167,7 +1170,7 @@ bool MapChip::IsHitBarrier(AABB col, int playerno)
 						if (chip_no == gid)
 						{	// このチップと当たった。
 							// 当たったので戻る
-							if (CheckSoundMem(SoundServer::Find("EnterBarrier") == 0)) {
+							if (CheckSoundMem(SoundServer::Find("EnterBarrier")) == 0) {
 								PlaySoundMem(SoundServer::Find("EnterBarrier"), DX_PLAYTYPE_BACK);
 							}
 							continue;
@@ -1177,6 +1180,7 @@ bool MapChip::IsHitBarrier(AABB col, int playerno)
 			}
 		}
 	}
+	*/
 	// 当たらなかった
 	return 0;
 }

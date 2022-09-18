@@ -4,7 +4,7 @@
 #include "SquareLight.h"
 
 Switch::Switch(Game& game, ModeGame& mode, SwitchData data)
-	:Gimmick(game, mode, data.ID), _linkGimmiks{ data.links }
+	:Gimmick(game, mode, data.ID), _linkGimmiks{ data.links },_stopRay{false}
 	, _accessible1{ 0 }, _accessible2{ 0 }, _cg3{ -1 }, _timer{ 120 }, _projectionNumber{ data.projectionNumber }
 {
 	_activate = false;
@@ -41,21 +41,10 @@ Switch::Switch(Game& game, ModeGame& mode, SwitchData data)
 }
 
 void Switch::Update() {
-	if (_linkGimmiks.empty()) {
-		return;
-	}
 
 	/*スイッチから連携ギミックへエフェクト発生*/
-	if (_game.GetFrameCount() % 60*0.8 == 0) {
-		/*
-		for (auto&& linkpos : _linkGimmickPositions) {
-			_mode.GetActorServer().Add(std::make_unique<LinkLight>(_game, _mode, *this, linkpos));
-		*/
-		int loop = Math::Min(_projectionNumber, static_cast<int>(_linkGimmickPositions.size()));
-		for (int i = 0; i < loop; ++i) {
-			_mode.GetActorServer().Add(std::make_unique<LinkLight>(_game, _mode, *this, _linkGimmickPositions[i]));
-		}
-	}
+	RayToLinks();
+
 
 	if (_firstActivate != 0) {
 		--_timer;
@@ -97,6 +86,7 @@ void Switch::Update() {
 			PlaySoundMem(SoundServer::Find("AccessSwitch"), DX_PLAYTYPE_BACK);
 		}
 		if (_game.GetInputManager()->CheckInput("ACCESS", 'h', 0)) {
+			_stopRay = true;
 			if (_firstActivate == 0) {
 				FirstActivateEvent(1);
 			}
@@ -113,6 +103,7 @@ void Switch::Update() {
 			PlaySoundMem(SoundServer::Find("AccessSwitch"), DX_PLAYTYPE_BACK);
 		}
 		if (_game.GetInputManager()->CheckInput("ACCESS", 'h', 1)) {
+			_stopRay = true;
 			if (_firstActivate == 0) {
 				FirstActivateEvent(2);
 			}
@@ -124,21 +115,29 @@ void Switch::Update() {
 			return;
 		}
 	}
-	LinkGimmickActivate(false);
+	if (LinkGimmickActivate(false)) {
+		_stopRay = false;
+	}
 	if (_activate) {
-		PlaySoundMem(SoundServer::Find("AccessSwitchEnd"), DX_PLAYTYPE_BACK);
+		if (CheckSoundMem(SoundServer::Find("AccessSwitchEnd")) == 0) {
+			PlaySoundMem(SoundServer::Find("AccessSwitchEnd"), DX_PLAYTYPE_BACK);
+		}
 	}
 	_activate = false;
 	_cg = _cg3;
 	return;
 }
 
-void Switch::LinkGimmickActivate(bool flag) {
+bool Switch::LinkGimmickActivate(bool flag) {
+	bool result{ false };
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::Gimmick) {
-			dynamic_cast<Gimmick&>(*actor).RecieveCall(_linkGimmiks, flag);
+			if (dynamic_cast<Gimmick&>(*actor).RecieveCall(_linkGimmiks, flag)) {
+				result = true;
+			}
 		}
 	}
+	return result;
 }
 
 void Switch::Debug(Vector2 window_pos, Vector2 camera_pos) {
@@ -159,5 +158,24 @@ void Switch::FirstActivateEvent(int eventPlayer) {
 	else {
 		_mode.GetSplitWindow()[_firstActivate - 1]->GetCamera()->SetPosition(_linkGimmickPositions[0]);
 		_mode.GetSplitWindow()[_firstActivate - 1]->GetCamera()->SetMovable(false);
+	}
+}
+
+void Switch::RayToLinks(){
+	if (_linkGimmickPositions.empty()) {
+		return;
+	}
+	if (_stopRay) {
+		return;
+	}
+	if (_game.GetFrameCount() % 60 * 0.8 == 0) {
+		/*
+		for (auto&& linkpos : _linkGimmickPositions) {
+			_mode.GetActorServer().Add(std::make_unique<LinkLight>(_game, _mode, *this, linkpos));
+		*/
+		int loop = Math::Min(_projectionNumber, static_cast<int>(_linkGimmickPositions.size()));
+		for (int i = 0; i < loop; ++i) {
+			_mode.GetActorServer().Add(std::make_unique<LinkLight>(_game, _mode, *this, _linkGimmickPositions[i]));
+		}
 	}
 }

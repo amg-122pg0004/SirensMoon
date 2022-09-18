@@ -51,7 +51,9 @@ void StickyBomb::Update() {
 		if (_timer <= 0) {
 			_mode.GetActorServer().Add(std::make_unique<Explode>(_game, _mode, _pos));
 			StopSoundMem(SoundServer::Find("MicroBomAlarm"));
-			PlaySoundMem(SoundServer::Find("ActiveTrapBom"), DX_PLAYTYPE_BACK);
+			if (CheckSoundMem(SoundServer::Find("ActiveTrapBom")) == 0) {
+				PlaySoundMem(SoundServer::Find("ActiveTrapBom"), DX_PLAYTYPE_BACK);
+			}
 			dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
 				->ChangeMessage("重要宇宙人特定し、捕獲せよ", 2);
 			dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
@@ -73,7 +75,7 @@ void StickyBomb::Update() {
 						_accessible2 = true;
 						if (_game.GetInputManager()->CheckInput("ACCESS", 't', 1)) {
 							StopSoundMem(SoundServer::Find("MicroBomAlarm"));
-							PlaySoundMem(SoundServer::Find("MicroBomRelease"), DX_PLAYTYPE_LOOP);
+							PlaySoundMem(SoundServer::Find("MicroBomRelease"), DX_PLAYTYPE_BACK);
 							dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
 								->ChangeMessage("重要宇宙人特定し、捕獲せよ", 2);
 							dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()

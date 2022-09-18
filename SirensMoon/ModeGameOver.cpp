@@ -7,7 +7,8 @@ ModeGameOver::ModeGameOver(Game& game):ModeBase(game), _restart{false},_delay{60
 {
 	_inputManager = _game.GetInputManager();
 	_renderPriority = 2;
-
+	SoundServer::StopALLSound();
+	StopSoundFile();
 	_movieHandle = ImageServer::LoadGraph("resource/Movie/gameover.mp4");
 
 }

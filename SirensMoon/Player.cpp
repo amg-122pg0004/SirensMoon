@@ -21,7 +21,7 @@
 
 Player::Player(Game& game, ModeGame& mode, int playernum)
 	:Actor{ game,mode }, _speed{ 0,0 }, _playerNum{ playernum }
-	, _dir{ 0,0 }, _inputAngle{ 0 }, _hp{ 3 }, _hpMAX{ 3 }, _movable{ true }
+	, _dir{ 0,0 }, _inputAngle{ 0 }, _hp{ 33 }, _hpMAX{ 3 }, _movable{ true }
 	, _state{ PlayerState::Wait }, _direction{ PlayerDirection::Right }, _animNo{ 0 }, _invincibleTime{ 0 }
 	, _stageMovable{ true }, _teleportDelay{ -1 }, _teleportPosition{ 0,0 }, _slow{ false }
 {
@@ -142,9 +142,7 @@ void Player::Move() {
 	}
 	UpdateCollision();
 	if (_mode.GetMapChips()->IsHitBarrier(_collision, _playerNum)) {
-		if (CheckSoundMem(SoundServer::Find("EnterBarrierFail")) == 0) {
-			PlaySoundMem(SoundServer::Find("EnterBarrierFail"), DX_PLAYTYPE_BACK);
-		}
+
 		_pos.x += -1 * _speed.x;
 		_speed.x = 0;
 	}
@@ -157,15 +155,6 @@ void Player::Move() {
 	_pos.y += _speed.y;
 	UpdateCollision();
 	if (_mode.GetMapChips()->IsHit(_collision, true)) {
-		if (CheckSoundMem(SoundServer::Find("EnterBarrierFail")) == 0) {
-			PlaySoundMem(SoundServer::Find("EnterBarrierFail"), DX_PLAYTYPE_BACK);
-		}
-		_pos.y += -1 * _speed.y;
-		_speed.y = 0;
-	}
-	UpdateCollision();
-	if (_mode.GetMapChips()->IsHitBarrier(_collision, _playerNum)) {
-		PlaySoundMem(SoundServer::Find("EnterBarrireFail"), DX_PLAYTYPE_BACK);
 		_pos.y += -1 * _speed.y;
 		_speed.y = 0;
 	}
@@ -312,9 +301,43 @@ bool Player::IsHitActor() {
 			}
 		}
 		if (actor->GetType() == Type::Gimmick) {
-			if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() != Gimmick::GimmickType::Teleporter) {
+			if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() != Gimmick::GimmickType::Teleporter &&
+				dynamic_cast<Gimmick&>(*actor).GetGimmickType() != Gimmick::GimmickType::BarrierA&&
+				dynamic_cast<Gimmick&>(*actor).GetGimmickType() != Gimmick::GimmickType::BarrierB) {
 				if (Intersect(_collision, actor->GetCollision())) {
 					return true;
+				}
+			}
+			if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::BarrierA){
+				if (Intersect(_collision, actor->GetCollision())) {
+					if (_playerNum == 1) {
+						if (CheckSoundMem(SoundServer::Find("EnterBarrierFail")) == 0) {
+							PlaySoundMem(SoundServer::Find("EnterBarrierFail"), DX_PLAYTYPE_BACK);
+						}
+						return true;
+					}
+					else if (_playerNum == 0) {
+						StartJoypadVibration(DX_INPUT_PAD1, 80, 80, -1);
+						if (CheckSoundMem(SoundServer::Find("EnterBarrier")) == 0) {
+							PlaySoundMem(SoundServer::Find("EnterBarrier"), DX_PLAYTYPE_BACK);
+						}
+					}
+				}
+			}
+			if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::BarrierB){
+				if (Intersect(_collision, actor->GetCollision())) {
+					if (_playerNum == 0) {
+						if (CheckSoundMem(SoundServer::Find("EnterBarrierFail")) == 0) {
+							PlaySoundMem(SoundServer::Find("EnterBarrierFail"), DX_PLAYTYPE_BACK);
+						}
+						return true;
+					}
+					else if (_playerNum == 1) {
+						StartJoypadVibration(DX_INPUT_PAD2, 80, 80, -1);
+						if (CheckSoundMem(SoundServer::Find("EnterBarrier") == 0)) {
+							PlaySoundMem(SoundServer::Find("EnterBarrier"), DX_PLAYTYPE_BACK);
+						}
+					}
 				}
 			}
 		}
@@ -384,6 +407,7 @@ void Player::UpdateCollision() {
 
 void Player::TakeDamage(Actor::Type type) {
 	--_hp;
+	_slow = false;
 	PlaySoundMem(SoundServer::Find("PlayerDamage"), DX_PLAYTYPE_BACK);
 	StartJoypadVibration(_playerNum + 1, 1000, 600, -1);
 	if (type == Type::Enemy) {
@@ -481,8 +505,10 @@ void Player::UpdateHide() {
 	--_hideTimer;
 	if (_hideTimer < 0) {
 		_hideTimer = 0;
-		PlaySoundMem(SoundServer::Find("ScreenBomRelease"), DX_PLAYTYPE_BACK);
-		_hide = false;
+		if (_hide) {
+			PlaySoundMem(SoundServer::Find("ScreenBomRelease"), DX_PLAYTYPE_BACK);
+			_hide = false;
+		}
 	}
 }
 

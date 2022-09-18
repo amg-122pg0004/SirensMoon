@@ -100,7 +100,9 @@ void PlayerB::AnimUpdate() {
 	}
 	else if (_speed.Length() < 2.8) {
 		if (_state == PlayerState::Wait) {
-			PlaySoundMem(SoundServer::Find("Walking"), DX_PLAYTYPE_BACK);
+			if (CheckSoundMem(SoundServer::Find("Walking")) == 0) {
+				PlaySoundMem(SoundServer::Find("Walking"), DX_PLAYTYPE_BACK);
+			}
 		}
 		_state = PlayerState::Walk;
 	}

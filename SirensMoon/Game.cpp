@@ -21,6 +21,7 @@ Game::Game() :_frameCount{0},_progress{Progress::StartMenu}
 
 	//PlayStartUp1();
 	PlayStartMenu();
+	//PlayStage2Clear();
 }
 
 void Game::Input() {
@@ -185,7 +186,7 @@ void Game::PlayStage3() {
 	pattern.head = 9;
 	pattern.body = 5;
 	pattern.foot = 5;
-	_modeServer->Add(std::move(std::make_unique<ModeGame>(*this, "Stage3.json", pattern, "")));
+	_modeServer->Add(std::move(std::make_unique<ModeGame>(*this, "Stage3.json", pattern, "resource/BGM/title.wav")));
 }
 
 void Game::PlayStage1Clear() {

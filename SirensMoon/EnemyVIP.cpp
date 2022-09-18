@@ -11,6 +11,7 @@ EnemyVIP::EnemyVIP(Game& game, ModeGame& mode, EnemyData enemydata,
 	_patrolMode = patrol.TruckingMode;
 	_patrolLength = static_cast<int>(_patrolPoints.size()) - 1;
 	_nextPos = _patrolPoints[0];
+	_pos = _patrolPoints[_game.GetFrameCount() % _patrolPoints.size()];
 }
 
 void EnemyVIP::Update() {

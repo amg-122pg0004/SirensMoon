@@ -98,10 +98,14 @@ bool Door::RecieveCall(std::vector<int> IDs, bool flag) {
 			if (_activate != flag) {
 				_activate = flag;
 				if (_activate) {
-					PlaySoundMem(SoundServer::Find("DoorOpen"), DX_PLAYTYPE_BACK);
+					if (CheckSoundMem(SoundServer::Find("DoorOpen")) == 0) {
+						PlaySoundMem(SoundServer::Find("DoorOpen"), DX_PLAYTYPE_BACK);
+					}
 				}
 				else {
-					PlaySoundMem(SoundServer::Find("DoorClose"), DX_PLAYTYPE_BACK);
+					if (CheckSoundMem(SoundServer::Find("DoorClose")) == 0) {
+						PlaySoundMem(SoundServer::Find("DoorClose"), DX_PLAYTYPE_BACK);
+					}
 				}
 			}
 			return true;

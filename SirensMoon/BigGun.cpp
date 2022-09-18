@@ -51,7 +51,6 @@ void BigGun::RidePlayer() {
 	}
 
 	_mode.GetSplitWindow()[0]->GetUIServer().emplace_back(std::make_unique<AimUI>(_game, _mode, pos2, size));
-	_mode.GetSplitWindow()[1]->GetUIServer().emplace_back(std::make_unique<AimUI>(_game, _mode, pos2, size));
 	_mode.GetSplitWindow()[0]->GetCamera()->SetPosition(pos);
 	_mode.GetSplitWindow()[0]->GetCamera()->SetMovable(false);
 }

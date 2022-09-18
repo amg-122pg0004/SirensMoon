@@ -57,6 +57,7 @@ public:
 	std::vector<BigGeneratorData> GetBigGeneratorData() { return _bigGeneratorDataList; }
 	std::vector<BossGimmickControllerData>GetBossGimmickControllerDataList() { return _bossGimmickControllerDataList; }
 	std::vector<BigGunData>GetBigGunDataList() { return _bigGunDataList; }
+	std::vector<BarrierData>GetBarrierDataList() { return _barrierDataList; }
 	EnemyPatrol FindPatrol(int id);
 	std::vector<int> CheckHitChipNo(int x, int y, bool backlayer);
 
@@ -182,6 +183,8 @@ private:
 	std::vector<BossGimmickControllerData> _bossGimmickControllerDataList;
 	/*BossGimmickControllerDataデータ*/
 	std::vector<BigGunData> _bigGunDataList;
+	/*バリアデータ*/
+	std::vector<BarrierData> _barrierDataList;
 	
 	/*マップチップのグラフィックハンドル用コンテナ*/
 	/*[タイル用画像の枚数分][画像を分割した際のチップ画像の数]*/

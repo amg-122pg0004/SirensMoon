@@ -95,9 +95,10 @@ void PlayerA::Action(){
 		PlaySoundMem(SoundServer::Find("ChangeAmmo"), DX_PLAYTYPE_BACK);
 	}
 
-	if (_inputManager->CheckInput("ACCESS", 't', _playerNum)|| _movable) {
+	if (_inputManager->CheckInput("ACCESS", 't', _playerNum) && _movable) {
 		OnMiniShuttle();
 	}
+
 
 	--_cooldown;
 	if (_cooldown > 180-30) {
@@ -111,6 +112,11 @@ void PlayerA::Action(){
 	}
 	if (_cooldown < 0) {
 		_cooldown = 0;
+	}
+
+	if (_inputManager->CheckInput("ACCESS", 't', _playerNum) && _charge>0) {
+		_charge = 0;
+		_cooldown = 30;
 	}
 
 	if (_inputManager->CheckInput("ACTION", 'r', _playerNum)) {
@@ -195,7 +201,9 @@ void PlayerA::AnimUpdate(){
 	}
 	else if (_speed.Length() < 2.8) {
 		if (_state == PlayerState::Wait) {
-			PlaySoundMem(SoundServer::Find("Walking"), DX_PLAYTYPE_BACK);
+			if (CheckSoundMem(SoundServer::Find("Walking")) == 0) {
+				PlaySoundMem(SoundServer::Find("Walking"), DX_PLAYTYPE_BACK);
+			}
 		}
 		_state = PlayerState::Walk;
 	}
