@@ -8,11 +8,14 @@ public:
 
 	void Update()override;
 	void Render()override;
-	void SetMessage(std::string msg);
+	void SetMessage(std::string msg,int image);
 
 private:
 	std::string _message;
 	int _font;
 	int _playerno;
 	int _alpha;
+
+	int _imageWindow;
+	int _image;
 };

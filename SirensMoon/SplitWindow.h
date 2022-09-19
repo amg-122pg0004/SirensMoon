@@ -26,6 +26,7 @@ class SplitWindow {
 		void Render();
 		void Debug();
 		void DamageEvent();
+		void TargetSpawnEvent();
 		void TargetKillEvent();
 
 		void ScreenPumpEvent();

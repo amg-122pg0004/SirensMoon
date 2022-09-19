@@ -21,6 +21,9 @@
 #include "ObjectiveUI.h"
 #include "MessageWindow.h"
 #include "FinishCut.h"
+#include "PauseInfo.h"
+#include "ServerMachineUI.h"
+#include "WantedInfo.h"
 
 SplitWindow::SplitWindow(Game& game, ModeGame& mode, int pos_x, int pos_y, int window_no) :
 	_game{ game }, _mode{ mode }, _windowPos{ pos_x ,pos_y }, _windowNo{ window_no }, _renderStage{ 1 }, _lightup{ 255 }
@@ -54,6 +57,15 @@ SplitWindow::SplitWindow(Game& game, ModeGame& mode, int pos_x, int pos_y, int w
 	Vector2 hp_size = { 90,270 };
 	_ui.emplace_back(std::make_unique<HPUI>(_game, _mode, hp_pos, hp_size, _windowNo));
 
+	Vector2 pauseinfo_pos = { _windowPos.x+splitscreen_W-290 ,20 };
+	Vector2 pauseinfo_pos_size = { 267,51 };
+	if (_windowNo == 0) {
+		_ui.emplace_back(std::make_unique<PauseInfoA>(_game, _mode, pauseinfo_pos, pauseinfo_pos_size));
+	}
+	else {
+		_ui.emplace_back(std::make_unique<PauseInfoB>(_game, _mode, pauseinfo_pos, pauseinfo_pos_size));
+	}
+
 	Vector2 obj_size = { 360 + 30,90 };
 	Vector2 obj_pos = { _windowPos.x + splitscreen_W * 0.6, screen_H * 0.9 };
 	auto obj_ui=std::make_unique<ObjectiveUI2>(_game, _mode, obj_pos, obj_size);
@@ -81,7 +93,16 @@ SplitWindow::SplitWindow(Game& game, ModeGame& mode, int pos_x, int pos_y, int w
 	Vector2 special_pos = { _windowPos.x,(screen_H - 840) / 2 };
 	Vector2 special_size = { 640,840 };
 	_ui.emplace_back(std::make_unique<FinishCut>(_game, _mode, special_pos, special_size));
-	
+
+	if (_windowNo == 1) {
+		Vector2 server_size = { 780,420 };
+		Vector2 server_pos = { _windowPos.x + (splitscreen_W - server_size.x) / 2,screen_H - server_size.y };
+		_ui.emplace_back(std::make_unique<ServerMachineUI>(_game, _mode, server_pos, server_size));
+	}
+	Vector2 wantedinfo_pos = { _windowPos.x, screen_H/2 };
+	Vector2 wantedinfo_size = { 930,210 };
+	_ui.emplace_back(std::make_unique<WantedInfo>(_game, _mode, wantedinfo_pos, wantedinfo_size));
+
 	Vector2 pause_pos = { _windowPos.x + splitscreen_W / 2, _windowPos.y };
 	Vector2 pause_size = { 360,90 };
 	_ui.emplace_back(std::make_unique<Pause>(_game, _mode, pause_pos, pause_size));
@@ -134,6 +155,11 @@ void SplitWindow::Update() {
 	}
 }
 
+bool CompUIPriority(const std::unique_ptr<UIBase>& a, const std::unique_ptr<UIBase>& b)
+{
+	return a->GetUIPriority() < b->GetUIPriority();
+}
+
 void SplitWindow::Render() {
 
 	_darkness->Update(_windowPos, _camera->GetPosition());
@@ -168,11 +194,12 @@ void SplitWindow::Render() {
 		static_cast<int>(_windowPos.y),
 		static_cast<int>(_windowPos.x + _windowSize_W),
 		static_cast<int>(_windowPos.y + _windowSize_H));
+
+	std::sort(_ui.begin(), _ui.end(), CompUIPriority);
 	for (auto&& u : _ui) {
 		u->Render();
 	}
 
-	//_camera->Render(static_cast<int>(_windowPos.x + 50),static_cast<int>(_windowPos.y + 50));
 	/*描画範囲をウィンドウサイズ全体に戻す*/
 	SetDrawArea(0, 0, screen_W, screen_H);
 }
@@ -194,8 +221,15 @@ void SplitWindow::Debug() {
 }
 
 void SplitWindow::DamageEvent() {
+
 	for (auto&& u : _ui) {
 		u->DamageEvent();
+	}
+}
+
+void SplitWindow::TargetSpawnEvent() {
+	for (auto&& u : _ui) {
+		u->TargetSpawnEvent();
 	}
 }
 
@@ -211,3 +245,4 @@ void SplitWindow::ScreenPumpEvent(){
 		_invisiblePlayer = true;
 	}
 }
+

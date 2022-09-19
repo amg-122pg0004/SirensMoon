@@ -1,6 +1,6 @@
 /*****************************************************************//**
  * \file   Pause.cpp
- * \brief  ポーズ画面を表示するUIです。
+ * \brief  ポーズ画面です。
  * 
  * \author 土居将太郎
  * \date   July 2022
@@ -16,7 +16,7 @@ Pause::Pause(Game& game, ModeBase& mode, Vector2 pos, Vector2 size)
 	_inputManager = _game.GetInputManager();
 	_cg = ImageServer::LoadGraph("resource/UI/Pause/left.png");
 	_cg2 = ImageServer::LoadGraph("resource/UI/Pause/right.png");
-	
+	_UIPriority = 10;
 }
 
 void Pause::Update() {

@@ -25,6 +25,10 @@ void ModeStartUp2::Update() {
 	if (_pushPlayerA && _pushPlayerB) {
 		ModeBase::NextMode();
 	}
+	if (GetMovieStateToGraph(_movieHandle) == 0) {
+		SeekMovieToGraph(_movieHandle,0);
+		PlayMovieToGraph(_movieHandle);
+	}
 }
 
 void ModeStartUp2::Render() {

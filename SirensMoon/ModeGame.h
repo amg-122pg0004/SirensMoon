@@ -34,6 +34,7 @@ public:
 	void StageClearCheck();
 	void GameOver();
 	void DamageEvent();
+	void TargetSpawnEvent();
 	void TargetKillEvent();
 	void PlayBGM();
 	

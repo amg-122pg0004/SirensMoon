@@ -33,8 +33,6 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 	:ModeBase{ game }, _stopActorUpdate{false} ,_bgm{bgm},_clearDelay{240},_clear{false}
 {
 	_inputManager=_game.GetInputManager();
-
-	SetUseASyncLoadFlag(true);
 	_renderPriority = 0;
 	if (!bgm.empty()) {
 		if (!CheckSoundFile()) {
@@ -248,7 +246,11 @@ void ModeGame::DamageEvent(){
 		splitwindows->DamageEvent();
 	}
 }
-
+void ModeGame::TargetSpawnEvent() {
+	for (auto&& splitwindows : _splitWindow) {
+		splitwindows->TargetSpawnEvent();
+	}
+}
 void ModeGame::TargetKillEvent() {
 	for (auto&& splitwindows : _splitWindow) {
 		splitwindows->TargetKillEvent();

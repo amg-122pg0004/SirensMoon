@@ -2,20 +2,21 @@
 #include "SignalLight.h"
 #include "ModeGame.h"
 #include "BossGimmickController.h"
+#include "FX_Signal.h"
 #include <sstream>
 
 BigGenerator::BigGenerator(Game& game, ModeGame& mode, BigGeneratorData data, BossGimmickController& controller)
-	:Gimmick(game,mode,data.ID),_span{20},_elapsed{0},_flash{false}
-	,_index{0},_pattern{-1},_signal{false},_controller{controller},_accessible{false}
+	:Gimmick(game, mode, data.ID), _span{ 20 }, _elapsed{ 0 }, _flash{ false }
+	, _index{ 0 }, _pattern{ -1 }, _signal{ false }, _controller{ controller }, _accessible{ false }
 {
 	_pos = data.pos;
-	auto light=std::make_unique<SignalLight>(game,mode,*this);
+	auto light = std::make_unique<SignalLight>(game, mode, *this);
 	_mode.GetActorServer().Add(std::move(light));
 	_activate = false;
 	_cg_passive = ImageServer::LoadGraph("resource/Gimmick/biggen.png");
 	_cg_active = ImageServer::LoadGraph("resource/Gimmick/biggen2.png");
 	int X, Y;
-	GetGraphSize(_cg_passive,&X,&Y);
+	GetGraphSize(_cg_passive, &X, &Y);
 	_size = { static_cast<double>(X), static_cast<double>(Y) };
 	UpdateCollsiion();
 	Vector2 fix = { 10, 10 };
@@ -40,6 +41,26 @@ void BigGenerator::Update() {
 		_controller.RecieveStartGenerator(_pattern);
 	}
 
+	int preIndex = _index - 1;
+	if (preIndex < 0) {
+		preIndex = _signal.size() - 1;
+	}
+	int nextIndex = _index + 1;
+	if (nextIndex >= _signal.size()) {
+		nextIndex = 0;
+	}
+	bool preFlash = _signal[preIndex];
+	bool nextFlash = _signal[nextIndex];
+
+	if (!preFlash && _elapsed == 0 && _flash) {
+		Vector2 pos = { _pos.x + _size.x / 2,_pos.y };
+		if (nextFlash) {
+			_mode.GetActorServer().Add(std::make_unique<FX_Signal>(_game, _mode, pos, _game.GetFrameCount(), 1));
+		}
+		else {
+			_mode.GetActorServer().Add(std::make_unique<FX_Signal>(_game, _mode, pos, _game.GetFrameCount(), 0));
+		}
+	}
 }
 
 bool BigGenerator::CheckHitBullet() {
@@ -61,7 +82,7 @@ bool BigGenerator::CheckHitBullet() {
 	return false;
 }
 
-void BigGenerator::StandardRender(Vector2 window_pos, Vector2 camera_pos){
+void BigGenerator::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 	if (_activate) {
 		_cg = _cg_active;
 	}
@@ -73,25 +94,25 @@ void BigGenerator::StandardRender(Vector2 window_pos, Vector2 camera_pos){
 		, static_cast<int>(_pos.y + window_pos.y - camera_pos.y), _cg, 1);
 }
 
-void BigGenerator::Debug(Vector2 window_pos, Vector2 camera_pos){
+void BigGenerator::Debug(Vector2 window_pos, Vector2 camera_pos) {
 	_collision.Draw2(window_pos, camera_pos);
 	_accessArea.Draw2(window_pos, camera_pos);
 
 	std::stringstream ss;
-	ss << "activate"<<_activate<<"\n";
+	ss << "activate" << _activate << "\n";
 	ss << "flash" << _flash << "\n";
 
 	DrawString(static_cast<int>(_pos.x - camera_pos.x + window_pos.x),
-		static_cast<int>(_pos.y-camera_pos.y + window_pos.y),
+		static_cast<int>(_pos.y - camera_pos.y + window_pos.y),
 		ss.str().c_str(), GetColor(255, 255, 255));
 }
 
-void BigGenerator::UpdateCollsiion(){
+void BigGenerator::UpdateCollsiion() {
 	_collision.min = _pos;
 	_collision.max = _pos + _size;
 }
 
-void BigGenerator::SetPattern(int pattern, std::vector<bool> signal){
+void BigGenerator::SetPattern(int pattern, std::vector<bool> signal) {
 	_pattern = pattern;
 	_signal = signal;
 	_activate = false;

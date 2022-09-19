@@ -20,8 +20,7 @@ Game::Game() :_frameCount{0},_progress{Progress::StartMenu}
 	_inputManager = std::make_unique<InputManager>();
 
 	//PlayStartUp1();
-	PlayStartMenu();
-	//PlayStage2Clear();
+	PlayStage3();
 }
 
 void Game::Input() {
@@ -202,7 +201,7 @@ void Game::PlayStage2Clear() {
 	StopSoundFile();
 	_modeServer->Clear();
 	_progress = Progress::Stage2Clear;
-	auto movie=std::make_unique<ModeMovie>(*this, "resource/Movie/stage2end.mp4", 86000, true);
+	auto movie=std::make_unique<ModeMovie>(*this, "resource/Movie/stage2end.mp4", 86500, true);
 	movie->SetBGM("resource/BGM/title.wav",91000);
 	_modeServer->Add(std::move(movie));
 	LoadResources::LoadBossCGs();

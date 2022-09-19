@@ -19,6 +19,7 @@ public:
 	void CheckOverlapActor();
 	void TakeDamage();
 	AABB GetHitBox() { return _hitbox; }
+	bool GetInvincible() { return _invincible; }
 	void Dead()override;
 private:
 	enum class State {

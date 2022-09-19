@@ -11,19 +11,20 @@ class ModeBase;
 
 class ServerMachineUI :public UIBase{
 	public:
-		ServerMachineUI(Game&,ModeBase&,Vector2,Vector2,ServerMachine&,EnemyGenerator::EnemyPattern patern);
+		ServerMachineUI(Game&,ModeBase&,Vector2,Vector2);
 		Type GetType() { return Type::ServerMachine; }
 		void Update();
 		void Render();
 		bool GetVisibility() { return _visible; }
-	private:
+
 		void SetCGHandle(EnemyGenerator::EnemyPattern pattern);
+
+	private:
 		void LoadMessage(EnemyGenerator::EnemyPattern pattern);
 		/*•\¦ó‘Ô‚©‚ğ¦‚·ƒtƒ‰ƒO*/
 		bool _visible;
-		ServerMachine& _owner;
 		std::shared_ptr<InputManager> _inputManager;
-
+		int _alpha;
 		int _animNo;
 		int _font;
 		std::vector<std::string> _message;

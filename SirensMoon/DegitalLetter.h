@@ -15,6 +15,7 @@ public:
 	bool GetAccessible2() { return _accessible2; }
 private:
 	std::string _message;
+	int _image;
 	AABB _accessArea;
 	std::vector<int> _cg;
 	int _animNo;

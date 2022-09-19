@@ -19,9 +19,6 @@ void EnemyVIP::Update() {
 	if (_dead == true&&_hitGreenBullet) {
 		_owner.DeadEnemyVIP();
 	}
-	if (!_owner.GetValidFlag()) {
-		_dead = true;
-	}
 }
 
 void EnemyVIP::CheckDamage(){

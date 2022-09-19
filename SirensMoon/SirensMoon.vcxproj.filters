@@ -297,6 +297,18 @@
     <Filter Include="Mode\ModeStartUp2">
       <UniqueIdentifier>{327305fe-e555-4c1b-b546-8b9ad0e10998}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI\PauseInfo">
+      <UniqueIdentifier>{4ef90459-c887-495e-968d-fa33464052fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Effect\FX_Signal">
+      <UniqueIdentifier>{d44bfcce-b49c-40df-8659-789a8229dd39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\WantedInfo">
+      <UniqueIdentifier>{b06fb2ce-9784-4813-a5f7-25a22135267f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\BossWeakPoint">
+      <UniqueIdentifier>{1f31c866-a42a-44ad-a0ad-beaee55bfade}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -589,6 +601,18 @@
     </ClCompile>
     <ClCompile Include="ModeStartUp2.cpp">
       <Filter>Mode\ModeStartUp2</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseInfo.cpp">
+      <Filter>UI\PauseInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="FX_Signal.cpp">
+      <Filter>Actor\Effect\FX_Signal</Filter>
+    </ClCompile>
+    <ClCompile Include="WantedInfo.cpp">
+      <Filter>UI\WantedInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="BossWeakPoint.cpp">
+      <Filter>UI\BossWeakPoint</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -885,6 +909,18 @@
     </ClInclude>
     <ClInclude Include="ModeStartUp2.h">
       <Filter>Mode\ModeStartUp2</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseInfo.h">
+      <Filter>UI\PauseInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="FX_Signal.h">
+      <Filter>Actor\Effect\FX_Signal</Filter>
+    </ClInclude>
+    <ClInclude Include="WantedInfo.h">
+      <Filter>UI\WantedInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="BossWeakPoint.h">
+      <Filter>UI\BossWeakPoint</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

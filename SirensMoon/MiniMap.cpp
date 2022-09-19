@@ -22,7 +22,7 @@ MiniMap::MiniMap(Game& game, ModeBase& mode, Vector2 pos, Vector2 size)
 	_inputManager = _game.GetInputManager();
 
 	_movieHandle = ImageServer::LoadGraph("resource/Server/noise.mp4");
-
+	_UIPriority = 1;
 }
 
 MiniMap::~MiniMap() {

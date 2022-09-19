@@ -3,7 +3,7 @@
 #include "MessageWindow.h"
 
 DegitalLetter::DegitalLetter(Game& game, ModeGame& mode, DigitalLetterData data)
-	:Gimmick(game,mode,data.ID),_animNo{0}
+	:Gimmick(game,mode,data.ID),_animNo{0},_image{data.image}
 {
 	_pos = data.pos;
 	_size = { 60,60 };
@@ -31,7 +31,7 @@ void DegitalLetter::Update(){
 				_accessible1 = true;
 				for (auto&& actor:_mode.GetSplitWindow()[0]->GetUIServer()) {
 					if (actor->GetType() == UIBase::Type::MessageWindow) {
-						dynamic_cast<MessageWindow&>(*actor).SetMessage(_message);
+						dynamic_cast<MessageWindow&>(*actor).SetMessage(_message,_image);
 					}
 				}
 			}
@@ -44,7 +44,7 @@ void DegitalLetter::Update(){
 				_accessible2 = true;
 				for (auto&& actor : _mode.GetSplitWindow()[1]->GetUIServer()) {
 					if (actor->GetType() == UIBase::Type::MessageWindow) {
-						dynamic_cast<MessageWindow&>(*actor).SetMessage(_message);
+						dynamic_cast<MessageWindow&>(*actor).SetMessage(_message,_image);
 					}
 				}
 			}

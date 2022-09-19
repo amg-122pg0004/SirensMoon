@@ -72,18 +72,13 @@ bool MapChip::LoadMap(std::string folderpath, std::string filename)
 						enemyBData.sightW = static_cast<EnemyData&>(*data).sightW;
 						enemyBData.detectionComplete = static_cast<EnemyData&>(*data).detectionComplete;
 						LoadEnemyBClass(aObject, enemyBData);
-					}else if (aObject["class"].get<std::string>() == "Enemy") {
+					}else {
 						auto&& enemyData = static_cast<EnemyData&>(*data);
 						LoadEnemyClass(aObject, enemyData);
-
 					}
 				}
 				else if (data->GetType() == ObjectDataBase::Type::EnemyB) {
-					if (aObject["class"].get<std::string>() == "EnemyB") {
-						auto&& enemyBData = static_cast<EnemyBData&>(*data);
-						LoadEnemyBClass(aObject, enemyBData);
-					}
-					else if (aObject["class"].get<std::string>() == "Enemy") {
+					if (aObject["class"].get<std::string>() == "Enemy") {
 						EnemyData enemyData;
 						enemyData.pos = data->pos;
 						enemyData.ID = data->ID;
@@ -91,6 +86,10 @@ bool MapChip::LoadMap(std::string folderpath, std::string filename)
 						enemyData.sightW = static_cast<EnemyBData&>(*data).sightW;
 						enemyData.detectionComplete = static_cast<EnemyBData&>(*data).detectionComplete;
 						LoadEnemyClass(aObject, enemyData);
+					}
+					else {
+						auto&& enemyBData = static_cast<EnemyBData&>(*data);
+						LoadEnemyBClass(aObject, enemyBData);
 					}
 				}
 				else if (data->GetType() == ObjectDataBase::Type::Door) {
@@ -923,6 +922,10 @@ void MapChip::LoadDigitalLetterClass(picojson::object object, DigitalLetterData 
 				std::string ss = properties[i].get<picojson::object>()["value"].get<std::string>();
 				std::wstring w_ss = utf8_to_wide(ss);
 				data.message = wide_to_sjis(w_ss);
+			}
+			if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Image") {
+				std::string ss = properties[i].get<picojson::object>()["value"].get<std::string>();
+				data.image=ImageServer::LoadGraph(ss);
 			}
 		}
 	}

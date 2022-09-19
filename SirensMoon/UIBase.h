@@ -23,6 +23,8 @@ public:
 		MiniMap,
 		ServerMachine,
 		Pause,
+		PauseInfoA,
+		PauseInfoB,
 		HP,
 		Ammo,
 		BulletType,
@@ -37,7 +39,9 @@ public:
 		FinishCut
 	};
 	virtual Type GetType() = 0;
+	int GetUIPriority(){return _UIPriority;}
 	virtual void DamageEvent();
+	virtual void TargetSpawnEvent();
 	virtual void TargetKillEvent();
 	void SetVisibillity(bool flag) { _visible = flag; }
 protected:
@@ -47,4 +51,5 @@ protected:
 	ModeBase& _mode;
 	bool _visible;
 	int _cg;
+	int _UIPriority;
 };

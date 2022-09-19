@@ -8,13 +8,15 @@
 #include "ObjectiveUI.h"
 #include "Explode.h"
 #include "FX_BossDead.h"
+#include "BossWeakPoint.h"
 
 Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
-	:Actor(game,mode),_scale{1.0},_mapscale{1.0}, _animNo{0}
-	,_backlayer{true},_time{60},_visible{true},_speed{2.5},_alpha{255}
-	,_headbuttSize{150,420},_headSize{90,90},_hp{1},_controller{controller}
+	:Actor(game, mode), _scale{ 1.0 }, _mapscale{ 1.0 }, _animNo{ 0 }
+	, _backlayer{ true }, _time{ 60 }, _visible{ true }, _speed{ 2.5 }, _alpha{ 255 }
+	, _headbuttSize{ 150,420 }, _headSize{ 90,90 }, _hp{ 1 }, _controller{ controller }
+	, _phase2{ false }, _player1{ nullptr }, _player2{ nullptr }, _invincible{ true }
 {
-	Vector2 pos = { _controller.GetRoomPosition().x-1.0,_controller.GetRoomPosition().y-1.0 };
+	Vector2 pos = { _controller.GetRoomPosition().x - 1.0,_controller.GetRoomPosition().y - 1.0 };
 	_startPos = { splitscreen_W * pos.x + 500 , screen_H * pos.y + 450 };
 	_shootPos = { _startPos.x,_startPos.y - 230 };
 	_pos = _startPos;
@@ -22,7 +24,7 @@ Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 	_size2 = { 400,500 };
 	std::vector<int> handle;
 	handle.resize(65);
-	ImageServer::LoadDivGraph("resource/Boss/wait.png",65,10,7,1024,1024,handle.data());
+	ImageServer::LoadDivGraph("resource/Boss/wait.png", 65, 10, 7, 1024, 1024, handle.data());
 	_cg[State::Wait] = handle;
 	handle.resize(90);
 	ImageServer::LoadDivGraph("resource/Boss/gunfire.png", 90, 10, 9, 1024, 1024, handle.data());
@@ -56,9 +58,15 @@ Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 			_player2 = actor.get();
 		}
 	}
+	int i{ 0 };
+	for (auto&& window : _mode.GetSplitWindow()) {
+		Vector2 pos{ 0,0 }, size{ 90,90 };
+		window->GetUIServer().emplace_back(std::make_unique<BossWeakPoint>(_game, _mode, pos, size, *this, i));
+		++i;
+	}
 }
 
-void Boss::Update(){
+void Boss::Update() {
 	UpdateCollision();
 	CheckOverlapActor();
 	if (_game.GetFrameCount() % 3 == 0) {
@@ -74,6 +82,8 @@ void Boss::Update(){
 			ChoiceAttack();
 		}
 	}
+
+
 
 	switch (_state)
 	{
@@ -109,13 +119,20 @@ void Boss::Update(){
 }
 
 void Boss::CheckOverlapActor() {
-	if (_visible && !_backlayer) {
-		for (auto&& actor : _mode.GetObjects()) {
-			if (actor->GetType() == Type::RedBullet) {
-				if (Intersect(_collision,actor->GetCollision())) {
-					TakeDamage();
-					actor->Dead();
-				}
+	if (_state == State::HeadButt && _animNo > 65 && _visible) {
+		_invincible = false;
+	}
+	else {
+		_invincible = true;
+	}
+	if (_invincible) {
+		return;
+	}
+	for (auto&& actor : _mode.GetObjects()) {
+		if (actor->GetType() == Type::RedBullet) {
+			if (Intersect(_collision, actor->GetCollision())) {
+				TakeDamage();
+				actor->Dead();
 			}
 		}
 	}
@@ -132,18 +149,19 @@ void Boss::DamageSequence() {
 	if (_time == 0) {
 		_time = 4 * 60;
 		_animNo = 0;
+		_scale = 0.25;
 		_state = State::Return;
 	}
 }
 
-void Boss::BackRender(Vector2 window_pos, Vector2 camera_pos){
+void Boss::BackRender(Vector2 window_pos, Vector2 camera_pos) {
 	if (_visible) {
 		if (_backlayer) {
 			auto cg = _cg[_state];
 			if (_animNo >= cg.size()) {
 				_animNo = 0;
 			}
-			SetDrawBlendMode(DX_BLENDMODE_ALPHA,_alpha);
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, _alpha);
 			DrawRotaGraph(static_cast<int>(_pos.x - camera_pos.x + window_pos.x),
 				static_cast<int>(_pos.y - camera_pos.y + window_pos.y),
 				_scale, 0.0, cg[_animNo], 1);
@@ -152,7 +170,7 @@ void Boss::BackRender(Vector2 window_pos, Vector2 camera_pos){
 	}
 }
 
-void Boss::StandardRender( Vector2 window_pos, Vector2 camera_pos) {
+void Boss::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 	if (_visible) {
 		if (!_backlayer) {
 			auto cg = _cg[_state];
@@ -190,7 +208,7 @@ void Boss::ChoiceAttack() {
 			break;
 
 		case 3:
-			_time = 2.5*60;
+			_time = 2.5 * 60;
 			Jump();
 			break;
 		}
@@ -218,9 +236,9 @@ void Boss::ChoiceAttack() {
 }
 
 void Boss::Wait() {
-	_pos.y += 5; 
-	if(_pos.y>_startPos.y) {
-		_pos.y =_startPos.y;
+	_pos.y += 5;
+	if (_pos.y > _startPos.y) {
+		_pos.y = _startPos.y;
 	}
 
 }
@@ -232,13 +250,13 @@ void Boss::GunAttack1() {
 	}
 	if (_time < 270 && _time>220) {
 		_pos.y -= 5;
-		if (_pos.y < _startPos.y-230) {
+		if (_pos.y < _startPos.y - 230) {
 			_pos.y = _startPos.y - 230;
 		}
 	}
 	if (_time == 175) {
 		Vector2 fix{ -600,0 };
-		
+
 		_mode.GetActorServer().Add(std::make_unique<BossCanon>(_game, _mode, _pos + fix));
 	}
 	if (!_phase2) {
@@ -263,7 +281,7 @@ void Boss::GunAttack2() {
 	if (_time == 110) {
 		Vector2 fix{ 0,0 };
 		_mode.GetActorServer().Add(std::make_unique<BossCanon>(_game, _mode, _pos + fix));
-		
+
 	}
 	if (!_phase2) {
 		dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
@@ -275,7 +293,7 @@ void Boss::GunAttack2() {
 
 void Boss::ShootMissile() {
 	_state = State::ShootMissile;
-	if (_time == 40|| _time == 20|| _time == 0) {
+	if (_time == 40 || _time == 20 || _time == 0) {
 		Vector2 rand = { static_cast<double>(rand100(engine)) / 100 * splitscreen_W,0 };
 		_mode.GetActorServer().Add(std::make_unique<BossMissile>(_game, _mode, rand));
 	}
@@ -287,8 +305,8 @@ void Boss::ShootMissile() {
 	}
 }
 
-void Boss::HeadButt(){
-	
+void Boss::HeadButt() {
+
 	_state = State::HeadButt;
 
 	if (700 == _time) {
@@ -314,14 +332,15 @@ void Boss::HeadButt(){
 	if (_time == 1) {
 		_time = 4 * 60;
 		_animNo = 0;
+		_scale = 0.25;
 		_state = State::Return;
 	}
 
-	if (_time < 590 && _time>410&&_visible==false) {
-		AABB col=_player1->GetCollision();
+	if (_time < 590 && _time>410 && _visible == false) {
+		AABB col = _player1->GetCollision();
 		auto dir = (col.min + col.max) / 2 - _pos;
 
-		if (dir.Length() < 150&& dir.Length() > 100) {
+		if (dir.Length() < 150 && dir.Length() > 100) {
 			_visible = true;
 			_animNo = 0;
 		}
@@ -341,7 +360,7 @@ void Boss::HeadButt(){
 		if (_animNo < 20) {
 			_pos.y -= 3;
 		}
-		if (_animNo>=20&& _animNo < 30) {
+		if (_animNo >= 20 && _animNo < 30) {
 			_pos.y += 6;
 		}
 		if (_animNo == 30) {
@@ -356,7 +375,7 @@ void Boss::HeadButt(){
 
 }
 
-void Boss::Debug(Vector2 window_pos, Vector2 camera_pos){
+void Boss::Debug(Vector2 window_pos, Vector2 camera_pos) {
 
 	AABB col = _player1->GetCollision();
 	auto dir = (col.min + col.max) / 2 - _pos;
@@ -365,28 +384,29 @@ void Boss::Debug(Vector2 window_pos, Vector2 camera_pos){
 	DrawFormatString(static_cast<int>(_pos.x - camera_pos.x + window_pos.y),
 		static_cast<int>(_pos.y - camera_pos.y + window_pos.y),
 		GetColor(255, 0, 0), "%d", _time);
+	_collision.Draw2(window_pos, camera_pos);
 	_hitbox.Draw2(window_pos, camera_pos);
 }
 
-void Boss::UpdateCollision(){
+void Boss::UpdateCollision() {
 	if (_backlayer) {
 		_collision.min = { _pos.x - _size2.x / 2,_pos.y - _size2.y * 0.8 };
 		_collision.max = { _pos.x + _size2.x / 2,_pos.y + _size2.y * 0.2 };
-		_hitbox.min = { _pos.x - _size2.x / 2,_pos.y - _size2.y * 0.8 };
-		_hitbox.max = { _pos.x + _size2.x / 2,_pos.y + _size2.y * 0.2 };
+		_hitbox.min = { _pos.x - _headSize.x / 2,_pos.y - _headSize.y / 2 - 100 };
+		_hitbox.max = _hitbox.min + _headSize;
 	}
 	else {
 		_collision.min = _pos - _size / 2;
 		_collision.max = _pos + _size / 2;
-		_hitbox.min = _pos - _size / 2;
-		_hitbox.max = _pos + _size / 2;
+		_hitbox.min = { _pos.x - _headSize.x / 2,_pos.y - _headSize.y / 2 - 100 };
+		_hitbox.max = _hitbox.min + _headSize;
 	}
 }
 
 /*ëSëÃ150F*/
-void Boss::Jump(){
+void Boss::Jump() {
 	_state = State::Jump;
-	if (_time < 150&& _time > 90) {
+	if (_time < 150 && _time > 90) {
 		_scale -= 0.01;
 		_mapscale -= 0.01;
 		if (_scale < 0.25) {
@@ -401,9 +421,10 @@ void Boss::Jump(){
 		_pos.y -= 40;
 	}
 	if (_time == 0) {
-	_time = 800;
-	_alpha = 255;
-	_state = State::HeadButt;
+		_time = 800;
+		_alpha = 255;
+		_visible = false;
+		_state = State::HeadButt;
 	}
 	dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
 		->ChangeMessage("è¡Ç¶ÇΩìGÇÃçUåÇÇîÇØÅA\nåÑÇÇ¬Ç¢ÇƒçUåÇÇπÇÊ", 2);
@@ -414,21 +435,18 @@ void Boss::Jump(){
 /*ëSëÃ150F*/
 void Boss::Return() {
 	_state = State::Return;
-	if (_time ==239) {
-		_scale = 0.25;
-	}
-	if (_time < 165&&_time>80) {
+	if (_time < 165 && _time>80) {
 		_pos.y -= 40;
 	}
 	if (_time == 80) {
 		_scale = 1;
-		_mapscale =1;
+		_mapscale = 1;
 		_backlayer = true;
 		_visible = true;
 		_pos.x = _startPos.x;
 	}
 	if (_time < 80) {
-		Vector2 dir=_startPos - _pos;
+		Vector2 dir = _startPos - _pos;
 		dir.Normalize();
 		if (_pos.y < _startPos.y) {
 			_pos.y = _startPos.y;
@@ -451,8 +469,8 @@ void Boss::Return() {
 	}
 }
 
-void Boss::Thunder(){
-	if (_time==180) {
+void Boss::Thunder() {
+	if (_time == 180) {
 		_controller.PrePhase2();
 	}
 	if (_time == 130) {
@@ -461,6 +479,6 @@ void Boss::Thunder(){
 	}
 }
 
-void Boss::Dead(){
-	_mode.GetActorServer().Add(std::make_unique<FX_BossDead>(_game,_mode,_pos,_game.GetFrameCount()));
+void Boss::Dead() {
+	_mode.GetActorServer().Add(std::make_unique<FX_BossDead>(_game, _mode, _pos, _game.GetFrameCount()));
 }

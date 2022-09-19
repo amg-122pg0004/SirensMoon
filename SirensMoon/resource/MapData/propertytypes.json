@@ -151,6 +151,11 @@
         "id": 26,
         "members": [
             {
+                "name": "Image",
+                "type": "string",
+                "value": ""
+            },
+            {
                 "name": "Message",
                 "type": "string",
                 "value": "テストメッセージ"
@@ -318,7 +323,7 @@
         ]
     },
     {
-        "id": 3,
+        "id": 38,
         "name": "EnemyTypeList",
         "storageType": "int",
         "type": "enum",
@@ -355,7 +360,7 @@
     },
     {
         "color": "#ffa0a0a4",
-        "id": 5,
+        "id": 39,
         "members": [
         ],
         "name": "ItemRailgun",

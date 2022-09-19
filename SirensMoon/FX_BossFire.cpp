@@ -5,7 +5,6 @@
 FX_BossFire::FX_BossFire(Game& game, ModeGame& mode, const Vector2& pos, int startTime)
 	:Effect(game, mode, pos, startTime)
 {
-
 	_cg.resize(131);
 	ImageServer::LoadDivGraph("resource/Effect/fireattack.png", 131, 5, 27, 540, 480, _cg.data());
 

@@ -198,6 +198,7 @@ class DigitalLetterData : public ObjectDataBase {
 public:
 	Type GetType()override { return ObjectDataBase::Type::DigitalLetter; }
 	std::string message{};
+	int image{-1};
 };
 
 class BigServerData : public ObjectDataBase {

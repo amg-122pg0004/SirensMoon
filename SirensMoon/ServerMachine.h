@@ -16,6 +16,7 @@ public:
 	void SetValidFlag(bool flag) { _valid = flag; }
 	bool GetValidFlag() { return _valid; }
 	int GetEnergy() { return _energy; }
+	EnemyGenerator::EnemyPattern GetPattern() { return _pattern; }
 	AABB GetAccessArea() { return _accessArea; }
 	bool GetAccesible() { return _accessible; }
 	void SpawnEnemyVIP();

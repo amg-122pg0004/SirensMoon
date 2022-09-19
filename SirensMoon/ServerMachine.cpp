@@ -8,6 +8,7 @@
 #include "SplitWindow.h"
 #include "ServerMachineUI.h"
 #include "SoundServer.h"
+#include "ObjectiveUI.h"
 
 ServerMachine::ServerMachine(Game& game, ModeGame& mode, ServerMachineData data, EnemyGenerator::EnemyPattern pattern)
 	:Actor(game, mode),_valid{false},_serverData{data},_energy{0}, _pattern{pattern},_deadVIP{false}, _accessible{0}
@@ -55,49 +56,35 @@ ServerMachine::ServerMachine(Game& game, ModeGame& mode, ServerMachineData data,
 
 	Vector2 map_pos = { 1080,660 };
 	Vector2 map_size = { 780,420 };
-	
-	std::vector<std::unique_ptr<SplitWindow>>& spw = dynamic_cast<ModeGame&>(_mode).GetSplitWindow();
-	auto window = std::make_unique<ServerMachineUI>(_game, _mode, map_pos, map_size, *this,_pattern);
-	spw[1]->GetUIServer().emplace_back(std::move(window));
+
 }
 
 
 void ServerMachine::Update() {
-	if (_deadVIP == false) {
-		for (auto&& actor : _mode.GetActorServer().GetObjects()) {
-			if (actor->GetType() == Type::PlayerB) {
-				if (Intersect(_accessArea, actor->GetCollision())) {
-					_accessible = true;
-				}
-				else {
-					_accessible = false;
-				}
-			}
-		}
-		if (_accessible&&(_inputManager->CheckInput("ACCESS", 'h', 1))) {
-			_energy += 10;
-		}
+	if (_deadVIP) {
+		return;
+	}
 
-		if (_energy > 300) {
-			_energy = 300;
-		}
-		_energy -= 3;
-		if (_energy < 0) {
-			_energy = 0;
-		}
-		if (_energy > 0) {
-			if (!_valid) {
-				_valid = true;
-				PlaySoundFile("resource/BGM/ActiveServer.wav",DX_PLAYTYPE_LOOP);
-				SpawnEnemyVIP();
+	for (auto&& actor : _mode.GetActorServer().GetObjects()) {
+		if (actor->GetType() == Type::PlayerB) {
+			if (Intersect(_accessArea, actor->GetCollision())) {
+				_accessible = true;
+			}
+			else {
+				_accessible = false;
 			}
 		}
-		if (_energy == 0) {
-			if (_valid) {
-				_valid = false;
-				_mode.PlayBGM();
-			}
-		}
+	}
+	if (_accessible&&(_inputManager->CheckInput("ACCESS", 't', 1)&&_energy==0)) {
+		_energy = 300;
+		SpawnEnemyVIP();
+		_mode.TargetSpawnEvent();
+		_valid = true;
+		PlaySoundFile("resource/BGM/ActiveServer.wav", DX_PLAYTYPE_LOOP);
+		_mode.GetSplitWindow()[0]->GetObjectiveUI()
+			->ChangeMessage("重要宇宙人特定し、捕獲せよ", 2);
+		_mode.GetSplitWindow()[1]->GetObjectiveUI()
+			->ChangeMessage("重要宇宙人特定し、捕獲せよ", 2);
 	}
 }
 
@@ -157,7 +144,14 @@ void ServerMachine::DeadEnemyVIP() {
 	_energy = 0;
 	_deadVIP = true;
 	ModeGame& mode=dynamic_cast<ModeGame&>(_mode);
+	StopSoundFile();
+	_mode.PlayBGM();
 	mode.StageClearCheck();
+	_valid = false;
+	_mode.GetSplitWindow()[0]->GetObjectiveUI()
+		->ChangeMessage("ミニマップ上のサーバーへ向かう", 1);
+	_mode.GetSplitWindow()[1]->GetObjectiveUI()
+		->ChangeMessage("ミニマップ上のサーバーへ向かう", 1);
 }
 
 void ServerMachine::Debug(Vector2 window_pos, Vector2 camera_pos){

@@ -5,11 +5,12 @@
 #include <sstream>
 
 MessageWindow::MessageWindow(Game& game, ModeBase& mode, Vector2 pos, Vector2 size,int playerno)
-	:UIBase(game,mode,pos,size),_message{},_alpha{0}
+	:UIBase(game,mode,pos,size),_message{},_alpha{0},_image{-1}
 {
 	_cg = ImageServer::LoadGraph("resource/UI/DegialLetter/degitalletter.png");
 	_font = LoadFontDataToHandle("resource/Font/nikkyou-sans-font.ttf", 1);
 	_playerno = playerno;
+	_imageWindow= ImageServer::LoadGraph("resource/UI/DegialLetter/degitalletterMini.png");
 }
 
 void MessageWindow::Update() {
@@ -66,6 +67,11 @@ void MessageWindow::Render()
 	if (!_message.empty()) {
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, _alpha);
 		DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), _cg, 0);
+		if (_image != -1) {
+			DrawGraph(static_cast<int>(_pos.x + 650), static_cast<int>(_pos.y - 100), _imageWindow, 0);
+			DrawRotaGraph(static_cast<int>(_pos.x + 650+95), static_cast<int>(_pos.y - 100+90),1.0,0.0,_image, 1);
+		}
+
 
 		std::stringstream ss;
 		ss << _message;
@@ -75,8 +81,9 @@ void MessageWindow::Render()
 	}
 }
 
-void MessageWindow::SetMessage(std::string msg){
+void MessageWindow::SetMessage(std::string msg,int image){
 	if (_message != msg) {
 		_message = msg;
+		_image = image;
 	}
 }
