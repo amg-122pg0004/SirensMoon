@@ -14,4 +14,5 @@ public:
 private:
 	std::vector<int> _linkGimmiks;
 	AABB _accessArea;
+	bool _reverse;
 };

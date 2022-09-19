@@ -772,6 +772,11 @@
                 "name": "LinkGimmick9",
                 "type": "object",
                 "value": 0
+            },
+            {
+                "name": "Reverse",
+                "type": "bool",
+                "value": false
             }
         ],
         "name": "SwitchArea",

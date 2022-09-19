@@ -2948,6 +2948,41 @@
                  "width":30,
                  "x":1380,
                  "y":3750
+                }, 
+                {
+                 "class":"",
+                 "gid":674,
+                 "height":30,
+                 "id":1547,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"LinkGimmick1",
+                         "type":"object",
+                         "value":1548
+                        }, 
+                        {
+                         "name":"Reverse",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":491.666666666667,
+                 "y":4203
+                }, 
+                {
+                 "class":"",
+                 "gid":677,
+                 "height":30,
+                 "id":1548,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":542.333333333333,
+                 "y":4097.66666666667
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -3036,8 +3071,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":194,
-                 "y":246.67
+                 "x":644,
+                 "y":4216.67
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -6249,7 +6284,7 @@
          "y":0
         }],
  "nextlayerid":27,
- "nextobjectid":1547,
+ "nextobjectid":1549,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.0",

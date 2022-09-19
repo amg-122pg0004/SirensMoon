@@ -7,7 +7,7 @@ ObjectiveUI::ObjectiveUI(Game& game,ModeBase& mode,Vector2 pos,Vector2 size)
 	_message{ "ミニマップ上に黄色い点で\n示されたサーバーへ向かう" },
 	_nextMessage{ "NULL" }, _startPos{ pos }
 {
-	_font = LoadFontDataToHandle("resource/Font/nikkyou-sans-font.ttf",1);
+	_font = LoadFontDataToHandle("resource/Font/ロンドBスクエア.dft", 1);
 	_cgOrange = ImageServer::LoadGraph("resource/UI/Objective/orange.png");
 	_cgGreen = ImageServer::LoadGraph("resource/UI/Objective/green.png");
 	_cgRed1 = ImageServer::LoadGraph("resource/UI/Objective/red1.png");

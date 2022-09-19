@@ -15,7 +15,7 @@ ServerMachineUI::ServerMachineUI(Game& game, ModeBase& mode, Vector2 pos, Vector
 {
 	_inputManager = _game.GetInputManager();
 	_cg = ImageServer::LoadGraph("resource/UI/wanted.png");
-	_font = LoadFontDataToHandle("resource/Font/nikkyou-sans-font.ttf", 1);
+	_font = LoadFontDataToHandle("resource/Font/ロンドBスクエア.dft", 1);
 }
 
 void ServerMachineUI::Update() {

@@ -2,20 +2,31 @@
 #include "ModeGame.h"
 
 SwitchArea::SwitchArea(Game& game, ModeGame& mode, SwitchAreaData data)
-	:Gimmick(game, mode, data.ID), _linkGimmiks{ data.links }
+	:Gimmick(game, mode, data.ID), _linkGimmiks{ data.links }, _reverse{data.Reverse}
 {
 	_pos = data.pos;
 	_size = { 30,30 };
 	_accessArea.min = _pos;
 	_accessArea.max = _pos + _size;
-	LinkGimmickActivate(true);
+	if (_reverse) {
+		LinkGimmickActivate(false);
+	}
+	else {
+		LinkGimmickActivate(true);
+	}
+
 }
 
 void SwitchArea::Update() {
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::PlayerA|| actor->GetType() == Type::PlayerB) {
 			if (Intersect(_accessArea, actor->GetCollision())) {
-				LinkGimmickActivate(false);
+				if (_reverse) {
+					LinkGimmickActivate(true);
+				}
+				else {
+					LinkGimmickActivate(false);
+				}
 			}
 		}
 	}

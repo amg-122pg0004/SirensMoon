@@ -148,6 +148,7 @@ class SwitchAreaData : public ObjectDataBase {
 public:
 	Type GetType()override { return ObjectDataBase::Type::SwitchArea; }
 	std::vector<int> links;
+	bool Reverse;
 };
 
 /*Doorデータ構造*/

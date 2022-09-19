@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="125" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="27" nextobjectid="1547">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="125" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="27" nextobjectid="1549">
  <editorsettings>
   <export target="Stage1.json" format="json"/>
  </editorsettings>
@@ -3240,6 +3240,13 @@
   <object id="1544" gid="32" x="1320" y="3750" width="30" height="30"/>
   <object id="1545" gid="32" x="1350" y="3750" width="30" height="30"/>
   <object id="1546" gid="32" x="1380" y="3750" width="30" height="30"/>
+  <object id="1547" gid="674" x="491.667" y="4203" width="30" height="30">
+   <properties>
+    <property name="LinkGimmick1" type="object" value="1548"/>
+    <property name="Reverse" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="1548" gid="677" x="542.333" y="4097.67" width="30" height="30"/>
  </objectgroup>
  <objectgroup id="21" name="Boss"/>
  <objectgroup id="4" name="Player">
@@ -3251,7 +3258,7 @@
     <property name="SpeedMax" type="float" value="6"/>
    </properties>
   </object>
-  <object id="978" gid="5" x="194" y="246.67" width="30" height="30">
+  <object id="978" gid="5" x="644" y="4216.67" width="30" height="30">
    <properties>
     <property name="Accelerate" type="float" value="1"/>
     <property name="Friction" type="float" value="0.9"/>

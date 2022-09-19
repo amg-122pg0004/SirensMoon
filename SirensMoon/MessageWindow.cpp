@@ -8,7 +8,7 @@ MessageWindow::MessageWindow(Game& game, ModeBase& mode, Vector2 pos, Vector2 si
 	:UIBase(game,mode,pos,size),_message{},_alpha{0},_image{-1}
 {
 	_cg = ImageServer::LoadGraph("resource/UI/DegialLetter/degitalletter.png");
-	_font = LoadFontDataToHandle("resource/Font/nikkyou-sans-font.ttf", 1);
+	_font = LoadFontDataToHandle("resource/Font/ロンドBスクエア26.dft", 1);
 	_playerno = playerno;
 	_imageWindow= ImageServer::LoadGraph("resource/UI/DegialLetter/degitalletterMini.png");
 }

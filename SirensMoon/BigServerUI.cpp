@@ -7,7 +7,7 @@ BigServerUI::BigServerUI(Game& game , ModeBase& mode, Vector2 pos, Vector2 size,
 :UIBase(game,mode,pos,size),_owner{owner}
 {
 	_cg = ImageServer::LoadGraph("resource/UI/wanted.png");
-	_font = LoadFontDataToHandle("resource/Font/nikkyou-sans-font.ttf", 1);
+	_font = LoadFontDataToHandle("resource/Font/ロンドBスクエア.dft", 1);
 }
 
 void BigServerUI::Update(){

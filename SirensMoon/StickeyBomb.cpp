@@ -19,7 +19,7 @@ StickyBomb::StickyBomb(Game& game, ModeGame& mode, StickyBombData data)
 	_detectionArea.min = _pos + _size / 2 - range;
 	_detectionArea.max = _pos + _size / 2 + range;
 	_timer = data.timer;
-	_font = LoadFontDataToHandle("resource/Font/nikkyou-sans-font.ttf", 1);
+	_font = LoadFontDataToHandle("resource/Font/ロンドBスクエア.dft", 1);
 	_accessArea.min = { 0,0 };
 	_accessArea.max = { 0,0 };
 	_cg = ImageServer::LoadGraph("resource/Gimmick/Sticky/down.png");

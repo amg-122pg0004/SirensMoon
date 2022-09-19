@@ -56,10 +56,10 @@ bool MapChip::LoadMap(std::string folderpath, std::string filename)
 					continue;
 				}
 				/*基本データ読み込み*/
-				std::unique_ptr<ObjectDataBase>& data= _objectGIDs[gid];
+				std::unique_ptr<ObjectDataBase>& data = _objectGIDs[gid];
 				SetBasicObjectData(aObject, data);
 				/*クラス別データ読み込み*/
-				if (data->GetType()==ObjectDataBase::Type::Player) {
+				if (data->GetType() == ObjectDataBase::Type::Player) {
 					auto&& playerData = static_cast<PlayerData&>(*data);
 					LoadPlayerClass(aObject, playerData);
 				}
@@ -72,7 +72,8 @@ bool MapChip::LoadMap(std::string folderpath, std::string filename)
 						enemyBData.sightW = static_cast<EnemyData&>(*data).sightW;
 						enemyBData.detectionComplete = static_cast<EnemyData&>(*data).detectionComplete;
 						LoadEnemyBClass(aObject, enemyBData);
-					}else {
+					}
+					else {
 						auto&& enemyData = static_cast<EnemyData&>(*data);
 						LoadEnemyClass(aObject, enemyData);
 					}
@@ -145,8 +146,8 @@ bool MapChip::LoadMap(std::string folderpath, std::string filename)
 					LoadTNTClass(aObject, tntData);
 				}
 				else if (data->GetType() == ObjectDataBase::Type::Barrirer) {
-						auto&& barrierData = static_cast<BarrierData&>(*data);
-						LoadBarrierClass(aObject, barrierData);
+					auto&& barrierData = static_cast<BarrierData&>(*data);
+					LoadBarrierClass(aObject, barrierData);
 				}
 				else if (data->GetType() == ObjectDataBase::Type::BossGenerator) {
 					auto&& bigGenData = static_cast<BigGeneratorData&>(*data);
@@ -239,7 +240,7 @@ void MapChip::LoadTilesets(picojson::object jsRoot, std::string folderpath) {
 					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
 					data->pos = { 0,0 };
 					data->Direction = v_zero;
-					data->LookTime= v_zero;
+					data->LookTime = v_zero;
 					if (tileObject["properties"].is<picojson::array>()) {
 						picojson::array properties = tileObject["properties"].get<picojson::array>();
 						FindPropertieData(data->Direction[0], properties, "Direction1");
@@ -368,6 +369,10 @@ void MapChip::LoadTilesets(picojson::object jsRoot, std::string folderpath) {
 				if (tileObject["class"].get<std::string>() == "SwitchArea") {
 					auto data = std::make_unique< SwitchAreaData >();
 					int gid = static_cast<int>(tileObject["id"].get<double>() + _tilesetsFirstgid.back());
+					if (tileObject["properties"].is<picojson::array>()) {
+						picojson::array properties = tileObject["properties"].get<picojson::array>();
+						FindPropertieData(data->Reverse, properties, "Reverse");
+					}
 					_objectGIDs[gid] = std::move(data);
 				}
 				if (tileObject["class"].get<std::string>() == "Door") {
@@ -420,7 +425,7 @@ void MapChip::LoadTilesets(picojson::object jsRoot, std::string folderpath) {
 					if (tileObject["properties"].is<picojson::array>()) {
 						auto properties = tileObject["properties"].get<picojson::array>();
 						FindPropertieData(data->range, properties, "Range");
-						std::string direction{"none"};
+						std::string direction{ "none" };
 						FindPropertieData(direction, properties, "Direction");
 						if (direction == "up") {
 							data->dir = 4;
@@ -783,7 +788,7 @@ void MapChip::LoadLightClass(picojson::object object, SquareLightStats data) {
 		FindPropertieData(data.size.y, properties, "Size_Y");
 	}
 	data.pos = { object["x"].get<double>() - (data.size.x / 2),
-	object["y"].get<double>() - (data.size.y / 2)-_chipSize_H };
+	object["y"].get<double>() - (data.size.y / 2) - _chipSize_H };
 	_lightDataList.push_back(data);
 }
 
@@ -871,7 +876,7 @@ void MapChip::LoadSwitchClass(picojson::object object, SwitchData data) {
 		FindPropertieData(data.RedFlag, properties, "RedFlag");
 		FindPropertieData(data.projectionNumber, properties, "EffectNumber");
 		for (int i = 0; i < properties.size(); ++i) {
-			if (properties[i].get<picojson::object>()["name"].get<std::string>().find("LinkGimmick*")) {
+			if (properties[i].get<picojson::object>()["name"].get<std::string>().find("LinkGimmick") != std::string::npos) {
 				data.links.push_back(static_cast<int>(properties[i].get<picojson::object>()["value"].get<double>()));
 			}
 
@@ -883,11 +888,13 @@ void MapChip::LoadSwitchClass(picojson::object object, SwitchData data) {
 void MapChip::LoadSwitchAreaClass(picojson::object object, SwitchAreaData data) {
 	if (object["properties"].is<picojson::array>()) {
 		auto properties = object["properties"].get<picojson::array>();
+		FindPropertieData(data.Reverse, properties, "Reverse");
 		for (int i = 0; i < properties.size(); ++i) {
-			if (properties[i].get<picojson::object>()["name"].get<std::string>().find("LinkGimmick*")) {
+			if (properties[i].get<picojson::object>()["name"].get<std::string>().find("LinkGimmick") != std::string::npos) {
 				data.links.push_back(static_cast<int>(properties[i].get<picojson::object>()["value"].get<double>()));
 			}
 		}
+
 	}
 	_switchAreaDataList.push_back(data);
 }
@@ -925,7 +932,7 @@ void MapChip::LoadDigitalLetterClass(picojson::object object, DigitalLetterData 
 			}
 			if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Image") {
 				std::string ss = properties[i].get<picojson::object>()["value"].get<std::string>();
-				data.image=ImageServer::LoadGraph(ss);
+				data.image = ImageServer::LoadGraph(ss);
 			}
 		}
 	}
@@ -974,7 +981,7 @@ void MapChip::Render(Vector2 windowPos, Vector2 cameraPos, std::string layer) {
 	int x, y;
 	for (int layer = 0; layer < tiledata.size(); ++layer)
 	{
-		for (y = cameraPos.y/_chipSize_H; y < (cameraPos.y+ screen_H)/_chipSize_H; ++y)
+		for (y = cameraPos.y / _chipSize_H; y < (cameraPos.y + screen_H) / _chipSize_H; ++y)
 		{
 			for (x = cameraPos.x / _chipSize_W; x < (cameraPos.x + splitscreen_W) / _chipSize_W; ++x)
 			{
@@ -1003,7 +1010,7 @@ void MapChip::Render(Vector2 windowPos, Vector2 cameraPos, std::string layer) {
 
 void MapChip::MiniMapRender(int stageNum, Vector2 windowPos, Vector2 cameraPos, bool bossflag)
 {
-	float scalex{ 1 },scaley{ 1 };;
+	float scalex{ 1 }, scaley{ 1 };;
 	if (bossflag) {
 		scalex = static_cast<float>(345.0 * 4.0 / (_mapSize_W * _chipSize_W));
 		scaley = static_cast<float>(400.0 * 4.0 / (_mapSize_H * _chipSize_H));
