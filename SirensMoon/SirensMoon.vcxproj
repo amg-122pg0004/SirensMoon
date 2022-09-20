@@ -232,6 +232,7 @@
     <ClCompile Include="ServerMachineUI.cpp" />
     <ClCompile Include="BossGimmickController.cpp" />
     <ClCompile Include="SignalLight.cpp" />
+    <ClCompile Include="SkipUI.cpp" />
     <ClCompile Include="SoundServer.cpp" />
     <ClCompile Include="SplitWindow.cpp" />
     <ClCompile Include="SquareLight.cpp" />
@@ -336,6 +337,7 @@
     <ClInclude Include="ServerMachineUI.h" />
     <ClInclude Include="BossGimmickController.h" />
     <ClInclude Include="SignalLight.h" />
+    <ClInclude Include="SkipUI.h" />
     <ClInclude Include="SoundServer.h" />
     <ClInclude Include="SplitWindow.h" />
     <ClInclude Include="StickeyBomb.h" />

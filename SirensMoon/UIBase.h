@@ -36,14 +36,15 @@ public:
 		MessageWindow,
 		BigServerUI,
 		AimUI,
-		FinishCut
+		FinishCut,
+		SkipUI
 	};
 	virtual Type GetType() = 0;
 	int GetUIPriority(){return _UIPriority;}
 	virtual void DamageEvent();
 	virtual void TargetSpawnEvent();
 	virtual void TargetKillEvent();
-	void SetVisibillity(bool flag) { _visible = flag; }
+	virtual void SetVisibillity(bool flag) { _visible = flag; }
 protected:
 	Vector2 _pos;
 	Vector2 _size;

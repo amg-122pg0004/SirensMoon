@@ -309,6 +309,9 @@
     <Filter Include="UI\BossWeakPoint">
       <UniqueIdentifier>{1f31c866-a42a-44ad-a0ad-beaee55bfade}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI\SkipUI">
+      <UniqueIdentifier>{0e3b4812-48bc-4475-8f4b-760ada95dc93}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -613,6 +616,9 @@
     </ClCompile>
     <ClCompile Include="BossWeakPoint.cpp">
       <Filter>UI\BossWeakPoint</Filter>
+    </ClCompile>
+    <ClCompile Include="SkipUI.cpp">
+      <Filter>UI\SkipUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -921,6 +927,9 @@
     </ClInclude>
     <ClInclude Include="BossWeakPoint.h">
       <Filter>UI\BossWeakPoint</Filter>
+    </ClInclude>
+    <ClInclude Include="SkipUI.h">
+      <Filter>UI\SkipUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

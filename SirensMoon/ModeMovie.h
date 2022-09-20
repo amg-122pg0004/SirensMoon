@@ -9,6 +9,8 @@
 #include "ModeBase.h"
 #include <string>
 
+class UIBase;
+
 class ModeMovie :public ModeBase {
 public:
 	ModeMovie(Game& game,std::string,int skipFrame,bool splitFlag);
@@ -18,6 +20,7 @@ public:
 	void SetBGM(std::string path,int frame);
 	void PlayBGMInSetFrame();
 private:
+	void VisibleSkipUI();
 	bool _splitFlag;
 	int _movieHandle;
 	int _movieSkipFrame;
@@ -26,4 +29,6 @@ private:
 
 	std::string _bgm;
 	int _bgmPlayFrame;
+	std::vector<std::unique_ptr<UIBase>> _ui;
+	int _loadingNumber;
 };

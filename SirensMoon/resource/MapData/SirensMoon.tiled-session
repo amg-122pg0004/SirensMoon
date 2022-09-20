@@ -250,6 +250,67 @@
         "D:/doi/2022summer/x64/Debug/resource/TestMap_02.tmx#tile_test2": {
             "scaleInDock": 1
         },
+        "D:/doi/2022summer/x64/Release/resource/MapData/Stage1.json": {
+            "expandedObjectLayers": [
+                12,
+                13
+            ],
+            "scale": 1.5,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 3622,
+                "y": 712.3333333333333
+            }
+        },
+        "D:/doi/2022summer/x64/Release/resource/MapData/Stage1.json#tile_icon": {
+            "scaleInDock": 1
+        },
+        "D:/doi/2022summer/x64/Release/resource/MapData/Stage1.json#tile_test": {
+            "scaleInDock": 1
+        },
+        "D:/doi/2022summer/x64/Release/resource/MapData/Stage1.tmx": {
+            "scale": 0.16328125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1923.0622009569379,
+                "y": 2164.976076555024
+            }
+        },
+        "D:/doi/2022summer/x64/Release/resource/MapData/Stage1.tmx#tile_icon": {
+            "scaleInDock": 1
+        },
+        "D:/doi/2022summer/x64/Release/resource/MapData/Stage1.tmx#tile_test": {
+            "scaleInDock": 1
+        },
+        "D:/doi/2022summer/x64/Release/resource/MapData/Stage2.json": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2490,
+                "y": 1854
+            }
+        },
+        "D:/doi/2022summer/x64/Release/resource/MapData/Stage2.json#tile_icon": {
+            "scaleInDock": 1
+        },
+        "D:/doi/2022summer/x64/Release/resource/MapData/Stage2.json#tile_test": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "D:/doi/2022summer/x64/Release/resource/MapData/Stage2.tmx": {
+            "scale": 0.16328125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1923.0622009569379,
+                "y": 2164.976076555024
+            }
+        },
+        "D:/doi/2022summer/x64/Release/resource/MapData/Stage2.tmx#tile_icon": {
+            "scaleInDock": 1
+        },
+        "D:/doi/2022summer/x64/Release/resource/MapData/Stage2.tmx#tile_test": {
+            "scaleInDock": 1
+        },
         "D:/doi/ゲームプログラミング基礎/220519_PG1年_ゲームプログラミング基礎/220519_PG1年_ゲームプログラミング基礎/tiled/マップツール用データ/field_layerB/field_layerB.tmx": {
             "scale": 2,
             "selectedLayer": 0,
@@ -310,11 +371,11 @@
             "expandedObjectLayers": [
                 4
             ],
-            "scale": 0.5,
-            "selectedLayer": 5,
+            "scale": 0.125,
+            "selectedLayer": 8,
             "viewCenter": {
-                "x": 512,
-                "y": 3471
+                "x": 1504,
+                "y": 1556
             }
         },
         "Stage1.tmx#tile_icon": {
@@ -509,17 +570,17 @@
     "property.type": "int",
     "recentFiles": [
         "Stage1.tmx",
+        "D:/doi/2022summer/x64/Release/resource/MapData/Stage1.tmx",
+        "D:/doi/2022summer/x64/Release/resource/MapData/Stage2.json",
+        "D:/doi/2022summer/x64/Release/resource/MapData/Stage1.json",
+        "D:/doi/2022summer/x64/Release/resource/MapData/Stage2.tmx",
         "Stage3.tmx",
         "Stage2.tmx",
         "D:/doi/2022summer/x64/0.4.7/Debug/resource/MapData/Stage2.tmx",
         "Stage2.json",
         "Stage1.json",
         "D:/doi/2022summer/x64/Debug/resource/MapData/Stage1.json",
-        "D:/doi/2022summer/x64/Debug/resource/MapData/Stage1.tmx",
-        "D:/doi/2022summer/x64/Debug/resource/MapData/Stage3.json",
-        "D:/doi/2022summer/x64/Debug/resource/MapData/Stage3.tmx",
-        "D:/doi/2022summer/x64/0.4.7/Debug/resource/MapData/Stage1.json",
-        "D:/doi/2022summer/x64/0.4.7/Debug/resource/MapData/Stage1.tmx"
+        "D:/doi/2022summer/x64/Debug/resource/MapData/Stage1.tmx"
     ],
     "tileset.embedInMap": true,
     "tileset.lastUsedFilter": "Tiledタイルセットファイル (*.tsx)",

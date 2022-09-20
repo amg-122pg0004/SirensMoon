@@ -129,6 +129,10 @@ void Switch::Update() {
 }
 
 bool Switch::LinkGimmickActivate(bool flag) {
+	if (_linkGimmiks.empty()) {
+		return false;
+	}
+
 	bool result{ false };
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::Gimmick) {
@@ -146,6 +150,10 @@ void Switch::Debug(Vector2 window_pos, Vector2 camera_pos) {
 }
 
 void Switch::FirstActivateEvent(int eventPlayer) {
+	if (_linkGimmickPositions.empty()) {
+		return;
+	}
+
 	_firstActivate = eventPlayer;
 
 	_roomPosition = CheckRoomPosition();

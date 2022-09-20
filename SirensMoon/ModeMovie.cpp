@@ -1,7 +1,7 @@
 /*****************************************************************//**
  * \file   ModeMovie.cpp
  * \brief  ゲーム中にムービーが流れるシーンで使用するモードです
- * 
+ *
  * \author 土居将太郎
  * \date   August 2022
  *********************************************************************/
@@ -9,32 +9,43 @@
 #include "ImageServer.h"
 #include "Game.h"
 #include "LoadResources.h"
+#include "SkipUI.h"
 
-ModeMovie::ModeMovie(Game& game,std::string path, int skipFrame,bool splitFlag)
-	:ModeBase{game} ,_sizeX{0},_sizeY{0}, _movieSkipFrame{ skipFrame }
-	,_bgm{},_bgmPlayFrame{-1},_splitFlag{splitFlag}
+ModeMovie::ModeMovie(Game& game, std::string path, int skipFrame, bool splitFlag)
+	:ModeBase{ game }, _sizeX{ 0 }, _sizeY{ 0 }, _movieSkipFrame{ skipFrame }
+	, _bgm{}, _bgmPlayFrame{ -1 }, _splitFlag{ splitFlag }, _loadingNumber{ 0 }
 {
 	_renderPriority = 10;
-	_movieHandle=ImageServer::LoadGraph(path);
-	SeekMovieToGraph(_movieHandle,0);
+	_movieHandle = ImageServer::LoadGraph(path);
+	SeekMovieToGraph(_movieHandle, 0);
 	PlayMovieToGraph(_movieHandle);
 
 	GetGraphSize(_movieHandle, &_sizeX, &_sizeY);
 	_makedNextMode = false;
 
 	SetUseASyncLoadFlag(true);
+	Vector2 pos{ 800,0 }, size{ 163,163 };
+	_ui.emplace_back(std::make_unique<SkipUI>(_game, *this, pos, size));
 	LoadResources::LoadSE();
 	LoadResources::LoadEffects();
 }
 
 void ModeMovie::Update() {
 	ModeBase::Update();
-	
+	if (GetASyncLoadNum() == 0 && _loadingNumber == 1) {
+		VisibleSkipUI();
+	}
+	_loadingNumber = GetASyncLoadNum();
+	if (_loadingNumber == 0 && GetJoypadInputState(DX_INPUT_KEY_PAD1) ||
+		_loadingNumber == 0 && GetJoypadInputState(DX_INPUT_PAD2)) {
+		VisibleSkipUI();
+	}
+
 	/*PAUSEボタンで指定フレーム数までスキップ*/
 	if (_game.GetInputManager()->CheckInput("PAUSE", 't', 0) || _game.GetInputManager()->CheckInput("PAUSE", 't', 1)) {
 		if (TellMovieToGraph(_movieHandle) < _movieSkipFrame) {
-			auto tesu =TellMovieToGraph(_movieHandle);
-			if (GetASyncLoadNum() == 0) {
+			auto tesu = TellMovieToGraph(_movieHandle);
+			if (_loadingNumber == 0) {
 				SeekMovieToGraph(_movieHandle, _movieSkipFrame);
 			}
 		}
@@ -43,9 +54,12 @@ void ModeMovie::Update() {
 	PlayBGMInSetFrame();
 
 	/*再生が終わったらスキップ*/
-	if (GetMovieStateToGraph(_movieHandle)==0) {
+	if (GetMovieStateToGraph(_movieHandle) == 0) {
 		PauseMovieToGraph(_movieHandle);
 		ModeBase::NextMode();
+	}
+	for (auto&& ui : _ui) {
+		ui->Update();
 	}
 }
 
@@ -59,15 +73,18 @@ void ModeMovie::Render() {
 	else {
 		DrawExtendGraph(0, 0, screen_W, screen_H, _movieHandle, 0);
 	}
+	for (auto&& ui : _ui) {
+		ui->Render();
+	}
 }
 
 void ModeMovie::Debug() {
 
 }
 
-void ModeMovie::SetBGM(std::string path, int frame){
-	_bgmPlayFrame=frame;
-	_bgm=path;
+void ModeMovie::SetBGM(std::string path, int frame) {
+	_bgmPlayFrame = frame;
+	_bgm = path;
 }
 
 void ModeMovie::PlayBGMInSetFrame() {
@@ -79,5 +96,13 @@ void ModeMovie::PlayBGMInSetFrame() {
 	}
 	if (_bgmPlayFrame < TellMovieToGraph(_movieHandle)) {
 		PlaySoundFile(_bgm.c_str(), DX_PLAYTYPE_LOOP);
+	}
+}
+
+void ModeMovie::VisibleSkipUI(){
+	for (auto&& ui : _ui) {
+		if (ui->GetType() == UIBase::Type::SkipUI) {
+			static_cast<SkipUI&>(*ui).SetVisibillity(true);
+		}
 	}
 }

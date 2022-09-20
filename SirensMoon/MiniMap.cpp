@@ -99,7 +99,6 @@ void MiniMap::Render() {
 				GetColor(255, 0, 255), 1);
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
 
-
 			DrawTriangleAA(static_cast<float>(eyepos.pos1.x * scalex + pos.x),
 				static_cast<float>(eyepos.pos1.y * scaley + pos.y),
 				static_cast<float>(eyepos.pos2.x * scalex + pos.x),

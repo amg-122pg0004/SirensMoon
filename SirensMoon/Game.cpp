@@ -19,8 +19,8 @@ Game::Game() :_frameCount{0},_progress{Progress::StartMenu}
 	_modeServer = std::make_unique<ModeServer>(*this);
 	_inputManager = std::make_unique<InputManager>();
 
-	PlayStartUp1();
-	//PlayStage1();
+	//PlayStartUp1();
+	PlayStage1Clear();
 
 }
 
@@ -52,7 +52,6 @@ void Game::Debug(){
 		DrawFormatString(0, 12, GetColor(255, 255, 255), "%d", GetASyncLoadNum());
 	}
 }
-
 
 void Game::RestartMode() {
 	SetDrawArea(0,0,screen_W,screen_H);

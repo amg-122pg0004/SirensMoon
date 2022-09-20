@@ -160,6 +160,11 @@
             "id": 26,
             "members": [
                 {
+                    "name": "Image",
+                    "type": "string",
+                    "value": ""
+                },
+                {
                     "name": "Message",
                     "type": "string",
                     "value": "テストメッセージ"
@@ -776,6 +781,11 @@
                     "name": "LinkGimmick9",
                     "type": "object",
                     "value": 0
+                },
+                {
+                    "name": "Reverse",
+                    "type": "bool",
+                    "value": false
                 }
             ],
             "name": "SwitchArea",
