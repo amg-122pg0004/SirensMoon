@@ -4,9 +4,10 @@
 FX_MissileShoot::FX_MissileShoot(Game& game, ModeGame& mode, const Vector2& pos, int startTime)
 	:Effect(game, mode, pos, startTime)
 {
-	_cg.resize(148);
-	ImageServer::LoadDivGraph("resource/Effect/MissileShoot.png", 148, 7, 12, 220, 540, _cg.data());
-	_zoom = 1.0;
+	_cg.resize(70);
+	//ImageServer::LoadDivGraph("resource/Effect/MissileShoot.png", 148, 7, 12, 220, 540, _cg.data());
+	ImageServer::LoadDivGraph("resource/Effect/MissileShoot.png", 70, 7, 12, 220, 340, _cg.data());
+	_zoom = 2.0;
 	_lifeTime = 148;
 	_blendMode = DX_BLENDMODE_NOBLEND;
 }

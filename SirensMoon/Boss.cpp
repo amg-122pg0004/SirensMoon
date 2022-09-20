@@ -190,8 +190,8 @@ void Boss::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 void Boss::ChoiceAttack() {
 	_animNo = 0;
 	if (!_phase2) {
-		switch (rand3(engine)) {
-		//switch (3) {
+		//switch (rand3(engine)) {
+		switch (2) {
 		case 1:
 			if (rand2(engine) == 1) {
 				_time = 270;
@@ -294,6 +294,12 @@ void Boss::GunAttack2() {
 
 void Boss::ShootMissile() {
 	_state = State::ShootMissile;
+	if (_time==100)
+	{
+		Vector2 fix{200,-400};
+		_mode.GetActorServer().Add(std::make_unique<FX_MissileShoot>(_game, _mode, _pos + fix,_game.GetFrameCount()));
+	}
+
 	if (_time == 40 || _time == 20 || _time == 0) {
 		Vector2 rand = { static_cast<double>(rand100(engine)) / 100 * splitscreen_W,0 };
 		_mode.GetActorServer().Add(std::make_unique<BossMissile>(_game, _mode, rand));

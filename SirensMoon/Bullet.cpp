@@ -17,7 +17,7 @@ Bullet::Bullet(Game& game, ModeGame& mode, Vector2 pos, double dir)
 	_cg = ImageServer::LoadGraph("resource/Bullet/Bullet_1.png");
 	_pos = pos;
 	_prePos = pos;
-	_size = { 5,5 };
+	_size = { 30,30 };
 
 	auto light = std::make_unique<LightBase>(_game,_mode,*this);
 	_mode.GetActorServer().Add(std::move(light));
@@ -63,10 +63,13 @@ void Bullet::UpdateCollision() {
 }
 
 void Bullet::StandardRender(Vector2 window_pos, Vector2 camera_pos){
-	DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x)
-		, static_cast<int>(_pos.y + window_pos.y - camera_pos.y)
+	DrawRotaGraph(static_cast<int>(_pos.x-_size.x/2 + window_pos.x - camera_pos.x)
+		, static_cast<int>(_pos.y+_size.y/2 + window_pos.y - camera_pos.y)
+		,1.0
+		,_dir
 		, _cg
 		, 1);
+
 }
 
 void Bullet::Dead(){
