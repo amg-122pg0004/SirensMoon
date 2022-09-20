@@ -20,7 +20,7 @@ Game::Game() :_frameCount{0},_progress{Progress::StartMenu}
 	_inputManager = std::make_unique<InputManager>();
 
 	//PlayStartUp1();
-	PlayStage1Clear();
+	PlayStartMenu();
 
 }
 
@@ -110,7 +110,7 @@ void Game::NextMode(){
 		PlayStartMenu();
 		break;
 	case Game::Progress::Credit:
-		PlayStartMenu();
+		PlayStartMenuSkipMovie();
 		break;
 	}
 }
@@ -147,7 +147,15 @@ void Game::PlayStartMenu() {
 	_progress = Progress::StartMenu;
 	StopSoundFile();
 	_modeServer->Clear();
-	_modeServer->Add(std::move(std::make_unique<ModeStart>(*this)));
+	_modeServer->Add(std::move(std::make_unique<ModeStart>(*this,0)));
+}
+
+void Game::PlayStartMenuSkipMovie(){
+	SoundServer::StopALLSound();
+	_progress = Progress::StartMenu;
+	StopSoundFile();
+	_modeServer->Clear();
+	_modeServer->Add(std::move(std::make_unique<ModeStart>(*this, 125000)));
 }
 
 void Game::PlayStage1() {

@@ -33,12 +33,16 @@ ModeMovie::ModeMovie(Game& game, std::string path, int skipFrame, bool splitFlag
 void ModeMovie::Update() {
 	ModeBase::Update();
 	if (GetASyncLoadNum() == 0 && _loadingNumber == 1) {
-		VisibleSkipUI();
+		if (TellMovieToGraph(_movieHandle) < _movieSkipFrame) {
+			VisibleSkipUI();
+		}
 	}
 	_loadingNumber = GetASyncLoadNum();
-	if (_loadingNumber == 0 && GetJoypadInputState(DX_INPUT_KEY_PAD1) ||
-		_loadingNumber == 0 && GetJoypadInputState(DX_INPUT_PAD2)) {
-		VisibleSkipUI();
+	if (_loadingNumber == 0 && GetJoypadInputState(DX_INPUT_KEY_PAD1)&& !_game.GetInputManager()->CheckInput("PAUSE", 't', 0) ||
+		_loadingNumber == 0 && GetJoypadInputState(DX_INPUT_PAD2)&& !_game.GetInputManager()->CheckInput("PAUSE", 't', 1)) {
+		if (TellMovieToGraph(_movieHandle) < _movieSkipFrame) {
+			VisibleSkipUI();
+		}
 	}
 
 	/*PAUSEボタンで指定フレーム数までスキップ*/

@@ -312,6 +312,9 @@
     <Filter Include="UI\SkipUI">
       <UniqueIdentifier>{0e3b4812-48bc-4475-8f4b-760ada95dc93}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Effect\FX_MissileShoot">
+      <UniqueIdentifier>{06e9bcf5-0b1f-4218-ab22-e61cfebbef0f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -619,6 +622,9 @@
     </ClCompile>
     <ClCompile Include="SkipUI.cpp">
       <Filter>UI\SkipUI</Filter>
+    </ClCompile>
+    <ClCompile Include="FX_MissileShoot.cpp">
+      <Filter>Actor\Effect\FX_MissileShoot</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -930,6 +936,9 @@
     </ClInclude>
     <ClInclude Include="SkipUI.h">
       <Filter>UI\SkipUI</Filter>
+    </ClInclude>
+    <ClInclude Include="FX_MissileShoot.h">
+      <Filter>Actor\Effect\FX_MissileShoot</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,14 +1,15 @@
 #include "ModeStart.h"
 #include "Game.h"
 #include "ModeGame.h"
+#include "SkipUI.h"
 
-ModeStart::ModeStart(Game& game) :ModeBase(game),_select{0},_alpha{255}, _pos{ 440 , 730 },_bgm{false}
+ModeStart::ModeStart(Game& game,int seekmovie) :ModeBase(game), _select{ 0 }, _alpha{ 255 }, _pos{ 440 , 730 }, _bgm{ false }
 {
 	_inputManager = _game.GetInputManager();
 
 	LoadResources::LoadSE1();
 	_movieHandle = ImageServer::LoadGraph("resource/Movie/start.mp4");
-	_cg_bg=ImageServer::LoadGraph("resource/UI/Start/background.jpg");
+	_cg_bg = ImageServer::LoadGraph("resource/UI/Start/background.jpg");
 	_cg_logo = ImageServer::LoadGraph("resource/UI/Start/logo.png");
 	_cg_cursor = ImageServer::LoadGraph("resource/UI/Start/cursor.png");
 	_cg_start.first = ImageServer::LoadGraph("resource/UI/Start/start_passive.png");
@@ -17,12 +18,25 @@ ModeStart::ModeStart(Game& game) :ModeBase(game),_select{0},_alpha{255}, _pos{ 4
 	_cg_quit.second = ImageServer::LoadGraph("resource/UI/Start/quit_active.png");
 	_cg_credit.first = ImageServer::LoadGraph("resource/UI/Start/credit_passive.png");
 	_cg_credit.second = ImageServer::LoadGraph("resource/UI/Start/credit_active.png");
+	_cg2pFrame = ImageServer::LoadGraph("resource/UI/Start/2p_frame.png");
+	_cg2pText = ImageServer::LoadGraph("resource/UI/Start/2p_text.png");
+	SeekMovieToGraph(_movieHandle, seekmovie);
 	PlayMovieToGraph(_movieHandle);
-	//SeekMovieToGraph(_movieHandle,120000);//<爆破シーンまでスキップ
+	Vector2 pos{ 800,0 }, size{ 163,163 };
+	_ui.emplace_back(std::make_unique<SkipUI>(_game, *this, pos, size));
+	VisibleSkipUI();
 }
 
 void ModeStart::Update() {
 	ModeBase::Update();
+	_loadingNumber = GetASyncLoadNum();
+	if (_loadingNumber == 0 && GetJoypadInputState(DX_INPUT_KEY_PAD1) && !_game.GetInputManager()->CheckInput("PAUSE", 't', 0) ||
+		_loadingNumber == 0 && GetJoypadInputState(DX_INPUT_PAD2) && !_game.GetInputManager()->CheckInput("PAUSE", 't', 1)) {
+		if (GetMovieStateToGraph(_movieHandle) ==1) {
+			VisibleSkipUI();
+		}
+	}
+
 	auto analog1 = _inputManager->CheckAnalogInput(0);
 	if (_pos.y <= 540) {
 		if (abs(analog1.y) > 800) {
@@ -44,9 +58,11 @@ void ModeStart::Update() {
 				}
 			}
 		}
+
 		if (abs(analog1.y) < 50) {
 			_analogFlag1 = false;
 		}
+
 		if (_inputManager->CheckInput("ACCESS", 't', 0)) {
 			PlaySoundMem(SoundServer::Find("DeceideMenu"), DX_PLAYTYPE_BACK);
 			switch (_select)
@@ -65,20 +81,33 @@ void ModeStart::Update() {
 			}
 		}
 	}
+	for (auto&& ui : _ui) {
+		ui->Update();
+	}
 }
 
 void ModeStart::Render() {
 	ClearDrawScreen();
-	if (GetMovieStateToGraph(_movieHandle) == 1&&TellMovieToGraph(_movieHandle) > 125000) {
+	if (GetMovieStateToGraph(_movieHandle) == 1 && TellMovieToGraph(_movieHandle) > 125000) {
 		PauseMovieToGraph(_movieHandle);
+		for (auto&& ui : _ui) {
+			if (ui->GetType() == UIBase::Type::SkipUI) {
+				static_cast<SkipUI&>(*ui).SetVisibillity(false);
+			}
+		}
 	}
-	if (GetMovieStateToGraph(_movieHandle) == 1 && _inputManager->CheckInput("PAUSE", 't', 0)||
+	if (GetMovieStateToGraph(_movieHandle) == 1 && _inputManager->CheckInput("PAUSE", 't', 0) ||
 		GetMovieStateToGraph(_movieHandle) == 1 && _inputManager->CheckInput("PAUSE", 't', 1)) {
 		if (!_bgm) {
 			PlaySoundFile("resource/BGM/title.wav", DX_PLAYTYPE_LOOP);
 			_bgm = true;
 		}
 		PauseMovieToGraph(_movieHandle);
+		for (auto&& ui : _ui) {
+			if (ui->GetType() == UIBase::Type::SkipUI) {
+				static_cast<SkipUI&>(*ui).SetVisibillity(false);
+			}
+		}
 	}
 	if (GetMovieStateToGraph(_movieHandle) == 1 && TellMovieToGraph(_movieHandle) > 124000) {
 		if (!_bgm) {
@@ -121,6 +150,11 @@ void ModeStart::Render() {
 			DrawGraph(static_cast<int>(pos2.x), static_cast<int>(pos2.y) + 100, select(_cg_credit, 1), 1);
 			DrawGraph(static_cast<int>(pos2.x), static_cast<int>(pos2.y) + 200, select(_cg_quit, 2), 1);
 			DrawGraph(static_cast<int>(pos2.x - 50), static_cast<int>(pos2.y) + _select * 100, _cg_cursor, 1);
+			DrawGraph(static_cast<int>(pos2.x + screen_W / 2)-100, static_cast<int>(pos2.y)+100, _cg2pFrame, 1);
+			int alpha = (sin(static_cast<double>(_game.GetFrameCount() / 15.0)) / 2.0 + 0.7) * 255.0;
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, static_cast<int>(alpha));
+			DrawGraph(static_cast<int>(pos2.x + screen_W / 2)-100, static_cast<int>(pos2.y)+100, _cg2pText, 1);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 		}
 
 		/*フェードイン用の黒BOX描画*/
@@ -134,15 +168,18 @@ void ModeStart::Render() {
 
 		Vector2 size{ 1280,720 };
 		SetDrawMode(DX_DRAWMODE_BILINEAR);
-		DrawRotaGraph(static_cast<int>(_pos.x),static_cast<int>(_pos.y),
-			0.635 , 0, _cg_logo, 1 , 0 );
-		DrawRotaGraph(static_cast<int>(_pos.x +screen_W - splitscreen_W),static_cast<int>(_pos.y),
-			0.635 , 0, _cg_logo, 1 , 0 );
+		DrawRotaGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y),
+			0.635, 0, _cg_logo, 1, 0);
+		DrawRotaGraph(static_cast<int>(_pos.x + screen_W - splitscreen_W), static_cast<int>(_pos.y),
+			0.635, 0, _cg_logo, 1, 0);
 		SetDrawMode(DX_DRAWMODE_NEAREST);
+	}
+	for (auto&& ui : _ui) {
+		ui->Render();
 	}
 }
 
-void ModeStart::Debug(){
+void ModeStart::Debug() {
 
 }
 
@@ -154,6 +191,14 @@ void ModeStart::Credit() {
 	_game.PlayCredit();
 }
 
-void ModeStart::Quit(){
+void ModeStart::Quit() {
 	DxLib_End();
+}
+
+void ModeStart::VisibleSkipUI() {
+	for (auto&& ui : _ui) {
+		if (ui->GetType() == UIBase::Type::SkipUI) {
+			static_cast<SkipUI&>(*ui).SetVisibillity(true);
+		}
+	}
 }

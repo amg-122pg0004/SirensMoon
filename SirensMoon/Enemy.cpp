@@ -220,13 +220,13 @@ void Enemy::SetDirection() {
 void Enemy::CheckDamage() {
 	for (auto&& actor : _mode.GetActorServer().GetObjects()) {
 		if (actor->GetType() == Type::RedBullet|| actor->GetType() == Type::Explode) {
-			if (Intersect(_collision, actor->GetCollision())) {
+			if (Intersect(_hitBox, actor->GetCollision())) {
 				actor->Dead();
 				TakeDamage(actor->GetType());
 			}
 		}
 		if (actor->GetType() == Type::GreenBullet) {
-			if (Intersect(_collision, actor->GetCollision())) {
+			if (Intersect(_hitBox, actor->GetCollision())) {
 				_speed = 15;
 				_chase = true;
 			}
@@ -258,10 +258,13 @@ void Enemy::ApplyDamage() {
 void Enemy::UpdateCollision() {
 	_collision.min = { _pos.x - _size.x / 2 + 90 , _pos.y - _size.y / 2 + 70 };
 	_collision.max = { _pos.x + _size.x / 2 - 90,_pos.y + _size.y / 2-90 };
+	_hitBox.min = { _pos.x - _size.x / 2 + 80 , _pos.y - _size.y / 2 + 40 };
+	_hitBox.max = { _pos.x + _size.x / 2 - 80,_pos.y + _size.y / 2 - 75 };
 }
 
 void Enemy::Debug(Vector2 window_pos, Vector2 camera_pos) {
 	_collision.Draw2(window_pos, camera_pos);
+	_hitBox.Draw2(window_pos, camera_pos);
 	DrawBox(static_cast<int>((_collision.min.x + _collision.max.x) / 2.0 + window_pos.x - camera_pos.x),
 		static_cast<int>((_collision.min.y + _collision.max.y) / 2.0 + window_pos.y - camera_pos.y),
 		static_cast<int>((_collision.min.x + _collision.max.x) / 2.0 + window_pos.x - camera_pos.x + 1),

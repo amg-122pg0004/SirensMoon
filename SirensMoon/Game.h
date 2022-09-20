@@ -58,6 +58,7 @@ public:
 	void PlayStartUp3();
 	void PlayIntro();
 	void PlayStartMenu();
+	void PlayStartMenuSkipMovie();
 	void PlayStage1();
 	void PlayStage1Clear();
 	void PlayStage2();

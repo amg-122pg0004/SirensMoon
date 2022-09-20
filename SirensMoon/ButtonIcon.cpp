@@ -97,6 +97,14 @@ void ButtonIcon::Update() {
 						return;
 					}
 				}
+
+				if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::MiniShuttle) {
+					if (dynamic_cast<BigGun&>(*actor).GetAccesible()) {
+						_visible = true;
+						_message = "ƒVƒƒƒgƒ‹‚Éæ‚è‚Ş";
+						return;
+					}
+				}
 			}
 		}
 	}

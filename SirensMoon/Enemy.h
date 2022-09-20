@@ -124,4 +124,6 @@ protected:
 
 	EnemyDirection _cg_direction;
 	int _animeNo;//<アニメーションの表示番号
+
+	AABB _hitBox;
 };

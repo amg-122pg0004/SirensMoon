@@ -9,6 +9,7 @@
 #include "Explode.h"
 #include "FX_BossDead.h"
 #include "BossWeakPoint.h"
+#include "FX_MissileShoot.h"
 
 Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 	:Actor(game, mode), _scale{ 1.0 }, _mapscale{ 1.0 }, _animNo{ 0 }

@@ -188,6 +188,7 @@
     <ClCompile Include="FX_Chargein.cpp" />
     <ClCompile Include="FX_Chargenow.cpp" />
     <ClCompile Include="FX_HeadButt.cpp" />
+    <ClCompile Include="FX_MissileShoot.cpp" />
     <ClCompile Include="FX_ScreenSmoke.cpp" />
     <ClCompile Include="FX_Signal.cpp" />
     <ClCompile Include="FX_Teleport.cpp" />
@@ -292,6 +293,7 @@
     <ClInclude Include="FX_Chargein.h" />
     <ClInclude Include="FX_Chargenow.h" />
     <ClInclude Include="FX_HeadButt.h" />
+    <ClInclude Include="FX_MissileShoot.h" />
     <ClInclude Include="FX_ScreenSmoke.h" />
     <ClInclude Include="FX_Signal.h" />
     <ClInclude Include="FX_Teleport.h" />
