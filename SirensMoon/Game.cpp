@@ -19,7 +19,8 @@ Game::Game() :_frameCount{0},_progress{Progress::StartMenu}
 	_modeServer = std::make_unique<ModeServer>(*this);
 	_inputManager = std::make_unique<InputManager>();
 
-	PlayStage1();
+	PlayStartUp1();
+	//PlayStage1();
 
 }
 
