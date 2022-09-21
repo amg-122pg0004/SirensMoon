@@ -1,0 +1,12 @@
+#pragma once
+#include "ScreenEffect.h"
+
+class Screen_Fade :public ScreenEffect {
+public:
+	Screen_Fade(Game& game, ModeBase& mode, Vector2 pos, Vector2 size);
+	void Easing(int elapsed) override;
+	void Render()override;
+	void SetEffect(int delayTime, int lifeTime, unsigned int color);
+private:
+	unsigned int _color;
+};

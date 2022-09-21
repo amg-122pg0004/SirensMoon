@@ -14,6 +14,7 @@ class UIBase;
 class ModeMovie :public ModeBase {
 public:
 	ModeMovie(Game& game,std::string,int skipFrame,bool splitFlag);
+	~ModeMovie();
 	void Update() override;
 	void Render()override;
 	void Debug()override;
@@ -27,6 +28,7 @@ private:
 	int _sizeX;
 	int _sizeY;
 
+	std::string _path;
 	std::string _bgm;
 	int _bgmPlayFrame;
 	std::vector<std::unique_ptr<UIBase>> _ui;

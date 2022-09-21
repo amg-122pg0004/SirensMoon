@@ -148,6 +148,11 @@ void BossGimmickController::RecieveStartGenerator(int no) {
 						_readyRailgun = true;
 						dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
 							->ChangeMessage("巨大レールガンに乗り込み\nミッションを完遂せよ", 1);
+						for (auto&& ui : dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetUIServer()) {
+							if (ui->GetType() == UIBase::Type::RideInfo) {
+								ui->SetVisibillity(true);
+							}
+						}
 					}
 				}
 			}

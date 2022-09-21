@@ -8,7 +8,8 @@
 #include "FX_Teleport.h"
 #include "MiniShuttle.h"
 PlayerA::PlayerA(Game& game, ModeGame& base, int playernum) 
-	:Player(game, base, playernum),_setGreenBullet{false},_bullet{ 5 }, _charge{ 0 }, _cooldown{ 0 }
+	:Player(game, base, playernum),_setGreenBullet{false},_bullet{ 5 }
+	,_charge{ 0 }, _cooldown{ 0 },_gameoverCountDown{180}, _bulletMAX{5}
 {
 	Load();
 }
@@ -120,7 +121,6 @@ void PlayerA::Action(){
 	}
 
 	if (_inputManager->CheckInput("ACTION", 'r', _playerNum)) {
-		//_movable = true;
 		_slow = false;
 		if (_charge >= 120) {
 			if (_bullet > 0) {
@@ -143,9 +143,7 @@ void PlayerA::Action(){
 				_animNo = 0;
 				--_bullet;
 
-				if (_bullet == 0) {
-					_mode.GameOver();
-				}
+
 			}
 		}
 	}
@@ -188,10 +186,19 @@ void PlayerA::Action(){
 		StopSoundMem(SoundServer::Find("Charging"));
 	}
 	Player::DirectionCGStateUpdate();
+	if (_bullet <= 0) {
+		--_gameoverCountDown;
+		if (_gameoverCountDown <= 0) {
+			_mode.GameOver();
+		}
+	}
 }
 
 void PlayerA::TakeAmmo() {
 	++_bullet;
+	if (_bullet > _bulletMAX) {
+		_bullet = _bulletMAX;
+	}
 }
 
 void PlayerA::AnimUpdate(){

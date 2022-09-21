@@ -2,6 +2,7 @@
 #include "ModeGame.h"
 #include "Explode.h"
 #include "Bullet.h"
+#include "BulletItem.h"
 
 BossMissile::BossMissile(Game& game, ModeGame& mode, Vector2 pos) 
 	:Actor(game,mode),_angle{Math::ToRadians(90)}, _player2{nullptr}, _speed{1.5}
@@ -49,6 +50,7 @@ void BossMissile::Move() {
 }
 
 void BossMissile::HitActor() {
+	int i{ 0 };
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::PlayerA || actor->GetType() == Type::PlayerB|| actor->GetType() == Type::Explode) {
 			if(CheckOverlapActor(*actor)) {
@@ -65,7 +67,16 @@ void BossMissile::HitActor() {
 				actor->Dead();
 			}
 		}
+		if (actor->GetType() == Type::Item) {
+			++i;
+		}
 	}
+	
+	if (_dead == true && i < 3) {
+		auto bullet = std::make_unique<BulletItem>(_game, _mode, _pos);
+		_mode.GetActorServer().Add(std::move(bullet));
+	}
+	
 }
 
 bool BossMissile::CheckOverlapActor(Actor& actor) {

@@ -315,6 +315,12 @@
     <Filter Include="Actor\Effect\FX_MissileShoot">
       <UniqueIdentifier>{06e9bcf5-0b1f-4218-ab22-e61cfebbef0f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI\RideInfo">
+      <UniqueIdentifier>{cc4e55d1-4814-4d3a-b52c-96e80aeb6073}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\ScreenEffect\Screen_Fade">
+      <UniqueIdentifier>{ac3d8c35-7d1b-48c6-a302-599232f27719}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -625,6 +631,12 @@
     </ClCompile>
     <ClCompile Include="FX_MissileShoot.cpp">
       <Filter>Actor\Effect\FX_MissileShoot</Filter>
+    </ClCompile>
+    <ClCompile Include="RideInfo.cpp">
+      <Filter>UI\RideInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen_Fade.cpp">
+      <Filter>UI\ScreenEffect\Screen_Fade</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -939,6 +951,12 @@
     </ClInclude>
     <ClInclude Include="FX_MissileShoot.h">
       <Filter>Actor\Effect\FX_MissileShoot</Filter>
+    </ClInclude>
+    <ClInclude Include="RideInfo.h">
+      <Filter>UI\RideInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen_Fade.h">
+      <Filter>UI\ScreenEffect\Screen_Fade</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

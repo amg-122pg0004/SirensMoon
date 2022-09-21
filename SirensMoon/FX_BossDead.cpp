@@ -5,9 +5,9 @@ FX_BossDead::FX_BossDead(Game& game, ModeGame& mode, const Vector2& pos, int sta
 	:Effect(game, mode, pos, startTime)
 {
 	_cg.resize(105);
-	ImageServer::LoadDivGraph("resource/Effect/ScreenSmoke.png", 105, 5, 21, 256, 256, _cg.data());
+	ImageServer::LoadDivGraph("resource/Effect/bossDead.png", 105, 5, 21, 256, 256, _cg.data());
 
-	_zoom = 3.0;
+	_zoom = 5.0;
 	_lifeTime = 105;
 	_blendMode = DX_BLENDMODE_ALPHA;
 }

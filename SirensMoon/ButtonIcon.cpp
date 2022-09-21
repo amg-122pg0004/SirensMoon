@@ -9,6 +9,7 @@
 #include "BigServer.h"
 #include "BigGenerator.h"
 #include "BigGun.h"
+#include "MiniShuttle.h"
 
 ButtonIcon::ButtonIcon(Game& game, ModeBase& mode, Vector2 pos, Vector2 size, int playerno)
 	:UIBase(game, mode, pos, size), _playerno{ playerno },_owner{nullptr}
@@ -43,6 +44,7 @@ void ButtonIcon::Update() {
 		for (auto&& actor : dynamic_cast<ModeGame&>(_mode).GetObjects()) {
 			if (actor->GetType() == Actor::Type::PlayerA) {
 				if (!actor->GetVisibility()) {
+					_visible = false;
 					return;
 				}
 			}
@@ -52,6 +54,7 @@ void ButtonIcon::Update() {
 		for (auto&& actor : dynamic_cast<ModeGame&>(_mode).GetObjects()) {
 			if (actor->GetType() == Actor::Type::PlayerB) {
 				if (!actor->GetVisibility()) {
+					_visible = false;
 					return;
 				}
 			}
@@ -99,7 +102,7 @@ void ButtonIcon::Update() {
 				}
 
 				if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::MiniShuttle) {
-					if (dynamic_cast<BigGun&>(*actor).GetAccesible()) {
+					if (dynamic_cast<MiniShuttle&>(*actor).GetAccessible()) {
 						_visible = true;
 						_message = "ÉVÉÉÉgÉãÇ…èÊÇËçûÇﬁ";
 						return;

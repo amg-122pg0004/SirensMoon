@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "ModeGame.h"
 #include "Boss.h"
+#include "Screen_Fade.h"
 
 AimUI::AimUI(Game& game, ModeBase& mode,Vector2 pos,Vector2 size)
 	:UIBase(game,mode,pos,size),_speed{2}, _gameClearTimer{120}, _gameClear{false}
@@ -19,6 +20,7 @@ void AimUI::Update() {
 		if (_gameClearTimer < 0) {
 			_game.NextMode();
 		}
+	return;
 	}
 	else {
 		Vector2 dir = _inputManager->CheckAnalogInput(0);
@@ -39,7 +41,6 @@ void AimUI::Update() {
 		if (_pos_cursor.y > screen_H) {
 			_pos_cursor.y = screen_H;
 		}
-
 		if (_inputManager->CheckInput("ACTION", 't', 0)) {
 			for (auto&& actor : _mode.GetObjects()) {
 				if (actor->GetType() == Actor::Type::Boss) {
@@ -49,6 +50,13 @@ void AimUI::Update() {
 						col.min.y < world_pos.y && world_pos.y < col.max.y) {
 						dynamic_cast<Boss&>(*actor).Dead();
 						_gameClear = true;
+					}
+				}
+			}
+			for (auto&& window : static_cast<ModeGame&>(_mode).GetSplitWindow()) {
+				for (auto&& ui : window->GetUIServer()) {
+					if (ui->GetType() == Type::ScreenEffect) {
+						static_cast<Screen_Fade&>(*ui).SetEffect(0,120,GetColor(255,255,255));
 					}
 				}
 			}

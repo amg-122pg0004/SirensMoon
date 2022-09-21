@@ -22,7 +22,7 @@ class ImageServer {
 		 * \return キーに対応した値を返す
 		 */
 		static int Find(std::string filename);
-
+		static int Erase(std::string filename);
 		/**
 		 * \brief 読み込み済のファイル出なければmapに登録
 		 * 

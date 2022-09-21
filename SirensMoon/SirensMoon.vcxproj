@@ -227,7 +227,9 @@
     <ClCompile Include="PlayerB.cpp" />
     <ClCompile Include="ProjectionLight.cpp" />
     <ClCompile Include="RedBullet.cpp" />
+    <ClCompile Include="RideInfo.cpp" />
     <ClCompile Include="ScreenEffect.cpp" />
+    <ClCompile Include="Screen_Fade.cpp" />
     <ClCompile Include="ScreenPump.cpp" />
     <ClCompile Include="ServerMachine.cpp" />
     <ClCompile Include="ServerMachineUI.cpp" />
@@ -333,8 +335,10 @@
     <ClInclude Include="PlayerB.h" />
     <ClInclude Include="ProjectionLight.h" />
     <ClInclude Include="RedBullet.h" />
+    <ClInclude Include="RideInfo.h" />
     <ClInclude Include="ScreenEffect.h" />
     <ClInclude Include="ScreenPump.h" />
+    <ClInclude Include="Screen_Fade.h" />
     <ClInclude Include="ServerMachine.h" />
     <ClInclude Include="ServerMachineUI.h" />
     <ClInclude Include="BossGimmickController.h" />

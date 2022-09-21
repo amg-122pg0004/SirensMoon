@@ -1073,7 +1073,8 @@ std::vector<int> MapChip::CheckHitChipNo(int x, int y, bool backlayer)
 // オブジェクトとマップチップが当たったかの判定、および当たった場合の処理
 // 引数：
 //  
-//   o = オブジェクト
+//   col = オブジェクトコリジョン
+// //  backlayer trueなら後ろのレイヤーとの接触も見る
 // 戻値：
 //   0 : 当たってない
 //   1 : 当たった

@@ -32,8 +32,10 @@ private:
 
 	/*射撃関係*/
 	int _bullet;//残りの弾数
+	int _bulletMAX;
 	int _charge;//チャージ
 	int _cooldown;//クールダウン
 
+	int _gameoverCountDown;
 
 };

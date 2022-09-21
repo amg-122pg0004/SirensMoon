@@ -36,6 +36,16 @@ int ImageServer::Find(std::string filename)
 	return -1;
 }
 
+int ImageServer::Erase(std::string filename)
+{
+    auto itr = _mapGraph.find(filename);
+    if (itr != _mapGraph.end()) {
+        _mapGraph.erase(itr);
+        return 1;
+    }
+    return -1;
+}
+
 int ImageServer::LoadGraph(std::string filename)
 {
 	int cg = Find(filename);

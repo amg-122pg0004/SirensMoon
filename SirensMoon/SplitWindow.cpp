@@ -24,6 +24,8 @@
 #include "PauseInfo.h"
 #include "ServerMachineUI.h"
 #include "WantedInfo.h"
+#include "RideInfo.h"
+#include "Screen_Fade.h"
 
 SplitWindow::SplitWindow(Game& game, ModeGame& mode, int pos_x, int pos_y, int window_no) :
 	_game{ game }, _mode{ mode }, _windowPos{ pos_x ,pos_y }, _windowNo{ window_no }, _renderStage{ 1 }, _lightup{ 255 }
@@ -43,6 +45,10 @@ SplitWindow::SplitWindow(Game& game, ModeGame& mode, int pos_x, int pos_y, int w
 		Vector2 bullettype_pos = { _windowPos.x + 5,_windowPos.y + 5 };
 		Vector2 bullettype_size = { 90,180 };
 		_ui.emplace_back(std::make_unique<BulletTypeUI>(_game, _mode, bullettype_pos, bullettype_size));
+
+		Vector2 rideInfo_size = { 120,90 };
+		Vector2 rideInfo_pos = { _windowPos.x +splitscreen_W/2,_windowPos.y + screen_H/2 };
+		_ui.emplace_back(std::make_unique<RideInfo>(_game, _mode, rideInfo_pos, rideInfo_size));
 	}
 
 	Vector2 found_pos = { 0,0 };
@@ -106,6 +112,10 @@ SplitWindow::SplitWindow(Game& game, ModeGame& mode, int pos_x, int pos_y, int w
 	Vector2 pause_pos = { _windowPos.x + splitscreen_W / 2, _windowPos.y };
 	Vector2 pause_size = { 360,90 };
 	_ui.emplace_back(std::make_unique<Pause>(_game, _mode, pause_pos, pause_size));
+
+	Vector2 fade_pos = { _windowPos.x, _windowPos.y };
+	Vector2 fade_size = { splitscreen_W,screen_H };
+	_ui.emplace_back(std::make_unique<Screen_Fade>(_game, _mode, fade_pos, fade_size));
 
 }
 

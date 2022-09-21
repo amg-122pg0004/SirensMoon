@@ -14,8 +14,9 @@
 Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 	:Actor(game, mode), _scale{ 1.0 }, _mapscale{ 1.0 }, _animNo{ 0 }
 	, _backlayer{ true }, _time{ 60 }, _visible{ true }, _speed{ 2.5 }, _alpha{ 255 }
-	, _headbuttSize{ 150,420 }, _headSize{ 90,90 }, _hp{ 3 }, _controller{ controller }
+	, _headbuttSize{ 150,420 }, _headSize{ 90,90 }, _hp{ 1 }, _controller{ controller }
 	, _phase2{ false }, _player1{ nullptr }, _player2{ nullptr }, _invincible{ true }
+	,_stop{false}
 {
 	Vector2 pos = { _controller.GetRoomPosition().x - 1.0,_controller.GetRoomPosition().y - 1.0 };
 	_startPos = { splitscreen_W * pos.x + 500 , screen_H * pos.y + 450 };
@@ -68,6 +69,9 @@ Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 }
 
 void Boss::Update() {
+	if (_stop) {
+		return;
+	}
 	UpdateCollision();
 	CheckOverlapActor();
 	if (_game.GetFrameCount() % 3 == 0) {
@@ -131,7 +135,7 @@ void Boss::CheckOverlapActor() {
 	}
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::RedBullet) {
-			if (Intersect(_collision, actor->GetCollision())) {
+			if (Intersect(_hitbox, actor->GetCollision())) {
 				TakeDamage();
 				actor->Dead();
 			}
@@ -191,7 +195,7 @@ void Boss::ChoiceAttack() {
 	_animNo = 0;
 	if (!_phase2) {
 		//switch (rand3(engine)) {
-		switch (2) {
+		switch (3) {
 		case 1:
 			if (rand2(engine) == 1) {
 				_time = 270;
@@ -488,4 +492,5 @@ void Boss::Thunder() {
 
 void Boss::Dead() {
 	_mode.GetActorServer().Add(std::make_unique<FX_BossDead>(_game, _mode, _pos, _game.GetFrameCount()));
+	_stop = true;
 }

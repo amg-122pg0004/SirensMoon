@@ -85,4 +85,5 @@ private:
 	BossGimmickController& _controller;
 
 	int _alpha;
+	bool _stop;
 };

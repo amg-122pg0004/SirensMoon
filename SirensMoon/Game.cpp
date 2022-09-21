@@ -1,7 +1,7 @@
 /*****************************************************************//**
  * \file   Game.cpp
  * \brief  プロセスを管理します。
- * 
+ *
  * \author 土居将太郎
  * \date   June 2022
  *********************************************************************/
@@ -14,20 +14,20 @@
 #include "ModeMovie.h"
 #include "ModeStartUp2.h"
 
-Game::Game() :_frameCount{0},_progress{Progress::StartMenu}
+Game::Game() :_frameCount{ 0 }, _progress{ Progress::StartMenu }
 {
 	_modeServer = std::make_unique<ModeServer>(*this);
 	_inputManager = std::make_unique<InputManager>();
 
-	//PlayStartUp1();
+	PlayStartUp1();
 	//PlayStartMenu();
-	PlayStage1();
+	//PlayStage3();
 
 }
 
 void Game::Input() {
 	_inputManager->InputUpdate();
-	if (_inputManager->CheckInput("CHANGE", 'r', 0)|| _inputManager->CheckInput("CHANGE", 'r', 1)) {
+	if (_inputManager->CheckInput("CHANGE", 'r', 0) || _inputManager->CheckInput("CHANGE", 'r', 1)) {
 		_inputManager->ChangeControllerNo();
 	}
 	if (_inputManager->CheckInput("DEBUG", 'r', 0) || _inputManager->CheckInput("DEBUG", 'r', 1)) {
@@ -37,25 +37,31 @@ void Game::Input() {
 void Game::Update() {
 	++_frameCount;
 	_modeServer->Update();
+
+	if (_inputManager->CheckInput("DEBUG", 'h', 0) && _inputManager->CheckInput("PAUSE", 't', 0) ||
+		_inputManager->CheckInput("DEBUG", 'h', 1) && _inputManager->CheckInput("PAUSE", 't', 1)) 
+	{
+		PlayStartMenu();
+	}
 }
 
 void Game::Render() {
 	SetDrawScreen(DX_SCREEN_BACK);
-	ClearDrawScreen();
-	_modeServer ->Render();
+		ClearDrawScreen();
+		_modeServer->Render();
 }
 
-void Game::Debug(){
+void Game::Debug() {
 	if (_debug) {
 
 		_modeServer->Debug();
-		DrawFormatString(0, 0, GetColor(255, 255, 255), "%f", GetFPS()); 
+		DrawFormatString(0, 0, GetColor(255, 255, 255), "%f", GetFPS());
 		DrawFormatString(0, 12, GetColor(255, 255, 255), "%d", GetASyncLoadNum());
 	}
 }
 
 void Game::RestartMode() {
-	SetDrawArea(0,0,screen_W,screen_H);
+	SetDrawArea(0, 0, screen_W, screen_H);
 	switch (_progress)
 	{
 	case Game::Progress::StartMenu:
@@ -76,7 +82,7 @@ void Game::RestartMode() {
 	}
 }
 
-void Game::NextMode(){
+void Game::NextMode() {
 	SetDrawArea(0, 0, screen_W, screen_H);
 	switch (_progress)
 	{
@@ -120,7 +126,7 @@ void Game::PlayStartUp1() {
 	SoundServer::StopALLSound();
 	_progress = Progress::StartUp1;
 	StopSoundFile();
-	_modeServer->Add(std::move(std::make_unique<ModeMovie>(*this, "resource/Movie/startup1.mp4", 0,false)));
+	_modeServer->Add(std::move(std::make_unique<ModeMovie>(*this, "resource/Movie/startup1.mp4", 0, false)));
 }
 
 void Game::PlayStartUp2() {
@@ -148,10 +154,10 @@ void Game::PlayStartMenu() {
 	_progress = Progress::StartMenu;
 	StopSoundFile();
 	_modeServer->Clear();
-	_modeServer->Add(std::move(std::make_unique<ModeStart>(*this,0)));
+	_modeServer->Add(std::move(std::make_unique<ModeStart>(*this, 0)));
 }
 
-void Game::PlayStartMenuSkipMovie(){
+void Game::PlayStartMenuSkipMovie() {
 	SoundServer::StopALLSound();
 	_progress = Progress::StartMenu;
 	StopSoundFile();
@@ -202,7 +208,7 @@ void Game::PlayStage1Clear() {
 	StopSoundFile();
 	_modeServer->Clear();
 	_progress = Progress::Stage1Clear;
-	_modeServer->Add(std::move(std::make_unique<ModeMovie>(*this, "resource/Movie/stage1end.mp4", 137000,true)));
+	_modeServer->Add(std::move(std::make_unique<ModeMovie>(*this, "resource/Movie/stage1end.mp4", 137000, true)));
 }
 
 void Game::PlayStage2Clear() {
@@ -210,8 +216,8 @@ void Game::PlayStage2Clear() {
 	StopSoundFile();
 	_modeServer->Clear();
 	_progress = Progress::Stage2Clear;
-	auto movie=std::make_unique<ModeMovie>(*this, "resource/Movie/stage2end.mp4", 86500, true);
-	movie->SetBGM("resource/BGM/title.wav",91000);
+	auto movie = std::make_unique<ModeMovie>(*this, "resource/Movie/stage2end.mp4", 86500, true);
+	movie->SetBGM("resource/BGM/title.wav", 91000);
 	_modeServer->Add(std::move(movie));
 	LoadResources::LoadBossCGs();
 }
@@ -224,7 +230,7 @@ void Game::PlayStage3Clear() {
 	_modeServer->Add(std::move(std::make_unique<ModeMovie>(*this, "resource/Movie/stage3end.mp4", 0, true)));
 }
 
-void Game::GameOver(){
+void Game::GameOver() {
 	SoundServer::StopALLSound();
 	StopSoundFile();
 	_modeServer->Clear();
@@ -233,7 +239,7 @@ void Game::GameOver(){
 	_modeServer->Add(std::move(mode));
 }
 
-void Game::PlayCredit(){
+void Game::PlayCredit() {
 	SoundServer::StopALLSound();
 	StopSoundFile();
 	_modeServer->Clear();

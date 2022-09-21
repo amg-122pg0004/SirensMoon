@@ -14,6 +14,7 @@ FinishCut::FinishCut(Game& game, ModeBase& mode, Vector2 pos, Vector2 size)
 	}
 	_easing = Easing::GetMode("InCubic");
 	_startTime = _game.GetFrameCount();
+	_UIPriority = 10;
 }
 
 void FinishCut::Update() {

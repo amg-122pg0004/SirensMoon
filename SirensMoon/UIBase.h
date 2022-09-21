@@ -37,7 +37,9 @@ public:
 		BigServerUI,
 		AimUI,
 		FinishCut,
-		SkipUI
+		SkipUI,
+		RideInfo,
+		ScreenEffect
 	};
 	virtual Type GetType() = 0;
 	int GetUIPriority(){return _UIPriority;}

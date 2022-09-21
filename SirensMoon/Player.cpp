@@ -21,7 +21,7 @@
 
 Player::Player(Game& game, ModeGame& mode, int playernum)
 	:Actor{ game,mode }, _speed{ 0,0 }, _playerNum{ playernum }
-	, _dir{ 0,0 }, _inputAngle{ 0 }, _hp{ 3 }, _hpMAX{ 3 }, _movable{ true }
+	, _dir{ 0,0 }, _inputAngle{ 0 }, _hp{ 33 }, _hpMAX{ 3 }, _movable{ true }
 	, _state{ PlayerState::Wait }, _direction{ PlayerDirection::Right }, _animNo{ 0 }, _invincibleTime{ 0 }
 	, _stageMovable{ true }, _teleportDelay{ -1 }, _teleportPosition{ 0,0 }, _slow{ false }
 {

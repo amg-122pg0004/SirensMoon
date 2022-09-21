@@ -13,7 +13,7 @@
 
 ModeMovie::ModeMovie(Game& game, std::string path, int skipFrame, bool splitFlag)
 	:ModeBase{ game }, _sizeX{ 0 }, _sizeY{ 0 }, _movieSkipFrame{ skipFrame }
-	, _bgm{}, _bgmPlayFrame{ -1 }, _splitFlag{ splitFlag }, _loadingNumber{ 0 }
+	, _bgm{}, _bgmPlayFrame{ -1 }, _splitFlag{ splitFlag }, _loadingNumber{ 0 }, _path{path}
 {
 	_renderPriority = 10;
 	_movieHandle = ImageServer::LoadGraph(path);
@@ -28,6 +28,9 @@ ModeMovie::ModeMovie(Game& game, std::string path, int skipFrame, bool splitFlag
 	_ui.emplace_back(std::make_unique<SkipUI>(_game, *this, pos, size));
 	LoadResources::LoadSE();
 	LoadResources::LoadEffects();
+}
+ModeMovie::~ModeMovie() {
+	ImageServer::Erase(_path);
 }
 
 void ModeMovie::Update() {
