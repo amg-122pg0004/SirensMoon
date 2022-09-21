@@ -61,8 +61,6 @@ void StickyBomb::Update() {
 			_dead = true;
 		}
 
-
-
 		auto col_pos=_player->GetCollision();
 		_pos = (col_pos.min + col_pos.max) / 2;
 		_accessArea.min={_pos.x-_size.x*1.2,_pos.y - _size.y * 1.2 };
@@ -77,9 +75,9 @@ void StickyBomb::Update() {
 							StopSoundMem(SoundServer::Find("MicroBomAlarm"));
 							PlaySoundMem(SoundServer::Find("MicroBomRelease"), DX_PLAYTYPE_BACK);
 							dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
-								->ChangeMessage("d—v‰F’ˆl“Á’è‚µA•ßŠl‚¹‚æ", 2);
+								->ReleaseWarning();
 							dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
-								->ChangeMessage("d—v‰F’ˆl“Á’è‚µA•ßŠl‚¹‚æ", 2);
+								->ReleaseWarning();
 							_dead = true;
 						}
 					}
@@ -98,9 +96,9 @@ void StickyBomb::Update() {
 							StopSoundMem(SoundServer::Find("MicroBomAlarm"));
 							PlaySoundMem(SoundServer::Find("MicroBomRelease"), DX_PLAYTYPE_LOOP);
 							dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
-								->ChangeMessage("d—v‰F’ˆl“Á’è‚µA•ßŠl‚¹‚æ", 2);
+								->ReleaseWarning();
 							dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
-								->ChangeMessage("d—v‰F’ˆl“Á’è‚µA•ßŠl‚¹‚æ", 2);
+								->ReleaseWarning();
 							_dead = true;
 						}
 					}

@@ -178,7 +178,6 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 		_actorServer.Add(std::move(bosscon));
 	}
 
-
 	LoadResources::LoadSE();
 	LoadResources::LoadEffects();
 	LoadResources::LoadMovie("resource/Movie/gameover.mp4");

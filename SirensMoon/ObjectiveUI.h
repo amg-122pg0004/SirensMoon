@@ -10,11 +10,14 @@ public:
 	void Render()override;
 	void ChangeMessage(std::string next,int cg);
 	void ChangeWarning(int no);
+	void ReleaseWarning();
 
 protected:
 	int _cgOrange, _cgGreen,_cgRed1,_cgRed2;
+	std::string _preMessage;
 	std::string _message;
 	std::string _nextMessage;
+	int _preCG;
 	int _nextCG;
 	Vector2 _startPos;
 	int _font;

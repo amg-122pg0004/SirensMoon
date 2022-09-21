@@ -20,6 +20,7 @@ private:
 	int _cg_mark;
 	int _cg_gun;
 	int _cg_line;
+	int _cg_empty;
 
 	/*チャージバー用ハンドル[0]~[2]*/
 	std::vector<int> _cg_charge;

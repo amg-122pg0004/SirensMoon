@@ -5,7 +5,7 @@ class SplitWindow;
 ObjectiveUI::ObjectiveUI(Game& game,ModeBase& mode, SplitWindow& window, Vector2 pos,Vector2 size)
 	:UIBase(game, mode, window, pos, size),
 	_message{ "ミニマップ上に黄色い点で\n示されたサーバーへ向かう" },
-	_nextMessage{ "NULL" }, _startPos{ pos }
+	_nextMessage{ "NULL" }, _startPos{ pos }, _preMessage{}
 {
 	_font = LoadFontDataToHandle("resource/Font/ロンドBスクエア.dft", 1);
 	_cgOrange = ImageServer::LoadGraph("resource/UI/Objective/orange.png");
@@ -45,6 +45,8 @@ void ObjectiveUI::ChangeMessage(std::string next, int nextCGColor) {
 }
 
 void ObjectiveUI::ChangeWarning(int no) {
+	_preMessage = _message;
+	_preCG = _cg;
 	_nextMessage = " ";
 	if (no == 0) {
 		_nextCG = _cgRed1;
@@ -52,6 +54,11 @@ void ObjectiveUI::ChangeWarning(int no) {
 	else {
 		_nextCG = _cgRed2;
 	}
+}
+
+void ObjectiveUI::ReleaseWarning() {
+	_nextMessage = _preMessage;
+	_nextCG = _preCG;
 }
 
 /*1プレイヤー用UI*/
@@ -99,3 +106,4 @@ void ObjectiveUI2::Update() {
 		_pos.y -= 5;
 	}
 }
+

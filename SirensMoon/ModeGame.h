@@ -37,7 +37,8 @@ public:
 	void TargetSpawnEvent();
 	void TargetKillEvent();
 	void PlayBGM();
-	
+	void Play();
+
 private:
 	bool _stopActorUpdate;
 
