@@ -10,6 +10,7 @@ public:
 	Type GetType()override { return Type::BossMissile; }
 	bool CheckOverlapActor(Actor& actor);
 	bool CheckCheckCrossBullet(Actor& actor);
+	double GetAngle() { return _angle; }
 
 private:
 	class HitBox {

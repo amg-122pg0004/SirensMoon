@@ -165,6 +165,7 @@
     <ClCompile Include="DegitalLetter.cpp" />
     <ClCompile Include="DisplayArea.cpp" />
     <ClCompile Include="FinishCut.cpp" />
+    <ClCompile Include="FX_AfterBurner.cpp" />
     <ClCompile Include="FX_BossDead.cpp" />
     <ClCompile Include="FX_BossFire.cpp" />
     <ClCompile Include="FX_BulletHit.cpp" />
@@ -252,6 +253,7 @@
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FX_AfterBurner.h" />
     <ClInclude Include="AimUI.h" />
     <ClInclude Include="Barrier.h" />
     <ClInclude Include="BigGenerator.h" />

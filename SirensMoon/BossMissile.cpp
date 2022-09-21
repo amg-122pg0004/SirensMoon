@@ -3,6 +3,7 @@
 #include "Explode.h"
 #include "Bullet.h"
 #include "BulletItem.h"
+#include "FX_AfterBurner.h"
 
 BossMissile::BossMissile(Game& game, ModeGame& mode, Vector2 pos) 
 	:Actor(game,mode),_angle{Math::ToRadians(90)}, _player2{nullptr}, _speed{1.5}
@@ -20,6 +21,11 @@ BossMissile::BossMissile(Game& game, ModeGame& mode, Vector2 pos)
 	}
 
 	_cg = ImageServer::LoadGraph("resource/Boss/missile.png");
+
+	Vector2 fix = { cos(_angle),sin(_angle) };
+	fix *= -130;
+	auto afterBurner = std::make_unique<FX_AfterBurner>(_game, _mode, _pos + fix, _game.GetFrameCount(),*this);
+	_mode.GetActorServer().Add(std::move(afterBurner));
 }
 
 void BossMissile::Update() {
@@ -30,6 +36,14 @@ void BossMissile::Update() {
 	if (_room.x != CheckRoomPosition().x|| _room.y != CheckRoomPosition().y) {
 		_dead = true;
 	}
+	/*
+	if (_game.GetFrameCount() % 10 == 0) {
+		Vector2 fix={cos(_angle),sin(_angle)};
+		fix *= -130;
+		auto afterBurner = std::make_unique<FX_AfterBurner>(_game, _mode, _pos+fix,_game.GetFrameCount());
+		_mode.GetActorServer().Add(std::move(afterBurner));
+	}
+	*/
 }
 
 void BossMissile::Move() {

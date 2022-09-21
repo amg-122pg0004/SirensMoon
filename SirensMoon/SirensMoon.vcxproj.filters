@@ -321,6 +321,9 @@
     <Filter Include="UI\ScreenEffect\Screen_Fade">
       <UniqueIdentifier>{ac3d8c35-7d1b-48c6-a302-599232f27719}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Effect\FX_AfterBurner">
+      <UniqueIdentifier>{61067e22-d2a0-4b22-8e27-759538e41c48}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -637,6 +640,9 @@
     </ClCompile>
     <ClCompile Include="Screen_Fade.cpp">
       <Filter>UI\ScreenEffect\Screen_Fade</Filter>
+    </ClCompile>
+    <ClCompile Include="FX_AfterBurner.cpp">
+      <Filter>Actor\Effect\FX_AfterBurner</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -957,6 +963,9 @@
     </ClInclude>
     <ClInclude Include="Screen_Fade.h">
       <Filter>UI\ScreenEffect\Screen_Fade</Filter>
+    </ClInclude>
+    <ClInclude Include="FX_AfterBurner.h">
+      <Filter>Actor\Effect\FX_AfterBurner</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
