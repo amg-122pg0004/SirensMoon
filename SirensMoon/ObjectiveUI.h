@@ -1,10 +1,10 @@
 #pragma once
 #include "UIBase.h"
-
+class SplitWindow;
 class ObjectiveUI :public UIBase {
 
 public:
-	ObjectiveUI(Game&,ModeBase&,Vector2,Vector2);
+	ObjectiveUI(Game&,ModeBase&, SplitWindow& window, Vector2,Vector2);
 	Type GetType() { return Type::ObjectiveUI; }
 	virtual void Update()override;
 	void Render()override;
@@ -23,7 +23,7 @@ protected:
 class ObjectiveUI1 :public ObjectiveUI {
 
 public:
-	ObjectiveUI1(Game&, ModeBase&, Vector2, Vector2);
+	ObjectiveUI1(Game&, ModeBase&, SplitWindow& window, Vector2, Vector2);
 	Type GetType() { return Type::ObjectiveUI; }
 	virtual void Update()override;
 private:
@@ -33,7 +33,7 @@ private:
 class ObjectiveUI2 :public ObjectiveUI {
 
 public:
-	ObjectiveUI2(Game&, ModeBase&, Vector2, Vector2);
+	ObjectiveUI2(Game&, ModeBase&, SplitWindow& window, Vector2, Vector2);
 	Type GetType() { return Type::ObjectiveUI; }
 	void Update()override;
 private:

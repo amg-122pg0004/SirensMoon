@@ -4,8 +4,10 @@
 #include "Boss.h"
 #include "Screen_Fade.h"
 
-AimUI::AimUI(Game& game, ModeBase& mode,Vector2 pos,Vector2 size)
-	:UIBase(game,mode,pos,size),_speed{2}, _gameClearTimer{120}, _gameClear{false}
+class SplitWindow;
+
+AimUI::AimUI(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos,Vector2 size)
+	:UIBase(game,mode, window, pos,size),_speed{2}, _gameClearTimer{120}, _gameClear{false}
 {
 	_inputManager = _game.GetInputManager();
 	_cg = ImageServer::LoadGraph("resource/UI/AimUI/frame.png");
@@ -54,9 +56,9 @@ void AimUI::Update() {
 				}
 			}
 			for (auto&& window : static_cast<ModeGame&>(_mode).GetSplitWindow()) {
-				for (auto&& ui : window->GetUIServer()) {
+				for (auto&& ui : window->GetUIServer2().GetObjects()) {
 					if (ui->GetType() == Type::ScreenEffect) {
-						static_cast<Screen_Fade&>(*ui).SetEffect(0,120,GetColor(255,255,255));
+						//static_cast<Screen_Fade&>(*ui).SetEffect(0,120,GetColor(255,255,255));
 					}
 				}
 			}

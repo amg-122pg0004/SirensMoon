@@ -2,8 +2,10 @@
 #include "ModeBase.h"
 #include "PlayerA.h"
 
-BulletTypeUI::BulletTypeUI(Game& game, ModeBase& base, Vector2 pos, Vector2 size)
-	:UIBase(game,base,pos,size),_bulletType{false}
+class SplitWindow;
+
+BulletTypeUI::BulletTypeUI(Game& game, ModeBase& base, SplitWindow& window, Vector2 pos, Vector2 size)
+	:UIBase(game,base, window, pos,size),_bulletType{false}
 {
 	_visible = true;
 	_cg_red = ImageServer::LoadGraph("resource/UI/BulletType/red.png");

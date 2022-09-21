@@ -2,8 +2,10 @@
 #include "ModeBase.h"
 #include "Player.h"
 
-HPUI::HPUI(Game& game, ModeBase& mode, Vector2 pos, Vector2 size, int windowno)
-	:UIBase(game,mode,pos,size),_playerNo{windowno}
+class SplitWindow;
+
+HPUI::HPUI(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size, int windowno)
+	:UIBase(game,mode, window, pos,size),_playerNo{windowno}
 {
 	_visible = true;
 	_pos = pos;

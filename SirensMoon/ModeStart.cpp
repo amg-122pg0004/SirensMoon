@@ -23,7 +23,7 @@ ModeStart::ModeStart(Game& game,int seekmovie) :ModeBase(game), _select{ 0 }, _a
 	SeekMovieToGraph(_movieHandle, seekmovie);
 	PlayMovieToGraph(_movieHandle);
 	Vector2 pos{ 800,0 }, size{ 163,163 };
-	_ui.emplace_back(std::make_unique<SkipUI>(_game, *this, pos, size));
+	_ui.emplace_back(std::make_unique<SkipUI>(_game, *this,*_splitWindow, pos, size));
 	VisibleSkipUI();
 }
 

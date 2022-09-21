@@ -177,9 +177,6 @@
     <Filter Include="Actor\Gimmick\StickeyBomb">
       <UniqueIdentifier>{c6d69787-46c6-4959-be14-7d79ae2ee842}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UI\StickyUI">
-      <UniqueIdentifier>{decde859-b06f-4849-bc2e-e1e7451ef392}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Actor\Effect">
       <UniqueIdentifier>{d775fd27-0b80-4950-afc5-eaca01ee048c}</UniqueIdentifier>
     </Filter>
@@ -323,6 +320,12 @@
     </Filter>
     <Filter Include="Actor\Effect\FX_AfterBurner">
       <UniqueIdentifier>{61067e22-d2a0-4b22-8e27-759538e41c48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Briefing">
+      <UniqueIdentifier>{0114c99f-061a-40fd-a752-2458fe22a718}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UIServer">
+      <UniqueIdentifier>{ee6bb4f8-deaa-42af-9c3e-e8aff4d2d670}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -500,9 +503,6 @@
     <ClCompile Include="StickeyBomb.cpp">
       <Filter>Actor\Gimmick\StickeyBomb</Filter>
     </ClCompile>
-    <ClCompile Include="StickyUI.cpp">
-      <Filter>UI\StickyUI</Filter>
-    </ClCompile>
     <ClCompile Include="Effect.cpp">
       <Filter>Actor\Effect</Filter>
     </ClCompile>
@@ -643,6 +643,12 @@
     </ClCompile>
     <ClCompile Include="FX_AfterBurner.cpp">
       <Filter>Actor\Effect\FX_AfterBurner</Filter>
+    </ClCompile>
+    <ClCompile Include="Briefing.cpp">
+      <Filter>UI\Briefing</Filter>
+    </ClCompile>
+    <ClCompile Include="UIServer.cpp">
+      <Filter>UIServer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -820,9 +826,6 @@
     <ClInclude Include="StickeyBomb.h">
       <Filter>Actor\Gimmick\StickeyBomb</Filter>
     </ClInclude>
-    <ClInclude Include="StickyUI.h">
-      <Filter>UI\StickyUI</Filter>
-    </ClInclude>
     <ClInclude Include="Effect.h">
       <Filter>Actor\Effect</Filter>
     </ClInclude>
@@ -966,6 +969,12 @@
     </ClInclude>
     <ClInclude Include="FX_AfterBurner.h">
       <Filter>Actor\Effect\FX_AfterBurner</Filter>
+    </ClInclude>
+    <ClInclude Include="Briefing.h">
+      <Filter>UI\Briefing</Filter>
+    </ClInclude>
+    <ClInclude Include="UIServer.h">
+      <Filter>UIServer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -13,8 +13,10 @@
 #include "Boss.h"
 #include "Gimmick.h"
 
-MiniMap::MiniMap(Game& game, ModeBase& mode, Vector2 pos, Vector2 size)
-	:UIBase{ game,mode,pos,size },_boss{false}
+class SplitWindow;
+
+MiniMap::MiniMap(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size)
+	:UIBase{ game,mode,window,pos,size },_boss{false}
 {
 	_cg_map = ImageServer::LoadGraph("resource/UI/map_frame.png");
 	_cg_grid = ImageServer::LoadGraph("resource/UI/Minimap/grid.png");

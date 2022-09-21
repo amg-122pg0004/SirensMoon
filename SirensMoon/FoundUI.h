@@ -3,10 +3,11 @@
 
 class Game;
 class ModeBase;
+class SplitWindow;
 
 class FoundUI :public UIBase {
 public:
-	FoundUI(Game&, ModeBase&, Vector2 pos, Vector2 size, int playerno);
+	FoundUI(Game&, ModeBase&, SplitWindow& window, Vector2 pos, Vector2 size, int playerno);
 	Type GetType() override { return Type::FoundUI; }
 	void Update()override;
 	void Render()override;

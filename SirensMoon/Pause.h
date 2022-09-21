@@ -14,10 +14,10 @@
 class Game;
 class ModeBase;
 class InputManager;
-
+class SplitWindow;
 class Pause :public UIBase{
 	public:
-		Pause(Game& game, ModeBase& mode, Vector2 pos, Vector2 size);
+		Pause(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size);
 		Type GetType() { return Type::Pause; }
 		void Update() override;
 		void Render() override ;

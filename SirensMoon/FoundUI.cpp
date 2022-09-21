@@ -1,9 +1,9 @@
 #include "FoundUI.h"
 #include "ModeGame.h"
 #include "Enemy.h"
-
-FoundUI::FoundUI(Game& game, ModeBase& mode, Vector2 pos, Vector2 size, int playerno)
-	:UIBase(game, mode, pos, size), _playerno{ playerno }, _animNo{ 0 }
+class SplitWindow;
+FoundUI::FoundUI(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size, int playerno)
+	:UIBase(game, mode, window, pos, size), _playerno{ playerno }, _animNo{ 0 }
 {
 	_cg.resize(4);
 	ImageServer::LoadDivGraph("resource/UI/found.png", 4, 2, 2, 90, 60, _cg.data());

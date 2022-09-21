@@ -10,9 +10,12 @@
 
 class Game;
 class ModeBase;
+class SplitWindow;
 
-UIBase::UIBase(Game& game, ModeBase& mode, Vector2 pos, Vector2 size)
-	:_game{ game }, _mode{ mode }, _pos{ pos }, _size{ size }, _cg{ -1 }, _visible{false}, _UIPriority{0}
+UIBase::UIBase(Game& game, ModeBase& mode,SplitWindow& window, Vector2 pos, Vector2 size)
+	:_game{ game }, _mode{ mode }, _pos{ pos }, _size{ size }
+	,_window{window}
+	, _cg{ -1 }, _visible{false}, _UIPriority{0},_dead{false}
 {
 }
 
@@ -25,6 +28,10 @@ void UIBase::Update() {
 }
 
 void UIBase::Render(){
+
+}
+
+void UIBase::Debug() {
 
 }
 void UIBase::DamageEvent() {

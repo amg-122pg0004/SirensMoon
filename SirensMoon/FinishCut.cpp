@@ -1,9 +1,9 @@
 #include "FinishCut.h"
 #include "Game.h"
 #include "ModeGame.h"
-
-FinishCut::FinishCut(Game& game, ModeBase& mode, Vector2 pos, Vector2 size)
-	:UIBase(game, mode, pos, size), _lifetime{ 240 }, _startTime{ 0 },_elapsed{0},_visible2{0}
+class SplitWindow;
+FinishCut::FinishCut(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size)
+	:UIBase(game, mode, window, pos, size), _lifetime{ 240 }, _startTime{ 0 },_elapsed{0},_visible2{0}
 {
 	_cg = ImageServer::LoadGraph("resource/Damage/Special/special.png");
 	_cg_screen= ImageServer::LoadGraph("resource/UI/screen.png");

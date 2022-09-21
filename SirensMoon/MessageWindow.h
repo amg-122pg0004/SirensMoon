@@ -1,9 +1,11 @@
 #pragma once
 #include "UIBase.h"
 
+class SplitWindow;
+
 class MessageWindow :public UIBase {
 public:
-	MessageWindow(Game&, ModeBase&, Vector2 pos, Vector2 size,int playerno);
+	MessageWindow(Game&, ModeBase&, SplitWindow& window, Vector2 pos, Vector2 size,int playerno);
 	Type GetType()override { return Type::MessageWindow; }
 
 	void Update()override;

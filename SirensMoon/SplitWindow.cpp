@@ -26,9 +26,12 @@
 #include "WantedInfo.h"
 #include "RideInfo.h"
 #include "Screen_Fade.h"
+#include "Briefing.h"
 
 SplitWindow::SplitWindow(Game& game, ModeGame& mode, int pos_x, int pos_y, int window_no) :
-	_game{ game }, _mode{ mode }, _windowPos{ pos_x ,pos_y }, _windowNo{ window_no }, _renderStage{ 1 }, _lightup{ 255 }
+	_game{ game }, _mode{ mode }, _windowPos{ pos_x ,pos_y },
+	_windowNo{ window_no }, _renderStage{ 1 }, _lightup{ 255 }
+	,_uiServer{_mode}
 {
 	_camera = std::make_unique<Camera>(_game, _mode, *this);
 	_windowSize_H = screen_H;
@@ -40,82 +43,82 @@ SplitWindow::SplitWindow(Game& game, ModeGame& mode, int pos_x, int pos_y, int w
 	if (_windowNo == 0) {
 		Vector2 map_pos = { _windowPos.x + 90,_windowPos.y - 5 };
 		Vector2 map_size = { 480,180 };
-		_ui.emplace_back(std::make_unique<AmmoUI>(_game, _mode, map_pos, map_size));
+		_uiServer.Add(std::make_unique<AmmoUI>(_game, _mode,*this, map_pos, map_size));
 
 		Vector2 bullettype_pos = { _windowPos.x + 5,_windowPos.y + 5 };
 		Vector2 bullettype_size = { 90,180 };
-		_ui.emplace_back(std::make_unique<BulletTypeUI>(_game, _mode, bullettype_pos, bullettype_size));
+		_uiServer.Add(std::make_unique<BulletTypeUI>(_game, _mode, *this, bullettype_pos, bullettype_size));
 
 		Vector2 rideInfo_size = { 120,90 };
 		Vector2 rideInfo_pos = { _windowPos.x +splitscreen_W/2,_windowPos.y + screen_H/2 };
-		_ui.emplace_back(std::make_unique<RideInfo>(_game, _mode, rideInfo_pos, rideInfo_size));
+		_uiServer.Add(std::make_unique<RideInfo>(_game, _mode, *this, rideInfo_pos, rideInfo_size));
 	}
 
 	Vector2 found_pos = { 0,0 };
 	Vector2 found_size = { 90,60 };
-	_ui.emplace_back(std::make_unique<FoundUI>(_game, _mode, found_pos, found_size, _windowNo));
+	_uiServer.Add(std::make_unique<FoundUI>(_game, _mode, *this, found_pos, found_size, _windowNo));
 
 	Vector2 button_pos = { 0,0 };
 	Vector2 button_size = { 60,60 };
-	_ui.emplace_back(std::make_unique<ButtonIcon>(_game, _mode, button_pos, button_size, _windowNo));
+	_uiServer.Add(std::make_unique<ButtonIcon>(_game, _mode, *this, button_pos, button_size, _windowNo));
 
 	Vector2 hp_pos = { _windowPos.x ,screen_H - 270 };
 	Vector2 hp_size = { 90,270 };
-	_ui.emplace_back(std::make_unique<HPUI>(_game, _mode, hp_pos, hp_size, _windowNo));
+	_uiServer.Add(std::make_unique<HPUI>(_game, _mode, *this, hp_pos, hp_size, _windowNo));
 
 	Vector2 pauseinfo_pos = { _windowPos.x+splitscreen_W-290 ,20 };
 	Vector2 pauseinfo_pos_size = { 267,51 };
 	if (_windowNo == 0) {
-		_ui.emplace_back(std::make_unique<PauseInfoA>(_game, _mode, pauseinfo_pos, pauseinfo_pos_size));
+		_uiServer.Add(std::make_unique<PauseInfoA>(_game, _mode, *this, pauseinfo_pos, pauseinfo_pos_size));
 	}
 	else {
-		_ui.emplace_back(std::make_unique<PauseInfoB>(_game, _mode, pauseinfo_pos, pauseinfo_pos_size));
+		_uiServer.Add(std::make_unique<PauseInfoB>(_game, _mode, *this, pauseinfo_pos, pauseinfo_pos_size));
 	}
 
 	Vector2 obj_size = { 360 + 30,90 };
 	Vector2 obj_pos = { _windowPos.x + splitscreen_W * 0.6, screen_H * 0.9 };
-	auto obj_ui=std::make_unique<ObjectiveUI2>(_game, _mode, obj_pos, obj_size);
+	auto obj_ui=std::make_unique<ObjectiveUI2>(_game, _mode, *this, obj_pos, obj_size);
 	_objectiveUI = obj_ui.get();
-	_ui.emplace_back(std::move(obj_ui));
+	_uiServer.Add(std::move(obj_ui));
 
 	if (_windowNo == 1) {
 		Vector2 map_pos = { _windowPos.x + splitscreen_W / 2 - 780 / 2, _windowPos.y };
 		Vector2 map_size = { 780,600 };
-		_ui.emplace_back(std::make_unique<MiniMap>(_game, _mode, map_pos, map_size));
+		_uiServer.Add(std::make_unique<MiniMap>(_game, _mode, *this, map_pos, map_size));
 	}
 
 
 	Vector2 message_size = { 870,180 };
 	Vector2 message_pos = { _windowPos.x+(splitscreen_W-message_size.x)/2 ,_windowPos.y + screen_H - message_size.y };
-	_ui.emplace_back(std::make_unique<MessageWindow>(_game, _mode, message_pos, message_size,window_no));
+	_uiServer.Add(std::make_unique<MessageWindow>(_game, _mode, *this, message_pos, message_size,window_no));
 
 
 	double damage_scale = 840.0 / 320.0;
 	Vector2 damage_pos = { _windowPos.x,(screen_H - 840) / 2 };
 	Vector2 damage_size = { 640 * damage_scale,840 };
-	_ui.emplace_back(std::make_unique<DamageCut>(_game, _mode, damage_pos, damage_size));
+	_uiServer.Add(std::make_unique<DamageCut>(_game, _mode, *this, damage_pos, damage_size));
 
 	
 	Vector2 special_pos = { _windowPos.x,(screen_H - 840) / 2 };
 	Vector2 special_size = { 640,840 };
-	_ui.emplace_back(std::make_unique<FinishCut>(_game, _mode, special_pos, special_size));
+	_uiServer.Add(std::make_unique<FinishCut>(_game, _mode, *this, special_pos, special_size));
 
 	if (_windowNo == 1) {
 		Vector2 server_size = { 780,420 };
 		Vector2 server_pos = { _windowPos.x + (splitscreen_W - server_size.x) / 2,screen_H - server_size.y };
-		_ui.emplace_back(std::make_unique<ServerMachineUI>(_game, _mode, server_pos, server_size));
+		_uiServer.Add(std::make_unique<ServerMachineUI>(_game, _mode, *this, server_pos, server_size));
 	}
 	Vector2 wantedinfo_pos = { _windowPos.x, screen_H/2 };
 	Vector2 wantedinfo_size = { 930,210 };
-	_ui.emplace_back(std::make_unique<WantedInfo>(_game, _mode, wantedinfo_pos, wantedinfo_size));
+	_uiServer.Add(std::make_unique<WantedInfo>(_game, _mode, *this, wantedinfo_pos, wantedinfo_size));
 
 	Vector2 pause_pos = { _windowPos.x + splitscreen_W / 2, _windowPos.y };
 	Vector2 pause_size = { 360,90 };
-	_ui.emplace_back(std::make_unique<Pause>(_game, _mode, pause_pos, pause_size));
+	_uiServer.Add(std::make_unique<Pause>(_game, _mode, *this, pause_pos, pause_size));
 
-	Vector2 fade_pos = { _windowPos.x, _windowPos.y };
-	Vector2 fade_size = { splitscreen_W,screen_H };
-	_ui.emplace_back(std::make_unique<Screen_Fade>(_game, _mode, fade_pos, fade_size));
+	Vector2 briefing_pos = { _windowPos.x, _windowPos.y };
+	Vector2 briefing_size = { splitscreen_W,screen_H };
+	_uiServer.Add(std::make_unique<Briefing>(_game, _mode, *this, briefing_pos, briefing_size));
 
 }
 
@@ -163,6 +166,7 @@ void SplitWindow::Update() {
 	for (auto&& u : _ui) {
 		u->Update();
 	}
+	_uiServer.Update();
 }
 
 bool CompUIPriority(const std::unique_ptr<UIBase>& a, const std::unique_ptr<UIBase>& b)
@@ -209,7 +213,7 @@ void SplitWindow::Render() {
 	for (auto&& u : _ui) {
 		u->Render();
 	}
-
+	_uiServer.Render();
 	/*描画範囲をウィンドウサイズ全体に戻す*/
 	SetDrawArea(0, 0, screen_W, screen_H);
 }
@@ -226,6 +230,7 @@ void SplitWindow::Debug() {
 	ss << "カメラx" << pos.x << "カメラy" << pos.y;
 	ss << "ライトアップ" << _lightup;
 	DrawString(50 + _windowNo * 960, 300, ss.str().c_str(), GetColor(255, 0, 255));
+	_uiServer.Debug();
 	/*描画範囲をウィンドウサイズ全体に戻す*/
 	SetDrawArea(0, 0, screen_W, screen_H);
 }
@@ -235,16 +240,25 @@ void SplitWindow::DamageEvent() {
 	for (auto&& u : _ui) {
 		u->DamageEvent();
 	}
+	for (auto&& u : _uiServer.GetObjects()) {
+		u->DamageEvent();
+	}
 }
 
 void SplitWindow::TargetSpawnEvent() {
 	for (auto&& u : _ui) {
 		u->TargetSpawnEvent();
 	}
+	for (auto&& u : _uiServer.GetObjects()) {
+		u->TargetSpawnEvent();
+	}
 }
 
 void SplitWindow::TargetKillEvent() {
 	for (auto&& u : _ui) {
+		u->TargetKillEvent();
+	}
+	for (auto&& u : _uiServer.GetObjects()) {
 		u->TargetKillEvent();
 	}
 }

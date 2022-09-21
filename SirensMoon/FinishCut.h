@@ -3,10 +3,10 @@
 #include "Easing.h"
 class Game;
 class ModeBase;
-
+class SplitWindow;
 class FinishCut :public  UIBase{
 public:
-	FinishCut(Game&, ModeBase&, Vector2 pos, Vector2 size);
+	FinishCut(Game&, ModeBase&,SplitWindow& window, Vector2 pos, Vector2 size);
 	void Update()override;
 	void Render()override;
 	Type GetType()override { return Type::FinishCut; }

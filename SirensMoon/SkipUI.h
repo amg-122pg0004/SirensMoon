@@ -5,10 +5,11 @@
 
 class Game;
 class ModeBase;
+class SplitWindow;
 
 class SkipUI :public UIBase {
 public:
-	SkipUI(Game& game, ModeBase& mode, Vector2 pos, Vector2 size);
+	SkipUI(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size);
 	Type GetType() { return Type::SkipUI; }
 	void Update() override;
 	void Render() override;

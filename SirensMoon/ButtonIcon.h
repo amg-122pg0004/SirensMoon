@@ -2,10 +2,11 @@
 #include "UIBase.h"
 
 class Actor;
+class SplitWindow;
 
 class ButtonIcon :public UIBase{
 public:
-	ButtonIcon(Game&,ModeBase&,Vector2 pos,Vector2 size,int playerno);
+	ButtonIcon(Game&,ModeBase&, SplitWindow& window, Vector2 pos,Vector2 size,int playerno);
 	Type GetType()override { return Type::ButtonIcon; }
 	void Update()override;
 	void Render()override;

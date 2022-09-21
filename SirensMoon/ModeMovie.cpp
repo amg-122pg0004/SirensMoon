@@ -25,11 +25,12 @@ ModeMovie::ModeMovie(Game& game, std::string path, int skipFrame, bool splitFlag
 
 	SetUseASyncLoadFlag(true);
 	Vector2 pos{ 800,0 }, size{ 163,163 };
-	_ui.emplace_back(std::make_unique<SkipUI>(_game, *this, pos, size));
+	_ui.emplace_back(std::make_unique<SkipUI>(_game, *this, *_splitWindow, pos, size));
 	LoadResources::LoadSE();
 	LoadResources::LoadEffects();
 }
 ModeMovie::~ModeMovie() {
+	PauseMovieToGraph(_movieHandle);
 	ImageServer::Erase(_path);
 }
 

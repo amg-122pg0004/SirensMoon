@@ -102,6 +102,6 @@ void LoadResources::LoadBossCGs() {
 	ImageServer::LoadDivGraph("resource/Gimmick/Boss/MiniShuttle.png", 100, 5, 20, 570, 1080, handle.data());
 	handle.resize(86);
 	ImageServer::LoadDivGraph("resource/Gimmick/Boss/MiniShuttle2.png", 86, 5, 18, 570, 540, handle.data());
-	handle.resize(148);
-	ImageServer::LoadDivGraph("resource/Effect/MissileShoot.png", 148, 7, 12, 220, 340, handle.data());
+	handle.resize(70);
+	ImageServer::LoadDivGraph("resource/Effect/MissileShoot.png", 70, 7, 12, 220, 340, handle.data());
 }

@@ -1,9 +1,9 @@
 #include "ObjectiveUI.h"
 #include "Game.h"
 #include <sstream>
-
-ObjectiveUI::ObjectiveUI(Game& game,ModeBase& mode,Vector2 pos,Vector2 size)
-	:UIBase(game, mode, pos, size),
+class SplitWindow;
+ObjectiveUI::ObjectiveUI(Game& game,ModeBase& mode, SplitWindow& window, Vector2 pos,Vector2 size)
+	:UIBase(game, mode, window, pos, size),
 	_message{ "ミニマップ上に黄色い点で\n示されたサーバーへ向かう" },
 	_nextMessage{ "NULL" }, _startPos{ pos }
 {
@@ -55,8 +55,8 @@ void ObjectiveUI::ChangeWarning(int no) {
 }
 
 /*1プレイヤー用UI*/
-ObjectiveUI1::ObjectiveUI1(Game& game, ModeBase& mode, Vector2 pos, Vector2 size)
-	:ObjectiveUI(game, mode, pos, size)
+ObjectiveUI1::ObjectiveUI1(Game& game, ModeBase& mode,SplitWindow& window, Vector2 pos, Vector2 size)
+	:ObjectiveUI(game, mode, window, pos, size)
 {
 }
 
@@ -78,8 +78,8 @@ void ObjectiveUI1::Update() {
 }
 
 /*2プレイヤー用UI*/
-ObjectiveUI2::ObjectiveUI2(Game& game, ModeBase& mode, Vector2 pos, Vector2 size)
-	:ObjectiveUI(game, mode, pos, size)
+ObjectiveUI2::ObjectiveUI2(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size)
+	:ObjectiveUI(game, mode, window, pos, size)
 {
 }
 

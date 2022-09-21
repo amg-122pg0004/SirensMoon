@@ -3,8 +3,10 @@
 #include "BigServer.h"
 #include "Game.h"
 
-BigServerUI::BigServerUI(Game& game , ModeBase& mode, Vector2 pos, Vector2 size, BigServer& owner)
-:UIBase(game,mode,pos,size),_owner{owner}
+class SplitWindow;
+
+BigServerUI::BigServerUI(Game& game , ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size, BigServer& owner)
+:UIBase(game,mode, window, pos,size),_owner{owner}
 {
 	_cg = ImageServer::LoadGraph("resource/UI/wanted.png");
 	_font = LoadFontDataToHandle("resource/Font/ロンドBスクエア.dft", 1);

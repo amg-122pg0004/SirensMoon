@@ -4,10 +4,11 @@
 
 class Game;
 class ModeGame;
+class SplitWindow;
 
 class HPUI :public UIBase{
 public:
-	HPUI(Game&, ModeBase&, Vector2 pos, Vector2 size,int windowno);
+	HPUI(Game&, ModeBase&, SplitWindow& window, Vector2 pos, Vector2 size,int windowno);
 	
 	Type GetType()override { return Type::HP; }
 

@@ -17,8 +17,9 @@ BigServer::BigServer(Game& game, ModeGame& mode, BigServerData data)
 	Vector2 window_pos = _mode.GetSplitWindow()[1]->GetWindowPos();
 	Vector2 ui_size{780,420};
 	Vector2 ui_pos{window_pos.x+75,screen_H-420};
-	auto UI = std::make_unique<BigServerUI>(_game,_mode,ui_pos,ui_size,*this);
-	_mode.GetSplitWindow()[1]->GetUIServer().push_back(std::move(UI));
+	std::unique_ptr<SplitWindow>& window=_mode.GetSplitWindow()[1];
+	auto UI = std::make_unique<BigServerUI>(_game,_mode, *window,ui_pos,ui_size,*this);
+	_mode.GetSplitWindow()[1]->GetUIServer2().Add(std::move(UI));
 
 	if (data.Direction == "up") {
 		_cg.first = ImageServer::LoadGraph("resource/BossServer/up_p.png");

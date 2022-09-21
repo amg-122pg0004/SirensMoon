@@ -11,8 +11,10 @@
 #include "BigGun.h"
 #include "MiniShuttle.h"
 
-ButtonIcon::ButtonIcon(Game& game, ModeBase& mode, Vector2 pos, Vector2 size, int playerno)
-	:UIBase(game, mode, pos, size), _playerno{ playerno },_owner{nullptr}
+class SplitWindow;
+
+ButtonIcon::ButtonIcon(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size, int playerno)
+	:UIBase(game, mode, window, pos, size), _playerno{ playerno },_owner{nullptr}
 {
 	_font = LoadFontDataToHandle("resource/Font/ロンドBスクエア.dft", 1);
 	_cg_A = ImageServer::LoadGraph("resource/UI/Button/A.png");

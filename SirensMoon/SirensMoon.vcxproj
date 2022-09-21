@@ -160,6 +160,7 @@
     <ClCompile Include="BossMissile.cpp" />
     <ClCompile Include="BossWeakPoint.cpp" />
     <ClCompile Include="BreakableObject.cpp" />
+    <ClCompile Include="Briefing.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="ButtonIcon.cpp" />
     <ClCompile Include="DegitalLetter.cpp" />
@@ -241,18 +242,19 @@
     <ClCompile Include="SplitWindow.cpp" />
     <ClCompile Include="SquareLight.cpp" />
     <ClCompile Include="StickeyBomb.cpp" />
-    <ClCompile Include="StickyUI.cpp" />
     <ClCompile Include="Switch.cpp" />
     <ClCompile Include="SwitchArea.cpp" />
     <ClCompile Include="Teleporter.cpp" />
     <ClCompile Include="TileSetLoad.cpp" />
     <ClCompile Include="TNT.cpp" />
     <ClCompile Include="UIBase.cpp" />
+    <ClCompile Include="UIServer.cpp" />
     <ClCompile Include="UnstableLight.cpp" />
     <ClCompile Include="WantedInfo.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Briefing.h" />
     <ClInclude Include="FX_AfterBurner.h" />
     <ClInclude Include="AimUI.h" />
     <ClInclude Include="Barrier.h" />
@@ -349,7 +351,6 @@
     <ClInclude Include="SoundServer.h" />
     <ClInclude Include="SplitWindow.h" />
     <ClInclude Include="StickeyBomb.h" />
-    <ClInclude Include="StickyUI.h" />
     <ClInclude Include="strconv\strconv.h" />
     <ClInclude Include="Switch.h" />
     <ClInclude Include="SwitchArea.h" />
@@ -357,6 +358,7 @@
     <ClInclude Include="TileSetLoad.h" />
     <ClInclude Include="TNT.h" />
     <ClInclude Include="UIBase.h" />
+    <ClInclude Include="UIServer.h" />
     <ClInclude Include="UnstableLight.h" />
     <ClInclude Include="SquareLight.h" />
     <ClInclude Include="WantedInfo.h" />

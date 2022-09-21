@@ -2,9 +2,11 @@
 #include "UIBase.h"
 #include <vector>
 
+class SplitWindow;
+
 class AmmoUI :public UIBase{
 public:
-	AmmoUI(Game&, ModeBase&, Vector2 pos, Vector2 size);
+	AmmoUI(Game&, ModeBase&, SplitWindow& window, Vector2 pos, Vector2 size);
 	void Update()override;
 	void Render()override;
 

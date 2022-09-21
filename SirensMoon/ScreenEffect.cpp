@@ -1,11 +1,11 @@
 #include "ScreenEffect.h"
 #include "Game.h"
+class SplitWindow;
 
-
-ScreenEffect::ScreenEffect(Game& game, ModeBase& mode, Vector2 pos, Vector2 size)
-	:UIBase{ game,mode,pos,size }
+ScreenEffect::ScreenEffect(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size)
+	:UIBase{ game,mode,window,pos,size }
 {
-	_visible = false;
+	_visible = true;
 	_UIPriority = 9;
 }
 
@@ -23,11 +23,7 @@ void ScreenEffect::Update() {
         Easing(elapsed);  // イージング処理
         return;
     }
-    if (_loop) {
-        _startTime = _game.GetFrameCount();
-        return;
-    }
-    _visible = false;
+    _dead = true;
 }
 
 void ScreenEffect::Render() {

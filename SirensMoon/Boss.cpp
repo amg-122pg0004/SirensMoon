@@ -63,7 +63,7 @@ Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 	int i{ 0 };
 	for (auto&& window : _mode.GetSplitWindow()) {
 		Vector2 pos{ 0,0 }, size{ 90,90 };
-		window->GetUIServer().emplace_back(std::make_unique<BossWeakPoint>(_game, _mode, pos, size, *this, i));
+		window->GetUIServer2().Add(std::make_unique<BossWeakPoint>(_game, _mode, *window, pos, size, *this, i));
 		++i;
 	}
 }

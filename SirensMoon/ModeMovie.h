@@ -7,6 +7,7 @@
  *********************************************************************/
 #pragma once
 #include "ModeBase.h"
+#include "SplitWindow.h"
 #include <string>
 
 class UIBase;
@@ -33,4 +34,5 @@ private:
 	int _bgmPlayFrame;
 	std::vector<std::unique_ptr<UIBase>> _ui;
 	int _loadingNumber;
+	std::unique_ptr<SplitWindow> _splitWindow;
 };

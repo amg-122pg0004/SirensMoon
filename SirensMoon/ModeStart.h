@@ -4,6 +4,7 @@
 #include "InputManager.h"
 #include "ImageServer.h"
 #include "SoundServer.h"
+#include "SplitWindow.h"
 
 class UIBase;
 
@@ -41,4 +42,5 @@ private:
 	/*スキップUI用*/
 	std::vector<std::unique_ptr<UIBase>> _ui;
 	int _loadingNumber;
+	std::unique_ptr<SplitWindow> _splitWindow;
 };

@@ -12,7 +12,7 @@
 #include "Darkness.h"
 #include "PlayerA.h"
 #include "PlayerB.h"
-#include "UIBase.h"
+#include "UIServer.h"
 
 class Camera;
 class Darkness;
@@ -46,7 +46,7 @@ class SplitWindow {
 		bool GetInvisiblePlayer() { return _invisiblePlayer; }
 		
 		ObjectiveUI* GetObjectiveUI() { return _objectiveUI; }
-
+		UIServer& GetUIServer2() { return _uiServer; }
 	private:
 		/*明るいかどうか*/
 		int _lightup;
@@ -60,7 +60,7 @@ class SplitWindow {
 
 		std::unique_ptr<Darkness> _darkness;
 		std::vector<std::unique_ptr<UIBase>> _ui;
-
+		UIServer _uiServer;
 		/*暗闇表現用のスクリーンハンドル*/
 		int _darknessScreen;
 		/*分割画面内に通常レンダリングするスクリーンハンドル*/

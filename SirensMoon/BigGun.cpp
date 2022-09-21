@@ -42,17 +42,17 @@ void BigGun::RidePlayer() {
 	Vector2 pos2 = { (pos.x - 1) * size.x,(pos.y - 1) * size.y };
 	pos = { pos.x * size.x,pos.y * size.y };
 
-	for (auto&& UI : _mode.GetSplitWindow()[0]->GetUIServer()) {
+	for (auto&& UI : _mode.GetSplitWindow()[0]->GetUIServer2().GetObjects()) {
 		if (UI->GetType() == UIBase::Type::Ammo ||
 			UI->GetType() == UIBase::Type::BulletType ||
 			UI->GetType() == UIBase::Type::HP) {
 			UI->SetVisibillity(false);
 		}
 	}
-
-	_mode.GetSplitWindow()[0]->GetUIServer().emplace_back(std::make_unique<AimUI>(_game, _mode, pos2, size));
-	_mode.GetSplitWindow()[0]->GetCamera()->SetPosition(pos);
-	_mode.GetSplitWindow()[0]->GetCamera()->SetMovable(false);
+	std::unique_ptr<SplitWindow>& window = _mode.GetSplitWindow()[0];
+	window->GetUIServer2().Add(std::make_unique<AimUI>(_game, _mode, *window, pos2, size));
+	window->GetCamera()->SetPosition(pos);
+	window->GetCamera()->SetMovable(false);
 	_activate = false;
 }
 

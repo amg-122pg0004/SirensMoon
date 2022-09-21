@@ -4,14 +4,14 @@
 #include "InputManager.h"
 #include "EnemyGenerator.h"
 #include <memory>
-
+class SplitWindow;
 class ServerMachine;
 class Game;
 class ModeBase;
 
 class ServerMachineUI :public UIBase{
 	public:
-		ServerMachineUI(Game&,ModeBase&,Vector2,Vector2);
+		ServerMachineUI(Game&,ModeBase&, SplitWindow& window, Vector2,Vector2);
 		Type GetType() { return Type::ServerMachine; }
 		void Update();
 		void Render();

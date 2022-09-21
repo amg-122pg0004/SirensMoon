@@ -8,10 +8,10 @@
 
 #include "Pause.h"
 #include "ModeGame.h"
+class SplitWindow;
 
-
-Pause::Pause(Game& game, ModeBase& mode, Vector2 pos, Vector2 size)
-	:UIBase{ game,mode,pos,size },_delay{30}
+Pause::Pause(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size)
+	:UIBase{ game,mode,window,pos,size },_delay{30}
 {
 	_inputManager = _game.GetInputManager();
 	_cg = ImageServer::LoadGraph("resource/UI/Pause/left.png");

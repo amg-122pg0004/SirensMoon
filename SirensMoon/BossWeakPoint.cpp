@@ -2,8 +2,10 @@
 #include "ModeGame.h"
 #include "Boss.h"
 
-BossWeakPoint::BossWeakPoint(Game& game, ModeBase& mode, Vector2 pos, Vector2 size, Boss& owner, int playerno)
-	:UIBase(game, mode, pos, size), _owner{owner}, _playerno{playerno}, _scale{0}
+class SplitWindow;
+
+BossWeakPoint::BossWeakPoint(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size, Boss& owner, int playerno)
+	:UIBase(game, mode, window, pos, size), _owner{owner}, _playerno{playerno}, _scale{0}
 {
 	_cgRing = ImageServer::LoadGraph("resource/UI/Boss/ring.png");
 	_cgText = ImageServer::LoadGraph("resource/UI/Boss/text.png");

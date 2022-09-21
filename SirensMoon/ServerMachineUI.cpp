@@ -9,9 +9,9 @@
 #include "SoundServer.h"
 #include "ModeGame.h"
 #include "ObjectiveUI.h"
-
-ServerMachineUI::ServerMachineUI(Game& game, ModeBase& mode, Vector2 pos, Vector2 size)
-	:UIBase{ game,mode,pos,size }, _visible{ false }, _alpha{ 0 }
+class SplitWindow;
+ServerMachineUI::ServerMachineUI(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size)
+	:UIBase{ game,mode,window,pos,size }, _visible{ false }, _alpha{ 0 }
 {
 	_inputManager = _game.GetInputManager();
 	_cg = ImageServer::LoadGraph("resource/UI/wanted.png");

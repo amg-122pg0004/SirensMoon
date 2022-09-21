@@ -1,9 +1,9 @@
 #include "SkipUI.h"
 #include "ModeGame.h"
 
-
-SkipUI::SkipUI(Game& game, ModeBase& mode, Vector2 pos, Vector2 size)
-	:UIBase{ game,mode,pos,size }, _animNo{ 0 }
+class SplitWindow;
+SkipUI::SkipUI(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size)
+	:UIBase{ game,mode,window,pos,size }, _animNo{ 0 }
 {
 	_visible = false;
 	_cg.resize(89);

@@ -48,7 +48,7 @@ BossGimmickController::BossGimmickController(Game& game, ModeGame& mode, BossGim
 	/*ボス生成*/
 	_mode.GetActorServer().Add(std::make_unique<Boss>(_game, _mode, *this));
 
-	auto&& uiserver = _mode.GetSplitWindow()[1]->GetUIServer();
+	auto&& uiserver = _mode.GetSplitWindow()[1]->GetUIServer2().GetObjects();
 	for (auto&& ui : uiserver) {
 		if (ui->GetType() == UIBase::Type::MiniMap) {
 			dynamic_cast<MiniMap&>(*ui).SetBossFlag();
@@ -148,7 +148,7 @@ void BossGimmickController::RecieveStartGenerator(int no) {
 						_readyRailgun = true;
 						dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
 							->ChangeMessage("巨大レールガンに乗り込み\nミッションを完遂せよ", 1);
-						for (auto&& ui : dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetUIServer()) {
+						for (auto&& ui : dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetUIServer2().GetObjects()) {
 							if (ui->GetType() == UIBase::Type::RideInfo) {
 								ui->SetVisibillity(true);
 							}

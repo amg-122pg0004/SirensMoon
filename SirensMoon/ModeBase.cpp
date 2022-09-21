@@ -15,6 +15,7 @@ ModeBase::ModeBase(Game& game)
 	,_actorServer{*this}
 	,_makedNextMode{false}
 	, _delayNextMode{20}
+	, _renderPriority{0}
 {
 }
 

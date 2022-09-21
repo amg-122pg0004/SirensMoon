@@ -2,10 +2,11 @@
 #include "UIBase.h"
 
 class BigServer;
+class SplitWindow;
 
 class BigServerUI :public UIBase {
 public:
-	BigServerUI(Game&, ModeBase&, Vector2 pos, Vector2 size,BigServer& owner);
+	BigServerUI(Game&, ModeBase&, SplitWindow& window, Vector2 pos, Vector2 size,BigServer& owner);
 	Type GetType()override { return Type::BigServerUI; }
 	void Update();
 	void Render();

@@ -29,7 +29,7 @@ void DegitalLetter::Update(){
 		if (actor->GetType() == Type::PlayerA) {
 			if (Intersect(_accessArea, dynamic_cast<Player&>(*actor).GetCollision())) {
 				_accessible1 = true;
-				for (auto&& actor:_mode.GetSplitWindow()[0]->GetUIServer()) {
+				for (auto&& actor:_mode.GetSplitWindow()[0]->GetUIServer2().GetObjects()) {
 					if (actor->GetType() == UIBase::Type::MessageWindow) {
 						dynamic_cast<MessageWindow&>(*actor).SetMessage(_message,_image);
 					}
@@ -42,7 +42,7 @@ void DegitalLetter::Update(){
 		if (actor->GetType() == Type::PlayerB) {
 			if (Intersect(_accessArea, dynamic_cast<Player&>(*actor).GetCollision())) {
 				_accessible2 = true;
-				for (auto&& actor : _mode.GetSplitWindow()[1]->GetUIServer()) {
+				for (auto&& actor : _mode.GetSplitWindow()[1]->GetUIServer2().GetObjects()) {
 					if (actor->GetType() == UIBase::Type::MessageWindow) {
 						dynamic_cast<MessageWindow&>(*actor).SetMessage(_message,_image);
 					}

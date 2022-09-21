@@ -4,10 +4,10 @@
 
 class Game;
 class ModeBase;
-
+class SplitWindow;
 class WantedInfo :public UIBase {
 public:
-	WantedInfo(Game& game, ModeBase& mode, Vector2 pos, Vector2 size);
+	WantedInfo(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size);
 	Type GetType() { return Type::PauseInfoA; }
 	void Update() override;
 	void Render() override;

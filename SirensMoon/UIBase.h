@@ -12,13 +12,15 @@
 
 class Game;
 class ModeBase;
+class SplitWindow;
 
 class UIBase {
 public:
-	UIBase(Game&, ModeBase&, Vector2 pos, Vector2 size);
+	UIBase(Game&, ModeBase&, SplitWindow&, Vector2 pos, Vector2 size);
 	~UIBase();
 	virtual void Update();
 	virtual void Render();
+	virtual void Debug();
 	enum class Type {
 		MiniMap,
 		ServerMachine,
@@ -39,7 +41,8 @@ public:
 		FinishCut,
 		SkipUI,
 		RideInfo,
-		ScreenEffect
+		ScreenEffect,
+		Briefing
 	};
 	virtual Type GetType() = 0;
 	int GetUIPriority(){return _UIPriority;}
@@ -47,11 +50,15 @@ public:
 	virtual void TargetSpawnEvent();
 	virtual void TargetKillEvent();
 	virtual void SetVisibillity(bool flag) { _visible = flag; }
+	virtual bool IsDead() { return _dead; }
+	virtual void Dead() { _dead = true; }
 protected:
+	bool _dead;
 	Vector2 _pos;
 	Vector2 _size;
 	Game& _game;
 	ModeBase& _mode;
+	SplitWindow& _window;
 	bool _visible;
 	int _cg;
 	int _UIPriority;

@@ -6,10 +6,10 @@
 class Game;
 class ModeBase;
 class InputManager;
-
+class SplitWindow;
 class ScreenEffect :public UIBase {
 public:
-	ScreenEffect(Game& game, ModeBase& mode, Vector2 pos, Vector2 size);
+	ScreenEffect(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size);
 	Type GetType() { return Type::ScreenEffect; }
     // イージング処理
     virtual void Easing(int elapsed) = 0;
@@ -24,6 +24,4 @@ protected:
     int _lifeTime;  // 生存時間
     bool _active;   // 有効無効
     double _alpha;  // アルファ
-
-    bool _loop;//trueにするとループ表示
 };

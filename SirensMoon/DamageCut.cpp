@@ -2,8 +2,10 @@
 #include "Game.h"
 #include "ModeGame.h"
 
-DamageCut::DamageCut(Game& game, ModeBase& mode, Vector2 pos, Vector2 size)
-	:UIBase(game, mode, pos, size), _lifetime{ 60 }, _startTime{ 0 },_cgChange{false}
+class SplitWindow;
+
+DamageCut::DamageCut(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size)
+	:UIBase(game, mode, window, pos, size), _lifetime{ 60 }, _startTime{ 0 },_cgChange{false}
 {
 	_cg = ImageServer::LoadGraph("resource/Damage/damage.png");
 	_cg2 = ImageServer::LoadGraph("resource/Damage/damage2.png");

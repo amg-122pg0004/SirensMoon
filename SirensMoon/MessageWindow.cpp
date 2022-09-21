@@ -4,8 +4,10 @@
 #include "DegitalLetter.h"
 #include <sstream>
 
-MessageWindow::MessageWindow(Game& game, ModeBase& mode, Vector2 pos, Vector2 size,int playerno)
-	:UIBase(game,mode,pos,size),_message{},_alpha{0},_image{-1}
+class SplitWindow;
+
+MessageWindow::MessageWindow(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size,int playerno)
+	:UIBase(game,mode, window, pos,size),_message{},_alpha{0},_image{-1}
 {
 	_cg = ImageServer::LoadGraph("resource/UI/DegialLetter/degitalletter.png");
 	_font = LoadFontDataToHandle("resource/Font/ロンドBスクエア26.dft", 1);

@@ -4,8 +4,10 @@
 #include  "PlayerA.h"
 #include "Game.h"
 
-AmmoUI::AmmoUI(Game& game , ModeBase& mode, Vector2 pos, Vector2 size)
-	:UIBase(game,mode,pos,size),_bullet1{0},_bullet2{9},_charge{0}
+class SplitWindow;
+
+AmmoUI::AmmoUI(Game& game , ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size)
+	:UIBase(game,mode, window, pos,size),_bullet1{0},_bullet2{9},_charge{0}
 {
 	_visible = true;
 	_cg = ImageServer::LoadGraph("resource/UI/Ammo/base.png");

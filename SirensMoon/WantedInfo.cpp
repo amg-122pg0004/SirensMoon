@@ -1,10 +1,10 @@
 #include "WantedInfo.h"
 #include "ModeGame.h"
 #include "Game.h"
+class SplitWindow;
 
-
-WantedInfo::WantedInfo(Game& game, ModeBase& mode, Vector2 pos, Vector2 size)
-	:UIBase{ game,mode,pos,size },_timer{0}
+WantedInfo::WantedInfo(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size)
+	:UIBase{ game,mode,window,pos,size },_timer{0}
 {
 	_visible = false;
 	_cg.first = ImageServer::LoadGraph("resource/UI/WantedInfo/1.png");
