@@ -6,7 +6,7 @@ Screen_Fade::Screen_Fade(Game& game, ModeBase& mode, SplitWindow& window, Vector
 	:ScreenEffect(game, mode, window, pos, size), _feedout{false}
 {
     _color = GetColor(255, 255, 255);
-    _UIPriority = 11;
+    _UIPriority = 13;
 }
 
 void Screen_Fade::Easing(int elapsed) {

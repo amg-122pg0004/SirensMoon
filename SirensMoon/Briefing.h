@@ -11,6 +11,7 @@ class SplitWindow;
 class Briefing :public UIBase {
 public:
 	Briefing(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size);
+	~Briefing();
 	Type GetType() { return Type::Briefing; }
 	void Update() override;
 	void Render() override;

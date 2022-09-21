@@ -195,7 +195,7 @@ void Boss::ChoiceAttack() {
 	_animNo = 0;
 	if (!_phase2) {
 		//switch (rand3(engine)) {
-		switch (2) {
+		switch (3) {
 		case 1:
 			if (rand2(engine) == 1) {
 				_time = 270;

@@ -12,6 +12,7 @@ public:
 	void Render();
 
 private:
+	int _cg_gun;
 	std::vector<int> _pattern;
 	int _font;
 	BigServer& _owner;

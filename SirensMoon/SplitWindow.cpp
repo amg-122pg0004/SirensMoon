@@ -112,13 +112,16 @@ SplitWindow::SplitWindow(Game& game, ModeGame& mode, int pos_x, int pos_y, int w
 	Vector2 wantedinfo_size = { 930,210 };
 	_uiServer.Add(std::make_unique<WantedInfo>(_game, _mode, *this, wantedinfo_pos, wantedinfo_size));
 
-	Vector2 pause_pos = { _windowPos.x + splitscreen_W / 2, _windowPos.y };
+	Vector2 pause_pos = { _windowPos.x, _windowPos.y };
 	Vector2 pause_size = { 360,90 };
 	_uiServer.Add(std::make_unique<Pause>(_game, _mode, *this, pause_pos, pause_size));
 
-	Vector2 briefing_pos = { _windowPos.x, _windowPos.y };
-	Vector2 briefing_size = { splitscreen_W,screen_H };
-	_uiServer.Add(std::make_unique<Briefing>(_game, _mode, *this, briefing_pos, briefing_size));
+	if (_game.GetProgress() != Game::Progress::Stage3) {
+		Vector2 briefing_pos = { _windowPos.x, _windowPos.y };
+		Vector2 briefing_size = { splitscreen_W,screen_H };
+		_uiServer.Add(std::make_unique<Briefing>(_game, _mode, *this, briefing_pos, briefing_size));
+	}
+
 
 }
 

@@ -14,8 +14,13 @@ Pause::Pause(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vecto
 	:UIBase{ game,mode,window,pos,size },_delay{30}
 {
 	_inputManager = _game.GetInputManager();
-	_cg = ImageServer::LoadGraph("resource/UI/Pause/left.png");
-	_cg2 = ImageServer::LoadGraph("resource/UI/Pause/right.png");
+	if (window.GetWindowNo() == 0) {
+		_cg = ImageServer::LoadGraph("resource/UI/Pause/left.png");
+	}
+	else {
+		_cg = ImageServer::LoadGraph("resource/UI/Pause/right.png");
+	}
+
 	_UIPriority = 10;
 }
 
@@ -34,7 +39,7 @@ void Pause::Update() {
 			dynamic_cast<ModeGame&>(_mode).SetPauseGame(false);
 		}
 	}
-	if (_visible){
+	if (_visible&& _window.GetWindowNo() == 0){
 		if (_inputManager->CheckInput("BULLET1", 't', 0) ||
 			_inputManager->CheckInput("BULLET1", 't', 1)) {
 			_mode.CallPlayStage1();
@@ -52,8 +57,8 @@ void Pause::Update() {
 
 void Pause::Render() {
 	if (_visible) {
-		DrawGraph(0, 0, _cg, 1);
-		DrawGraph(screen_W-splitscreen_W,0,_cg2, 1);
+		SetDrawArea(0,0,screen_W,screen_W);
+		DrawGraph(_pos.x, _pos.y, _cg, 1);
 	}
 
 }

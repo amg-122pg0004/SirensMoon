@@ -9,6 +9,7 @@ BigServerUI::BigServerUI(Game& game , ModeBase& mode, SplitWindow& window, Vecto
 :UIBase(game,mode, window, pos,size),_owner{owner}
 {
 	_cg = ImageServer::LoadGraph("resource/UI/wanted.png");
+	_cg_gun= ImageServer::LoadGraph("resource/Gimmick/biggun.png");
 	_font = LoadFontDataToHandle("resource/Font/ロンドBスクエア.dft", 1);
 }
 
@@ -26,8 +27,12 @@ void BigServerUI::Update(){
 void BigServerUI::Render(){
 
 	if (_visible) {
+		SetDrawArea(0,0,screen_W,screen_H);
 		auto pattern=_owner.GetPattern();
 		DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), _cg, 0);
+		DrawExtendGraph(static_cast<int>(_pos.x+30), static_cast<int>(_pos.y+30)
+			, static_cast<int>(_pos.x + 30+100), static_cast<int>(_pos.y + 30+100),
+			_cg_gun, 0);
 
 		std::stringstream ss;
 		ss <<"１　　" << _text[pattern[0]] << "\n";

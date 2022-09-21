@@ -15,7 +15,7 @@ Briefing::Briefing(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos,
 	_cg.push_back(ImageServer::LoadGraph("resource/UI/Briefing/4.png"));
 	dynamic_cast<ModeGame&>(_mode).SetPauseGame(true);
 	_visible = true;
-	_UIPriority = 10;
+	_UIPriority = 12;
 	_slideTimeMax = _slideTime;
 	auto fade = std::make_unique<Screen_Fade>(_game, _mode, _window, _pos, _size);
 	fade->SetEffect(0, 20, GetColor(0, 0, 0), true);
@@ -23,9 +23,11 @@ Briefing::Briefing(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos,
 	auto fade2 = std::make_unique<Screen_Fade>(_game, _mode, _window, _pos, _size);
 	fade2->SetEffect(180, 22, GetColor(0, 0, 0),false);
 	_window.GetUIServer2().Add(std::move(fade2));
+	PlaySoundFile("resource/BGM/Briefing.wav", DX_PLAYTYPE_BACK);
+}
+Briefing::~Briefing() {
 
 }
-
 void Briefing::Update() {
 	_slideNo = _nextslideNo;
 	--_slideTime;
@@ -36,6 +38,9 @@ void Briefing::Update() {
 			_slideNo = 0;
 			_visible = false;
 			dynamic_cast<ModeGame&>(_mode).SetPauseGame(false);
+			StopSoundFile();
+			static_cast<ModeGame&>(_mode).PlayBGM();
+			_dead = true;
 			return;
 		}
 		auto fade = std::make_unique<Screen_Fade>(_game, _mode,_window, _pos, _size);

@@ -172,11 +172,13 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 		_actorServer.Add(std::move(degital));
 	}
 
-	auto bossspawndata = _mapChips->GetBossGimmickControllerDataList();
-	for (auto&& aspawn : bossspawndata) {
-		auto bosscon = std::make_unique<BossGimmickController>(_game, *this, aspawn);
-		_actorServer.Add(std::move(bosscon));
-	}
+
+		auto bossspawndata = _mapChips->GetBossGimmickControllerDataList();
+		for (auto&& aspawn : bossspawndata) {
+			auto bosscon = std::make_unique<BossGimmickController>(_game, *this, aspawn);
+			_actorServer.Add(std::move(bosscon));
+		}
+	
 
 	LoadResources::LoadSE();
 	LoadResources::LoadEffects();
