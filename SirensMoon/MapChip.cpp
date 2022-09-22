@@ -1128,3 +1128,19 @@ bool MapChip::IsHit(std::set<std::pair<int, int>> grids) {
 	}
 	return false;
 }
+
+bool MapChip::IsHit(Vector2 point) {
+	int x = ceil(point.x / 30);
+	int y = ceil(point.y / 30);
+	std::vector<int> v_chip_no = CheckHitChipNo(x, y, false);
+	for (int chip_gid : v_chip_no) {
+		/*コリジョンを持つチップのgidでループ*/
+		for (int col_gid : _chipCollision) {
+			/*触れているチップの中にコリジョンを持つチップが有ればtrueを返す*/
+			if (chip_gid == col_gid) {
+				return true;
+			}
+		}
+	}
+	return false;
+}

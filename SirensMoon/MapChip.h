@@ -70,7 +70,7 @@ public:
 	 */
 	bool IsHit(AABB col,bool backlayer);
 	bool IsHit(std::set<std::pair<int, int>>);
-
+	bool IsHit(Vector2 point);
 private:
 	void SetBasicObjectData(picojson::object object, std::unique_ptr<ObjectDataBase>& data);
 	void FindPropertieData(int& data,picojson::array properties,std::string name);

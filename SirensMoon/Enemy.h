@@ -72,7 +72,7 @@ public:
 	void AnimationUpdate();
 
 	Vector2 CheckRoomPosition() override;
-
+	AABB GetHitBox(){return _hitBox;}
 protected:
 	enum class EnemyDirection {
 		Down,

@@ -33,6 +33,7 @@ class LightBase:public Actor  {
 		void CheckDeadOwner()override;
 
 	protected:
+
 		Actor& _owner;
 		int _cg;
 		Vector2 _centerPos;
