@@ -17,11 +17,9 @@ public:
     virtual void Render()override;
     virtual void SetEffect(int delayTime,int lifeTime);
 protected:
-    int _animNo;  // 現在のグラフィックハンドル
     int _cg; // 全てのグラフィックハンドル
     int _delayTime; // 遅延時間
     int _startTime; // 開始時間
     int _lifeTime;  // 生存時間
-    bool _active;   // 有効無効
     double _alpha;  // アルファ
 };

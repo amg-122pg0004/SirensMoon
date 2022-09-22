@@ -17,7 +17,7 @@ void Screen_Fade::Easing(int elapsed) {
     else {
         _alpha = (linear(elapsed, 0, 255, _lifeTime));
     }
-
+    _alpha=Math::Clamp(_alpha,0.0,255.0);
 }
 
 void Screen_Fade::Render() {
@@ -38,4 +38,10 @@ void Screen_Fade::SetEffect(int delayTime, int lifeTime, unsigned int color,bool
     ScreenEffect::SetEffect(delayTime, lifeTime);
     _color = color;
     _feedout = feedout;
+    if (_feedout) {
+        _alpha = 255;
+    }
+    else {
+        _alpha = 0;
+    }
 }

@@ -100,7 +100,6 @@ void Player::PlayerOverlap() {
 				UpdateCollision();
 				/*衝突するなら動かない（元の位置に戻す）*/
 				if (_mode.GetMapChips()->IsHit(_collision, true) ||
-					_mode.GetMapChips()->IsHitBarrier(_collision, _playerNum) ||
 					IsHitActor()) {
 					_pos.x -= dx;
 					UpdateCollision();
@@ -109,7 +108,6 @@ void Player::PlayerOverlap() {
 				/*衝突するなら動かない（元の位置に戻す）*/
 				UpdateCollision();
 				if (_mode.GetMapChips()->IsHit(_collision, true) ||
-					_mode.GetMapChips()->IsHitBarrier(_collision, _playerNum) ||
 					IsHitActor()) {
 					_pos.y -= dy;
 					UpdateCollision();
@@ -137,12 +135,6 @@ void Player::Move() {
 	_pos.x += _speed.x;
 	UpdateCollision();
 	if (_mode.GetMapChips()->IsHit(_collision, true)) {
-		_pos.x += -1 * _speed.x;
-		_speed.x = 0;
-	}
-	UpdateCollision();
-	if (_mode.GetMapChips()->IsHitBarrier(_collision, _playerNum)) {
-
 		_pos.x += -1 * _speed.x;
 		_speed.x = 0;
 	}

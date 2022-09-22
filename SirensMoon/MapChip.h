@@ -69,7 +69,6 @@ public:
 	 * \return “–‚½‚Á‚½‚çtrue
 	 */
 	bool IsHit(AABB col,bool backlayer);
-	bool IsHitBarrier(AABB col, int playerno);
 	bool IsHit(std::set<std::pair<int, int>>);
 
 private:

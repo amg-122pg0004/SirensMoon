@@ -4,6 +4,7 @@ class SplitWindow;
 
 ScreenEffect::ScreenEffect(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size)
 	:UIBase{ game,mode,window,pos,size }
+    ,_cg{-1}, _delayTime{0}, _startTime{0}, _lifeTime{0},_alpha{255}
 {
 	_visible = true;
 	_UIPriority = 9;
