@@ -107,10 +107,9 @@ bool Enemy::CheckDetection() {
 		if (actor->GetType() == Type::PlayerA || actor->GetType() == Type::PlayerB) {
 			CheckRoomPosition();
 			if (dynamic_cast<Player&>(*actor).GetHideFlag()) {
-				return false;
+				continue;
 			}
 			if (_roomPosition.x == actor->GetRoomPosition().x && _roomPosition.y == actor->GetRoomPosition().y) {
-				//if(1){
 				auto col = actor->GetCollision();
 				Vector2 righttop = { col.max.x,col.min.y };
 				Vector2 leftbottom = { col.min.x,col.max.y };
@@ -244,10 +243,16 @@ void Enemy::TakeDamage(Type) {
 }
 
 void Enemy::MoveToPlayer() {
-	auto col = dynamic_cast<Player&>(*_lastDetection).GetCollision();
-	_dir = (col.min + col.max) / 2 - (_collision.min + _collision.max) / 2;
-	_dir.Normalize();
-	_pos += _dir * _speed;
+	if (_roomPosition.x == _lastDetection->GetRoomPosition().x && _roomPosition.y == _lastDetection->GetRoomPosition().y) {
+		auto col = dynamic_cast<Player&>(*_lastDetection).GetCollision();
+		_dir = (col.min + col.max) / 2 - (_collision.min + _collision.max) / 2;
+		_dir.Normalize();
+		_pos += _dir * _speed;
+	}
+	else {
+		_chase = false;
+		_speed = 1;
+	}
 }
 
 void Enemy::ApplyDamage() {

@@ -4,7 +4,7 @@
 #include <random>
 
 EnemyA::EnemyA(Game& game, ModeGame& mode, EnemyData data, EnemyGenerator::EnemyPattern grdata)
-	:Enemy { game,mode,grdata }, _waitFrame{data.waitFrame}
+	:Enemy{ game,mode,grdata }, _waitFrame{ data.waitFrame }
 {
 	_pos = { data.pos.x,data.pos.y };
 	_sight_H = data.sightH;
@@ -24,7 +24,7 @@ void EnemyA::Update() {
 	if (_chase) {
 		MoveToPlayer();
 	}
-	else {
+	if (!_chase && _detectionFrame == 0) {
 		if (_patrolLength != 1) {
 			if (CheckReachPoint()) {
 				++_elapseFrame;
@@ -105,6 +105,6 @@ void EnemyA::GetNextPoints() {
 	}
 }
 
-void EnemyA::Debug(Vector2 window_pos, Vector2 camera_pos){
-	Enemy::Debug(window_pos,camera_pos);
+void EnemyA::Debug(Vector2 window_pos, Vector2 camera_pos) {
+	Enemy::Debug(window_pos, camera_pos);
 }

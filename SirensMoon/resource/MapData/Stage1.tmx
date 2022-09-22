@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="128" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="28" nextobjectid="1770">
+ <editorsettings>
+  <export target="Stage1.json" format="json"/>
+ </editorsettings>
  <tileset firstgid="1" name="tile_test" tilewidth="30" tileheight="30" tilecount="880" columns="40">
   <image source="tile_test.png" width="1200" height="660"/>
   <tile id="0" class="BackGround">
@@ -14,7 +17,7 @@
   </tile>
   <tile id="2" class="Enemy">
    <properties>
-    <property name="FindTime" type="int" value="40"/>
+    <property name="FindTime" type="int" value="120"/>
     <property name="Sight_H" type="int" value="1000"/>
     <property name="Sight_W" type="int" value="1000"/>
    </properties>
@@ -3484,9 +3487,10 @@
   </object>
   <object id="1330" class="EnemyB" gid="3" x="690" y="750" width="30" height="30">
    <properties>
+    <property name="Direction1" type="int" value="0"/>
     <property name="Direction2" type="int" value="270"/>
-    <property name="LookTime1" type="int" value="180"/>
-    <property name="LookTime2" type="int" value="180"/>
+    <property name="LookTime1" type="int" value="30"/>
+    <property name="LookTime2" type="int" value="30"/>
     <property name="Sight_H" type="int" value="150"/>
     <property name="Sight_W" type="int" value="270"/>
    </properties>

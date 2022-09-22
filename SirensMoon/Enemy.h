@@ -28,10 +28,7 @@ public:
 
 	Enemy(Game& game, ModeGame& mode, EnemyGenerator::EnemyPattern pattern);
 	virtual void Init();
-	/**
-	 * @brief 行動の決定、更新
-	 *
-	 */
+
 	Type GetType()override { return Type::Enemy; }
 	bool GetChaseFlag() { return _chase; }
 	Actor* GetLastDetection() { return _lastDetection; }

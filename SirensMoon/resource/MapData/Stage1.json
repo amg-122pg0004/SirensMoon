@@ -586,6 +586,11 @@
                  "name":"",
                  "properties":[
                         {
+                         "name":"Direction1",
+                         "type":"int",
+                         "value":90
+                        }, 
+                        {
                          "name":"Direction2",
                          "type":"int",
                          "value":270
@@ -593,12 +598,12 @@
                         {
                          "name":"LookTime1",
                          "type":"int",
-                         "value":180
+                         "value":30
                         }, 
                         {
                          "name":"LookTime2",
                          "type":"int",
-                         "value":180
+                         "value":30
                         }, 
                         {
                          "name":"Sight_H",
@@ -5154,8 +5159,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":234.727272727273,
-                 "y":380.727272727273
+                 "x":234.727,
+                 "y":380.727
                 }, 
                 {
                  "class":"",
@@ -7241,7 +7246,7 @@
                         {
                          "name":"FindTime",
                          "type":"int",
-                         "value":40
+                         "value":120
                         }, 
                         {
                          "name":"Sight_H",

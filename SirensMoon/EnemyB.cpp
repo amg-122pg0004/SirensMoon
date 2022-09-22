@@ -3,7 +3,7 @@
 
 
 EnemyB::EnemyB(Game& game, ModeGame& mode, EnemyBData data, EnemyGenerator::EnemyPattern pattern)
-	:Enemy{game,mode,pattern},_data{data},_index{0},_elapsed{0}
+	:Enemy{ game,mode,pattern }, _data{ data }, _index{ 0 }, _elapsed{ 0 }
 {
 	_pos = { data.pos.x,data.pos.y };
 	_sight_H = data.sightH;
@@ -11,11 +11,11 @@ EnemyB::EnemyB(Game& game, ModeGame& mode, EnemyBData data, EnemyGenerator::Enem
 	_detectionCompleteFrame = data.detectionComplete;
 }
 
-void EnemyB::Update(){
+void EnemyB::Update() {
 	if (_chase) {
 		MoveToPlayer();
 	}
-	else {
+	if (!_chase && _detectionFrame == 0) {
 		auto radian = Math::ToRadians(_data.Direction[_index]);
 		_dir.x = sin(radian);
 		_dir.y = cos(radian);
