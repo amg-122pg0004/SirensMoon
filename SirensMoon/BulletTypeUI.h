@@ -11,10 +11,12 @@ public:
 
 	void Update() override;
 	void Render() override;
-
+	void TargetSpawnEvent()override;
+	void TargetKillEvent()override;
 private:
 	bool _bulletType;
 
 	int _cg_red,_cg_green;
-
+	int _cg_change;
+	bool _visibleChangeUI;
 };

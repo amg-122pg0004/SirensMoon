@@ -94,7 +94,7 @@ void StickyBomb::Update() {
 						_accessible1 = true;
 						if (_game.GetInputManager()->CheckInput("ACCESS", 't', 0)) {
 							StopSoundMem(SoundServer::Find("MicroBomAlarm"));
-							PlaySoundMem(SoundServer::Find("MicroBomRelease"), DX_PLAYTYPE_LOOP);
+							PlaySoundMem(SoundServer::Find("MicroBomRelease"), DX_PLAYTYPE_BACK);
 							dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
 								->ReleaseWarning();
 							dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()

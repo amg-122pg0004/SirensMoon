@@ -87,6 +87,7 @@ bool MapChip::LoadMap(std::string folderpath, std::string filename)
 						enemyData.sightW = static_cast<EnemyBData&>(*data).sightW;
 						enemyData.detectionComplete = static_cast<EnemyBData&>(*data).detectionComplete;
 						LoadEnemyClass(aObject, enemyData);
+
 					}
 					else {
 						auto&& enemyBData = static_cast<EnemyBData&>(*data);
@@ -755,9 +756,6 @@ void MapChip::LoadEnemyBClass(picojson::object object, EnemyBData data) {
 		FindPropertieData(data.LookTime[1], properties, "LookTime2");
 		FindPropertieData(data.LookTime[2], properties, "LookTime3");
 		FindPropertieData(data.LookTime[3], properties, "LookTime4");
-		FindPropertieData(data.detectionComplete, properties, "FindTime");
-		FindPropertieData(data.sightH, properties, "Sight_H");
-		FindPropertieData(data.sightW, properties, "Sight_W");
 	}
 	_enemyBDataList.push_back(data);
 }

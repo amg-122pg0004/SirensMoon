@@ -80,6 +80,7 @@ void ServerMachine::Update() {
 		SpawnEnemyVIP();
 		_mode.TargetSpawnEvent();
 		_valid = true;
+		StopSoundFile();
 		PlaySoundFile("resource/BGM/ActiveServer.wav", DX_PLAYTYPE_LOOP);
 		_mode.GetSplitWindow()[0]->GetObjectiveUI()
 			->ChangeMessage("d—v‰F’ˆl“Á’è‚µA•ßŠl‚¹‚æ", 2);
@@ -95,11 +96,9 @@ void ServerMachine::ChangeValidFlag(bool flag) {
 void ServerMachine::SpawnEnemyVIP() {
 	Vector2 player0pos={0,0};
 	for (auto&& actor:_mode.GetActorServer().GetObjects()) {
-		if (actor->GetType() == Type::Player) {
+		if (actor->GetType() == Type::PlayerA) {
 			auto player =dynamic_cast<Player&>(*actor);
-			if (player.GetPlayerNum() == 0) {
-				player0pos=player.GetPosition();
-			}
+			player0pos=player.GetPosition();
 		}
 	}
 

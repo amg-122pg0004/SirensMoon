@@ -5154,8 +5154,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":362,
-                 "y":4208
+                 "x":234.727272727273,
+                 "y":380.727272727273
                 }, 
                 {
                  "class":"",
@@ -5188,8 +5188,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":628,
-                 "y":4200.67
+                 "x":209.818,
+                 "y":276.428
                 }],
          "opacity":1,
          "type":"objectgroup",

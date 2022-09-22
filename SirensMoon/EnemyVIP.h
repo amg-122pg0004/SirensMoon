@@ -9,6 +9,7 @@ public:
 	void Update() override;
 	void TakeDamage(Type)override;
 	void CheckDamage()override;
+	void Respawn();
 private:
 	ServerMachine& _owner;
 	bool _hitGreenBullet;

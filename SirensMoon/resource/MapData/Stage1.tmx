@@ -4104,7 +4104,7 @@
   <object id="1750" gid="70" x="60" y="1230" width="30" height="30"/>
  </objectgroup>
  <objectgroup id="4" name="Player">
-  <object id="977" gid="5" x="362" y="4208" width="30" height="30">
+  <object id="977" gid="5" x="234.727" y="380.727" width="30" height="30">
    <properties>
     <property name="Accelerate" type="float" value="1"/>
     <property name="Friction" type="float" value="0.9"/>
@@ -4112,7 +4112,7 @@
     <property name="SpeedMax" type="float" value="6"/>
    </properties>
   </object>
-  <object id="978" gid="5" x="628" y="4200.67" width="30" height="30">
+  <object id="978" gid="5" x="209.818" y="276.428" width="30" height="30">
    <properties>
     <property name="Accelerate" type="float" value="1"/>
     <property name="Friction" type="float" value="0.9"/>

@@ -15,6 +15,7 @@ AmmoUI::AmmoUI(Game& game , ModeBase& mode, SplitWindow& window, Vector2 pos, Ve
 	_cg_gun = ImageServer::LoadGraph("resource/UI/Ammo/gun.png");
 	_cg_line = ImageServer::LoadGraph("resource/UI/Ammo/line.png");
 	_cg_empty= ImageServer::LoadGraph("resource/UI/Ammo/Empty.png");
+
 	_cg_number1.resize(10);
 	ImageServer::LoadDivGraph("resource/UI/Ammo/number_1.png",10,2,5,480,180,_cg_number1.data());
 	_cg_number2.resize(10);
@@ -70,3 +71,4 @@ void AmmoUI::Render(){
 		DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y + 180), _cg_empty, 1);
 	}
 }
+

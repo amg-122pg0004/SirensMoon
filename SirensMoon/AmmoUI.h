@@ -22,6 +22,7 @@ private:
 	int _cg_line;
 	int _cg_empty;
 
+
 	/*チャージバー用ハンドル[0]~[2]*/
 	std::vector<int> _cg_charge;
 	/*数字画像ハンドル[0]~[9]*/

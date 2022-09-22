@@ -5,11 +5,12 @@
 class SplitWindow;
 
 BulletTypeUI::BulletTypeUI(Game& game, ModeBase& base, SplitWindow& window, Vector2 pos, Vector2 size)
-	:UIBase(game,base, window, pos,size),_bulletType{false}
+	:UIBase(game,base, window, pos,size),_bulletType{false}, _visibleChangeUI{false}
 {
 	_visible = true;
 	_cg_red = ImageServer::LoadGraph("resource/UI/BulletType/red.png");
 	_cg_green = ImageServer::LoadGraph("resource/UI/BulletType/green.png");
+	_cg_change = ImageServer::LoadGraph("resource/UI/BulletType/Change.png");
 }
 
 void BulletTypeUI::Update() {
@@ -34,6 +35,14 @@ void BulletTypeUI::Render() {
 		DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), cg, 0);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 	}
-
+	if (_visibleChangeUI) {
+		DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y + 180), _cg_change, 1);
+	}
 }
 
+void BulletTypeUI::TargetSpawnEvent() {
+	_visibleChangeUI = true;
+}
+void BulletTypeUI::TargetKillEvent() {
+	_visibleChangeUI = false;
+}
