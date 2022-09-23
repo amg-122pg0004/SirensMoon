@@ -3,10 +3,11 @@
 #include "Explode.h"
 #include "Bullet.h"
 #include "BulletItem.h"
+#include "HPItem.h"
 #include "FX_AfterBurner.h"
 
-BossMissile::BossMissile(Game& game, ModeGame& mode, Vector2 pos) 
-	:Actor(game,mode),_angle{Math::ToRadians(90)}, _player2{nullptr}, _speed{1.5}
+BossMissile::BossMissile(Game& game, ModeGame& mode, Vector2 pos)
+	:Actor(game, mode), _angle{ Math::ToRadians(90) }, _player2{ nullptr }, _speed{ 1.5 }
 {
 	_room = { 0,0 };
 	_pos = pos;
@@ -15,8 +16,8 @@ BossMissile::BossMissile(Game& game, ModeGame& mode, Vector2 pos)
 	UpdateCollision();
 
 	for (auto&& actor : _mode.GetObjects()) {
-		if (actor->GetType()==Type::PlayerB) {
-			_player2=actor.get();
+		if (actor->GetType() == Type::PlayerB) {
+			_player2 = actor.get();
 		}
 	}
 
@@ -24,7 +25,7 @@ BossMissile::BossMissile(Game& game, ModeGame& mode, Vector2 pos)
 
 	Vector2 fix = { cos(_angle),sin(_angle) };
 	fix *= -130;
-	auto afterBurner = std::make_unique<FX_AfterBurner>(_game, _mode, _pos + fix, _game.GetFrameCount(),*this);
+	auto afterBurner = std::make_unique<FX_AfterBurner>(_game, _mode, _pos + fix, _game.GetFrameCount(), *this);
 	_mode.GetActorServer().Add(std::move(afterBurner));
 }
 
@@ -33,23 +34,42 @@ void BossMissile::Update() {
 
 	UpdateCollision();
 	HitActor();
-	if (_room.x != CheckRoomPosition().x|| _room.y != CheckRoomPosition().y) {
+	if (_room.x != CheckRoomPosition().x || _room.y != CheckRoomPosition().y) {
 		_dead = true;
 	}
-	/*
-	if (_game.GetFrameCount() % 10 == 0) {
-		Vector2 fix={cos(_angle),sin(_angle)};
-		fix *= -130;
-		auto afterBurner = std::make_unique<FX_AfterBurner>(_game, _mode, _pos+fix,_game.GetFrameCount());
-		_mode.GetActorServer().Add(std::move(afterBurner));
+
+	if (!_dead) {
+		return;
 	}
-	*/
+	int i{ 0 };
+	if (rand2(engine) == 1) {
+		for (auto&& actor : _mode.GetActorServer().GetObjects()) {
+			if (actor->GetType() == Type::BulletItem) {
+				++i;
+			}
+		}
+		if (i < 4) {
+			auto bullet = std::make_unique<BulletItem>(_game, _mode, _pos);
+			_mode.GetActorServer().Add(std::move(bullet));
+		}
+	}
+	else {
+		for (auto&& actor : _mode.GetActorServer().GetObjects()) {
+			if (actor->GetType() == Type::HPItem) {
+				++i;
+			}
+		}
+		if (i < 4) {
+			auto hp = std::make_unique<HPItem>(_game, _mode, _pos);
+			_mode.GetActorServer().Add(std::move(hp));
+		}
+	}
 }
 
 void BossMissile::Move() {
-	auto p2_col=_player2->GetCollision();
+	auto p2_col = _player2->GetCollision();
 	//auto a = (p2_col.min+p2_col.max) / 2-(_pos + _size)/2;
-	auto a = p2_col.min -_pos;
+	auto a = p2_col.min - _pos;
 	a.Normalize();
 	/*ミサイルの移動方向と敵の位置までのベクトルの外積*/
 	auto dir_cross_a = Vector2::Cross(GetForward(), a);
@@ -60,37 +80,31 @@ void BossMissile::Move() {
 	else if (dir_cross_a < 0) {
 		_angle -= Math::ToRadians(0.3f);
 	}
-	_pos += GetForward()*_speed;
+	_pos += GetForward() * _speed;
 }
 
 void BossMissile::HitActor() {
 	int i{ 0 };
 	for (auto&& actor : _mode.GetObjects()) {
-		if (actor->GetType() == Type::PlayerA || actor->GetType() == Type::PlayerB|| actor->GetType() == Type::Explode) {
-			if(CheckOverlapActor(*actor)) {
+		if (actor->GetType() == Type::PlayerA || actor->GetType() == Type::PlayerB || actor->GetType() == Type::Explode) {
+			if (CheckOverlapActor(*actor)) {
 				auto explode = std::make_unique<Explode2>(_game, _mode, _pos + (_size / 2));
 				_mode.GetActorServer().Add(std::move(explode));
 				_dead = true;
 			}
 		}
-		if (actor->GetType() == Type::RedBullet|| actor->GetType() == Type::GreenBullet) {
-			if (CheckOverlapActor(*actor)|| CheckCheckCrossBullet(*actor)) {
+		if (actor->GetType() == Type::RedBullet || actor->GetType() == Type::GreenBullet) {
+			if (CheckOverlapActor(*actor) || CheckCheckCrossBullet(*actor)) {
 				auto explode = std::make_unique<Explode2>(_game, _mode, _pos + (_size / 2));
 				_mode.GetActorServer().Add(std::move(explode));
 				_dead = true;
 				actor->Dead();
 			}
 		}
-		if (actor->GetType() == Type::Item) {
-			++i;
-		}
 	}
-	
-	if (_dead == true && i < 3) {
-		auto bullet = std::make_unique<BulletItem>(_game, _mode, _pos);
-		_mode.GetActorServer().Add(std::move(bullet));
-	}
-	
+
+
+
 }
 
 bool BossMissile::CheckOverlapActor(Actor& actor) {
@@ -133,11 +147,11 @@ bool BossMissile::CheckOverlapActor(Actor& actor) {
 		Vector2::Cross(_hitbox.pos2 - _hitbox.pos1, col.min - _hitbox.pos1) < 0) {
 		return 1;
 	}
-return 0;
+	return 0;
 }
 
 bool BossMissile::CheckCheckCrossBullet(Actor& actor) {
-	Vector2 pre_pos=dynamic_cast<Bullet&>(actor).GetPrePosition();
+	Vector2 pre_pos = dynamic_cast<Bullet&>(actor).GetPrePosition();
 	Vector2 pos = dynamic_cast<Bullet&>(actor).GetPosition();
 	if (Vector2::IsCrossed(_hitbox.pos1, _hitbox.pos2, pre_pos, pos) ||
 		Vector2::IsCrossed(_hitbox.pos2, _hitbox.pos4, pre_pos, pos) ||
@@ -149,13 +163,13 @@ bool BossMissile::CheckCheckCrossBullet(Actor& actor) {
 }
 
 void BossMissile::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
-	DrawRotaGraph(static_cast<int>(_pos.x-camera_pos.x+window_pos.x),
+	DrawRotaGraph(static_cast<int>(_pos.x - camera_pos.x + window_pos.x),
 		static_cast<int>(_pos.y - camera_pos.y + window_pos.y),
-		1.0,_angle-Math::ToRadians(90),
-		_cg,1,0);
+		1.0, _angle - Math::ToRadians(90),
+		_cg, 1, 0);
 }
 
-void BossMissile::Debug(Vector2 window_pos, Vector2 camera_pos){
+void BossMissile::Debug(Vector2 window_pos, Vector2 camera_pos) {
 	DrawLine(static_cast<int>(_pos.x), static_cast<int>(_pos.y),
 		static_cast<int>(_pos.x + GetForward().x * 100), static_cast<int>(_pos.y + GetForward().y * 100), GetColor(255, 0, 0), 1);
 	//_collision.Draw2(stageNum, window_pos, camera_pos);
@@ -184,20 +198,18 @@ void BossMissile::Debug(Vector2 window_pos, Vector2 camera_pos){
 
 }
 
-void BossMissile::UpdateCollision(){
-	//_collision.min = _pos-_size/2;
-	//_collision.max = _pos + _size/2;
-	auto angle = _angle+ Math::ToRadians(90);
+void BossMissile::UpdateCollision() {
+	auto angle = _angle + Math::ToRadians(90);
 
-	_hitbox.pos1 = { ( - 1 * _size.x / 2)* cos(angle) - (-1 * _size.y / 2) * sin(angle) + _pos.x,
-	( - 1 * _size.x / 2) * sin(angle) + (-1 * _size.y / 2) * cos(angle) + _pos.y};
-	
-	_hitbox.pos2 = { _size.x / 2 * cos(angle) - ( - 1 * _size.y / 2) * sin(angle) + _pos.x,
-	_size.x / 2 * sin(angle) + ( - 1 * _size.y / 2) * cos(angle) + _pos.y};
+	_hitbox.pos1 = { (-1 * _size.x / 2) * cos(angle) - (-1 * _size.y / 2) * sin(angle) + _pos.x,
+	(-1 * _size.x / 2) * sin(angle) + (-1 * _size.y / 2) * cos(angle) + _pos.y };
 
-	_hitbox.pos3 = { ( - 1 * _size.x / 2)* cos(angle) - _size.y / 2 * sin(angle) + _pos.x,
-	( - 1 * _size.x / 2) * sin(angle) + _size.y / 2 * cos(angle) + _pos.y};
+	_hitbox.pos2 = { _size.x / 2 * cos(angle) - (-1 * _size.y / 2) * sin(angle) + _pos.x,
+	_size.x / 2 * sin(angle) + (-1 * _size.y / 2) * cos(angle) + _pos.y };
 
-	_hitbox.pos4 = { _size.x / 2 * cos(angle) - _size.y / 2 * sin(angle)+_pos.x,
-	_size.x / 2 * sin(angle) + _size.y / 2 * cos(angle)+_pos.y };
+	_hitbox.pos3 = { (-1 * _size.x / 2) * cos(angle) - _size.y / 2 * sin(angle) + _pos.x,
+	(-1 * _size.x / 2) * sin(angle) + _size.y / 2 * cos(angle) + _pos.y };
+
+	_hitbox.pos4 = { _size.x / 2 * cos(angle) - _size.y / 2 * sin(angle) + _pos.x,
+	_size.x / 2 * sin(angle) + _size.y / 2 * cos(angle) + _pos.y };
 }

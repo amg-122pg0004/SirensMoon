@@ -13,9 +13,6 @@ FX_AfterBurner::FX_AfterBurner(Game& game, ModeGame& mode, const Vector2& pos, i
 	_loop = true;
 }
 void FX_AfterBurner::Update() {
-	if (_owner.IsDead()) {
-		_dead = true;
-	}
 	auto pos = _owner.GetPosition();
 	_angle = _owner.GetAngle();
 	Vector2 fix = { cos(_angle),sin(_angle) };
@@ -28,4 +25,9 @@ void FX_AfterBurner::Easing(int elapsed) {
 	auto linear = Easing::GetMode("Linear");
 	_animNo = linear(elapsed, 0, static_cast<int>(_cg.size()), _lifeTime);
 
+}
+void FX_AfterBurner::CheckDeadOwner(){
+	if (_owner.IsDead()) {
+		_dead = true;
+	}
 }

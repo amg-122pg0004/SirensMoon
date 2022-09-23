@@ -77,13 +77,14 @@ void LoadResources::LoadMovie(std::string path) {
 void LoadResources::LoadBossCGs() {
 	std::vector<int> handle;
 	handle.resize(65);
-	ImageServer::LoadDivGraph("resource/Boss/wait.png", 65, 10, 7, 1024, 1024, handle.data());
-	handle.resize(90);
-	ImageServer::LoadDivGraph("resource/Boss/gunfire.png", 90, 10, 9, 1024, 1024, handle.data());
-
-	ImageServer::LoadDivGraph("resource/Boss/faint.png", 90, 10, 9, 1024, 1024, handle.data());
+	ImageServer::LoadDivGraph("resource/Boss/wait2.png", 65, 10, 7, 680, 740, handle.data());
+	handle.resize(40);
+	ImageServer::LoadDivGraph("resource/Boss/gunfireA.png", 40, 10, 4, 1024, 1024, handle.data());
+	handle.resize(50);
+	ImageServer::LoadDivGraph("resource/Boss/gunfireB1.png", 50, 10, 5, 1024, 1024, handle.data());
+	ImageServer::LoadDivGraph("resource/Boss/gunfireB2.png", 50, 10, 5, 1024, 1024, handle.data());
 	handle.resize(80);
-	ImageServer::LoadDivGraph("resource/Boss/missileboss.png", 80, 10, 8, 1024, 1024, handle.data());
+	ImageServer::LoadDivGraph("resource/Boss/missileboss2.png", 80, 10, 8, 840, 740, handle.data());
 	handle.resize(70);
 	ImageServer::LoadDivGraph("resource/Boss/headbutt.png", 70, 10, 7, 256, 256, handle.data());
 	handle.resize(70);
@@ -91,7 +92,8 @@ void LoadResources::LoadBossCGs() {
 	handle.resize(26);
 	ImageServer::LoadDivGraph("resource/Boss/damage.png", 26, 10, 3, 256, 256, handle.data());
 	handle.resize(180);
-	ImageServer::LoadDivGraph("resource/Boss/thunder.png", 180, 10, 18, 1024, 1024, handle.data());
+	ImageServer::LoadDivGraph("resource/Boss/thunder2.png", 180, 10, 18, 1024, 740, handle.data());
+
 	handle.resize(120);
 	ImageServer::LoadDivGraph("resource/Effect/thunder.png", 120, 8, 15, 200, 150, handle.data());
 	handle.resize(16);
@@ -104,4 +106,10 @@ void LoadResources::LoadBossCGs() {
 	ImageServer::LoadDivGraph("resource/Gimmick/Boss/MiniShuttle2.png", 86, 5, 18, 570, 540, handle.data());
 	handle.resize(70);
 	ImageServer::LoadDivGraph("resource/Effect/MissileShoot.png", 70, 7, 12, 220, 340, handle.data());
+
+	SoundServer::LoadSound("Headbutt", "resource/SE/Boss/Headbutt.mp3");
+	SoundServer::LoadSound("PreHeadbutt", "resource/SE/Boss/PreHeadbutt.wav");
+	SoundServer::LoadSound("MissileLaunch", "resource/SE/Boss/MissileLaunch.mp3");
+	SoundServer::LoadSound("BigRailgunShoot", "resource/SE/Boss/BigRailgunShoot.mp3");
+	SoundServer::LoadSound("BigRailgunHit", "resource/SE/Boss/BigRailgunHit.mp3");
 }

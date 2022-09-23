@@ -10,7 +10,7 @@
 #include "Player.h"
 
 HPItem::HPItem(Game& game, ModeGame& mode,Vector2 pos)
-	:Actor(game, mode)
+	:Actor(game, mode),_fall{true}, _fallTimer{300}
 {
 	_cg = ImageServer::LoadGraph("resource/Item/HP.png");
 	_pos = pos;
@@ -31,4 +31,32 @@ void HPItem::Update(){
 			}
 		}
 	}
+	if (!_fall) {
+		return;
+	}
+	--_fallTimer;
+	if (_fallTimer < 0) {
+		_dead = true;
+	}
+	AABB col{ _collision };
+	col.max = { _collision.max.x,_collision.max.y - 40 };
+	if (!_mode.GetMapChips()->IsHit(col, true)) {
+		_fall = false;
+	}
+	else {
+		_pos.y += 5;
+		UpdateCollision();
+	}
+}
+
+void HPItem::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
+	DrawGraph(static_cast<int>(_pos.x + window_pos.x - camera_pos.x)
+		, static_cast<int>(_pos.y + window_pos.y - camera_pos.y)
+		, _cg
+		, 1);
+}
+
+void HPItem::UpdateCollision() {
+	_collision.min = _pos;
+	_collision.max = _pos + _size;
 }

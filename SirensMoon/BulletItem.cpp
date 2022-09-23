@@ -11,7 +11,7 @@
 #include "PlayerA.h"
 
 BulletItem::BulletItem(Game& game, ModeGame& mode, Vector2 pos)
-	:Actor(game, mode), _fall{ true }
+	:Actor(game, mode), _fall{ true }, _fallTimer{300}
 {
 	_cg = ImageServer::LoadGraph("resource/Item/ammo.png");
 	_pos = pos;
@@ -35,6 +35,10 @@ void BulletItem::Update() {
 	}
 	if (!_fall) {
 		return;
+	}
+	--_fallTimer;
+	if (_fallTimer < 0) {
+		_dead = true;
 	}
 	AABB col{ _collision };
 	col.max = { _collision.max.x,_collision.max.y - 40 };

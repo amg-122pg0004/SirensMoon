@@ -21,7 +21,7 @@ Game::Game() :_frameCount{ 0 }, _progress{ Progress::StartMenu }
 
 	//PlayStartUp1();
 	//PlayStartMenu();
-	PlayStage1();
+	PlayStage2Clear();
 
 }
 

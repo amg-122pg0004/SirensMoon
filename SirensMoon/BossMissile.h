@@ -1,5 +1,6 @@
 #pragma once
 #include "Actor.h"
+#include <random>
 
 class BossMissile :public Actor {
 public:
@@ -26,5 +27,7 @@ private:
 	double _speed;
 	Vector2 _room;
 	HitBox _hitbox;
-	//int _lifetime;
+	std::random_device seed_gen;
+	std::mt19937 engine{ seed_gen() };
+	std::uniform_int_distribution<> rand2{ 1,2 };
 };

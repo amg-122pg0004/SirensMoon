@@ -24,17 +24,24 @@ Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 	_pos = _startPos;
 	_size = { 100,200 };
 	_size2 = { 400,500 };
-	std::vector<int> handle;
+	std::vector<int> handle,handle2;
 	handle.resize(65);
-	ImageServer::LoadDivGraph("resource/Boss/wait.png", 65, 10, 7, 1024, 1024, handle.data());
+	ImageServer::LoadDivGraph("resource/Boss/wait2.png", 65, 10, 7, 640, 740, handle.data());
 	_cg[State::Wait] = handle;
-	handle.resize(90);
-	ImageServer::LoadDivGraph("resource/Boss/gunfire.png", 90, 10, 9, 1024, 1024, handle.data());
+	handle.resize(40);
+	ImageServer::LoadDivGraph("resource/Boss/gunfireA.png", 40, 10, 4, 1024, 1024, handle.data());
+	handle2.resize(50);
+	ImageServer::LoadDivGraph("resource/Boss/gunfireB1.png", 50, 10, 5, 1024, 1024, handle2.data());
+	handle.insert(handle.end(), handle2.begin(), handle2.end());
 	_cg[State::GunAttack1] = handle;
-	ImageServer::LoadDivGraph("resource/Boss/faint.png", 90, 10, 9, 1024, 1024, handle.data());
+	handle.resize(40);
+	ImageServer::LoadDivGraph("resource/Boss/gunfireA.png", 40, 10, 4, 1024, 1024, handle.data());
+	handle2.resize(50);
+	ImageServer::LoadDivGraph("resource/Boss/gunfireB2.png", 50, 10, 5, 1024, 1024, handle2.data());
+	handle.insert(handle.end(), handle2.begin(), handle2.end());
 	_cg[State::GunAttack2] = handle;
 	handle.resize(80);
-	ImageServer::LoadDivGraph("resource/Boss/missileboss.png", 80, 10, 8, 1024, 1024, handle.data());
+	ImageServer::LoadDivGraph("resource/Boss/missileboss2.png", 80, 10, 8, 840, 740, handle.data());
 	_cg[State::ShootMissile] = handle;
 	handle.resize(70);
 	ImageServer::LoadDivGraph("resource/Boss/headbutt.png", 70, 10, 7, 256, 256, handle.data());
@@ -47,7 +54,7 @@ Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 	ImageServer::LoadDivGraph("resource/Boss/damage.png", 26, 10, 3, 256, 256, handle.data());
 	_cg[State::Damage] = handle;
 	handle.resize(180);
-	ImageServer::LoadDivGraph("resource/Boss/thunder.png", 180, 10, 18, 1024, 1024, handle.data());
+	ImageServer::LoadDivGraph("resource/Boss/thunder2.png", 180, 10, 18, 1024, 740, handle.data());
 	_cg[State::Thunder] = handle;
 	_time = 3 * 60;
 	_state = State::Wait;
@@ -162,13 +169,18 @@ void Boss::DamageSequence() {
 void Boss::BackRender(Vector2 window_pos, Vector2 camera_pos) {
 	if (_visible) {
 		if (_backlayer) {
+			Vector2 fix{ 0,0 };
+			if (_state == State::Wait||_state==State::Thunder||_state==State::ShootMissile) {
+				fix = { 0,-142 };
+			}
+
 			auto cg = _cg[_state];
 			if (_animNo >= cg.size()) {
 				_animNo = 0;
 			}
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, _alpha);
-			DrawRotaGraph(static_cast<int>(_pos.x - camera_pos.x + window_pos.x),
-				static_cast<int>(_pos.y - camera_pos.y + window_pos.y),
+			DrawRotaGraph(static_cast<int>(_pos.x - camera_pos.x + window_pos.x+ fix.x),
+				static_cast<int>(_pos.y - camera_pos.y + window_pos.y+ fix.y),
 				_scale, 0.0, cg[_animNo], 1);
 			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 		}
@@ -194,8 +206,8 @@ void Boss::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 void Boss::ChoiceAttack() {
 	_animNo = 0;
 	if (!_phase2) {
-		//switch (rand3(engine)) {
-		switch (2) {
+		switch (rand3(engine)) {
+		//switch (2) {
 		case 1:
 			if (rand2(engine) == 1) {
 				_time = 270;
@@ -302,6 +314,7 @@ void Boss::ShootMissile() {
 	{
 		Vector2 fix{200,-400};
 		_mode.GetActorServer().Add(std::make_unique<FX_MissileShoot>(_game, _mode, _pos + fix,_game.GetFrameCount()));
+		PlaySoundMem(SoundServer::Find("MissileLaunch"), DX_PLAYTYPE_BACK);
 	}
 
 	if (_time == 40 || _time == 20 || _time == 0) {
@@ -348,6 +361,9 @@ void Boss::HeadButt() {
 	}
 
 	if (_time < 590 && _time>410 && _visible == false) {
+		if (CheckSoundMem(SoundServer::Find("PreHeadbutt"))==0) {
+			PlaySoundMem(SoundServer::Find("PreHeadbutt"), DX_PLAYTYPE_BACK);
+		}
 		AABB col = _player1->GetCollision();
 		auto dir = (col.min + col.max) / 2 - _pos;
 
@@ -365,6 +381,7 @@ void Boss::HeadButt() {
 	if (_time <= 410 && _visible == false) {
 		_visible = true;
 		_animNo = 0;
+		StopSoundMem(SoundServer::Find("PreHeadbutt"));
 	}
 
 	if (_visible == true) {
@@ -377,6 +394,9 @@ void Boss::HeadButt() {
 		if (_animNo == 30) {
 			Vector2 pos = { _pos.x,_pos.y + _size.y / 2 };
 			_mode.GetActorServer().Add(std::make_unique<Explode3>(_game, _mode, pos));
+			if (CheckSoundMem(SoundServer::Find("Headbutt")) == 0) {
+				PlaySoundMem(SoundServer::Find("Headbutt"), DX_PLAYTYPE_BACK);
+			}
 		}
 	}
 

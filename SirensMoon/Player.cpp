@@ -21,7 +21,7 @@
 
 Player::Player(Game& game, ModeGame& mode, int playernum)
 	:Actor{ game,mode }, _speed{ 0,0 }, _playerNum{ playernum }
-	, _dir{ 0,0 }, _inputAngle{ 0 }, _hp{ 33 }, _hpMAX{ 3 }, _movable{ true }
+	, _dir{ 0,0 }, _inputAngle{ 0 }, _hp{ 3 }, _hpMAX{ 3 }, _movable{ true }
 	, _state{ PlayerState::Wait }, _direction{ PlayerDirection::Right }, _animNo{ 0 }, _invincibleTime{ 0 }
 	, _stageMovable{ true }, _teleportDelay{ -1 }, _teleportPosition{ 0,0 }, _slow{ false }
 {
@@ -487,8 +487,7 @@ void Player::Debug(Vector2 window_pos, Vector2 camera_pos) {
 
 	ss << "_collision.max.x" << _collision.max.x << "\n";
 	ss << "_collision.max.y" << _collision.max.y << "\n";
-	ss << "ハイドタイム" << _hideTimer << "\n";
-	ss << "テレポート位置x:" << _teleportPosition.x << "y:" << _teleportPosition.y << "\n";
+	ss << "angle:" << _inputAngle << "\n";
 	ss << "スピード" << _speed.Length() << "\n";
 	DrawString(50 + _playerNum * 960, 100, ss.str().c_str(), GetColor(255, 0, 255));
 }

@@ -327,6 +327,9 @@
     <Filter Include="UIServer">
       <UniqueIdentifier>{ee6bb4f8-deaa-42af-9c3e-e8aff4d2d670}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utillity\CharaCodeConvert">
+      <UniqueIdentifier>{ad8b183f-20f2-4308-8eaf-408e1f62a11f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -650,6 +653,9 @@
     <ClCompile Include="UIServer.cpp">
       <Filter>UIServer</Filter>
     </ClCompile>
+    <ClCompile Include="CharaCodeConvert.cpp">
+      <Filter>Utillity\CharaCodeConvert</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -895,9 +901,6 @@
     <ClInclude Include="BigServerUI.h">
       <Filter>UI\BigServerUI</Filter>
     </ClInclude>
-    <ClInclude Include="strconv\strconv.h">
-      <Filter>picojson</Filter>
-    </ClInclude>
     <ClInclude Include="AimUI.h">
       <Filter>UI\AimUI</Filter>
     </ClInclude>
@@ -975,6 +978,9 @@
     </ClInclude>
     <ClInclude Include="UIServer.h">
       <Filter>UIServer</Filter>
+    </ClInclude>
+    <ClInclude Include="CharaCodeConvert.h">
+      <Filter>Utillity\CharaCodeConvert</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -163,6 +163,7 @@
     <ClCompile Include="Briefing.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="ButtonIcon.cpp" />
+    <ClCompile Include="CharaCodeConvert.cpp" />
     <ClCompile Include="DegitalLetter.cpp" />
     <ClCompile Include="DisplayArea.cpp" />
     <ClCompile Include="FinishCut.cpp" />
@@ -255,6 +256,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Briefing.h" />
+    <ClInclude Include="CharaCodeConvert.h" />
     <ClInclude Include="FX_AfterBurner.h" />
     <ClInclude Include="AimUI.h" />
     <ClInclude Include="Barrier.h" />
@@ -351,7 +353,6 @@
     <ClInclude Include="SoundServer.h" />
     <ClInclude Include="SplitWindow.h" />
     <ClInclude Include="StickeyBomb.h" />
-    <ClInclude Include="strconv\strconv.h" />
     <ClInclude Include="Switch.h" />
     <ClInclude Include="SwitchArea.h" />
     <ClInclude Include="Teleporter.h" />

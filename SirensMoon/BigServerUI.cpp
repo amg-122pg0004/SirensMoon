@@ -30,9 +30,9 @@ void BigServerUI::Render(){
 		SetDrawArea(0,0,screen_W,screen_H);
 		auto pattern=_owner.GetPattern();
 		DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), _cg, 0);
-		DrawExtendGraph(static_cast<int>(_pos.x+30), static_cast<int>(_pos.y+30)
-			, static_cast<int>(_pos.x + 30+100), static_cast<int>(_pos.y + 30+100),
-			_cg_gun, 0);
+		DrawExtendGraph(static_cast<int>(_pos.x+50), static_cast<int>(_pos.y+100)
+			, static_cast<int>(_pos.x + 50+300), static_cast<int>(_pos.y + 100+300),
+			_cg_gun, 1);
 
 		std::stringstream ss;
 		ss <<"‚P@@" << _text[pattern[0]] << "\n";

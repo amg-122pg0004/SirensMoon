@@ -3,6 +3,9 @@
 #include "ObjectDataStructs.h"
 #include <vector>
 
+class BigGenerator;
+class BigServer;
+
 class BossGimmickController:public Actor{
 public:
 	BossGimmickController(Game& game,ModeGame& mode, BossGimmickControllerData data);
@@ -40,8 +43,8 @@ private:
 
 	/*各ギミックのID*/
 	int _gun;
-	std::vector<int> _servers;
-	std::vector<int> _generators;
+	std::vector<BigServer*> _servers;
+	std::vector<BigGenerator*> _generators;
 
 	static const std::vector<bool> GetSignal(int index) {
 		static const std::vector<std::vector<bool>> signal = {

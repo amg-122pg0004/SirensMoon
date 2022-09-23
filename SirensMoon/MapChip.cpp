@@ -307,8 +307,8 @@ void MapChip::LoadTilesets(picojson::object jsRoot, std::string folderpath) {
 					if (tileObject["properties"].is<picojson::array>()) {
 						auto properties = tileObject["properties"].get<picojson::array>();
 						FindPropertieData(data->Direction, properties, "Direction");
-						std::wstring w_ss = utf8_to_wide(data->Direction);
-						data->Direction = wide_to_sjis(w_ss);
+						auto w_s = CharaCodeConvert::ConvertUTF8ToWide(data->Direction);
+						data->Direction = CharaCodeConvert::ConvertWideToMultiByte(w_s);
 						FindPropertieData(data->upperleft, properties, "upperleft");
 
 					}
@@ -329,11 +329,11 @@ void MapChip::LoadTilesets(picojson::object jsRoot, std::string folderpath) {
 						FindPropertieData(data->g, properties, "Color : G");
 						FindPropertieData(data->r, properties, "Color : R");
 						FindPropertieData(data->object, properties, "ObjectImage");
-						std::wstring w_ss = utf8_to_wide(data->object);
-						data->object = wide_to_sjis(w_ss);
+						auto w_s = CharaCodeConvert::ConvertUTF8ToWide(data->object);
+						data->object = CharaCodeConvert::ConvertWideToMultiByte(w_s);
 						FindPropertieData(data->image, properties, "Image");
-						std::wstring w_ss2 = utf8_to_wide(data->image);
-						data->image = wide_to_sjis(w_ss2);
+						auto w_s2 = CharaCodeConvert::ConvertUTF8ToWide(data->image);
+						data->image = CharaCodeConvert::ConvertWideToMultiByte(w_s2);
 						FindPropertieData(data->size.x, properties, "Size_X");
 						FindPropertieData(data->size.y, properties, "Size_Y");
 					}
@@ -925,8 +925,8 @@ void MapChip::LoadDigitalLetterClass(picojson::object object, DigitalLetterData 
 		for (int i = 0; i < properties.size(); ++i) {
 			if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Message") {
 				std::string ss = properties[i].get<picojson::object>()["value"].get<std::string>();
-				std::wstring w_ss = utf8_to_wide(ss);
-				data.message = wide_to_sjis(w_ss);
+				auto w_s = CharaCodeConvert::ConvertUTF8ToWide(ss);
+				data.message = CharaCodeConvert::ConvertWideToMultiByte(w_s);
 			}
 			if (properties[i].get<picojson::object>()["name"].get<std::string>() == "Image") {
 				std::string ss = properties[i].get<picojson::object>()["value"].get<std::string>();
@@ -1130,7 +1130,7 @@ bool MapChip::IsHit(std::set<std::pair<int, int>> grids) {
 }
 
 bool MapChip::IsHit(Vector2 point) {
-	int x = ceil(point.x / 30);
+	int x = floor(point.x / 30);
 	int y = ceil(point.y / 30);
 	std::vector<int> v_chip_no = CheckHitChipNo(x, y, false);
 	for (int chip_gid : v_chip_no) {

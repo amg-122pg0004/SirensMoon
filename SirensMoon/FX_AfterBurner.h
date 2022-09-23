@@ -10,4 +10,5 @@ public:
 	virtual void Easing(int elapsed) override;
 private:
 	BossMissile& _owner;
+	void CheckDeadOwner()override;
 };

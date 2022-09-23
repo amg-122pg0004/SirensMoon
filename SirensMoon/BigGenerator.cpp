@@ -101,6 +101,7 @@ void BigGenerator::Debug(Vector2 window_pos, Vector2 camera_pos) {
 	std::stringstream ss;
 	ss << "activate" << _activate << "\n";
 	ss << "flash" << _flash << "\n";
+	ss << "pattern" << _pattern<< "\n";
 
 	DrawString(static_cast<int>(_pos.x - camera_pos.x + window_pos.x),
 		static_cast<int>(_pos.y - camera_pos.y + window_pos.y),

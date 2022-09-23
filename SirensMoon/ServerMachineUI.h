@@ -3,6 +3,7 @@
 #include "Math.h"
 #include "InputManager.h"
 #include "EnemyGenerator.h"
+#include "CharaCodeConvert.h"
 #include <memory>
 class SplitWindow;
 class ServerMachine;

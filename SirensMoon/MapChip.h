@@ -8,7 +8,7 @@
 #include "picojson/picojson.h"
 #include "Collision.h"
 #include "ObjectDataStructs.h"
-#include "strconv/strconv.h"
+#include "CharaCodeConvert.h"
 
 class Game;
 class ModeBase;

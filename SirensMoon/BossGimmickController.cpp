@@ -20,8 +20,6 @@ BossGimmickController::BossGimmickController(Game& game, ModeGame& mode, BossGim
 	:Actor(game, mode), _index{ 0 }, _phase1{ false }, _phase2{ false }, _readyRailgun{ false }
 {
 	_gun = data.gunID;
-	_generators = data.generatorsID;
-	_servers = data.serversID;
 	_pos = data.pos;
 	CheckRoomPosition();
 	_size = { 100,100 };
@@ -31,18 +29,21 @@ BossGimmickController::BossGimmickController(Game& game, ModeGame& mode, BossGim
 	auto v_BigGen = _mode.GetMapChips()->GetBigGeneratorData();
 	for (auto BigGen : v_BigGen) {
 		auto biggen = std::make_unique<BigGenerator>(_game, _mode, BigGen, *this);
+		_generators.push_back(biggen.get());
 		_mode.GetActorServer().Add(std::move(biggen));
 	}
 
 	auto v_BigServer = _mode.GetMapChips()->GetBigServerData();
 	for (auto a_BigServer : v_BigServer) {
 		auto bigserver = std::make_unique<BigServer>(_game, _mode, a_BigServer);
+		_servers.push_back(bigserver.get());
 		_mode.GetActorServer().Add(std::move(bigserver));
 	}
 
 	auto v_BigGun = _mode.GetMapChips()->GetBigGunDataList();
 	for (auto a_BigGun : v_BigGun) {
 		auto biggun = std::make_unique<BigGun>(_game, _mode, a_BigGun, *this);
+
 		_mode.GetActorServer().Add(std::move(biggun));
 	}
 	/*ƒ{ƒX¶¬*/
@@ -117,18 +118,15 @@ void BossGimmickController::DistributePattern() {
 	std::mt19937 engine(seed_gen());
 	std::shuffle(randombox.begin(), randombox.end(), engine);
 
-	for (auto&& actor : _mode.GetObjects()) {
-		if (actor->GetType() == Type::Gimmick) {
-			if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::BigGenerator) {
-				int random_index = randombox[i];
-				dynamic_cast<BigGenerator&>(*actor).SetPattern(_pattern[random_index], GetSignal(_pattern[random_index]));
-				++i;
-			}
-			if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::BigServer) {
-				dynamic_cast<BigServer&>(*actor).SetPattern(_pattern);
-				++i;
-			}
-		}
+	std::shuffle(_generators.begin(), _generators.end(), engine);
+
+	for (auto&& gen : _generators) {
+		gen->SetPattern(_pattern[i], GetSignal(_pattern[i]));
+		++i;
+	}
+	for (auto&& server : _servers) {
+		server->SetPattern(_pattern);
+		++i;
 	}
 }
 

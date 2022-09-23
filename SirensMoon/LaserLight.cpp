@@ -12,9 +12,10 @@ LaserLight::LaserLight(Game& game, ModeGame& mode, Actor& owner)
 	GetGraphSize(_cg, &x, &y);
 	_centerPos = { static_cast<double>(x / 2),static_cast<double>(y) };
 	_pos = _owner.GetPosition() + _owner.GetSize() / 2;
+	_extendPoint = _pos;
 	auto player = dynamic_cast<Player&>(_owner);
 	_angle = player.GetInputAngle() + Math::ToRadians(90);
-
+	_alpha = 180;
 }
 
 void LaserLight::Update() {
@@ -42,10 +43,9 @@ void LaserLight::Update() {
 	}
 	auto angle = _angle - Math::ToRadians(90);
 	Vector2 extendPoint{ _pos };
-
+	Vector2 stepLength{ cos(angle) * 5 ,sin(angle) * 5 };
 	for (int i = 0; i < 1000; ++i) {
-		extendPoint.x += cos(angle) * 5;
-		extendPoint.y += sin(angle) * 5;
+		extendPoint += stepLength;
 		if (_mode.GetMapChips()->IsHit(extendPoint)) {
 			break;
 		}
@@ -53,10 +53,11 @@ void LaserLight::Update() {
 			break;
 		}
 	}
-	if (_angle > Math::ToRadians(180)) {
-		extendPoint.y -= 30;
+
+	if (angle < Math::ToRadians(0)) {
+		extendPoint.y += 30;
 	}
-	if (_angle < Math::ToRadians(90) || _angle > Math::ToRadians(270)) {
+	if (angle > Math::ToRadians(90)&& angle < Math::ToRadians(-90)) {
 		extendPoint.x += 30;
 	}
 	_extendPoint = extendPoint;
@@ -69,7 +70,7 @@ void LaserLight::MaskRender(Vector2 window_pos, Vector2 camera_pos) {
 			window_pos.y - camera_pos.y + _pos.y,
 			window_pos.x - camera_pos.x + _extendPoint.x,
 			window_pos.y - camera_pos.y + _extendPoint.y,
-			GetColor(255, 0, 0), 1);
+			GetColor(255, 0, 0), 3);
 	}
 }
 

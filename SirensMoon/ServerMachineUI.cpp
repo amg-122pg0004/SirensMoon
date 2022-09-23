@@ -3,7 +3,6 @@
 #include <fstream>
 #include <random>
 #include "picojson/picojson.h"
-#include "strconv/strconv.h"
 #include "Game.h"
 #include "ServerMachine.h"
 #include "SoundServer.h"
@@ -182,16 +181,16 @@ void ServerMachineUI::LoadMessage(EnemyGenerator::EnemyPattern pattern) {
 	picojson::object jsRoot = json.get<picojson::object>();
 
 	std::string message1 = jsRoot["head" + std::to_string(pattern.head)].get<std::string>();
-	std::wstring w_ss = utf8_to_wide(message1);
-	_message.push_back(wide_to_sjis(w_ss));
+	auto w_s = CharaCodeConvert::ConvertUTF8ToWide(message1);
+	_message.push_back(CharaCodeConvert::ConvertWideToMultiByte(w_s));
 
 	std::string message2 = jsRoot["body" + std::to_string(pattern.body)].get<std::string>();
-	std::wstring w_ss2 = utf8_to_wide(message2);
-	_message.push_back(wide_to_sjis(w_ss2));
+	auto w_s2 = CharaCodeConvert::ConvertUTF8ToWide(message2);
+	_message.push_back(CharaCodeConvert::ConvertWideToMultiByte(w_s2));
 
 	std::string message3 = jsRoot["foot" + std::to_string(pattern.foot)].get<std::string>();
-	std::wstring w_ss3 = utf8_to_wide(message3);
-	_message.push_back(wide_to_sjis(w_ss3));
+	auto w_s3 = CharaCodeConvert::ConvertUTF8ToWide(message3);
+	_message.push_back(CharaCodeConvert::ConvertWideToMultiByte(w_s3));
 
 	std::random_device seed_gen;
 	std::mt19937 engine(seed_gen());

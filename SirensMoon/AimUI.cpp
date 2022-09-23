@@ -44,24 +44,29 @@ void AimUI::Update() {
 			_pos_cursor.y = screen_H;
 		}
 		if (_inputManager->CheckInput("ACTION", 't', 0)) {
+			if (CheckSoundMem(SoundServer::Find("BigRailgunShoot")) == 0) {
+				PlaySoundMem(SoundServer::Find("BigRailgunShoot"), DX_PLAYTYPE_BACK);
+			}
 			for (auto&& actor : _mode.GetObjects()) {
 				if (actor->GetType() == Actor::Type::Boss) {
 					AABB col = dynamic_cast<Boss&>(*actor).GetHitBox();
 					Vector2 world_pos = _pos + _pos_cursor;
 					if (col.min.x < world_pos.x && world_pos.x < col.max.x &&
 						col.min.y < world_pos.y && world_pos.y < col.max.y) {
+						if (CheckSoundMem(SoundServer::Find("BigRailgunHit")) == 0) {
+							PlaySoundMem(SoundServer::Find("BigRailgunHit"), DX_PLAYTYPE_BACK);
+						}
 						dynamic_cast<Boss&>(*actor).Dead();
 						_gameClear = true;
+						for (auto&& window:static_cast<ModeGame&>(_mode).GetSplitWindow()) {
+							auto fade = std::make_unique<Screen_Fade>(_game, _mode, _window, _pos, _size);
+							fade->SetEffect(0, 120, GetColor(255, 255, 255), false);
+							window->GetUIServer2().Add(std::move(fade));
+						}
 					}
 				}
 			}
-			for (auto&& window : static_cast<ModeGame&>(_mode).GetSplitWindow()) {
-				for (auto&& ui : window->GetUIServer2().GetObjects()) {
-					if (ui->GetType() == Type::ScreenEffect) {
-						//static_cast<Screen_Fade&>(*ui).SetEffect(0,120,GetColor(255,255,255));
-					}
-				}
-			}
+
 		}
 	}
 
