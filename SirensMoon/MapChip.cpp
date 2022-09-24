@@ -741,6 +741,9 @@ void MapChip::LoadEnemyClass(picojson::object object, EnemyData data) {
 		picojson::array properties = object["properties"].get<picojson::array>();
 		FindPropertieData(data.waitFrame, properties, "WaitFrame");
 		FindPropertieData(data.patrolID, properties, "PatrolLine");
+		FindPropertieData(data.detectionComplete, properties, "FindTime");
+		FindPropertieData(data.sightH, properties, "Sight_H");
+		FindPropertieData(data.sightW, properties, "Sight_W");
 	}
 	_enemyDataList.push_back(data);
 }
@@ -756,6 +759,9 @@ void MapChip::LoadEnemyBClass(picojson::object object, EnemyBData data) {
 		FindPropertieData(data.LookTime[1], properties, "LookTime2");
 		FindPropertieData(data.LookTime[2], properties, "LookTime3");
 		FindPropertieData(data.LookTime[3], properties, "LookTime4");
+		FindPropertieData(data.detectionComplete, properties, "FindTime");
+		FindPropertieData(data.sightH, properties, "Sight_H");
+		FindPropertieData(data.sightW, properties, "Sight_W");
 	}
 	_enemyBDataList.push_back(data);
 }

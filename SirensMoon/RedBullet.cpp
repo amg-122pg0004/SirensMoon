@@ -9,6 +9,6 @@ RedBullet:: RedBullet(Game& game, ModeGame& mode, Vector2 pos, double dir)
 }
 
 void RedBullet::Dead() {
-	Actor::Dead();
+	Bullet::Dead();
 	_mode.GetActorServer().Add(std::make_unique<FX_BulletHitRed>(_game, _mode, _pos, _game.GetFrameCount()));
 }
