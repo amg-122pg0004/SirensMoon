@@ -15,6 +15,10 @@ int WINAPI WinMain(
 {
     ChangeWindowMode(TRUE);    //<ウインドウモードに変更
     SetGraphMode(screen_W, screen_H, screen_Depth);    //<画面の解像度(幅,高さ)と色数(32bit)を指定
+
+#ifndef _DEBUG
+    SetOutApplicationLogValidFlag(false);//<非デバッグビルド時ログ出力を行わない
+#endif 
     DxLib_Init();    //<Dxライブラリ初期化
     SetDrawScreen(DX_SCREEN_BACK);    //<描画先画面を裏にする
 

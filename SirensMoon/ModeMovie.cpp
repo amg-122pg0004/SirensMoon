@@ -11,13 +11,13 @@
 #include "LoadResources.h"
 #include "SkipUI.h"
 
-ModeMovie::ModeMovie(Game& game, std::string path, int skipFrame, bool splitFlag)
+ModeMovie::ModeMovie(Game& game, std::string path, int startFrame, int skipFrame, bool splitFlag)
 	:ModeBase{ game }, _sizeX{ 0 }, _sizeY{ 0 }, _movieSkipFrame{ skipFrame }
 	, _bgm{}, _bgmPlayFrame{ -1 }, _splitFlag{ splitFlag }, _loadingNumber{ 0 }, _path{path}
 {
 	_renderPriority = 10;
 	_movieHandle = ImageServer::LoadGraph(path);
-	SeekMovieToGraph(_movieHandle, 0);
+	SeekMovieToGraph(_movieHandle, startFrame);
 	PlayMovieToGraph(_movieHandle);
 
 	GetGraphSize(_movieHandle, &_sizeX, &_sizeY);

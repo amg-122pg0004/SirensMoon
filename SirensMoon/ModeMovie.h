@@ -14,7 +14,7 @@ class UIBase;
 
 class ModeMovie :public ModeBase {
 public:
-	ModeMovie(Game& game,std::string,int skipFrame,bool splitFlag);
+	ModeMovie(Game& game,std::string,int startFrame,int skipFrame,bool splitFlag);
 	~ModeMovie();
 	void Update() override;
 	void Render()override;

@@ -36,13 +36,14 @@ void MiniMap::Update() {
 	if (_inputManager->CheckInput("ACTION", 'h', 1)) {
 		if (!_visible) {
 			PlaySoundMem(SoundServer::Find("MiniMapOpen"), DX_PLAYTYPE_BACK);
+			PlaySoundMem(SoundServer::Find("MiniMapLooking"), DX_PLAYTYPE_LOOP);
 			_visible = true;
 			StartJoypadVibration(DX_INPUT_PAD2, 50, 50, -1);
 		}
 	}
 	else {
 		if (_visible) {
-			StopSoundMem(SoundServer::Find("MiniMapClose"));
+			StopSoundMem(SoundServer::Find("MiniMapLooking"));
 			PlaySoundMem(SoundServer::Find("MiniMapClose"), DX_PLAYTYPE_BACK);
 			_visible = false;
 		}

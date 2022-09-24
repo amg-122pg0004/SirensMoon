@@ -99,7 +99,7 @@ void ModeStart::Render() {
 	if (GetMovieStateToGraph(_movieHandle) == 1 && _inputManager->CheckInput("PAUSE", 't', 0) ||
 		GetMovieStateToGraph(_movieHandle) == 1 && _inputManager->CheckInput("PAUSE", 't', 1)) {
 		if (!_bgm) {
-			PlaySoundFile("resource/BGM/title.wav", DX_PLAYTYPE_LOOP);
+			PlaySoundFile("resource/BGM/title.mp3", DX_PLAYTYPE_LOOP);
 			_bgm = true;
 		}
 		PauseMovieToGraph(_movieHandle);
@@ -111,7 +111,7 @@ void ModeStart::Render() {
 	}
 	if (GetMovieStateToGraph(_movieHandle) == 1 && TellMovieToGraph(_movieHandle) > 124000) {
 		if (!_bgm) {
-			PlaySoundFile("resource/BGM/title.wav", DX_PLAYTYPE_LOOP);
+			PlaySoundFile("resource/BGM/title.mp3", DX_PLAYTYPE_LOOP);
 			_bgm = true;
 		}
 	}
@@ -133,7 +133,7 @@ void ModeStart::Render() {
 		DrawGraph(0, 0, _cg_bg, 0);
 		Vector2 pos2{ splitscreen_W / 2 - 180,screen_H / 2 + 50 };
 
-		//座標469 742　縮小率 68%　 あせもあり
+		//座標469 742　縮小率 68%
 		/*選択位置を参照して画像を切り返る関数*/
 		auto select = [this](std::pair<int, int> cg, int index) {
 			if (_select == index) {

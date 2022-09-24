@@ -23,7 +23,7 @@ Briefing::Briefing(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos,
 	auto fade2 = std::make_unique<Screen_Fade>(_game, _mode, _window, _pos, _size);
 	fade2->SetEffect(180, 22, GetColor(0, 0, 0),false);
 	_window.GetUIServer2().Add(std::move(fade2));
-	PlaySoundFile("resource/BGM/Briefing.wav", DX_PLAYTYPE_BACK);
+	PlaySoundFile("resource/BGM/Briefing.mp3", DX_PLAYTYPE_BACK);
 }
 Briefing::~Briefing() {
 

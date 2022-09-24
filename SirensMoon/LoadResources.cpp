@@ -5,44 +5,44 @@
 LoadResources::LoadResources() {
 }
 void LoadResources::LoadSE1() {
-	SoundServer::LoadSound("DeceideMenu", "resource/SE/UI/DeceideMenu.wav");
-	SoundServer::LoadSound("InputDown", "resource/SE/UI/InputDown.wav");
-	SoundServer::LoadSound("InputUp", "resource/SE/UI/InputUp.wav");
+	SoundServer::LoadSound("DeceideMenu", "resource/SE/UI/DeceideMenu.mp3");
+	SoundServer::LoadSound("InputDown", "resource/SE/UI/InputDown.mp3");
+	SoundServer::LoadSound("InputUp", "resource/SE/UI/InputUp.mp3");
 }
 
 void LoadResources::LoadSE() {
 
-	SoundServer::LoadSound("TakeAmmo", "resource/SE/Gimmick/TakeAmmo.wav");
-	SoundServer::LoadSound("EnterBarrier", "resource/SE/Gimmick/EnterBarrier.wav");
+	SoundServer::LoadSound("TakeAmmo", "resource/SE/Gimmick/TakeAmmo.mp3");
+	SoundServer::LoadSound("EnterBarrier", "resource/SE/Gimmick/EnterBarrier.mp3");
 	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("EnterBarrier"));
-	SoundServer::LoadSound("EnterBarrierFail", "resource/SE/Gimmick/EnterBarrierFail.wav");
-	SoundServer::LoadSound("Teleport", "resource/SE/Gimmick/Teleport.wav");
-	SoundServer::LoadSound("ActiveTrapBom", "resource/SE/Gimmick/ActiveTrapBom.wav");
-	SoundServer::LoadSound("AccessSwitch", "resource/SE/Gimmick/AccessSwitch.wav");
-	SoundServer::LoadSound("AccessSwitchEnd", "resource/SE/Gimmick/AccessSwitchEnd.wav");
-	SoundServer::LoadSound("DoorClose", "resource/SE/Gimmick/DoorClose.wav");
-	SoundServer::LoadSound("DoorOpen", "resource/SE/Gimmick/DoorOpen.wav");
-	SoundServer::LoadSound("MicroBomAlarm", "resource/SE/Gimmick/MicroBomAlarm.wav");
-	SoundServer::LoadSound("MicroBomFire", "resource/SE/Gimmick/MicroBomFire.wav");
-	SoundServer::LoadSound("MicroBomRelease", "resource/SE/Gimmick/MicroBomRelease.wav");
-	SoundServer::LoadSound("ScreenBomActive", "resource/SE/Gimmick/ScreenBomActive.wav");
-	SoundServer::LoadSound("ScreenBomRelease", "resource/SE/Gimmick/ScreenBomRelease.wav");
+	SoundServer::LoadSound("EnterBarrierFail", "resource/SE/Gimmick/EnterBarrierFail.mp3");
+	SoundServer::LoadSound("Teleport", "resource/SE/Gimmick/Teleport.mp3");
+	SoundServer::LoadSound("ActiveTrapBom", "resource/SE/Gimmick/ActiveTrapBom.mp3");
+	SoundServer::LoadSound("AccessSwitch", "resource/SE/Gimmick/AccessSwitch.mp3");
+	SoundServer::LoadSound("AccessSwitchEnd", "resource/SE/Gimmick/AccessSwitchEnd.mp3");
+	SoundServer::LoadSound("DoorClose", "resource/SE/Gimmick/DoorClose.mp3");
+	SoundServer::LoadSound("DoorOpen", "resource/SE/Gimmick/DoorOpen.mp3");
+	SoundServer::LoadSound("MicroBomAlarm", "resource/SE/Gimmick/MicroBomAlarm.mp3");
+	SoundServer::LoadSound("MicroBomFire", "resource/SE/Gimmick/MicroBomFire.mp3");
+	SoundServer::LoadSound("MicroBomRelease", "resource/SE/Gimmick/MicroBomRelease.mp3");
+	SoundServer::LoadSound("ScreenBomActive", "resource/SE/Gimmick/ScreenBomActive.mp3");
+	SoundServer::LoadSound("ScreenBomRelease", "resource/SE/Gimmick/ScreenBomRelease.mp3");
 
-	SoundServer::LoadSound("PlayerDamage", "resource/SE/Player/Damage.wav");
-	SoundServer::LoadSound("Walking", "resource/SE/Player/Walking.wav");
-	SoundServer::LoadSound("MiniMapClose", "resource/SE/Player/MiniMapClose.wav");
-	SoundServer::LoadSound("MiniMapLooking", "resource/SE/Player/MiniMapLooking.wav");
-	SoundServer::LoadSound("MiniMapOpen", "resource/SE/Player/MiniMapOpen.wav");
-	SoundServer::LoadSound("ServerAccess", "resource/SE/Player/ServerAccess.wav");
-	SoundServer::LoadSound("ServerAccessNow", "resource/SE/Player/ServerAccessNow.wav");
-	SoundServer::LoadSound("ChangeAmmo", "resource/SE/Player/ChangeAmmo.wav");
-	SoundServer::LoadSound("Charging", "resource/SE/Player/Charging.wav");
-	SoundServer::LoadSound("Chargekeep", "resource/SE/Player/Chargekeep.wav");
-	SoundServer::LoadSound("Fire", "resource/SE/Player/Fire.wav");
+	SoundServer::LoadSound("PlayerDamage", "resource/SE/Player/Damage.mp3");
+	SoundServer::LoadSound("Walking", "resource/SE/Player/Walking.mp3");
+	SoundServer::LoadSound("MiniMapClose", "resource/SE/Player/MiniMapClose.mp3");
+	SoundServer::LoadSound("MiniMapLooking", "resource/SE/Player/MiniMapLooking.mp3");
+	SoundServer::LoadSound("MiniMapOpen", "resource/SE/Player/MiniMapOpen.mp3");
+	SoundServer::LoadSound("ServerAccess", "resource/SE/Player/ServerAccess.mp3");
+	SoundServer::LoadSound("ServerAccessNow", "resource/SE/Player/ServerAccessNow.mp3");
+	SoundServer::LoadSound("ChangeAmmo", "resource/SE/Player/ChangeAmmo.mp3");
+	SoundServer::LoadSound("Charging", "resource/SE/Player/Charging.mp3");
+	SoundServer::LoadSound("Chargekeep", "resource/SE/Player/Chargekeep.mp3");
+	SoundServer::LoadSound("Fire", "resource/SE/Player/Fire.mp3");
 
-	SoundServer::LoadSound("Fire", "resource/SE/Bullet/HitBullet.wav");
+	SoundServer::LoadSound("HitBullet", "resource/SE/Bullet/HitBullet.mp3");
 
-	SoundServer::LoadSound("Detection", "resource/SE/Enemy/Detection.wav");
+	SoundServer::LoadSound("Detection", "resource/SE/Enemy/Detection.mp3");
 	ChangeVolumeSoundMem(255 * 100 / 100, SoundServer::Find("Detection"));
 }
 
@@ -108,7 +108,7 @@ void LoadResources::LoadBossCGs() {
 	ImageServer::LoadDivGraph("resource/Effect/MissileShoot.png", 70, 7, 12, 220, 340, handle.data());
 
 	SoundServer::LoadSound("Headbutt", "resource/SE/Boss/Headbutt.mp3");
-	SoundServer::LoadSound("PreHeadbutt", "resource/SE/Boss/PreHeadbutt.wav");
+	SoundServer::LoadSound("PreHeadbutt", "resource/SE/Boss/PreHeadbutt.mp3");
 	SoundServer::LoadSound("MissileLaunch", "resource/SE/Boss/MissileLaunch.mp3");
 	SoundServer::LoadSound("BigRailgunShoot", "resource/SE/Boss/BigRailgunShoot.mp3");
 	SoundServer::LoadSound("BigRailgunHit", "resource/SE/Boss/BigRailgunHit.mp3");

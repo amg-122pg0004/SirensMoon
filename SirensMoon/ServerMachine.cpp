@@ -81,7 +81,7 @@ void ServerMachine::Update() {
 		_mode.TargetSpawnEvent();
 		_valid = true;
 		StopSoundFile();
-		PlaySoundFile("resource/BGM/ActiveServer.wav", DX_PLAYTYPE_LOOP);
+		PlaySoundFile("resource/BGM/ActiveServer.mp3", DX_PLAYTYPE_LOOP);
 		_mode.GetSplitWindow()[0]->GetObjectiveUI()
 			->ChangeMessage("d—v‰F’ˆl“Á’è‚µA•ßŠl‚¹‚æ", 2);
 		_mode.GetSplitWindow()[1]->GetObjectiveUI()
