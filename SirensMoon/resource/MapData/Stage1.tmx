@@ -3729,7 +3729,7 @@
     <property name="SpeedMax" type="float" value="6"/>
    </properties>
   </object>
-  <object id="978" gid="5" x="628" y="4200.67" width="30" height="30">
+  <object id="978" gid="5" x="2396" y="2472.67" width="30" height="30">
    <properties>
     <property name="Accelerate" type="float" value="1"/>
     <property name="Friction" type="float" value="0.9"/>

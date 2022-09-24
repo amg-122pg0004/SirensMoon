@@ -6,19 +6,18 @@ ScreenEffect::ScreenEffect(Game& game, ModeBase& mode, SplitWindow& window, Vect
 	:UIBase{ game,mode,window,pos,size }
     ,_cg{-1}, _delayTime{0}, _startTime{0}, _lifeTime{0},_alpha{255}
 {
-	_visible = true;
+	_visible = false;
 	_UIPriority = 9;
 }
 
 void ScreenEffect::Update() {
-	if (!_visible)
-	{
-		return;
-	}
     // 経過時間＝現在時刻－(開始時刻＋遅延時間)
     auto elapsed = _game.GetFrameCount() - (_startTime + _delayTime);
     if (elapsed < 0) {
         return; // ディレイ(遅延)中
+    }
+    else {
+        _visible = true;
     }
     if (elapsed < _lifeTime) {
         Easing(elapsed);  // イージング処理
@@ -32,7 +31,9 @@ void ScreenEffect::Render() {
 }
 
 void ScreenEffect::SetEffect(int delayTime, int lifeTime){
-    _visible = true;
+    if (delayTime <= 0) {
+        _visible = true;
+    }
     _delayTime = delayTime;
     _lifeTime = lifeTime;
     _startTime = _game.GetFrameCount();

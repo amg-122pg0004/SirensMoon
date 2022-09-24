@@ -2,10 +2,12 @@
 #include "ModeGame.h"
 #include "LinkLight.h"
 #include "SquareLight.h"
+#include "Screen_Fade.h"
 
 Switch::Switch(Game& game, ModeGame& mode, SwitchData data)
 	:Gimmick(game, mode, data.ID), _linkGimmiks{ data.links },_stopRay{false}
-	, _accessible1{ 0 }, _accessible2{ 0 }, _cg3{ -1 }, _timer{ 120 }, _projectionNumber{ data.projectionNumber }
+	, _accessible1{ 0 }, _accessible2{ 0 }, _cg3{ -1 }
+	, _timer{ 120 }, _projectionNumber{ data.projectionNumber },_firstActivate{-1}
 {
 	_activate = false;
 	_pos = data.pos;
@@ -46,8 +48,13 @@ void Switch::Update() {
 	RayToLinks();
 
 
-	if (_firstActivate != 0) {
+	if (_firstActivate != -1) {
 		--_timer;
+		if (_timer == 105) {
+			auto&& window = _mode.GetSplitWindow()[_firstActivate];
+			window->GetCamera()->SetPosition(_linkGimmickPositions[0]);
+			window->GetCamera()->SetMovable(false);
+		}
 		if (_timer < 60 && _timer >= 40) {
 			LinkGimmickActivate(true);
 			_activate = true;
@@ -55,8 +62,8 @@ void Switch::Update() {
 			return;
 		}
 		if (_timer == 0) {
-			_mode.GetSplitWindow()[_firstActivate - 1]->GetCamera()->SetMovable(true);
-			_mode.GetSplitWindow()[_firstActivate - 1]->GetCamera()->SetPosition(_pos + _size / 2);
+			_mode.GetSplitWindow()[_firstActivate]->GetCamera()->SetMovable(true);
+			_mode.GetSplitWindow()[_firstActivate]->GetCamera()->SetPosition(_pos + _size / 2);
 			return;
 		}
 	}
@@ -87,8 +94,8 @@ void Switch::Update() {
 		}
 		if (_game.GetInputManager()->CheckInput("ACCESS", 'h', 0)) {
 			_stopRay = true;
-			if (_firstActivate == 0) {
-				FirstActivateEvent(1);
+			if (_firstActivate == -1) {
+				FirstActivateEvent(0);
 			}
 			else if (_timer < 60) {
 				LinkGimmickActivate(true);
@@ -104,8 +111,8 @@ void Switch::Update() {
 		}
 		if (_game.GetInputManager()->CheckInput("ACCESS", 'h', 1)) {
 			_stopRay = true;
-			if (_firstActivate == 0) {
-				FirstActivateEvent(2);
+			if (_firstActivate == -1) {
+				FirstActivateEvent(1);
 			}
 			else if (_timer < 60) {
 				LinkGimmickActivate(true);
@@ -164,8 +171,21 @@ void Switch::FirstActivateEvent(int eventPlayer) {
 		_timer = 0;
 	}
 	else {
-		_mode.GetSplitWindow()[_firstActivate - 1]->GetCamera()->SetPosition(_linkGimmickPositions[0]);
-		_mode.GetSplitWindow()[_firstActivate - 1]->GetCamera()->SetMovable(false);
+		auto&& window= _mode.GetSplitWindow()[_firstActivate];
+		Vector2 size{ 0,0 };
+		auto fade = std::make_unique<Screen_Fade>(_game,_mode,*window,window->GetWindowPos(),size);
+		fade->SetEffect(1,15,GetColor(0,0,0),false);
+		window->GetUIServer2().Add(std::move(fade));
+		auto fade2 = std::make_unique<Screen_Fade>(_game, _mode, *window, window->GetWindowPos(), size);
+		fade2->SetEffect(16, 15, GetColor(0, 0, 0), true);
+		window->GetUIServer2().Add(std::move(fade2));
+
+		auto fade3 = std::make_unique<Screen_Fade>(_game, _mode, *window, window->GetWindowPos(), size);
+		fade3->SetEffect(105, 15, GetColor(0, 0, 0), false);
+		window->GetUIServer2().Add(std::move(fade3));
+		auto fade4 = std::make_unique<Screen_Fade>(_game, _mode, *window, window->GetWindowPos(), size);
+		fade4->SetEffect(120, 15, GetColor(0, 0, 0), true);
+		window->GetUIServer2().Add(std::move(fade4));
 	}
 }
 
@@ -177,10 +197,6 @@ void Switch::RayToLinks(){
 		return;
 	}
 	if (_game.GetFrameCount() % 60 * 0.8 == 0) {
-		/*
-		for (auto&& linkpos : _linkGimmickPositions) {
-			_mode.GetActorServer().Add(std::make_unique<LinkLight>(_game, _mode, *this, linkpos));
-		*/
 		int loop = Math::Min(_projectionNumber, static_cast<int>(_linkGimmickPositions.size()));
 		for (int i = 0; i < loop; ++i) {
 			_mode.GetActorServer().Add(std::make_unique<LinkLight>(_game, _mode, *this, _linkGimmickPositions[i]));
