@@ -26,7 +26,6 @@ void ServerMachineUI::Update() {
 				overlapflag = true;
 				if (_game.GetInputManager()->CheckInput("ACCESS", 't', 1)) {
 					triggerflag = true;
-					SetCGHandle(dynamic_cast<ServerMachine&>(*actor).GetPattern());
 				}
 			}
 		}
@@ -64,7 +63,7 @@ void ServerMachineUI::Render() {
 	if (!_visible) {
 		return;
 	}
-
+	SetDrawArea(0, 0, screen_W, screen_H);
 	Vector2 chara_posfix{ -200,-80 };
 	Vector2 chara_size{ 700,700 };
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, _alpha);
@@ -196,4 +195,14 @@ void ServerMachineUI::LoadMessage(EnemyGenerator::EnemyPattern pattern) {
 	std::mt19937 engine(seed_gen());
 	std::shuffle(_message.begin(), _message.end(), engine);
 
+}
+
+void ServerMachineUI::TargetSpawnEvent() {
+	for (auto&& actor : dynamic_cast<ModeGame&>(_mode).GetObjects()) {
+		if (actor->GetType() == Actor::Type::Server) {
+			if (dynamic_cast<ServerMachine&>(*actor).GetAccesible()) {
+				SetCGHandle(dynamic_cast<ServerMachine&>(*actor).GetPattern());
+			}
+		}
+	}
 }

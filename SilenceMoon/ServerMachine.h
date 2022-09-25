@@ -12,7 +12,6 @@ public:
 	ServerMachine(Game& game, ModeGame& mode, ServerMachineData data, EnemyGenerator::EnemyPattern grData);
 	Type GetType() { return Type::Server; }
 	void Update()override;
-	void ChangeValidFlag(bool);
 	void SetValidFlag(bool flag) { _valid = flag; }
 	bool GetValidFlag() { return _valid; }
 	int GetEnergy() { return _energy; }

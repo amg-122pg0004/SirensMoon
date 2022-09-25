@@ -94,6 +94,7 @@ void InputManager::InputUpdate() {
 			else if (key.Hold == true) {
 				key.Release = true;
 				key.Hold = false;
+				key.Trigger = false;
 				continue;
 			}
 			break;
@@ -111,6 +112,7 @@ void InputManager::InputUpdate() {
 			else if (key.Hold == true) {
 				key.Release = true;
 				key.Hold = false;
+				key.Trigger = false;
 				continue;
 			}
 			break;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="128" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="28" nextobjectid="1907">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="128" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="28" nextobjectid="1926">
  <tileset firstgid="1" name="tile_test" tilewidth="30" tileheight="30" tilecount="880" columns="40">
   <image source="tile_test.png" width="1200" height="660"/>
   <tile id="0" class="BackGround">
@@ -3462,7 +3462,7 @@
    <properties>
     <property name="Direction1" type="int" value="90"/>
     <property name="Direction2" type="int" value="0"/>
-    <property name="FindTime" type="int" value="60"/>
+    <property name="FindTime" type="int" value="30"/>
     <property name="LookTime1" type="int" value="120"/>
     <property name="LookTime2" type="int" value="0"/>
     <property name="Sight_H" type="int" value="200"/>
@@ -3725,15 +3725,15 @@
    <properties>
     <property name="Accelerate" type="float" value="1"/>
     <property name="Friction" type="float" value="0.9"/>
-    <property name="Player" type="int" propertytype="PlayerList" value="1"/>
+    <property name="Player" type="int" value="1"/>
     <property name="SpeedMax" type="float" value="6"/>
    </properties>
   </object>
-  <object id="978" gid="5" x="2396" y="2472.67" width="30" height="30">
+  <object id="978" gid="5" x="628" y="4200.67" width="30" height="30">
    <properties>
     <property name="Accelerate" type="float" value="1"/>
     <property name="Friction" type="float" value="0.9"/>
-    <property name="Player" type="int" propertytype="PlayerList" value="2"/>
+    <property name="Player" type="int" value="2"/>
     <property name="SpeedMax" type="float" value="6"/>
    </properties>
   </object>
@@ -3823,7 +3823,7 @@
   <object id="1200" gid="883" x="2400" y="2670" width="30" height="30"/>
   <object id="1217" gid="884" x="2370" y="1440" width="30" height="30">
    <properties>
-    <property name="Direction" propertytype="Direction" value="left"/>
+    <property name="Direction" value="left"/>
    </properties>
   </object>
   <object id="1219" gid="890" x="2520" y="1530" width="30" height="30">
@@ -3992,7 +3992,7 @@ R1ボタン　L1ボタン</property>
   </object>
   <object id="1485" gid="884" x="2340" y="1800" width="30" height="30">
    <properties>
-    <property name="Direction" propertytype="Direction" value="left"/>
+    <property name="Direction" value="left"/>
    </properties>
   </object>
   <object id="1529" gid="895" x="2490" y="3660" width="30" height="30">
@@ -4044,13 +4044,13 @@ R1ボタン　L1ボタン</property>
   <object id="1545" gid="20" x="1800" y="4080" width="30" height="30"/>
   <object id="1751" gid="884" x="690" y="1470" width="30" height="30">
    <properties>
-    <property name="Direction" propertytype="Direction" value="right"/>
+    <property name="Direction" value="right"/>
     <property name="Range" type="int" value="120"/>
    </properties>
   </object>
   <object id="1752" gid="884" x="600" y="1320" width="30" height="30">
    <properties>
-    <property name="Direction" propertytype="Direction" value="up"/>
+    <property name="Direction" value="up"/>
     <property name="Range" type="int" value="90"/>
    </properties>
   </object>
@@ -4071,91 +4071,91 @@ R1ボタン　L1ボタン</property>
   <object id="1768" gid="70" x="2580" y="750" width="30" height="30"/>
   <object id="1770" gid="884" x="3330" y="240" width="30" height="30">
    <properties>
-    <property name="Direction" propertytype="Direction" value="down"/>
+    <property name="Direction" value="down"/>
     <property name="Range" type="int" value="150"/>
    </properties>
   </object>
   <object id="1771" gid="884" x="3450" y="510" width="30" height="30">
    <properties>
-    <property name="Direction" propertytype="Direction" value="left"/>
+    <property name="Direction" value="left"/>
     <property name="Range" type="int" value="90"/>
    </properties>
   </object>
   <object id="1773" gid="884" x="3240" y="270" width="30" height="30">
    <properties>
-    <property name="Direction" propertytype="Direction" value="down"/>
+    <property name="Direction" value="down"/>
     <property name="Range" type="int" value="60"/>
    </properties>
   </object>
   <object id="1774" gid="884" x="3270" y="270" width="30" height="30">
    <properties>
-    <property name="Direction" propertytype="Direction" value="down"/>
+    <property name="Direction" value="down"/>
     <property name="Range" type="int" value="60"/>
    </properties>
   </object>
   <object id="1776" gid="884" x="3300" y="270" width="30" height="30">
    <properties>
-    <property name="Direction" propertytype="Direction" value="down"/>
+    <property name="Direction" value="down"/>
     <property name="Range" type="int" value="150"/>
    </properties>
   </object>
   <object id="1777" gid="884" x="3450" y="540" width="30" height="30">
    <properties>
-    <property name="Direction" propertytype="Direction" value="left"/>
+    <property name="Direction" value="left"/>
     <property name="Range" type="int" value="90"/>
    </properties>
   </object>
   <object id="1778" gid="884" x="3450" y="570" width="30" height="30">
    <properties>
-    <property name="Direction" propertytype="Direction" value="left"/>
+    <property name="Direction" value="left"/>
     <property name="Range" type="int" value="90"/>
    </properties>
   </object>
   <object id="1779" gid="884" x="3450" y="600" width="30" height="30">
    <properties>
-    <property name="Direction" propertytype="Direction" value="left"/>
+    <property name="Direction" value="left"/>
     <property name="Range" type="int" value="90"/>
    </properties>
   </object>
   <object id="1780" gid="884" x="3690" y="690" width="30" height="30">
    <properties>
-    <property name="Direction" propertytype="Direction" value="left"/>
+    <property name="Direction" value="left"/>
     <property name="Range" type="int" value="120"/>
    </properties>
   </object>
   <object id="1783" gid="884" x="3690" y="720" width="30" height="30">
    <properties>
-    <property name="Direction" propertytype="Direction" value="left"/>
+    <property name="Direction" value="left"/>
     <property name="Range" type="int" value="120"/>
    </properties>
   </object>
   <object id="1784" gid="884" x="3690" y="750" width="30" height="30">
    <properties>
-    <property name="Direction" propertytype="Direction" value="left"/>
+    <property name="Direction" value="left"/>
     <property name="Range" type="int" value="120"/>
    </properties>
   </object>
   <object id="1785" gid="884" x="3690" y="780" width="30" height="30">
    <properties>
-    <property name="Direction" propertytype="Direction" value="left"/>
+    <property name="Direction" value="left"/>
     <property name="Range" type="int" value="120"/>
    </properties>
   </object>
   <object id="1786" gid="884" x="3690" y="810" width="30" height="30">
    <properties>
-    <property name="Direction" propertytype="Direction" value="left"/>
+    <property name="Direction" value="left"/>
     <property name="Range" type="int" value="120"/>
    </properties>
   </object>
   <object id="1787" gid="884" x="3690" y="840" width="30" height="30">
    <properties>
-    <property name="Direction" propertytype="Direction" value="left"/>
+    <property name="Direction" value="left"/>
     <property name="Range" type="int" value="120"/>
    </properties>
   </object>
   <object id="1788" gid="884" x="3690" y="870" width="30" height="30">
    <properties>
-    <property name="Direction" propertytype="Direction" value="left"/>
+    <property name="Direction" value="left"/>
     <property name="Range" type="int" value="120"/>
    </properties>
   </object>
@@ -4226,61 +4226,7 @@ L1とR1で変更出来る</property>
   <object id="1859" gid="896" x="3150" y="750" width="30" height="30"/>
   <object id="1860" gid="896" x="3150" y="810" width="30" height="30"/>
   <object id="1861" gid="896" x="3150" y="870" width="30" height="30"/>
-  <object id="1862" gid="894" x="3600" y="540" width="30" height="30">
-   <properties>
-    <property name="LinkGimmick1" type="object" value="1858"/>
-    <property name="LinkGimmick10" type="object" value="1859"/>
-    <property name="LinkGimmick11" type="object" value="1860"/>
-    <property name="LinkGimmick12" type="object" value="1861"/>
-    <property name="Reverse" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="1863" gid="894" x="3600" y="600" width="30" height="30">
-   <properties>
-    <property name="LinkGimmick1" type="object" value="1858"/>
-    <property name="LinkGimmick10" type="object" value="1859"/>
-    <property name="LinkGimmick11" type="object" value="1860"/>
-    <property name="LinkGimmick12" type="object" value="1861"/>
-    <property name="Reverse" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="1864" gid="894" x="3600" y="570" width="30" height="30">
-   <properties>
-    <property name="LinkGimmick1" type="object" value="1858"/>
-    <property name="LinkGimmick10" type="object" value="1859"/>
-    <property name="LinkGimmick11" type="object" value="1860"/>
-    <property name="LinkGimmick12" type="object" value="1861"/>
-    <property name="Reverse" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="1865" gid="894" x="3600" y="630" width="30" height="30">
-   <properties>
-    <property name="LinkGimmick1" type="object" value="1858"/>
-    <property name="LinkGimmick10" type="object" value="1859"/>
-    <property name="LinkGimmick11" type="object" value="1860"/>
-    <property name="LinkGimmick12" type="object" value="1861"/>
-    <property name="Reverse" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="1866" gid="894" x="3630" y="630" width="30" height="30">
-   <properties>
-    <property name="LinkGimmick1" type="object" value="1858"/>
-    <property name="LinkGimmick10" type="object" value="1859"/>
-    <property name="LinkGimmick11" type="object" value="1860"/>
-    <property name="LinkGimmick12" type="object" value="1861"/>
-    <property name="Reverse" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="1867" gid="894" x="3660" y="630" width="30" height="30">
-   <properties>
-    <property name="LinkGimmick1" type="object" value="1858"/>
-    <property name="LinkGimmick10" type="object" value="1859"/>
-    <property name="LinkGimmick11" type="object" value="1860"/>
-    <property name="LinkGimmick12" type="object" value="1861"/>
-    <property name="Reverse" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="1868" gid="894" x="3690" y="630" width="30" height="30">
+  <object id="1862" gid="894" x="3480" y="300" width="30" height="30">
    <properties>
     <property name="LinkGimmick1" type="object" value="1858"/>
     <property name="LinkGimmick10" type="object" value="1859"/>
@@ -4460,6 +4406,40 @@ L1とR1で変更出来る</property>
     <property name="LinkGimmick7" type="object" value="1886"/>
     <property name="LinkGimmick8" type="object" value="1887"/>
     <property name="LinkGimmick9" type="object" value="1889"/>
+    <property name="Reverse" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="1912" gid="42" x="3450" y="420" width="30" height="30"/>
+  <object id="1913" gid="42" x="3450" y="390" width="30" height="30"/>
+  <object id="1914" gid="42" x="3450" y="360" width="30" height="30"/>
+  <object id="1915" gid="42" x="3450" y="330" width="30" height="30"/>
+  <object id="1916" gid="42" x="3450" y="300" width="30" height="30"/>
+  <object id="1917" gid="42" x="3450" y="270" width="30" height="30"/>
+  <object id="1918" gid="42" x="3450" y="240" width="30" height="30"/>
+  <object id="1923" gid="894" x="3480" y="270" width="30" height="30">
+   <properties>
+    <property name="LinkGimmick1" type="object" value="1858"/>
+    <property name="LinkGimmick10" type="object" value="1859"/>
+    <property name="LinkGimmick11" type="object" value="1860"/>
+    <property name="LinkGimmick12" type="object" value="1861"/>
+    <property name="Reverse" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="1924" gid="894" x="3480" y="330" width="30" height="30">
+   <properties>
+    <property name="LinkGimmick1" type="object" value="1858"/>
+    <property name="LinkGimmick10" type="object" value="1859"/>
+    <property name="LinkGimmick11" type="object" value="1860"/>
+    <property name="LinkGimmick12" type="object" value="1861"/>
+    <property name="Reverse" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="1925" gid="894" x="3480" y="360" width="30" height="30">
+   <properties>
+    <property name="LinkGimmick1" type="object" value="1858"/>
+    <property name="LinkGimmick10" type="object" value="1859"/>
+    <property name="LinkGimmick11" type="object" value="1860"/>
+    <property name="LinkGimmick12" type="object" value="1861"/>
     <property name="Reverse" type="bool" value="true"/>
    </properties>
   </object>

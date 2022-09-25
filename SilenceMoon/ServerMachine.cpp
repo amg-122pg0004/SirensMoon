@@ -76,21 +76,19 @@ void ServerMachine::Update() {
 		}
 	}
 	if (_accessible&&(_inputManager->CheckInput("ACCESS", 't', 1)&&_energy==0)) {
-		_energy = 300;
-		SpawnEnemyVIP();
-		_mode.TargetSpawnEvent();
-		_valid = true;
-		StopSoundFile();
-		PlaySoundFile("resource/BGM/ActiveServer.mp3", DX_PLAYTYPE_LOOP);
-		_mode.GetSplitWindow()[0]->GetObjectiveUI()
-			->ChangeMessage("重要宇宙人特定し、捕獲せよ", 2);
-		_mode.GetSplitWindow()[1]->GetObjectiveUI()
-			->ChangeMessage("重要宇宙人特定し、捕獲せよ", 2);
+		if (!_valid) {
+			_energy = 300;
+			SpawnEnemyVIP();
+			_mode.TargetSpawnEvent();
+			_valid = true;
+			StopSoundFile();
+			PlaySoundFile("resource/BGM/ActiveServer.mp3", DX_PLAYTYPE_LOOP);
+			_mode.GetSplitWindow()[0]->GetObjectiveUI()
+				->ChangeMessage("重要宇宙人特定し、捕獲せよ", 2);
+			_mode.GetSplitWindow()[1]->GetObjectiveUI()
+				->ChangeMessage("重要宇宙人特定し、捕獲せよ", 2);
+		}
 	}
-}
-
-void ServerMachine::ChangeValidFlag(bool flag) {
-	_valid = flag;
 }
 
 void ServerMachine::SpawnEnemyVIP() {
@@ -118,7 +116,6 @@ void ServerMachine::SpawnEnemyVIP() {
 	std::mt19937 engine(seed_gen());
 	std::shuffle(vipdata.begin(), vipdata.end(), engine);
 
-
 	int i = 0;
 	for (i; i < vipdata.size(); ++i) {
 		auto pos = vipdata[i].PatrolPoints[0];
@@ -136,7 +133,6 @@ void ServerMachine::SpawnEnemyVIP() {
 	EnemyData data;
 	auto enemy = std::make_unique<EnemyVIP>(_game, _mode, data, *this,loot, _pattern);
 	mode.GetActorServer().Add(std::move(enemy));
-
 }
 
 void ServerMachine::DeadEnemyVIP() {

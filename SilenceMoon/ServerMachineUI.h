@@ -19,7 +19,7 @@ class ServerMachineUI :public UIBase{
 		bool GetVisibility() { return _visible; }
 
 		void SetCGHandle(EnemyGenerator::EnemyPattern pattern);
-
+		void TargetSpawnEvent()override;
 	private:
 		void LoadMessage(EnemyGenerator::EnemyPattern pattern);
 		/*•\¦ó‘Ô‚©‚ğ¦‚·ƒtƒ‰ƒO*/

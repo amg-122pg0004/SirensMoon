@@ -42,7 +42,7 @@ void Game::Update() {
 	++_frameCount;
 	_modeServer->Update();
 
-#ifdef DEBUG
+#ifdef _DEBUG
 	if (_inputManager->CheckInput("DEBUG", 'h', 0) && _inputManager->CheckInput("PAUSE", 't', 0) ||
 		_inputManager->CheckInput("DEBUG", 'h', 1) && _inputManager->CheckInput("PAUSE", 't', 1))
 	{
@@ -63,6 +63,8 @@ void Game::Debug() {
 		_modeServer->Debug();
 		DrawFormatString(0, 0, GetColor(255, 255, 255), "%f", GetFPS());
 		DrawFormatString(0, 12, GetColor(255, 255, 255), "%d", GetASyncLoadNum());
+
+		_inputManager->Render();
 	}
 }
 

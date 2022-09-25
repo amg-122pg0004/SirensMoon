@@ -22,6 +22,7 @@ void ObjectiveUI::Update(){
 }
 
 void ObjectiveUI::Render() {
+	SetDrawArea(0, 0, screen_W, screen_H);
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA,100);
 	DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y),_cg,1);
 	
@@ -106,4 +107,3 @@ void ObjectiveUI2::Update() {
 		_pos.y -= 5;
 	}
 }
-
