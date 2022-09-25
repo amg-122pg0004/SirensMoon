@@ -15,7 +15,7 @@
 
 Enemy::Enemy(Game& game, ModeGame& mode, EnemyGenerator::EnemyPattern pattern)
 	:Actor{ game,mode }, _speed{ 1 }, _sight_H{ 210 }, _sight_W{ 330 }
-	,_detectionFrame{ 120 }, _chase{ false }, _pattern{ pattern }
+	, _detectionFrame{ 120 }, _chase{ false }, _pattern{ pattern }
 {
 	_size = { 200,200 };
 
@@ -35,14 +35,14 @@ void Enemy::Update() {
 	CheckDamage();
 	_eyelineGrids.clear();
 	SightUpdate();
-	_roomPosition =CheckRoomPosition();
+	_roomPosition = CheckRoomPosition();
 	if (CheckDetection()) {
 		if (CheckVisualLine()) {
 			++_detectionFrame;
 			if (_detectionFrame == 1) {
 				PlaySoundMem(SoundServer::Find("Detection"), DX_PLAYTYPE_BACK);
 			}
-			if (_detectionFrame >= _detectionCompleteFrame){
+			if (_detectionFrame >= _detectionCompleteFrame) {
 				_speed = 12;
 				_chase = true;
 			}
@@ -218,7 +218,7 @@ void Enemy::SetDirection() {
 
 void Enemy::CheckDamage() {
 	for (auto&& actor : _mode.GetActorServer().GetObjects()) {
-		if (actor->GetType() == Type::RedBullet|| actor->GetType() == Type::Explode) {
+		if (actor->GetType() == Type::RedBullet || actor->GetType() == Type::Explode) {
 			if (Intersect(_hitBox, actor->GetCollision())) {
 				actor->Dead();
 				TakeDamage(actor->GetType());
@@ -262,9 +262,9 @@ void Enemy::ApplyDamage() {
 
 void Enemy::UpdateCollision() {
 	_collision.min = { _pos.x - _size.x / 2 + 90 , _pos.y - _size.y / 2 + 70 };
-	_collision.max = { _pos.x + _size.x / 2 - 90,_pos.y + _size.y / 2-90 };
-	_hitBox.min = { _pos.x - _size.x / 2 + 80 , _pos.y - _size.y / 2 + 40 };
-	_hitBox.max = { _pos.x + _size.x / 2 - 80,_pos.y + _size.y / 2 - 75 };
+	_collision.max = { _pos.x + _size.x / 2 - 90,_pos.y + _size.y / 2 - 90 };
+	_hitBox.min = { _pos.x - _size.x / 2 + 70 , _pos.y - _size.y / 2 + 35 };
+	_hitBox.max = { _pos.x + _size.x / 2 - 70,_pos.y + _size.y / 2 - 70 };
 }
 
 void Enemy::Debug(Vector2 window_pos, Vector2 camera_pos) {
@@ -339,13 +339,13 @@ void Enemy::SetGrHandle(EnemyGenerator::EnemyPattern pattern) {
 	case 3:
 	case 7:
 	case 8:
-		_cg_top2[EnemyDirection::Down]		= ImageServer::LoadGraph("resource/Enemy/blank.png");
-		_cg_top2[EnemyDirection::DownLeft]	= ImageServer::LoadGraph("resource/Enemy/blank.png");
-		_cg_top2[EnemyDirection::Left]		= ImageServer::LoadGraph("resource/Enemy/blank.png");
-		_cg_top2[EnemyDirection::UpLeft]	= ImageServer::LoadGraph("resource/Enemy/blank.png");
-		_cg_top2[EnemyDirection::Up]		= ImageServer::LoadGraph("resource/Enemy/blank.png");
-		_cg_top2[EnemyDirection::UpRight]	= ImageServer::LoadGraph("resource/Enemy/blank.png");
-		_cg_top2[EnemyDirection::Right]		= ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::Down] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::DownLeft] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::Left] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::UpLeft] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::Up] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::UpRight] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::Right] = ImageServer::LoadGraph("resource/Enemy/blank.png");
 		_cg_top2[EnemyDirection::DownRight] = ImageServer::LoadGraph("resource/Enemy/blank.png");
 		break;
 	case 2:
@@ -353,44 +353,44 @@ void Enemy::SetGrHandle(EnemyGenerator::EnemyPattern pattern) {
 	case 5:
 	case 6:
 	case 9:
-		_cg_top2[EnemyDirection::Down]		= ImageServer::LoadGraph("resource/Enemy/blank.png");
-		_cg_top2[EnemyDirection::DownLeft]	= ImageServer::LoadGraph(head2path+ std::to_string(pattern.head)  + "/2.png");
-		_cg_top2[EnemyDirection::Left]		= ImageServer::LoadGraph(head2path + std::to_string(pattern.head) + "/3.png");
-		_cg_top2[EnemyDirection::UpLeft]	= ImageServer::LoadGraph(head2path + std::to_string(pattern.head) + "/4.png");
-		_cg_top2[EnemyDirection::Up]		= ImageServer::LoadGraph("resource/Enemy/blank.png");
-		_cg_top2[EnemyDirection::UpRight]	= ImageServer::LoadGraph(head2path + std::to_string(pattern.head) + "/6.png");
-		_cg_top2[EnemyDirection::Right]		= ImageServer::LoadGraph(head2path + std::to_string(pattern.head) + "/7.png");
+		_cg_top2[EnemyDirection::Down] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::DownLeft] = ImageServer::LoadGraph(head2path + std::to_string(pattern.head) + "/2.png");
+		_cg_top2[EnemyDirection::Left] = ImageServer::LoadGraph(head2path + std::to_string(pattern.head) + "/3.png");
+		_cg_top2[EnemyDirection::UpLeft] = ImageServer::LoadGraph(head2path + std::to_string(pattern.head) + "/4.png");
+		_cg_top2[EnemyDirection::Up] = ImageServer::LoadGraph("resource/Enemy/blank.png");
+		_cg_top2[EnemyDirection::UpRight] = ImageServer::LoadGraph(head2path + std::to_string(pattern.head) + "/6.png");
+		_cg_top2[EnemyDirection::Right] = ImageServer::LoadGraph(head2path + std::to_string(pattern.head) + "/7.png");
 		_cg_top2[EnemyDirection::DownRight] = ImageServer::LoadGraph(head2path + std::to_string(pattern.head) + "/8.png");
 		break;
 	}
 	std::string headpath{ "resource/Enemy/head" };
-	_cg_top[EnemyDirection::Down]		= ImageServer::LoadGraph(headpath + std::to_string(pattern.head) + "/1.png");
-	_cg_top[EnemyDirection::DownLeft]	= ImageServer::LoadGraph(headpath + std::to_string(pattern.head) + "/2.png");
-	_cg_top[EnemyDirection::Left]		= ImageServer::LoadGraph(headpath + std::to_string(pattern.head) + "/3.png");
-	_cg_top[EnemyDirection::UpLeft]		= ImageServer::LoadGraph(headpath + std::to_string(pattern.head) + "/4.png");
-	_cg_top[EnemyDirection::Up]			= ImageServer::LoadGraph(headpath + std::to_string(pattern.head) + "/5.png");
-	_cg_top[EnemyDirection::UpRight]	= ImageServer::LoadGraph(headpath + std::to_string(pattern.head) + "/6.png");
-	_cg_top[EnemyDirection::Right]		= ImageServer::LoadGraph(headpath + std::to_string(pattern.head) + "/7.png");
-	_cg_top[EnemyDirection::DownRight]  = ImageServer::LoadGraph(headpath + std::to_string(pattern.head) + "/8.png");
+	_cg_top[EnemyDirection::Down] = ImageServer::LoadGraph(headpath + std::to_string(pattern.head) + "/1.png");
+	_cg_top[EnemyDirection::DownLeft] = ImageServer::LoadGraph(headpath + std::to_string(pattern.head) + "/2.png");
+	_cg_top[EnemyDirection::Left] = ImageServer::LoadGraph(headpath + std::to_string(pattern.head) + "/3.png");
+	_cg_top[EnemyDirection::UpLeft] = ImageServer::LoadGraph(headpath + std::to_string(pattern.head) + "/4.png");
+	_cg_top[EnemyDirection::Up] = ImageServer::LoadGraph(headpath + std::to_string(pattern.head) + "/5.png");
+	_cg_top[EnemyDirection::UpRight] = ImageServer::LoadGraph(headpath + std::to_string(pattern.head) + "/6.png");
+	_cg_top[EnemyDirection::Right] = ImageServer::LoadGraph(headpath + std::to_string(pattern.head) + "/7.png");
+	_cg_top[EnemyDirection::DownRight] = ImageServer::LoadGraph(headpath + std::to_string(pattern.head) + "/8.png");
 	std::string bodypath{ "resource/Enemy/body" };
-	_cg_mid[EnemyDirection::Down]		= ImageServer::LoadGraph(bodypath + std::to_string(pattern.body) + "/1.png");
-	_cg_mid[EnemyDirection::DownLeft]	= ImageServer::LoadGraph(bodypath + std::to_string(pattern.body) + "/2.png");
-	_cg_mid[EnemyDirection::Left]		= ImageServer::LoadGraph(bodypath + std::to_string(pattern.body) + "/3.png");
-	_cg_mid[EnemyDirection::UpLeft]		= ImageServer::LoadGraph(bodypath + std::to_string(pattern.body) + "/4.png");
-	_cg_mid[EnemyDirection::Up]			= ImageServer::LoadGraph(bodypath + std::to_string(pattern.body) + "/5.png");
-	_cg_mid[EnemyDirection::UpRight]	= ImageServer::LoadGraph(bodypath + std::to_string(pattern.body) + "/6.png");
-	_cg_mid[EnemyDirection::Right]		= ImageServer::LoadGraph(bodypath + std::to_string(pattern.body) + "/7.png");
-	_cg_mid[EnemyDirection::DownRight]	= ImageServer::LoadGraph(bodypath + std::to_string(pattern.body) + "/8.png");
+	_cg_mid[EnemyDirection::Down] = ImageServer::LoadGraph(bodypath + std::to_string(pattern.body) + "/1.png");
+	_cg_mid[EnemyDirection::DownLeft] = ImageServer::LoadGraph(bodypath + std::to_string(pattern.body) + "/2.png");
+	_cg_mid[EnemyDirection::Left] = ImageServer::LoadGraph(bodypath + std::to_string(pattern.body) + "/3.png");
+	_cg_mid[EnemyDirection::UpLeft] = ImageServer::LoadGraph(bodypath + std::to_string(pattern.body) + "/4.png");
+	_cg_mid[EnemyDirection::Up] = ImageServer::LoadGraph(bodypath + std::to_string(pattern.body) + "/5.png");
+	_cg_mid[EnemyDirection::UpRight] = ImageServer::LoadGraph(bodypath + std::to_string(pattern.body) + "/6.png");
+	_cg_mid[EnemyDirection::Right] = ImageServer::LoadGraph(bodypath + std::to_string(pattern.body) + "/7.png");
+	_cg_mid[EnemyDirection::DownRight] = ImageServer::LoadGraph(bodypath + std::to_string(pattern.body) + "/8.png");
 
 	std::string footpath{ "resource/Enemy/foot" };
-	_cg_bot[EnemyDirection::Down]		= ImageServer::LoadGraph(footpath + std::to_string(pattern.foot) + "/1.png");
-	_cg_bot[EnemyDirection::DownLeft]	= ImageServer::LoadGraph(footpath + std::to_string(pattern.foot) + "/2.png");
-	_cg_bot[EnemyDirection::Left]		= ImageServer::LoadGraph(footpath + std::to_string(pattern.foot) + "/3.png");
-	_cg_bot[EnemyDirection::UpLeft]		= ImageServer::LoadGraph(footpath + std::to_string(pattern.foot) + "/4.png");
-	_cg_bot[EnemyDirection::Up]			= ImageServer::LoadGraph(footpath + std::to_string(pattern.foot) + "/5.png");
-	_cg_bot[EnemyDirection::UpRight]	= ImageServer::LoadGraph(footpath + std::to_string(pattern.foot) + "/6.png");
-	_cg_bot[EnemyDirection::Right]		= ImageServer::LoadGraph(footpath + std::to_string(pattern.foot) + "/7.png");
-	_cg_bot[EnemyDirection::DownRight]	= ImageServer::LoadGraph(footpath + std::to_string(pattern.foot) + "/8.png");
+	_cg_bot[EnemyDirection::Down] = ImageServer::LoadGraph(footpath + std::to_string(pattern.foot) + "/1.png");
+	_cg_bot[EnemyDirection::DownLeft] = ImageServer::LoadGraph(footpath + std::to_string(pattern.foot) + "/2.png");
+	_cg_bot[EnemyDirection::Left] = ImageServer::LoadGraph(footpath + std::to_string(pattern.foot) + "/3.png");
+	_cg_bot[EnemyDirection::UpLeft] = ImageServer::LoadGraph(footpath + std::to_string(pattern.foot) + "/4.png");
+	_cg_bot[EnemyDirection::Up] = ImageServer::LoadGraph(footpath + std::to_string(pattern.foot) + "/5.png");
+	_cg_bot[EnemyDirection::UpRight] = ImageServer::LoadGraph(footpath + std::to_string(pattern.foot) + "/6.png");
+	_cg_bot[EnemyDirection::Right] = ImageServer::LoadGraph(footpath + std::to_string(pattern.foot) + "/7.png");
+	_cg_bot[EnemyDirection::DownRight] = ImageServer::LoadGraph(footpath + std::to_string(pattern.foot) + "/8.png");
 }
 
 Vector2 Enemy::CheckRoomPosition() {

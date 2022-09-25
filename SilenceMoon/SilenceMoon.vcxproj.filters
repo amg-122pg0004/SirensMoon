@@ -1,0 +1,970 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="WinMain.cpp" />
+    <ClCompile Include="Actor.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="ActorServer.cpp">
+      <Filter>ActorServer</Filter>
+    </ClCompile>
+    <ClCompile Include="AimUI.cpp">
+      <Filter>UI\AimUI</Filter>
+    </ClCompile>
+    <ClCompile Include="AmmoUI.cpp">
+      <Filter>UI\AmmoUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Barrier.cpp">
+      <Filter>UI\Barrier</Filter>
+    </ClCompile>
+    <ClCompile Include="BigGenerator.cpp">
+      <Filter>Actor\Gimmick\BigGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="BigGun.cpp">
+      <Filter>Actor\Gimmick\BigGun</Filter>
+    </ClCompile>
+    <ClCompile Include="BigServer.cpp">
+      <Filter>Actor\Gimmick\BigServer</Filter>
+    </ClCompile>
+    <ClCompile Include="BigServerUI.cpp">
+      <Filter>UI\BigServerUI</Filter>
+    </ClCompile>
+    <ClCompile Include="BlinkLight.cpp">
+      <Filter>Actor\Light\BlinkLight</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>Actor\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="BossCanon.cpp">
+      <Filter>Actor\BossCanon</Filter>
+    </ClCompile>
+    <ClCompile Include="BossGimmickController.cpp">
+      <Filter>Actor\BossGimmickController</Filter>
+    </ClCompile>
+    <ClCompile Include="BossMissile.cpp">
+      <Filter>Actor\BossMissile</Filter>
+    </ClCompile>
+    <ClCompile Include="BossWeakPoint.cpp">
+      <Filter>UI\BossWeakPoint</Filter>
+    </ClCompile>
+    <ClCompile Include="BreakableObject.cpp">
+      <Filter>Actor\Gimmick\BreakableObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Briefing.cpp">
+      <Filter>UI\Briefing</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Actor\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletTypeUI.cpp">
+      <Filter>UI\BulletTypeUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonIcon.cpp">
+      <Filter>UI\ButtonIcon</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CharaCodeConvert.cpp">
+      <Filter>Utillity\CharaCodeConvert</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Utillity\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageCut.cpp">
+      <Filter>UI\DamageCut</Filter>
+    </ClCompile>
+    <ClCompile Include="Darkness.cpp">
+      <Filter>Darkness</Filter>
+    </ClCompile>
+    <ClCompile Include="DegitalLetter.cpp">
+      <Filter>Actor\Gimmick\DegitalLetter</Filter>
+    </ClCompile>
+    <ClCompile Include="DisplayArea.cpp">
+      <Filter>Actor\Gimmick\DisplayArea</Filter>
+    </ClCompile>
+    <ClCompile Include="Door.cpp">
+      <Filter>Actor\Gimmick\Door</Filter>
+    </ClCompile>
+    <ClCompile Include="Easing.cpp">
+      <Filter>Utillity\Easing</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>Actor\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Actor\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyA.cpp">
+      <Filter>Actor\Enemy\EnemyA</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyB.cpp">
+      <Filter>Actor\Enemy\EnemyB</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyGenerator.cpp">
+      <Filter>Utillity\EnemyGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyVIP.cpp">
+      <Filter>Actor\Enemy\EnemyA\EnemyVIP</Filter>
+    </ClCompile>
+    <ClCompile Include="Explode.cpp">
+      <Filter>Actor\Explode</Filter>
+    </ClCompile>
+    <ClCompile Include="FinishCut.cpp">
+      <Filter>UI\FinishCut</Filter>
+    </ClCompile>
+    <ClCompile Include="FloorLamp.cpp">
+      <Filter>Actor\Gimmick\FloorLamp</Filter>
+    </ClCompile>
+    <ClCompile Include="FoundUI.cpp">
+      <Filter>UI\FoundUI</Filter>
+    </ClCompile>
+    <ClCompile Include="FX_AfterBurner.cpp">
+      <Filter>Actor\Effect\FX_AfterBurner</Filter>
+    </ClCompile>
+    <ClCompile Include="FX_Boom.cpp">
+      <Filter>Actor\Effect\FX_Boom</Filter>
+    </ClCompile>
+    <ClCompile Include="FX_BossDead.cpp">
+      <Filter>Actor\Effect\FX_BossDead</Filter>
+    </ClCompile>
+    <ClCompile Include="FX_BossFire.cpp">
+      <Filter>Actor\Effect\FX_BossFire</Filter>
+    </ClCompile>
+    <ClCompile Include="FX_BulletHit.cpp">
+      <Filter>Actor\Effect\FX_BulletHit</Filter>
+    </ClCompile>
+    <ClCompile Include="FX_Chargein.cpp">
+      <Filter>Actor\Effect\FX_Chargein</Filter>
+    </ClCompile>
+    <ClCompile Include="FX_Chargenow.cpp">
+      <Filter>Actor\Effect\FX_Chargenow</Filter>
+    </ClCompile>
+    <ClCompile Include="FX_HeadButt.cpp">
+      <Filter>Actor\Effect\FX_HeadButt</Filter>
+    </ClCompile>
+    <ClCompile Include="FX_MissileShoot.cpp">
+      <Filter>Actor\Effect\FX_MissileShoot</Filter>
+    </ClCompile>
+    <ClCompile Include="FX_ScreenSmoke.cpp">
+      <Filter>Actor\Effect\FX_ScreenSmoke</Filter>
+    </ClCompile>
+    <ClCompile Include="FX_Signal.cpp">
+      <Filter>Actor\Effect\FX_Signal</Filter>
+    </ClCompile>
+    <ClCompile Include="FX_Teleport.cpp">
+      <Filter>Actor\Effect\FX_Teleport</Filter>
+    </ClCompile>
+    <ClCompile Include="FX_Thunder.cpp">
+      <Filter>Actor\Effect\FX_Thunder</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Gimmick.cpp">
+      <Filter>Actor\Gimmick</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletItem.cpp">
+      <Filter>Actor\Item\BulletItem</Filter>
+    </ClCompile>
+    <ClCompile Include="HPItem.cpp">
+      <Filter>Actor\Item\HPItem</Filter>
+    </ClCompile>
+    <ClCompile Include="GreenBullet.cpp">
+      <Filter>Actor\Bullet\GreenBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="HPUI.cpp">
+      <Filter>UI\HPUI</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>InputManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageServer.cpp">
+      <Filter>Resource\ImageServer</Filter>
+    </ClCompile>
+    <ClCompile Include="LaserLight.cpp">
+      <Filter>Actor\Light\LaserLight</Filter>
+    </ClCompile>
+    <ClCompile Include="LightBase.cpp">
+      <Filter>Actor\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="LinkLight.cpp">
+      <Filter>Actor\Light\LinkLight</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadResources.cpp">
+      <Filter>Resource\LoadResources</Filter>
+    </ClCompile>
+    <ClCompile Include="MapChip.cpp">
+      <Filter>MapChip</Filter>
+    </ClCompile>
+    <ClCompile Include="Math.cpp">
+      <Filter>Utillity\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="MessageWindow.cpp">
+      <Filter>UI\MessageWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="Mine.cpp">
+      <Filter>Actor\Gimmick\Mine</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniMap.cpp">
+      <Filter>UI\MiniMap</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniShuttle.cpp">
+      <Filter>Actor\Gimmick\MiniShuttle</Filter>
+    </ClCompile>
+    <ClCompile Include="ModeBase.cpp">
+      <Filter>Mode</Filter>
+    </ClCompile>
+    <ClCompile Include="ModeGame.cpp">
+      <Filter>Mode\ModeGame</Filter>
+    </ClCompile>
+    <ClCompile Include="ModeGameOver.cpp">
+      <Filter>Mode\ModeGameOver</Filter>
+    </ClCompile>
+    <ClCompile Include="ModeMovie.cpp">
+      <Filter>Mode\ModeMovie</Filter>
+    </ClCompile>
+    <ClCompile Include="ModeServer.cpp">
+      <Filter>Modeserver</Filter>
+    </ClCompile>
+    <ClCompile Include="ModeStart.cpp">
+      <Filter>Mode\ModeStart</Filter>
+    </ClCompile>
+    <ClCompile Include="ModeStartUp2.cpp">
+      <Filter>Mode\ModeStartUp2</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectDataStructs.cpp">
+      <Filter>ObjectDataStructs</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectiveUI.cpp">
+      <Filter>UI\ObjectiveUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Pause.cpp">
+      <Filter>UI\Pause</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseInfo.cpp">
+      <Filter>UI\PauseInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Actor\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerA.cpp">
+      <Filter>Actor\Player\PlayerA</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerB.cpp">
+      <Filter>Actor\Player\PlayerB</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectionLight.cpp">
+      <Filter>Actor\Light\ProjectionLight</Filter>
+    </ClCompile>
+    <ClCompile Include="RedBullet.cpp">
+      <Filter>Actor\Bullet\RedBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="RideInfo.cpp">
+      <Filter>UI\RideInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen_Fade.cpp">
+      <Filter>UI\ScreenEffect\Screen_Fade</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenEffect.cpp">
+      <Filter>UI\ScreenEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenPump.cpp">
+      <Filter>Actor\Gimmick\ScreenPump</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerMachine.cpp">
+      <Filter>Actor\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerMachineUI.cpp">
+      <Filter>UI\ServerMachineUI</Filter>
+    </ClCompile>
+    <ClCompile Include="SignalLight.cpp">
+      <Filter>Actor\Light\SignalLight</Filter>
+    </ClCompile>
+    <ClCompile Include="SkipUI.cpp">
+      <Filter>UI\SkipUI</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundServer.cpp">
+      <Filter>Resource\SoundServer</Filter>
+    </ClCompile>
+    <ClCompile Include="SplitWindow.cpp">
+      <Filter>SplitWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="SquareLight.cpp">
+      <Filter>Actor\Light\SquareLight</Filter>
+    </ClCompile>
+    <ClCompile Include="StickeyBomb.cpp">
+      <Filter>Actor\Gimmick\StickeyBomb</Filter>
+    </ClCompile>
+    <ClCompile Include="Switch.cpp">
+      <Filter>Actor\Gimmick\Switch</Filter>
+    </ClCompile>
+    <ClCompile Include="SwitchArea.cpp">
+      <Filter>Actor\Gimmick\SwitchArea</Filter>
+    </ClCompile>
+    <ClCompile Include="Teleporter.cpp">
+      <Filter>Actor\Gimmick\Teleporter</Filter>
+    </ClCompile>
+    <ClCompile Include="TNT.cpp">
+      <Filter>Actor\Gimmick\TNT</Filter>
+    </ClCompile>
+    <ClCompile Include="UIBase.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIServer.cpp">
+      <Filter>UIServer</Filter>
+    </ClCompile>
+    <ClCompile Include="WantedInfo.cpp">
+      <Filter>UI\WantedInfo</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Actor.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorServer.h">
+      <Filter>ActorServer</Filter>
+    </ClInclude>
+    <ClInclude Include="AimUI.h">
+      <Filter>UI\AimUI</Filter>
+    </ClInclude>
+    <ClInclude Include="AmmoUI.h">
+      <Filter>UI\AmmoUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Barrier.h">
+      <Filter>UI\Barrier</Filter>
+    </ClInclude>
+    <ClInclude Include="BigGenerator.h">
+      <Filter>Actor\Gimmick\BigGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="BigGun.h">
+      <Filter>Actor\Gimmick\BigGun</Filter>
+    </ClInclude>
+    <ClInclude Include="BigServer.h">
+      <Filter>Actor\Gimmick\BigServer</Filter>
+    </ClInclude>
+    <ClInclude Include="BigServerUI.h">
+      <Filter>UI\BigServerUI</Filter>
+    </ClInclude>
+    <ClInclude Include="BlinkLight.h">
+      <Filter>Actor\Light\BlinkLight</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>Actor\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="BossCanon.h">
+      <Filter>Actor\BossCanon</Filter>
+    </ClInclude>
+    <ClInclude Include="BossGimmickController.h">
+      <Filter>Actor\BossGimmickController</Filter>
+    </ClInclude>
+    <ClInclude Include="BossMissile.h">
+      <Filter>Actor\BossMissile</Filter>
+    </ClInclude>
+    <ClInclude Include="BossWeakPoint.h">
+      <Filter>UI\BossWeakPoint</Filter>
+    </ClInclude>
+    <ClInclude Include="BreakableObject.h">
+      <Filter>Actor\Gimmick\BreakableObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Briefing.h">
+      <Filter>UI\Briefing</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Actor\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletTypeUI.h">
+      <Filter>UI\BulletTypeUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonIcon.h">
+      <Filter>UI\ButtonIcon</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CharaCodeConvert.h">
+      <Filter>Utillity\CharaCodeConvert</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Utillity\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageCut.h">
+      <Filter>UI\DamageCut</Filter>
+    </ClInclude>
+    <ClInclude Include="Darkness.h">
+      <Filter>Darkness</Filter>
+    </ClInclude>
+    <ClInclude Include="DegitalLetter.h">
+      <Filter>Actor\Gimmick\DegitalLetter</Filter>
+    </ClInclude>
+    <ClInclude Include="DisplayArea.h">
+      <Filter>Actor\Gimmick\DisplayArea</Filter>
+    </ClInclude>
+    <ClInclude Include="Door.h">
+      <Filter>Actor\Gimmick\Door</Filter>
+    </ClInclude>
+    <ClInclude Include="Easing.h">
+      <Filter>Utillity\Easing</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>Actor\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Actor\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyA.h">
+      <Filter>Actor\Enemy\EnemyA</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyB.h">
+      <Filter>Actor\Enemy\EnemyB</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyGenerator.h">
+      <Filter>Utillity\EnemyGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyVIP.h">
+      <Filter>Actor\Enemy\EnemyA\EnemyVIP</Filter>
+    </ClInclude>
+    <ClInclude Include="Explode.h">
+      <Filter>Actor\Explode</Filter>
+    </ClInclude>
+    <ClInclude Include="FinishCut.h">
+      <Filter>UI\FinishCut</Filter>
+    </ClInclude>
+    <ClInclude Include="FloorLamp.h">
+      <Filter>Actor\Gimmick\FloorLamp</Filter>
+    </ClInclude>
+    <ClInclude Include="FoundUI.h">
+      <Filter>UI\FoundUI</Filter>
+    </ClInclude>
+    <ClInclude Include="FX_AfterBurner.h">
+      <Filter>Actor\Effect\FX_AfterBurner</Filter>
+    </ClInclude>
+    <ClInclude Include="FX_Boom.h">
+      <Filter>Actor\Effect\FX_Boom</Filter>
+    </ClInclude>
+    <ClInclude Include="FX_BossDead.h">
+      <Filter>Actor\Effect\FX_BossDead</Filter>
+    </ClInclude>
+    <ClInclude Include="FX_BossFire.h">
+      <Filter>Actor\Effect\FX_BossFire</Filter>
+    </ClInclude>
+    <ClInclude Include="FX_BulletHit.h">
+      <Filter>Actor\Effect\FX_BulletHit</Filter>
+    </ClInclude>
+    <ClInclude Include="FX_Chargein.h">
+      <Filter>Actor\Effect\FX_Chargein</Filter>
+    </ClInclude>
+    <ClInclude Include="FX_Chargenow.h">
+      <Filter>Actor\Effect\FX_Chargenow</Filter>
+    </ClInclude>
+    <ClInclude Include="FX_HeadButt.h">
+      <Filter>Actor\Effect\FX_HeadButt</Filter>
+    </ClInclude>
+    <ClInclude Include="FX_MissileShoot.h">
+      <Filter>Actor\Effect\FX_MissileShoot</Filter>
+    </ClInclude>
+    <ClInclude Include="FX_ScreenSmoke.h">
+      <Filter>Actor\Effect\FX_ScreenSmoke</Filter>
+    </ClInclude>
+    <ClInclude Include="FX_Signal.h">
+      <Filter>Actor\Effect\FX_Signal</Filter>
+    </ClInclude>
+    <ClInclude Include="FX_Teleport.h">
+      <Filter>Actor\Effect\FX_Teleport</Filter>
+    </ClInclude>
+    <ClInclude Include="FX_Thunder.h">
+      <Filter>Actor\Effect\FX_Thunder</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Gimmick.h">
+      <Filter>Actor\Gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletItem.h">
+      <Filter>Actor\Item\BulletItem</Filter>
+    </ClInclude>
+    <ClInclude Include="HPItem.h">
+      <Filter>Actor\Item\HPItem</Filter>
+    </ClInclude>
+    <ClInclude Include="GreenBullet.h">
+      <Filter>Actor\Bullet\GreenBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="HPUI.h">
+      <Filter>UI\HPUI</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageServer.h">
+      <Filter>Resource\ImageServer</Filter>
+    </ClInclude>
+    <ClInclude Include="LaserLight.h">
+      <Filter>Actor\Light\LaserLight</Filter>
+    </ClInclude>
+    <ClInclude Include="LightBase.h">
+      <Filter>Actor\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkLight.h">
+      <Filter>Actor\Light\LinkLight</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadResources.h">
+      <Filter>Resource\LoadResources</Filter>
+    </ClInclude>
+    <ClInclude Include="MapChip.h">
+      <Filter>MapChip</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>Utillity\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageWindow.h">
+      <Filter>UI\MessageWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Mine.h">
+      <Filter>Actor\Gimmick\Mine</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniMap.h">
+      <Filter>UI\MiniMap</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniShuttle.h">
+      <Filter>Actor\Gimmick\MiniShuttle</Filter>
+    </ClInclude>
+    <ClInclude Include="ModeBase.h">
+      <Filter>Mode</Filter>
+    </ClInclude>
+    <ClInclude Include="ModeGame.h">
+      <Filter>Mode\ModeGame</Filter>
+    </ClInclude>
+    <ClInclude Include="ModeGameOver.h">
+      <Filter>Mode\ModeGameOver</Filter>
+    </ClInclude>
+    <ClInclude Include="ModeMovie.h">
+      <Filter>Mode\ModeMovie</Filter>
+    </ClInclude>
+    <ClInclude Include="ModeServer.h">
+      <Filter>Modeserver</Filter>
+    </ClInclude>
+    <ClInclude Include="ModeStart.h">
+      <Filter>Mode\ModeStart</Filter>
+    </ClInclude>
+    <ClInclude Include="ModeStartUp2.h">
+      <Filter>Mode\ModeStartUp2</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectDataStructs.h">
+      <Filter>ObjectDataStructs</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectiveUI.h">
+      <Filter>UI\ObjectiveUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Pause.h">
+      <Filter>UI\Pause</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseInfo.h">
+      <Filter>UI\PauseInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="picojson\picojson.h">
+      <Filter>picojson</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Actor\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerA.h">
+      <Filter>Actor\Player\PlayerA</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerB.h">
+      <Filter>Actor\Player\PlayerB</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectionLight.h">
+      <Filter>Actor\Light\ProjectionLight</Filter>
+    </ClInclude>
+    <ClInclude Include="RedBullet.h">
+      <Filter>Actor\Bullet\RedBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="RideInfo.h">
+      <Filter>UI\RideInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen_Fade.h">
+      <Filter>UI\ScreenEffect\Screen_Fade</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenEffect.h">
+      <Filter>UI\ScreenEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenPump.h">
+      <Filter>Actor\Gimmick\ScreenPump</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerMachine.h">
+      <Filter>Actor\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerMachineUI.h">
+      <Filter>UI\ServerMachineUI</Filter>
+    </ClInclude>
+    <ClInclude Include="SignalLight.h">
+      <Filter>Actor\Light\SignalLight</Filter>
+    </ClInclude>
+    <ClInclude Include="SkipUI.h">
+      <Filter>UI\SkipUI</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundServer.h">
+      <Filter>Resource\SoundServer</Filter>
+    </ClInclude>
+    <ClInclude Include="SplitWindow.h">
+      <Filter>SplitWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="SquareLight.h">
+      <Filter>Actor\Light\SquareLight</Filter>
+    </ClInclude>
+    <ClInclude Include="StickeyBomb.h">
+      <Filter>Actor\Gimmick\StickeyBomb</Filter>
+    </ClInclude>
+    <ClInclude Include="Switch.h">
+      <Filter>Actor\Gimmick\Switch</Filter>
+    </ClInclude>
+    <ClInclude Include="SwitchArea.h">
+      <Filter>Actor\Gimmick\SwitchArea</Filter>
+    </ClInclude>
+    <ClInclude Include="Teleporter.h">
+      <Filter>Actor\Gimmick\Teleporter</Filter>
+    </ClInclude>
+    <ClInclude Include="TNT.h">
+      <Filter>Actor\Gimmick\TNT</Filter>
+    </ClInclude>
+    <ClInclude Include="UIBase.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIServer.h">
+      <Filter>UIServer</Filter>
+    </ClInclude>
+    <ClInclude Include="WantedInfo.h">
+      <Filter>UI\WantedInfo</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Actor">
+      <UniqueIdentifier>{daf0457f-5c15-4f6e-8a30-5c613e8551a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ActorServer">
+      <UniqueIdentifier>{6440eb58-2f3f-4673-acf3-c5f427110b5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{0ada839a-9dd5-4ee7-80f7-88a1808bf094}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\AimUI">
+      <UniqueIdentifier>{515c8d19-a1f4-450d-b687-c3f655c487a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\AmmoUI">
+      <UniqueIdentifier>{feae6f71-70cb-47b6-830b-9427f50f2298}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Barrier">
+      <UniqueIdentifier>{a4d5d843-ea0e-426d-9436-61b6ad225296}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Gimmick">
+      <UniqueIdentifier>{326c99f0-54e1-438a-8312-c97de44334dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Gimmick\BigGenerator">
+      <UniqueIdentifier>{fa5bad08-ee14-4f5a-82ee-75d3db88bc1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Gimmick\BigGun">
+      <UniqueIdentifier>{0e4c2a8a-b38f-4f99-9da7-459089a1f4b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Gimmick\BigServer">
+      <UniqueIdentifier>{6b2aacc5-a1e6-4657-bbdf-ef53683f5069}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\BigServerUI">
+      <UniqueIdentifier>{f7587e0f-692b-4eed-b38f-dcec120c0b89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Light">
+      <UniqueIdentifier>{c99e9bcd-c4e8-405a-adc7-56d0840dbf1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Light\BlinkLight">
+      <UniqueIdentifier>{7b44bdf8-642b-4d00-bc2e-451ba01342e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Boss">
+      <UniqueIdentifier>{ee0e18b5-46d8-470d-9e99-d0e8865e7f58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\BossCanon">
+      <UniqueIdentifier>{0d4c0fde-6ba3-4611-aa16-dac9f7693702}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\BossGimmickController">
+      <UniqueIdentifier>{7a200e53-71b7-42bc-b68f-77ba67985fc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\BossMissile">
+      <UniqueIdentifier>{a42192e6-8253-4f73-b94f-88b112baae7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\BossWeakPoint">
+      <UniqueIdentifier>{6f1f0477-a55c-405f-8947-fbaaa72c57cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Gimmick\BreakableObject">
+      <UniqueIdentifier>{a85e7fa8-9553-4b4a-9048-e073e99e4956}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Bullet">
+      <UniqueIdentifier>{7c14ff3f-f8ac-4e40-89bc-e48a4d56add7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Item">
+      <UniqueIdentifier>{c0bc043d-15b6-4e79-98ae-537564e2a8be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Briefing">
+      <UniqueIdentifier>{2ca5217e-d243-499a-ba58-95ddeac8ee84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\BulletTypeUI">
+      <UniqueIdentifier>{c0d4720f-4bdb-4e6d-bf81-211763426a21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\ButtonIcon">
+      <UniqueIdentifier>{62799694-ed2d-4654-9296-22464c892b38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{97378c52-8190-48bf-874f-c4fbb54e8345}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utillity">
+      <UniqueIdentifier>{581ab35d-993f-4047-bcb7-49b45225b04a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utillity\CharaCodeConvert">
+      <UniqueIdentifier>{fbe0c1be-c92d-4ea1-b81a-b7bc6484f516}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utillity\Collision">
+      <UniqueIdentifier>{51491a28-765c-4b90-aae4-6129f8f9f832}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\DamageCut">
+      <UniqueIdentifier>{9777853e-d50b-4b79-a131-60dfe19d2bb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Darkness">
+      <UniqueIdentifier>{ae4a2282-2c84-4a51-ad0c-455b65278aa2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Gimmick\DegitalLetter">
+      <UniqueIdentifier>{06da3a8b-371f-443e-b5e7-d2df49775b1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Gimmick\DisplayArea">
+      <UniqueIdentifier>{95ebd198-0ae0-48de-a5e5-5678ea46252f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Gimmick\Door">
+      <UniqueIdentifier>{b1c19935-4b4b-4c14-8b3c-f8b676eb82cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utillity\Easing">
+      <UniqueIdentifier>{45792219-3004-4dac-9767-2217ecb9753e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Effect">
+      <UniqueIdentifier>{a254b0c9-d637-4ebe-9789-897c0da4a0c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Enemy">
+      <UniqueIdentifier>{4af82be6-2fb2-4d73-b1b2-4d770fb16ee6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Enemy\EnemyA">
+      <UniqueIdentifier>{bb34748d-325d-4f81-a802-6395010171a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Enemy\EnemyB">
+      <UniqueIdentifier>{6506adec-62d4-4977-b081-307721b6bd62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utillity\EnemyGenerator">
+      <UniqueIdentifier>{1c0c97ac-5b31-43b6-a600-9ebc646d9ed5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Enemy\EnemyA\EnemyVIP">
+      <UniqueIdentifier>{c744523f-5955-4ccd-ac8c-9c38541224c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Explode">
+      <UniqueIdentifier>{645189c2-86c5-4c62-9c01-d3825d39c81f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\FinishCut">
+      <UniqueIdentifier>{cbd6e7ed-c04c-43c7-8419-446efa029f19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Gimmick\FloorLamp">
+      <UniqueIdentifier>{9bda11e7-40b9-4fb8-bbc5-1ff2f863ebdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\FoundUI">
+      <UniqueIdentifier>{5e5beec8-adff-4289-b7a3-84ffaf2750ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Effect\FX_AfterBurner">
+      <UniqueIdentifier>{95de57c4-d4c7-4133-8324-507a5f50873a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Effect\FX_Boom">
+      <UniqueIdentifier>{ec303d2d-e9c4-4069-beda-715f1102b8bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Effect\FX_BossDead">
+      <UniqueIdentifier>{0142e0a8-4d32-4a1f-8c2c-579418d1248b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Effect\FX_BossFire">
+      <UniqueIdentifier>{b029f6cb-2512-416c-9e84-4b862fc4897c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Effect\FX_BulletHit">
+      <UniqueIdentifier>{4d368826-1878-4775-8955-85f8f26f1024}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Effect\FX_Chargein">
+      <UniqueIdentifier>{74671192-7d8a-4778-9ea3-1e76e106a315}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Effect\FX_Chargenow">
+      <UniqueIdentifier>{baa447a1-e228-4937-8ab2-2c297e13cd17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Effect\FX_HeadButt">
+      <UniqueIdentifier>{74fb59b4-03dd-42be-92d6-702cd5f1fade}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Effect\FX_MissileShoot">
+      <UniqueIdentifier>{1657223a-a180-4a97-a8c5-73b9720ea823}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Effect\FX_ScreenSmoke">
+      <UniqueIdentifier>{4500978a-a2de-4752-ba2e-6c66c5d7d28d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Effect\FX_Signal">
+      <UniqueIdentifier>{fb0210d3-34ac-46c8-bad6-7e328c1ebd78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Effect\FX_Teleport">
+      <UniqueIdentifier>{63568c56-f2e9-40aa-a9c9-00eb2cffd890}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Effect\FX_Thunder">
+      <UniqueIdentifier>{090bb8de-11a2-4ebd-a6d9-1429b775fb93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{bbf25507-7b8e-4c31-8efb-b65331654f49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Item\BulletItem">
+      <UniqueIdentifier>{943368e9-86f6-4931-aa9f-142ced4fa902}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Item\HPItem">
+      <UniqueIdentifier>{ffb354dc-e7c3-40b1-a089-eef8a92d0c86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Bullet\GreenBullet">
+      <UniqueIdentifier>{d0d24051-af6c-4391-9d08-210410bd3d4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\HPUI">
+      <UniqueIdentifier>{760ae93e-846d-4d60-ab96-fa4498e818dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="InputManager">
+      <UniqueIdentifier>{ba378062-7bd8-4d3e-b8a9-0e14c1f2ebf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{93be80d7-52ae-48ef-a585-50e1f38db92c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\ImageServer">
+      <UniqueIdentifier>{fbd527e8-66e4-4a61-aed5-c973c9633767}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Light\LaserLight">
+      <UniqueIdentifier>{f51ea499-98fa-4ed2-8fb6-2bcebfa78499}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Light\LinkLight">
+      <UniqueIdentifier>{af9a4f1d-5ce0-4ef4-b318-3e409a43f240}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\LoadResources">
+      <UniqueIdentifier>{0fc1d438-d214-4c14-b190-70310aac6c49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MapChip">
+      <UniqueIdentifier>{30824eae-74dc-49f5-a64b-1263bae6dbc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utillity\Math">
+      <UniqueIdentifier>{1374b728-a247-47e6-b56d-8f40f3b71d0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\MessageWindow">
+      <UniqueIdentifier>{ffc85d9e-72a0-4f74-9e70-150ac1164d8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Gimmick\Mine">
+      <UniqueIdentifier>{04fd7b44-ef8d-4c15-9839-da6e206dbb72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\MiniMap">
+      <UniqueIdentifier>{0ba88a15-b379-42dd-a2d3-2b747fd69dda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Gimmick\MiniShuttle">
+      <UniqueIdentifier>{820a989f-e39e-4a30-974d-30a31da5b751}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mode">
+      <UniqueIdentifier>{11957e93-0841-489a-a90c-8b8239c20ef3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mode\ModeGame">
+      <UniqueIdentifier>{4a189475-d64d-4dd5-a34c-cb731ad025d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mode\ModeGameOver">
+      <UniqueIdentifier>{e241018c-0097-4100-9829-732622ee109a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mode\ModeMovie">
+      <UniqueIdentifier>{21fcb92d-13b5-434e-a2ec-3369a66928d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modeserver">
+      <UniqueIdentifier>{fe5a2399-997e-4b37-8b91-63bf663e2c42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mode\ModeStart">
+      <UniqueIdentifier>{4d80b299-2c4f-4630-92d4-89a829899b1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mode\ModeStartUp2">
+      <UniqueIdentifier>{2a20b73b-2222-4435-b1dd-400f4f293972}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectDataStructs">
+      <UniqueIdentifier>{7402af99-2367-43a6-b6be-1ee056166362}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\ObjectiveUI">
+      <UniqueIdentifier>{73a86f0a-4074-4887-b55c-65301f72838a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Pause">
+      <UniqueIdentifier>{756f3260-b21c-4a26-be7b-f3499eefe9f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\PauseInfo">
+      <UniqueIdentifier>{40faa781-b498-4019-9e56-6f0f85267817}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="picojson">
+      <UniqueIdentifier>{02d2c4b6-277a-4e7a-aabe-e2152aaff4e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Player">
+      <UniqueIdentifier>{e501e4d4-44d1-490d-9d4f-6eab117f75bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Player\PlayerA">
+      <UniqueIdentifier>{084b5623-8027-45ec-aea0-6710d3249fae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Player\PlayerB">
+      <UniqueIdentifier>{a123469d-2e58-44e3-a470-7f2d1a7bec08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Light\ProjectionLight">
+      <UniqueIdentifier>{d0947b7f-7e71-4c9d-837d-b3a25459e55a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Bullet\RedBullet">
+      <UniqueIdentifier>{3e211bfe-e373-475e-904e-8670aa7bd5ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\RideInfo">
+      <UniqueIdentifier>{aa7738c7-1432-467e-a00a-379eb45835fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\ScreenEffect">
+      <UniqueIdentifier>{1e0ecbbe-e792-4a5d-8da7-37d369380a11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\ScreenEffect\Screen_Fade">
+      <UniqueIdentifier>{2c60db83-b81e-4c8f-85bb-19a4e258d998}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Gimmick\ScreenPump">
+      <UniqueIdentifier>{6e4c2730-305a-4b16-83b6-7190b15f0b7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Server">
+      <UniqueIdentifier>{6896819d-db44-4d9e-8a21-84116705e116}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\ServerMachineUI">
+      <UniqueIdentifier>{6cba9851-773a-4c09-ae6d-a9db9becede3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Light\SignalLight">
+      <UniqueIdentifier>{2072f019-80de-46ee-b25a-45e39fd8b2ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\SkipUI">
+      <UniqueIdentifier>{fc5ca4b9-29ba-4e7e-8647-13e8aae908a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\SoundServer">
+      <UniqueIdentifier>{4c6b1ef5-bee4-4f42-938e-28983b0957aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SplitWindow">
+      <UniqueIdentifier>{1617b435-f324-4205-9f64-bb9417ec1096}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Light\SquareLight">
+      <UniqueIdentifier>{7a6b7817-57fa-4454-b667-e78dee36e82a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Gimmick\StickeyBomb">
+      <UniqueIdentifier>{8a3482c2-9e2e-43ea-9d76-ee455a54e78b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Gimmick\Switch">
+      <UniqueIdentifier>{8a4711d2-11c2-493d-a985-f89e05da5a88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Gimmick\SwitchArea">
+      <UniqueIdentifier>{987adaa7-8455-4295-a887-87ed1bdfbc9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Gimmick\Teleporter">
+      <UniqueIdentifier>{6094abe6-33b6-4eb8-b1a0-b8175fbb3371}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Gimmick\TNT">
+      <UniqueIdentifier>{0d41137f-f846-4a1b-a4c2-3518d5aab70d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UIServer">
+      <UniqueIdentifier>{e6744d7c-2f6e-4aa6-930c-64a67df68b39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\WantedInfo">
+      <UniqueIdentifier>{96681bfb-0d0a-45cd-a4ff-1ea313c61f22}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

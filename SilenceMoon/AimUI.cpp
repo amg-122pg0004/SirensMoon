@@ -59,7 +59,7 @@ void AimUI::Update() {
 						dynamic_cast<Boss&>(*actor).Dead();
 						_gameClear = true;
 						for (auto&& window:static_cast<ModeGame&>(_mode).GetSplitWindow()) {
-							auto fade = std::make_unique<Screen_Fade>(_game, _mode, _window, _pos, _size);
+							auto fade = std::make_unique<Screen_Fade>(_game, _mode, *window, _pos, _size);
 							fade->SetEffect(0, 120, GetColor(255, 255, 255), false);
 							window->GetUIServer2().Add(std::move(fade));
 						}

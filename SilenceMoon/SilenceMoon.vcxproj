@@ -24,6 +24,7 @@
     <ProjectGuid>{14d461ca-f35d-4804-8760-d258b432ca16}</ProjectGuid>
     <RootNamespace>SirensMoon</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>SilenceMoon</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -246,11 +247,9 @@
     <ClCompile Include="Switch.cpp" />
     <ClCompile Include="SwitchArea.cpp" />
     <ClCompile Include="Teleporter.cpp" />
-    <ClCompile Include="TileSetLoad.cpp" />
     <ClCompile Include="TNT.cpp" />
     <ClCompile Include="UIBase.cpp" />
     <ClCompile Include="UIServer.cpp" />
-    <ClCompile Include="UnstableLight.cpp" />
     <ClCompile Include="WantedInfo.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
@@ -356,11 +355,9 @@
     <ClInclude Include="Switch.h" />
     <ClInclude Include="SwitchArea.h" />
     <ClInclude Include="Teleporter.h" />
-    <ClInclude Include="TileSetLoad.h" />
     <ClInclude Include="TNT.h" />
     <ClInclude Include="UIBase.h" />
     <ClInclude Include="UIServer.h" />
-    <ClInclude Include="UnstableLight.h" />
     <ClInclude Include="SquareLight.h" />
     <ClInclude Include="WantedInfo.h" />
   </ItemGroup>

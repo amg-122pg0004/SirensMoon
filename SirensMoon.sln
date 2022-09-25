@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SirensMoon", "SirensMoon\SirensMoon.vcxproj", "{14D461CA-F35D-4804-8760-D258B432CA16}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SilenceMoon", "SilenceMoon\SilenceMoon.vcxproj", "{14D461CA-F35D-4804-8760-D258B432CA16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
