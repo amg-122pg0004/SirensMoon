@@ -5,7 +5,6 @@ FX_MissileShoot::FX_MissileShoot(Game& game, ModeGame& mode, const Vector2& pos,
 	:Effect(game, mode, pos, startTime)
 {
 	_cg.resize(70);
-	//ImageServer::LoadDivGraph("resource/Effect/MissileShoot.png", 148, 7, 12, 220, 540, _cg.data());
 	ImageServer::LoadDivGraph("resource/Effect/MissileShoot.png", 70, 7, 12, 220, 340, _cg.data());
 	_zoom = 2.0;
 	_lifeTime = 148;
@@ -14,5 +13,5 @@ FX_MissileShoot::FX_MissileShoot(Game& game, ModeGame& mode, const Vector2& pos,
 
 void FX_MissileShoot::Easing(int elapsed) {
 	auto linear = Easing::GetMode("Linear");
-	_animNo = linear(elapsed, 0, static_cast<int>(_cg.size()), _lifeTime);
+	_animNo = static_cast<int>(linear(elapsed, 0, static_cast<int>(_cg.size()), _lifeTime));
 }

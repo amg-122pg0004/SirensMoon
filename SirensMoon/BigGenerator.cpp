@@ -43,7 +43,7 @@ void BigGenerator::Update() {
 
 	int preIndex = _index - 1;
 	if (preIndex < 0) {
-		preIndex = _signal.size() - 1;
+		preIndex = static_cast<int>(_signal.size() - 1);
 	}
 	int nextIndex = _index + 1;
 	if (nextIndex >= _signal.size()) {

@@ -15,5 +15,5 @@ FX_ScreenSmoke::FX_ScreenSmoke(Game& game, ModeGame& mode, const Vector2& pos, i
 
 void FX_ScreenSmoke::Easing(int elapsed) {
 	auto linear = Easing::GetMode("Linear");
-	_animNo = linear(elapsed, 0, static_cast<int>(_cg.size()), _lifeTime);
+	_animNo = static_cast<int>(linear(elapsed, 0, static_cast<int>(_cg.size()), _lifeTime));
 }

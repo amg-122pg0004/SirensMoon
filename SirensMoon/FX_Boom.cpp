@@ -16,7 +16,7 @@ FX_Boom::FX_Boom(Game& game, ModeGame& mode, const Vector2& pos, int startTime)
 
 void FX_Boom::Easing(int elapsed) {
 	auto linear = Easing::GetMode("Linear");
-	_animNo = linear(elapsed, 0, static_cast<int>(_cg.size()), _lifeTime );
+	_animNo = static_cast<int>(linear(elapsed, 0, static_cast<int>(_cg.size()), _lifeTime ));
 
 }
 
@@ -34,7 +34,7 @@ FX_Boom2::FX_Boom2(Game& game, ModeGame& mode, const Vector2& pos, int startTime
 
 void FX_Boom2::Easing(int elapsed) {
 	auto linear = Easing::GetMode("Linear");
-	_animNo = linear(elapsed, 0, static_cast<int>(_cg.size()), _lifeTime);
+	_animNo = static_cast<int>(static_cast<int>(linear(elapsed, 0, static_cast<int>(_cg.size()), _lifeTime)));
 
 }
 

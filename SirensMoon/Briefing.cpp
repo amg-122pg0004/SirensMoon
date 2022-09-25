@@ -55,9 +55,11 @@ void Briefing::Update() {
 
 void Briefing::Render() {
 	if (_visible) {
-		SetDrawArea(_pos.x, _pos.y, _pos.x + splitscreen_W, screen_H);
+		SetDrawArea(static_cast<int>(_pos.x), static_cast<int>(_pos.y)
+			, static_cast<int>(_pos.x + splitscreen_W), static_cast<int>(screen_H));
 		DrawBox(0, 0, screen_W, screen_H, GetColor(0, 0, 0), 1);
-		DrawExtendGraph(_pos.x, _pos.y, _pos.x + splitscreen_W, _pos.y + screen_H, _cg[_slideNo], 1);
+		DrawExtendGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y)
+			, static_cast<int>(_pos.x + splitscreen_W), static_cast<int>(_pos.y + screen_H), _cg[_slideNo], 1);
 		SetDrawArea(0, 0,screen_W,screen_H);
 	}
 }

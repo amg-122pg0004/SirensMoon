@@ -25,8 +25,8 @@ void SkipUI::Update() {
 
 void SkipUI::Render() {
 	if (_visible) {
-		DrawGraph(_pos.x, _pos.y, _cg[_animNo], 1);
-		DrawGraph(_pos.x + splitscreen_W, _pos.y, _cg2[_animNo], 1);
+		DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), _cg[_animNo], 1);
+		DrawGraph(static_cast<int>(_pos.x + splitscreen_W), static_cast<int>(_pos.y), _cg2[_animNo], 1);
 	}
 }
 

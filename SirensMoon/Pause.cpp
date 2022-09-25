@@ -39,7 +39,8 @@ void Pause::Update() {
 			dynamic_cast<ModeGame&>(_mode).SetPauseGame(false);
 		}
 	}
-	if (_visible&& _window.GetWindowNo() == 0){
+#ifdef _DEBUG
+	if (_visible && _window.GetWindowNo() == 0) {
 		if (_inputManager->CheckInput("BULLET1", 't', 0) ||
 			_inputManager->CheckInput("BULLET1", 't', 1)) {
 			_mode.CallPlayStage1();
@@ -53,12 +54,13 @@ void Pause::Update() {
 			_mode.CallPlayStage3();
 		}
 	}
+#endif // _DEBUG
 }
 
 void Pause::Render() {
 	if (_visible) {
 		SetDrawArea(0,0,screen_W,screen_W);
-		DrawGraph(_pos.x, _pos.y, _cg, 1);
+		DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), _cg, 1);
 	}
 
 }

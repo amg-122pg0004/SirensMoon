@@ -151,7 +151,7 @@ void ModeStart::Render() {
 			DrawGraph(static_cast<int>(pos2.x), static_cast<int>(pos2.y) + 200, select(_cg_quit, 2), 1);
 			DrawGraph(static_cast<int>(pos2.x - 50), static_cast<int>(pos2.y) + _select * 100, _cg_cursor, 1);
 			DrawGraph(static_cast<int>(pos2.x + screen_W / 2)-100, static_cast<int>(pos2.y)+100, _cg2pFrame, 1);
-			int alpha = (sin(static_cast<double>(_game.GetFrameCount() / 15.0)) / 2.0 + 0.7) * 255.0;
+			int alpha = static_cast<int>((sin(static_cast<double>(_game.GetFrameCount() / 15.0)) / 2.0 + 0.7) * 255.0);
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, static_cast<int>(alpha));
 			DrawGraph(static_cast<int>(pos2.x + screen_W / 2)-100, static_cast<int>(pos2.y)+100, _cg2pText, 1);
 			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);

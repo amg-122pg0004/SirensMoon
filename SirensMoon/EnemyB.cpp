@@ -16,7 +16,7 @@ void EnemyB::Update() {
 		MoveToPlayer();
 	}
 	if (!_chase && _detectionFrame == 0) {
-		auto radian = Math::ToRadians(_data.Direction[_index]);
+		auto radian = Math::ToRadians(static_cast<float>(_data.Direction[_index]));
 		_dir.x = sin(radian);
 		_dir.y = cos(radian);
 

@@ -2,7 +2,7 @@
 #include "Easing.h"
 
 FX_Signal::FX_Signal(Game& game, ModeGame& mode, const Vector2& pos, int startTime, bool longSignal)
-	:Effect(game, mode, pos, startTime), _moveLength{80}
+	:Effect(game, mode, pos, startTime), _moveLength{ 80 }
 {
 	_cg.resize(1);
 	if (longSignal) {
@@ -20,6 +20,6 @@ FX_Signal::FX_Signal(Game& game, ModeGame& mode, const Vector2& pos, int startTi
 }
 void FX_Signal::Easing(int elapsed) {
 	auto linear = Easing::GetMode("Linear");
-	_animNo=linear(elapsed, 0, 0, _lifeTime);
-	_pos.y = _startPos.y-linear(elapsed, 0, _moveLength, _lifeTime);
+	_animNo = static_cast<int>(linear(elapsed, 0, 0, _lifeTime));
+	_pos.y = _startPos.y - linear(elapsed, 0, _moveLength, _lifeTime);
 }

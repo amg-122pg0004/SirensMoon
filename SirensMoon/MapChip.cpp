@@ -985,9 +985,9 @@ void MapChip::Render(Vector2 windowPos, Vector2 cameraPos, std::string layer) {
 	int x, y;
 	for (int layer = 0; layer < tiledata.size(); ++layer)
 	{
-		for (y = cameraPos.y / _chipSize_H; y < (cameraPos.y + screen_H) / _chipSize_H; ++y)
+		for (y = static_cast<int>(cameraPos.y) / _chipSize_H; y < (cameraPos.y + screen_H) / _chipSize_H; ++y)
 		{
-			for (x = cameraPos.x / _chipSize_W; x < (cameraPos.x + splitscreen_W) / _chipSize_W; ++x)
+			for (x = static_cast<int>(cameraPos.x) / _chipSize_W; x < (cameraPos.x + splitscreen_W) / _chipSize_W; ++x)
 			{
 				int layerstart = _mapSize_W * _mapSize_H * layer;
 				int index = y * _mapSize_W + x;
@@ -1136,8 +1136,8 @@ bool MapChip::IsHit(std::set<std::pair<int, int>> grids) {
 }
 
 bool MapChip::IsHit(Vector2 point) {
-	int x = floor(point.x / 30);
-	int y = ceil(point.y / 30);
+	int x = static_cast<int>(floor(point.x / 30));
+	int y = static_cast<int>(ceil(point.y / 30));
 	std::vector<int> v_chip_no = CheckHitChipNo(x, y, false);
 	for (int chip_gid : v_chip_no) {
 		/*コリジョンを持つチップのgidでループ*/

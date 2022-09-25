@@ -30,7 +30,7 @@ void FinishCut::Update() {
 
 	if (elapsed < lifetime + 10) {
 		// ラムダ式のイージング関数を使う
-		_alpha = _easing(elapsed, start, stop, lifetime);
+		_alpha = static_cast<int>(_easing(elapsed, start, stop, lifetime));
 		if (_alpha < 255 * 0.2) {
 			_visible2 = true;
 		}
@@ -45,7 +45,7 @@ void FinishCut::Render() {
 	if (!_visible) {
 		return;
 	}
-	SetDrawArea(_pos.x, 0, _pos.x + splitscreen_W, screen_H);
+	SetDrawArea(static_cast<int>(_pos.x), 0, static_cast<int>(_pos.x + splitscreen_W), screen_H);
 	if (_visible2) {
 		DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), _cg, 0);
 		SetDrawMode(DX_DRAWMODE_BILINEAR);

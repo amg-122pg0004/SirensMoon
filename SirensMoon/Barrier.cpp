@@ -9,11 +9,11 @@ Barrier::Barrier(Game& game, ModeGame& mode, BarrierData data)
 	_size = { 30,30 };
 	_collision.min = _pos;
 	_collision.max = _pos + _size;
-	_renderPriority = _pos.y+_size.y;
+	_renderPriority = static_cast<int>(_pos.y+_size.y);
 }
 
 void Barrier::Update() {
-	_alpha = (sin(static_cast<double>(_game.GetFrameCount()) / _animSpeed) + 1.0) / 2.0 * 255;
+	_alpha = static_cast<int>((sin(static_cast<double>(_game.GetFrameCount()) / _animSpeed) + 1.0) / 2.0 * 255);
 }
 
 void Barrier::StandardRender(Vector2 window_pos, Vector2 camera_pos)

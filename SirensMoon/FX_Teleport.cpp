@@ -14,7 +14,7 @@ FX_TeleportIN1::FX_TeleportIN1(Game& game, ModeGame& mode, const Vector2& pos, i
 }
 void FX_TeleportIN1::Easing(int elapsed) {
 	auto linear = Easing::GetMode("Linear");
-	_animNo = linear(elapsed, 0, static_cast<int>(_cg.size()), _lifeTime);
+	_animNo = static_cast<int>(linear(elapsed, 0, static_cast<int>(_cg.size()), _lifeTime));
 }
 
 FX_TeleportIN2::FX_TeleportIN2(Game& game, ModeGame& mode, const Vector2& pos, int startTime)
@@ -27,9 +27,10 @@ FX_TeleportIN2::FX_TeleportIN2(Game& game, ModeGame& mode, const Vector2& pos, i
 	_lifeTime = 68 * 1;
 	_blendMode = DX_BLENDMODE_ALPHA;
 }
+
 void FX_TeleportIN2::Easing(int elapsed) {
 	auto linear = Easing::GetMode("Linear");
-	_animNo = linear(elapsed, 0, static_cast<int>(_cg.size()), _lifeTime);
+	_animNo = static_cast<int>(linear(elapsed, 0, static_cast<int>(_cg.size()), _lifeTime));
 }
 
 FX_TeleportOUT1::FX_TeleportOUT1(Game& game, ModeGame& mode, const Vector2& pos, int startTime)
@@ -57,6 +58,7 @@ FX_TeleportOUT2::FX_TeleportOUT2(Game& game, ModeGame& mode, const Vector2& pos,
 	_lifeTime = 68 * 1;
 	_blendMode = DX_BLENDMODE_ALPHA;
 }
+
 void FX_TeleportOUT2::Easing(int elapsed) {
 	auto linear = Easing::GetMode("Linear");
 	_animNo = linear(elapsed, 0, static_cast<int>(_cg.size()), _lifeTime);

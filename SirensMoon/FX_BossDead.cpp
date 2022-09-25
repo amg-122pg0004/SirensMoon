@@ -14,5 +14,5 @@ FX_BossDead::FX_BossDead(Game& game, ModeGame& mode, const Vector2& pos, int sta
 
 void FX_BossDead::Easing(int elapsed) {
 	auto linear = Easing::GetMode("Linear");
-	_animNo = linear(elapsed, 0, static_cast<int>(_cg.size()), _lifeTime);
+	_animNo = static_cast<int>(linear(elapsed, 0, static_cast<int>(_cg.size()), _lifeTime));
 }

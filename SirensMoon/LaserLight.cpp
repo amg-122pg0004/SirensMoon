@@ -66,10 +66,10 @@ void LaserLight::Update() {
 void LaserLight::MaskRender(Vector2 window_pos, Vector2 camera_pos) {
 	if (_activate) {
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, _alpha);
-		DrawLine(window_pos.x - camera_pos.x + _pos.x,
-			window_pos.y - camera_pos.y + _pos.y,
-			window_pos.x - camera_pos.x + _extendPoint.x,
-			window_pos.y - camera_pos.y + _extendPoint.y,
+		DrawLine(static_cast<int>(window_pos.x - camera_pos.x + _pos.x),
+			static_cast<int>(window_pos.y - camera_pos.y + _pos.y),
+			static_cast<int>(window_pos.x - camera_pos.x + _extendPoint.x),
+			static_cast<int>(window_pos.y - camera_pos.y + _extendPoint.y),
 			GetColor(255, 0, 0), 3);
 	}
 }

@@ -27,22 +27,28 @@ Game::Game() :_frameCount{ 0 }, _progress{ Progress::StartMenu }
 
 void Game::Input() {
 	_inputManager->InputUpdate();
+#ifdef _DEBUG
 	if (_inputManager->CheckInput("CHANGE", 'r', 0) || _inputManager->CheckInput("CHANGE", 'r', 1)) {
 		_inputManager->ChangeControllerNo();
-	}
+}
 	if (_inputManager->CheckInput("DEBUG", 'r', 0) || _inputManager->CheckInput("DEBUG", 'r', 1)) {
 		_debug = !_debug;
 	}
+#endif // _DEBUG
+
+
 }
 void Game::Update() {
 	++_frameCount;
 	_modeServer->Update();
 
+#ifdef DEBUG
 	if (_inputManager->CheckInput("DEBUG", 'h', 0) && _inputManager->CheckInput("PAUSE", 't', 0) ||
-		_inputManager->CheckInput("DEBUG", 'h', 1) && _inputManager->CheckInput("PAUSE", 't', 1)) 
+		_inputManager->CheckInput("DEBUG", 'h', 1) && _inputManager->CheckInput("PAUSE", 't', 1))
 	{
 		PlayStartMenu();
 	}
+#endif // DEBUG
 }
 
 void Game::Render() {

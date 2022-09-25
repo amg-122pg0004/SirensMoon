@@ -225,7 +225,7 @@ void Boss::ChoiceAttack() {
 			break;
 
 		case 3:
-			_time = 2.5 * 60;
+			_time = static_cast<int>(2.5 * 60);
 			Jump();
 			break;
 		}

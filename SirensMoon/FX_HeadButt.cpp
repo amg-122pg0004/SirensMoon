@@ -1,7 +1,6 @@
 #include "FX_HeadButt.h"
 #include "Easing.h"
 
-
 FX_HeadButt::FX_HeadButt(Game& game, ModeGame& mode, const Vector2& pos, int startTime)
 	:Effect(game, mode, pos, startTime)
 {
@@ -16,5 +15,5 @@ FX_HeadButt::FX_HeadButt(Game& game, ModeGame& mode, const Vector2& pos, int sta
 
 void FX_HeadButt::Easing(int elapsed) {
 	auto linear = Easing::GetMode("Linear");
-	_animNo = linear(elapsed, 0, static_cast<int>(_cg.size()), _lifeTime);
+	_animNo = static_cast<int>(linear(elapsed, 0, static_cast<int>(_cg.size()), _lifeTime));
 }

@@ -12,7 +12,7 @@ FX_BulletHit::FX_BulletHit(Game& game, ModeGame& mode, const Vector2& pos, int s
 
 void FX_BulletHit::Easing(int elapsed) {
 	auto linear = Easing::GetMode("Linear");
-	_animNo = linear(elapsed, 0, static_cast<int>(_cg.size()), _lifeTime);
+	_animNo = static_cast<int>(linear(elapsed, 0, static_cast<int>(_cg.size()), _lifeTime));
 
 }
 

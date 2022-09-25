@@ -22,7 +22,7 @@ MiniShuttle::MiniShuttle(Game& game, ModeGame& mode, BossGimmickController& cont
 	_collisionPreset.max = { accessPos.x + 30,accessPos.y + 30 };
 	_accessArea.min = { accessPos.x - 35,accessPos.y - 30 };
 	_accessArea.max = { accessPos.x + 35,accessPos.y + 35 };
-	_renderPriority = accessPos.y + 30;
+	_renderPriority = static_cast<int>(accessPos.y + 30);
 }
 
 void MiniShuttle::Debug(Vector2 window_pos, Vector2 camera_pos) {
@@ -101,7 +101,7 @@ void MiniShuttle::UpdateAnimation() {
 	}
 	else {
 		if (_animNo >= _cg2.size()) {
-			_animNo = _cg2.size() - 1;
+			_animNo = static_cast<int>(_cg2.size() - 1);
 			if (_landing) {
 				_controller.WarpEvent();
 			}
@@ -120,7 +120,7 @@ void MiniShuttle::UpdateInverseAnimation() {
 	if (_cg2Flag) {
 		if (_animNo < 0) {
 			_noCollision = true;
-			_animNo = _cg.size() - 1;
+			_animNo = static_cast<int>(_cg.size() - 1);
 			_cg2Flag = false;
 			_pos.y -= 270;
 		}
