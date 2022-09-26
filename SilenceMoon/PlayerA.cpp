@@ -226,7 +226,7 @@ void PlayerA::TeleportEvent() {
 	--_teleportDelay;
 	
 	if (_teleportDelay == 135) {
-		_mode.GetActorServer().Add(std::make_unique<FX_TeleportIN1>(_game, _mode, _pos, _game.GetFrameCount()));
+		_mode.GetActorServer().Add(std::make_unique<FX_TeleportIN1>(_game, _mode, _preTeleportPosition, _game.GetFrameCount()));
 	}
 	else if (_teleportDelay == 68) {
 		_pos=_teleportPosition;

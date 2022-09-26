@@ -2,12 +2,15 @@
 #include "Game.h"
 #include "ModeGame.h"
 #include "SkipUI.h"
+#include "Screen_Fade.h"
 
 ModeStart::ModeStart(Game& game,int seekmovie) :ModeBase(game), _select{ 0 }, _alpha{ 255 }, _pos{ 440 , 730 }, _bgm{ false }
 {
 	_inputManager = _game.GetInputManager();
 
 	LoadResources::LoadSE1();
+	LoadResources::LoadEffects();
+	LoadResources::LoadMovie("resource/Movie/gameover.mp4");
 	_movieHandle = ImageServer::LoadGraph("resource/Movie/start.mp4");
 	_cg_bg = ImageServer::LoadGraph("resource/UI/Start/background.jpg");
 	_cg_logo = ImageServer::LoadGraph("resource/UI/Start/logo.png");
@@ -184,7 +187,11 @@ void ModeStart::Debug() {
 }
 
 void ModeStart::Play() {
-	ModeBase::NextMode();
+	Vector2 pos{ 0,0 }, size{ screen_W,screen_W };
+	auto fade = std::make_unique<Screen_Fade>(_game, *this, *_splitWindow, pos, size);
+	fade->SetEffect(0,10,GetColor(0,0,0),false,true);
+	_ui.push_back(std::move(fade));
+	ModeBase::NextMode(11);
 }
 
 void ModeStart::Credit() {

@@ -19,7 +19,7 @@ void ScreenEffect::Update() {
     else {
         _visible = true;
     }
-    if (elapsed < _lifeTime) {
+    if (elapsed < _lifeTime+1) {
         Easing(elapsed);  // イージング処理
         return;
     }

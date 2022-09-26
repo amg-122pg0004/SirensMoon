@@ -53,6 +53,9 @@ void ObjectiveUI::ChangeMessage(std::string next, int nextCGColor) {
 }
 
 void ObjectiveUI::ChangeWarning(int no) {
+	if (_message == " ") {
+		return;
+	}
 	_preMessage = _message;
 	_preCG = _cg;
 	_nextMessage = " ";

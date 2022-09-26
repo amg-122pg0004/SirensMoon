@@ -174,17 +174,17 @@ void Switch::FirstActivateEvent(int eventPlayer) {
 		auto&& window= _mode.GetSplitWindow()[_firstActivate];
 		Vector2 size{ 0,0 };
 		auto fade = std::make_unique<Screen_Fade>(_game,_mode,*window,window->GetWindowPos(),size);
-		fade->SetEffect(1,15,GetColor(0,0,0),false);
+		fade->SetEffect(1,15,GetColor(0,0,0),false, false);
 		window->GetUIServer2().Add(std::move(fade));
 		auto fade2 = std::make_unique<Screen_Fade>(_game, _mode, *window, window->GetWindowPos(), size);
-		fade2->SetEffect(16, 15, GetColor(0, 0, 0), true);
+		fade2->SetEffect(16, 15, GetColor(0, 0, 0), true, false);
 		window->GetUIServer2().Add(std::move(fade2));
 
 		auto fade3 = std::make_unique<Screen_Fade>(_game, _mode, *window, window->GetWindowPos(), size);
-		fade3->SetEffect(105, 15, GetColor(0, 0, 0), false);
+		fade3->SetEffect(105, 15, GetColor(0, 0, 0), false, false);
 		window->GetUIServer2().Add(std::move(fade3));
 		auto fade4 = std::make_unique<Screen_Fade>(_game, _mode, *window, window->GetWindowPos(), size);
-		fade4->SetEffect(120, 15, GetColor(0, 0, 0), true);
+		fade4->SetEffect(120, 15, GetColor(0, 0, 0), true, false);
 		window->GetUIServer2().Add(std::move(fade4));
 	}
 }

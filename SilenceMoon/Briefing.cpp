@@ -18,10 +18,10 @@ Briefing::Briefing(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos,
 	_UIPriority = 12;
 	_slideTimeMax = _slideTime;
 	auto fade = std::make_unique<Screen_Fade>(_game, _mode, _window, _pos, _size);
-	fade->SetEffect(0, 20, GetColor(0, 0, 0), true);
+	fade->SetEffect(0, 20, GetColor(0, 0, 0), true, false);
 	_window.GetUIServer2().Add(std::move(fade));
 	auto fade2 = std::make_unique<Screen_Fade>(_game, _mode, _window, _pos, _size);
-	fade2->SetEffect(180, 22, GetColor(0, 0, 0),false);
+	fade2->SetEffect(180, 22, GetColor(0, 0, 0), false, false);
 	_window.GetUIServer2().Add(std::move(fade2));
 	PlaySoundFile("resource/BGM/Briefing.mp3", DX_PLAYTYPE_BACK);
 }
@@ -43,23 +43,29 @@ void Briefing::Update() {
 			_dead = true;
 			return;
 		}
-		auto fade = std::make_unique<Screen_Fade>(_game, _mode,_window, _pos, _size);
-		fade->SetEffect(0, 20, GetColor(0, 0, 0), true);
+		auto fade = std::make_unique<Screen_Fade>(_game, _mode, _window, _pos, _size);
+		fade->SetEffect(0, 20, GetColor(0, 0, 0), true, false);
 		_window.GetUIServer2().Add(std::move(fade));
 		auto fade2 = std::make_unique<Screen_Fade>(_game, _mode, _window, _pos, _size);
-		fade2->SetEffect(180, 22, GetColor(0, 0, 0), false);
+		fade2->SetEffect(180, 20, GetColor(0, 0, 0), false, false);
 		_window.GetUIServer2().Add(std::move(fade2));
 
 	}
 }
 
 void Briefing::Render() {
-	if (_visible) {
+	if (!_visible) {
+		return;
+	}
+	/*開始1フレームだけ非表示*/
+	if (_slideNo == 0 && _slideTime >= 199) {
+		return;
+	}
 		SetDrawArea(static_cast<int>(_pos.x), static_cast<int>(_pos.y)
 			, static_cast<int>(_pos.x + splitscreen_W), static_cast<int>(screen_H));
-		DrawBox(0, 0, screen_W, screen_H, GetColor(0, 0, 0), 1);
-		DrawExtendGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y)
-			, static_cast<int>(_pos.x + splitscreen_W), static_cast<int>(_pos.y + screen_H), _cg[_slideNo], 1);
-		SetDrawArea(0, 0,screen_W,screen_H);
-	}
+	DrawBox(0, 0, screen_W, screen_H, GetColor(0, 0, 0), 1);
+	DrawExtendGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y)
+		, static_cast<int>(_pos.x + splitscreen_W), static_cast<int>(_pos.y + screen_H), _cg[_slideNo], 1);
+	SetDrawArea(0, 0, screen_W, screen_H);
+
 }

@@ -23,7 +23,6 @@ ModeMovie::ModeMovie(Game& game, std::string path, int startFrame, int skipFrame
 	GetGraphSize(_movieHandle, &_sizeX, &_sizeY);
 	_makedNextMode = false;
 
-	SetUseASyncLoadFlag(true);
 	Vector2 pos{ 800,0 }, size{ 163,163 };
 	_ui.emplace_back(std::make_unique<SkipUI>(_game, *this, *_splitWindow, pos, size));
 	LoadResources::LoadSE();
@@ -64,7 +63,7 @@ void ModeMovie::Update() {
 	/*再生が終わったらスキップ*/
 	if (GetMovieStateToGraph(_movieHandle) == 0) {
 		PauseMovieToGraph(_movieHandle);
-		ModeBase::NextMode();
+		ModeBase::NextMode(0);
 	}
 	for (auto&& ui : _ui) {
 		ui->Update();

@@ -42,34 +42,11 @@ void BossMissile::Update() {
 	UpdateCollision();
 	HitActor();
 	if (_room.x != CheckRoomPosition().x || _room.y != CheckRoomPosition().y) {
-		_dead = true;
+		TakeDamage(Type::BossMissile);
 	}
 
 	if (!_dead) {
 		return;
-	}
-	int i{ 0 };
-	if (rand2(engine) == 1) {
-		for (auto&& actor : _mode.GetActorServer().GetObjects()) {
-			if (actor->GetType() == Type::BulletItem) {
-				++i;
-			}
-		}
-		if (i < 4) {
-			auto bullet = std::make_unique<BulletItem>(_game, _mode, _pos);
-			_mode.GetActorServer().Add(std::move(bullet));
-		}
-	}
-	else {
-		for (auto&& actor : _mode.GetActorServer().GetObjects()) {
-			if (actor->GetType() == Type::HPItem) {
-				++i;
-			}
-		}
-		if (i < 4) {
-			auto hp = std::make_unique<HPItem>(_game, _mode, _pos);
-			_mode.GetActorServer().Add(std::move(hp));
-		}
 	}
 }
 
@@ -97,15 +74,15 @@ void BossMissile::HitActor() {
 			if (CheckOverlapActor(*actor)) {
 				auto explode = std::make_unique<Explode2>(_game, _mode, _pos + (_size / 2));
 				_mode.GetActorServer().Add(std::move(explode));
-				_dead = true;
+				TakeDamage(actor->GetType());
 			}
 		}
 		if (actor->GetType() == Type::RedBullet || actor->GetType() == Type::GreenBullet) {
 			if (CheckOverlapActor(*actor) || CheckCheckCrossBullet(*actor)) {
 				auto explode = std::make_unique<Explode2>(_game, _mode, _pos + (_size / 2));
 				_mode.GetActorServer().Add(std::move(explode));
-				_dead = true;
 				actor->Dead();
+				TakeDamage(actor->GetType());
 			}
 		}
 	}
@@ -219,4 +196,33 @@ void BossMissile::UpdateCollision() {
 
 	_hitbox.pos4 = { _size.x / 2 * cos(angle) - _size.y / 2 * sin(angle) + _pos.x,
 	_size.x / 2 * sin(angle) + _size.y / 2 * cos(angle) + _pos.y };
+}
+void BossMissile::TakeDamage(Actor::Type type){
+	_dead = true;
+	if (type == Type::PlayerA|| type == Type::PlayerB) {
+		return;
+	}
+	int i{ 0 };
+	if (rand2(engine) == 1) {
+		for (auto&& actor : _mode.GetActorServer().GetObjects()) {
+			if (actor->GetType() == Type::BulletItem) {
+				++i;
+			}
+		}
+		if (i < 4) {
+			auto bullet = std::make_unique<BulletItem>(_game, _mode, _pos);
+			_mode.GetActorServer().Add(std::move(bullet));
+		}
+	}
+	else {
+		for (auto&& actor : _mode.GetActorServer().GetObjects()) {
+			if (actor->GetType() == Type::HPItem) {
+				++i;
+			}
+		}
+		if (i < 4) {
+			auto hp = std::make_unique<HPItem>(_game, _mode, _pos);
+			_mode.GetActorServer().Add(std::move(hp));
+		}
+	}
 }

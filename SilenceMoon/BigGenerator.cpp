@@ -3,6 +3,7 @@
 #include "ModeGame.h"
 #include "BossGimmickController.h"
 #include "FX_Signal.h"
+#include "SquareLight.h"
 #include <sstream>
 
 BigGenerator::BigGenerator(Game& game, ModeGame& mode, BigGeneratorData data, BossGimmickController& controller)
@@ -11,6 +12,13 @@ BigGenerator::BigGenerator(Game& game, ModeGame& mode, BigGeneratorData data, Bo
 {
 	_pos = data.pos;
 	auto light = std::make_unique<SignalLight>(game, mode, *this);
+
+	SquareLightStats lightdata;
+	lightdata.size = { 600,600 };
+	lightdata.pos = { _pos.x- lightdata.size.x/2+_size.x,_pos.y- lightdata.size.y /2 };
+	lightdata.image = "resource/Light/Light_3.png";
+	lightdata.alpha = 255;
+	_mode.GetActorServer().Add(std::make_unique<SquareLight>(_game, _mode, *this, lightdata));
 	_mode.GetActorServer().Add(std::move(light));
 	_activate = false;
 	_cg_passive = ImageServer::LoadGraph("resource/Gimmick/biggen.png");

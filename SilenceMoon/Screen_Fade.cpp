@@ -26,18 +26,22 @@ void Screen_Fade::Render() {
     }
     SetDrawBlendMode(DX_BLENDMODE_ALPHA, static_cast<int>(_alpha));
     SetDrawMode(DX_DRAWMODE_BILINEAR);
-
+    int Wsize{ splitscreen_W };
+    if (_fullscreen) {
+        Wsize = screen_W;
+    }
     DrawBox(static_cast<int>(_pos.x), static_cast<int>(_pos.y)
-        , static_cast<int>(_pos.x+splitscreen_W), static_cast<int>(_pos.y+screen_H), _color,1);
+        , static_cast<int>(_pos.x + Wsize), static_cast<int>(_pos.y + screen_H), _color, 1);
 
     SetDrawMode(DX_DRAWMODE_NEAREST);
     SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 };
 
-void Screen_Fade::SetEffect(int delayTime, int lifeTime, unsigned int color,bool feedout) {
+void Screen_Fade::SetEffect(int delayTime, int lifeTime, unsigned int color,bool feedout ,bool fullscreen) {
     ScreenEffect::SetEffect(delayTime, lifeTime);
     _color = color;
     _feedout = feedout;
+    _fullscreen = fullscreen;
     if (_feedout) {
         _alpha = 255;
     }

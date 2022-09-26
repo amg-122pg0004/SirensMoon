@@ -20,7 +20,7 @@
 
 Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 	:Actor(game, mode), _scale{ 1.0 }, _mapscale{ 1.0 }, _animNo{ 0 }
-	, _backlayer{ true }, _time{ 60 }, _visible{ true }, _speed{ 2.5 }, _alpha{ 255 }
+	, _backlayer{ true }, _time{ 60 }, _visible{ true }, _speed{ 3.5 }, _alpha{ 255 }
 	, _headbuttSize{ 150,420 }, _headSize{ 90,90 }, _hp{ 3 }, _controller{ controller }
 	, _phase2{ false }, _player1{ nullptr }, _player2{ nullptr }, _invincible{ true }
 	,_stop{false}
@@ -33,7 +33,7 @@ Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 	_size2 = { 400,500 };
 	std::vector<int> handle,handle2;
 	handle.resize(65);
-	ImageServer::LoadDivGraph("resource/Boss/wait2.png", 65, 10, 7, 640, 740, handle.data());
+	ImageServer::LoadDivGraph("resource/Boss/wait.png", 65, 10, 7, 1024, 1024, handle.data());
 	_cg[State::Wait] = handle;
 	handle.resize(40);
 	ImageServer::LoadDivGraph("resource/Boss/gunfireA.png", 40, 10, 4, 1024, 1024, handle.data());
@@ -177,7 +177,7 @@ void Boss::BackRender(Vector2 window_pos, Vector2 camera_pos) {
 	if (_visible) {
 		if (_backlayer) {
 			Vector2 fix{ 0,0 };
-			if (_state == State::Wait||_state==State::Thunder||_state==State::ShootMissile) {
+			if (_state==State::Thunder||_state==State::ShootMissile) {
 				fix = { 0,-142 };
 			}
 
@@ -374,7 +374,7 @@ void Boss::HeadButt() {
 		AABB col = _player1->GetCollision();
 		auto dir = (col.min + col.max) / 2 - _pos;
 
-		if (dir.Length() < 150 && dir.Length() > 100) {
+		if (dir.Length() < 90 && dir.Length() > 10) {
 			_visible = true;
 			_animNo = 0;
 		}

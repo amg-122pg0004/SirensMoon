@@ -6,8 +6,9 @@ public:
 	Screen_Fade(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size);
 	void Easing(int elapsed) override;
 	void Render()override;
-	void SetEffect(int delayTime, int lifeTime, unsigned int color, bool feedout);
+	void SetEffect(int delayTime, int lifeTime, unsigned int color, bool feedout, bool fullscreen);
 private:
 	unsigned int _color;
 	bool _feedout;
+	bool _fullscreen;
 };

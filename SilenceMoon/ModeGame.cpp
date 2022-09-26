@@ -1,7 +1,7 @@
 /*****************************************************************//**
  * \file   ModeGame.cpp
  * \brief  ゲーム中に使用するモードです。
- * 
+ *
  * \author 土居将太郎
  * \date   July 2022
  *********************************************************************/
@@ -29,10 +29,10 @@
 #include "ScreenPump.h"
 #include "Barrier.h"
 
-ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPattern pattern,std::string bgm) 
-	:ModeBase{ game }, _stopActorUpdate{false} ,_bgm{bgm},_clearDelay{240},_clear{false}
+ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPattern pattern, std::string bgm)
+	:ModeBase{ game }, _stopActorUpdate{ false }, _bgm{ bgm }, _clearDelay{ 240 }, _clear{ false }
 {
-	_inputManager=_game.GetInputManager();
+	_inputManager = _game.GetInputManager();
 	_renderPriority = 0;
 	if (!bgm.empty()) {
 		if (!CheckSoundFile()) {
@@ -40,10 +40,10 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 		}
 	}
 
-	_mapChips = std::make_unique<MapChip>(_game,*this,filename);
+	_mapChips = std::make_unique<MapChip>(_game, *this, filename);
 
-	_splitWindow.emplace_back(std::make_unique<SplitWindow>(_game,*this, 0, 0, 0));
-	_splitWindow.emplace_back(std::make_unique<SplitWindow>(_game,*this, screen_W-splitscreen_W, 0, 1));
+	_splitWindow.emplace_back(std::make_unique<SplitWindow>(_game, *this, 0, 0, 0));
+	_splitWindow.emplace_back(std::make_unique<SplitWindow>(_game, *this, screen_W - splitscreen_W, 0, 1));
 
 
 	auto playerA = std::make_unique<PlayerA>(_game, *this, 0);
@@ -56,15 +56,15 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 
 	auto serverdata = _mapChips->GetServerData();
 	for (auto&& data : serverdata) {
-		auto pattern =enemygen->GetEnemyVIPPattern();
-		auto server = std::make_unique<ServerMachine>(_game, *this, data,pattern);
+		auto pattern = enemygen->GetEnemyVIPPattern();
+		auto server = std::make_unique<ServerMachine>(_game, *this, data, pattern);
 		_actorServer.Add(std::move(server));
 	}
 
-	auto enemydata=_mapChips->GetEnemyData();
+	auto enemydata = _mapChips->GetEnemyData();
 	for (auto&& data : enemydata) {
 		auto pattern = enemygen->GetEnemyPattern();
-		auto enemy = std::make_unique<EnemyA>(_game, *this, data,pattern);
+		auto enemy = std::make_unique<EnemyA>(_game, *this, data, pattern);
 		_actorServer.Add(std::move(enemy));
 	}
 
@@ -76,31 +76,31 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 	}
 
 	auto hp_pos = _mapChips->GetHPItemData();
-	for (int i=0; i < hp_pos.size();++i) {
+	for (int i = 0; i < hp_pos.size(); ++i) {
 		auto hp = std::make_unique<HPItem>(_game, *this, hp_pos[i].pos);
 		_actorServer.Add(std::move(hp));
 	}
 
 	auto bullet_pos = _mapChips->GetBulletData();
-	for (int i=0; i < bullet_pos.size(); ++i) {
+	for (int i = 0; i < bullet_pos.size(); ++i) {
 		auto bullet = std::make_unique<BulletItem>(_game, *this, bullet_pos[i].pos);
 		_actorServer.Add(std::move(bullet));
 	}
-	
+
 	auto light_pos = _mapChips->GetLightData();
 	for (int i = 0; i < light_pos.size(); ++i) {
 		auto lamp = std::make_unique<FloorLamp>(_game, *this, light_pos[i]);
 		_actorServer.Add(std::move(lamp));
 	}
-	
+
 	auto teleportIn_pos = _mapChips->GetteleporterInData();
 	for (int i = 0; i < teleportIn_pos.size(); ++i) {
-		auto teleportin = std::make_unique<teleporterIn>(_game, *this,-1, teleportIn_pos[i]);
+		auto teleportin = std::make_unique<teleporterIn>(_game, *this, -1, teleportIn_pos[i]);
 		_actorServer.Add(std::move(teleportin));
 	}
-	
+
 	auto data = _mapChips->GetteleporterOutData();
-	for (auto&& tele_out:data) {
+	for (auto&& tele_out : data) {
 		auto teleportout = std::make_unique<teleporterOut>(_game, *this, tele_out);
 		_actorServer.Add(std::move(teleportout));
 	}
@@ -146,7 +146,7 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 		auto stick = std::make_unique<StickyBomb>(_game, *this, astick);
 		_actorServer.Add(std::move(stick));
 	}
-	
+
 	auto breakabledata = _mapChips->GetBreakableObjectData();
 	for (auto&& abreakable : breakabledata) {
 		auto breakable = std::make_unique<BreakableObject>(_game, *this, abreakable);
@@ -173,12 +173,12 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 	}
 
 
-		auto bossspawndata = _mapChips->GetBossGimmickControllerDataList();
-		for (auto&& aspawn : bossspawndata) {
-			auto bosscon = std::make_unique<BossGimmickController>(_game, *this, aspawn);
-			_actorServer.Add(std::move(bosscon));
-		}
-	
+	auto bossspawndata = _mapChips->GetBossGimmickControllerDataList();
+	for (auto&& aspawn : bossspawndata) {
+		auto bosscon = std::make_unique<BossGimmickController>(_game, *this, aspawn);
+		_actorServer.Add(std::move(bosscon));
+	}
+
 
 	LoadResources::LoadSE();
 	LoadResources::LoadEffects();
@@ -198,13 +198,13 @@ void ModeGame::Update() {
 		splitwindows->Update();
 	}
 	/*Actorの更新*/
-	if (_stopActorUpdate==false) {
+	if (_stopActorUpdate == false) {
 		_actorServer.Update();
 	}
 	if (_clear) {
 		--_clearDelay;
 		if (_clearDelay < 0) {
-			ModeBase::NextMode();
+			ModeBase::NextMode(0);
 		}
 	}
 }
@@ -222,7 +222,7 @@ void ModeGame::Debug() {
 	}
 }
 
-void ModeGame::StageClearCheck(){
+void ModeGame::StageClearCheck() {
 	_stopActorUpdate = true;
 	++_enemyVIPDeadCount;
 	if (_enemyVIPDeadCount >= _mapChips->GetServerData().size()) {
@@ -233,16 +233,18 @@ void ModeGame::StageClearCheck(){
 	}
 }
 
-void ModeGame::GameOver(){
-	_stopActorUpdate = true;
-	if (_makedNextMode == false) {
-		_makedNextMode = true;
-		auto mode = std::make_unique<ModeGameOver>(_game);
-		_game.GetModeServer()->Add(std::move(mode));
+void ModeGame::GameOver() {
+	if (_makedNextMode) {
+		return;
 	}
+	_stopActorUpdate = true;
+	_makedNextMode = true;
+	_delayNextMode = 100000;
+	auto mode = std::make_unique<ModeGameOver>(_game);
+	_game.GetModeServer()->Add(std::move(mode));
 }
 
-void ModeGame::DamageEvent(){
+void ModeGame::DamageEvent() {
 	for (auto&& splitwindows : _splitWindow) {
 		splitwindows->DamageEvent();
 	}
@@ -258,12 +260,12 @@ void ModeGame::TargetKillEvent() {
 	}
 }
 
-void ModeGame::SetPauseGame(bool flag){
+void ModeGame::SetPauseGame(bool flag) {
 	if (!_makedNextMode) {
 		_stopActorUpdate = flag;
 	}
 }
-void ModeGame::PlayBGM(){
+void ModeGame::PlayBGM() {
 	StopSoundFile();
 	PlaySoundFile(_bgm.c_str(), DX_PLAYTYPE_LOOP);
 }

@@ -1,7 +1,7 @@
 /*****************************************************************//**
  * \file   ModeBase.h
  * \brief  モードの親クラスです。
- * 
+ *
  * \author 土居将太郎
  * \date   July 2022
  *********************************************************************/
@@ -20,13 +20,13 @@ public:
 	virtual void Debug(); //デバッグ
 
 	virtual ActorServer& GetActorServer() { return _actorServer; }
-	 virtual ActorServer::TypeActors& GetObjects() { return _actorServer.GetObjects(); }
+	virtual ActorServer::TypeActors& GetObjects() { return _actorServer.GetObjects(); }
 
 	virtual bool IsDead() { return _dead; }
 	virtual void Dead() { _dead = true; }
 	int GetRenderPriority() { return _renderPriority; }
 
-	virtual void NextMode();
+	virtual void NextMode(int delayNext);
 
 	void CallPlayStage1();
 	void CallPlayStage2();

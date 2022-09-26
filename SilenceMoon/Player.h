@@ -118,7 +118,7 @@ public:
 
 		PlayerState _state;
 		PlayerDirection _direction;
-
+		Vector2 _preTeleportPosition;
 		Vector2 _teleportPosition;
 		int _teleportDelay;
 };

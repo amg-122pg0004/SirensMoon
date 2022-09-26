@@ -19,6 +19,7 @@ public:
 	bool CheckOverlapActor(Actor& actor);
 	bool CheckCheckCrossBullet(Actor& actor);
 	double GetAngle() { return _angle; }
+	void TakeDamage(Actor::Type type);
 
 private:
 	class HitBox {

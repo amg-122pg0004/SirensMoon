@@ -1,7 +1,7 @@
 /*****************************************************************//**
  * \file   ModeBase.cpp
  * \brief  モードの親クラスです。
- * 
+ *
  * \author 土居将太郎
  * \date   July 2022
  *********************************************************************/
@@ -12,10 +12,10 @@
 ModeBase::ModeBase(Game& game)
 	: _game(game)
 	, _dead(false)
-	,_actorServer{*this}
-	,_makedNextMode{false}
-	, _delayNextMode{20}
-	, _renderPriority{0}
+	, _actorServer{ *this }
+	, _makedNextMode{ false }
+	, _delayNextMode{ 20 }
+	, _renderPriority{ 0 }
 {
 }
 
@@ -27,6 +27,9 @@ ModeBase::~ModeBase()
 // 更新
 void ModeBase::Update() {
 	--_delayNextMode;
+	if (_makedNextMode && _delayNextMode < 0) {
+		_game.NextMode();
+	}
 }
 
 // 描画
@@ -38,10 +41,10 @@ void ModeBase::Debug() {
 
 }
 
-void ModeBase::NextMode() {
-	if (!_makedNextMode&&_delayNextMode<0) {
+void ModeBase::NextMode(int delayNext) {
+	if (!_makedNextMode && _delayNextMode < 0) {
 		_makedNextMode = true;
-		_game.NextMode();
+		_delayNextMode = delayNext;
 	}
 }
 

@@ -24,6 +24,7 @@ Player::Player(Game& game, ModeGame& mode, int playernum)
 	, _dir{ 0,0 }, _inputAngle{ 0 }, _hp{ 3 }, _hpMAX{ 3 }, _movable{ true }
 	, _state{ PlayerState::Wait }, _direction{ PlayerDirection::Right }, _animNo{ 0 }, _invincibleTime{ 0 }
 	, _stageMovable{ true }, _teleportDelay{ -1 }, _teleportPosition{ 0,0 }, _slow{ false }
+	, _preTeleportPosition{ 0,0 }
 {
 	_inputManager = _game.GetInputManager();
 	auto data = _mode.GetMapChips()->GetPlayerData(_playerNum);
@@ -294,13 +295,13 @@ bool Player::IsHitActor() {
 		}
 		if (actor->GetType() == Type::Gimmick) {
 			if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() != Gimmick::GimmickType::Teleporter &&
-				dynamic_cast<Gimmick&>(*actor).GetGimmickType() != Gimmick::GimmickType::BarrierA&&
+				dynamic_cast<Gimmick&>(*actor).GetGimmickType() != Gimmick::GimmickType::BarrierA &&
 				dynamic_cast<Gimmick&>(*actor).GetGimmickType() != Gimmick::GimmickType::BarrierB) {
 				if (Intersect(_collision, actor->GetCollision())) {
 					return true;
 				}
 			}
-			if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::BarrierA){
+			if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::BarrierA) {
 				if (Intersect(_collision, actor->GetCollision())) {
 					if (_playerNum == 1) {
 						if (CheckSoundMem(SoundServer::Find("EnterBarrierFail")) == 0) {
@@ -316,7 +317,7 @@ bool Player::IsHitActor() {
 					}
 				}
 			}
-			if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::BarrierB){
+			if (dynamic_cast<Gimmick&>(*actor).GetGimmickType() == Gimmick::GimmickType::BarrierB) {
 				if (Intersect(_collision, actor->GetCollision())) {
 					if (_playerNum == 0) {
 						if (CheckSoundMem(SoundServer::Find("EnterBarrierFail")) == 0) {
@@ -433,6 +434,8 @@ bool Player::Checkteleport() {
 					if (_game.GetProgress() == Game::Progress::Stage3 && _playerNum == 1) {
 						continue;
 					}
+					Vector2 teleportsize{ 60,70 };
+					_preTeleportPosition = actor->GetPosition() + teleportsize / 2;
 					auto teleport = dynamic_cast<teleporterIn&>(*actor);
 					auto id = teleport.GetteleportID();
 					auto teleporters = _mode.GetMapChips()->GetteleporterOutData();

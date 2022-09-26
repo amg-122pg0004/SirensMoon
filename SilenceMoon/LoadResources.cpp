@@ -77,7 +77,7 @@ void LoadResources::LoadMovie(std::string path) {
 void LoadResources::LoadBossCGs() {
 	std::vector<int> handle;
 	handle.resize(65);
-	ImageServer::LoadDivGraph("resource/Boss/wait2.png", 65, 10, 7, 680, 740, handle.data());
+	ImageServer::LoadDivGraph("resource/Boss/wait.png", 65, 10, 7, 1024, 1024, handle.data());
 	handle.resize(40);
 	ImageServer::LoadDivGraph("resource/Boss/gunfireA.png", 40, 10, 4, 1024, 1024, handle.data());
 	handle.resize(50);
