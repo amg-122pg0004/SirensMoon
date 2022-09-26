@@ -214,7 +214,7 @@ void Boss::ChoiceAttack() {
 	_animNo = 0;
 	if (!_phase2) {
 		switch (rand3(engine)) {
-		//switch (2) {
+		//switch (3) {
 		case 1:
 			if (rand2(engine) == 1) {
 				_time = 270;
@@ -518,6 +518,7 @@ void Boss::Thunder() {
 }
 
 void Boss::Dead() {
-	_mode.GetActorServer().Add(std::make_unique<FX_BossDead>(_game, _mode, _pos, _game.GetFrameCount()));
+	Vector2 pos = { _pos.x,_pos.y - 50 };
+	_mode.GetActorServer().Add(std::make_unique<FX_BossDead>(_game, _mode, pos, _game.GetFrameCount()));
 	_stop = true;
 }

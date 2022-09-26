@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="128" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="28" nextobjectid="1926">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="128" height="144" tilewidth="30" tileheight="30" infinite="0" nextlayerid="28" nextobjectid="1928">
  <tileset firstgid="1" name="tile_test" tilewidth="30" tileheight="30" tilecount="880" columns="40">
   <image source="tile_test.png" width="1200" height="660"/>
   <tile id="0" class="BackGround">
@@ -3760,9 +3760,9 @@
     <property name="Message" value="ミニマップの黄色い点に向かえ"/>
    </properties>
   </object>
-  <object id="1087" gid="889" x="1800" y="3480" width="30" height="30"/>
+  <object id="1087" gid="889" x="1800" y="3510" width="30" height="30"/>
   <object id="1092" gid="889" x="1800" y="3570" width="30" height="30"/>
-  <object id="1093" gid="889" x="1800" y="3660" width="30" height="30"/>
+  <object id="1093" gid="889" x="1800" y="3630" width="30" height="30"/>
   <object id="1096" gid="890" x="1560" y="3480" width="30" height="30">
    <properties>
     <property name="Message" value="Xボタン　銃を撃つ"/>
@@ -4040,7 +4040,7 @@ R1ボタン　L1ボタン</property>
   </object>
   <object id="1541" gid="20" x="840" y="3510" width="30" height="30"/>
   <object id="1542" gid="20" x="1020" y="3510" width="30" height="30"/>
-  <object id="1543" gid="20" x="1800" y="3570" width="30" height="30"/>
+  <object id="1543" gid="20" x="1800" y="3600" width="30" height="30"/>
   <object id="1545" gid="20" x="1800" y="4080" width="30" height="30"/>
   <object id="1751" gid="884" x="690" y="1470" width="30" height="30">
    <properties>
@@ -4443,6 +4443,8 @@ L1とR1で変更出来る</property>
     <property name="Reverse" type="bool" value="true"/>
    </properties>
   </object>
+  <object id="1926" gid="889" x="1800" y="3450" width="30" height="30"/>
+  <object id="1927" gid="889" x="1800" y="3690" width="30" height="30"/>
  </objectgroup>
  <objectgroup id="5" name="Item">
   <object id="1214" gid="8" x="3480" y="3570" width="30" height="30"/>

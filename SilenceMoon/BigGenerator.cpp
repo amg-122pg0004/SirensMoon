@@ -15,7 +15,7 @@ BigGenerator::BigGenerator(Game& game, ModeGame& mode, BigGeneratorData data, Bo
 
 	SquareLightStats lightdata;
 	lightdata.size = { 600,600 };
-	lightdata.pos = { _pos.x- lightdata.size.x/2+_size.x,_pos.y- lightdata.size.y /2 };
+	lightdata.pos = { _pos.x - lightdata.size.x / 2 + _size.x,_pos.y - lightdata.size.y / 2 };
 	lightdata.image = "resource/Light/Light_3.png";
 	lightdata.alpha = 255;
 	_mode.GetActorServer().Add(std::make_unique<SquareLight>(_game, _mode, *this, lightdata));
@@ -45,8 +45,10 @@ void BigGenerator::Update() {
 	_flash = _signal[_index];
 
 	if (CheckHitBullet()) {
-		_activate = true;
-		_controller.RecieveStartGenerator(_pattern);
+		if (_signal.size() != 0) {
+			_activate = true;
+			_controller.RecieveStartGenerator(_pattern);
+		}
 	}
 
 	int preIndex = _index - 1;
@@ -109,7 +111,7 @@ void BigGenerator::Debug(Vector2 window_pos, Vector2 camera_pos) {
 	std::stringstream ss;
 	ss << "activate" << _activate << "\n";
 	ss << "flash" << _flash << "\n";
-	ss << "pattern" << _pattern<< "\n";
+	ss << "pattern" << _pattern << "\n";
 
 	DrawString(static_cast<int>(_pos.x - camera_pos.x + window_pos.x),
 		static_cast<int>(_pos.y - camera_pos.y + window_pos.y),

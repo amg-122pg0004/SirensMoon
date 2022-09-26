@@ -375,7 +375,7 @@
             "selectedLayer": 3,
             "viewCenter": {
                 "x": 1384,
-                "y": 2916
+                "y": 2920
             }
         },
         "Stage1.tmx#tile_icon": {
@@ -552,7 +552,7 @@
             "scaleInDock": 1
         }
     },
-    "last.exportedFilePath": "D:/doi/2022summer/SirensMoon/resource/MapData",
+    "last.exportedFilePath": "D:/doi/2022summer/SilenceMoon/resource/MapData",
     "last.imagePath": "D:/doi/2022summer/SirensMoon/resource/MapData",
     "last.objectTypesPath": "D:/doi/2022summer/SirensMoon/resource/MapData/propertytypes.json",
     "lastUsedTilesetExportFilter": "JSON tileset files (*.tsj *.json)",
