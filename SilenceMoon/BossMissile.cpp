@@ -1,3 +1,10 @@
+/*****************************************************************//**
+ * \file   BossMissile.h
+ * \brief  ボスが発射する誘導ミサイル
+ *
+ * \author 土居将太郎
+ * \date   September 2022
+ *********************************************************************/
 #include "BossMissile.h"
 #include "ModeGame.h"
 #include "Explode.h"

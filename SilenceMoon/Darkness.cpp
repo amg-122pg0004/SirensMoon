@@ -24,7 +24,7 @@ int Darkness::MakeDarkness() {
 	_alphaHandle = MakeScreen(screen_W, screen_H, 1);
 	return _alphaHandle;
 }
-/**/
+
 void Darkness::Update(Vector2 window_pos, Vector2 camera_pos) {
 
 	SetDrawScreen(_alphaHandle);

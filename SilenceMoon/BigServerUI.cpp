@@ -1,3 +1,10 @@
+/*****************************************************************//**
+ * \file   BigServerUI.cpp
+ * \brief  ボス第2フェーズ時、モールス信号を表示するUI
+ * 
+ * \author 土居将太郎
+ * \date   September 2022
+ *********************************************************************/
 #include "BigServerUI.h"
 #include <sstream>
 #include "BigServer.h"
@@ -30,8 +37,8 @@ void BigServerUI::Render(){
 		SetDrawArea(0,0,screen_W,screen_H);
 		auto pattern=_owner.GetPattern();
 		DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), _cg, 0);
-		DrawExtendGraph(static_cast<int>(_pos.x+30), static_cast<int>(_pos.y+150)
-			, static_cast<int>(_pos.x + 30+250), static_cast<int>(_pos.y + 150+250),
+		DrawExtendGraph(static_cast<int>(_pos.x+25), static_cast<int>(_pos.y+110)
+			, static_cast<int>(_pos.x + 25+250), static_cast<int>(_pos.y + 110+250),
 			_cg_gun, 1);
 
 		std::stringstream ss;

@@ -1,7 +1,7 @@
 /*****************************************************************//**
  * \file   MiniMap.cpp
  * \brief  ミニマップを表示するUIです。
- * 
+ *
  * \author 土居将太郎
  * \date   July 2022
  *********************************************************************/
@@ -16,9 +16,18 @@
 class SplitWindow;
 
 MiniMap::MiniMap(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size)
-	:UIBase{ game,mode,window,pos,size },_boss{false}
+	:UIBase{ game,mode,window,pos,size }, _boss{ false }, _open{ false }, _animNo{0}
 {
-	_cg_map = ImageServer::LoadGraph("resource/UI/map_frame.png");
+	_visiblePos = _pos;
+	_pos.y -= _size.y;
+	_hidePos = _pos;
+
+	_cg_base = ImageServer::LoadGraph("resource/UI/Minimap/map_base.png");
+	_cg_earth.resize(3);
+	ImageServer::LoadDivGraph("resource/UI/Minimap/Earth.png", 3, 3, 1, 87, 149, _cg_earth.data());
+	_cg_cross = ImageServer::LoadGraph("resource/UI/Minimap/map_cross.png");
+	_cg_bar = ImageServer::LoadGraph("resource/UI/Minimap/map_bar2.png");
+	_cg_line = ImageServer::LoadGraph("resource/UI/Minimap/map_line.png");
 	_cg_grid = ImageServer::LoadGraph("resource/UI/Minimap/grid.png");
 	_visible = false;
 	_inputManager = _game.GetInputManager();
@@ -34,53 +43,78 @@ MiniMap::~MiniMap() {
 void MiniMap::Update() {
 
 	if (_inputManager->CheckInput("ACTION", 'h', 1)) {
+		StartJoypadVibration(DX_INPUT_PAD2, 50, 50, -1);
 		if (!_visible) {
 			PlaySoundMem(SoundServer::Find("MiniMapOpen"), DX_PLAYTYPE_BACK);
 			PlaySoundMem(SoundServer::Find("MiniMapLooking"), DX_PLAYTYPE_LOOP);
 			_visible = true;
-			StartJoypadVibration(DX_INPUT_PAD2, 50, 50, -1);
+			_open = true;
 		}
 	}
 	else {
-		if (_visible) {
+		if (_open) {
 			StopSoundMem(SoundServer::Find("MiniMapLooking"));
 			PlaySoundMem(SoundServer::Find("MiniMapClose"), DX_PLAYTYPE_BACK);
+			_open = false;
+		}
+	}
+	if (_open) {
+		_pos.y += 80;
+		if (_pos.y > _visiblePos.y) {
+			_pos.y = _visiblePos.y;
+		}
+	}
+	else {
+		_pos.y -= 100;
+		if (_pos.y < _hidePos.y) {
+			_pos.y = _hidePos.y;
 			_visible = false;
 		}
 	}
 
-	if (dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetLightUp() != 255) {
-		if (_prelightUp == 255 ) {
-			_noiseFlag = true;
-			SeekMovieToGraph(_movieHandle,0);
-			PlayMovieToGraph(_movieHandle);
-		}
-	}
 	if (_noiseFlag) {
 		if (GetMovieStateToGraph(_movieHandle) != 1) {
 			_noiseFlag = false;
+
 		}
 	}
-	_prelightUp = dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetLightUp();
+	if (_game.GetFrameCount() % 100 == 0) {
+		++_animNo;
+		if (_animNo > 2) {
+			_animNo = 0;
+		}
+	}
 }
 
 void MiniMap::Render() {
 	if (!_visible) {
 		return;
 	}
-
-	DrawExtendGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y),
-		static_cast<int>(_pos.x + _size.x), static_cast<int>(_pos.y + _size.y), _cg_map, 0);
-
-	Vector2 pos = { 1280,95 };
-	Vector2 pos2 = { 0,0 };
+	DrawBox(static_cast<int>(_pos.x), static_cast<int>(_pos.y),
+		static_cast<int>(_pos.x + _size.x), static_cast<int>(_pos.y + _size.y),
+		GetColor(28,28,73),true);
+	Vector2 pos = { _pos.x + 215.0,_pos.y + 95.0 };
+	DrawBox(static_cast<int>(pos.x), static_cast<int>(pos.y),
+		static_cast<int>(pos.x + 350), static_cast<int>(pos.y + 410),
+		GetColor(0, 0, 0), true);
+		
+	DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y),_cg_base, 1);
+	Vector2 earth_pos = { _pos.x + 92.0,_pos.y + 360.0 };
+	DrawGraph(static_cast<int>(earth_pos.x), static_cast<int>(earth_pos.y),_cg_earth[_animNo], 1);
+	DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), _cg_cross, 1);
+	int cg_bar{-1};
+	cg_bar = DerivationGraph(_game.GetFrameCount()/10%825, 0, 413, 47, _cg_bar);
+	DrawGraph(static_cast<int>(_pos.x+190), static_cast<int>(_pos.y+515), cg_bar, 1);
+	DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), _cg_line, 1);
 
 	DrawExtendGraph(static_cast<int>(pos.x), static_cast<int>(pos.y),
 		static_cast<int>(pos.x + 350), static_cast<int>(pos.y + 410), _cg_grid, 1);
 	SetDrawArea(static_cast<int>(pos.x), static_cast<int>(pos.y),
 		static_cast<int>(pos.x + 350), static_cast<int>(pos.y + 410));
 
+	Vector2 pos2 = { 0,0 };
 	dynamic_cast<ModeGame&>(_mode).GetMapChips()->MiniMapRender(0, pos, pos2, _boss);
+
 	float scalex{ 1 }, scaley{ 1 };
 	if (_boss) {
 		scalex = static_cast<float>(345.0 * 4.0 / (30 * 125));
@@ -122,10 +156,10 @@ void MiniMap::Render() {
 		if (actor->GetType() == Actor::Type::Boss) {
 			auto size = actor->GetSize();
 			auto bossscale = dynamic_cast<Boss&>(*actor).GetMapScale();
-			DrawBox(static_cast<int>((actor->GetPosition().x - size.x * bossscale ) * scalex + pos.x),
-				static_cast<int>((actor->GetPosition().y - size.y * bossscale ) * scaley + pos.y),
-				static_cast<int>((actor->GetPosition().x + size.x * bossscale ) * scalex + pos.x),
-				static_cast<int>((actor->GetPosition().y + size.y * bossscale ) * scaley + pos.y),
+			DrawBox(static_cast<int>((actor->GetPosition().x - size.x * bossscale) * scalex + pos.x),
+				static_cast<int>((actor->GetPosition().y - size.y * bossscale) * scaley + pos.y),
+				static_cast<int>((actor->GetPosition().x + size.x * bossscale) * scalex + pos.x),
+				static_cast<int>((actor->GetPosition().y + size.y * bossscale) * scaley + pos.y),
 				GetColor(255, 0, 255), 1);
 		}
 		if (actor->GetType() == Actor::Type::Server) {
@@ -171,15 +205,16 @@ void MiniMap::Render() {
 		DrawExtendGraph(1280, 103, 1280 + 350, 103 + 400, _movieHandle, 0);
 	}
 	auto&& window = dynamic_cast<ModeGame&>(_mode).GetSplitWindow();
-	/*
-	SetDrawArea(static_cast<int>(window[0]->GetWindowPos().x),
-		static_cast<int>(window[0]->GetWindowPos().y),
-		static_cast<int>(window[0]->GetWindowPos().x + splitscreen_W),
-		static_cast<int>(window[0]->GetWindowPos().y + screen_H));
-		*/
+
 	SetDrawArea(0, 0, screen_W, screen_H);
 }
 
-void MiniMap::SetBossFlag(){
+void MiniMap::SetBossFlag() {
 	_boss = true;
+}
+
+void MiniMap::TargetSpawnEvent() {
+	_noiseFlag = true;
+	SeekMovieToGraph(_movieHandle, 0);
+	PlayMovieToGraph(_movieHandle);
 }

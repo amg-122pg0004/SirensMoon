@@ -46,9 +46,14 @@ public:
 	};
 	virtual Type GetType() = 0;
 	int GetUIPriority(){return _UIPriority;}
+
+	/*プレイヤーがダメージを受けた時に呼ばれる関数*/
 	virtual void DamageEvent();
+	/*重要宇宙人がスポーンした時に呼ばれる関数*/
 	virtual void TargetSpawnEvent();
+	/*重要宇宙人が倒された時に呼ばれる関数*/
 	virtual void TargetKillEvent();
+
 	virtual void SetVisibillity(bool flag) { _visible = flag; }
 	virtual bool IsDead() { return _dead; }
 	virtual void Dead() { _dead = true; }

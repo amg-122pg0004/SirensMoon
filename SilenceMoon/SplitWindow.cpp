@@ -142,20 +142,6 @@ void SplitWindow::Update() {
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Actor::Type::Server) {
 			ServerMachine& machine = dynamic_cast<ServerMachine&>(*actor);
-			/*連打仕様以前の物
-			if (machine.GetValidFlag()) {
-				--_lightup;
-				if (_lightup < 100) {
-					_lightup = 100;
-				}
-			}
-			else {
-				_lightup =_lightup+ 20;
-				if (_lightup > 255) {
-					_lightup = 255;
-				}
-			}
-			*/
 
 			if (_lightup > 255 - machine.GetEnergy()) {
 				_lightup = 255 - machine.GetEnergy();//<連打仕様

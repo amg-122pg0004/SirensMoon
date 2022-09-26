@@ -1,3 +1,10 @@
+/*****************************************************************//**
+ * \file   BossGimmickController.h
+ * \brief  ボスと関連ギミック、イベントを操作するクラス
+ * 
+ * \author 土居将太郎
+ * \date   September 2022
+ *********************************************************************/
 #pragma once
 #include "Actor.h"
 #include "ObjectDataStructs.h"
