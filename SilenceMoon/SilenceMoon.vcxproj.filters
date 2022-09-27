@@ -317,6 +317,9 @@
     <ClCompile Include="WantedInfo.cpp">
       <Filter>UI\WantedInfo</Filter>
     </ClCompile>
+    <ClCompile Include="Network.cpp">
+      <Filter>Utillity\Network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h">
@@ -636,6 +639,9 @@
     </ClInclude>
     <ClInclude Include="WantedInfo.h">
       <Filter>UI\WantedInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Network.h">
+      <Filter>Utillity\Network</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -965,6 +971,9 @@
     </Filter>
     <Filter Include="UI\WantedInfo">
       <UniqueIdentifier>{96681bfb-0d0a-45cd-a4ff-1ea313c61f22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utillity\Network">
+      <UniqueIdentifier>{59a80898-6a26-4131-bcef-9c3c63848253}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

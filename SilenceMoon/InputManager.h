@@ -44,23 +44,22 @@ class InputManager{
 		void Render();
 #endif 
 
-		
-
+		/*１キーごとの入力情報*/
+		struct KeyInfo {
+			std::string ActionName;	//<各ボタンに対応したアクションの名前
+			int KeyName;			//<アクションに紐付いているボタンの名前
+			bool Hold;				//<入力され続けている間trueを返す
+			bool Trigger;			//<入力された瞬間のみtrueを返す
+			bool Release;			//入力が無くなった瞬間のみtrueを返す
+			int PadNo;				//<入力したコントローラーの番号
+		};
+		struct AnalogInfo {
+			Vector2 Value;
+			int PadNo;
+		};
+		std::vector<KeyInfo> GetKeyState() { _keyState; }
+		std::vector<AnalogInfo> GetAnalogState() { _analogState; }
 private:
-	/*１キーごとの入力情報*/
-	struct KeyInfo {
-		std::string ActionName;	//<各ボタンに対応したアクションの名前
-		int KeyName;			//<アクションに紐付いているボタンの名前
-		bool Hold;				//<入力され続けている間trueを返す
-		bool Trigger;			//<入力された瞬間のみtrueを返す
-		bool Release;			//入力が無くなった瞬間のみtrueを返す
-		int PadNo;				//<入力したコントローラーの番号
-	};
-
-	struct AnalogInfo {
-		Vector2 Value;
-		int PadNo;
-	};
 
 	/*ゲーム内で使用する各アクションについての入力状態を保存する*/
 	std::vector<KeyInfo> _keyState;

@@ -222,6 +222,7 @@
     <ClCompile Include="ModeServer.cpp" />
     <ClCompile Include="ModeStart.cpp" />
     <ClCompile Include="ModeStartUp2.cpp" />
+    <ClCompile Include="Network.cpp" />
     <ClCompile Include="ObjectDataStructs.cpp" />
     <ClCompile Include="ObjectiveUI.cpp" />
     <ClCompile Include="Pause.cpp" />
@@ -330,6 +331,7 @@
     <ClInclude Include="ModeServer.h" />
     <ClInclude Include="ModeStart.h" />
     <ClInclude Include="ModeStartUp2.h" />
+    <ClInclude Include="Network.h" />
     <ClInclude Include="ObjectDataStructs.h" />
     <ClInclude Include="ObjectiveUI.h" />
     <ClInclude Include="Pause.h" />
