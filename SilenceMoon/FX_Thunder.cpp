@@ -1,4 +1,10 @@
-#include "FX_Thunder.h"
+/*****************************************************************//**
+ * \file   FX_Thunder.cpp
+ * \brief  雷エフェクト
+ * 
+ * \author 土居将太郎
+ * \date   September 2022
+ *********************************************************************/
 #include "Easing.h"
 
 FX_Thunder::FX_Thunder(Game& game, ModeGame& mode, const Vector2& pos, int startTime)

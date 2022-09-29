@@ -1,3 +1,10 @@
+/*****************************************************************//**
+ * \file   FX_AfterBurner.cpp
+ * \brief  ミサイルの炎エフェクト
+ *
+ * \author 土居将太郎
+ * \date   September 2022
+ *********************************************************************/
 #include "FX_AfterBurner.h"
 #include "Easing.h"
 #include "BossMissile.h"

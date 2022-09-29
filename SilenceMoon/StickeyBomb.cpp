@@ -1,3 +1,10 @@
+/*****************************************************************//**
+ * \file   StickeyBomb.cpp
+ * \brief  プレイヤーにくっつく爆弾
+ * 
+ * \author 土居将太郎
+ * \date   September 2022
+ *********************************************************************/
 #include "StickeyBomb.h"
 #include "ModeGame.h"
 #include "Explode.h"

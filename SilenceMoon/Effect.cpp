@@ -1,7 +1,7 @@
 //!
 //! @file Effect.cpp
 //!
-//! @brief エフェクト用クラス
+//! @brief エフェクト用親クラス（抽象クラス）
 //!
 #include "Effect.h"
 #include "Easing.h"

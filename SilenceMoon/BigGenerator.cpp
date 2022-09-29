@@ -1,3 +1,10 @@
+/*****************************************************************//**
+ * \file   BigGenerator.cpp
+ * \brief  ボスギミックを作動させるための
+ * 
+ * \author 土居将太郎
+ * \date   September 2022
+ *********************************************************************/
 #include "BigGenerator.h"
 #include "SignalLight.h"
 #include "ModeGame.h"

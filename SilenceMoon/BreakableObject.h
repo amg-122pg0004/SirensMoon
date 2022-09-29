@@ -1,4 +1,10 @@
-#pragma once
+/*****************************************************************//**
+ * \file   BreakableObject.h
+ * \brief  壊せる岩のオブジェクト
+ * 
+ * \author 土居将太郎
+ * \date   September 2022
+ *********************************************************************/
 #include "Gimmick.h"
 #include "ObjectDataStructs.h"
 

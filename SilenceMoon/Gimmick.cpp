@@ -1,3 +1,10 @@
+/*****************************************************************//**
+ * \file   Gimmick.cpp
+ * \brief  ギミックの親クラス
+ * 
+ * \author 土居将太郎
+ * \date   September 2022
+ *********************************************************************/
 #include "Gimmick.h"
 
 Gimmick::Gimmick(Game& game,ModeGame& mode,int ID)
