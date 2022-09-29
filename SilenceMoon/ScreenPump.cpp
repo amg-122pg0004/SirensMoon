@@ -5,6 +5,7 @@
  * \author “y‹«‘¾˜Y
  * \date   September 2022
  *********************************************************************/
+#include "ScreenPump.h"
 #include "ModeGame.h"
 #include "Player.h"
 #include "Enemy.h"

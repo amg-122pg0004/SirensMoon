@@ -5,6 +5,7 @@
  * \author “y‹«‘¾˜Y
  * \date   September 2022
  *********************************************************************/
+#include "Switch.h"
 #include "ModeGame.h"
 #include "LinkLight.h"
 #include "SquareLight.h"

@@ -5,6 +5,7 @@
  * \author “y‹«‘¾˜Y
  * \date   September 2022
  *********************************************************************/
+#pragma once
 #include "Actor.h"
 
 class DisplayArea :public Actor {

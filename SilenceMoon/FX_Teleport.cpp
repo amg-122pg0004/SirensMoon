@@ -5,6 +5,7 @@
  * \author “y‹«‘¾˜Y
  * \date   September 2022
  *********************************************************************/
+#include"FX_Teleport.h"
 #include "Easing.h"
 
 

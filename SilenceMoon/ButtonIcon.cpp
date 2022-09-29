@@ -16,7 +16,7 @@ class SplitWindow;
 ButtonIcon::ButtonIcon(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size, int playerno)
 	:UIBase(game, mode, window, pos, size), _playerno{ playerno },_owner{nullptr}
 {
-	_font = LoadFontDataToHandle("resource/Font/ロンドBスクエア.dft", 1);
+	_font = _game.GetFont22();
 	_cg_A = ImageServer::LoadGraph("resource/UI/Button/A.png");
 	_cg_B = ImageServer::LoadGraph("resource/UI/Button/B.png");
 	_cg_X = ImageServer::LoadGraph("resource/UI/Button/X.png");

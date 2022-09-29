@@ -5,6 +5,7 @@
  * \author “y‹«‘¾˜Y
  * \date   September 2022
  *********************************************************************/
+#pragma once
 #include <vector>
 #include "Actor.h"
 

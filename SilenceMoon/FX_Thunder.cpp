@@ -5,6 +5,7 @@
  * \author “y‹«‘¾˜Y
  * \date   September 2022
  *********************************************************************/
+#include "FX_Thunder.h"
 #include "Easing.h"
 
 FX_Thunder::FX_Thunder(Game& game, ModeGame& mode, const Vector2& pos, int startTime)

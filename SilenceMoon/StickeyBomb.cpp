@@ -26,7 +26,7 @@ StickyBomb::StickyBomb(Game& game, ModeGame& mode, StickyBombData data)
 	_detectionArea.min = _pos + _size / 2 - range;
 	_detectionArea.max = _pos + _size / 2 + range;
 	_timer = data.timer;
-	_font = LoadFontDataToHandle("resource/Font/ロンドBスクエア.dft", 1);
+	_font = _game.GetFont22();
 	_accessArea.min = { 0,0 };
 	_accessArea.max = { 0,0 };
 	_cg = ImageServer::LoadGraph("resource/Gimmick/Sticky/down.png");
@@ -53,6 +53,7 @@ void StickyBomb::Update() {
 			}
 		}
 	}
+	/*起動している場合*/
 	else {
 		--_timer;
 		if (_timer <= 0) {
@@ -62,9 +63,9 @@ void StickyBomb::Update() {
 				PlaySoundMem(SoundServer::Find("ActiveTrapBom"), DX_PLAYTYPE_BACK);
 			}
 			dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
-				->ChangeMessage("重要宇宙人特定し、捕獲せよ", 2);
+				->ReleaseWarning();
 			dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
-				->ChangeMessage("重要宇宙人特定し、捕獲せよ", 2);
+				->ReleaseWarning();
 			_dead = true;
 		}
 

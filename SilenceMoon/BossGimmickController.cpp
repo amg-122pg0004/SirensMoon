@@ -104,9 +104,9 @@ void  BossGimmickController::Phase2() {
 		}
 	}
 	dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
-		->ChangeMessage("正しい順番で発電機を起動せよ", 1);
+		->ChangeMessage(ObjectiveUI::Message::BossGenerator1, 1);
 	dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
-		->ChangeMessage("発電機を起動する順番を\nサーバーから読み取れ", 1);
+		->ChangeMessage(ObjectiveUI::Message::BossGenerator2, 1);
 }
 
 void BossGimmickController::GeneratePattern(){
@@ -152,7 +152,7 @@ void BossGimmickController::RecieveStartGenerator(int no) {
 						dynamic_cast<BigGun&>(*actor).SetActivate();
 						_readyRailgun = true;
 						dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
-							->ChangeMessage("巨大レールガンに乗り込み\nミッションを完遂せよ", 1);
+							->ChangeMessage(ObjectiveUI::Message::BossRideRailgun, 1);
 						for (auto&& ui : dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetUIServer2().GetObjects()) {
 							if (ui->GetType() == UIBase::Type::RideInfo) {
 								ui->SetVisibillity(true);

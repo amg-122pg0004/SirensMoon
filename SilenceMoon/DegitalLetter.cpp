@@ -5,6 +5,7 @@
  * \author “y‹«‘¾˜Y
  * \date   September 2022
  *********************************************************************/
+#include "DegitalLetter.h"
 #include "ModeGame.h"
 #include "MessageWindow.h"
 
