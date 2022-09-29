@@ -53,6 +53,12 @@ void Game::Update() {
 	{
 		PlayStartMenu();
 	}
+	if (_netHost != nullptr) {
+		_netHost->Update();
+	}
+	if (_netJoin != nullptr) {
+		_netJoin->Update();
+	}
 #endif // DEBUG
 }
 
@@ -72,6 +78,9 @@ void Game::Debug() {
 		//_inputManager->Render();
 		if (_netHost != nullptr) {
 			_netHost->Debug();
+		}
+		if (_netJoin != nullptr) {
+			_netJoin->Debug();
 		}
 		#endif 
 	}

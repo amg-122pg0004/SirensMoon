@@ -9,15 +9,18 @@ public:
 	NetworkJoin(Game& game);
 	void Init();
 	void Update();
+	void Debug();
 private:
 	std::vector<std::vector<InputManager::KeyInfo>> _keyBuffer;
-	std::vector<std::vector < InputManager::AnalogInfo >> _analogBuffer;
+	std::vector < double > _analogBuffer;
 
 	Game& _game;
 	std::shared_ptr<InputManager> _inputManager;
 	IPDATA _ip;
 	int _netHandle;
 	int _dataLength;
+	double _analogTest[4];
+	bool _test;
 };
 
 class NetworkHost {
@@ -27,8 +30,10 @@ public:
 	void Update();
 	void Debug();
 private:
-	std::vector<InputManager::KeyInfo> _keyBuffer;
-	std::vector < InputManager::AnalogInfo > _analogBuffer;
+	//std::vector<double> _keyBuffer;
+	std::vector < double > _analogBuffer;
+	double _analogTest[4];
+	char StrBuf[256];
 
 	Game& _game;
 	IPDATA _ip;
