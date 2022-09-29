@@ -35,8 +35,13 @@ public:
 	/*左プレイヤーがミニシャトルに乗った後のワープイベント*/
 	void WarpEvent();
 
-	/*発電機が起動された際に呼ばれる関数*/
+	/**
+	 * \brief ジェネレーター起動時に呼ばれ、レールガン起動判定を行う
+	 * \param no　起動したジェネレーターに割り振られた番号
+	 */
 	void RecieveStartGenerator(int no);
+
+	/**ミニシャトルを出現させる*/
 	void SpawnMiniShuttle();
 
 private:

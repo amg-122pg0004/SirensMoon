@@ -1,4 +1,10 @@
-#pragma once
+/*****************************************************************//**
+ * \file   BigServer.cpp
+ * \brief  ボス戦用サーバー
+ * 
+ * \author 土居将太郎
+ * \date   September 2022
+ *********************************************************************/
 #include "BigServer.h"
 #include "Game.h"
 #include "ModeGame.h"

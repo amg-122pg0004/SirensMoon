@@ -1,4 +1,10 @@
-#pragma once
+/*****************************************************************//**
+ * \file   DegitalLetter.h
+ * \brief  メッセージを表示するギミック
+ * 
+ * \author 土居将太郎
+ * \date   September 2022
+ *********************************************************************/
 #include "Gimmick.h"
 #include "ObjectDataStructs.h"
 

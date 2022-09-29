@@ -1,4 +1,10 @@
-#include "DegitalLetter.h"
+/*****************************************************************//**
+ * \file   DegitalLetter.cpp
+ * \brief  メッセージを表示するギミック
+ * 
+ * \author 土居将太郎
+ * \date   September 2022
+ *********************************************************************/
 #include "ModeGame.h"
 #include "MessageWindow.h"
 

@@ -1,3 +1,10 @@
+/*****************************************************************//**
+ * \file   DisplayArea.cpp
+ * \brief  ミニマップに攻撃範囲を表示するためのオブジェクト
+ * 
+ * \author 土居将太郎
+ * \date   September 2022
+ *********************************************************************/
 #include "DisplayArea.h"
 
 DisplayArea::DisplayArea(Game& game, ModeGame& mode, Actor& owner,bool left)

@@ -1,3 +1,10 @@
+/*****************************************************************//**
+ * \file   Door.cpp
+ * \brief  開くドアのギミック
+ * 
+ * \author 土居将太郎
+ * \date   September 2022
+ *********************************************************************/
 #include "Door.h"
 
 Door::Door(Game& game, ModeGame& mode, DoorData data)

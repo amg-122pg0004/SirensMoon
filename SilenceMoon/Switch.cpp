@@ -1,4 +1,10 @@
-#include "Switch.h"
+/*****************************************************************//**
+ * \file   Switch.cpp
+ * \brief  ギミックを操作するスイッチオブジェクト
+ * 
+ * \author 土居将太郎
+ * \date   September 2022
+ *********************************************************************/
 #include "ModeGame.h"
 #include "LinkLight.h"
 #include "SquareLight.h"
