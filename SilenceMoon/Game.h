@@ -52,6 +52,9 @@ public:
 	inline int GetFrameCount() { return _frameCount; }
 
 	std::unique_ptr<ModeServer>& GetModeServer() { return _modeServer; }
+
+	int GetFont22() { return _font22; }
+	int GetFont26() { return _font26; }
 	Progress GetProgress() { return _progress; }
 	void PlayStartUp1();
 	void PlayStartUp2();
@@ -73,4 +76,6 @@ private:
 	int _frameCount;
 	bool _debug;
 	Progress _progress;
+
+	int _font22, _font26;
 };

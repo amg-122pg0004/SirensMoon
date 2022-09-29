@@ -17,7 +17,7 @@ BigServerUI::BigServerUI(Game& game , ModeBase& mode, SplitWindow& window, Vecto
 {
 	_cg = ImageServer::LoadGraph("resource/UI/wanted.png");
 	_cg_gun= ImageServer::LoadGraph("resource/Gimmick/biggun.png");
-	_font = LoadFontDataToHandle("resource/Font/ロンドBスクエア.dft", 1);
+	_font = _game.GetFont22();
 }
 
 void BigServerUI::Update(){

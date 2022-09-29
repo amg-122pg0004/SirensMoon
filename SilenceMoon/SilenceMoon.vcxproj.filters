@@ -466,9 +466,6 @@
     <ClInclude Include="FX_MissileShoot.h">
       <Filter>Actor\Effect\FX_MissileShoot</Filter>
     </ClInclude>
-    <ClInclude Include="FX_ScreenSmoke.h">
-      <Filter>Actor\Effect\FX_ScreenSmoke</Filter>
-    </ClInclude>
     <ClInclude Include="FX_Signal.h">
       <Filter>Actor\Effect\FX_Signal</Filter>
     </ClInclude>

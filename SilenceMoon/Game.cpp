@@ -22,7 +22,8 @@ Game::Game() :_frameCount{ 0 }, _progress{ Progress::StartMenu }
 	PlayStartUp1();
 	//PlayStartMenu();
 	//PlayStage2Clear();
-
+	_font22 = LoadFontDataToHandle("resource/Font/ロンドBスクエア.dft", 1);
+	_font26 = LoadFontDataToHandle("resource/Font/ロンドBスクエア26.dft", 1);
 }
 
 void Game::Input() {
