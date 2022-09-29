@@ -640,6 +640,9 @@
     <ClInclude Include="Network.h">
       <Filter>Utillity\Network</Filter>
     </ClInclude>
+    <ClInclude Include="FX_ScreenSmoke.h">
+      <Filter>Actor\Effect\FX_ScreenSmoke</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Actor">

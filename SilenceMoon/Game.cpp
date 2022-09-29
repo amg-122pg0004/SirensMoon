@@ -14,7 +14,10 @@
 #include "ModeMovie.h"
 #include "ModeStartUp2.h"
 
-Game::Game() :_frameCount{ 0 }, _progress{ Progress::StartMenu }
+Game::Game() 
+	:_frameCount{ 0 }
+	, _progress{ Progress::StartMenu }
+	, _netHost{nullptr},_netJoin{nullptr}
 {
 	_modeServer = std::make_unique<ModeServer>(*this);
 	_inputManager = std::make_unique<InputManager>();
@@ -35,6 +38,7 @@ void Game::Input() {
 	if (_inputManager->CheckInput("DEBUG", 'r', 0) || _inputManager->CheckInput("DEBUG", 'r', 1)) {
 		_debug = !_debug;
 	}
+
 #endif // _DEBUG
 
 
@@ -66,6 +70,9 @@ void Game::Debug() {
 		DrawFormatString(0, 12, GetColor(255, 255, 255), "%d", GetASyncLoadNum());
 		#ifdef _DEBUG
 		//_inputManager->Render();
+		if (_netHost != nullptr) {
+			_netHost->Debug();
+		}
 		#endif 
 	}
 }
@@ -255,4 +262,11 @@ void Game::PlayCredit() {
 	_modeServer->Clear();
 	_progress = Progress::Credit;
 	_modeServer->Add(std::move(std::make_unique<ModeMovie>(*this, "resource/Movie/stage3end.mp4", 152000, 222000, true)));
+}
+
+void Game::StartNetworkHost() {
+	_netHost.reset(new NetworkHost(*this));
+}
+void Game::StartNetworkJoin(){
+	_netJoin.reset(new NetworkJoin(*this));
 }
