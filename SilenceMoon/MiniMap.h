@@ -35,7 +35,7 @@ private:
 	int _cg_line;
 	int _cg_grid;
 
-
+	int _font;
 	bool _boss;
 	bool _noiseFlag;
 	int _movieHandle;

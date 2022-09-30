@@ -50,3 +50,7 @@ Vector2 Actor::CheckRoomPosition() {
 	double y = floor((_pos.y + _size.y / 2.0) / (static_cast<double>(screen_H)));
 	return { x,y };
 }
+
+void Actor::TargetSpawnEvent(){
+
+}

@@ -34,8 +34,9 @@ class ActorServer {
 		void Update(); //<各アクターのUpdateを呼び出す
 		void BackRender( Vector2 windowPos, Vector2 cameraPos); //<各アクターのRenderを呼び出す
 		void StandardRender(Vector2 windowPos, Vector2 cameraPos,SplitWindow& split); //<各アクターのRenderを呼び出す
-
 		void Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos);
+
+		void TargetSpawnEvent();
 
 
 	private:

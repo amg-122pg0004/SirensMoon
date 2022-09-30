@@ -52,7 +52,7 @@ class Actor{
 		virtual void Debug(Vector2 window_pos, Vector2 camera_pos);
 		virtual void CheckDeadOwner();
 		virtual Vector2 CheckRoomPosition();
-
+		virtual void TargetSpawnEvent();
 		virtual bool IsDead() { return _dead; }
 		virtual void Dead() { _dead = true; }
 

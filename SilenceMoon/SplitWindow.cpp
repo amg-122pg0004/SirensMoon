@@ -235,6 +235,7 @@ void SplitWindow::DamageEvent() {
 }
 
 void SplitWindow::TargetSpawnEvent() {
+
 	for (auto&& u : _ui) {
 		u->TargetSpawnEvent();
 	}

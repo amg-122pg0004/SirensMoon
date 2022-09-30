@@ -12,6 +12,7 @@
 #include "Enemy.h"
 #include "Boss.h"
 #include "Gimmick.h"
+#include <sstream>
 
 class SplitWindow;
 
@@ -21,7 +22,7 @@ MiniMap::MiniMap(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, V
 	_visiblePos = _pos;
 	_pos.y -= _size.y;
 	_hidePos = _pos;
-
+	_font = _game.GetFont22();
 	_cg_base = ImageServer::LoadGraph("resource/UI/Minimap/map_base.png");
 	_cg_earth.resize(3);
 	ImageServer::LoadDivGraph("resource/UI/Minimap/Earth.png", 3, 3, 1, 87, 149, _cg_earth.data());
@@ -168,6 +169,11 @@ void MiniMap::Render() {
 				static_cast<int>(actor->GetPosition().x * scalex + pos.x) + 5,
 				static_cast<int>(actor->GetPosition().y * scaley + pos.y) + 5,
 				GetColor(255, 255, 0), 1);
+			std::stringstream ss;
+			ss << "–Ú“I’n";
+			DrawStringToHandle(static_cast<int>(actor->GetPosition().x * scalex + pos.x-30)
+				, static_cast<int>(actor->GetPosition().y * scaley + pos.y-26)
+				,ss.str().c_str(),GetColor(255,255,0), _font);
 		}
 		if (actor->GetType() == Actor::Type::DisplayArea) {
 			auto area = dynamic_cast<DisplayArea&>(*actor).GetDisplayArea();

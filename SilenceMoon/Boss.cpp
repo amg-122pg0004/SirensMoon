@@ -1,7 +1,7 @@
 /*****************************************************************//**
  * \file   Boss.cpp
  * \brief  É{ÉXìG
- * 
+ *
  * \author ìyãèè´ëæòY
  * \date   September 2022
  *********************************************************************/
@@ -17,13 +17,14 @@
 #include "FX_BossDead.h"
 #include "BossWeakPoint.h"
 #include "FX_MissileShoot.h"
+#include "FX_NoDamage.h"
 
 Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 	:Actor(game, mode), _scale{ 1.0 }, _mapscale{ 1.0 }, _animNo{ 0 }
 	, _backlayer{ true }, _time{ 60 }, _visible{ true }, _speed{ 3.5 }, _alpha{ 255 }
 	, _headbuttSize{ 150,420 }, _headSize{ 90,90 }, _hp{ 3 }, _controller{ controller }
 	, _phase2{ false }, _player1{ nullptr }, _player2{ nullptr }, _invincible{ true }
-	,_stop{false}
+	, _stop{ false }
 {
 	Vector2 pos = { _controller.GetRoomPosition().x - 1.0,_controller.GetRoomPosition().y - 1.0 };
 	_startPos = { splitscreen_W * pos.x + 500 , screen_H * pos.y + 450 };
@@ -31,7 +32,7 @@ Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 	_pos = _startPos;
 	_size = { 100,200 };
 	_size2 = { 400,500 };
-	std::vector<int> handle,handle2;
+	std::vector<int> handle, handle2;
 	handle.resize(65);
 	ImageServer::LoadDivGraph("resource/Boss/wait.png", 65, 10, 7, 1024, 1024, handle.data());
 	_cg[State::Wait] = handle;
@@ -144,14 +145,18 @@ void Boss::CheckOverlapActor() {
 	else {
 		_invincible = true;
 	}
-	if (_invincible) {
-		return;
-	}
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::RedBullet) {
 			if (Intersect(_hitbox, actor->GetCollision())) {
-				TakeDamage();
-				actor->Dead();
+				if (_invincible) {
+					actor->Dead();
+					_mode.GetActorServer().Add(std::make_unique<FX_NoDamage>(_game, _mode, actor->GetPosition(), _game.GetFrameCount()));
+					PlaySoundMem(SoundServer::Find("NoDamage"), DX_PLAYTYPE_BACK);
+				}
+				else {
+					TakeDamage();
+					actor->Dead();
+				}
 			}
 		}
 	}
@@ -177,7 +182,7 @@ void Boss::BackRender(Vector2 window_pos, Vector2 camera_pos) {
 	if (_visible) {
 		if (_backlayer) {
 			Vector2 fix{ 0,0 };
-			if (_state==State::Thunder||_state==State::ShootMissile) {
+			if (_state == State::Thunder || _state == State::ShootMissile) {
 				fix = { 0,-142 };
 			}
 
@@ -186,8 +191,8 @@ void Boss::BackRender(Vector2 window_pos, Vector2 camera_pos) {
 				_animNo = 0;
 			}
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, _alpha);
-			DrawRotaGraph(static_cast<int>(_pos.x - camera_pos.x + window_pos.x+ fix.x),
-				static_cast<int>(_pos.y - camera_pos.y + window_pos.y+ fix.y),
+			DrawRotaGraph(static_cast<int>(_pos.x - camera_pos.x + window_pos.x + fix.x),
+				static_cast<int>(_pos.y - camera_pos.y + window_pos.y + fix.y),
 				_scale, 0.0, cg[_animNo], 1);
 			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 		}
@@ -214,7 +219,7 @@ void Boss::ChoiceAttack() {
 	_animNo = 0;
 	if (!_phase2) {
 		switch (rand3(engine)) {
-		//switch (3) {
+			//switch (3) {
 		case 1:
 			if (rand2(engine) == 1) {
 				_time = 270;
@@ -317,10 +322,10 @@ void Boss::GunAttack2() {
 
 void Boss::ShootMissile() {
 	_state = State::ShootMissile;
-	if (_time==100)
+	if (_time == 100)
 	{
-		Vector2 fix{200,-400};
-		_mode.GetActorServer().Add(std::make_unique<FX_MissileShoot>(_game, _mode, _pos + fix,_game.GetFrameCount()));
+		Vector2 fix{ 200,-400 };
+		_mode.GetActorServer().Add(std::make_unique<FX_MissileShoot>(_game, _mode, _pos + fix, _game.GetFrameCount()));
 		PlaySoundMem(SoundServer::Find("MissileLaunch"), DX_PLAYTYPE_BACK);
 	}
 
@@ -368,7 +373,7 @@ void Boss::HeadButt() {
 	}
 
 	if (_time < 590 && _time>410 && _visible == false) {
-		if (CheckSoundMem(SoundServer::Find("PreHeadbutt"))==0) {
+		if (CheckSoundMem(SoundServer::Find("PreHeadbutt")) == 0) {
 			PlaySoundMem(SoundServer::Find("PreHeadbutt"), DX_PLAYTYPE_BACK);
 		}
 		AABB col = _player1->GetCollision();
@@ -430,8 +435,9 @@ void Boss::UpdateCollision() {
 	if (_backlayer) {
 		_collision.min = { _pos.x - _size2.x / 2,_pos.y - _size2.y * 0.8 };
 		_collision.max = { _pos.x + _size2.x / 2,_pos.y + _size2.y * 0.2 };
-		_hitbox.min = { _pos.x - _headSize.x / 2,_pos.y - _headSize.y / 2 - 100 };
-		_hitbox.max = _hitbox.min + _headSize;
+		Vector2 size{ 540,300 };
+		_hitbox.min = { _pos.x - size.x / 2 ,_pos.y - size.y / 2-100 };
+		_hitbox.max = _hitbox.min + size;
 	}
 	else {
 		_collision.min = _pos - _size / 2;

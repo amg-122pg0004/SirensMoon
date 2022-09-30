@@ -317,6 +317,15 @@
     <ClCompile Include="WantedInfo.cpp">
       <Filter>UI\WantedInfo</Filter>
     </ClCompile>
+    <ClCompile Include="BossGunFireUI.cpp">
+      <Filter>UI\BossGunFireUI</Filter>
+    </ClCompile>
+    <ClCompile Include="FX_NoDamage.cpp">
+      <Filter>Actor\Effect\FX_NoDamage</Filter>
+    </ClCompile>
+    <ClCompile Include="SearchInfo.cpp">
+      <Filter>UI\SearchInfo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h">
@@ -636,6 +645,15 @@
     </ClInclude>
     <ClInclude Include="FX_ScreenSmoke.h">
       <Filter>Actor\Effect\FX_ScreenSmoke</Filter>
+    </ClInclude>
+    <ClInclude Include="BossGunFireUI.h">
+      <Filter>UI\BossGunFireUI</Filter>
+    </ClInclude>
+    <ClInclude Include="FX_NoDamage.h">
+      <Filter>Actor\Effect\FX_NoDamage</Filter>
+    </ClInclude>
+    <ClInclude Include="SearchInfo.h">
+      <Filter>UI\SearchInfo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -965,6 +983,15 @@
     </Filter>
     <Filter Include="UI\WantedInfo">
       <UniqueIdentifier>{96681bfb-0d0a-45cd-a4ff-1ea313c61f22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\BossGunFireUI">
+      <UniqueIdentifier>{a5ac1ce1-30f7-4603-bf6f-ce189167907f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Effect\FX_NoDamage">
+      <UniqueIdentifier>{21ea5efe-61f9-4fa1-a8ea-0fbb26656675}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\SearchInfo">
+      <UniqueIdentifier>{614cd4c5-c654-46ab-b781-a71256974ff2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

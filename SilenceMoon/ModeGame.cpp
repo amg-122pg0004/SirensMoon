@@ -250,6 +250,7 @@ void ModeGame::DamageEvent() {
 	}
 }
 void ModeGame::TargetSpawnEvent() {
+	_actorServer.TargetSpawnEvent();
 	for (auto&& splitwindows : _splitWindow) {
 		splitwindows->TargetSpawnEvent();
 	}

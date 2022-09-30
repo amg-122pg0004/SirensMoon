@@ -27,6 +27,8 @@ public:
 	void TeleportEvent() override;
 	void OnMiniShuttle();
 	void OffMiniShuttle();
+
+	void TargetSpawnEvent()override;
 private:
 	bool _setGreenBullet;
 

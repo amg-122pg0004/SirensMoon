@@ -158,6 +158,7 @@
     <ClCompile Include="BlinkLight.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="BossCanon.cpp" />
+    <ClCompile Include="BossGunFireUI.cpp" />
     <ClCompile Include="BossMissile.cpp" />
     <ClCompile Include="BossWeakPoint.cpp" />
     <ClCompile Include="BreakableObject.cpp" />
@@ -193,6 +194,7 @@
     <ClCompile Include="FX_Chargenow.cpp" />
     <ClCompile Include="FX_HeadButt.cpp" />
     <ClCompile Include="FX_MissileShoot.cpp" />
+    <ClCompile Include="FX_NoDamage.cpp" />
     <ClCompile Include="FX_ScreenSmoke.cpp" />
     <ClCompile Include="FX_Signal.cpp" />
     <ClCompile Include="FX_Teleport.cpp" />
@@ -235,6 +237,7 @@
     <ClCompile Include="ScreenEffect.cpp" />
     <ClCompile Include="Screen_Fade.cpp" />
     <ClCompile Include="ScreenPump.cpp" />
+    <ClCompile Include="SearchInfo.cpp" />
     <ClCompile Include="ServerMachine.cpp" />
     <ClCompile Include="ServerMachineUI.cpp" />
     <ClCompile Include="BossGimmickController.cpp" />
@@ -254,6 +257,7 @@
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BossGunFireUI.h" />
     <ClInclude Include="Briefing.h" />
     <ClInclude Include="CharaCodeConvert.h" />
     <ClInclude Include="FX_AfterBurner.h" />
@@ -301,6 +305,7 @@
     <ClInclude Include="FX_Chargenow.h" />
     <ClInclude Include="FX_HeadButt.h" />
     <ClInclude Include="FX_MissileShoot.h" />
+    <ClInclude Include="FX_NoDamage.h" />
     <ClInclude Include="FX_ScreenSmoke.h" />
     <ClInclude Include="FX_Signal.h" />
     <ClInclude Include="FX_Teleport.h" />
@@ -344,6 +349,7 @@
     <ClInclude Include="ScreenEffect.h" />
     <ClInclude Include="ScreenPump.h" />
     <ClInclude Include="Screen_Fade.h" />
+    <ClInclude Include="SearchInfo.h" />
     <ClInclude Include="ServerMachine.h" />
     <ClInclude Include="ServerMachineUI.h" />
     <ClInclude Include="BossGimmickController.h" />

@@ -112,4 +112,5 @@ void LoadResources::LoadBossCGs() {
 	SoundServer::LoadSound("MissileLaunch", "resource/SE/Boss/MissileLaunch.mp3");
 	SoundServer::LoadSound("BigRailgunShoot", "resource/SE/Boss/BigRailgunShoot.mp3");
 	SoundServer::LoadSound("BigRailgunHit", "resource/SE/Boss/BigRailgunHit.mp3");
+	SoundServer::LoadSound("NoDamage", "resource/SE/Boss/NoDamage.wav");
 }

@@ -111,3 +111,9 @@ void ActorServer::Debug(int stageNum, Vector2 window_pos, Vector2 camera_pos){
 		actor->Debug(window_pos, camera_pos);
 	}
 }
+
+void ActorServer::TargetSpawnEvent(){
+	for (auto&& actor : _typeActors) {
+		actor->TargetSpawnEvent();
+	}
+}

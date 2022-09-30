@@ -2,6 +2,7 @@
 #include "PlayerA.h"
 #include "ModeGame.h"
 #include "Enemy.h"
+#include "Boss.h"
 #include <math.h>
 
 LaserLight::LaserLight(Game& game, ModeGame& mode, Actor& owner)
@@ -81,6 +82,14 @@ bool LaserLight::CheckHitEnemy(Vector2 extendPoint) {
 			if (col.min.x < extendPoint.x && extendPoint.x < col.max.x) {
 				if (col.min.y < extendPoint.y && extendPoint.y < col.max.y) {
 
+					return true;
+				}
+			}
+		}
+		if (actor->GetType() == Type::Boss) {
+			auto col = static_cast<Boss&>(*actor).GetHitBox();
+			if (col.min.x < extendPoint.x && extendPoint.x < col.max.x) {
+				if (col.min.y < extendPoint.y && extendPoint.y < col.max.y) {
 					return true;
 				}
 			}
