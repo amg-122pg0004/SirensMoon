@@ -14,7 +14,6 @@ private:
 	int _cg_cursor;
 	int _cg_Info;
 	Vector2 _pos_cursor;
-	double _speed;
 	std::shared_ptr<InputManager> _inputManager;
 	bool _gameClear;
 	int _gameClearTimer;

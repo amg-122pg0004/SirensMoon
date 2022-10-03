@@ -8,11 +8,10 @@ class SplitWindow;
 class SearchInfo :public UIBase {
 public:
 	SearchInfo(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size);
-	Type GetType() { return Type::PauseInfoA; }
+	Type GetType() { return Type::SerchInfo; }
 	void Update() override;
 	void Render() override;
-	void TargetSpawnEvent()override;
 private:
-	int _cg;
+	int _cg, _cg2;
 	int _timer;
 };

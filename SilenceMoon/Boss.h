@@ -41,7 +41,8 @@ private:
 		Thunder
 	};
 
-	void ChoiceAttack();
+	void ChangeAttackState();
+	void ChoiceNextAttack();
 	void Wait();
 	void GunAttack1();
 	void GunAttack2();
@@ -62,7 +63,9 @@ private:
 	/*ƒvƒŒƒCƒ„[QÆ*/
 	Actor* _player1;
 	Actor* _player2;
-	State _state;
+
+	State _state,_nextState;
+
 	bool _backlayer;//true‚Í”wŒi‚É•`‰æ
 	bool _visible;
 

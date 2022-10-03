@@ -76,7 +76,8 @@ public:
 	void UpdateHide();
 	bool GetHideFlag() { return _hide; }
 	bool SetHideTimer(int timer);
-
+	void SetInvincibleTime(int time) { _invincibleTime = time; }
+	int GetInvincibleTime() { return _invincibleTime; }
 	void Debug(Vector2 window_pos, Vector2 camera_pos)override;
 
 	protected:

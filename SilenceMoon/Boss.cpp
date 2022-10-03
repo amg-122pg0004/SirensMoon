@@ -18,6 +18,8 @@
 #include "BossWeakPoint.h"
 #include "FX_MissileShoot.h"
 #include "FX_NoDamage.h"
+#include "BossGunFireUI.h"
+
 
 Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 	:Actor(game, mode), _scale{ 1.0 }, _mapscale{ 1.0 }, _animNo{ 0 }
@@ -67,6 +69,7 @@ Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 	_time = 3 * 60;
 	_state = State::Wait;
 
+
 	for (auto&& actor : _mode.GetObjects()) {
 		if (actor->GetType() == Type::PlayerA) {
 			_player1 = actor.get();
@@ -81,6 +84,7 @@ Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
 		window->GetUIServer2().Add(std::make_unique<BossWeakPoint>(_game, _mode, *window, pos, size, *this, i));
 		++i;
 	}
+	ChoiceNextAttack();
 }
 
 void Boss::Update() {
@@ -97,14 +101,12 @@ void Boss::Update() {
 		if (_state != Boss::State::Wait) {
 			_time = 90;
 			_state = State::Wait;
+			ChoiceNextAttack();
 		}
 		else {
-			ChoiceAttack();
+			ChangeAttackState();
 		}
 	}
-
-
-
 	switch (_state)
 	{
 	case Boss::State::Wait:
@@ -210,57 +212,68 @@ void Boss::StandardRender(Vector2 window_pos, Vector2 camera_pos) {
 			DrawRotaGraph(static_cast<int>(_pos.x - camera_pos.x + window_pos.x),
 				static_cast<int>(_pos.y - camera_pos.y + window_pos.y),
 				_scale, 0.0, cg[_animNo], 1);
-
 		}
 	}
 }
 
-void Boss::ChoiceAttack() {
+void Boss::ChangeAttackState() {
 	_animNo = 0;
-	if (!_phase2) {
-		switch (rand3(engine)) {
-			//switch (3) {
-		case 1:
-			if (rand2(engine) == 1) {
-				_time = 270;
-				GunAttack1();
-				break;
-			}
-			else {
-				_time = 270;
-				GunAttack2();
-				break;
-			}
-		case 2:
-			_time = 240;
-			ShootMissile();
-			break;
-
-		case 3:
-			_time = static_cast<int>(2.5 * 60);
-			Jump();
-			break;
-		}
-	}
-	else
+	_state = _nextState;
+	switch (_state)
 	{
-		switch (rand2(engine)) {
-		case 1:
-			if (rand2(engine) == 1) {
-				_time = 270;
-				GunAttack1();
-				break;
+	case Boss::State::GunAttack1:
+		_time = 270;
+		break;
+	case Boss::State::GunAttack2:
+		_time = 270;
+		break;
+	case Boss::State::ShootMissile:
+		_time = 240;
+		break;
+	case Boss::State::Jump:
+		_time = static_cast<int>(2.5 * 60);
+		break;
+	default:
+		break;
+	}
+}
+
+void Boss::ChoiceNextAttack() {
+	int random{ 0 };
+	if (!_phase2) {
+		random = rand3(engine);
+	}
+	else {
+		random = rand2(engine);
+	}
+	switch (random) {
+	case 1:
+		if (static_cast<Player&>(*_player2).GetInvincibleTime() < 100) {
+			Vector2 pos{ 500,500 }, size{ 0,0 };
+			for (auto&& window : _mode.GetSplitWindow()) {
+				if (window->GetWindowNo() == 0 && _player1->GetRoomPosition().x == 0) {
+					continue;
+				}
+				window->GetUIServer2().Add(std::make_unique<BossGumFireUI>(_game, _mode, *window, window->GetWindowPos() + pos, size));
 			}
-			else {
-				_time = 270;
-				GunAttack2();
-				break;
-			}
-		case 2:
-			_time = 240;
-			ShootMissile();
+		}
+		if (rand2(engine) == 1) {
+			_nextState = State::GunAttack1;
+			_mode.GetActorServer().Add(std::make_unique<DisplayArea>(_game, _mode, *this, true));
 			break;
 		}
+		else {
+			_nextState = State::GunAttack2;
+			_mode.GetActorServer().Add(std::make_unique<DisplayArea>(_game, _mode, *this, false));
+
+			break;
+		}
+	case 2:
+		_nextState = State::ShootMissile;
+		break;
+	case 3:
+		_nextState = State::Jump;
+		break;
 	}
 }
 
@@ -269,14 +282,10 @@ void Boss::Wait() {
 	if (_pos.y > _startPos.y) {
 		_pos.y = _startPos.y;
 	}
-
 }
 
 void Boss::GunAttack1() {
 	_state = State::GunAttack1;
-	if (_time == 270) {
-		_mode.GetActorServer().Add(std::make_unique<DisplayArea>(_game, _mode, *this, true));
-	}
 	if (_time < 270 && _time>220) {
 		_pos.y -= 5;
 		if (_pos.y < _startPos.y - 230) {
@@ -288,19 +297,16 @@ void Boss::GunAttack1() {
 
 		_mode.GetActorServer().Add(std::make_unique<BossCanon>(_game, _mode, _pos + fix));
 	}
-	if (!_phase2) {
+	if (_player1->GetRoomPosition().x == 0) {
 		dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
 			->ChangeMessage(ObjectiveUI::Message::BossCanon, 1);
-		dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
-			->ChangeMessage(ObjectiveUI::Message::BossCanon, 1);
 	}
+	dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
+		->ChangeMessage(ObjectiveUI::Message::BossCanon, 1);
 }
 
 void Boss::GunAttack2() {
 	_state = State::GunAttack2;
-	if (_time == 270) {
-		_mode.GetActorServer().Add(std::make_unique<DisplayArea>(_game, _mode, *this, false));
-	}
 	if (_time < 270 && _time>220) {
 		_pos.y -= 5;
 		if (_pos.y < _startPos.y - 230) {
@@ -310,11 +316,12 @@ void Boss::GunAttack2() {
 	if (_time == 110) {
 		Vector2 fix{ 0,0 };
 		_mode.GetActorServer().Add(std::make_unique<BossCanon>(_game, _mode, _pos + fix));
-
 	}
 	if (!_phase2) {
-		dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
-			->ChangeMessage(ObjectiveUI::Message::BossCanon, 1);
+		if (_player1->GetRoomPosition().x == 0) {
+			dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
+				->ChangeMessage(ObjectiveUI::Message::BossCanon, 1);
+		}
 		dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
 			->ChangeMessage(ObjectiveUI::Message::BossCanon, 1);
 	}
@@ -334,8 +341,10 @@ void Boss::ShootMissile() {
 		_mode.GetActorServer().Add(std::make_unique<BossMissile>(_game, _mode, rand));
 	}
 	if (!_phase2) {
-		dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
-			->ChangeMessage(ObjectiveUI::Message::BossMissile1, 1);
+		if (_player1->GetRoomPosition().x == 0) {
+			dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
+				->ChangeMessage(ObjectiveUI::Message::BossMissile1, 1);
+		}
 		dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
 			->ChangeMessage(ObjectiveUI::Message::BossMissile2, 2);
 	}
@@ -427,6 +436,12 @@ void Boss::Debug(Vector2 window_pos, Vector2 camera_pos) {
 	DrawFormatString(static_cast<int>(_pos.x - camera_pos.x + window_pos.y),
 		static_cast<int>(_pos.y - camera_pos.y + window_pos.y),
 		GetColor(255, 0, 0), "%d", _time);
+	DrawFormatString(static_cast<int>(_pos.x - camera_pos.x + window_pos.y),
+		static_cast<int>(_pos.y - camera_pos.y + window_pos.y + 30),
+		GetColor(255, 0, 0), "%d", _state);
+	DrawFormatString(static_cast<int>(_pos.x - camera_pos.x + window_pos.y),
+		static_cast<int>(_pos.y - camera_pos.y + window_pos.y + 60),
+		GetColor(255, 0, 0), "%d", _nextState);
 	_collision.Draw2(window_pos, camera_pos);
 	_hitbox.Draw2(window_pos, camera_pos);
 }
@@ -436,7 +451,7 @@ void Boss::UpdateCollision() {
 		_collision.min = { _pos.x - _size2.x / 2,_pos.y - _size2.y * 0.8 };
 		_collision.max = { _pos.x + _size2.x / 2,_pos.y + _size2.y * 0.2 };
 		Vector2 size{ 540,300 };
-		_hitbox.min = { _pos.x - size.x / 2 ,_pos.y - size.y / 2-100 };
+		_hitbox.min = { _pos.x - size.x / 2 ,_pos.y - size.y / 2 - 100 };
 		_hitbox.max = _hitbox.min + size;
 	}
 	else {
@@ -470,8 +485,10 @@ void Boss::Jump() {
 		_visible = false;
 		_state = State::HeadButt;
 	}
-	dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
-		->ChangeMessage(ObjectiveUI::Message::BossHeadbutt1, 2);
+	if (_player1->GetRoomPosition().x == 0) {
+		dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
+			->ChangeMessage(ObjectiveUI::Message::BossHeadbutt1, 2);
+	}
 	dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
 		->ChangeMessage(ObjectiveUI::Message::BossHeadbutt2, 1);
 }

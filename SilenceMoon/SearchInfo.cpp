@@ -6,8 +6,16 @@ class SplitWindow;
 SearchInfo::SearchInfo(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size)
 	:UIBase{ game,mode,window,pos,size }, _timer{ 0 }
 {
-	_visible = false;
-	_cg = ImageServer::LoadGraph("resource/UI/WantedInfo/1.png");
+	_visible = true;
+	if (_window.GetWindowNo() == 0) {
+		_cg = ImageServer::LoadGraph("resource/UI/Info/SerchInfoA.png");
+		_cg2 = ImageServer::LoadGraph("resource/UI/Info/SerchInfoA2.png");
+	}
+	else {
+		_cg = ImageServer::LoadGraph("resource/UI/Info/SerchInfoB.png");
+		_cg2 = ImageServer::LoadGraph("resource/UI/Info/SerchInfoB2.png");
+	}
+
 }
 
 void SearchInfo::Update() {
@@ -31,10 +39,9 @@ void SearchInfo::Render() {
 			DrawExtendGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y - sizey / 2),
 				static_cast<int>(_pos.x + splitscreen_W), static_cast<int>(_pos.y + sizey / 2), _cg, 1);
 		}
+		else {
+			DrawExtendGraph(static_cast<int>(_pos.x + splitscreen_W - 290), 160,
+				static_cast<int>(_pos.x + splitscreen_W - 290 +270), 160 + 114, _cg2, 1);
+		}
 	}
-}
-
-void SearchInfo::TargetSpawnEvent() {
-	_visible = true;
-	_timer = 0;
 }

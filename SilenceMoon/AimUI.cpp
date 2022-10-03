@@ -7,7 +7,7 @@
 class SplitWindow;
 
 AimUI::AimUI(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size)
-	:UIBase(game, mode, window, pos, size), _speed{ 2 }, _gameClearTimer{ 120 }, _gameClear{ false }
+	:UIBase(game, mode, window, pos, size), _gameClearTimer{ 120 }, _gameClear{ false }
 {
 	_inputManager = _game.GetInputManager();
 	_cg = ImageServer::LoadGraph("resource/UI/AimUI/frame.png");
@@ -26,12 +26,13 @@ void AimUI::Update() {
 		return;
 	}
 	else {
-		Vector2 dir = _inputManager->CheckAnalogInput(0);
-		if (dir.Length() > 1) {
-			dir.Normalize();
+		for (auto&& actor : _mode.GetObjects()) {
+			if (actor->GetType() == Actor::Type::Boss) {
+				auto box = dynamic_cast<Boss&>(*actor).GetHitBox();
+				auto pos = (box.min + box.max) / 2;
+				_pos_cursor = pos;
+			}
 		}
-		_pos_cursor = _pos_cursor + (dir * _speed);
-
 		if (_pos_cursor.x < 0) {
 			_pos_cursor.x = 0;
 		}
@@ -43,6 +44,9 @@ void AimUI::Update() {
 		}
 		if (_pos_cursor.y > screen_H) {
 			_pos_cursor.y = screen_H;
+		}
+		if (_window.GetWindowNo() != 0) {
+			return;
 		}
 		if (_inputManager->CheckInput("ACTION", 't', 0)) {
 			if (CheckSoundMem(SoundServer::Find("BigRailgunShoot")) == 0) {
@@ -68,15 +72,18 @@ void AimUI::Update() {
 }
 
 void AimUI::Render() {
-	SetDrawArea(0, 0, splitscreen_W, screen_H);
+	SetDrawArea(static_cast<int>(_pos.x), static_cast<int>(_pos.y), static_cast<int>(_pos.x + splitscreen_W), static_cast<int>(_pos.y + screen_H));
 	if (_visible) {
-		DrawRotaGraph(static_cast<int>(_pos_cursor.x), static_cast<int>(_pos_cursor.y), 1.0, 0.0, _cg_cursor, 1);
-		DrawGraph(0, 0, _cg, 1);
-		DrawExtendGraph(static_cast<int>(_pos.x)
-			,static_cast<int>(_pos.y)
-			,static_cast<int>(_pos.x+splitscreen_W)
-			,static_cast<int>(_pos.y+540)
-			,_cg_Info,1);
+		DrawRotaGraph(static_cast<int>(_pos.x+_pos_cursor.x), static_cast<int>(_pos.y+_pos_cursor.y), 1.0, 0.0, _cg_cursor, 1);
+		DrawGraph(static_cast<int>(_pos.x), static_cast<int>(_pos.y), _cg, 1);
+		if (_window.GetWindowNo() != 0) {
+			return;
+		}
+		DrawRotaGraph(static_cast<int>(_pos.x + splitscreen_W / 2)
+			, static_cast<int>(_pos.y + screen_H / 2)
+			, 1.0, 0.0
+			, _cg_Info, 1);
 	}
+
 	SetDrawArea(0, 0, screen_W, screen_H);
 }

@@ -15,6 +15,5 @@ public:
 	void TargetKillEvent()override;
 private:
 	std::pair<int, int> _cg;
-
 	int _timer;
 };

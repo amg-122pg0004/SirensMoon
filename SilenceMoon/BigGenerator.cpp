@@ -15,7 +15,8 @@
 
 BigGenerator::BigGenerator(Game& game, ModeGame& mode, BigGeneratorData data, BossGimmickController& controller)
 	:Gimmick(game, mode, data.ID), _span{ 20 }, _elapsed{ 0 }, _flash{ false }
-	, _index{ 0 }, _pattern{ -1 }, _signal{ false }, _controller{ controller }, _accessible{ false }
+	, _index{ 0 }, _pattern{ -1 },_nextPattern{-1}
+	, _signal{false},_nextSignal{false}, _controller{controller}, _accessible{false}
 {
 	_pos = data.pos;
 	auto light = std::make_unique<SignalLight>(game, mode, *this);
@@ -40,6 +41,11 @@ BigGenerator::BigGenerator(Game& game, ModeGame& mode, BigGeneratorData data, Bo
 }
 
 void BigGenerator::Update() {
+	if (_nextPattern != -1) {
+		_pattern = _nextPattern;
+		_signal = _nextSignal;
+		_nextPattern = -1;
+	}
 
 	++_elapsed;
 	if (_elapsed > _span) {
@@ -131,8 +137,8 @@ void BigGenerator::UpdateCollsiion() {
 }
 
 void BigGenerator::SetPattern(int pattern, std::vector<bool> signal) {
-	_pattern = pattern;
-	_signal = signal;
+	_nextPattern = pattern;
+	_nextSignal = signal;
 	_activate = false;
 	_cg = _cg_active;
 }

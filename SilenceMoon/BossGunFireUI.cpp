@@ -12,13 +12,16 @@
 #include "SplitWindow.h"
 
 BossGumFireUI::BossGumFireUI(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size)
-	:UIBase(game, mode, window, pos, size)
+	:UIBase(game, mode, window, pos, size), _lifetime{ 200 }
 {
-	_cg = ImageServer::LoadGraph("resource/UI/Info/OpenMinimapInfo.png");
+	_cg = ImageServer::LoadGraph("resource/UI/Info/BossGunFireUI.png");
 }
 
 void BossGumFireUI::Update() {
-
+	--_lifetime;
+	if (_lifetime < 0) {
+		_dead = true;
+	}
 }
 
 void BossGumFireUI::Render() {

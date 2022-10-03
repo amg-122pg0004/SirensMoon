@@ -8,7 +8,7 @@
 #include "DisplayArea.h"
 
 DisplayArea::DisplayArea(Game& game, ModeGame& mode, Actor& owner,bool left)
-	:Actor(game, mode), _owner{ owner }, _lifetime{180}
+	:Actor(game, mode), _owner{ owner }, _lifetime{240}
 {
 	_pos = _owner.GetPosition();
 	_size = { 500,3000 };

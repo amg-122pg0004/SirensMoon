@@ -42,7 +42,9 @@ public:
 		SkipUI,
 		RideInfo,
 		ScreenEffect,
-		Briefing
+		Briefing,
+		SerchInfo,
+		BossGunFireUI
 	};
 	virtual Type GetType() = 0;
 	int GetUIPriority(){return _UIPriority;}

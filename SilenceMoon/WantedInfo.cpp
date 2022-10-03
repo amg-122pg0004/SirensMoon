@@ -1,6 +1,7 @@
 #include "WantedInfo.h"
 #include "ModeGame.h"
 #include "Game.h"
+#include "SearchInfo.h"
 class SplitWindow;
 
 WantedInfo::WantedInfo(Game& game, ModeBase& mode, SplitWindow& window, Vector2 pos, Vector2 size)
@@ -43,6 +44,9 @@ void WantedInfo::Render() {
 		else {
 			DrawExtendGraph(static_cast<int>(_pos.x + splitscreen_W - 290), 85,
 				static_cast<int>(_pos.x + splitscreen_W - 290 + 260), 85 + 60, _cg.second, 1);
+		}
+		if (_timer == 122) {
+			_window.GetUIServer2().Add(std::make_unique<SearchInfo>(_game,_mode,_window,_pos,_size));
 		}
 	}
 }

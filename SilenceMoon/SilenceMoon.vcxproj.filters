@@ -993,5 +993,8 @@
     <Filter Include="UI\SearchInfo">
       <UniqueIdentifier>{614cd4c5-c654-46ab-b781-a71256974ff2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Effect\FX_EnemyDead">
+      <UniqueIdentifier>{d67927a6-1fad-4fd6-bf93-326157b395c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

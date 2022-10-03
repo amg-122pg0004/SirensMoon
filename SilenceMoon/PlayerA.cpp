@@ -265,7 +265,7 @@ void PlayerA::OffMiniShuttle() {
 
 void PlayerA::TargetSpawnEvent() {
 	_setGreenBullet = true;
-	if (_inputManager->CheckInput("ACCESS", 't', _playerNum) && _charge > 0) {
+	if (_charge > 0) {
 		_charge = 0;
 		_cooldown = 30;
 	}

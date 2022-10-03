@@ -32,6 +32,7 @@ void BigGun::Update() {
 					if (_game.GetInputManager()->CheckInput("ACCESS", 't', 0)) {
 						dynamic_cast<Player&>(*actor).ChangeMovable(false);
 						RidePlayer();
+						break;
 					}
 				}
 				else {
@@ -52,15 +53,37 @@ void BigGun::RidePlayer() {
 	for (auto&& UI : _mode.GetSplitWindow()[0]->GetUIServer2().GetObjects()) {
 		if (UI->GetType() == UIBase::Type::Ammo ||
 			UI->GetType() == UIBase::Type::BulletType ||
+			UI->GetType() == UIBase::Type::PauseInfoA||
+			UI->GetType() == UIBase::Type::ObjectiveUI ||
+			UI->GetType() == UIBase::Type::ButtonIcon ||
+			UI->GetType() == UIBase::Type::BossGunFireUI ||
 			UI->GetType() == UIBase::Type::HP) {
 			UI->SetVisibillity(false);
 		}
 	}
-	std::unique_ptr<SplitWindow>& window = _mode.GetSplitWindow()[0];
-	window->GetUIServer2().Add(std::make_unique<AimUI>(_game, _mode, *window, pos2, size));
-	window->GetCamera()->SetPosition(pos);
-	window->GetCamera()->SetMovable(false);
+	for (auto&& UI : _mode.GetSplitWindow()[1]->GetUIServer2().GetObjects()) {
+		if (UI->GetType() == UIBase::Type::BigServerUI ||
+			UI->GetType() == UIBase::Type::MiniMap ||
+			UI->GetType() == UIBase::Type::BossGunFireUI ||
+			UI->GetType() == UIBase::Type::PauseInfoB ||
+			UI->GetType() == UIBase::Type::ObjectiveUI ||
+			UI->GetType() == UIBase::Type::ButtonIcon ||
+			UI->GetType() == UIBase::Type::HP) {
+			UI->SetVisibillity(false);
+		}
+	}
+	for (auto&& window : _mode.GetSplitWindow()) {
+		window->GetUIServer2().Add(std::make_unique<AimUI>(_game, _mode, *window, window->GetWindowPos(), size));
+		window->GetCamera()->SetPosition(pos);
+		window->GetCamera()->SetMovable(false);
+	}
 	_activate = false;
+
+	for (auto&& actor : _mode.GetObjects()) {
+		if (actor->GetType() == Type::PlayerA || actor->GetType() == Type::PlayerB) {
+			static_cast<Player&>(*actor).SetInvincibleTime(99999);
+		}
+	}
 }
 
 void BigGun::StandardRender(Vector2 window_pos, Vector2 camera_pos) {

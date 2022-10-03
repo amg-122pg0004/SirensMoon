@@ -37,7 +37,7 @@ protected:
 	std::unordered_map <Message, std::string> _messageList = {
 		{Message::GoServer,"サーバーへ向かう\nサーバーは黄色い点で\nミニマップに表示されている"},
 		{Message::SerchEnemy,"重要宇宙人を特定し捕獲せよ"},
-		{Message::BossCanon,"ミニマップから射線を読み取り回避せよ"},
+		{Message::BossCanon,"ミニマップから射線を読み取り\n回避せよ"},
 		{Message::BossGenerator1,"正しい順番で発電機を起動せよ"},
 		{Message::BossGenerator2,"発電機を起動する順番を\nサーバーから読み取れ"},
 		{Message::BossHeadbutt1,"消えた敵の攻撃を下げ\n隙をついて攻撃せよ"},

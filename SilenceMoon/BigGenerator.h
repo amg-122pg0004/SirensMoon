@@ -37,9 +37,9 @@ private:
 	/*現在表示中の点滅項番*/
 	int _index;
 	/*Generatorが使用するライト点滅パターン*/
-	std::vector<bool> _signal;
+	std::vector<bool> _signal,_nextSignal;
 	/*パターン項番*/
-	int _pattern;
+	int _pattern,_nextPattern;
 
 	/*コントローラーの参照*/
 	BossGimmickController& _controller;
