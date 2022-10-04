@@ -14,7 +14,12 @@ int WINAPI WinMain(
     _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
 #ifndef _DEBUG
+
     SetOutApplicationLogValidFlag(false);//<非デバッグビルド時ログ出力を行わない
+#endif 
+#ifdef _DEBUG
+    SetDoubleStartValidFlag(TRUE);
+    SetAlwaysRunFlag(true);
 #endif 
     ChangeWindowMode(TRUE);    //<ウインドウモードに変更
     SetGraphMode(screen_W, screen_H, screen_Depth);    //<画面の解像度(幅,高さ)と色数(32bit)を指定

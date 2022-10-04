@@ -57,8 +57,8 @@ class InputManager{
 			Vector2 Value;
 			int PadNo;
 		};
-		std::vector<KeyInfo> GetKeyState() { _keyState; }
-		std::vector<AnalogInfo> GetAnalogState() { _analogState; }
+		std::vector<KeyInfo> GetKeyState() { return _keyState; }
+		std::vector<AnalogInfo> GetAnalogState() { return _analogState; }
 private:
 
 	/*ゲーム内で使用する各アクションについての入力状態を保存する*/

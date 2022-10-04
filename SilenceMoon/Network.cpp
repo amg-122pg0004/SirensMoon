@@ -1,17 +1,23 @@
 #include "Network.h"
 #include "picojson/picojson.h"
 #include <fstream>
+#include <sstream>
+#include <thread>
+#include <chrono>
 #include "Game.h"
 
 NetworkJoin::NetworkJoin(Game& game)
-	:_game{game},_netHandle { -1 }
+	:_game{ game }, _netUDPHandle{ -1 }, _test{ false }
 {
 	_inputManager = _game.GetInputManager();
 	Init();
-	_netHandle = ConnectNetWork(_ip, 9850);
-}
-void NetworkJoin::Init() {
 
+}
+NetworkJoin::~NetworkJoin() {
+	DeleteUDPSocket(-1);
+}
+
+void NetworkJoin::Init() {
 
 	// ファイルからjsonデータの読み込み
 	std::ifstream ifs("resource/ConnectIP.json");
@@ -24,11 +30,52 @@ void NetworkJoin::Init() {
 	_ip.d2 = static_cast<int>(jsRoot["2"].get<double>());
 	_ip.d3 = static_cast<int>(jsRoot["3"].get<double>());
 	_ip.d4 = static_cast<int>(jsRoot["4"].get<double>());
-}
-void NetworkJoin::Update(){
-	if (_netHandle == -1) {
-		return;
-	}
 
-	NetWorkSend(_inputManager->);
+	_netUDPHandle = MakeUDPSocket(-1);
+}
+
+void NetworkJoin::Update() {
+	_test = false;
+
+	auto analog = _inputManager->GetAnalogState();
+	int sendData = analog[0].Value.x;
+	NetWorkSendUDP(_netUDPHandle, _ip, 9850, &sendData, sizeof(sendData));
+
+
+	//NetWorkSend(_netHandle, "", 32);
+	//NetWorkSend(_netHandle, &_inputManager->GetAnalogState(), _inputManager->GetAnalogState().size());
+
+}
+
+void NetworkJoin::Debug() {
+	std::stringstream ss;
+	ss << "こっちはジョイン側：接続ハンドル" << _netUDPHandle << "\n";
+	ss << _analogTest[0] << _analogTest[1] << _analogTest[2] << _analogTest[3] << "\n";
+	DrawString(50, 100, ss.str().c_str(), GetColor(255, 255, 255));
+}
+
+NetworkHost::NetworkHost(Game& game) :_game{ game }, _netUDPHandle{ -1 }, _testBuf{-1}
+{
+	Init();
+}
+NetworkHost::~NetworkHost() {
+	DeleteUDPSocket(9850);
+}
+void NetworkHost::Init() {
+	_netUDPHandle = MakeUDPSocket(9850);
+	_ip = { 0,0,0,0 };
+}
+
+void NetworkHost::Update() {
+
+	if (CheckNetWorkRecvUDP(_netUDPHandle)) {
+		NetWorkRecvUDP(_netUDPHandle, NULL, NULL, &_testBuf, sizeof(_testBuf), FALSE);
+	}
+}
+
+void NetworkHost::Debug() {
+	std::stringstream ss;
+	ss << "こっちはホスト側：接続ハンドル" << _netUDPHandle << "\n";
+	ss << "受信内容" << _testBuf << "\n";
+	DrawString(50, 100, ss.str().c_str(), GetColor(255, 255, 255));
 }

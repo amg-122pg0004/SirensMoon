@@ -11,6 +11,7 @@
 #include <vector>
 #include "InputManager.h"
 #include "ModeServer.h"
+#include "Network.h"
 
 constexpr int screen_W{ 1920 };//<ウィンドウの解像度：横
 constexpr int screen_H{ 1080 };//<ウィンドウの解像度：縦
@@ -66,10 +67,15 @@ public:
 	void PlayStage3();
 	void PlayStage3Clear();
 	void PlayCredit();
+	void StartNetworkHost();
+	void StartNetworkJoin();
 
 private:
+	int _font22, _font26;
 	std::shared_ptr<InputManager> _inputManager;
 	std::unique_ptr<ModeServer> _modeServer;
+	std::unique_ptr<NetworkHost> _netHost;
+	std::unique_ptr<NetworkJoin> _netJoin;
 	int _frameCount;
 	bool _debug;
 	Progress _progress;
