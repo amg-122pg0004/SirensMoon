@@ -285,9 +285,9 @@ void Boss::GunAttack1() {
 	}
 	if (!_phase2) {
 		dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
-			->ChangeMessage("マップから射線を読みとり、回避せよ", 1);
+			->ChangeMessage(ObjectiveUI::Message::BossCanon, 1);
 		dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
-			->ChangeMessage("マップから射線を読みとり、回避せよ", 1);
+			->ChangeMessage(ObjectiveUI::Message::BossCanon, 1);
 	}
 }
 
@@ -309,9 +309,9 @@ void Boss::GunAttack2() {
 	}
 	if (!_phase2) {
 		dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
-			->ChangeMessage("マップから射線を読みとり、回避せよ", 2);
+			->ChangeMessage(ObjectiveUI::Message::BossCanon, 1);
 		dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
-			->ChangeMessage("マップから射線を読みとり、回避せよ", 1);
+			->ChangeMessage(ObjectiveUI::Message::BossCanon, 1);
 	}
 }
 
@@ -330,9 +330,9 @@ void Boss::ShootMissile() {
 	}
 	if (!_phase2) {
 		dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
-			->ChangeMessage("ミサイルを撃ち落とせ", 1);
+			->ChangeMessage(ObjectiveUI::Message::BossMissile1, 1);
 		dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
-			->ChangeMessage("ミサイルを回避せよ", 2);
+			->ChangeMessage(ObjectiveUI::Message::BossMissile2, 2);
 	}
 }
 
@@ -465,9 +465,9 @@ void Boss::Jump() {
 		_state = State::HeadButt;
 	}
 	dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[0]->GetObjectiveUI()
-		->ChangeMessage("消えた敵の攻撃を避け、\n隙をついて攻撃せよ", 2);
+		->ChangeMessage(ObjectiveUI::Message::BossHeadbutt1, 2);
 	dynamic_cast<ModeGame&>(_mode).GetSplitWindow()[1]->GetObjectiveUI()
-		->ChangeMessage("消えた敵の位置をマップから探れ", 1);
+		->ChangeMessage(ObjectiveUI::Message::BossHeadbutt2, 1);
 }
 
 /*全体150F*/

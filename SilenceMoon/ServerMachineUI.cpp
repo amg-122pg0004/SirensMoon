@@ -14,7 +14,7 @@ ServerMachineUI::ServerMachineUI(Game& game, ModeBase& mode, SplitWindow& window
 {
 	_inputManager = _game.GetInputManager();
 	_cg = ImageServer::LoadGraph("resource/UI/wanted.png");
-	_font = LoadFontDataToHandle("resource/Font/ロンドBスクエア.dft", 1);
+	_font = _game.GetFont22();
 }
 
 void ServerMachineUI::Update() {

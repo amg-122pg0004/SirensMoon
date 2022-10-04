@@ -1,3 +1,10 @@
+/*****************************************************************//**
+ * \file   MiniShuttle.cpp
+ * \brief  ボス戦で使用するミニシャトルオブジェクト
+ * 
+ * \author 土居将太郎
+ * \date   September 2022
+ *********************************************************************/
 #include "MiniShuttle.h"
 #include "ModeGame.h"
 #include "BossGimmickController.h"

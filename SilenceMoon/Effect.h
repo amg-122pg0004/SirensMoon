@@ -1,9 +1,9 @@
-#pragma once
 //!
 //! @file Effect.h
 //!
-//! @brief エフェクト用クラス
+//! @brief エフェクト用親クラス（抽象クラス）
 //!
+#pragma once
 #include "Actor.h"
 #include "Math.h"
 #include <string>

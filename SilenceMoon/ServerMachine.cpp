@@ -84,9 +84,9 @@ void ServerMachine::Update() {
 			StopSoundFile();
 			PlaySoundFile("resource/BGM/ActiveServer.mp3", DX_PLAYTYPE_LOOP);
 			_mode.GetSplitWindow()[0]->GetObjectiveUI()
-				->ChangeMessage("重要宇宙人特定し、捕獲せよ", 2);
+				->ChangeMessage(ObjectiveUI::Message::SerchEnemy, 2);
 			_mode.GetSplitWindow()[1]->GetObjectiveUI()
-				->ChangeMessage("重要宇宙人特定し、捕獲せよ", 2);
+				->ChangeMessage(ObjectiveUI::Message::SerchEnemy, 2);
 		}
 	}
 }
@@ -144,9 +144,9 @@ void ServerMachine::DeadEnemyVIP() {
 	mode.StageClearCheck();
 	_valid = false;
 	_mode.GetSplitWindow()[0]->GetObjectiveUI()
-		->ChangeMessage("ミニマップ上のサーバーへ向かう", 1);
+		->ChangeMessage(ObjectiveUI::Message::GoServer, 1);
 	_mode.GetSplitWindow()[1]->GetObjectiveUI()
-		->ChangeMessage("ミニマップ上のサーバーへ向かう", 1);
+		->ChangeMessage(ObjectiveUI::Message::GoServer, 1);
 }
 
 void ServerMachine::Debug(Vector2 window_pos, Vector2 camera_pos){

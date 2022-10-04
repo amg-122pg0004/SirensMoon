@@ -13,7 +13,7 @@ public:
 	void Debug();
 private:
 	std::vector<std::vector<InputManager::KeyInfo>> _keyBuffer;
-	std::vector<std::vector < InputManager::AnalogInfo >> _analogBuffer;
+	std::vector < double > _analogBuffer;
 
 	Game& _game;
 	std::shared_ptr<InputManager> _inputManager;

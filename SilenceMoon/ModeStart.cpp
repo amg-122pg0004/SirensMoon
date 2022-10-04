@@ -39,7 +39,12 @@ void ModeStart::Update() {
 			VisibleSkipUI();
 		}
 	}
-
+	if (_inputManager->CheckInput("BULLET1", 'r', 0) || _inputManager->CheckInput("BULLET1", 'r', 1)) {
+		_game.StartNetworkHost();
+	}
+	if (_inputManager->CheckInput("BULLET2", 'r', 0)|| _inputManager->CheckInput("BULLET2", 'r', 1)) {
+		_game.StartNetworkJoin();
+	}
 	auto analog1 = _inputManager->CheckAnalogInput(0);
 	if (_pos.y <= 540) {
 		if (abs(analog1.y) > 800) {

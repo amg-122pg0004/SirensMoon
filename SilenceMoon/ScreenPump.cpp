@@ -1,3 +1,10 @@
+/*****************************************************************//**
+ * \file   ScreenPump.cpp
+ * \brief  プレイヤーを透明化するギミック
+ * 
+ * \author 土居将太郎
+ * \date   September 2022
+ *********************************************************************/
 #include "ScreenPump.h"
 #include "ModeGame.h"
 #include "Player.h"

@@ -14,7 +14,7 @@ ObjectiveUI::ObjectiveUI(Game& game,ModeBase& mode, SplitWindow& window, Vector2
 	_message{ "ミニマップ上に黄色い点で\n示されたサーバーへ向かう" },
 	_nextMessage{ "NULL" }, _startPos{ pos }, _preMessage{}
 {
-	_font = LoadFontDataToHandle("resource/Font/ロンドBスクエア.dft", 1);
+	_font = _game.GetFont22();
 	_cgOrange = ImageServer::LoadGraph("resource/UI/Objective/orange.png");
 	_cgGreen = ImageServer::LoadGraph("resource/UI/Objective/green.png");
 	_cgRed1 = ImageServer::LoadGraph("resource/UI/Objective/red1.png");
@@ -39,8 +39,15 @@ void ObjectiveUI::Render() {
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 }
 
-void ObjectiveUI::ChangeMessage(std::string next, int nextCGColor) {
-	_nextMessage = next;
+void ObjectiveUI::ChangeMessage(Message next, int nextCGColor) {
+
+	if (_messageList.count(next)==0) {
+		return;
+	}
+	if (_messageList[next] == _nextMessage) {
+		return;
+	}
+	_nextMessage = _messageList[next];
 	switch (nextCGColor) {
 	case(1):
 	default:
