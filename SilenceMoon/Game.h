@@ -70,8 +70,6 @@ public:
 	void PlayStage3();
 	void PlayStage3Clear();
 	void PlayCredit();
-	void StartNetworkHost();
-	void StartNetworkJoin();
 
 	void StartNetworkHost();
 	void StartNetworkJoin();
@@ -84,9 +82,5 @@ private:
 	int _frameCount;
 	bool _debug;
 	Progress _progress;
-
-	int _font22, _font26;
 	
-	std::unique_ptr<NetworkHost> _netHost;
-	std::unique_ptr<NetworkJoin> _netJoin;
 };
