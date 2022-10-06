@@ -14,10 +14,10 @@ public:
 private:
 	/**
 	フレームデータ 1
-	キーデータ 33個
-	アナログデータ 4個
+	キーデータ 11個
+	アナログデータ 2個
 	*/
-	std::vector<std::vector<int>> _rawDataBuffer;
+	int _rawDataBuffer[14];
 
 	/*10f分のキー入力保持*/
 	std::vector<std::vector<InputManager::KeyInfo>> _keyBuffer;
@@ -39,12 +39,11 @@ public:
 	void Update();
 	void Debug();
 private:
-	std::vector<std::vector<int>> _rawDataBuffer;
+	int _rawDataBuffer[14];
 	std::vector<int> _frameBuffer;
 	std::vector<std::vector<InputManager::KeyInfo>> _keyBuffer;
 	std::vector<std::vector < InputManager::AnalogInfo >> _analogBuffer;
 	Game& _game;
 	IPDATA _ip;
 	int _netUDPHandle;
-	int _dataLength;
 };
