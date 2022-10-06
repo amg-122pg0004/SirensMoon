@@ -40,6 +40,7 @@ public:
 	void Debug();
 private:
 	std::vector<std::vector<int>> _rawDataBuffer;
+	std::vector<int> _frameBuffer;
 	std::vector<std::vector<InputManager::KeyInfo>> _keyBuffer;
 	std::vector<std::vector < InputManager::AnalogInfo >> _analogBuffer;
 	Game& _game;
