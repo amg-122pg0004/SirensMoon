@@ -191,10 +191,10 @@ void InputManager::Render() {
 	for (auto&& analog : _analogState) {
 		ss << "アナログスティックプレイヤー" << analog.PadNo << " " << analog.Value.x << " " << analog.Value.y << "\n";
 	}
-	ss << "接続コントローラー数" <<_connectNumber << "\n";
+	ss << "接続コントローラー数" << _connectNumber << "\n";
 	GUID buff;
 	auto test = GetJoypadGUID(DX_INPUT_PAD1, &buff);
-	ss << "接続GUID" << GetJoypadGUID(DX_INPUT_PAD1,&buff) << "\n";
+	ss << "接続GUID" << GetJoypadGUID(DX_INPUT_PAD1, &buff) << "\n";
 	DrawString(50, 100, ss.str().c_str(), GetColor(255, 255, 255));
 }
 #endif 
@@ -211,4 +211,35 @@ void InputManager::ChangeControllerNo() {
 		key.Hold = false;
 		key.Release = false;
 	}
+}
+
+void InputManager::SetUDPData(int rawData[14]) {
+	int i = 1;
+	for (auto&& key : _keyState) {
+		if (key.PadNo == 1) {
+			if (rawData[i]) {
+				if (key.Hold == false) {
+					key.Trigger = true;
+				}
+				else {
+					key.Trigger = false;
+				}
+				key.Hold = true;
+				continue;
+			}
+			else if (key.Hold == true) {
+				key.Release = true;
+				key.Hold = false;
+				key.Trigger = false;
+				continue;
+			}
+			++i;
+			key.Trigger = false;
+			key.Hold = false;
+			key.Release = false;
+		}
+	}
+	_analogState[1].Value.x = rawData[i];
+	++i;
+	_analogState[1].Value.y = rawData[i];
 }

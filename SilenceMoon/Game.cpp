@@ -31,6 +31,12 @@ Game::Game()
 
 void Game::Input() {
 	_inputManager->InputUpdate();
+	if (_netHost != nullptr) {
+		_netHost->Update();
+	}
+	if (_netJoin != nullptr) {
+		_netJoin->Update();
+	}
 #ifdef _DEBUG
 	if (_inputManager->CheckInput("CHANGE", 'r', 0) || _inputManager->CheckInput("CHANGE", 'r', 1)) {
 		_inputManager->ChangeControllerNo();
@@ -64,12 +70,7 @@ void Game::Update() {
 	{
 		PlayStartMenu();
 	}
-	if (_netHost != nullptr) {
-		_netHost->Update();
-	}
-	if (_netJoin != nullptr) {
-		_netJoin->Update();
-	}
+
 #endif // DEBUG
 }
 

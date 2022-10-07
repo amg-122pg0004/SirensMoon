@@ -38,15 +38,9 @@ void NetworkJoin::Update() {
 	_test = false;
 
 	auto analog = _inputManager->GetAnalogState();
-	_analogBuffer.push_back(analog);
-	if (_analogBuffer.size() > 10) {
-		_analogBuffer.erase(_analogBuffer.begin());
-	}
+
 	auto key = _inputManager->GetKeyState();
-	_keyBuffer.push_back(key);
-	if (_keyBuffer.size() > 10) {
-		_keyBuffer.erase(_keyBuffer.begin());
-	}
+
 
 
 	_rawDataBuffer[0] = _game.GetFrameCount();
@@ -63,12 +57,6 @@ void NetworkJoin::Update() {
 			_rawDataBuffer[i] = value.Hold;
 		}
 	}
-	/*
-		_rawDataBuffer.push_back(rawData);
-	if (_rawDataBuffer.size() > 10) {
-		_rawDataBuffer.erase(_rawDataBuffer.begin());
-	}
-	*/
 	NetWorkSendUDP(_netUDPHandle, _ip, 9850, &_rawDataBuffer, 4);
 }
 

@@ -19,10 +19,6 @@ private:
 	*/
 	int _rawDataBuffer[14];
 
-	/*10f•ª‚ÌƒL[“ü—Í•Û*/
-	std::vector<std::vector<InputManager::KeyInfo>> _keyBuffer;
-	std::vector < std::vector<InputManager::AnalogInfo> > _analogBuffer;
-
 	Game& _game;
 	std::shared_ptr<InputManager> _inputManager;
 	IPDATA _ip;
@@ -41,8 +37,6 @@ public:
 private:
 	int _rawDataBuffer[14];
 	std::vector<int> _frameBuffer;
-	std::vector<std::vector<InputManager::KeyInfo>> _keyBuffer;
-	std::vector<std::vector < InputManager::AnalogInfo >> _analogBuffer;
 	Game& _game;
 	IPDATA _ip;
 	int _netUDPHandle;
