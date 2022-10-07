@@ -76,7 +76,7 @@ void NetworkJoin::Debug() {
 	for (int i = 0; i < sizeof(_rawDataSend)/sizeof(int); ++i) {
 		ss << _rawDataSend[i] << "\n";
 	}
-	DxLib::DrawString(50, 0, ss.str().c_str(), GetColor(255, 255, 255));
+	DxLib::DrawString(300, 100, ss.str().c_str(), GetColor(255, 255, 255));
 }
 
 NetworkHost::NetworkHost(Game& game) :_game{ game }, _sendUDPHandle{ -1 }, _recieveUDPHandle{ -1 }
@@ -123,6 +123,7 @@ void NetworkHost::SendData() {
 	for (auto&& value : key) {
 		if (value.PadNo == 0) {
 			_rawDataBuffer[i] = value.Hold;
+			++i;
 		}
 	}
 	NetWorkSendUDP(_sendUDPHandle, _ip, 9850, &_rawDataBuffer, 4*14);
@@ -142,5 +143,5 @@ void NetworkHost::Debug() {
 		ss << _rawDataBuffer[i] << "\n";
 	}
 
-	DxLib::DrawString(300, 100, ss.str().c_str(), GetColor(255, 255, 255));
+	DxLib::DrawString(300, 300, ss.str().c_str(), GetColor(255, 255, 255));
 }

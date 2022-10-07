@@ -77,8 +77,15 @@ void InputManager::InputUpdate() {
 		padno0 = DX_INPUT_KEY_PAD1;
 		padno1 = DX_INPUT_PAD2;
 	}
+	if (_online != -1) {
+		padno0 = DX_INPUT_KEY_PAD1;
+		padno1 = DX_INPUT_KEY_PAD1;
+	}
 	for (auto&& key : _keyState) {
-		if (_online - 1 == key.PadNo) {
+		if (_online ==1 && key.PadNo==1) {
+			continue;
+		}
+		if (_online == 2 && key.PadNo == 0) {
 			continue;
 		}
 		switch (key.PadNo) {
@@ -221,7 +228,10 @@ void InputManager::SetUDPData(int rawData[14]) {
 	_analogState[_online].Value.y = rawData[2];
 	int i = 2;
 	for (auto&& key : _keyState) {
-		if (key.PadNo == _online-1) {
+		if (_online == 1 && key.PadNo == 0) {
+			continue;
+		}
+		if (_online == 2 && key.PadNo == 1) {
 			continue;
 		}
 		++i;
