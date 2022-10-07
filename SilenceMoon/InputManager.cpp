@@ -224,8 +224,8 @@ void InputManager::ChangeControllerNo() {
 }
 
 void InputManager::SetUDPData(int rawData[14]) {
-	_analogState[_online].Value.x = rawData[1];
-	_analogState[_online].Value.y = rawData[2];
+	_analogState[_online-1].Value.x = rawData[1];
+	_analogState[_online-1].Value.y = rawData[2];
 	int i = 2;
 	for (auto&& key : _keyState) {
 		if (_online == 1 && key.PadNo == 0) {

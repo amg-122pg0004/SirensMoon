@@ -288,8 +288,13 @@ void Game::PlayCredit() {
 }
 
 void Game::StartNetworkHost() {
-	_netHost.reset(new NetworkHost(*this));
+	if (_netHost == nullptr) {
+		_netHost.reset(new NetworkHost(*this));
+	}
 }
+
 void Game::StartNetworkJoin() {
-	_netJoin.reset(new NetworkJoin(*this));
+	if (_netJoin == nullptr) {
+		_netJoin.reset(new NetworkJoin(*this));
+	}
 }
