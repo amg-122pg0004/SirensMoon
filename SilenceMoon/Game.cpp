@@ -47,12 +47,14 @@ void Game::Input() {
 	if (_inputManager->CheckInput("BULLET1", 'r', 0) || _inputManager->CheckInput("BULLET1", 'r', 1)) {
 		if (_netJoin==nullptr) {
 			StartNetworkHost();
+			_inputManager->SetOnline(1);
 		}
 
 	}
 	if (_inputManager->CheckInput("BULLET2", 'r', 0) || _inputManager->CheckInput("BULLET2", 'r', 1)) {
 		if (_netHost == nullptr) {
 			StartNetworkJoin();
+			_inputManager->SetOnline(2);
 		}
 	}
 
@@ -87,7 +89,7 @@ void Game::Debug() {
 		DrawFormatString(0, 0, GetColor(255, 255, 255), "%f", GetFPS());
 		DrawFormatString(0, 12, GetColor(255, 255, 255), "%d", GetASyncLoadNum());
 #ifdef _DEBUG
-		//_inputManager->Render();
+		_inputManager->Render();
 		if (_netHost != nullptr) {
 			_netHost->Debug();
 		}

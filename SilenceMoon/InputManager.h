@@ -39,6 +39,7 @@ class InputManager{
 		Vector2 CheckAnalogInput(const int playernum);
 
 		void ChangeControllerNo();
+		void SetOnline(int playerNo) { _online = playerNo; }
 
 #ifdef _DEBUG
 		void Render();
@@ -74,4 +75,6 @@ private:
 
 	/*接続中のコントローラーの数*/
 	int _connectNumber;
+
+	int _online;
 };

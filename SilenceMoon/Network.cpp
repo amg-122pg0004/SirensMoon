@@ -7,7 +7,7 @@
 #include "Game.h"
 
 NetworkJoin::NetworkJoin(Game& game)
-	:_game{ game }, _netUDPHandle{ -1 }, _test{ false }
+	:_game{ game }, _netUDPHandle{ -1 }
 {
 	_inputManager = _game.GetInputManager();
 	Init();
@@ -35,14 +35,14 @@ void NetworkJoin::Init() {
 }
 
 void NetworkJoin::Update() {
-	_test = false;
+	SendData();
+	RecieveData();
+}
+void NetworkJoin::SendData() {
 
 	auto analog = _inputManager->GetAnalogState();
 
 	auto key = _inputManager->GetKeyState();
-
-
-
 	_rawDataBuffer[0] = _game.GetFrameCount();
 
 	for (auto&& value : analog) {
@@ -60,6 +60,13 @@ void NetworkJoin::Update() {
 	NetWorkSendUDP(_netUDPHandle, _ip, 9850, &_rawDataBuffer, 4);
 }
 
+void NetworkJoin::RecieveData() {
+	if (CheckNetWorkRecvUDP(_netUDPHandle)) {
+		NetWorkRecvUDP(_netUDPHandle, NULL, NULL, &_rawDataBuffer, 14 * 4, FALSE);
+		_inputManager->SetUDPData(_rawDataBuffer);
+	}
+}
+
 void NetworkJoin::Debug() {
 	std::stringstream ss;
 	ss << "こっちはジョイン側：接続ハンドル" << _netUDPHandle << "\n";
@@ -71,6 +78,7 @@ void NetworkJoin::Debug() {
 
 NetworkHost::NetworkHost(Game& game) :_game{ game }, _netUDPHandle{ -1 }
 {
+	_inputManager = _game.GetInputManager();
 	Init();
 }
 
@@ -90,9 +98,36 @@ bool CompCountFrame(const std::vector<int>& a, const std::vector<int>& b)
 
 void NetworkHost::Update() {
 
-	if (CheckNetWorkRecvUDP(_netUDPHandle)) {
-		NetWorkRecvUDP(_netUDPHandle, NULL, NULL, &_rawDataBuffer, 14*4, FALSE);
+	SendData();
+	RecieveData();
+}
 
+void NetworkHost::SendData() {
+
+	auto analog = _inputManager->GetAnalogState();
+
+	auto key = _inputManager->GetKeyState();
+	_rawDataBuffer[0] = _game.GetFrameCount();
+
+	for (auto&& value : analog) {
+		if (value.PadNo == 0) {
+			_rawDataBuffer[1] = value.Value.x;
+			_rawDataBuffer[2] = value.Value.y;
+		}
+	}
+	int i = 3;
+	for (auto&& value : key) {
+		if (value.PadNo == 0) {
+			_rawDataBuffer[i] = value.Hold;
+		}
+	}
+	NetWorkSendUDP(_netUDPHandle, _ip, 9850, &_rawDataBuffer, 4);
+}
+
+void NetworkHost::RecieveData() {
+	if (CheckNetWorkRecvUDP(_netUDPHandle)) {
+		NetWorkRecvUDP(_netUDPHandle, NULL, NULL, &_rawDataBuffer, 14 * 4, FALSE);
+		_inputManager->SetUDPData(_rawDataBuffer);
 	}
 }
 
@@ -103,5 +138,5 @@ void NetworkHost::Debug() {
 		ss << _rawDataBuffer[i] << "\n";
 	}
 
-	DxLib::DrawString(50, 100, ss.str().c_str(), GetColor(255, 255, 255));
+	DxLib::DrawString(300, 100, ss.str().c_str(), GetColor(255, 255, 255));
 }

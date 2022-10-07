@@ -11,7 +11,7 @@
 #include <string>
 #include <sstream>
 
-InputManager::InputManager() :_changeFlag{ 0 } {
+InputManager::InputManager() :_changeFlag{ 0 }, _online{ 0 } {
 
 	Init();
 }
@@ -78,6 +78,9 @@ void InputManager::InputUpdate() {
 		padno1 = DX_INPUT_PAD2;
 	}
 	for (auto&& key : _keyState) {
+		if (_online - 1 == key.PadNo) {
+			continue;
+		}
 		switch (key.PadNo) {
 		case 0:
 			if (GetJoypadInputState(padno0) & key.KeyName) {
@@ -186,7 +189,7 @@ void InputManager::Render() {
 
 	std::stringstream ss;
 	for (auto&& key : _keyState) {
-		ss << key.ActionName << " " << key.KeyName << " " << key.Hold << " " << key.Trigger << " " << key.Release << "\n";
+		ss << key.ActionName << " " << key.KeyName << " " << key.Hold << " " << key.Trigger << " " << key.Release << " PadNo." << key.PadNo << "\n";
 	}
 	for (auto&& analog : _analogState) {
 		ss << "アナログスティックプレイヤー" << analog.PadNo << " " << analog.Value.x << " " << analog.Value.y << "\n";
@@ -214,32 +217,33 @@ void InputManager::ChangeControllerNo() {
 }
 
 void InputManager::SetUDPData(int rawData[14]) {
-	int i = 1;
+	_analogState[_online].Value.x = rawData[1];
+	_analogState[_online].Value.y = rawData[2];
+	int i = 2;
 	for (auto&& key : _keyState) {
-		if (key.PadNo == 1) {
-			if (rawData[i]) {
-				if (key.Hold == false) {
-					key.Trigger = true;
-				}
-				else {
-					key.Trigger = false;
-				}
-				key.Hold = true;
-				continue;
+		if (key.PadNo == _online-1) {
+			continue;
+		}
+		++i;
+		if (rawData[i] == 1) {
+			if (key.Hold == false) {
+				key.Trigger = true;
 			}
-			else if (key.Hold == true) {
-				key.Release = true;
-				key.Hold = false;
+			else {
 				key.Trigger = false;
-				continue;
 			}
-			++i;
-			key.Trigger = false;
+			key.Hold = true;
+		}
+		else {
+			if (key.Hold == true) {
+				key.Release = true;
+			}
+			else {
+				key.Release = false;
+			}
 			key.Hold = false;
-			key.Release = false;
 		}
 	}
-	_analogState[1].Value.x = rawData[i];
-	++i;
-	_analogState[1].Value.y = rawData[i];
+
+
 }

@@ -11,6 +11,8 @@ public:
 	void Init();
 	void Update();
 	void Debug();
+	void SendData();
+	void RecieveData();
 private:
 	/**
 	フレームデータ 1
@@ -24,7 +26,6 @@ private:
 	IPDATA _ip;
 	int _netUDPHandle;
 	int _dataLength;
-	bool _test;
 };
 
 class NetworkHost {
@@ -34,8 +35,11 @@ public:
 	void Init();
 	void Update();
 	void Debug();
+	void SendData();
+	void RecieveData();
 private:
 	int _rawDataBuffer[14];
+	std::shared_ptr<InputManager> _inputManager;
 	std::vector<int> _frameBuffer;
 	Game& _game;
 	IPDATA _ip;
