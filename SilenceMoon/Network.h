@@ -19,12 +19,13 @@ private:
 	キーデータ 11個
 	アナログデータ 2個
 	*/
-	int _rawDataBuffer[14];
-
+	int _rawDataSend[14];
+	int _rawDataRecieve[14];
 	Game& _game;
 	std::shared_ptr<InputManager> _inputManager;
 	IPDATA _ip;
-	int _netUDPHandle;
+
+	int _sendUDPHandle,_recieveUDPHandle;
 	int _dataLength;
 };
 
@@ -43,5 +44,5 @@ private:
 	std::vector<int> _frameBuffer;
 	Game& _game;
 	IPDATA _ip;
-	int _netUDPHandle;
+	int _sendUDPHandle, _recieveUDPHandle;
 };

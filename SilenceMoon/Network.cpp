@@ -7,14 +7,14 @@
 #include "Game.h"
 
 NetworkJoin::NetworkJoin(Game& game)
-	:_game{ game }, _netUDPHandle{ -1 }
+	:_game{ game }, _sendUDPHandle{ -1 },_recieveUDPHandle{-1}
 {
 	_inputManager = _game.GetInputManager();
 	Init();
 
 }
 NetworkJoin::~NetworkJoin() {
-	DeleteUDPSocket(-1);
+	DeleteUDPSocket(9850);
 }
 
 void NetworkJoin::Init() {
@@ -31,7 +31,8 @@ void NetworkJoin::Init() {
 	_ip.d3 = static_cast<int>(jsRoot["3"].get<double>());
 	_ip.d4 = static_cast<int>(jsRoot["4"].get<double>());
 
-	_netUDPHandle = MakeUDPSocket(-1);
+	_sendUDPHandle = MakeUDPSocket(-1);
+	_recieveUDPHandle = MakeUDPSocket(9850);
 }
 
 void NetworkJoin::Update() {
@@ -43,40 +44,42 @@ void NetworkJoin::SendData() {
 	auto analog = _inputManager->GetAnalogState();
 
 	auto key = _inputManager->GetKeyState();
-	_rawDataBuffer[0] = _game.GetFrameCount();
+	_rawDataSend[0] = _game.GetFrameCount();
 
 	for (auto&& value : analog) {
 		if (value.PadNo == 0) {
-			_rawDataBuffer[1] = value.Value.x;
-			_rawDataBuffer[2] = value.Value.y;
+			_rawDataSend[1] = value.Value.x;
+			_rawDataSend[2] = value.Value.y;
 		}
 	}
 	int i = 3;
 	for (auto&& value : key) {
 		if (value.PadNo == 0) {
-			_rawDataBuffer[i] = value.Hold;
+			_rawDataSend[i] = value.Hold;
+			++i;
 		}
 	}
-	NetWorkSendUDP(_netUDPHandle, _ip, 9850, &_rawDataBuffer, 4);
+	NetWorkSendUDP(_sendUDPHandle, _ip, 9850, &_rawDataSend, 4*14);
 }
 
 void NetworkJoin::RecieveData() {
-	if (CheckNetWorkRecvUDP(_netUDPHandle)) {
-		NetWorkRecvUDP(_netUDPHandle, NULL, NULL, &_rawDataBuffer, 14 * 4, FALSE);
-		_inputManager->SetUDPData(_rawDataBuffer);
+	if (CheckNetWorkRecvUDP(_recieveUDPHandle)) {
+		if (NetWorkRecvUDP(_recieveUDPHandle, NULL, NULL, &_rawDataRecieve, 14 * 4, FALSE)) {
+			_inputManager->SetUDPData(_rawDataRecieve);
+		}
 	}
 }
 
 void NetworkJoin::Debug() {
 	std::stringstream ss;
-	ss << "こっちはジョイン側：接続ハンドル" << _netUDPHandle << "\n";
-	for (int i = 0; i < sizeof(_rawDataBuffer)/sizeof(int); ++i) {
-		ss << _rawDataBuffer[i] << "\n";
+	ss << "こっちはジョイン側：接続ハンドル" << _sendUDPHandle << "\n";
+	for (int i = 0; i < sizeof(_rawDataSend)/sizeof(int); ++i) {
+		ss << _rawDataSend[i] << "\n";
 	}
 	DxLib::DrawString(50, 0, ss.str().c_str(), GetColor(255, 255, 255));
 }
 
-NetworkHost::NetworkHost(Game& game) :_game{ game }, _netUDPHandle{ -1 }
+NetworkHost::NetworkHost(Game& game) :_game{ game }, _sendUDPHandle{ -1 }, _recieveUDPHandle{ -1 }
 {
 	_inputManager = _game.GetInputManager();
 	Init();
@@ -87,7 +90,8 @@ NetworkHost::~NetworkHost() {
 }
 
 void NetworkHost::Init() {
-	_netUDPHandle = MakeUDPSocket(9850);
+	_sendUDPHandle = MakeUDPSocket(-1);
+	_recieveUDPHandle= MakeUDPSocket(9850);
 	_ip = { 0,0,0,0 };
 }
 
@@ -121,19 +125,19 @@ void NetworkHost::SendData() {
 			_rawDataBuffer[i] = value.Hold;
 		}
 	}
-	NetWorkSendUDP(_netUDPHandle, _ip, 9850, &_rawDataBuffer, 4);
+	NetWorkSendUDP(_sendUDPHandle, _ip, 9850, &_rawDataBuffer, 4*14);
 }
 
 void NetworkHost::RecieveData() {
-	if (CheckNetWorkRecvUDP(_netUDPHandle)) {
-		NetWorkRecvUDP(_netUDPHandle, NULL, NULL, &_rawDataBuffer, 14 * 4, FALSE);
+	if (CheckNetWorkRecvUDP(_recieveUDPHandle)) {
+		NetWorkRecvUDP(_recieveUDPHandle, NULL, NULL, &_rawDataBuffer, 14 * 4, FALSE);
 		_inputManager->SetUDPData(_rawDataBuffer);
 	}
 }
 
 void NetworkHost::Debug() {
 	std::stringstream ss;
-	ss << "こっちはホスト側：接続ハンドル" << _netUDPHandle << "\n";
+	ss << "こっちはホスト側：接続ハンドル" << _recieveUDPHandle << "\n";
 	for (int i = 0; i < sizeof(_rawDataBuffer) / sizeof(int); ++i) {
 		ss << _rawDataBuffer[i] << "\n";
 	}
