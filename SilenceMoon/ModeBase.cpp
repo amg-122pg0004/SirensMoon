@@ -13,6 +13,7 @@ ModeBase::ModeBase(Game& game)
 	: _game(game)
 	, _dead(false)
 	, _actorServer{ *this }
+	,_stopUpdate{ false }
 	, _makedNextMode{ false }
 	, _delayNextMode{ 20 }
 	, _renderPriority{ 0 }

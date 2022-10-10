@@ -39,7 +39,7 @@ public:
 	void PlayBGM();
 
 private:
-	bool _stopActorUpdate;
+
 
 	std::unique_ptr<MapChip>_mapChips;
 	std::vector<std::unique_ptr<SplitWindow>>_splitWindow;

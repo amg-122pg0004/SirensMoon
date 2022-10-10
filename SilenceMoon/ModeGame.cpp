@@ -30,7 +30,7 @@
 #include "Barrier.h"
 
 ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPattern pattern, std::string bgm)
-	:ModeBase{ game }, _stopActorUpdate{ false }, _bgm{ bgm }, _clearDelay{ 240 }, _clear{ false }
+	:ModeBase{ game },  _bgm{ bgm }, _clearDelay{ 240 }, _clear{ false }
 {
 	_inputManager = _game.GetInputManager();
 	_renderPriority = 0;
@@ -198,7 +198,7 @@ void ModeGame::Update() {
 		splitwindows->Update();
 	}
 	/*Actor‚ÌXV*/
-	if (_stopActorUpdate == false) {
+	if (_stopUpdate == false) {
 		_actorServer.Update();
 	}
 	if (_clear) {
@@ -223,11 +223,11 @@ void ModeGame::Debug() {
 }
 
 void ModeGame::StageClearCheck() {
-	_stopActorUpdate = true;
+	_stopUpdate = true;
 	++_enemyVIPDeadCount;
 	if (_enemyVIPDeadCount >= _mapChips->GetServerData().size()) {
 		StopSoundFile();
-		_stopActorUpdate = true;
+		_stopUpdate = true;
 		TargetKillEvent();
 		_clear = true;
 	}
@@ -237,7 +237,7 @@ void ModeGame::GameOver() {
 	if (_makedNextMode) {
 		return;
 	}
-	_stopActorUpdate = true;
+	_stopUpdate = true;
 	_makedNextMode = true;
 	_delayNextMode = 100000;
 	auto mode = std::make_unique<ModeGameOver>(_game);
@@ -262,7 +262,7 @@ void ModeGame::TargetKillEvent() {
 
 void ModeGame::SetPauseGame(bool flag) {
 	if (!_makedNextMode) {
-		_stopActorUpdate = flag;
+		_stopUpdate = flag;
 	}
 }
 void ModeGame::PlayBGM() {

@@ -219,6 +219,7 @@
     <ClCompile Include="ModeGame.cpp" />
     <ClCompile Include="ModeGameOver.cpp" />
     <ClCompile Include="ModeMovie.cpp" />
+    <ClCompile Include="ModeNetwork.cpp" />
     <ClCompile Include="ModeServer.cpp" />
     <ClCompile Include="ModeStart.cpp" />
     <ClCompile Include="ModeStartUp2.cpp" />
@@ -328,6 +329,7 @@
     <ClInclude Include="ModeGame.h" />
     <ClInclude Include="ModeGameOver.h" />
     <ClInclude Include="ModeMovie.h" />
+    <ClInclude Include="ModeNetwork.h" />
     <ClInclude Include="ModeServer.h" />
     <ClInclude Include="ModeStart.h" />
     <ClInclude Include="ModeStartUp2.h" />

@@ -320,6 +320,9 @@
     <ClCompile Include="Network.cpp">
       <Filter>Utillity\Network</Filter>
     </ClCompile>
+    <ClCompile Include="ModeNetwork.cpp">
+      <Filter>Mode\ModeNetwork</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h">
@@ -642,6 +645,9 @@
     </ClInclude>
     <ClInclude Include="FX_ScreenSmoke.h">
       <Filter>Actor\Effect\FX_ScreenSmoke</Filter>
+    </ClInclude>
+    <ClInclude Include="ModeNetwork.h">
+      <Filter>Mode\ModeNetwork</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -974,6 +980,9 @@
     </Filter>
     <Filter Include="Utillity\Network">
       <UniqueIdentifier>{59a80898-6a26-4131-bcef-9c3c63848253}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mode\ModeNetwork">
+      <UniqueIdentifier>{b40a7aac-1daf-4db6-a03a-a920a7672f37}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

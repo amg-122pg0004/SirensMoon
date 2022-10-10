@@ -7,7 +7,7 @@
 ModeStart::ModeStart(Game& game,int seekmovie) :ModeBase(game), _select{ 0 }, _alpha{ 255 }, _pos{ 440 , 730 }, _bgm{ false }
 {
 	_inputManager = _game.GetInputManager();
-
+	_font = CreateFontToHandle("OPTION",52,10, DX_FONTTYPE_EDGE);
 	LoadResources::LoadSE1();
 	LoadResources::LoadEffects();
 	LoadResources::LoadMovie("resource/Movie/gameover.mp4");
@@ -47,7 +47,7 @@ void ModeStart::Update() {
 				if (analog1.y > 0) {
 					++_select;
 					PlaySoundMem(SoundServer::Find("InputDown"), DX_PLAYTYPE_BACK);
-					if (_select > 2) {
+					if (_select > 3) {
 						_select = 0;
 					}
 				}
@@ -55,7 +55,7 @@ void ModeStart::Update() {
 					PlaySoundMem(SoundServer::Find("InputUp"), DX_PLAYTYPE_BACK);
 					--_select;
 					if (_select < 0) {
-						_select = 2;
+						_select = 3;
 					}
 				}
 			}
@@ -77,6 +77,9 @@ void ModeStart::Update() {
 				break;
 			case 2:
 				Quit();
+				break;
+			case 3:
+				NetWork();
 				break;
 			default:
 				break;
@@ -151,6 +154,11 @@ void ModeStart::Render() {
 			DrawGraph(static_cast<int>(pos2.x), static_cast<int>(pos2.y), select(_cg_start, 0), 1);
 			DrawGraph(static_cast<int>(pos2.x), static_cast<int>(pos2.y) + 100, select(_cg_credit, 1), 1);
 			DrawGraph(static_cast<int>(pos2.x), static_cast<int>(pos2.y) + 200, select(_cg_quit, 2), 1);
+			if (_select == 3) {
+				DrawBox(static_cast<int>(pos2.x)+70, static_cast<int>(pos2.y) + 300, static_cast<int>(pos2.x) + 290, static_cast<int>(pos2.y) + 300 + 50,
+					GetColor(255, 255, 255), false);
+			}
+			DrawStringToHandle(static_cast<int>(pos2.x)+80, static_cast<int>(pos2.y) + 300, "NETWORK",GetColor(255,255,255),_font);
 			DrawGraph(static_cast<int>(pos2.x - 50), static_cast<int>(pos2.y) + _select * 100, _cg_cursor, 1);
 			DrawGraph(static_cast<int>(pos2.x + screen_W / 2)-100, static_cast<int>(pos2.y)+100, _cg2pFrame, 1);
 			int alpha = static_cast<int>((sin(static_cast<double>(_game.GetFrameCount() / 15.0)) / 2.0 + 0.7) * 255.0);
@@ -199,6 +207,10 @@ void ModeStart::Credit() {
 
 void ModeStart::Quit() {
 	DxLib_End();
+}
+
+void ModeStart::NetWork() {
+	
 }
 
 void ModeStart::VisibleSkipUI() {

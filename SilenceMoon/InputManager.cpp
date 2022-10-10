@@ -82,7 +82,7 @@ void InputManager::InputUpdate() {
 		padno1 = DX_INPUT_KEY_PAD1;
 	}
 	for (auto&& key : _keyState) {
-		if (_online ==1 && key.PadNo==1) {
+		if (_online == 1 && key.PadNo == 1) {
 			continue;
 		}
 		if (_online == 2 && key.PadNo == 0) {
@@ -135,19 +135,14 @@ void InputManager::InputUpdate() {
 	}
 
 	for (auto&& analog : _analogState) {
-		int InputX, InputY;
-		switch (analog.PadNo) {
-		case 0:
+		int InputX{0}, InputY{0};
+		if (analog.PadNo == 0) {
 			GetJoypadAnalogInput(&InputX, &InputY, padno0);
-			analog.Value = { static_cast<double>(InputX),static_cast<double>(InputY) };
-			continue;
-		case 1:
-			GetJoypadAnalogInput(&InputX, &InputY, padno1);
-			analog.Value = { static_cast<double>(InputX),static_cast<double>(InputY) };
-			continue;
-		default:
-			break;
 		}
+		else if (analog.PadNo == 1) {
+			GetJoypadAnalogInput(&InputX, &InputY, padno1);
+		}
+		analog.Value = { static_cast<double>(InputX),static_cast<double>(InputY) };
 	}
 }
 
@@ -224,8 +219,8 @@ void InputManager::ChangeControllerNo() {
 }
 
 void InputManager::SetUDPData(int rawData[14]) {
-	_analogState[_online-1].Value.x = rawData[1];
-	_analogState[_online-1].Value.y = rawData[2];
+	_analogState[_online - 1].Value.x = rawData[1];
+	_analogState[_online - 1].Value.y = rawData[2];
 	int i = 2;
 	for (auto&& key : _keyState) {
 		if (_online == 1 && key.PadNo == 0) {

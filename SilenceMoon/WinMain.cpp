@@ -21,6 +21,7 @@ int WINAPI WinMain(
     SetDoubleStartValidFlag(TRUE);
     SetAlwaysRunFlag(true);
 #endif 
+    SetUseDisplayIndex(-1);
     ChangeWindowMode(TRUE);    //<ウインドウモードに変更
     SetGraphMode(screen_W, screen_H, screen_Depth);    //<画面の解像度(幅,高さ)と色数(32bit)を指定
 
