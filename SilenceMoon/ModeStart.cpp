@@ -3,6 +3,7 @@
 #include "ModeGame.h"
 #include "SkipUI.h"
 #include "Screen_Fade.h"
+#include "ModeNetwork.h"
 
 ModeStart::ModeStart(Game& game,int seekmovie) :ModeBase(game), _select{ 0 }, _alpha{ 255 }, _pos{ 440 , 730 }, _bgm{ false }
 {
@@ -32,6 +33,9 @@ ModeStart::ModeStart(Game& game,int seekmovie) :ModeBase(game), _select{ 0 }, _a
 
 void ModeStart::Update() {
 	ModeBase::Update();
+	if (_stopUpdate) {
+		return;
+	}
 	_loadingNumber = GetASyncLoadNum();
 	if (_loadingNumber == 0 && GetJoypadInputState(DX_INPUT_KEY_PAD1) && !_game.GetInputManager()->CheckInput("PAUSE", 't', 0) ||
 		_loadingNumber == 0 && GetJoypadInputState(DX_INPUT_PAD2) && !_game.GetInputManager()->CheckInput("PAUSE", 't', 1)) {
@@ -210,7 +214,7 @@ void ModeStart::Quit() {
 }
 
 void ModeStart::NetWork() {
-	
+	_game.GetModeServer()->Add(std::move(std::make_unique<ModeNetwork>(_game,*this)));
 }
 
 void ModeStart::VisibleSkipUI() {

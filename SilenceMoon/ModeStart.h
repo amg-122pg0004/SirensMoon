@@ -14,8 +14,8 @@ public:
 	void Update()override;
 	void Render()override;
 	void Debug()override;
-private:
 	void Play();
+private:
 	void Credit();
 	void Quit();
 	void NetWork();

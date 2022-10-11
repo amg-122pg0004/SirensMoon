@@ -17,7 +17,7 @@
 Game::Game()
 	:_frameCount{ 0 }
 	, _progress{ Progress::StartMenu }
-	, _netHost{ nullptr }, _netJoin{ nullptr }
+	, _network{ nullptr }
 {
 	_modeServer = std::make_unique<ModeServer>(*this);
 	_inputManager = std::make_unique<InputManager>();
@@ -31,11 +31,8 @@ Game::Game()
 
 void Game::Input() {
 	_inputManager->InputUpdate();
-	if (_netHost != nullptr) {
-		_netHost->Update();
-	}
-	if (_netJoin != nullptr) {
-		_netJoin->Update();
+	if (_network != nullptr) {
+		_network->Update();
 	}
 #ifdef _DEBUG
 	if (_inputManager->CheckInput("CHANGE", 'r', 0) || _inputManager->CheckInput("CHANGE", 'r', 1)) {
@@ -43,19 +40,6 @@ void Game::Input() {
 	}
 	if (_inputManager->CheckInput("DEBUG", 'r', 0) || _inputManager->CheckInput("DEBUG", 'r', 1)) {
 		_debug = !_debug;
-	}
-	if (_inputManager->CheckInput("BULLET1", 'r', 0) || _inputManager->CheckInput("BULLET1", 'r', 1)) {
-		if (_netJoin==nullptr) {
-			StartNetworkHost();
-			_inputManager->SetOnline(1);
-		}
-
-	}
-	if (_inputManager->CheckInput("BULLET2", 'r', 0) || _inputManager->CheckInput("BULLET2", 'r', 1)) {
-		if (_netHost == nullptr) {
-			StartNetworkJoin();
-			_inputManager->SetOnline(2);
-		}
 	}
 
 #endif // _DEBUG
@@ -90,12 +74,6 @@ void Game::Debug() {
 		DrawFormatString(0, 12, GetColor(255, 255, 255), "%d", GetASyncLoadNum());
 #ifdef _DEBUG
 		_inputManager->Render();
-		if (_netHost != nullptr) {
-			_netHost->Debug();
-		}
-		if (_netJoin != nullptr) {
-			_netJoin->Debug();
-		}
 #endif 
 	}
 }
@@ -287,14 +265,8 @@ void Game::PlayCredit() {
 	_modeServer->Add(std::move(std::make_unique<ModeMovie>(*this, "resource/Movie/stage3end.mp4", 152000, 222000, true)));
 }
 
-void Game::StartNetworkHost() {
-	if (_netHost == nullptr) {
-		_netHost.reset(new NetworkHost(*this));
-	}
-}
-
-void Game::StartNetworkJoin() {
-	if (_netJoin == nullptr) {
-		_netJoin.reset(new NetworkJoin(*this));
+void Game::StartNetwork() {
+	if (_network == nullptr) {
+		_network.reset(new Network(*this));
 	}
 }

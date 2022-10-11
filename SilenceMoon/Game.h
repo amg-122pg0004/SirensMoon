@@ -71,14 +71,14 @@ public:
 	void PlayStage3Clear();
 	void PlayCredit();
 
-	void StartNetworkHost();
-	void StartNetworkJoin();
+	void StartNetwork();
+
+	std::unique_ptr<Network>& GetNetwork() { return _network; }
 private:
 	int _font22, _font26;
 	std::shared_ptr<InputManager> _inputManager;
 	std::unique_ptr<ModeServer> _modeServer;
-	std::unique_ptr<NetworkHost> _netHost;
-	std::unique_ptr<NetworkJoin> _netJoin;
+	std::unique_ptr<Network> _network;
 	int _frameCount;
 	bool _debug;
 	Progress _progress;

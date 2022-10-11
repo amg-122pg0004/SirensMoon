@@ -4,15 +4,21 @@
 #include <memory>
 class Game;
 
-class NetworkJoin {
+class Network {
 public:
-	NetworkJoin(Game& game);
-	~NetworkJoin();
+	Network(Game& game);
+	~Network();
 	void Init();
 	void Update();
 	void Debug();
 	void SendData();
 	void RecieveData();
+
+	void SetIP(IPDATA ip) { _ip = ip; }
+	void SetPortNo(int port) { _port = port; }
+	void SetNetTCPHandle(int tcp) { _netTCPHandle=tcp; }
+	void SetSendUDPHandle(int sendUDP) { _sendUDPHandle = sendUDP; }
+	void SetRecieveUDPHandle(int recieveUDP) { _recieveUDPHandle = recieveUDP; }
 private:
 	/**
 	フレームデータ 1
@@ -23,26 +29,10 @@ private:
 	int _rawDataRecieve[14];
 	Game& _game;
 	std::shared_ptr<InputManager> _inputManager;
-	IPDATA _ip;
 
+	IPDATA _ip;
+	int _port;
+	int _netTCPHandle;
 	int _sendUDPHandle,_recieveUDPHandle;
 	int _dataLength;
-};
-
-class NetworkHost {
-public:
-	NetworkHost(Game& game);
-	~NetworkHost();
-	void Init();
-	void Update();
-	void Debug();
-	void SendData();
-	void RecieveData();
-private:
-	int _rawDataBuffer[14];
-	std::shared_ptr<InputManager> _inputManager;
-	std::vector<int> _frameBuffer;
-	Game& _game;
-	IPDATA _ip;
-	int _sendUDPHandle, _recieveUDPHandle;
 };
