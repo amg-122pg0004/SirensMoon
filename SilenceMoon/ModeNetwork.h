@@ -55,7 +55,7 @@ private:
 	int _netUDPRecieveHandle,_netUDPSendHandle;
 	IPDATA _ip;
 	int _port;
-
+	int _dataLength;
 	int _connectError;
 
 	int _font;

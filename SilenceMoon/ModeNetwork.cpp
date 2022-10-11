@@ -17,14 +17,14 @@ ModeNetwork::ModeNetwork(Game& game, ModeBase& mode)
 	, _netTCPHandle{ -1 }
 	, _netUDPRecieveHandle{ -1 }
 	, _netUDPSendHandle{ -1 }
-	, _settingIPIndex{0}
-	, _keyInputHandlesIP{-1,-1,-1,-1}
-	, _keyInputHandlePort{-1}
+	, _settingIPIndex{ 0 }
+	, _keyInputHandlesIP{ -1,-1,-1,-1 }
+	, _keyInputHandlePort{ -1 }
 {
 	_font = CreateFontToHandle("OPTION", 52, 10, DX_FONTTYPE_EDGE);
 	_preWindow.SetStopUpdate(true);
 	_renderPriority = 10;
-	for (auto&& handle:_keyInputHandlesIP) {
+	for (auto&& handle : _keyInputHandlesIP) {
 		handle = MakeKeyInput(3, true, false, true);
 	}
 	_keyInputHandlePort = MakeKeyInput(5, true, false, true);
@@ -49,7 +49,7 @@ void ModeNetwork::Update() {
 	if (_state == State::WaitAccept) {
 		WaitAcceptNet();
 	}
-	if (_state == State::JoinComplete|| _state == State::AcceptComplete) {
+	if (_state == State::JoinComplete || _state == State::AcceptComplete) {
 		StartGame();
 	}
 }
@@ -102,14 +102,14 @@ void ModeNetwork::Render() {
 			, _font);
 	}
 	if (_state == State::SettingIP) {
-		DrawKeyInputModeString(0,0);
+		DrawKeyInputModeString(0, 0);
 		for (int i = 0; i < _keyInputHandlesIP.size(); ++i) {
-			DrawKeyInputString(50*i, 50, _keyInputHandlesIP[i]);
-			int number{0};
-			number=GetKeyInputNumber(_keyInputHandlesIP[i]);
+			DrawKeyInputString(50 * i, 50, _keyInputHandlesIP[i]);
+			int number{ 0 };
+			number = GetKeyInputNumber(_keyInputHandlesIP[i]);
 			DrawStringToHandle(100
-				, 900+100*i
-				, ""+ number
+				, 900 + 100 * i
+				, "" + number
 				, GetColor(255, 255, 255)
 				, _font);
 		}
@@ -182,13 +182,27 @@ void ModeNetwork::CreateServer() {
 }
 
 void ModeNetwork::JoinServer() {
-	if (ConnectNetWork(_ip, _port) == -1) {
+	_netTCPHandle = ConnectNetWork(_ip, _port);
+	if (_netTCPHandle == -1) {
 		_connectError = true;
 	}
 	else {
-		_state = State::JoinComplete;
-		_game.GetInputManager()->SetOnline(2);
+		int call{ 1234 };
+		NetWorkSend(_netTCPHandle, &call, 4);
+
 	}
+	if (_netTCPHandle != -1) {
+		int react{ 0 };
+		_dataLength = GetNetWorkDataLength(_netTCPHandle);
+		if (_dataLength != 0) {
+			NetWorkRecv(_netTCPHandle, &react, _dataLength);
+		}
+		if (react != 0) {
+			_state = State::JoinComplete;
+			_game.GetInputManager()->SetOnline(2);
+		}
+	}
+
 }
 
 void ModeNetwork::SettingIP() {
@@ -215,12 +229,22 @@ void ModeNetwork::WaitAcceptNet() {
 	if (_netTCPHandle != -1) {
 		StopListenNetWork();
 		GetNetWorkIP(_netTCPHandle, &_ip);
-		_state = State::AcceptComplete;
-		_game.GetInputManager()->SetOnline(1);
+	}
+	if (_netTCPHandle != -1) {
+		_dataLength = GetNetWorkDataLength(_netTCPHandle);
+		if (_dataLength != 0) {
+			int react{ 0 };
+			NetWorkRecv(_netTCPHandle, &react, _dataLength);
+			if (react == 1234) {
+				NetWorkSend(_netTCPHandle, &react, _dataLength);
+				_state = State::AcceptComplete;
+				_game.GetInputManager()->SetOnline(1);
+			}
+		}
 	}
 }
 
-void ModeNetwork::StartGame(){
+void ModeNetwork::StartGame() {
 	_game.StartNetwork();
 	_game.GetNetwork()->SetIP(_ip);
 	_game.GetNetwork()->SetPortNo(_port);
@@ -256,7 +280,7 @@ void ModeNetwork::ActiveInputIP() {
 	}
 }
 
-void ModeNetwork::ActiveInputPort(){
+void ModeNetwork::ActiveInputPort() {
 	if (CheckKeyInput(_keyInputHandlePort) == 1) {
 		_port = GetKeyInputNumber(_keyInputHandlePort);
 	}
