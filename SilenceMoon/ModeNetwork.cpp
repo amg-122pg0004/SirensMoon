@@ -14,12 +14,14 @@ ModeNetwork::ModeNetwork(Game& game, ModeBase& mode)
 	, _selectMAX{ 4 }
 	, _analogFlag{ false }
 	, _connectError{ false }
-	, _netTCPHandle{ -1 }
+	, _netTCPRecieveHandle{ -1 }
+	, _netTCPSendHandle{ -1 }
 	, _netUDPRecieveHandle{ -1 }
 	, _netUDPSendHandle{ -1 }
 	, _settingIPIndex{ 0 }
 	, _keyInputHandlesIP{ -1,-1,-1,-1 }
 	, _keyInputHandlePort{ -1 }
+	, _dataLength{ 0 }
 {
 	_font = CreateFontToHandle("OPTION", 52, 10, DX_FONTTYPE_EDGE);
 	_preWindow.SetStopUpdate(true);
@@ -122,7 +124,12 @@ void ModeNetwork::Render() {
 }
 
 void ModeNetwork::Debug() {
-
+	std::stringstream ss;
+	ss << "_netTCPRecieveHandle" << _netTCPSendHandle << "\n";
+	ss << "_netTCPRecieveHandle" << _netTCPRecieveHandle << "\n";
+	ss << "_netUDPSendHandle" << _netUDPSendHandle << "\n";
+	ss << "_netUDPRecieveHandle" << _netUDPRecieveHandle << "\n";
+	DxLib::DrawString(900, 100, ss.str().c_str(), GetColor(255, 255, 255));
 }
 
 void ModeNetwork::UpdateSelectIndex() {
@@ -176,31 +183,21 @@ void ModeNetwork::SelectMenu() {
 
 void ModeNetwork::CreateServer() {
 	PreparationListenNetWork(_port);
-	_netUDPRecieveHandle = MakeUDPSocket(_port);
-	_netUDPSendHandle = MakeUDPSocket(-1);
+	//_netUDPRecieveHandle = MakeUDPSocket(_port);
+	//_netUDPSendHandle = MakeUDPSocket(-1);
 	_state = State::WaitAccept;
 }
 
 void ModeNetwork::JoinServer() {
-	_netTCPHandle = ConnectNetWork(_ip, _port);
-	if (_netTCPHandle == -1) {
-		_connectError = true;
-	}
-	else {
+	_netTCPSendHandle = ConnectNetWork(_ip, _port);
+	if (_netTCPSendHandle != -1) {
 		int call{ 1234 };
-		NetWorkSend(_netTCPHandle, &call, 4);
-
+		NetWorkSend(_netTCPSendHandle, &call, 4);
 	}
-	if (_netTCPHandle != -1) {
-		int react{ 0 };
-		_dataLength = GetNetWorkDataLength(_netTCPHandle);
-		if (_dataLength != 0) {
-			NetWorkRecv(_netTCPHandle, &react, _dataLength);
-		}
-		if (react != 0) {
-			_state = State::JoinComplete;
-			_game.GetInputManager()->SetOnline(2);
-		}
+	int react{ 0 };
+	if (react != 0) {
+		_state = State::JoinComplete;
+		_game.GetInputManager()->SetOnline(2);
 	}
 
 }
@@ -225,34 +222,33 @@ void ModeNetwork::Back() {
 }
 
 void ModeNetwork::WaitAcceptNet() {
-	_netTCPHandle == GetNewAcceptNetWork();
-	if (_netTCPHandle != -1) {
+	_netTCPRecieveHandle == GetNewAcceptNetWork();
+	if (_netTCPRecieveHandle != -1) {
 		StopListenNetWork();
-		GetNetWorkIP(_netTCPHandle, &_ip);
+		GetNetWorkIP(_netTCPRecieveHandle, &_ip);
 	}
-	if (_netTCPHandle != -1) {
-		_dataLength = GetNetWorkDataLength(_netTCPHandle);
+	if (_netTCPRecieveHandle != -1) {
+		_dataLength = GetNetWorkDataLength(_netTCPRecieveHandle);
 		if (_dataLength != 0) {
 			int react{ 0 };
-			NetWorkRecv(_netTCPHandle, &react, _dataLength);
+			NetWorkRecv(_netTCPRecieveHandle, &react, _dataLength);
 			if (react == 1234) {
-				NetWorkSend(_netTCPHandle, &react, _dataLength);
-				_state = State::AcceptComplete;
-				_game.GetInputManager()->SetOnline(1);
 			}
 		}
 	}
 }
 
 void ModeNetwork::StartGame() {
+	/*
 	_game.StartNetwork();
 	_game.GetNetwork()->SetIP(_ip);
 	_game.GetNetwork()->SetPortNo(_port);
-	_game.GetNetwork()->SetNetTCPHandle(_netTCPHandle);
+	_game.GetNetwork()->SetNetTCPHandle(_netTCPRecieveHandle);
 	_game.GetNetwork()->SetSendUDPHandle(_netUDPSendHandle);
 	_game.GetNetwork()->SetRecieveUDPHandle(_netUDPRecieveHandle);
 	Dead();
 	static_cast<ModeStart&>(_preWindow).Play();
+	*/
 }
 
 void ModeNetwork::ActiveInputIP() {
