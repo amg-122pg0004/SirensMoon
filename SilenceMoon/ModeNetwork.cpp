@@ -192,18 +192,6 @@ void ModeNetwork::JoinServer() {
 	_game.GetInputManager()->SetOnline(1);
 	_netUDPRecieveHandle = MakeUDPSocket(_port);
 	_netUDPSendHandle = MakeUDPSocket(-1);
-	/*
-	if (_netTCPHandle != -1) {
-		int call{ 1234 };
-		NetWorkSend(_netTCPHandle, &call, 4);
-	}
-	
-	int react{ 0 };
-	if (react != 0) {
-		_state = State::JoinComplete;
-		_game.GetInputManager()->SetOnline(2);
-	}
-	*/
 }
 
 void ModeNetwork::SettingIP() {
@@ -235,18 +223,6 @@ void ModeNetwork::WaitAcceptNet() {
 		_game.GetInputManager()->SetOnline(0);
 		_state = State::AcceptComplete;
 	}
-	/*
-	if (_netTCPHandle != -1) {
-		_dataLength = GetNetWorkDataLength(_netTCPHandle);
-		if (_dataLength != 0) {
-			int react{ 0 };
-			NetWorkRecv(_netTCPHandle, &react, _dataLength);
-			if (react == 1234) {
-				_state = State::AcceptComplete;
-			}
-		}
-	}
-	*/
 }
 
 void ModeNetwork::StartGame() {
@@ -259,7 +235,6 @@ void ModeNetwork::StartGame() {
 	_game.GetNetwork()->SetRecieveUDPHandle(_netUDPRecieveHandle);
 	Dead();
 	static_cast<ModeStart&>(_preWindow).Play();
-	
 }
 
 void ModeNetwork::ActiveInputIP() {

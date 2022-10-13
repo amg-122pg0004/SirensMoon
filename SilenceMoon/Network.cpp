@@ -4,20 +4,20 @@
 #include <sstream>
 #include <thread>
 #include <chrono>
+#include <algorithm>
 #include "Game.h"
 
 Network::Network(Game& game)
-	:_game{ game }, _sendUDPHandle{ -1 },_recieveUDPHandle{-1}
+	:_game{ game }, _sendUDPHandle{ -1 }, _recieveUDPHandle{ -1 }
 {
+	for (int i = 0; i < _rawDataSendBuffer.size(); ++i) {
+		std::fill(_rawDataSendBuffer[i].begin(), _rawDataSendBuffer[i].end(), -1);
+	}
 	_inputManager = _game.GetInputManager();
-	Init();
 
 }
 Network::~Network() {
 	DeleteUDPSocket(9850);
-}
-
-void Network::Init() {
 }
 
 void Network::Update() {
@@ -26,43 +26,49 @@ void Network::Update() {
 }
 
 void Network::SendData() {
-
+	std::rotate(_rawDataSendBuffer.rbegin(), _rawDataSendBuffer.rbegin() + 1, _rawDataSendBuffer.rend());
 	auto analog = _inputManager->GetAnalogState();
-
 	auto key = _inputManager->GetKeyState();
-	_rawDataSend[0] = _game.GetFrameCount();
+
+	_rawDataSendBuffer[0][0] = _game.GetFrameCount();
 
 	for (auto&& value : analog) {
 		if (value.PadNo == 0) {
-			_rawDataSend[1] = value.Value.x;
-			_rawDataSend[2] = value.Value.y;
+			_rawDataSendBuffer[0][1] = value.Value.x;
+			_rawDataSendBuffer[0][2] = value.Value.y;
 		}
 	}
 	int i = 3;
 	for (auto&& value : key) {
 		if (value.PadNo == 0) {
-			_rawDataSend[i] = value.Hold;
+			_rawDataSendBuffer[0][i] = value.Hold;
 			++i;
 		}
 	}
-	NetWorkSendUDP(_sendUDPHandle, _ip, 9850, &_rawDataSend, 4*14);
+
+	NetWorkSendUDP(_sendUDPHandle, _ip, 9850, &_rawDataSendBuffer, 4 * 14 * 10);
 }
 
 void Network::RecieveData() {
 	if (CheckNetWorkRecvUDP(_recieveUDPHandle)) {
-		if (NetWorkRecvUDP(_recieveUDPHandle, NULL, NULL, &_rawDataRecieve, 14 * 4, FALSE)) {
+		 std::array<std::array<int, 14>,10> recieveData;
+		if (NetWorkRecvUDP(_recieveUDPHandle, NULL, NULL, &recieveData, 14 * 4 * 10, FALSE)) {
+			for (auto itr = recieveData.begin(); itr != recieveData.end();++itr) {
+				for (auto&& ahaveData : _rawDataRecieveBuffer) {
+					if (*itr[0] == ahaveData[0]) {
+						aInputData
+					}
+				}
+			}
+			std::sort(_rawDataRecieveBuffer.begin(), _rawDataRecieveBuffer.end(), CompCountFrame);
 			_inputManager->SetUDPData(_rawDataRecieve);
+
 		}
 	}
 }
 
 void Network::Debug() {
-	std::stringstream ss;
-	ss << "こっちはジョイン側：接続ハンドル" << _sendUDPHandle << "\n";
-	for (int i = 0; i < sizeof(_rawDataSend)/sizeof(int); ++i) {
-		ss << _rawDataSend[i] << "\n";
-	}
-	DxLib::DrawString(300, 100, ss.str().c_str(), GetColor(255, 255, 255));
+
 }
 
 bool CompCountFrame(const std::vector<int>& a, const std::vector<int>& b)
