@@ -15,7 +15,6 @@ public:
 	/*Update’†‚ÌŠÖ”*/
 	void UpdateSelectIndex();
 	void SelectMenu();
-	void FinishKeyInput();
 
 
 	void CreateServer();

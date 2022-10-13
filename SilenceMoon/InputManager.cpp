@@ -11,7 +11,7 @@
 #include <string>
 #include <sstream>
 
-InputManager::InputManager() :_changeFlag{ 0 }, _online{ 0 } {
+InputManager::InputManager() :_changeFlag{ 0 }, _online{ -1 } {
 
 	Init();
 }
@@ -82,10 +82,10 @@ void InputManager::InputUpdate() {
 		padno1 = DX_INPUT_KEY_PAD1;
 	}
 	for (auto&& key : _keyState) {
-		if (_online == 1 && key.PadNo == 1) {
+		if (_online == 0 && key.PadNo == 1) {
 			continue;
 		}
-		if (_online == 2 && key.PadNo == 0) {
+		if (_online == 1 && key.PadNo == 0) {
 			continue;
 		}
 		switch (key.PadNo) {
@@ -219,16 +219,20 @@ void InputManager::ChangeControllerNo() {
 }
 
 void InputManager::SetUDPData(int rawData[14]) {
-	_analogState[_online - 1].Value.x = rawData[1];
-	_analogState[_online - 1].Value.y = rawData[2];
+	int setplayer{ -1 };
+	if (_online == 0) {
+		setplayer = 1;
+	}
+	else if (_online == 1) {
+		setplayer = 0;
+	}
+	_analogState[setplayer].Value.x = rawData[1];
+	_analogState[setplayer].Value.y = rawData[2];
 	int i = 2;
 	for (auto&& key : _keyState) {
-		if (_online == 1 && key.PadNo == 0) {
+		if (key.PadNo != setplayer) {
 			continue;
-		}
-		if (_online == 2 && key.PadNo == 1) {
-			continue;
-		}
+	}
 		++i;
 		if (rawData[i] == 1) {
 			if (key.Hold == false) {
