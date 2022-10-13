@@ -14,8 +14,7 @@ ModeNetwork::ModeNetwork(Game& game, ModeBase& mode)
 	, _selectMAX{ 4 }
 	, _analogFlag{ false }
 	, _connectError{ false }
-	, _netTCPRecieveHandle{ -1 }
-	, _netTCPSendHandle{ -1 }
+	, _netTCPHandle{ -1 }
 	, _netUDPRecieveHandle{ -1 }
 	, _netUDPSendHandle{ -1 }
 	, _settingIPIndex{ 0 }
@@ -125,8 +124,7 @@ void ModeNetwork::Render() {
 
 void ModeNetwork::Debug() {
 	std::stringstream ss;
-	ss << "_netTCPRecieveHandle" << _netTCPSendHandle << "\n";
-	ss << "_netTCPRecieveHandle" << _netTCPRecieveHandle << "\n";
+	ss << "_netTCPHandle" << _netTCPHandle << "\n";
 	ss << "_netUDPSendHandle" << _netUDPSendHandle << "\n";
 	ss << "_netUDPRecieveHandle" << _netUDPRecieveHandle << "\n";
 	DxLib::DrawString(900, 100, ss.str().c_str(), GetColor(255, 255, 255));
@@ -189,10 +187,10 @@ void ModeNetwork::CreateServer() {
 }
 
 void ModeNetwork::JoinServer() {
-	_netTCPSendHandle = ConnectNetWork(_ip, _port);
-	if (_netTCPSendHandle != -1) {
+	_netTCPHandle = ConnectNetWork(_ip, _port);
+	if (_netTCPHandle != -1) {
 		int call{ 1234 };
-		NetWorkSend(_netTCPSendHandle, &call, 4);
+		NetWorkSend(_netTCPHandle, &call, 4);
 	}
 	int react{ 0 };
 	if (react != 0) {
@@ -222,17 +220,20 @@ void ModeNetwork::Back() {
 }
 
 void ModeNetwork::WaitAcceptNet() {
-	_netTCPRecieveHandle == GetNewAcceptNetWork();
-	if (_netTCPRecieveHandle != -1) {
+	int netTCPRecieveHandle{ -1 };
+	netTCPRecieveHandle == GetNewAcceptNetWork();
+	if (netTCPRecieveHandle != -1) {
+		_netTCPHandle == netTCPRecieveHandle;
 		StopListenNetWork();
-		GetNetWorkIP(_netTCPRecieveHandle, &_ip);
+		GetNetWorkIP(_netTCPHandle, &_ip);
 	}
-	if (_netTCPRecieveHandle != -1) {
-		_dataLength = GetNetWorkDataLength(_netTCPRecieveHandle);
+	if (_netTCPHandle != -1) {
+		_dataLength = GetNetWorkDataLength(_netTCPHandle);
 		if (_dataLength != 0) {
 			int react{ 0 };
-			NetWorkRecv(_netTCPRecieveHandle, &react, _dataLength);
+			NetWorkRecv(_netTCPHandle, &react, _dataLength);
 			if (react == 1234) {
+				_state = State::AcceptComplete;
 			}
 		}
 	}

@@ -51,7 +51,7 @@ private:
 	int _settingIPIndex;
 	std::array<int,4> _keyInputHandlesIP;
 	int _keyInputHandlePort;
-	int _netTCPRecieveHandle, _netTCPSendHandle;
+	int _netTCPHandle;
 	int _netUDPRecieveHandle,_netUDPSendHandle;
 	IPDATA _ip;
 	int _port;
