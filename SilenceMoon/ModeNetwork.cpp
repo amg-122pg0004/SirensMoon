@@ -227,9 +227,9 @@ void ModeNetwork::Back() {
 
 void ModeNetwork::WaitAcceptNet() {
 	int netTCPRecieveHandle{ -1 };
-	netTCPRecieveHandle == GetNewAcceptNetWork();
+	netTCPRecieveHandle = GetNewAcceptNetWork();
 	if (netTCPRecieveHandle != -1) {
-		_netTCPHandle == netTCPRecieveHandle;
+		_netTCPHandle = netTCPRecieveHandle;
 		StopListenNetWork();
 		GetNetWorkIP(_netTCPHandle, &_ip);
 		_game.GetInputManager()->SetOnline(0);
