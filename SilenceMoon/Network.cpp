@@ -69,10 +69,18 @@ void Network::RecieveData() {
 			else {
 				vRecieveData.insert(vRecieveData.begin(),recieveData.begin(), recieveData.end());
 			}
-			for (auto itr = vRecieveData.begin(); itr != vRecieveData.end(); ++itr) {
-				for (auto&& ahaveData : _rawDataRecieveBuffer) {
-					if (*itr->begin()== ahaveData[0]) {
-						itr = vRecieveData.erase(itr);
+			if (_rawDataRecieveBuffer.size() == 0) {
+				_rawDataRecieveBuffer = vRecieveData;
+			}
+			else {
+				for (auto itr = vRecieveData.begin(); itr != vRecieveData.end();) {
+					for (auto&& ahaveData : _rawDataRecieveBuffer) {
+						if (*itr->begin() == ahaveData[0]) {
+							itr = vRecieveData.erase(itr);
+						}
+						else {
+							++itr;
+						}
 					}
 				}
 			}
