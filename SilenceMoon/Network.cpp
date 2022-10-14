@@ -60,16 +60,23 @@ bool CompCountFrame(const std::array<int, 14>& a, const std::array<int, 14>& b)
 
 void Network::RecieveData() {
 	if (CheckNetWorkRecvUDP(_recieveUDPHandle)) {
-		std::vector<std::array<int, 14>> recieveData;
+		std::array<std::array<int, 14>,10> recieveData;
+		std::vector<std::array<int, 14>> vRecieveData;
 		if (NetWorkRecvUDP(_recieveUDPHandle, NULL, NULL, &recieveData, 14 * 4 * 10, FALSE)) {
-			for (auto itr = recieveData.begin(); itr != recieveData.end(); ++itr) {
+			if (recieveData.size() == 0) {
+				return;
+			}
+			else {
+				vRecieveData.insert(vRecieveData.begin(),recieveData.begin(), recieveData.end());
+			}
+			for (auto itr = vRecieveData.begin(); itr != vRecieveData.end(); ++itr) {
 				for (auto&& ahaveData : _rawDataRecieveBuffer) {
 					if (*itr->begin()== ahaveData[0]) {
-						itr = recieveData.erase(itr);
+						itr = vRecieveData.erase(itr);
 					}
 				}
 			}
-			_rawDataRecieveBuffer.insert(_rawDataRecieveBuffer.end(), recieveData.begin(), recieveData.end());
+			_rawDataRecieveBuffer.insert(_rawDataRecieveBuffer.end(), vRecieveData.begin(), vRecieveData.end());
 			std::sort(_rawDataRecieveBuffer.begin(), _rawDataRecieveBuffer.end(), CompCountFrame);
 			if (_reciveDataFrameCount == -1) {
 				_reciveDataFrameCount = *_rawDataRecieveBuffer.begin()->begin();
