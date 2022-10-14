@@ -119,9 +119,12 @@ void Network::Debug() {
 	if (_reciveError) {
 		DrawStringF(0, 500, "データ受け取りエラー", GetColor(255, 0, 0));
 	}
+	if (_rawDataRecieveBuffer[0].size()!=0) {
+		return;
+	}
 	std::stringstream ss;
 	for (auto data : _rawDataRecieveBuffer[0]) {
 		ss << data<<"\n";
 	}
-	DrawString(200,200,ss.str().c_str(),GetColor(255,255,255));
+	DrawString(200,500,ss.str().c_str(),GetColor(255,255,255));
 }

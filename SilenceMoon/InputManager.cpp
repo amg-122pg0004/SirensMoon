@@ -81,11 +81,10 @@ void InputManager::InputUpdate() {
 		padno0 = DX_INPUT_KEY_PAD1;
 		padno1 = DX_INPUT_KEY_PAD1;
 	}
+
+	int setplayer{ _online };
 	for (auto&& key : _keyState) {
-		if (_online == 0 && key.PadNo == 1) {
-			continue;
-		}
-		if (_online == 1 && key.PadNo == 0) {
+		if (key.PadNo != setplayer) {
 			continue;
 		}
 		switch (key.PadNo) {
@@ -135,7 +134,7 @@ void InputManager::InputUpdate() {
 	}
 
 	for (auto&& analog : _analogState) {
-		int InputX{0}, InputY{0};
+		int InputX{ 0 }, InputY{ 0 };
 		if (analog.PadNo == 0) {
 			GetJoypadAnalogInput(&InputX, &InputY, padno0);
 		}
@@ -167,6 +166,7 @@ bool InputManager::CheckInput(const std::string actionname, const char keystate,
 				break;
 			case 'r':
 				return key.Release;
+				break;
 			default:
 				return false;
 				break;
@@ -232,7 +232,7 @@ void InputManager::SetUDPData(std::array<int, 14> rawData) {
 	for (auto&& key : _keyState) {
 		if (key.PadNo != setplayer) {
 			continue;
-	}
+		}
 		++i;
 		if (rawData[i] == 1) {
 			if (key.Hold == false) {
@@ -253,6 +253,4 @@ void InputManager::SetUDPData(std::array<int, 14> rawData) {
 			key.Hold = false;
 		}
 	}
-
-
 }
