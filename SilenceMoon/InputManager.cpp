@@ -84,9 +84,12 @@ void InputManager::InputUpdate() {
 
 	int setplayer{ _online };
 	for (auto&& key : _keyState) {
-		if (key.PadNo != setplayer) {
-			continue;
+		if (setplayer != -1) {
+			if (key.PadNo != setplayer) {
+				continue;
+			}
 		}
+
 		switch (key.PadNo) {
 		case 0:
 			if (GetJoypadInputState(padno0) & key.KeyName) {

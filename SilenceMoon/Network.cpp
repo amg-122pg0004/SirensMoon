@@ -21,7 +21,7 @@ Network::Network(Game& game)
 
 }
 Network::~Network() {
-	DeleteUDPSocket(9850);
+	DeleteUDPSocket(_port);
 }
 
 void Network::Update() {
@@ -35,22 +35,22 @@ void Network::SendData() {
 	auto key = _inputManager->GetKeyState();
 
 	_rawDataSendBuffer[0][0] = _game.GetFrameCount();
-
+	int padno=_inputManager->GetOnlinePlayer();
 	for (auto&& value : analog) {
-		if (value.PadNo == 0) {
+		if (value.PadNo == padno) {
 			_rawDataSendBuffer[0][1] = value.Value.x;
 			_rawDataSendBuffer[0][2] = value.Value.y;
 		}
 	}
 	int i = 3;
 	for (auto&& value : key) {
-		if (value.PadNo == 0) {
+		if (value.PadNo == padno) {
 			_rawDataSendBuffer[0][i] = value.Hold;
 			++i;
 		}
 	}
 
-	NetWorkSendUDP(_sendUDPHandle, _ip, 9850, &_rawDataSendBuffer, 4 * 14 * 10);
+	NetWorkSendUDP(_sendUDPHandle, _ip, _port, &_rawDataSendBuffer, 4 * 14 * 10);
 }
 
 bool CompCountFrame(const std::array<int, 14>& a, const std::array<int, 14>& b)
@@ -117,14 +117,14 @@ void Network::RecieveData() {
 
 void Network::Debug() {
 	if (_reciveError) {
-		DrawStringF(0, 500, "データ受け取りエラー", GetColor(255, 0, 0));
+		DrawStringF(500, 0, "データ受け取りエラー", GetColor(255, 0, 0));
 	}
-	if (_rawDataRecieveBuffer[0].size()!=0) {
+	if (_rawDataRecieveBuffer[0].size()==0) {
 		return;
 	}
 	std::stringstream ss;
 	for (auto data : _rawDataRecieveBuffer[0]) {
 		ss << data<<"\n";
 	}
-	DrawString(200,500,ss.str().c_str(),GetColor(255,255,255));
+	DrawString(500,0,ss.str().c_str(),GetColor(255,255,255));
 }

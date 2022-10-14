@@ -63,6 +63,7 @@ class InputManager{
 		std::vector<AnalogInfo> GetAnalogState() { return _analogState; }
 
 		void SetUDPData(std::array<int,14> rawData);
+		int GetOnlinePlayer() { return _online; };
 private:
 
 	/*ゲーム内で使用する各アクションについての入力状態を保存する*/
