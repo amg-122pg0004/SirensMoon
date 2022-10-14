@@ -8,7 +8,11 @@
 #include "Game.h"
 
 Network::Network(Game& game)
-	:_game{ game }, _sendUDPHandle{ -1 }, _recieveUDPHandle{ -1 }
+	:_game{ game }
+	, _sendUDPHandle{ -1 }
+	, _recieveUDPHandle{ -1 }
+	, _reciveDataFrameCount{-1}
+	,_reciveError{false}
 {
 	for (int i = 0; i < _rawDataSendBuffer.size(); ++i) {
 		std::fill(_rawDataSendBuffer[i].begin(), _rawDataSendBuffer[i].end(), -1);
@@ -49,29 +53,48 @@ void Network::SendData() {
 	NetWorkSendUDP(_sendUDPHandle, _ip, 9850, &_rawDataSendBuffer, 4 * 14 * 10);
 }
 
+bool CompCountFrame(const std::array<int, 14>& a, const std::array<int, 14>& b)
+{
+	return a[0] < b[0];
+}
+
 void Network::RecieveData() {
 	if (CheckNetWorkRecvUDP(_recieveUDPHandle)) {
-		 std::array<std::array<int, 14>,10> recieveData;
+		std::vector<std::array<int, 14>> recieveData;
 		if (NetWorkRecvUDP(_recieveUDPHandle, NULL, NULL, &recieveData, 14 * 4 * 10, FALSE)) {
-			for (auto itr = recieveData.begin(); itr != recieveData.end();++itr) {
+			for (auto itr = recieveData.begin(); itr != recieveData.end(); ++itr) {
 				for (auto&& ahaveData : _rawDataRecieveBuffer) {
-					if (*itr[0] == ahaveData[0]) {
-						aInputData
+					if (*itr->begin()== ahaveData[0]) {
+						itr = recieveData.erase(itr);
 					}
 				}
 			}
+			_rawDataRecieveBuffer.insert(_rawDataRecieveBuffer.end(), recieveData.begin(), recieveData.end());
 			std::sort(_rawDataRecieveBuffer.begin(), _rawDataRecieveBuffer.end(), CompCountFrame);
-			_inputManager->SetUDPData(_rawDataRecieve);
+			if (_reciveDataFrameCount == -1) {
+				_reciveDataFrameCount = *_rawDataRecieveBuffer.begin()->begin();
+			}
+			else {
+				++_reciveDataFrameCount;
+			}
+			auto result = std::find_if(_rawDataRecieveBuffer.begin()
+				, _rawDataRecieveBuffer.end()
+				, [this](std::array<int, 14> data) {return data[0] == _reciveDataFrameCount; });
+			if (result != _rawDataRecieveBuffer.end()) {
+				_inputManager->SetUDPData(*result);
+				_reciveError = false;
 
+			}
+			else {
+				_reciveError = true;
+			}
+			_rawDataRecieveBuffer.erase(_rawDataRecieveBuffer.begin(), result);
 		}
 	}
 }
 
 void Network::Debug() {
-
-}
-
-bool CompCountFrame(const std::vector<int>& a, const std::vector<int>& b)
-{
-	return a[0] < b[0];
+	if (_reciveError) {
+		DrawStringF(0, 500, "データ受け取りエラー", GetColor(255, 0, 0));
+	}
 }

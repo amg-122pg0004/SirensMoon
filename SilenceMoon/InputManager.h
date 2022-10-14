@@ -9,6 +9,7 @@
 #include "Math.h"
 #include <vector>
 #include <string>
+#include <array>
 
 class InputManager{
 
@@ -61,7 +62,7 @@ class InputManager{
 		std::vector<KeyInfo> GetKeyState() { return _keyState; }
 		std::vector<AnalogInfo> GetAnalogState() { return _analogState; }
 
-		void SetUDPData(int rawData[14]);
+		void SetUDPData(std::array<int,14> rawData);
 private:
 
 	/*ゲーム内で使用する各アクションについての入力状態を保存する*/

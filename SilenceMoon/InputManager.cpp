@@ -218,7 +218,7 @@ void InputManager::ChangeControllerNo() {
 	}
 }
 
-void InputManager::SetUDPData(int rawData[14]) {
+void InputManager::SetUDPData(std::array<int, 14> rawData) {
 	int setplayer{ -1 };
 	if (_online == 0) {
 		setplayer = 1;

@@ -36,4 +36,6 @@ private:
 	int _sendUDPHandle, _recieveUDPHandle;
 	int _dataLength;
 
+	int _reciveDataFrameCount;//受け取ったデータで使用しているフレームカウント
+	bool _reciveError;//<エラーメッセージ用
 };
