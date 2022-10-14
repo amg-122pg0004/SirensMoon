@@ -11,8 +11,8 @@ Network::Network(Game& game)
 	:_game{ game }
 	, _sendUDPHandle{ -1 }
 	, _recieveUDPHandle{ -1 }
-	, _reciveDataFrameCount{-1}
-	,_reciveError{false}
+	, _reciveDataFrameCount{ -1 }
+	, _reciveError{ false }
 {
 	for (int i = 0; i < _rawDataSendBuffer.size(); ++i) {
 		std::fill(_rawDataSendBuffer[i].begin(), _rawDataSendBuffer[i].end(), -1);
@@ -60,21 +60,21 @@ bool CompCountFrame(const std::array<int, 14>& a, const std::array<int, 14>& b)
 
 void Network::RecieveData() {
 	if (CheckNetWorkRecvUDP(_recieveUDPHandle)) {
-		std::array<std::array<int, 14>,10> recieveData;
+		std::array<std::array<int, 14>, 10> recieveData;
 		std::vector<std::array<int, 14>> vRecieveData;
 		if (NetWorkRecvUDP(_recieveUDPHandle, NULL, NULL, &recieveData, 14 * 4 * 10, FALSE)) {
 			if (recieveData.size() == 0) {
 				return;
 			}
 			else {
-				vRecieveData.insert(vRecieveData.begin(),recieveData.begin(), recieveData.end());
+				vRecieveData.insert(vRecieveData.begin(), recieveData.begin(), recieveData.end());
 			}
 			if (_rawDataRecieveBuffer.size() == 0) {
 				_rawDataRecieveBuffer = vRecieveData;
 			}
 			else {
-				for (auto itr = vRecieveData.begin(); itr != vRecieveData.end();) {
-					for (auto&& ahaveData : _rawDataRecieveBuffer) {
+				for (auto&& ahaveData : _rawDataRecieveBuffer) {
+					for (auto itr = vRecieveData.begin(); itr != vRecieveData.end();) {
 						if (*itr->begin() == ahaveData[0]) {
 							itr = vRecieveData.erase(itr);
 						}
@@ -94,7 +94,14 @@ void Network::RecieveData() {
 			}
 			auto result = std::find_if(_rawDataRecieveBuffer.begin()
 				, _rawDataRecieveBuffer.end()
-				, [this](std::array<int, 14> data) {return data[0] == _reciveDataFrameCount; });
+				, [this](std::array<int, 14> data) {
+					if (_reciveDataFrameCount == -1) {
+						return data[0] != -1;
+					}
+					else {
+						return data[0] == _reciveDataFrameCount;
+					}
+				});
 			if (result != _rawDataRecieveBuffer.end()) {
 				_inputManager->SetUDPData(*result);
 				_reciveError = false;
@@ -112,4 +119,9 @@ void Network::Debug() {
 	if (_reciveError) {
 		DrawStringF(0, 500, "データ受け取りエラー", GetColor(255, 0, 0));
 	}
+	std::stringstream ss;
+	for (auto data : _rawDataRecieveBuffer[0]) {
+		ss << data<<"\n";
+	}
+	DrawString(200,200,ss.str().c_str(),GetColor(255,255,255));
 }

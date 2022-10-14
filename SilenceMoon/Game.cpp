@@ -71,6 +71,10 @@ void Game::Debug() {
 		_modeServer->Debug();
 		DrawFormatString(0, 0, GetColor(255, 255, 255), "%f", GetFPS());
 		DrawFormatString(0, 12, GetColor(255, 255, 255), "%d", GetASyncLoadNum());
+		if (_network != nullptr) {
+			_network->Debug();
+		}
+
 #ifdef _DEBUG
 		_inputManager->Render();
 #endif 
