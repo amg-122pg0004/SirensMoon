@@ -18,17 +18,13 @@ ModeNetwork::ModeNetwork(Game& game, ModeBase& mode)
 	, _netUDPRecieveHandle{ -1 }
 	, _netUDPSendHandle{ -1 }
 	, _settingIPIndex{ 0 }
-	, _keyInputHandlesIP{ -1,-1,-1,-1 }
+	, _keyInputHandleIP{ -1 }
 	, _keyInputHandlePort{ -1 }
 	, _dataLength{ 0 }
 {
 	_font = CreateFontToHandle("OPTION", 52, 10, DX_FONTTYPE_EDGE);
 	_preWindow.SetStopUpdate(true);
 	_renderPriority = 10;
-	for (auto&& handle : _keyInputHandlesIP) {
-		handle = MakeKeyInput(3, true, false, true);
-	}
-	_keyInputHandlePort = MakeKeyInput(5, true, false, true);
 }
 
 ModeNetwork::~ModeNetwork() {
@@ -104,17 +100,7 @@ void ModeNetwork::Render() {
 	}
 	if (_state == State::SettingIP) {
 		DrawKeyInputModeString(0, 0);
-		for (int i = 0; i < _keyInputHandlesIP.size(); ++i) {
-			DrawKeyInputString(50 * i, 50, _keyInputHandlesIP[i]);
-			int number{ 0 };
-			number = GetKeyInputNumber(_keyInputHandlesIP[i]);
-			DrawStringToHandle(100
-				, 900 + 100 * i
-				, "" + number
-				, GetColor(255, 255, 255)
-				, _font);
-		}
-
+		DrawKeyInputString(0, 50, _keyInputHandleIP);
 	}
 	if (_state == State::SettingPort) {
 		DrawKeyInputModeString(0, 0);
@@ -127,6 +113,9 @@ void ModeNetwork::Debug() {
 	ss << "_netTCPHandle" << _netTCPHandle << "\n";
 	ss << "_netUDPSendHandle" << _netUDPSendHandle << "\n";
 	ss << "_netUDPRecieveHandle" << _netUDPRecieveHandle << "\n";
+	ss << "入力ポートハンドル" << _keyInputHandlePort << "\n";
+	ss << "入力ポートデータ" << GetKeyInputNumber(_keyInputHandlePort) << "\n";
+
 	DxLib::DrawString(900, 100, ss.str().c_str(), GetColor(255, 255, 255));
 }
 
@@ -197,15 +186,13 @@ void ModeNetwork::JoinServer() {
 void ModeNetwork::SettingIP() {
 	_state = State::SettingIP;
 	_settingIPIndex = 0;
-	for (auto&& handle : _keyInputHandlesIP) {
-		DeleteKeyInput(handle);
-	}
-	SetActiveKeyInput(_keyInputHandlesIP[_settingIPIndex]);
+	_keyInputHandleIP = MakeKeyInput(3, false, false, true);
+	SetActiveKeyInput(_keyInputHandleIP);
 }
 
 void ModeNetwork::SettingPort() {
 	_state = State::SettingPort;
-	DeleteKeyInput(_keyInputHandlePort);
+	_keyInputHandlePort = MakeKeyInput(5, false, false, true);
 	SetActiveKeyInput(_keyInputHandlePort);
 }
 
@@ -226,7 +213,6 @@ void ModeNetwork::WaitAcceptNet() {
 }
 
 void ModeNetwork::StartGame() {
-	
 	_game.StartNetwork();
 	_game.GetNetwork()->SetIP(_ip);
 	_game.GetNetwork()->SetPortNo(_port);
@@ -238,8 +224,8 @@ void ModeNetwork::StartGame() {
 }
 
 void ModeNetwork::ActiveInputIP() {
-	if (CheckKeyInput(_keyInputHandlesIP[_settingIPIndex]) == 1) {
-		int ip = GetKeyInputNumber(_keyInputHandlesIP[_settingIPIndex]);
+	if (CheckKeyInput(_keyInputHandleIP) == 1) {
+		int ip = GetKeyInputNumber(_keyInputHandleIP);
 		switch (_settingIPIndex) {
 		case(0):
 			_ip.d1 = ip;
@@ -254,10 +240,14 @@ void ModeNetwork::ActiveInputIP() {
 			_ip.d4 = ip;
 			break;
 		}
-
+		DeleteKeyInput(_keyInputHandleIP);
 		if (_settingIPIndex < 3) {
 			++_settingIPIndex;
-			SetActiveKeyInput(_keyInputHandlesIP[_settingIPIndex]);
+			_keyInputHandleIP = MakeKeyInput(3, false, false, true);
+			SetActiveKeyInput(_keyInputHandleIP);
+		}
+		else {
+			_state == State::NotTryConnect;
 		}
 	}
 }
@@ -265,5 +255,6 @@ void ModeNetwork::ActiveInputIP() {
 void ModeNetwork::ActiveInputPort() {
 	if (CheckKeyInput(_keyInputHandlePort) == 1) {
 		_port = GetKeyInputNumber(_keyInputHandlePort);
+		DeleteKeyInput(_keyInputHandlePort);
 	}
 }

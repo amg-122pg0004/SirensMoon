@@ -71,15 +71,15 @@ void InputManager::InputUpdate() {
 	int padno0 = -1, padno1 = -1;
 	if (_changeFlag) {
 		padno0 = DX_INPUT_PAD2;
-		padno1 = DX_INPUT_KEY_PAD1;
+		padno1 = DX_INPUT_PAD1;
 	}
 	else {
-		padno0 = DX_INPUT_KEY_PAD1;
+		padno0 = DX_INPUT_PAD1;
 		padno1 = DX_INPUT_PAD2;
 	}
 	if (_online != -1) {
-		padno0 = DX_INPUT_KEY_PAD1;
-		padno1 = DX_INPUT_KEY_PAD1;
+		padno0 = DX_INPUT_PAD1;
+		padno1 = DX_INPUT_PAD1;
 	}
 
 	int setplayer{ _online };

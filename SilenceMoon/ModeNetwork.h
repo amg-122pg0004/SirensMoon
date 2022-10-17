@@ -48,7 +48,7 @@ private:
 	int _selectMAX;
 
 	int _settingIPIndex;
-	std::array<int,4> _keyInputHandlesIP;
+	int _keyInputHandleIP;
 	int _keyInputHandlePort;
 	int _netTCPHandle;
 	int _netUDPRecieveHandle,_netUDPSendHandle;
