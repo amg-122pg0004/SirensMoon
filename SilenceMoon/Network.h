@@ -9,10 +9,10 @@ class Network {
 public:
 	Network(Game& game);
 	~Network();
-	void Update();
+	void Input();
 	void Debug();
-	void SendData();
-	void RecieveData();
+	void SendInputData();
+	void RecieveInputData();
 
 	void SetIP(IPDATA ip) { _ip = ip; }
 	void SetPortNo(int port) { _port = port; }

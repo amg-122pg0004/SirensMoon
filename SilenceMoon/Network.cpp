@@ -24,12 +24,12 @@ Network::~Network() {
 	DeleteUDPSocket(_port);
 }
 
-void Network::Update() {
-	SendData();
-	RecieveData();
+void Network::Input() {
+	SendInputData();
+	RecieveInputData();
 }
 
-void Network::SendData() {
+void Network::SendInputData() {
 	std::rotate(_rawDataSendBuffer.rbegin(), _rawDataSendBuffer.rbegin() + 1, _rawDataSendBuffer.rend());
 	auto analog = _inputManager->GetAnalogState();
 	auto key = _inputManager->GetKeyState();
@@ -58,7 +58,7 @@ bool CompCountFrame(const std::array<int, 14>& a, const std::array<int, 14>& b)
 	return a[0] < b[0];
 }
 
-void Network::RecieveData() {
+void Network::RecieveInputData() {
 	if (CheckNetWorkRecvUDP(_recieveUDPHandle)) {
 		std::array<std::array<int, 14>, 10> recieveData;
 		std::vector<std::array<int, 14>> vRecieveData;

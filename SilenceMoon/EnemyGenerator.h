@@ -26,9 +26,9 @@ public:
 	/*配列からEnemyPatternを順番に返し、返した値は配列から削除*/
 	EnemyPattern GetEnemyVIPPattern();
 	/*配列からEnemyPatternを順番に返す*/
-	int* GetEnemyALLPatternArray();
+	int* GetEnemyALLPatternArray() ;
 	/*_enemyAllPatternをセット*/
-	void SetEnemyA();
+	void SetEnemyALLPatternArray(int data[255]);
 
 private:
 	/*各部最大何通り存在するか*/

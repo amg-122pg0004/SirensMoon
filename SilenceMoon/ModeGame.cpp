@@ -57,14 +57,15 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 	/*オンラインで1Pなら情報送信、2Pなら情報受け取り待ち*/
 	if (_game.GetNetwork() != nullptr) {
 		if (_game.GetOnlineNo() == 0) {
-			_game.GetNetwork()->SendTCPData(&enemygen);
+			
+			_game.GetNetwork()->SendTCPData(enemygen->GetEnemyALLPatternArray());
 		}
 		else {
 			while (1) {
 				int data{ -1 };
 				auto revcieveData = _game.GetNetwork()->RecieveTCPData();
 				if (revcieveData != nullptr) {
-					enemygen = static_cast<EnemyGenerator>(&revcieveData);
+					enemygen->SetEnemyALLPatternArray(static_cast<int*>(revcieveData));
 					break;
 				}
 			}
