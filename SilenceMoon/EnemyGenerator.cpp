@@ -54,3 +54,15 @@ EnemyGenerator::EnemyPattern EnemyGenerator::GetEnemyPattern(){
 	}
 	return pattern;
 }
+
+int* EnemyGenerator::GetEnemyALLPatternArray() {
+	int size=_enemyAllPattern.size();
+	[225]
+	for (int i = 0; i < size; ++i {
+
+	}
+}
+
+void EnemyGenerator::SetEnemyALLPatternArray(){
+
+}

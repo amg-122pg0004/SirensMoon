@@ -181,6 +181,7 @@ void ModeNetwork::JoinServer() {
 	_game.GetInputManager()->SetOnline(1);
 	_netUDPRecieveHandle = MakeUDPSocket(_port);
 	_netUDPSendHandle = MakeUDPSocket(-1);
+	_game.SetOnlineNo(1);
 }
 
 void ModeNetwork::SettingIP() {
@@ -209,6 +210,7 @@ void ModeNetwork::WaitAcceptNet() {
 		GetNetWorkIP(_netTCPHandle, &_ip);
 		_game.GetInputManager()->SetOnline(0);
 		_state = State::AcceptComplete;
+		_game.SetOnlineNo(0);
 	}
 }
 

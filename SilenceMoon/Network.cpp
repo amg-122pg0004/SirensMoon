@@ -128,3 +128,18 @@ void Network::Debug() {
 	}
 	DrawString(500,0,ss.str().c_str(),GetColor(255,255,255));
 }
+
+void Network::SendTCPData(void* sendData){
+	NetWorkSend(_netTCPHandle, &sendData, sizeof(sendData));
+}
+
+void* Network::RecieveTCPData(){
+	int dataLength = GetNetWorkDataLength(_netTCPHandle);
+	if (dataLength != 0) {
+		void* Data{nullptr};
+		if (NetWorkRecv(_netTCPHandle, Data, dataLength) == 0) {
+			return Data;
+		}
+	}
+	return nullptr;
+}

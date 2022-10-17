@@ -19,6 +19,9 @@ public:
 	void SetNetTCPHandle(int tcp) { _netTCPHandle = tcp; }
 	void SetSendUDPHandle(int sendUDP) { _sendUDPHandle = sendUDP; }
 	void SetRecieveUDPHandle(int recieveUDP) { _recieveUDPHandle = recieveUDP; }
+
+	void SendTCPData(void* sendData);
+	void* RecieveTCPData();
 private:
 	/**
 	フレームデータ 1
@@ -34,7 +37,6 @@ private:
 	int _port;
 	int _netTCPHandle;
 	int _sendUDPHandle, _recieveUDPHandle;
-	int _dataLength;
 
 	int _reciveDataFrameCount;//受け取ったデータで使用しているフレームカウント
 	bool _reciveError;//<エラーメッセージ用

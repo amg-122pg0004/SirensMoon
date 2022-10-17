@@ -28,6 +28,7 @@
 #include "SwitchArea.h"
 #include "ScreenPump.h"
 #include "Barrier.h"
+#include "Network.h"
 
 ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPattern pattern, std::string bgm)
 	:ModeBase{ game },  _bgm{ bgm }, _clearDelay{ 240 }, _clear{ false }
@@ -53,6 +54,22 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 
 	/*各部2種で敵ランダム生成*/
 	auto enemygen = std::make_unique<EnemyGenerator>(pattern);
+	/*オンラインで1Pなら情報送信、2Pなら情報受け取り待ち*/
+	if (_game.GetNetwork() != nullptr) {
+		if (_game.GetOnlineNo() == 0) {
+			_game.GetNetwork()->SendTCPData(&enemygen);
+		}
+		else {
+			while (1) {
+				int data{ -1 };
+				auto revcieveData = _game.GetNetwork()->RecieveTCPData();
+				if (revcieveData != nullptr) {
+					enemygen = static_cast<EnemyGenerator>(&revcieveData);
+					break;
+				}
+			}
+		}
+	}
 
 	auto serverdata = _mapChips->GetServerData();
 	for (auto&& data : serverdata) {

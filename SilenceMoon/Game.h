@@ -74,6 +74,8 @@ public:
 	void StartNetwork();
 
 	std::unique_ptr<Network>& GetNetwork() { return _network; }
+	void SetOnlineNo(int no) { _online = no; }
+	int GetOnlineNo() { return _online ; }
 private:
 	int _font22, _font26;
 	std::shared_ptr<InputManager> _inputManager;
@@ -82,5 +84,5 @@ private:
 	int _frameCount;
 	bool _debug;
 	Progress _progress;
-	
+	int _online;
 };

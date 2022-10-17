@@ -18,6 +18,7 @@ Game::Game()
 	:_frameCount{ 0 }
 	, _progress{ Progress::StartMenu }
 	, _network{ nullptr }
+	, _online{-1}
 {
 	_modeServer = std::make_unique<ModeServer>(*this);
 	_inputManager = std::make_unique<InputManager>();
