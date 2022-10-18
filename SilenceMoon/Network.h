@@ -1,6 +1,7 @@
 #pragma once
 #include "DxLib.h"
 #include "InputManager.h"
+#include "NetDataStructs.h"
 #include <memory>
 #include <array>
 class Game;
@@ -23,25 +24,9 @@ public:
 	void SetSendUDPHandle(int sendUDP) { _sendUDPHandle = sendUDP; }
 	void SetRecieveUDPHandle(int recieveUDP) { _recieveUDPHandle = recieveUDP; }
 
-	void SendTCPData(void* sendData);
+	void SendTCPData(DataType type,void* sendData);
 	void* RecieveTCPData();
 
-	enum class DataType {
-		EnemyGenerate,
-		PlayerPosition,
-		TakeDamage,
-		KillEnemy,
-		RespawnEnemy,
-		ShootBullet,
-		ActivateGimmick
-	};
-	struct NetworkDataBase {
-		DataType type;
-		int length;
-	};
-	struct  EnemyGenerateData:public NetworkDataBase {
-
-	};
 private:
 	/**
 	フレームデータ 1

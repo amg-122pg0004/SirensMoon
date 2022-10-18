@@ -323,6 +323,9 @@
     <ClCompile Include="ModeNetwork.cpp">
       <Filter>Mode\ModeNetwork</Filter>
     </ClCompile>
+    <ClCompile Include="NetDataStructs.cpp">
+      <Filter>Utillity\NetDataStructs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h">
@@ -648,6 +651,9 @@
     </ClInclude>
     <ClInclude Include="ModeNetwork.h">
       <Filter>Mode\ModeNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="NetDataStructs.h">
+      <Filter>Utillity\NetDataStructs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -983,6 +989,9 @@
     </Filter>
     <Filter Include="Mode\ModeNetwork">
       <UniqueIdentifier>{b40a7aac-1daf-4db6-a03a-a920a7672f37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utillity\NetDataStructs">
+      <UniqueIdentifier>{090b9bb2-42f9-4ac6-b95c-0564a958d3d8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

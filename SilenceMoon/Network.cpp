@@ -133,7 +133,32 @@ void Network::Debug() {
 	DrawString(500,0,ss.str().c_str(),GetColor(255,255,255));
 }
 
-void Network::SendTCPData(void* sendData){
+void Network::SendTCPData(DataType type, void* sendData){
+	switch (type)
+	{
+	case DataType::EnemyGenerate:
+		EnemyGenerateData data;
+		data.type = type;
+		data.length = sizeof(data); 
+		int* p = static_cast<int*>(sendData);
+		data.data = &p;
+		break;
+	case DataType::PlayerPosition:
+		break;
+	case DataType::TakeDamage:
+		break;
+	case DataType::KillEnemy:
+		break;
+	case DataType::RespawnEnemy:
+		break;
+	case DataType::ShootBullet:
+		break;
+	case DataType::ActivateGimmick:
+		break;
+	default:
+		break;
+	}
+
 	NetWorkSend(_netTCPHandle, &sendData, sizeof(sendData));
 }
 
