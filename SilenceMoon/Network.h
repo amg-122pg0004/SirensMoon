@@ -10,9 +10,12 @@ public:
 	Network(Game& game);
 	~Network();
 	void Input();
+	void Update();
 	void Debug();
 	void SendInputData();
 	void RecieveInputData();
+	void SendUpdateData();
+	void RecieveUpdateData();
 
 	void SetIP(IPDATA ip) { _ip = ip; }
 	void SetPortNo(int port) { _port = port; }
@@ -22,6 +25,23 @@ public:
 
 	void SendTCPData(void* sendData);
 	void* RecieveTCPData();
+
+	enum class DataType {
+		EnemyGenerate,
+		PlayerPosition,
+		TakeDamage,
+		KillEnemy,
+		RespawnEnemy,
+		ShootBullet,
+		ActivateGimmick
+	};
+	struct NetworkDataBase {
+		DataType type;
+		int length;
+	};
+	struct  EnemyGenerateData:public NetworkDataBase {
+
+	};
 private:
 	/**
 	フレームデータ 1
@@ -40,4 +60,6 @@ private:
 
 	int _reciveDataFrameCount;//受け取ったデータで使用しているフレームカウント
 	bool _reciveError;//<エラーメッセージ用
+
+
 };

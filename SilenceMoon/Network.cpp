@@ -28,6 +28,10 @@ void Network::Input() {
 	SendInputData();
 	RecieveInputData();
 }
+void Network::Update() {
+	SendUpdateData();
+	RecieveUpdateData();
+}
 
 void Network::SendInputData() {
 	std::rotate(_rawDataSendBuffer.rbegin(), _rawDataSendBuffer.rbegin() + 1, _rawDataSendBuffer.rend());
@@ -142,4 +146,12 @@ void* Network::RecieveTCPData(){
 		}
 	}
 	return nullptr;
+}
+
+void Network::SendUpdateData() {
+
+}
+
+void Network::RecieveUpdateData(){
+
 }
