@@ -108,10 +108,6 @@ void ServerMachine::SpawnEnemyVIP() {
 	ModeGame& mode = dynamic_cast<ModeGame&>(_mode);
 	auto vipdata = mode.GetMapChips()->GetPatrolPointsVIP();
 
-	if (vipdata.size() < 4) {
-		return;
-	}
-
 	std::random_device seed_gen;
 	std::mt19937 engine(seed_gen());
 	std::shuffle(vipdata.begin(), vipdata.end(), engine);
