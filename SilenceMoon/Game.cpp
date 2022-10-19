@@ -148,6 +148,7 @@ void Game::PlayStartUp2() {
 }
 
 void Game::PlayStartUp3() {
+	_modeServer->Clear();
 	SoundServer::StopALLSound();
 	_progress = Progress::StartUp3;
 	StopSoundFile();
