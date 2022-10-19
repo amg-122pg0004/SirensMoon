@@ -671,49 +671,6 @@
                  "y":3930
                 }, 
                 {
-                 "class":"EnemyB",
-                 "gid":3,
-                 "height":30,
-                 "id":2009,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"Direction1",
-                         "type":"int",
-                         "value":180
-                        }, 
-                        {
-                         "name":"FindTime",
-                         "type":"int",
-                         "value":120
-                        }, 
-                        {
-                         "name":"LookTime1",
-                         "type":"int",
-                         "value":120
-                        }, 
-                        {
-                         "name":"LookTime2",
-                         "type":"int",
-                         "value":120
-                        }, 
-                        {
-                         "name":"Sight_H",
-                         "type":"int",
-                         "value":120
-                        }, 
-                        {
-                         "name":"Sight_W",
-                         "type":"int",
-                         "value":230
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":30,
-                 "x":1590,
-                 "y":3930
-                }, 
-                {
                  "class":"",
                  "height":0,
                  "id":2091,
@@ -3012,7 +2969,6 @@
                         }, 
                         {
                          "name":"Player",
-                         "propertytype":"PlayerList",
                          "type":"int",
                          "value":1
                         }],
@@ -3036,7 +2992,6 @@
                         }, 
                         {
                          "name":"Player",
-                         "propertytype":"PlayerList",
                          "type":"int",
                          "value":2
                         }],
@@ -4108,8 +4063,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":30,
-                 "x":1140,
-                 "y":3870
+                 "x":240,
+                 "y":4170
                 }, 
                 {
                  "class":"",
@@ -4145,42 +4100,6 @@
                  "width":30,
                  "x":3150,
                  "y":3510
-                }, 
-                {
-                 "class":"",
-                 "gid":1110,
-                 "height":30,
-                 "id":2123,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"Message",
-                         "type":"string",
-                         "value":"\u5de6\u30b9\u30c6\u30a3\u30c3\u30af\u3000\u79fb\u52d5"
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":30,
-                 "x":690,
-                 "y":3990
-                }, 
-                {
-                 "class":"",
-                 "gid":1110,
-                 "height":30,
-                 "id":2125,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"Message",
-                         "type":"string",
-                         "value":"\u5de6\u30b9\u30c6\u30a3\u30c3\u30af\u3000\u79fb\u52d5"
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":30,
-                 "x":240,
-                 "y":3990
                 }, 
                 {
                  "class":"",
@@ -4370,6 +4289,47 @@
                  "width":30,
                  "x":2580,
                  "y":3570
+                }, 
+                {
+                 "class":"",
+                 "gid":1110,
+                 "height":30,
+                 "id":2249,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"Message",
+                         "type":"string",
+                         "value":"X\u30dc\u30bf\u30f3\u3000\u30ec\u30fc\u30eb\u30ac\u30f3\u3092\u30c1\u30e3\u30fc\u30b8\nA\u30dc\u30bf\u30f3\u3000\u30ad\u30e3\u30f3\u30bb\u30eb"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":660,
+                 "y":4170
+                }, 
+                {
+                 "class":"",
+                 "gid":1110,
+                 "height":30,
+                 "id":2250,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"Image",
+                         "type":"string",
+                         "value":""
+                        }, 
+                        {
+                         "name":"Message",
+                         "type":"string",
+                         "value":"X\u30dc\u30bf\u30f3\u3000\u30df\u30cb\u30de\u30c3\u30d7\u3092\u958b\u304f"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":30,
+                 "x":1170,
+                 "y":3930
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -5416,12 +5376,12 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }],
  "nextlayerid":29,
- "nextobjectid":2249,
+ "nextobjectid":2251,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.0",

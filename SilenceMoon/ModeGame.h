@@ -29,6 +29,7 @@ public:
 
 	inline  auto& GetMapChips() { return _mapChips; }
 	inline auto& GetSplitWindow() { return _splitWindow; }
+	bool GetStopActorServer() { return _stopActorUpdate; }
 
 	void SetPauseGame(bool flag);
 	void StageClearCheck();
@@ -37,6 +38,7 @@ public:
 	void TargetSpawnEvent();
 	void TargetKillEvent();
 	void PlayBGM();
+	
 
 private:
 	bool _stopActorUpdate;

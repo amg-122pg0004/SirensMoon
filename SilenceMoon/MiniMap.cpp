@@ -42,7 +42,9 @@ MiniMap::~MiniMap() {
 }
 
 void MiniMap::Update() {
-
+	if (static_cast<ModeGame&>(_mode).GetStopActorServer()) {
+		return;
+	}
 	if (_inputManager->CheckInput("ACTION", 'h', 1)) {
 		StartJoypadVibration(DX_INPUT_PAD2, 50, 50, -1);
 		if (!_visible) {
