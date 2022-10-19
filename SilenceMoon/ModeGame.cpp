@@ -58,7 +58,7 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 	if (_game.GetNetwork() != nullptr) {
 		if (_game.GetOnlineNo() == 0) {
 			
-			_game.GetNetwork()->SendTCPData(enemygen->GetEnemyALLPatternArray());
+			//_game.GetNetwork()->SendTCPData(enemygen->GetEnemyALLPatternArray());
 		}
 		else {
 			while (1) {

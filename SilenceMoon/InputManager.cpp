@@ -13,139 +13,28 @@
 
 InputManager::InputManager() :_changeFlag{ 0 }, _online{ -1 } {
 
-	Init();
-}
-
-void InputManager::Init() {
-	_keyState.clear();
-	_connectNumber = GetJoypadNum();
-	std::vector<KeyInfo> keys;
-	for (int i = 0; i < 2; ++i) {
-		/*InputState 1はDX_INPUT_PAD1,2はDX_INPUT_PAD2,*/
-		if (CheckJoypadXInput(i + 1)) {
-			/*XInput用のキーコンフィグ*/
-			keys = {
-			{ "UP",PAD_INPUT_UP,false,false,false,i },
-			{ "DOWN",PAD_INPUT_DOWN,false,false,false,i },
-			{ "LEFT",PAD_INPUT_LEFT,false,false,false,i },
-			{ "RIGHT",PAD_INPUT_RIGHT,false,false,false,i },
-			{ "ACTION",PAD_INPUT_3,false,false,false,i },
-			{ "PAUSE",PAD_INPUT_8,false,false,false,i },
-			{ "CHANGE",PAD_INPUT_10,false,false,false,i },
-			{ "ACCESS",PAD_INPUT_1,false,false,false,i },
-			{ "DEBUG",PAD_INPUT_7,false,false,false,i },
-			{ "BULLET1",PAD_INPUT_5,false,false,false,i },
-			{ "BULLET2",PAD_INPUT_6,false,false,false,i }
-			};
-		}
-		else {
-			/*DirectInput用のキーコンフィグ*/
-			keys = {
-			{"UP", PAD_INPUT_UP, false, false, false, i},
-			{ "DOWN",PAD_INPUT_DOWN,false,false,false,i },
-			{ "LEFT",PAD_INPUT_LEFT,false,false,false,i },
-			{ "RIGHT",PAD_INPUT_RIGHT,false,false,false,i },
-			{ "ACTION",PAD_INPUT_1,false,false,false,i },
-			{ "PAUSE",PAD_INPUT_12,false,false,false,i },
-			{ "CHANGE",PAD_INPUT_13,false,false,false,i },
-			{ "ACCESS",PAD_INPUT_3,false,false,false,i },
-			{ "DEBUG",PAD_INPUT_11,false,false,false,i },
-			{ "BULLET1",PAD_INPUT_5,false,false,false,i },
-			{ "BULLET2",PAD_INPUT_6,false,false,false,i }
-			};
-		}
-		_keyState.insert(_keyState.end(), keys.begin(), keys.end());
-	}
-	_analogState = {
-		{{0,0},0},
-		{{0,0},1}
-	};
+	InitConfig();//追加版
 }
 
 /**@brief 使用する各キーについてインプット状態を確認して保存 */
 void InputManager::InputUpdate() {
-	if (_connectNumber != GetJoypadNum()) {
-		Init();
-	}
-
-	int padno0 = -1, padno1 = -1;
-	if (_changeFlag) {
-		padno0 = DX_INPUT_PAD2;
-		padno1 = DX_INPUT_PAD1;
-	}
-	else {
-		padno0 = DX_INPUT_PAD1;
-		padno1 = DX_INPUT_PAD2;
-	}
-	if (_online != -1) {
-		padno0 = DX_INPUT_PAD1;
-		padno1 = DX_INPUT_PAD1;
-	}
-
-	int setplayer{ _online };
-	for (auto&& key : _keyState) {
-		if (setplayer != -1) {
-			if (key.PadNo != setplayer) {
-				continue;
-			}
+	if (_online == -1) {
+		if (_changeFlag) {
+			InputUpdatePlayer0(DX_INPUT_PAD2);
+			InputUpdatePlayer1(DX_INPUT_PAD1);
 		}
-
-		switch (key.PadNo) {
-		case 0:
-			if (GetJoypadInputState(padno0) & key.KeyName) {
-				if (key.Hold == false) {
-					key.Trigger = true;
-				}
-				else {
-					key.Trigger = false;
-				}
-				key.Hold = true;
-
-				continue;
-			}
-			else if (key.Hold == true) {
-				key.Release = true;
-				key.Hold = false;
-				key.Trigger = false;
-				continue;
-			}
-			break;
-		case 1:
-			if (GetJoypadInputState(padno1) & key.KeyName) {
-				if (key.Hold == false) {
-					key.Trigger = true;
-				}
-				else {
-					key.Trigger = false;
-				}
-				key.Hold = true;
-				continue;
-			}
-			else if (key.Hold == true) {
-				key.Release = true;
-				key.Hold = false;
-				key.Trigger = false;
-				continue;
-			}
-			break;
-		default:
-			break;
+		else {
+			InputUpdatePlayer0(DX_INPUT_PAD1);
+			InputUpdatePlayer1(DX_INPUT_PAD2);
 		}
-		key.Trigger = false;
-		key.Hold = false;
-		key.Release = false;
+	}
+	else if (_online == 0) {
+		InputUpdatePlayer0(DX_INPUT_PAD1);
+	}
+	else if (_online == 1) {
+		InputUpdatePlayer1(DX_INPUT_PAD1);
 	}
 
-	for (auto&& analog : _analogState) {
-		int InputX{ 0 }, InputY{ 0 };
-		if (analog.PadNo == 0) {
-			GetJoypadAnalogInput(&InputX, &InputY, padno0);
-		}
-		else if (analog.PadNo == 1) {
-			GetJoypadAnalogInput(&InputX, &InputY, padno1);
-		}
-		analog.Value = { static_cast<double>(InputX),static_cast<double>(InputY) };
-	}
 }
 
 /**
@@ -156,38 +45,35 @@ void InputManager::InputUpdate() {
  * \return 入力があればtrue
  */
 bool InputManager::CheckInput(const std::string actionname, const char keystate, int playernum) {
-	for (auto&& key : _keyState) {
-		if (key.ActionName == actionname && key.PadNo == playernum)
-		{
-			switch (keystate)
-			{
-			case 'h':
-				return key.Hold;
-				break;
-			case 't':
-				return key.Trigger;
-				break;
-			case 'r':
-				return key.Release;
-				break;
-			default:
-				return false;
-				break;
-			}
-		}
+	std::unordered_map<std::string, int> config;
+	std::vector<int> key;
+	if (playernum == 0) {
+		config = _player0Config;
+		key = _player0Key;
 	}
-	return false;
+	else if (playernum == 1) {
+		config = _player1Config;
+		key = _player1Key;
+	}
+	switch (keystate) {
+	case 'h':
+		return key.back() & config[actionname];
+	case 't':
+		return (key.back() & config[actionname]) ^ (key.back() - 1 & config[actionname]) & (key.back() & config[actionname]);
+	case 'r':
+		return (key.back() & config[actionname]) ^ (key.back() - 1 & config[actionname]) & (key.back() - 1 & config[actionname]);;
+	default:
+		return false;
+	}
 }
 
 Vector2 InputManager::CheckAnalogInput(const int playernum) {
-
-	for (auto&& analog : _analogState) {
-		if (analog.PadNo == playernum) {
-			return analog.Value;
-			break;
-		}
+	if (playernum == 0) {
+		return _player0Analog.back();
 	}
-	return { 0,0 };
+	else if (playernum == 1) {
+		return _player1Analog.back();
+	}
 }
 #ifdef _DEBUG
 void InputManager::Render() {
@@ -214,46 +100,85 @@ void InputManager::ChangeControllerNo() {
 	else {
 		_changeFlag = 1;
 	}
-	for (auto&& key : _keyState) {
-		key.Trigger = false;
-		key.Hold = false;
-		key.Release = false;
-	}
+	auto tmp = _player0Config;
+	_player0Config = _player1Config;
+	_player1Config = tmp;
+
+	auto tmp2 =_player0Key;
+	_player0Key = _player1Key;
+	_player1Key = tmp2;
+
+
 }
 
 void InputManager::SetUDPData(std::array<int, 14> rawData) {
-	int setplayer{ -1 };
-	if (_online == 0) {
-		setplayer = 1;
+
+}
+
+void InputManager::InitConfig() {
+	std::unordered_map<std::string, int> xboxInputConfig = {
+			{ "UP",PAD_INPUT_UP		},
+			{ "DOWN",PAD_INPUT_DOWN	},
+			{ "LEFT",PAD_INPUT_LEFT	},
+			{ "RIGHT",PAD_INPUT_RIGHT},
+			{ "ACTION",PAD_INPUT_3	},
+			{ "PAUSE",PAD_INPUT_8	},
+			{ "CHANGE",PAD_INPUT_10	},
+			{ "ACCESS",PAD_INPUT_1	},
+			{ "DEBUG",PAD_INPUT_7	},
+			{ "BULLET1",PAD_INPUT_5	},
+			{ "BULLET2",PAD_INPUT_6	},
+	};
+	std::unordered_map<std::string, int> directInputConfig = {
+		{ "UP",PAD_INPUT_UP		},
+		{ "DOWN",PAD_INPUT_DOWN	},
+		{ "LEFT",PAD_INPUT_LEFT	},
+		{ "RIGHT",PAD_INPUT_RIGHT},
+		{ "ACTION",PAD_INPUT_1	},
+		{ "PAUSE",PAD_INPUT_8	},
+		{ "CHANGE",PAD_INPUT_10	},
+		{ "ACCESS",PAD_INPUT_3	},
+		{ "DEBUG",PAD_INPUT_7	},
+		{ "BULLET1",PAD_INPUT_5	},
+		{ "BULLET2",PAD_INPUT_6	},
+	};
+	if (CheckJoypadXInput(0)) {
+		_player0Config=xboxInputConfig;
 	}
-	else if (_online == 1) {
-		setplayer = 0;
+	else {
+		_player0Config = directInputConfig;
 	}
-	_analogState[setplayer].Value.x = rawData[1];
-	_analogState[setplayer].Value.y = rawData[2];
-	int i = 2;
-	for (auto&& key : _keyState) {
-		if (key.PadNo != setplayer) {
-			continue;
-		}
-		++i;
-		if (rawData[i] == 1) {
-			if (key.Hold == false) {
-				key.Trigger = true;
-			}
-			else {
-				key.Trigger = false;
-			}
-			key.Hold = true;
-		}
-		else {
-			if (key.Hold == true) {
-				key.Release = true;
-			}
-			else {
-				key.Release = false;
-			}
-			key.Hold = false;
-		}
+	if (CheckJoypadXInput(1)) {
+		_player1Config = xboxInputConfig;
+	}
+	else {
+		_player1Config = directInputConfig;
+	}
+}
+
+void InputManager::InputUpdatePlayer0(int inputType) {
+	_player0Key.push_back(GetJoypadInputState(inputType));
+	int x, y;
+	GetJoypadAnalogInput(&x, &y, inputType);
+	_player0Analog.push_back({ static_cast<double>(x),static_cast<double>(y) });
+
+	if (_player0Key.size() > 60) {
+		_player0Key.erase(_player0Key.begin());
+	}
+	if (_player0Analog.size() > 60) {
+		_player0Analog.erase(_player0Analog.begin());
+	}
+}
+
+void InputManager::InputUpdatePlayer1(int inputType) {
+	_player1Key.push_back(GetJoypadInputState(inputType));
+	int x, y;
+	GetJoypadAnalogInput(&x, &y, inputType);
+	_player1Analog.push_back({ static_cast<double>(x),static_cast<double>(y) });
+	if (_player1Key.size() > 60) {
+		_player1Key.erase(_player1Key.begin());
+	}
+	if (_player1Analog.size() > 60) {
+		_player1Analog.erase(_player1Analog.begin());
 	}
 }

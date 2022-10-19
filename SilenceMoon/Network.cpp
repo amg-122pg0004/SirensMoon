@@ -34,6 +34,7 @@ void Network::Update() {
 }
 
 void Network::SendInputData() {
+	/*
 	std::rotate(_rawDataSendBuffer.rbegin(), _rawDataSendBuffer.rbegin() + 1, _rawDataSendBuffer.rend());
 	auto analog = _inputManager->GetAnalogState();
 	auto key = _inputManager->GetKeyState();
@@ -55,6 +56,7 @@ void Network::SendInputData() {
 	}
 
 	NetWorkSendUDP(_sendUDPHandle, _ip, _port, &_rawDataSendBuffer, 4 * 14 * 10);
+	*/
 }
 
 bool CompCountFrame(const std::array<int, 14>& a, const std::array<int, 14>& b)
@@ -134,6 +136,7 @@ void Network::Debug() {
 }
 
 void Network::SendTCPData(DataType type, void* sendData){
+	/*
 	switch (type)
 	{
 	case DataType::EnemyGenerate:
@@ -160,6 +163,7 @@ void Network::SendTCPData(DataType type, void* sendData){
 	}
 
 	NetWorkSend(_netTCPHandle, &sendData, sizeof(sendData));
+	*/
 }
 
 void* Network::RecieveTCPData(){
