@@ -38,6 +38,7 @@ public:
 	void TargetKillEvent();
 	void PlayBGM();
 
+	int GetFrameCount() { return _frameCount; };
 private:
 
 
@@ -48,4 +49,5 @@ private:
 	int _enemyVIPDeadCount;
 	bool _clear;
 	int _clearDelay;
+	int _frameCount;
 };

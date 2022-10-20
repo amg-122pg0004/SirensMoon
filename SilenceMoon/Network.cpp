@@ -1,5 +1,6 @@
 #include "Network.h"
 #include "picojson/picojson.h"
+#include "InputManager.h"
 #include <fstream>
 #include <sstream>
 #include <thread>
@@ -14,9 +15,6 @@ Network::Network(Game& game)
 	, _reciveDataFrameCount{ -1 }
 	, _reciveError{ false }
 {
-	for (int i = 0; i < _rawDataSendBuffer.size(); ++i) {
-		std::fill(_rawDataSendBuffer[i].begin(), _rawDataSendBuffer[i].end(), -1);
-	}
 	_inputManager = _game.GetInputManager();
 
 }
@@ -24,163 +22,30 @@ Network::~Network() {
 	DeleteUDPSocket(_port);
 }
 
-void Network::Input() {
-	SendInputData();
-	RecieveInputData();
-}
-void Network::Update() {
-	SendUpdateData();
-	RecieveUpdateData();
+void Network::SendInputData(int keyData, Vector2 analogData) {
+	InputData data;
+	data.type = DataType::InputData;
+	data.length = sizeof(data);
+	data.frame = _game.GetFrameCount();
+	data.key = keyData;
+	data.analog = analogData;
+	NetWorkSend(_netTCPHandle, &data, data.length);
 }
 
-void Network::SendInputData() {
-	/*
-	std::rotate(_rawDataSendBuffer.rbegin(), _rawDataSendBuffer.rbegin() + 1, _rawDataSendBuffer.rend());
-	auto analog = _inputManager->GetAnalogState();
-	auto key = _inputManager->GetKeyState();
-
-	_rawDataSendBuffer[0][0] = _game.GetFrameCount();
-	int padno=_inputManager->GetOnlinePlayer();
-	for (auto&& value : analog) {
-		if (value.PadNo == padno) {
-			_rawDataSendBuffer[0][1] = value.Value.x;
-			_rawDataSendBuffer[0][2] = value.Value.y;
-		}
+InputData Network::RecieveInputData() {
+	InputData data;
+	data.frame = -1;
+	auto length=GetNetWorkSendDataLength(_netTCPHandle);
+	if (length !=0)
+	{
+		NetWorkRecvToPeek(_netTCPHandle, &data, length);
 	}
-	int i = 3;
-	for (auto&& value : key) {
-		if (value.PadNo == padno) {
-			_rawDataSendBuffer[0][i] = value.Hold;
-			++i;
-		}
-	}
-
-	NetWorkSendUDP(_sendUDPHandle, _ip, _port, &_rawDataSendBuffer, 4 * 14 * 10);
-	*/
-}
-
-bool CompCountFrame(const std::array<int, 14>& a, const std::array<int, 14>& b)
-{
-	return a[0] < b[0];
-}
-
-void Network::RecieveInputData() {
-	if (CheckNetWorkRecvUDP(_recieveUDPHandle)) {
-		std::array<std::array<int, 14>, 10> recieveData;
-		std::vector<std::array<int, 14>> vRecieveData;
-		if (NetWorkRecvUDP(_recieveUDPHandle, NULL, NULL, &recieveData, 14 * 4 * 10, FALSE)) {
-			if (recieveData.size() == 0) {
-				return;
-			}
-			else {
-				vRecieveData.insert(vRecieveData.begin(), recieveData.begin(), recieveData.end());
-			}
-			if (_rawDataRecieveBuffer.size() == 0) {
-				_rawDataRecieveBuffer = vRecieveData;
-			}
-			else {
-				for (auto&& ahaveData : _rawDataRecieveBuffer) {
-					for (auto itr = vRecieveData.begin(); itr != vRecieveData.end();) {
-						if (*itr->begin() == ahaveData[0]) {
-							itr = vRecieveData.erase(itr);
-						}
-						else {
-							++itr;
-						}
-					}
-				}
-			}
-			_rawDataRecieveBuffer.insert(_rawDataRecieveBuffer.end(), vRecieveData.begin(), vRecieveData.end());
-			std::sort(_rawDataRecieveBuffer.begin(), _rawDataRecieveBuffer.end(), CompCountFrame);
-			if (_reciveDataFrameCount == -1) {
-				_reciveDataFrameCount = *_rawDataRecieveBuffer.begin()->begin();
-			}
-			else {
-				++_reciveDataFrameCount;
-			}
-			auto result = std::find_if(_rawDataRecieveBuffer.begin()
-				, _rawDataRecieveBuffer.end()
-				, [this](std::array<int, 14> data) {
-					if (_reciveDataFrameCount == -1) {
-						return data[0] != -1;
-					}
-					else {
-						return data[0] == _reciveDataFrameCount;
-					}
-				});
-			if (result != _rawDataRecieveBuffer.end()) {
-				_inputManager->SetUDPData(*result);
-				_reciveError = false;
-
-			}
-			else {
-				_reciveError = true;
-			}
-			_rawDataRecieveBuffer.erase(_rawDataRecieveBuffer.begin(), result);
-		}
-	}
+	return data;
 }
 
 void Network::Debug() {
 	if (_reciveError) {
 		DrawStringF(500, 0, "データ受け取りエラー", GetColor(255, 0, 0));
 	}
-	if (_rawDataRecieveBuffer[0].size()==0) {
-		return;
-	}
-	std::stringstream ss;
-	for (auto data : _rawDataRecieveBuffer[0]) {
-		ss << data<<"\n";
-	}
-	DrawString(500,0,ss.str().c_str(),GetColor(255,255,255));
-}
-
-void Network::SendTCPData(DataType type, void* sendData){
-	/*
-	switch (type)
-	{
-	case DataType::EnemyGenerate:
-		EnemyGenerateData data;
-		data.type = type;
-		data.length = sizeof(data); 
-		int* p = static_cast<int*>(sendData);
-		data.data = &p;
-		break;
-	case DataType::PlayerPosition:
-		break;
-	case DataType::TakeDamage:
-		break;
-	case DataType::KillEnemy:
-		break;
-	case DataType::RespawnEnemy:
-		break;
-	case DataType::ShootBullet:
-		break;
-	case DataType::ActivateGimmick:
-		break;
-	default:
-		break;
-	}
-
-	NetWorkSend(_netTCPHandle, &sendData, sizeof(sendData));
-	*/
-}
-
-void* Network::RecieveTCPData(){
-	int dataLength = GetNetWorkDataLength(_netTCPHandle);
-	if (dataLength != 0) {
-		void* Data{nullptr};
-		if (NetWorkRecv(_netTCPHandle, Data, dataLength) == 0) {
-			return Data;
-		}
-	}
-	return nullptr;
-}
-
-void Network::SendUpdateData() {
-
-}
-
-void Network::RecieveUpdateData(){
-
+	//DrawString(500, 0, ss.str().c_str(), GetColor(255, 255, 255));
 }

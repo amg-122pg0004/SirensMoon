@@ -32,8 +32,33 @@ Game::Game()
 void Game::Input() {
 	_inputManager->InputUpdate();
 	if (_network != nullptr) {
-		_network->Update();
+		if (_inputManager->GetOnlinePlayer() == 0) {
+			_network->SendInputData(_inputManager->GetPlayer0Key().back(), _inputManager->GetPlayer0Analog().back());
+			while (1) {
+				auto data = _network->RecieveInputData();
+				if (data.frame == _frameCount) {
+					_inputManager->InputUpdatePlayer1(data.key, data.analog);
+					break;
+				}
+			}
+		}
+		else if (_inputManager->GetOnlinePlayer() == 1) {
+			_network->SendInputData(_inputManager->GetPlayer1Key().back(), _inputManager->GetPlayer1Analog().back());
+			while (1) {
+				auto data = _network->RecieveInputData();
+				if (data.frame == _frameCount) {
+					_inputManager->InputUpdatePlayer0(data.key, data.analog);
+					break;
+				}
+			}
+		}
+
 	}
+}
+void Game::Update() {
+	++_frameCount;
+	_modeServer->Update();
+
 #ifdef _DEBUG
 	if (_inputManager->CheckInput("CHANGE", 'r', 0) || _inputManager->CheckInput("CHANGE", 'r', 1)) {
 		_inputManager->ChangeControllerNo();
@@ -41,23 +66,13 @@ void Game::Input() {
 	if (_inputManager->CheckInput("DEBUG", 'r', 0) || _inputManager->CheckInput("DEBUG", 'r', 1)) {
 		_debug = !_debug;
 	}
-
-#endif // _DEBUG
-
-
-}
-void Game::Update() {
-	++_frameCount;
-	_modeServer->Update();
-
-#ifdef _DEBUG
 	if (_inputManager->CheckInput("DEBUG", 'h', 0) && _inputManager->CheckInput("PAUSE", 't', 0) ||
 		_inputManager->CheckInput("DEBUG", 'h', 1) && _inputManager->CheckInput("PAUSE", 't', 1))
 	{
 		PlayStartMenu();
 	}
 
-#endif // DEBUG
+#endif
 }
 
 void Game::Render() {

@@ -1,42 +1,29 @@
 #pragma once
 #include "DxLib.h"
-#include "InputManager.h"
 #include "NetDataStructs.h"
 #include <memory>
 #include <array>
 class Game;
+class InputManager;
 
 class Network {
 public:
 	Network(Game& game);
 	~Network();
-	void Input();
-	void Update();
 	void Debug();
-	void SendInputData();
-	void RecieveInputData();
-	void SendUpdateData();
-	void RecieveUpdateData();
+	void SendInputData(int keyData,Vector2 analogData);
+	InputData RecieveInputData();
 
 	void SetIP(IPDATA ip) { _ip = ip; }
 	void SetPortNo(int port) { _port = port; }
 	void SetNetTCPHandle(int tcp) { _netTCPHandle = tcp; }
-	void SetSendUDPHandle(int sendUDP) { _sendUDPHandle = sendUDP; }
 	void SetRecieveUDPHandle(int recieveUDP) { _recieveUDPHandle = recieveUDP; }
-
-	void SendTCPData(DataType type,void* sendData);
-	void* RecieveTCPData();
+	void 	SetSendUDPHandle(int sendUDP) { _sendUDPHandle = sendUDP; }
 
 private:
-	/**
-	フレームデータ 1
-	キーデータ 11個
-	アナログデータ 2個
-	*/
-	std::array<std::array<int, 14>, 10> _rawDataSendBuffer;
-	std::vector<std::array<int, 14>> _rawDataRecieveBuffer;
 	Game& _game;
 	std::shared_ptr<InputManager> _inputManager;
+
 
 	IPDATA _ip;
 	int _port;
@@ -45,6 +32,5 @@ private:
 
 	int _reciveDataFrameCount;//受け取ったデータで使用しているフレームカウント
 	bool _reciveError;//<エラーメッセージ用
-
 
 };

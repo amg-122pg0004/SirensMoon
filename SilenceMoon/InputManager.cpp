@@ -30,6 +30,7 @@ void InputManager::InputUpdate() {
 	}
 	else if (_online == 0) {
 		InputUpdatePlayer0(DX_INPUT_PAD1);
+
 	}
 	else if (_online == 1) {
 		InputUpdatePlayer1(DX_INPUT_PAD1);
@@ -81,19 +82,6 @@ Vector2 InputManager::CheckAnalogInput(const int playernum) {
 }
 #ifdef _DEBUG
 void InputManager::Render() {
-
-	std::stringstream ss;
-	for (auto&& key : _keyState) {
-		ss << key.ActionName << " " << key.KeyName << " " << key.Hold << " " << key.Trigger << " " << key.Release << " PadNo." << key.PadNo << "\n";
-	}
-	for (auto&& analog : _analogState) {
-		ss << "アナログスティックプレイヤー" << analog.PadNo << " " << analog.Value.x << " " << analog.Value.y << "\n";
-	}
-	ss << "接続コントローラー数" << _connectNumber << "\n";
-	GUID buff;
-	auto test = GetJoypadGUID(DX_INPUT_PAD1, &buff);
-	ss << "接続GUID" << GetJoypadGUID(DX_INPUT_PAD1, &buff) << "\n";
-	DrawString(50, 100, ss.str().c_str(), GetColor(255, 255, 255));
 }
 #endif 
 void InputManager::ChangeControllerNo() {
@@ -112,10 +100,6 @@ void InputManager::ChangeControllerNo() {
 	_player0Key = _player1Key;
 	_player1Key = tmp2;
 
-
-}
-
-void InputManager::SetUDPData(std::array<int, 14> rawData) {
 
 }
 
@@ -138,6 +122,18 @@ void InputManager::InitConfig() {
 		{ "DOWN",PAD_INPUT_DOWN	},
 		{ "LEFT",PAD_INPUT_LEFT	},
 		{ "RIGHT",PAD_INPUT_RIGHT},
+		{ "ACTION",PAD_INPUT_3	},
+		{ "PAUSE",PAD_INPUT_8	},
+		{ "CHANGE",PAD_INPUT_10	},
+		{ "ACCESS",PAD_INPUT_1	},
+		{ "DEBUG",PAD_INPUT_7	},
+		{ "BULLET1",PAD_INPUT_5	},
+		{ "BULLET2",PAD_INPUT_6	},
+		/*
+		{ "UP",PAD_INPUT_UP		},
+		{ "DOWN",PAD_INPUT_DOWN	},
+		{ "LEFT",PAD_INPUT_LEFT	},
+		{ "RIGHT",PAD_INPUT_RIGHT},
 		{ "ACTION",PAD_INPUT_1	},
 		{ "PAUSE",PAD_INPUT_8	},
 		{ "CHANGE",PAD_INPUT_10	},
@@ -145,6 +141,7 @@ void InputManager::InitConfig() {
 		{ "DEBUG",PAD_INPUT_7	},
 		{ "BULLET1",PAD_INPUT_5	},
 		{ "BULLET2",PAD_INPUT_6	},
+		*/
 	};
 	if (CheckJoypadXInput(0)) {
 		_player0Config = xboxInputConfig;
@@ -184,5 +181,28 @@ void InputManager::InputUpdatePlayer1(int inputType) {
 	}
 	if (_player1Analog.size() > 60) {
 		_player1Analog.erase(_player1Analog.begin());
+	}
+}
+void InputManager::InputUpdatePlayer0(int key, Vector2 analog) {
+	_player0Key.push_back(key);
+	_player0Analog.push_back(analog);
+
+	if (_player0Key.size() > 60) {
+		_player0Key.erase(_player0Key.begin());
+	}
+	if (_player0Analog.size() > 60) {
+		_player0Analog.erase(_player0Analog.begin());
+	}
+}
+
+void InputManager::InputUpdatePlayer1(int key, Vector2 analog){
+	_player1Key.push_back(key);
+	_player1Analog.push_back(analog);
+
+	if (_player1Key.size() > 60) {
+		_player1Key.erase(_player0Key.begin());
+	}
+	if (_player1Analog.size() > 60) {
+		_player1Analog.erase(_player0Analog.begin());
 	}
 }

@@ -10,7 +10,10 @@
 #include <vector>
 #include <string>
 #include <array>
+
+#include<algorithm>
 #include <unordered_map>
+#include "NetDataStructs.h"
 
 class InputManager {
 
@@ -22,7 +25,9 @@ public:
 	/**@brief 使用する各キーについてインプット状態を確認して保存 */
 	void InputUpdate();
 	void InputUpdatePlayer0(int inputType);
+	void InputUpdatePlayer0(int key,Vector2 analog);
 	void InputUpdatePlayer1(int inputType);
+	void InputUpdatePlayer1(int key, Vector2 analog);
 	/**
 	* @brief 特定のキーの入力状態を確認する
 	*
@@ -46,10 +51,11 @@ public:
 #ifdef _DEBUG
 	void Render();
 #endif 
-	//std::vector<KeyInfo> GetKeyState() { return _keyState; }
-	//std::vector<AnalogInfo> GetAnalogState() { return _analogState; }
-
-	void SetUDPData(std::array<int, 14> rawData);
+	std::vector<int> GetPlayer0Key() { return _player0Key; }
+	std::vector<int> GetPlayer1Key() { return _player1Key; }
+	std::vector<Vector2> GetPlayer0Analog() { return _player0Analog; }
+	std::vector<Vector2> GetPlayer1Analog() { return _player1Analog; }
+	
 	int GetOnlinePlayer() { return _online; };
 private:
 	/*キー対応設定*/

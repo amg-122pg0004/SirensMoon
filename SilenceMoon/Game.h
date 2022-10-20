@@ -50,6 +50,7 @@ public:
 	 */
 	inline  auto GetInputManager() { return _inputManager; }
 
+	inline void ResetFrameCount() { _frameCount =0; }
 	inline int GetFrameCount() { return _frameCount; }
 
 	std::unique_ptr<ModeServer>& GetModeServer() { return _modeServer; }

@@ -215,6 +215,7 @@ void ModeNetwork::WaitAcceptNet() {
 }
 
 void ModeNetwork::StartGame() {
+	_game.ResetFrameCount();
 	_game.StartNetwork();
 	_game.GetNetwork()->SetIP(_ip);
 	_game.GetNetwork()->SetPortNo(_port);

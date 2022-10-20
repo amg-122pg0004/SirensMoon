@@ -31,7 +31,7 @@
 #include "Network.h"
 
 ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPattern pattern, std::string bgm)
-	:ModeBase{ game },  _bgm{ bgm }, _clearDelay{ 240 }, _clear{ false }
+	:ModeBase{ game },  _bgm{ bgm }, _clearDelay{ 240 }, _clear{ false },_frameCount{0}
 {
 	_inputManager = _game.GetInputManager();
 	_renderPriority = 0;
@@ -54,23 +54,6 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 
 	/*各部2種で敵ランダム生成*/
 	auto enemygen = std::make_unique<EnemyGenerator>(pattern);
-	/*オンラインで1Pなら情報送信、2Pなら情報受け取り待ち*/
-	if (_game.GetNetwork() != nullptr) {
-		if (_game.GetOnlineNo() == 0) {
-			
-			//_game.GetNetwork()->SendTCPData(enemygen->GetEnemyALLPatternArray());
-		}
-		else {
-			while (1) {
-				int data{ -1 };
-				auto revcieveData = _game.GetNetwork()->RecieveTCPData();
-				if (revcieveData != nullptr) {
-					enemygen->SetEnemyALLPatternArray(static_cast<int*>(revcieveData));
-					break;
-				}
-			}
-		}
-	}
 
 	auto serverdata = _mapChips->GetServerData();
 	for (auto&& data : serverdata) {
@@ -211,6 +194,7 @@ ModeGame::~ModeGame() {
 
 void ModeGame::Update() {
 	ModeBase::Update();
+	++_frameCount;
 	/*UIの更新*/
 	for (auto&& splitwindows : _splitWindow) {
 		splitwindows->Update();
