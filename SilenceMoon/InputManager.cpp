@@ -74,7 +74,7 @@ bool InputManager::CheckInput(const std::string actionname, const char keystate,
 		trg = (currentKey ^ oldKey) & currentKey;
 		return trg & inputKey;
 	case 'r':
-		release = (currentKey ^ oldKey) & currentKey;
+		release = (currentKey ^ oldKey) & oldKey;
 		return release & inputKey;
 	default:
 		return false;
@@ -174,10 +174,6 @@ void InputManager::InitConfig() {
 void InputManager::InputUpdatePlayer0(int inputType) {
 	_player0Key.push_back(GetJoypadInputState(inputType));
 
-	int keyold = _key;
-	_trg = (_key * keyold) & _key;
-	_key = GetJoypadInputState(inputType);
-
 	int x, y;
 	GetJoypadAnalogInput(&x, &y, inputType);
 	_player0Analog.push_back({ static_cast<double>(x),static_cast<double>(y) });
@@ -192,8 +188,6 @@ void InputManager::InputUpdatePlayer0(int inputType) {
 
 void InputManager::InputUpdatePlayer1(int inputType) {
 	_player1Key.push_back(GetJoypadInputState(inputType));
-
-
 	int x, y;
 	GetJoypadAnalogInput(&x, &y, inputType);
 	_player1Analog.push_back({ static_cast<double>(x),static_cast<double>(y) });

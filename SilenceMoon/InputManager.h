@@ -74,6 +74,4 @@ private:
 	int _online;
 	// 2i”o—Í‚·‚éŠÖ”
 	std::string ToBin(int a, int keta);
-
-	int _key, _trg;
 };
