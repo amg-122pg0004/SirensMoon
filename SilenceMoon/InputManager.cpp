@@ -55,13 +55,17 @@ bool InputManager::CheckInput(const std::string actionname, const char keystate,
 		config = _player1Config;
 		key = _player1Key;
 	}
+
+	auto currentKey = key.back() & config[actionname];
+	auto oldKey = key.back() - 1 & config[actionname];
+
 	switch (keystate) {
 	case 'h':
-		return key.back() & config[actionname];
+		return currentKey;
 	case 't':
-		return (key.back() & config[actionname]) ^ (key.back() - 1 & config[actionname]) & (key.back() & config[actionname]);
+		return currentKey ^ oldKey & currentKey;
 	case 'r':
-		return (key.back() & config[actionname]) ^ (key.back() - 1 & config[actionname]) & (key.back() - 1 & config[actionname]);;
+		return currentKey ^ oldKey & oldKey;
 	default:
 		return false;
 	}
@@ -104,7 +108,7 @@ void InputManager::ChangeControllerNo() {
 	_player0Config = _player1Config;
 	_player1Config = tmp;
 
-	auto tmp2 =_player0Key;
+	auto tmp2 = _player0Key;
 	_player0Key = _player1Key;
 	_player1Key = tmp2;
 
@@ -117,17 +121,17 @@ void InputManager::SetUDPData(std::array<int, 14> rawData) {
 
 void InputManager::InitConfig() {
 	std::unordered_map<std::string, int> xboxInputConfig = {
-			{ "UP",PAD_INPUT_UP		},
-			{ "DOWN",PAD_INPUT_DOWN	},
-			{ "LEFT",PAD_INPUT_LEFT	},
-			{ "RIGHT",PAD_INPUT_RIGHT},
-			{ "ACTION",PAD_INPUT_3	},
-			{ "PAUSE",PAD_INPUT_8	},
-			{ "CHANGE",PAD_INPUT_10	},
-			{ "ACCESS",PAD_INPUT_1	},
-			{ "DEBUG",PAD_INPUT_7	},
-			{ "BULLET1",PAD_INPUT_5	},
-			{ "BULLET2",PAD_INPUT_6	},
+		{ "UP",PAD_INPUT_UP		},
+		{ "DOWN",PAD_INPUT_DOWN	},
+		{ "LEFT",PAD_INPUT_LEFT	},
+		{ "RIGHT",PAD_INPUT_RIGHT},
+		{ "ACTION",PAD_INPUT_3	},
+		{ "PAUSE",PAD_INPUT_8	},
+		{ "CHANGE",PAD_INPUT_10	},
+		{ "ACCESS",PAD_INPUT_1	},
+		{ "DEBUG",PAD_INPUT_7	},
+		{ "BULLET1",PAD_INPUT_5	},
+		{ "BULLET2",PAD_INPUT_6	},
 	};
 	std::unordered_map<std::string, int> directInputConfig = {
 		{ "UP",PAD_INPUT_UP		},
@@ -143,7 +147,7 @@ void InputManager::InitConfig() {
 		{ "BULLET2",PAD_INPUT_6	},
 	};
 	if (CheckJoypadXInput(0)) {
-		_player0Config=xboxInputConfig;
+		_player0Config = xboxInputConfig;
 	}
 	else {
 		_player0Config = directInputConfig;
