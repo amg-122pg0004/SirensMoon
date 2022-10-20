@@ -36,7 +36,7 @@ void Game::Input() {
 			_network->SendInputData(_inputManager->GetPlayer0Key().back(), _inputManager->GetPlayer0Analog().back());
 			while (1) {
 				auto data = _network->RecieveInputData();
-				if (data.frame == _frameCount) {
+				if (data.frame !=-1) {
 					_inputManager->InputUpdatePlayer1(data.key, data.analog);
 					break;
 				}
@@ -46,7 +46,7 @@ void Game::Input() {
 			_network->SendInputData(_inputManager->GetPlayer1Key().back(), _inputManager->GetPlayer1Analog().back());
 			while (1) {
 				auto data = _network->RecieveInputData();
-				if (data.frame == _frameCount) {
+				if (data.frame !=-1) {
 					_inputManager->InputUpdatePlayer0(data.key, data.analog);
 					break;
 				}

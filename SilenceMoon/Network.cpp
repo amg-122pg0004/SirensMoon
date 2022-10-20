@@ -35,10 +35,10 @@ void Network::SendInputData(int keyData, Vector2 analogData) {
 InputData Network::RecieveInputData() {
 	InputData data;
 	data.frame = -1;
-	auto length=GetNetWorkSendDataLength(_netTCPHandle);
+	auto length= GetNetWorkDataLength(_netTCPHandle);
 	if (length !=0)
 	{
-		NetWorkRecvToPeek(_netTCPHandle, &data, length);
+		NetWorkRecv(_netTCPHandle, &data, sizeof(InputData));
 	}
 	return data;
 }
