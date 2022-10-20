@@ -56,7 +56,8 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 	auto enemygen = std::make_unique<EnemyGenerator>(pattern);
 	if (_game.GetNetwork() != nullptr) {
 		if (_game.GetInputManager()->GetOnlinePlayer()==0) {
-			enemygen->GetEnemyALLPatternArray();
+			auto data=enemygen->GetEnemyALLPatternArray();
+			_game.GetNetwork()->SendEnemyData(data);
 
 		}
 		else if (_game.GetInputManager()->GetOnlinePlayer() == 1) {

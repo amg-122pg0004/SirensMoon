@@ -56,15 +56,14 @@ EnemyGenerator::EnemyPattern EnemyGenerator::GetEnemyPattern() {
 }
 
 int* EnemyGenerator::GetEnemyALLPatternArray() {
-	int output[255] = {};
 	int i{ 0 };
 	for (auto&& aPattern : _enemyAllPattern) {
-		output[i] = aPattern.head;
-		output[i + 1] = aPattern.body;
-		output[i + 2] = aPattern.foot;
+		_arrayData[i] = aPattern.head;
+		_arrayData[i + 1] = aPattern.body;
+		_arrayData[i + 2] = aPattern.foot;
 		i += 3;
 	}
-	return output;
+	return _arrayData;
 }
 
 /*_enemyAllPattern‚ğƒZƒbƒg*/

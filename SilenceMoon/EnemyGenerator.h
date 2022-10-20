@@ -37,4 +37,5 @@ private:
 	std::vector<EnemyPattern> _enemyAllPattern;
 	/*最後に何番目のデータを参照したか？*/
 	int _lastGet;
+	int _arrayData[255];
 };

@@ -35,10 +35,11 @@ void Network::SendInputData(int keyData, Vector2 analogData) {
 void Network::SendEnemyData(int* enemyData) {
 	EnemyGenerateData data;
 	data.type = DataType::EnemyGenerate;
-	data.length = sizeof(EnemyGenerateData);
 	for (int i = 0; i < 255; ++i) {
-		data.data[i] = enemyData[i];
+		//data.data[i] = enemyData[i];
+		data.data[i] = 1;
 	}
+	data.length = sizeof(EnemyGenerateData);
 	NetWorkSend(_netTCPHandle, &data, data.length);
 }
 
