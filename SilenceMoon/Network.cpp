@@ -45,26 +45,30 @@ void Network::SendEnemyData(int* enemyData) {
 InputData Network::RecieveInputData() {
 	NetworkDataBase base;
 	InputData data;
-	data.frame = -1;
+
 	auto length= GetNetWorkDataLength(_netTCPHandle);
-	if (length !=0)
+	if (length >=sizeof(NetworkDataBase))
 	{
 		NetWorkRecvToPeek(_netTCPHandle, &base, sizeof(NetworkDataBase));
 		switch (base.type)
 		{
 		case DataType::InputData:
-			NetWorkRecv(_netTCPHandle, &data, sizeof(InputData));
-			return 	data;
+			if (GetNetWorkDataLength(_netTCPHandle) >= base.length) {
+				NetWorkRecv(_netTCPHandle, &data, sizeof(InputData));
+				return 	data;
+			}
 		case DataType::EnemyGenerate:
 			EnemyGenerateData enemyData;
-			NetWorkRecv(_netTCPHandle, &enemyData, sizeof(EnemyGenerateData));
-			_enemyGeneration = enemyData.data;
+			if (GetNetWorkDataLength(_netTCPHandle) >= base.length) {
+				NetWorkRecv(_netTCPHandle, &enemyData, sizeof(EnemyGenerateData));
+			}
 			break;
 		default:
 			break;
 		}
 
 	}
+	data.frame = -1;
 	return data;
 }
 
