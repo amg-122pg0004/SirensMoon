@@ -52,20 +52,25 @@ void Game::Input() {
 				}
 			}
 		}
-
+	
 	}
+	
 }
 void Game::Update() {
 	++_frameCount;
 	_modeServer->Update();
 
 #ifdef _DEBUG
+	
 	if (_inputManager->CheckInput("CHANGE", 'r', 0) || _inputManager->CheckInput("CHANGE", 'r', 1)) {
 		_inputManager->ChangeControllerNo();
 	}
-	if (_inputManager->CheckInput("DEBUG", 'r', 0) || _inputManager->CheckInput("DEBUG", 'r', 1)) {
+	
+	
+	if (_inputManager->CheckInput("DEBUG", 't', 0) || _inputManager->CheckInput("DEBUG", 't', 1)) {
 		_debug = !_debug;
 	}
+	
 	if (_inputManager->CheckInput("DEBUG", 'h', 0) && _inputManager->CheckInput("PAUSE", 't', 0) ||
 		_inputManager->CheckInput("DEBUG", 'h', 1) && _inputManager->CheckInput("PAUSE", 't', 1))
 	{

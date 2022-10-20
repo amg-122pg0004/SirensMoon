@@ -56,17 +56,26 @@ bool InputManager::CheckInput(const std::string actionname, const char keystate,
 		config = _player1Config;
 		key = _player1Key;
 	}
+	int currentKey{ 0 }, oldKey{ 0 };
+	if (key.size() > 0) {
+		currentKey = *(key.end() - 1);
+	}
 
-	auto currentKey = key.back() & config[actionname];
-	auto oldKey = key.back() - 1 & config[actionname];
+	if (key.size() > 1) {
+		oldKey = *(key.end() - 2);
+	}
 
+	auto inputKey = config[actionname];
+	int trg, release;
 	switch (keystate) {
 	case 'h':
-		return currentKey;
+		return currentKey & inputKey;
 	case 't':
-		return currentKey ^ oldKey & currentKey;
+		trg = (currentKey ^ oldKey) & currentKey;
+		return trg & inputKey;
 	case 'r':
-		return currentKey ^ oldKey & oldKey;
+		release = (currentKey ^ oldKey) & currentKey;
+		return release & inputKey;
 	default:
 		return false;
 	}
@@ -82,6 +91,12 @@ Vector2 InputManager::CheckAnalogInput(const int playernum) {
 }
 #ifdef _DEBUG
 void InputManager::Render() {
+	std::stringstream ss;
+	for (auto&& key : _player0Key) {
+		ss << ToBin(key, 32) << "\n";
+	}
+
+	DrawFormatString(100, 100, GetColor(255, 255, 255), ss.str().c_str());
 }
 #endif 
 void InputManager::ChangeControllerNo() {
@@ -96,9 +111,8 @@ void InputManager::ChangeControllerNo() {
 	_player0Config = _player1Config;
 	_player1Config = tmp;
 
-	auto tmp2 = _player0Key;
-	_player0Key = _player1Key;
-	_player1Key = tmp2;
+	_player0Key = { 0 };
+	_player1Key = { 0 };
 
 
 }
@@ -159,6 +173,11 @@ void InputManager::InitConfig() {
 
 void InputManager::InputUpdatePlayer0(int inputType) {
 	_player0Key.push_back(GetJoypadInputState(inputType));
+
+	int keyold = _key;
+	_trg = (_key * keyold) & _key;
+	_key = GetJoypadInputState(inputType);
+
 	int x, y;
 	GetJoypadAnalogInput(&x, &y, inputType);
 	_player0Analog.push_back({ static_cast<double>(x),static_cast<double>(y) });
@@ -173,6 +192,8 @@ void InputManager::InputUpdatePlayer0(int inputType) {
 
 void InputManager::InputUpdatePlayer1(int inputType) {
 	_player1Key.push_back(GetJoypadInputState(inputType));
+
+
 	int x, y;
 	GetJoypadAnalogInput(&x, &y, inputType);
 	_player1Analog.push_back({ static_cast<double>(x),static_cast<double>(y) });
@@ -195,7 +216,7 @@ void InputManager::InputUpdatePlayer0(int key, Vector2 analog) {
 	}
 }
 
-void InputManager::InputUpdatePlayer1(int key, Vector2 analog){
+void InputManager::InputUpdatePlayer1(int key, Vector2 analog) {
 	_player1Key.push_back(key);
 	_player1Analog.push_back(analog);
 
@@ -205,4 +226,19 @@ void InputManager::InputUpdatePlayer1(int key, Vector2 analog){
 	if (_player1Analog.size() > 60) {
 		_player1Analog.erase(_player0Analog.begin());
 	}
+}
+
+std::string InputManager::ToBin(int a, int keta) {
+	std::string s = "";
+	do {
+		if (a % 2 == 0) {
+			s = "0" + s;
+		}
+		else {
+			s = "1" + s;
+		}
+		a /= 2;
+		keta--;
+	} while (a > 0 || keta > 0);
+	return s;
 }
