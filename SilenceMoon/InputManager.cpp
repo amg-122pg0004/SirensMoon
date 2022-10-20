@@ -221,10 +221,10 @@ void InputManager::InputUpdatePlayer1(int key, Vector2 analog) {
 	_player1Analog.push_back(analog);
 
 	if (_player1Key.size() > 60) {
-		_player1Key.erase(_player0Key.begin());
+		_player1Key.erase(_player1Key.begin());
 	}
 	if (_player1Analog.size() > 60) {
-		_player1Analog.erase(_player0Analog.begin());
+		_player1Analog.erase(_player1Analog.begin());
 	}
 }
 
