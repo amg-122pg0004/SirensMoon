@@ -35,6 +35,7 @@ void ModeGameOver::Render() {
 		DrawExtendGraph(0, 0,splitscreen_W,screen_H, _movieHandle, 0);
 		DrawExtendGraph(screen_W - splitscreen_W, 0, screen_W, screen_H, _movieHandle, 0);
 	}
+	ModeBase::RenderOnlineBlind();
 }
 
 void ModeGameOver::RestartGame(){

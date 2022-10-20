@@ -77,6 +77,7 @@ public:
 	std::unique_ptr<Network>& GetNetwork() { return _network; }
 	void SetOnlineNo(int no) { _online = no; }
 	int GetOnlineNo() { return _online ; }
+	bool GetDebugFlag() { return _debug; }
 private:
 	int _font22, _font26;
 	std::shared_ptr<InputManager> _inputManager;

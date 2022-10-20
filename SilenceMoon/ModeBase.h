@@ -19,6 +19,8 @@ public:
 	virtual void Render();	// 描画
 	virtual void Debug(); //デバッグ
 
+	void RenderOnlineBlind();
+
 	virtual ActorServer& GetActorServer() { return _actorServer; }
 	virtual ActorServer::TypeActors& GetObjects() { return _actorServer.GetObjects(); }
 

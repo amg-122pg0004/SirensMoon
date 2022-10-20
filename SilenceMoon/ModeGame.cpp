@@ -54,6 +54,20 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 
 	/*Še•”2í‚Å“Gƒ‰ƒ“ƒ_ƒ€¶¬*/
 	auto enemygen = std::make_unique<EnemyGenerator>(pattern);
+	if (_game.GetNetwork() != nullptr) {
+		if (_game.GetInputManager()->GetOnlinePlayer()==0) {
+			enemygen->GetEnemyALLPatternArray();
+
+		}
+		else if (_game.GetInputManager()->GetOnlinePlayer() == 1) {
+			while (1) {
+				if (_game.GetNetwork()->GetEnemyGeneration()[0] != 0) {
+					enemygen->SetEnemyALLPatternArray(_game.GetNetwork()->GetEnemyGeneration());
+					break;
+				}
+			}
+		}
+	}
 
 	auto serverdata = _mapChips->GetServerData();
 	for (auto&& data : serverdata) {
@@ -216,6 +230,7 @@ void ModeGame::Render() {
 		splitwindows->Render();
 	}
 	//_inputManager->Render();
+	ModeBase::RenderOnlineBlind();
 }
 
 void ModeGame::Debug() {

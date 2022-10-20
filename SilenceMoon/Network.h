@@ -12,14 +12,17 @@ public:
 	~Network();
 	void Debug();
 	void SendInputData(int keyData,Vector2 analogData);
+	void SendEnemyData(int* enemyData);
 	InputData RecieveInputData();
 
 	void SetIP(IPDATA ip) { _ip = ip; }
 	void SetPortNo(int port) { _port = port; }
 	void SetNetTCPHandle(int tcp) { _netTCPHandle = tcp; }
 	void SetRecieveUDPHandle(int recieveUDP) { _recieveUDPHandle = recieveUDP; }
-	void 	SetSendUDPHandle(int sendUDP) { _sendUDPHandle = sendUDP; }
+	void SetSendUDPHandle(int sendUDP) { _sendUDPHandle = sendUDP; }
+	int* GetEnemyGeneration() { return _enemyGeneration; }
 
+	//void SetEnemyGeneration(int data[255]){ _enemyGeneration =data; }
 private:
 	Game& _game;
 	std::shared_ptr<InputManager> _inputManager;
@@ -33,4 +36,5 @@ private:
 	int _reciveDataFrameCount;//受け取ったデータで使用しているフレームカウント
 	bool _reciveError;//<エラーメッセージ用
 
+	int* _enemyGeneration;;
 };

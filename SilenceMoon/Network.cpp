@@ -25,20 +25,45 @@ Network::~Network() {
 void Network::SendInputData(int keyData, Vector2 analogData) {
 	InputData data;
 	data.type = DataType::InputData;
-	data.length = sizeof(data);
+	data.length = sizeof(InputData);
 	data.frame = _game.GetFrameCount();
 	data.key = keyData;
 	data.analog = analogData;
 	NetWorkSend(_netTCPHandle, &data, data.length);
 }
 
+void Network::SendEnemyData(int* enemyData) {
+	EnemyGenerateData data;
+	data.type = DataType::EnemyGenerate;
+	data.length = sizeof(EnemyGenerateData);
+	for (int i = 0; i < 255; ++i) {
+		data.data[i] = enemyData[i];
+	}
+	NetWorkSend(_netTCPHandle, &data, data.length);
+}
+
 InputData Network::RecieveInputData() {
+	NetworkDataBase base;
 	InputData data;
 	data.frame = -1;
 	auto length= GetNetWorkDataLength(_netTCPHandle);
 	if (length !=0)
 	{
-		NetWorkRecv(_netTCPHandle, &data, sizeof(InputData));
+		NetWorkRecvToPeek(_netTCPHandle, &base, sizeof(NetworkDataBase));
+		switch (base.type)
+		{
+		case DataType::InputData:
+			NetWorkRecv(_netTCPHandle, &data, sizeof(InputData));
+			return 	data;
+		case DataType::EnemyGenerate:
+			EnemyGenerateData enemyData;
+			NetWorkRecv(_netTCPHandle, &enemyData, sizeof(EnemyGenerateData));
+			_enemyGeneration = enemyData.data;
+			break;
+		default:
+			break;
+		}
+
 	}
 	return data;
 }

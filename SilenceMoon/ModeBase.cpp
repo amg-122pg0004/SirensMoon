@@ -69,3 +69,15 @@ void ModeBase::CallPlayStage3() {
 		_game.PlayStage2Clear();
 	}
 }
+
+void ModeBase::RenderOnlineBlind(){
+	if (_game.GetDebugFlag()) {
+		return;
+	}
+	if (_game.GetInputManager()->GetOnlinePlayer() == 0) {
+		DrawBox(screen_W / 2, 0, screen_W, screen_H, GetColor(0, 0, 0), 1);
+	}
+	else if (_game.GetInputManager()->GetOnlinePlayer() == 1) {
+		DrawBox(0, 0, screen_W/2, screen_H, GetColor(0, 0, 0), 1);
+	}
+}
