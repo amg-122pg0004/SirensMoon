@@ -62,11 +62,13 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 		}
 		else if (_game.GetInputManager()->GetOnlinePlayer() == 1) {
 			while (1) {
-				if (_game.GetNetwork()->GetEnemyGeneration()[0] != 0) {
+				_game.GetNetwork()->RecieveInputData();
+				if (_game.GetNetwork()->GetEnemyGeneration() != nullptr) {
 					enemygen->SetEnemyALLPatternArray(_game.GetNetwork()->GetEnemyGeneration());
 					break;
 				}
 			}
+			
 		}
 	}
 

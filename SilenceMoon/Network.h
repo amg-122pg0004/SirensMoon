@@ -36,5 +36,5 @@ private:
 	int _reciveDataFrameCount;//受け取ったデータで使用しているフレームカウント
 	bool _reciveError;//<エラーメッセージ用
 
-	int* _enemyGeneration;;
+	int* _enemyGeneration;
 };
