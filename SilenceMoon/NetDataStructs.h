@@ -2,11 +2,12 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include <random>
 #include "Math.h"
 
 enum class DataType {
 	InputData,
-	EnemyGenerate,
+	RandomData,
 };
 
 class NetworkDataBase {
@@ -22,7 +23,7 @@ public:
 	Vector2 analog;
 };
 
-class  EnemyGenerateData :public NetworkDataBase {
+class  RandomData :public NetworkDataBase {
 public:
-	int data[255];
+	unsigned int random;
 };

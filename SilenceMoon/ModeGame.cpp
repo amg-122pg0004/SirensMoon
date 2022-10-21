@@ -52,25 +52,26 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 	auto playerB = std::make_unique<PlayerB>(_game, *this, 1);
 	_actorServer.Add(std::move(playerB));
 
-	/*各部2種で敵ランダム生成*/
-	auto enemygen = std::make_unique<EnemyGenerator>(pattern);
+	unsigned int random;
 	if (_game.GetNetwork() != nullptr) {
-		if (_game.GetInputManager()->GetOnlinePlayer()==0) {
-			auto data=enemygen->GetEnemyALLPatternArray();
-			_game.GetNetwork()->SendEnemyData(data);
-
+		if (_game.GetInputManager()->GetOnlinePlayer() == 0) {
+			_game.GetNetwork()->GenerateAndSendRandomData();
 		}
-		else if (_game.GetInputManager()->GetOnlinePlayer() == 1) {
-			while (1) {
-				_game.GetNetwork()->RecieveInputData();
-				if (_game.GetNetwork()->GetEnemyGeneration() != nullptr) {
-					enemygen->SetEnemyALLPatternArray(_game.GetNetwork()->GetEnemyGeneration());
-					break;
-				}
+		while (1) {
+			random = _game.GetNetwork()->GetRandomData();
+			if (random != -1) {
+				break;
 			}
-			
 		}
 	}
+	else {
+		std::random_device rnd;
+		std::mt19937 engine(rnd());
+		random = engine();
+	}
+	/*各部2種で敵ランダム生成*/
+	auto enemygen = std::make_unique<EnemyGenerator>(pattern,random);
+
 
 	auto serverdata = _mapChips->GetServerData();
 	for (auto&& data : serverdata) {

@@ -8,6 +8,7 @@
 #pragma once
 #include <vector>
 #include <memory>
+#include <random>
 
 class EnemyGenerator {
 public:
@@ -18,7 +19,7 @@ public:
 		int foot;
 	};
 
-	EnemyGenerator(EnemyPattern maxnum );
+	EnemyGenerator(EnemyPattern maxnum, unsigned int random );
 	~EnemyGenerator();
 	void Init();
 	/*配列からEnemyPatternを順番に返す*/
@@ -38,4 +39,6 @@ private:
 	/*最後に何番目のデータを参照したか？*/
 	int _lastGet;
 	int _arrayData[255];
+
+	unsigned int _random;
 };

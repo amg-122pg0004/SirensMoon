@@ -32,14 +32,15 @@ void Network::SendInputData(int keyData, Vector2 analogData) {
 	NetWorkSend(_netTCPHandle, &data, data.length);
 }
 
-void Network::SendEnemyData(int* enemyData) {
-	EnemyGenerateData data;
-	data.type = DataType::EnemyGenerate;
-	for (int i = 0; i < 255; ++i) {
-		//data.data[i] = enemyData[i];
-		data.data[i] = 1;
-	}
-	data.length = sizeof(EnemyGenerateData);
+void Network::GenerateAndSendRandomData() {
+
+	RandomData data;
+	data.type = DataType::RandomData;
+	data.length=sizeof(RandomData);
+	std::random_device rnd;
+	std::mt19937 engine(rnd());
+	data.random = engine();
+	_randomBuffer.push_back(data.random);
 	NetWorkSend(_netTCPHandle, &data, data.length);
 }
 
@@ -58,10 +59,11 @@ InputData Network::RecieveInputData() {
 				NetWorkRecv(_netTCPHandle, &data, sizeof(InputData));
 				return 	data;
 			}
-		case DataType::EnemyGenerate:
-			EnemyGenerateData enemyData;
+		case DataType::RandomData:
+			RandomData random;
 			if (GetNetWorkDataLength(_netTCPHandle) >= base.length) {
-				NetWorkRecv(_netTCPHandle, &enemyData, sizeof(EnemyGenerateData));
+				NetWorkRecv(_netTCPHandle, &random, sizeof(RandomData));
+				_randomBuffer.push_back(random.random);
 			}
 			break;
 		default:
@@ -78,4 +80,13 @@ void Network::Debug() {
 		DrawStringF(500, 0, "データ受け取りエラー", GetColor(255, 0, 0));
 	}
 	//DrawString(500, 0, ss.str().c_str(), GetColor(255, 255, 255));
+}
+
+uint_fast32_t Network::GetRandomData(){
+	if (_randomBuffer.size() == 0) {
+		return -1;
+	}
+	auto getData = *(_randomBuffer.end());
+	_randomBuffer.erase(_randomBuffer.end());
+	return getData;
 }

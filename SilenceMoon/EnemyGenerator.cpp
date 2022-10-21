@@ -8,13 +8,13 @@
 
 #include "EnemyGenerator.h"
 #include <algorithm>
-#include <random>
 #include <numeric>
 
-EnemyGenerator::EnemyGenerator(EnemyPattern maxnum)
+EnemyGenerator::EnemyGenerator(EnemyPattern maxnum, unsigned int random)
 	:_lastGet{ 0 }
 {
 	_numberOfTypes = maxnum;
+	_random = random;
 	Init();
 }
 
@@ -35,8 +35,7 @@ void EnemyGenerator::Init() {
 			}
 		}
 	}
-	std::random_device seed_gen;
-	std::mt19937 engine(seed_gen());
+	std::mt19937 engine(_random);
 	std::shuffle(_enemyAllPattern.begin(), _enemyAllPattern.end(), engine);
 }
 
