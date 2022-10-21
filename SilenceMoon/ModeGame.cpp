@@ -58,6 +58,7 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 			_game.GetNetwork()->GenerateAndSendRandomData();
 		}
 		while (1) {
+			_game.GetNetwork()->RecieveInputData();
 			random = _game.GetNetwork()->GetRandomData();
 			if (random != -1) {
 				break;

@@ -6,8 +6,8 @@
 #include "Math.h"
 
 enum class DataType {
-	InputData,
 	RandomData,
+	InputData
 };
 
 class NetworkDataBase {

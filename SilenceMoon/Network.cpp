@@ -47,7 +47,6 @@ void Network::GenerateAndSendRandomData() {
 InputData Network::RecieveInputData() {
 	NetworkDataBase base;
 	InputData data;
-
 	auto length= GetNetWorkDataLength(_netTCPHandle);
 	if (length >=sizeof(NetworkDataBase))
 	{
@@ -56,13 +55,13 @@ InputData Network::RecieveInputData() {
 		{
 		case DataType::InputData:
 			if (GetNetWorkDataLength(_netTCPHandle) >= base.length) {
-				NetWorkRecv(_netTCPHandle, &data, sizeof(InputData));
+				NetWorkRecv(_netTCPHandle, &data, base.length);
 				return 	data;
 			}
 		case DataType::RandomData:
 			RandomData random;
 			if (GetNetWorkDataLength(_netTCPHandle) >= base.length) {
-				NetWorkRecv(_netTCPHandle, &random, sizeof(RandomData));
+				NetWorkRecv(_netTCPHandle, &random, base.length);
 				_randomBuffer.push_back(random.random);
 			}
 			break;
