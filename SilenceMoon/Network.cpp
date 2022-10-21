@@ -82,11 +82,11 @@ void Network::Debug() {
 	//DrawString(500, 0, ss.str().c_str(), GetColor(255, 255, 255));
 }
 
-uint_fast32_t Network::GetRandomData(){
+unsigned int Network::GetRandomData(){
 	if (_randomBuffer.size() == 0) {
 		return -1;
 	}
-	auto getData = *(_randomBuffer.end());
-	_randomBuffer.erase(_randomBuffer.end());
+	auto getData = _randomBuffer.back();
+	_randomBuffer.erase(_randomBuffer.end()-1);
 	return getData;
 }
