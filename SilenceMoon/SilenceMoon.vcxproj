@@ -221,9 +221,12 @@
     <ClCompile Include="ModeGame.cpp" />
     <ClCompile Include="ModeGameOver.cpp" />
     <ClCompile Include="ModeMovie.cpp" />
+    <ClCompile Include="ModeNetwork.cpp" />
     <ClCompile Include="ModeServer.cpp" />
     <ClCompile Include="ModeStart.cpp" />
     <ClCompile Include="ModeStartUp2.cpp" />
+    <ClCompile Include="NetDataStructs.cpp" />
+    <ClCompile Include="Network.cpp" />
     <ClCompile Include="ObjectDataStructs.cpp" />
     <ClCompile Include="ObjectiveUI.cpp" />
     <ClCompile Include="Pause.cpp" />
@@ -332,9 +335,12 @@
     <ClInclude Include="ModeGame.h" />
     <ClInclude Include="ModeGameOver.h" />
     <ClInclude Include="ModeMovie.h" />
+    <ClInclude Include="ModeNetwork.h" />
     <ClInclude Include="ModeServer.h" />
     <ClInclude Include="ModeStart.h" />
     <ClInclude Include="ModeStartUp2.h" />
+    <ClInclude Include="NetDataStructs.h" />
+    <ClInclude Include="Network.h" />
     <ClInclude Include="ObjectDataStructs.h" />
     <ClInclude Include="ObjectiveUI.h" />
     <ClInclude Include="Pause.h" />

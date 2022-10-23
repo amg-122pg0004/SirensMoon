@@ -21,7 +21,7 @@
 #include "BossGunFireUI.h"
 
 
-Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller)
+Boss::Boss(Game& game, ModeGame& mode, BossGimmickController& controller, unsigned int random)
 	:Actor(game, mode), _scale{ 1.0 }, _mapscale{ 1.0 }, _animNo{ 0 }
 	, _backlayer{ true }, _time{ 60 }, _visible{ true }, _speed{ 3.5 }, _alpha{ 255 }
 	, _headbuttSize{ 150,420 }, _headSize{ 90,90 }, _hp{ 3 }, _controller{ controller }

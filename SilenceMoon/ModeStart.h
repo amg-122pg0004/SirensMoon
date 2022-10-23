@@ -14,10 +14,11 @@ public:
 	void Update()override;
 	void Render()override;
 	void Debug()override;
-private:
 	void Play();
+private:
 	void Credit();
 	void Quit();
+	void NetWork();
 	void VisibleSkipUI();
 	
 	bool _analogFlag1,_analogFlag2;//<アナログ入力を入れた場合のフラグ
@@ -43,4 +44,6 @@ private:
 	std::vector<std::unique_ptr<UIBase>> _ui;
 	int _loadingNumber;
 	std::unique_ptr<SplitWindow> _splitWindow;
+
+	int _font;
 };

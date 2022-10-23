@@ -5,13 +5,15 @@
 LoadResources::LoadResources() {
 }
 void LoadResources::LoadSE1() {
+	SetUseASyncLoadFlag(true);
 	SoundServer::LoadSound("DeceideMenu", "resource/SE/UI/DeceideMenu.mp3");
 	SoundServer::LoadSound("InputDown", "resource/SE/UI/InputDown.mp3");
 	SoundServer::LoadSound("InputUp", "resource/SE/UI/InputUp.mp3");
+	SetUseASyncLoadFlag(false);
 }
 
 void LoadResources::LoadSE() {
-
+	SetUseASyncLoadFlag(true);
 	SoundServer::LoadSound("TakeAmmo", "resource/SE/Gimmick/TakeAmmo.mp3");
 	SoundServer::LoadSound("EnterBarrier", "resource/SE/Gimmick/EnterBarrier.mp3");
 	ChangeVolumeSoundMem(255 * 50 / 100, SoundServer::Find("EnterBarrier"));
@@ -44,9 +46,11 @@ void LoadResources::LoadSE() {
 
 	SoundServer::LoadSound("Detection", "resource/SE/Enemy/Detection.mp3");
 	ChangeVolumeSoundMem(255 * 100 / 100, SoundServer::Find("Detection"));
+	SetUseASyncLoadFlag(false);
 }
 
 void LoadResources::LoadEffects() {
+	SetUseASyncLoadFlag(true);
 	std::vector<int> cg;
 	cg.resize(112);
 	ImageServer::LoadDivGraph("resource/Effect/boom2.png", 112, 8, 14, 512, 512, cg.data());
@@ -68,13 +72,17 @@ void LoadResources::LoadEffects() {
 	ImageServer::LoadDivGraph("resource/Effect/teleport_outB.png", 68, 4, 17, 128, 128, cg.data());
 	cg.resize(117);
 	ImageServer::LoadDivGraph("resource/Effect/ScreenSmoke.png", 117, 5, 24, 256, 256, cg.data());
+	SetUseASyncLoadFlag(false);
 }
 
 void LoadResources::LoadMovie(std::string path) {
+	SetUseASyncLoadFlag(true);
 	ImageServer::LoadGraph(path);
+	SetUseASyncLoadFlag(false);
 }
 
 void LoadResources::LoadBossCGs() {
+	SetUseASyncLoadFlag(true);
 	std::vector<int> handle;
 	handle.resize(65);
 	ImageServer::LoadDivGraph("resource/Boss/wait.png", 65, 10, 7, 1024, 1024, handle.data());
@@ -112,5 +120,5 @@ void LoadResources::LoadBossCGs() {
 	SoundServer::LoadSound("MissileLaunch", "resource/SE/Boss/MissileLaunch.mp3");
 	SoundServer::LoadSound("BigRailgunShoot", "resource/SE/Boss/BigRailgunShoot.mp3");
 	SoundServer::LoadSound("BigRailgunHit", "resource/SE/Boss/BigRailgunHit.mp3");
-	SoundServer::LoadSound("NoDamage", "resource/SE/Boss/NoDamage.mp3");
+	SetUseASyncLoadFlag(false);
 }

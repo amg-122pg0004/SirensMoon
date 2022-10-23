@@ -8,6 +8,7 @@
 #pragma once
 #include <vector>
 #include <memory>
+#include <random>
 
 class EnemyGenerator {
 public:
@@ -18,13 +19,17 @@ public:
 		int foot;
 	};
 
-	EnemyGenerator(EnemyPattern maxnum );
+	EnemyGenerator(EnemyPattern maxnum, unsigned int random );
 	~EnemyGenerator();
 	void Init();
 	/*配列からEnemyPatternを順番に返す*/
 	EnemyPattern GetEnemyPattern();
 	/*配列からEnemyPatternを順番に返し、返した値は配列から削除*/
 	EnemyPattern GetEnemyVIPPattern();
+	/*配列からEnemyPatternを順番に返す*/
+	int* GetEnemyALLPatternArray() ;
+	/*_enemyAllPatternをセット*/
+	void SetEnemyALLPatternArray(int data[255]);
 
 private:
 	/*各部最大何通り存在するか*/
@@ -33,4 +38,7 @@ private:
 	std::vector<EnemyPattern> _enemyAllPattern;
 	/*最後に何番目のデータを参照したか？*/
 	int _lastGet;
+	int _arrayData[255];
+
+	unsigned int _random;
 };

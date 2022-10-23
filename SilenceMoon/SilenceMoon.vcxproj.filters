@@ -643,6 +643,9 @@
     <ClInclude Include="WantedInfo.h">
       <Filter>UI\WantedInfo</Filter>
     </ClInclude>
+    <ClInclude Include="Network.h">
+      <Filter>Utillity\Network</Filter>
+    </ClInclude>
     <ClInclude Include="FX_ScreenSmoke.h">
       <Filter>Actor\Effect\FX_ScreenSmoke</Filter>
     </ClInclude>

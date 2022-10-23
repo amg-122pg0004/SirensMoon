@@ -13,6 +13,7 @@ ModeBase::ModeBase(Game& game)
 	: _game(game)
 	, _dead(false)
 	, _actorServer{ *this }
+	,_stopUpdate{ false }
 	, _makedNextMode{ false }
 	, _delayNextMode{ 20 }
 	, _renderPriority{ 0 }
@@ -66,5 +67,17 @@ void ModeBase::CallPlayStage3() {
 	if (!_makedNextMode && _delayNextMode < 0) {
 		_makedNextMode = true;
 		_game.PlayStage2Clear();
+	}
+}
+
+void ModeBase::RenderOnlineBlind(){
+	if (_game.GetDebugFlag()) {
+		return;
+	}
+	if (_game.GetInputManager()->GetOnlinePlayer() == 0) {
+		DrawBox(screen_W / 2, 0, screen_W, screen_H, GetColor(0, 0, 0), 1);
+	}
+	else if (_game.GetInputManager()->GetOnlinePlayer() == 1) {
+		DrawBox(0, 0, screen_W/2, screen_H, GetColor(0, 0, 0), 1);
 	}
 }

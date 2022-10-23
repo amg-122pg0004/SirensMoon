@@ -19,6 +19,8 @@ public:
 	virtual void Render();	// 描画
 	virtual void Debug(); //デバッグ
 
+	void RenderOnlineBlind();
+
 	virtual ActorServer& GetActorServer() { return _actorServer; }
 	virtual ActorServer::TypeActors& GetObjects() { return _actorServer.GetObjects(); }
 
@@ -27,6 +29,7 @@ public:
 	int GetRenderPriority() { return _renderPriority; }
 
 	virtual void NextMode(int delayNext);
+	void SetStopUpdate(bool flag) { _stopUpdate = flag; };
 
 	void CallPlayStage1();
 	void CallPlayStage2();
@@ -39,7 +42,7 @@ protected:
 	ActorServer _actorServer;
 
 	int _renderPriority;
-
+	bool _stopUpdate;
 	bool _makedNextMode;
 	int _delayNextMode;
 };

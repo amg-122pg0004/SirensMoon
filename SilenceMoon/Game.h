@@ -11,6 +11,7 @@
 #include <vector>
 #include "InputManager.h"
 #include "ModeServer.h"
+#include "Network.h"
 
 constexpr int screen_W{ 1920 };//<ウィンドウの解像度：横
 constexpr int screen_H{ 1080 };//<ウィンドウの解像度：縦
@@ -49,6 +50,7 @@ public:
 	 */
 	inline  auto GetInputManager() { return _inputManager; }
 
+	inline void ResetFrameCount() { _frameCount =0; }
 	inline int GetFrameCount() { return _frameCount; }
 
 	std::unique_ptr<ModeServer>& GetModeServer() { return _modeServer; }
@@ -70,12 +72,19 @@ public:
 	void PlayStage3Clear();
 	void PlayCredit();
 
+	void StartNetwork();
+
+	std::unique_ptr<Network>& GetNetwork() { return _network; }
+	void SetOnlineNo(int no) { _online = no; }
+	int GetOnlineNo() { return _online ; }
+	bool GetDebugFlag() { return _debug; }
 private:
+	int _font22, _font26;
 	std::shared_ptr<InputManager> _inputManager;
 	std::unique_ptr<ModeServer> _modeServer;
+	std::unique_ptr<Network> _network;
 	int _frameCount;
 	bool _debug;
 	Progress _progress;
-
-	int _font22, _font26;
+	int _online;
 };

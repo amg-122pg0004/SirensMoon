@@ -14,13 +14,16 @@
 #include "ModeMovie.h"
 #include "ModeStartUp2.h"
 
-Game::Game() :_frameCount{ 0 }, _progress{ Progress::StartMenu }
+Game::Game()
+	:_frameCount{ 0 }
+	, _progress{ Progress::StartMenu }
+	, _network{ nullptr }
+	, _online{ -1 }
 {
 	_modeServer = std::make_unique<ModeServer>(*this);
 	_inputManager = std::make_unique<InputManager>();
-	SetUseASyncLoadFlag(true);
-	PlayStartUp1();
-	//PlayStartMenu();
+	//PlayStartUp1();
+	PlayStartMenu();
 	//PlayStage2Clear();
 	_font22 = LoadFontDataToHandle("resource/Font/ロンドBスクエア.dft", 1);
 	_font26 = LoadFontDataToHandle("resource/Font/ロンドBスクエア26.dft", 1);
@@ -28,15 +31,29 @@ Game::Game() :_frameCount{ 0 }, _progress{ Progress::StartMenu }
 
 void Game::Input() {
 	_inputManager->InputUpdate();
-#ifdef _DEBUG
-	if (_inputManager->CheckInput("CHANGE", 'r', 0) || _inputManager->CheckInput("CHANGE", 'r', 1)) {
-		_inputManager->ChangeControllerNo();
-}
-	if (_inputManager->CheckInput("DEBUG", 'r', 0) || _inputManager->CheckInput("DEBUG", 'r', 1)) {
-		_debug = !_debug;
-	}
-#endif // _DEBUG
+	if (_network != nullptr) {
+		if (_inputManager->GetOnlinePlayer() == 0) {
+			_network->SendInputData(_inputManager->GetPlayer0Key().back(), _inputManager->GetPlayer0Analog().back());
+			while (1) {
+				auto data = _network->RecieveInputData();
+				if (data.frame != -1) {
+					_inputManager->InputUpdatePlayer1(data.key, data.analog);
+					break;
+				}
+			}
+		}
+		else if (_inputManager->GetOnlinePlayer() == 1) {
+			_network->SendInputData(_inputManager->GetPlayer1Key().back(), _inputManager->GetPlayer1Analog().back());
+			while (1) {
+				auto data = _network->RecieveInputData();
+				if (data.frame != -1) {
+					_inputManager->InputUpdatePlayer0(data.key, data.analog);
+					break;
+				}
+			}
+		}
 
+	}
 
 }
 void Game::Update() {
@@ -44,18 +61,29 @@ void Game::Update() {
 	_modeServer->Update();
 
 #ifdef _DEBUG
+
+	if (_inputManager->CheckInput("CHANGE", 'r', 0) || _inputManager->CheckInput("CHANGE", 'r', 1)) {
+		_inputManager->ChangeControllerNo();
+	}
+
+
+	if (_inputManager->CheckInput("DEBUG", 't', 0) || _inputManager->CheckInput("DEBUG", 't', 1)) {
+		_debug = !_debug;
+	}
+
 	if (_inputManager->CheckInput("DEBUG", 'h', 0) && _inputManager->CheckInput("PAUSE", 't', 0) ||
 		_inputManager->CheckInput("DEBUG", 'h', 1) && _inputManager->CheckInput("PAUSE", 't', 1))
 	{
 		PlayStartMenu();
 	}
-#endif // DEBUG
+
+#endif
 }
 
 void Game::Render() {
 	SetDrawScreen(DX_SCREEN_BACK);
-		ClearDrawScreen();
-		_modeServer->Render();
+	ClearDrawScreen();
+	_modeServer->Render();
 }
 
 void Game::Debug() {
@@ -64,9 +92,13 @@ void Game::Debug() {
 		_modeServer->Debug();
 		DrawFormatString(0, 0, GetColor(255, 255, 255), "%f", GetFPS());
 		DrawFormatString(0, 12, GetColor(255, 255, 255), "%d", GetASyncLoadNum());
-		#ifdef _DEBUG
-		//_inputManager->Render();
-		#endif 
+		if (_network != nullptr) {
+			_network->Debug();
+		}
+
+#ifdef _DEBUG
+		_inputManager->Render();
+#endif 
 	}
 }
 
@@ -136,7 +168,7 @@ void Game::PlayStartUp1() {
 	SoundServer::StopALLSound();
 	_progress = Progress::StartUp1;
 	StopSoundFile();
-	_modeServer->Add(std::move(std::make_unique<ModeMovie>(*this, "resource/Movie/startup1.mp4",0, 0, false)));
+	_modeServer->Add(std::move(std::make_unique<ModeMovie>(*this, "resource/Movie/startup1.mp4", 0, 0, false)));
 }
 
 void Game::PlayStartUp2() {
@@ -152,7 +184,7 @@ void Game::PlayStartUp3() {
 	SoundServer::StopALLSound();
 	_progress = Progress::StartUp3;
 	StopSoundFile();
-	_modeServer->Add(std::move(std::make_unique<ModeMovie>(*this, "resource/Movie/startup3.mp4",0, 0, false)));
+	_modeServer->Add(std::move(std::make_unique<ModeMovie>(*this, "resource/Movie/startup3.mp4", 0, 0, false)));
 }
 
 
@@ -203,9 +235,7 @@ void Game::PlayStage2() {
 void Game::PlayStage3() {
 	SoundServer::StopALLSound();
 	_modeServer->Clear();
-	SetUseASyncLoadFlag(false);
 	LoadResources::LoadBossCGs();
-	SetUseASyncLoadFlag(true);
 	_progress = Progress::Stage3;
 	EnemyGenerator::EnemyPattern pattern;
 	pattern.head = 9;
@@ -219,7 +249,7 @@ void Game::PlayStage1Clear() {
 	StopSoundFile();
 	_modeServer->Clear();
 	_progress = Progress::Stage1Clear;
-	_modeServer->Add(std::move(std::make_unique<ModeMovie>(*this, "resource/Movie/stage1end.mp4",0, 137000, true)));
+	_modeServer->Add(std::move(std::make_unique<ModeMovie>(*this, "resource/Movie/stage1end.mp4", 0, 137000, true)));
 }
 
 void Game::PlayStage2Clear() {
@@ -227,7 +257,7 @@ void Game::PlayStage2Clear() {
 	StopSoundFile();
 	_modeServer->Clear();
 	_progress = Progress::Stage2Clear;
-	auto movie = std::make_unique<ModeMovie>(*this, "resource/Movie/stage2end.mp4",0, 86500, true);
+	auto movie = std::make_unique<ModeMovie>(*this, "resource/Movie/stage2end.mp4", 0, 86500, true);
 	movie->SetBGM("resource/BGM/title.mp3", 91000);
 	_modeServer->Add(std::move(movie));
 	LoadResources::LoadBossCGs();
@@ -238,7 +268,7 @@ void Game::PlayStage3Clear() {
 	StopSoundFile();
 	_modeServer->Clear();
 	_progress = Progress::Stage3Clear;
-	_modeServer->Add(std::move(std::make_unique<ModeMovie>(*this, "resource/Movie/stage3end.mp4",0, 0, true)));
+	_modeServer->Add(std::move(std::make_unique<ModeMovie>(*this, "resource/Movie/stage3end.mp4", 0, 0, true)));
 }
 
 void Game::GameOver() {
@@ -256,4 +286,10 @@ void Game::PlayCredit() {
 	_modeServer->Clear();
 	_progress = Progress::Credit;
 	_modeServer->Add(std::move(std::make_unique<ModeMovie>(*this, "resource/Movie/stage3end.mp4", 152000, 222000, true)));
+}
+
+void Game::StartNetwork() {
+	if (_network == nullptr) {
+		_network.reset(new Network(*this));
+	}
 }

@@ -53,8 +53,26 @@ BossGimmickController::BossGimmickController(Game& game, ModeGame& mode, BossGim
 
 		_mode.GetActorServer().Add(std::move(biggun));
 	}
+	unsigned int random;
+	if (_game.GetNetwork() != nullptr) {
+		if (_game.GetInputManager()->GetOnlinePlayer() == 0) {
+			_game.GetNetwork()->GenerateAndSendRandomData();
+		}
+		while (1) {
+			_game.GetNetwork()->RecieveInputData();
+			random = _game.GetNetwork()->GetRandomData();
+			if (random != -1) {
+				break;
+			}
+		}
+	}
+	else {
+		std::random_device rnd;
+		std::mt19937 engine(rnd());
+		random = engine();
+	}
 	/*É{ÉXê∂ê¨*/
-	_mode.GetActorServer().Add(std::make_unique<Boss>(_game, _mode, *this));
+	_mode.GetActorServer().Add(std::make_unique<Boss>(_game, _mode, *this, random));
 
 	auto&& uiserver = _mode.GetSplitWindow()[1]->GetUIServer2().GetObjects();
 	for (auto&& ui : uiserver) {

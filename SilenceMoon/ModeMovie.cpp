@@ -83,6 +83,7 @@ void ModeMovie::Render() {
 	for (auto&& ui : _ui) {
 		ui->Render();
 	}
+	ModeBase::RenderOnlineBlind();
 }
 
 void ModeMovie::Debug() {

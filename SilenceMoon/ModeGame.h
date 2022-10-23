@@ -40,8 +40,9 @@ public:
 	void PlayBGM();
 	
 
+	int GetFrameCount() { return _frameCount; };
 private:
-	bool _stopActorUpdate;
+
 
 	std::unique_ptr<MapChip>_mapChips;
 	std::vector<std::unique_ptr<SplitWindow>>_splitWindow;
@@ -50,4 +51,5 @@ private:
 	int _enemyVIPDeadCount;
 	bool _clear;
 	int _clearDelay;
+	int _frameCount;
 };

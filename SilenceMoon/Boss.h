@@ -15,7 +15,7 @@ class BossGimmickController;
 
 class Boss :public Actor {
 public:
-	Boss(Game& game, ModeGame& mode,BossGimmickController& controller);
+	Boss(Game& game, ModeGame& mode,BossGimmickController& controller, unsigned int random);
 	void Update()override;
 	void BackRender(Vector2 window_pos, Vector2 camera_pos)override;
 	void StandardRender(Vector2 window_pos, Vector2 camera_pos)override;
@@ -84,7 +84,8 @@ private:
 	Vector2 _shootPos;
 
 	std::random_device seed_gen;
-	std::mt19937 engine{ seed_gen() };
+	unsigned int _random;
+	std::mt19937 engine{ _random };
 	std::uniform_int_distribution<> rand3{ 1,3 };
 	std::uniform_int_distribution<> rand2{ 1,2 };
 	std::uniform_int_distribution<> rand100{ 1,100 };
@@ -96,4 +97,6 @@ private:
 
 	int _alpha;
 	bool _stop;
+
+
 };

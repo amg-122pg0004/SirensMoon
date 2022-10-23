@@ -28,9 +28,10 @@
 #include "SwitchArea.h"
 #include "ScreenPump.h"
 #include "Barrier.h"
+#include "Network.h"
 
 ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPattern pattern, std::string bgm)
-	:ModeBase{ game }, _stopActorUpdate{ false }, _bgm{ bgm }, _clearDelay{ 240 }, _clear{ false }
+	:ModeBase{ game },  _bgm{ bgm }, _clearDelay{ 240 }, _clear{ false },_frameCount{0}
 {
 	_inputManager = _game.GetInputManager();
 	_renderPriority = 0;
@@ -51,8 +52,27 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 	auto playerB = std::make_unique<PlayerB>(_game, *this, 1);
 	_actorServer.Add(std::move(playerB));
 
+	unsigned int random;
+	if (_game.GetNetwork() != nullptr) {
+		if (_game.GetInputManager()->GetOnlinePlayer() == 0) {
+			_game.GetNetwork()->GenerateAndSendRandomData();
+		}
+		while (1) {
+			_game.GetNetwork()->RecieveInputData();
+			random = _game.GetNetwork()->GetRandomData();
+			if (random != -1) {
+				break;
+			}
+		}
+	}
+	else {
+		std::random_device rnd;
+		std::mt19937 engine(rnd());
+		random = engine();
+	}
 	/*各部2種で敵ランダム生成*/
-	auto enemygen = std::make_unique<EnemyGenerator>(pattern);
+	auto enemygen = std::make_unique<EnemyGenerator>(pattern,random);
+
 
 	auto serverdata = _mapChips->GetServerData();
 	for (auto&& data : serverdata) {
@@ -193,12 +213,13 @@ ModeGame::~ModeGame() {
 
 void ModeGame::Update() {
 	ModeBase::Update();
+	++_frameCount;
 	/*UIの更新*/
 	for (auto&& splitwindows : _splitWindow) {
 		splitwindows->Update();
 	}
 	/*Actorの更新*/
-	if (_stopActorUpdate == false) {
+	if (_stopUpdate == false) {
 		_actorServer.Update();
 	}
 	if (_clear) {
@@ -214,6 +235,7 @@ void ModeGame::Render() {
 		splitwindows->Render();
 	}
 	//_inputManager->Render();
+	ModeBase::RenderOnlineBlind();
 }
 
 void ModeGame::Debug() {
@@ -223,11 +245,11 @@ void ModeGame::Debug() {
 }
 
 void ModeGame::StageClearCheck() {
-	_stopActorUpdate = true;
+	_stopUpdate = true;
 	++_enemyVIPDeadCount;
 	if (_enemyVIPDeadCount >= _mapChips->GetServerData().size()) {
 		StopSoundFile();
-		_stopActorUpdate = true;
+		_stopUpdate = true;
 		TargetKillEvent();
 		_clear = true;
 	}
@@ -237,7 +259,7 @@ void ModeGame::GameOver() {
 	if (_makedNextMode) {
 		return;
 	}
-	_stopActorUpdate = true;
+	_stopUpdate = true;
 	_makedNextMode = true;
 	_delayNextMode = 100000;
 	auto mode = std::make_unique<ModeGameOver>(_game);
@@ -263,7 +285,7 @@ void ModeGame::TargetKillEvent() {
 
 void ModeGame::SetPauseGame(bool flag) {
 	if (!_makedNextMode) {
-		_stopActorUpdate = flag;
+		_stopUpdate = flag;
 	}
 }
 void ModeGame::PlayBGM() {
