@@ -9,7 +9,7 @@ class InputManager;
 
 class ServerMachine :public Actor {
 public:
-	ServerMachine(Game& game, ModeGame& mode, ServerMachineData data, EnemyGenerator::EnemyPattern grData);
+	ServerMachine(Game& game, ModeGame& mode, ServerMachineData data, EnemyGenerator::EnemyPattern grData,unsigned int random);
 	Type GetType() { return Type::Server; }
 	void Update()override;
 	void SetValidFlag(bool flag) { _valid = flag; }
@@ -46,4 +46,6 @@ private:
 	bool _deadVIP;
 
 	std::shared_ptr<InputManager> _inputManager;
+
+	unsigned int _random;
 };

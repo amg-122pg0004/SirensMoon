@@ -77,7 +77,7 @@ ModeGame::ModeGame(Game& game, std::string filename, EnemyGenerator::EnemyPatter
 	auto serverdata = _mapChips->GetServerData();
 	for (auto&& data : serverdata) {
 		auto pattern = enemygen->GetEnemyVIPPattern();
-		auto server = std::make_unique<ServerMachine>(_game, *this, data, pattern);
+		auto server = std::make_unique<ServerMachine>(_game, *this, data, pattern, random);
 		_actorServer.Add(std::move(server));
 	}
 

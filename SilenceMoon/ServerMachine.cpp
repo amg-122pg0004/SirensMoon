@@ -10,8 +10,8 @@
 #include "SoundServer.h"
 #include "ObjectiveUI.h"
 
-ServerMachine::ServerMachine(Game& game, ModeGame& mode, ServerMachineData data, EnemyGenerator::EnemyPattern pattern)
-	:Actor(game, mode),_valid{false},_serverData{data},_energy{0}, _pattern{pattern},_deadVIP{false}, _accessible{0}
+ServerMachine::ServerMachine(Game& game, ModeGame& mode, ServerMachineData data, EnemyGenerator::EnemyPattern pattern,unsigned int random)
+	:Actor(game, mode),_valid{false},_serverData{data},_energy{0}, _pattern{pattern},_deadVIP{false}, _accessible{0},_random{random}
 {
 	_inputManager = _game.GetInputManager();
 	_accessArea.min = {0,0};
@@ -108,8 +108,7 @@ void ServerMachine::SpawnEnemyVIP() {
 	ModeGame& mode = dynamic_cast<ModeGame&>(_mode);
 	auto vipdata = mode.GetMapChips()->GetPatrolPointsVIP();
 
-	std::random_device seed_gen;
-	std::mt19937 engine(seed_gen());
+	std::mt19937 engine(_random);
 	std::shuffle(vipdata.begin(), vipdata.end(), engine);
 
 	int i = 0;
@@ -127,7 +126,7 @@ void ServerMachine::SpawnEnemyVIP() {
 	Vector2 pos=loot.PatrolPoints[0];
 	auto id = loot.ID;
 	EnemyData data;
-	auto enemy = std::make_unique<EnemyVIP>(_game, _mode, data, *this,loot, _pattern);
+	auto enemy = std::make_unique<EnemyVIP>(_game, _mode, data, *this,loot, _pattern,_random);
 	mode.GetActorServer().Add(std::move(enemy));
 }
 

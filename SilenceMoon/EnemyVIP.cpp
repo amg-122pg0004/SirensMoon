@@ -4,8 +4,8 @@
 #include <random>
 
 EnemyVIP::EnemyVIP(Game& game, ModeGame& mode, EnemyData enemydata,
-	ServerMachine& owner, EnemyPatrol patrol, EnemyGenerator::EnemyPattern pattern)
-	:EnemyA(game, mode, enemydata,pattern), _owner{ owner }, _hitGreenBullet{false}
+	ServerMachine& owner, EnemyPatrol patrol, EnemyGenerator::EnemyPattern pattern, unsigned int random)
+	:EnemyA(game, mode, enemydata,pattern), _owner{ owner }, _hitGreenBullet{false},_random{random}
 {
 	Init();
 	_patrolPoints = patrol.PatrolPoints;
@@ -77,8 +77,7 @@ void EnemyVIP::Respawn(){
 		return;
 	}
 
-	std::random_device seed_gen;
-	std::mt19937 engine(seed_gen());
+	std::mt19937 engine(_random);
 	std::shuffle(vipdata.begin(), vipdata.end(), engine);
 
 	int i = 0;

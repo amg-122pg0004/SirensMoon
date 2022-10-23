@@ -338,7 +338,7 @@ void Boss::ShootMissile() {
 
 	if (_time == 40 || _time == 20 || _time == 0) {
 		Vector2 rand = { static_cast<double>(rand100(engine)) / 100 * splitscreen_W,0 };
-		_mode.GetActorServer().Add(std::make_unique<BossMissile>(_game, _mode, rand));
+		_mode.GetActorServer().Add(std::make_unique<BossMissile>(_game, _mode, rand, _random));
 	}
 	if (!_phase2) {
 		if (_player1->GetRoomPosition().x == 0) {

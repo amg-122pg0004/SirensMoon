@@ -13,7 +13,7 @@
 #include "HPItem.h"
 #include "FX_AfterBurner.h"
 
-BossMissile::BossMissile(Game& game, ModeGame& mode, Vector2 pos)
+BossMissile::BossMissile(Game& game, ModeGame& mode, Vector2 pos, unsigned int _random)
 	:Actor(game, mode), _angle{ Math::ToRadians(90) }, _player2{ nullptr }, _speed{ 1.5 }
 {
 	_room = { 0,0 };

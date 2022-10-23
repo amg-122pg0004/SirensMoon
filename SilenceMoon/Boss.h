@@ -83,7 +83,6 @@ private:
 	AABB _collision;
 	Vector2 _shootPos;
 
-	std::random_device seed_gen;
 	unsigned int _random;
 	std::mt19937 engine{ _random };
 	std::uniform_int_distribution<> rand3{ 1,3 };

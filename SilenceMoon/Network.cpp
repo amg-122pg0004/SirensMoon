@@ -106,7 +106,7 @@ unsigned int Network::GetRandomData(){
 }
 
 Vector2 Network::GetFixPosition(){
-	if (_fixPosition.x != -1.0 && _fixPosition.y != -1.0) {
+	if (_fixPosition.x == -1.0 && _fixPosition.y == -1.0) {
 		return _fixPosition;
 	}
 	Vector2 getData = _fixPosition;

@@ -11,7 +11,7 @@
 
 class BossMissile :public Actor {
 public:
-	BossMissile(Game& game, ModeGame& mode, Vector2 pos);
+	BossMissile(Game& game, ModeGame& mode, Vector2 pos, unsigned int _random);
 	void Update()override;
 	void StandardRender(Vector2 window_pos, Vector2 camera_pos)override;
 	void Debug(Vector2 window_pos, Vector2 camera_pos)override;
@@ -35,7 +35,7 @@ private:
 	double _speed;
 	Vector2 _room;
 	HitBox _hitbox;
-	std::random_device seed_gen;
-	std::mt19937 engine{ seed_gen() };
+	unsigned int _random;
+	std::mt19937 engine{ _random };
 	std::uniform_int_distribution<> rand2{ 1,2 };
 };
