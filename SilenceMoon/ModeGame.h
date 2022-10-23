@@ -29,7 +29,7 @@ public:
 
 	inline  auto& GetMapChips() { return _mapChips; }
 	inline auto& GetSplitWindow() { return _splitWindow; }
-	bool GetStopActorServer() { return _stopActorUpdate; }
+	bool GetStopActorServer() { return _stopUpdate; }
 
 	void SetPauseGame(bool flag);
 	void StageClearCheck();
