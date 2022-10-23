@@ -13,6 +13,7 @@ public:
 	void Debug();
 	void SendInputData(int keyData,Vector2 analogData);
 	void GenerateAndSendRandomData();
+	void SendPositionFixData(Vector2 position);
 	InputData RecieveInputData();
 
 	void SetIP(IPDATA ip) { _ip = ip; }
@@ -21,6 +22,7 @@ public:
 	void SetRecieveUDPHandle(int recieveUDP) { _recieveUDPHandle = recieveUDP; }
 	void SetSendUDPHandle(int sendUDP) { _sendUDPHandle = sendUDP; }
 	unsigned int GetRandomData();
+	Vector2 GetFixPosition();
 private:
 	Game& _game;
 	std::shared_ptr<InputManager> _inputManager;
@@ -35,4 +37,5 @@ private:
 	bool _reciveError;//<エラーメッセージ用
 
 	std::vector<unsigned int> _randomBuffer;
+	Vector2 _fixPosition;
 };

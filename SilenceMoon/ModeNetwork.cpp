@@ -222,8 +222,6 @@ void ModeNetwork::StartGame() {
 	_game.GetNetwork()->SetNetTCPHandle(_netTCPHandle);
 	_game.GetNetwork()->SetSendUDPHandle(_netUDPSendHandle);
 	_game.GetNetwork()->SetRecieveUDPHandle(_netUDPRecieveHandle);
-	_game.GetNetwork()->SendInputData(0, {0,0});
-	_game.GetNetwork()->SendInputData(0, { 0,0 });
 	Dead();
 	static_cast<ModeStart&>(_preWindow).Play();
 }

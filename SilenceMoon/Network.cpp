@@ -14,6 +14,7 @@ Network::Network(Game& game)
 	, _recieveUDPHandle{ -1 }
 	, _reciveDataFrameCount{ -1 }
 	, _reciveError{ false }
+	,_fixPosition{-1.0,-1.0}
 {
 	_inputManager = _game.GetInputManager();
 
@@ -44,6 +45,14 @@ void Network::GenerateAndSendRandomData() {
 	NetWorkSend(_netTCPHandle, &data, data.length);
 }
 
+void Network::SendPositionFixData(Vector2 position) {
+	PositionFixData data;
+	data.type = DataType::PositionFix;
+	data.length = sizeof(PositionFixData);
+	data.Position = position;
+	NetWorkSend(_netTCPHandle, &data, data.length);
+}
+
 InputData Network::RecieveInputData() {
 	NetworkDataBase base;
 	InputData data;
@@ -63,6 +72,12 @@ InputData Network::RecieveInputData() {
 			if (GetNetWorkDataLength(_netTCPHandle) >= base.length) {
 				NetWorkRecv(_netTCPHandle, &random, base.length);
 				_randomBuffer.push_back(random.random);
+			}
+		case DataType::PositionFix:
+			PositionFixData fixpos;
+			if (GetNetWorkDataLength(_netTCPHandle) >= base.length) {
+				NetWorkRecv(_netTCPHandle, &fixpos, base.length);
+				_fixPosition = fixpos.Position;
 			}
 			break;
 		default:
@@ -87,5 +102,14 @@ unsigned int Network::GetRandomData(){
 	}
 	auto getData = _randomBuffer.back();
 	_randomBuffer.erase(_randomBuffer.end()-1);
+	return getData;
+}
+
+Vector2 Network::GetFixPosition(){
+	if (_fixPosition.x != -1.0 && _fixPosition.y != -1.0) {
+		return _fixPosition;
+	}
+	Vector2 getData = _fixPosition;
+	_fixPosition = { -1.0,-1.0 };
 	return getData;
 }

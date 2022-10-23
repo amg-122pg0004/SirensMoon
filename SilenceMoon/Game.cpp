@@ -218,6 +218,10 @@ void Game::PlayStage1() {
 	pattern.body = 2;
 	pattern.foot = 2;
 	_modeServer->Add(std::move(std::make_unique<ModeGame>(*this, "Stage1.json", pattern, "resource/BGM/Stage1.mp3")));
+	if (_online != -1) {
+		_network->SendInputData(0, { 0,0 });
+		_network->SendInputData(0, { 0,0 });
+	}
 }
 
 void Game::PlayStage2() {
@@ -230,6 +234,10 @@ void Game::PlayStage2() {
 	pattern.body = 5;
 	pattern.foot = 5;
 	_modeServer->Add(std::move(std::make_unique<ModeGame>(*this, "Stage2.json", pattern, "resource/BGM/Stage2.mp3")));
+	if (_online != -1) {
+		_network->SendInputData(0, { 0,0 });
+		_network->SendInputData(0, { 0,0 });
+	}
 }
 
 void Game::PlayStage3() {
@@ -242,6 +250,10 @@ void Game::PlayStage3() {
 	pattern.body = 5;
 	pattern.foot = 5;
 	_modeServer->Add(std::move(std::make_unique<ModeGame>(*this, "Stage3.json", pattern, "resource/BGM/title.mp3")));
+	if (_online != -1) {
+		_network->SendInputData(0, { 0,0 });
+		_network->SendInputData(0, { 0,0 });
+	}
 }
 
 void Game::PlayStage1Clear() {

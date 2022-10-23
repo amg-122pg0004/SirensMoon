@@ -53,6 +53,7 @@ public:
 	int GetHP() { return _hp; }
 
 	virtual void Move();
+	void FixPosition();
 	virtual void AnimUpdate();
 	void DirectionCGStateUpdate();
 	bool IsHitActor();

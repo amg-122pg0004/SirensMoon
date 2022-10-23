@@ -7,7 +7,8 @@
 
 enum class DataType {
 	RandomData,
-	InputData
+	InputData,
+	PositionFix
 };
 
 class NetworkDataBase {
@@ -26,4 +27,9 @@ public:
 class  RandomData :public NetworkDataBase {
 public:
 	unsigned int random;
+};
+
+class  PositionFixData :public NetworkDataBase {
+public:
+	Vector2 Position;
 };
