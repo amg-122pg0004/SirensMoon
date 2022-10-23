@@ -248,14 +248,16 @@ bool InputManager::CheckHaveKeyData() {
 }
 
 void InputManager::AddMinusFrameDummyData() {
-	int key{ 0 };
-	_player0Key.push_back(key);
-	_player1Key.push_back(key);
-	Vector2 analog{ 0,0 };
-	_player0Analog.push_back(analog);
-	_player1Analog.push_back(analog);
-	_recieveInputFrame.push_back(-1);
-	_recieveInputFrame.push_back(-2);
+	for (int i = 0; i < 2; ++i) {
+		int key{ 0 };
+		_player0Key.push_back(key);
+		_player1Key.push_back(key);
+		Vector2 analog{ 0,0 };
+		_player0Analog.push_back(analog);
+		_player1Analog.push_back(analog);
+		_recieveInputFrame.push_back(i-2);
+	}
+
 }
 
 std::string InputManager::ToBin(int a, int keta) {
