@@ -25,9 +25,9 @@ public:
 	/**@brief 使用する各キーについてインプット状態を確認して保存 */
 	void InputUpdate();
 	void InputUpdatePlayer0(int inputType);
-	void InputUpdatePlayer0(int key,Vector2 analog);
+	void InputUpdatePlayer0(int key,Vector2 analog,int frame);
 	void InputUpdatePlayer1(int inputType);
-	void InputUpdatePlayer1(int key, Vector2 analog);
+	void InputUpdatePlayer1(int key, Vector2 analog, int frame);
 	/**
 	* @brief 特定のキーの入力状態を確認する
 	*
@@ -57,13 +57,20 @@ public:
 	std::vector<Vector2> GetPlayer1Analog() { return _player1Analog; }
 	
 	int GetOnlinePlayer() { return _online; };
+
+	bool CheckHaveKeyData();
+
+	void AddMinusFrameDummyData();
 private:
 	/*キー対応設定*/
 	std::unordered_map<std::string, int> _player0Config, _player1Config;
-	/*キーの入力状態を過去フレーム含めて保存（最新はback()）*/
+	/*キーの入力状態を保存（最新はback()）*/
 	std::vector<int> _player0Key, _player1Key;
-	/*アナログスティックの入力状態を過去フレーム含めて保存最新はback())*/
+	/*アナログスティックの入力状態を保存(最新はback())*/
 	std::vector<Vector2> _player0Analog, _player1Analog;
+	
+	/*ネットワークから受け取ったインプット情報のフレームカウントを保存(最新はback)*/
+	std::vector<int> _recieveInputFrame;
 
 	/*コントローラーを入れ替えるフラグ*/
 	bool _changeFlag;

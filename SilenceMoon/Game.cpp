@@ -37,7 +37,9 @@ void Game::Input() {
 			while (1) {
 				auto data = _network->RecieveInputData();
 				if (data.frame !=-1) {
-					_inputManager->InputUpdatePlayer1(data.key, data.analog);
+				}
+				_inputManager->InputUpdatePlayer1(data.key, data.analog, data.frame);
+				if (_inputManager->CheckHaveKeyData()) {
 					break;
 				}
 			}
@@ -47,7 +49,9 @@ void Game::Input() {
 			while (1) {
 				auto data = _network->RecieveInputData();
 				if (data.frame !=-1) {
-					_inputManager->InputUpdatePlayer0(data.key, data.analog);
+					_inputManager->InputUpdatePlayer0(data.key, data.analog, data.frame);
+				}
+				if (_inputManager->CheckHaveKeyData()) {
 					break;
 				}
 			}

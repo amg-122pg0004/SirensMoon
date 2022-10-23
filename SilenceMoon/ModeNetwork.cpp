@@ -8,7 +8,7 @@ ModeNetwork::ModeNetwork(Game& game, ModeBase& mode)
 	:ModeBase(game)
 	, _preWindow{ mode }
 	, _state{ State::NotTryConnect }
-	, _ip{ 192,168,5,214 }
+	, _ip{ 192,168,11,6 }
 	, _port{ 9850 }
 	, _selectIndex{ 0 }
 	, _selectMAX{ 4 }
@@ -216,6 +216,7 @@ void ModeNetwork::WaitAcceptNet() {
 
 void ModeNetwork::StartGame() {
 	_game.ResetFrameCount();
+	_game.GetInputManager()->AddMinusFrameDummyData();
 	_game.StartNetwork();
 	_game.GetNetwork()->SetIP(_ip);
 	_game.GetNetwork()->SetPortNo(_port);

@@ -12,12 +12,27 @@
 #include <sstream>
 
 InputManager::InputManager() :_changeFlag{ 0 }, _online{ -1 } {
-
+	AddMinusFrameDummyData();
 	InitConfig();//追加版
 }
 
 /**@brief 使用する各キーについてインプット状態を確認して保存 */
 void InputManager::InputUpdate() {
+	if (_player0Key.size() > 0) {
+		_player0Key.erase(_player0Key.begin());
+	}
+	if (_player1Key.size() > 0) {
+		_player1Key.erase(_player1Key.begin());
+	}
+	if (_player0Analog.size() > 0) {
+		_player0Analog.erase(_player0Analog.begin());
+	}
+	if (_player1Analog.size() > 0) {
+		_player1Analog.erase(_player1Analog.begin());
+	}
+	if (_recieveInputFrame.size() > 0) {
+		_recieveInputFrame.erase(_recieveInputFrame.begin());
+	}
 	if (_online == -1) {
 		if (_changeFlag) {
 			InputUpdatePlayer0(DX_INPUT_PAD2);
@@ -57,12 +72,13 @@ bool InputManager::CheckInput(const std::string actionname, const char keystate,
 		key = _player1Key;
 	}
 	int currentKey{ 0 }, oldKey{ 0 };
+
 	if (key.size() > 0) {
-		currentKey = *(key.end() - 1);
+			currentKey = *(key.end() - 1);
 	}
 
 	if (key.size() > 1) {
-		oldKey = *(key.end() - 2);
+			oldKey = *(key.end() - 2);
 	}
 
 	auto inputKey = config[actionname];
@@ -136,18 +152,6 @@ void InputManager::InitConfig() {
 		{ "DOWN",PAD_INPUT_DOWN	},
 		{ "LEFT",PAD_INPUT_LEFT	},
 		{ "RIGHT",PAD_INPUT_RIGHT},
-		{ "ACTION",PAD_INPUT_3	},
-		{ "PAUSE",PAD_INPUT_8	},
-		{ "CHANGE",PAD_INPUT_10	},
-		{ "ACCESS",PAD_INPUT_1	},
-		{ "DEBUG",PAD_INPUT_7	},
-		{ "BULLET1",PAD_INPUT_5	},
-		{ "BULLET2",PAD_INPUT_6	},
-		/*
-		{ "UP",PAD_INPUT_UP		},
-		{ "DOWN",PAD_INPUT_DOWN	},
-		{ "LEFT",PAD_INPUT_LEFT	},
-		{ "RIGHT",PAD_INPUT_RIGHT},
 		{ "ACTION",PAD_INPUT_1	},
 		{ "PAUSE",PAD_INPUT_8	},
 		{ "CHANGE",PAD_INPUT_10	},
@@ -155,7 +159,6 @@ void InputManager::InitConfig() {
 		{ "DEBUG",PAD_INPUT_7	},
 		{ "BULLET1",PAD_INPUT_5	},
 		{ "BULLET2",PAD_INPUT_6	},
-		*/
 	};
 	if (CheckJoypadXInput(0)) {
 		_player0Config = xboxInputConfig;
@@ -178,10 +181,10 @@ void InputManager::InputUpdatePlayer0(int inputType) {
 	GetJoypadAnalogInput(&x, &y, inputType);
 	_player0Analog.push_back({ static_cast<double>(x),static_cast<double>(y) });
 
-	if (_player0Key.size() > 60) {
+	if (_player0Key.size() > 10) {
 		_player0Key.erase(_player0Key.begin());
 	}
-	if (_player0Analog.size() > 60) {
+	if (_player0Analog.size() > 10) {
 		_player0Analog.erase(_player0Analog.begin());
 	}
 }
@@ -191,35 +194,68 @@ void InputManager::InputUpdatePlayer1(int inputType) {
 	int x, y;
 	GetJoypadAnalogInput(&x, &y, inputType);
 	_player1Analog.push_back({ static_cast<double>(x),static_cast<double>(y) });
-	if (_player1Key.size() > 60) {
+	if (_player1Key.size() > 10) {
 		_player1Key.erase(_player1Key.begin());
 	}
-	if (_player1Analog.size() > 60) {
+	if (_player1Analog.size() > 10) {
 		_player1Analog.erase(_player1Analog.begin());
 	}
 }
-void InputManager::InputUpdatePlayer0(int key, Vector2 analog) {
+void InputManager::InputUpdatePlayer0(int key, Vector2 analog, int frame) {
 	_player0Key.push_back(key);
 	_player0Analog.push_back(analog);
+	_recieveInputFrame.push_back(frame);
 
-	if (_player0Key.size() > 60) {
+	if (_player0Key.size() > 10) {
 		_player0Key.erase(_player0Key.begin());
 	}
-	if (_player0Analog.size() > 60) {
+	if (_player0Analog.size() > 10) {
 		_player0Analog.erase(_player0Analog.begin());
+	}
+	if (_recieveInputFrame.size() > 10) {
+		_recieveInputFrame.erase(_recieveInputFrame.begin());
 	}
 }
 
-void InputManager::InputUpdatePlayer1(int key, Vector2 analog) {
+void InputManager::InputUpdatePlayer1(int key, Vector2 analog, int frame) {
 	_player1Key.push_back(key);
 	_player1Analog.push_back(analog);
+	_recieveInputFrame.push_back(frame);
 
-	if (_player1Key.size() > 60) {
+	if (_player1Key.size() > 10) {
 		_player1Key.erase(_player1Key.begin());
 	}
-	if (_player1Analog.size() > 60) {
+	if (_player1Analog.size() > 10) {
 		_player1Analog.erase(_player1Analog.begin());
 	}
+	if (_recieveInputFrame.size() > 10) {
+		_recieveInputFrame.erase(_recieveInputFrame.begin());
+	}
+}
+
+bool InputManager::CheckHaveKeyData() {
+	if (_online == 0) {
+		if (_player1Key.size() >= 2) {
+			return true;
+		}
+	}
+	if (_online == 2) {
+		if (_player1Key.size() >= 2) {
+			return true;
+		}
+	}
+	return false;
+}
+
+void InputManager::AddMinusFrameDummyData() {
+	int key{ 0 };
+	_player0Key.push_back(key);
+	_player1Key.push_back(key);
+	Vector2 analog{ 0,0 };
+	_player0Analog.push_back(analog);
+	_player1Analog.push_back(analog);
+	_recieveInputFrame.push_back(-1);
+	_recieveInputFrame.push_back(-2);
 }
 
 std::string InputManager::ToBin(int a, int keta) {
