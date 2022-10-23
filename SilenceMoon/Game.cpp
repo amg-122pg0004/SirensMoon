@@ -18,7 +18,7 @@ Game::Game()
 	:_frameCount{ 0 }
 	, _progress{ Progress::StartMenu }
 	, _network{ nullptr }
-	, _online{-1}
+	, _online{ -1 }
 {
 	_modeServer = std::make_unique<ModeServer>(*this);
 	_inputManager = std::make_unique<InputManager>();
@@ -36,10 +36,8 @@ void Game::Input() {
 			_network->SendInputData(_inputManager->GetPlayer0Key().back(), _inputManager->GetPlayer0Analog().back());
 			while (1) {
 				auto data = _network->RecieveInputData();
-				if (data.frame !=-1) {
-				}
-				_inputManager->InputUpdatePlayer1(data.key, data.analog, data.frame);
-				if (_inputManager->CheckHaveKeyData()) {
+				if (data.frame != -1) {
+					_inputManager->InputUpdatePlayer1(data.key, data.analog);
 					break;
 				}
 			}
@@ -48,33 +46,31 @@ void Game::Input() {
 			_network->SendInputData(_inputManager->GetPlayer1Key().back(), _inputManager->GetPlayer1Analog().back());
 			while (1) {
 				auto data = _network->RecieveInputData();
-				if (data.frame !=-1) {
-					_inputManager->InputUpdatePlayer0(data.key, data.analog, data.frame);
-				}
-				if (_inputManager->CheckHaveKeyData()) {
+				if (data.frame != -1) {
+					_inputManager->InputUpdatePlayer0(data.key, data.analog);
 					break;
 				}
 			}
 		}
-	
+
 	}
-	
+
 }
 void Game::Update() {
 	++_frameCount;
 	_modeServer->Update();
 
 #ifdef _DEBUG
-	
+
 	if (_inputManager->CheckInput("CHANGE", 'r', 0) || _inputManager->CheckInput("CHANGE", 'r', 1)) {
 		_inputManager->ChangeControllerNo();
 	}
-	
-	
+
+
 	if (_inputManager->CheckInput("DEBUG", 't', 0) || _inputManager->CheckInput("DEBUG", 't', 1)) {
 		_debug = !_debug;
 	}
-	
+
 	if (_inputManager->CheckInput("DEBUG", 'h', 0) && _inputManager->CheckInput("PAUSE", 't', 0) ||
 		_inputManager->CheckInput("DEBUG", 'h', 1) && _inputManager->CheckInput("PAUSE", 't', 1))
 	{
