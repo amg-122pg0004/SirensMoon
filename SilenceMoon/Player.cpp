@@ -55,11 +55,11 @@ void Player::Update() {
 	if (_dir.x != 0 || _dir.y != 0) {
 		_inputAngle = atan2(_dir.y, _dir.x);
 	}
+	/*位置補正*/
+	FixPosition();
 	PlayerOverlap();
 	/*移動*/
 	Move();
-	/**/
-	FixPosition();
 	/*テレポートに触れていたら起動*/
 	Checkteleport();
 	/*固有のアクション*/
@@ -522,10 +522,14 @@ void Player::FixPosition(){
 		return;
 	}
 	/*1秒ごとに位置送信*/
-	if (_game.GetFrameCount() % 60 == 0) {
-		_game.GetNetwork()->SendPositionFixData(_pos);
-	}
+
+
 	if (_game.GetOnlineNo() == 0) {
+		if (_playerNum == 0) {
+			if (_game.GetFrameCount() % 60 == 0) {
+				_game.GetNetwork()->SendPositionFixData(_pos);
+			}
+		}
 		if (_playerNum == 1) {
 			Vector2 fix=_game.GetNetwork()->GetFixPosition();
 			if (fix.x != -1 && fix.y != -1) {
@@ -535,6 +539,11 @@ void Player::FixPosition(){
 		}
 	}
 	if (_game.GetOnlineNo() == 1) {
+		if (_playerNum == 1) {
+			if (_game.GetFrameCount() % 60 == 0) {
+				_game.GetNetwork()->SendPositionFixData(_pos);
+			}
+		}
 		if (_playerNum == 0) {
 			Vector2 fix = _game.GetNetwork()->GetFixPosition();
 			if (fix.x != -1 && fix.y != -1) {
