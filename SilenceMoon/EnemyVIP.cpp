@@ -73,10 +73,6 @@ void EnemyVIP::Respawn(){
 	ModeGame& mode = dynamic_cast<ModeGame&>(_mode);
 	auto vipdata = mode.GetMapChips()->GetPatrolPointsVIP();
 
-	if (vipdata.size() < 4) {
-		return;
-	}
-
 	std::mt19937 engine(_random);
 	std::shuffle(vipdata.begin(), vipdata.end(), engine);
 

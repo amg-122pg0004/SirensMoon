@@ -270,3 +270,8 @@ void PlayerA::TargetSpawnEvent() {
 		_cooldown = 30;
 	}
 }
+
+void PlayerA::TakeDamage(Actor::Type type) {
+	_slow = false;
+	Player::TakeDamage(type);
+}

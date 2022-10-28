@@ -259,6 +259,9 @@ void ModeGame::GameOver() {
 	if (_makedNextMode) {
 		return;
 	}
+	if (_clear) {
+		return;
+	}
 	_stopUpdate = true;
 	_makedNextMode = true;
 	_delayNextMode = 100000;

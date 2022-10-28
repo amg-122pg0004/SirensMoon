@@ -66,7 +66,7 @@ public:
 	/*ダメージを判定に触れているかの確認*/
 	void CheckDamage();
 	/*被ダメージ時の処理*/
-	void TakeDamage(Actor::Type);
+	virtual void TakeDamage(Actor::Type);
 	void Heal();
 	void ChangePosition(Vector2 pos);
 	bool Checkteleport();
