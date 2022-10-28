@@ -121,7 +121,6 @@ void PlayerA::Action(){
 	}
 
 	if (_inputManager->CheckInput("ACTION", 'r', _playerNum)) {
-		_slow = false;
 		if (_charge >= 120) {
 			if (_bullet > 0) {
 				if (_setGreenBullet) {
@@ -155,9 +154,6 @@ void PlayerA::Action(){
 		else {
 			StartJoypadVibration(DX_INPUT_PAD1, 50, 50, -1);
 		}
-
-		//_movable = false;
-		_slow = true;
 		_state = PlayerState::Set;
 		if (_charge == 0) {
 
@@ -191,6 +187,12 @@ void PlayerA::Action(){
 		if (_gameoverCountDown <= 0) {
 			_mode.GameOver();
 		}
+	}
+	if (_charge > 0) {
+		_slow = true;
+	}
+	else {
+		_slow = false;
 	}
 }
 
@@ -269,9 +271,4 @@ void PlayerA::TargetSpawnEvent() {
 		_charge = 0;
 		_cooldown = 30;
 	}
-}
-
-void PlayerA::TakeDamage(Actor::Type type) {
-	_slow = false;
-	Player::TakeDamage(type);
 }

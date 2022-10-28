@@ -12,6 +12,7 @@
 #include "BlinkLight.h"
 #include <random>
 #include "MapChip.h"
+#include "bullet.h"
 
 Enemy::Enemy(Game& game, ModeGame& mode, EnemyGenerator::EnemyPattern pattern)
 	:Actor{ game,mode }, _speed{ 1 }, _sight_H{ 210 }, _sight_W{ 330 }
@@ -225,7 +226,7 @@ void Enemy::CheckDamage() {
 			}
 		}
 		if (actor->GetType() == Type::GreenBullet) {
-			if (Intersect(_hitBox, actor->GetCollision())) {
+			if (CheckCrossBullet(*actor)) {
 				_speed = 15;
 				_chase = true;
 			}
@@ -236,6 +237,23 @@ void Enemy::CheckDamage() {
 			}
 		}
 	}
+}
+
+bool Enemy::CheckCrossBullet(Actor& actor) {
+
+	if (Intersect(_hitBox, actor.GetCollision())) {
+		return true;
+	}
+
+	Vector2 pre_pos = dynamic_cast<Bullet&>(actor).GetPrePosition();
+	Vector2 pos = dynamic_cast<Bullet&>(actor).GetPosition();
+	if (Vector2::IsCrossed({ _hitBox.min.x,_hitBox.min.y }, { _hitBox.max.x,_hitBox.min.y }, pre_pos, pos) ||
+		Vector2::IsCrossed({ _hitBox.max.x,_hitBox.min.y }, { _hitBox.max.x,_hitBox.max.y }, pre_pos, pos) ||
+		Vector2::IsCrossed({ _hitBox.max.x,_hitBox.max.y }, { _hitBox.min.x,_hitBox.max.y }, pre_pos, pos) ||
+		Vector2::IsCrossed({ _hitBox.min.x,_hitBox.max.y }, { _hitBox.min.x,_hitBox.min.y }, pre_pos, pos)) {
+		return true;
+	}
+	return false;
 }
 
 void Enemy::TakeDamage(Type) {

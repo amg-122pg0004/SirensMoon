@@ -12,7 +12,7 @@
 #include "FX_HeadButt.h"
 
 Explode::Explode(Game& game, ModeGame& mode, Vector2 pos) :Actor(game, mode)
-, _lifetime{ 70 },_delay{1}
+, _lifetime{ 35 },_delay{1}
 {
 	_size = { 80,80 };
 	_pos = pos-_size/2;

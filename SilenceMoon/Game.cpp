@@ -22,8 +22,8 @@ Game::Game()
 {
 	_modeServer = std::make_unique<ModeServer>(*this);
 	_inputManager = std::make_unique<InputManager>();
-	PlayStartUp1();
-	//PlayStartMenu();
+	//PlayStartUp1();
+	PlayStartMenu();
 	//PlayStage2();
 	_font22 = LoadFontDataToHandle("resource/Font/ロンドBスクエア.dft", 1);
 	_font26 = LoadFontDataToHandle("resource/Font/ロンドBスクエア26.dft", 1);
@@ -97,7 +97,7 @@ void Game::Debug() {
 		}
 
 #ifdef _DEBUG
-		_inputManager->Render();
+		//_inputManager->Render();
 #endif 
 	}
 }

@@ -29,8 +29,6 @@ public:
 	void OffMiniShuttle();
 
 	void TargetSpawnEvent()override;
-
-	void TakeDamage(Actor::Type) override;
 private:
 	bool _setGreenBullet;
 

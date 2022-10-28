@@ -36,6 +36,7 @@ public:
 	BoxSight GetSightPosition() { return _sightPos; }
 	int GetDetectionCompleteFrame() { return _detectionCompleteFrame; }
 
+	bool CheckCrossBullet(Actor& actor);
 
 	virtual void Update()override;
 

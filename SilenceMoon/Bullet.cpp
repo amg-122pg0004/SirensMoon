@@ -17,7 +17,7 @@ Bullet::Bullet(Game& game, ModeGame& mode, Vector2 pos, double dir)
 	_cg = ImageServer::LoadGraph("resource/Bullet/Bullet_1.png");
 	_pos = pos;
 	_prePos = pos;
-	_size = { 10,10 };
+	_size = { 5,5 };
 
 	auto light = std::make_unique<LightBase>(_game,_mode,*this);
 	_mode.GetActorServer().Add(std::move(light));
